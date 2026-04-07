@@ -6,15 +6,14 @@
 
 # -*- coding: utf-8 -*-
 # Install required packages (uncomment when needed)
-# NOTEBOOK COMMAND: !pip install boto3 python-dotenv numpy matplotlib scikit-learn -q
+# NOTEBOOK COMMAND: !pip install pandas numpy matplotlib seaborn scikit-learn -q
 # NOTEBOOK COMMAND: !pip install torch-geometric==2.4.0 -q
 # NOTEBOOK COMMAND: !pip install optuna optuna-dashboard -q
 # NOTEBOOK COMMAND: !pip install kaleido -q
 
 
 import os
-import boto3
-from dotenv import load_dotenv
+from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -79,7 +78,7 @@ def set_global_seeds(seed: int = GLOBAL_SEED) -> None:
     print(f"âœ“ Global seeds set to {seed}")
 
 # ========================================
-# MOUNT GOOGLE DRIVE & LOAD CREDENTIALS
+# MOUNT GOOGLE DRIVE & LOCAL DATA PATHS
 # ========================================
 
 # Mount Google Drive
@@ -111,21 +110,32 @@ def colab_path(relative: str) -> str:
         os.makedirs(os.path.dirname(os.path.join('.', relative)) or '.', exist_ok=True)
         return os.path.join('.', relative)
 
-# Load environment variables
-env_path = '/content/drive/My Drive/.env'
-if os.path.exists(env_path):
-    load_dotenv(env_path)
-    print("Environment variables loaded")
-else:
-    print("âš  .env file not found - make sure AWS credentials are set")
+REPO_ROOT = Path(__file__).resolve().parents[2] if '__file__' in globals() else Path.cwd()
+LOCAL_DATA_DIR = Path(
+    os.getenv('DAPT2020_LOCAL_DATA_DIR', str(REPO_ROOT / 'data' / 'raw' / 'dapt2020'))
+)
+LOCAL_PROCESSED_DIR = Path(
+    os.getenv('DAPT2020_LOCAL_PROCESSED_DIR', str(REPO_ROOT / 'data' / 'processed' / 'dapt2020'))
+)
+LOCAL_CONSOLIDATED_CSV = Path(
+    os.getenv(
+        'DAPT2020_LOCAL_CONSOLIDATED_CSV',
+        str(LOCAL_PROCESSED_DIR / 'combined_flows.csv'),
+    )
+)
 
-# ========================================
-# CONFIGURATION
-# ========================================
-
-BUCKET_NAME = "praxis-dapt2020"
-REGION = os.getenv('AWS_REGION', 'us-east-1')
-DATASET_PREFIX = ""  # Files are at bucket root, not in a subfolder
+KNOWN_DAPT2020_FILES = [
+    'enp0s3-monday.pcap_Flow.csv',
+    'enp0s3-public-tuesday.pcap_Flow.csv',
+    'enp0s3-public-wednesday.pcap_Flow.csv',
+    'enp0s3-public-thursday.pcap_Flow.csv',
+    'enp0s3-tcpdump-friday.pcap_Flow.csv',
+    'enp0s3-monday-pvt.pcap_Flow.csv',
+    'enp0s3-pvt-tuesday.pcap_Flow.csv',
+    'enp0s3-pvt-wednesday.pcap_Flow.csv',
+    'enp0s3-pvt-thursday.pcap_Flow.csv',
+    'enp0s3-tcpdump-pvt-friday.pcap_Flow.csv',
+]
 
 # ========================================
 # MULTI-CLASS CONFIGURATION
@@ -223,11 +233,57 @@ IDENTIFIER_COLUMNS = ['Flow ID', 'Src IP', 'Src Port', 'Dst IP', 'Dst Port', 'Pr
 # Label columns (2)
 LABEL_COLUMNS = ['Activity', 'Stage']
 
+def infer_network_type(file_name: str) -> str:
+    """Infer whether a raw CSV came from the public or private capture set."""
+    name = file_name.lower()
+    if (
+        'public' in name
+        or ('enp0s3-monday.pcap' in name and 'pvt' not in name)
+        or ('enp0s3-tcpdump-friday.pcap' in name and 'pvt' not in name)
+    ):
+        return 'public'
+    if 'pvt' in name or 'private' in name:
+        return 'private'
+    return 'unknown'
+
+
+def infer_capture_day(file_name: str) -> str:
+    """Infer capture day from the file name."""
+    name = file_name.lower()
+    for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
+        if day in name:
+            return day
+    return 'unknown'
+
+
+def read_local_csv_with_header_fallback(csv_path: Path) -> tuple[pd.DataFrame, list[str], bool]:
+    """
+    Read a local DAPT2020 CSV, handling the known case where one file is missing the header row.
+    Returns the dataframe, the detected column list, and a flag indicating whether fallback was used.
+    """
+    df_chunk = pd.read_csv(csv_path, low_memory=False)
+    actual_columns = df_chunk.columns.tolist()
+    overlap = len([col for col in actual_columns if col in EXPECTED_COLUMNS])
+    fallback_used = False
+
+    if overlap < max(10, len(EXPECTED_COLUMNS) // 2):
+        df_chunk = pd.read_csv(
+            csv_path,
+            low_memory=False,
+            header=None,
+            names=EXPECTED_COLUMNS,
+        )
+        actual_columns = df_chunk.columns.tolist()
+        fallback_used = True
+
+    return df_chunk, actual_columns, fallback_used
+
+
 print(f"\n{'='*80}")
 print("DAPT2020 â€” GATv2 + R-GCN + ST-GCN + GIN + GCN-DGI (5-Model Pipeline)")
 print(f"{'='*80}")
-print(f"Bucket: {BUCKET_NAME}")
-print(f"Region: {REGION}")
+print(f"Local raw data dir: {LOCAL_DATA_DIR}")
+print(f"Local consolidated CSV: {LOCAL_CONSOLIDATED_CSV}")
 print("âœ“ Network-aware processing (public/private)")
 print("âœ“ Stratified temporal splitting")
 print("âœ“ Proper normalization (fit on train only)")
@@ -250,72 +306,22 @@ def load_dapt2020_with_network_context(max_files=None, sample_rate=1.0, merge_ne
     """
 
     print(f"\n{'='*80}")
-    print("LOADING DAPT2020 DATASET (NETWORK-AWARE)")
+    print("LOADING DAPT2020 DATASET (LOCAL / NETWORK-AWARE)")
     print(f"{'='*80}")
+    print(f"  Raw data directory: {LOCAL_DATA_DIR}")
+    print(f"  Consolidated CSV: {LOCAL_CONSOLIDATED_CSV}")
+    print(f"  Merge networks flag: {merge_networks}")
 
-    # Configure boto3 client with credentials
-    s3_client = boto3.client(
-        's3',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-        region_name=REGION
-    )
-
-    print(f"âœ“ S3 client configured with credentials")
-    print(f"  Bucket: {BUCKET_NAME}")
-    print(f"  Region: {REGION}")
-
-    # Get all CSV files
-    csv_files = []
-
-    print(f"  Searching for CSV files with prefix: '{DATASET_PREFIX}'")
-
-    try:
-        if DATASET_PREFIX:
-            # If prefix specified, use it
-            paginator = s3_client.get_paginator('list_objects_v2')
-            pages = paginator.paginate(Bucket=BUCKET_NAME, Prefix=DATASET_PREFIX)
-        else:
-            # If no prefix, list all objects in bucket
-            paginator = s3_client.get_paginator('list_objects_v2')
-            pages = paginator.paginate(Bucket=BUCKET_NAME)
-
-        for page in pages:
-            if 'Contents' in page:
-                for obj in page['Contents']:
-                    if obj['Key'].endswith('.csv'):
-                        csv_files.append(obj['Key'])
-                        print(f"    Found: {obj['Key']}")
-    except Exception as e:
-        print(f"  Error listing bucket: {e}")
-        print(f"  Trying to list specific files...")
-
-        # Fallback: try to access known files directly
-        known_files = [
-            'enp0s3-monday.pcap_Flow.csv',
-            'enp0s3-public-tuesday.pcap_Flow.csv',
-            'enp0s3-public-wednesday.pcap_Flow.csv',
-            'enp0s3-public-thursday.pcap_Flow.csv',
-            'enp0s3-tcpdump-friday.pcap_Flow.csv',
-            'enp0s3-monday-pvt.pcap_Flow.csv',
-            'enp0s3-pvt-tuesday.pcap_Flow.csv',
-            'enp0s3-pvt-wednesday.pcap_Flow.csv',
-            'enp0s3-pvt-thursday.pcap_Flow.csv',
-            'enp0s3-tcpdump-pvt-friday.pcap_Flow.csv'
-        ]
-
-        for filename in known_files:
-            try:
-                s3_client.head_object(Bucket=BUCKET_NAME, Key=filename)
-                csv_files.append(filename)
-                print(f"    Found: {filename}")
-            except:
-                pass
+    raw_csv_files = [LOCAL_DATA_DIR / name for name in KNOWN_DAPT2020_FILES if (LOCAL_DATA_DIR / name).exists()]
+    use_consolidated = LOCAL_CONSOLIDATED_CSV.exists() and max_files is None and sample_rate == 1.0
 
     if max_files:
-        csv_files = csv_files[:max_files]
+        raw_csv_files = raw_csv_files[:max_files]
 
-    print(f"\nâœ“ Found {len(csv_files)} CSV files total")
+    print(f"\nâœ“ Found {len(raw_csv_files)} local CSV files total")
+    if raw_csv_files:
+        for csv_path in raw_csv_files:
+            print(f"    Found: {csv_path.name}")
 
     # (Binary is_apt kept for audit / backward compatibility only â€”
     #  the pipeline now uses MultiLabel for all classification.)
@@ -335,107 +341,80 @@ def load_dapt2020_with_network_context(max_files=None, sample_rate=1.0, merge_ne
             return 0
         return 1 if any(keyword in label_lower for keyword in apt_keywords) else 0
 
-    if not csv_files:
-        print("\n No CSV files found!")
-        print(f"   Checked bucket: {BUCKET_NAME}")
-        print(f"   With prefix: '{DATASET_PREFIX}'")
-        print("\nTroubleshooting tips:")
-        print("  1. Verify bucket name is correct")
-        print("  2. Check AWS credentials have permission to list objects")
-        print("  3. Confirm CSV files exist in the bucket")
-        print("  4. Try listing bucket contents manually with AWS CLI")
-        raise ValueError("No CSV files found! Check bucket name, prefix, and permissions.")
+    if not raw_csv_files and not use_consolidated:
+        raise ValueError(
+            "No local DAPT2020 CSV files found. Run scripts\\import_dapt2020_data.ps1 first."
+        )
 
-    all_data = []
-    header = None
+    if use_consolidated:
+        print("\nLoading consolidated local CSV...")
+        df = pd.read_csv(LOCAL_CONSOLIDATED_CSV, low_memory=False)
+        print(f"âœ“ Total flows loaded from consolidated CSV: {len(df):,}")
+    else:
+        if LOCAL_CONSOLIDATED_CSV.exists() and (max_files is not None or sample_rate < 1.0):
+            print(
+                "\nConsolidated CSV exists, but raw-file mode is being used because "
+                "max_files/sample_rate overrides were requested."
+            )
 
-    print("\nLoading files and preserving temporal order...")
-    start_time = datetime.now()
+        all_data = []
+        header = None
 
-    for idx, s3_key in enumerate(csv_files):
-        if idx % 5 == 0 and idx > 0:
-            print(f"  File {idx}/{len(csv_files)}")
+        print("\nLoading local CSV files and preserving temporal order...")
+        start_time = datetime.now()
 
-        try:
-            obj = s3_client.get_object(Bucket=BUCKET_NAME, Key=s3_key)
+        for idx, csv_path in enumerate(raw_csv_files):
+            if idx % 5 == 0 and idx > 0:
+                print(f"  File {idx}/{len(raw_csv_files)}")
 
-            # Determine network type from filename
-            filename = s3_key.lower()
+            try:
+                df_chunk, actual_columns, fallback_used = read_local_csv_with_header_fallback(csv_path)
 
-            # Public network detection
-            if ('public' in filename or
-                ('enp0s3-monday.pcap' in filename and 'pvt' not in filename) or
-                ('enp0s3-tcpdump-friday.pcap' in filename and 'pvt' not in filename)):
-                network_type = 'public'
-            # Private network detection
-            elif 'pvt' in filename or 'private' in filename:
-                network_type = 'private'
-            else:
-                network_type = 'unknown'
+                if idx == 0:
+                    print(f"\n--- Column Analysis (First File) ---")
+                    print(f"  Actual columns in CSV: {len(actual_columns)}")
+                    print(f"  Expected columns: {len(EXPECTED_COLUMNS)}")
 
-            # Determine day from filename
-            day = 'unknown'
-            for d in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
-                if d in filename:
-                    day = d
-                    break
+                    unexpected = [col for col in actual_columns if col not in EXPECTED_COLUMNS]
+                    if unexpected:
+                        print(f"    Unexpected columns found ({len(unexpected)}): {unexpected[:10]}...")
 
-            # Read CSV
-            df_chunk = pd.read_csv(obj['Body'])
+                    missing = [col for col in EXPECTED_COLUMNS if col not in actual_columns]
+                    if missing:
+                        print(f"    Missing expected columns ({len(missing)}): {missing}")
 
-            # Validate and filter columns
-            actual_columns = df_chunk.columns.tolist()
+                    print(f"  âœ“ Filtering to expected columns only")
+                elif fallback_used:
+                    print(f"  Header fallback used for {csv_path.name}")
 
-            if idx == 0:  # First file - show column analysis
-                print(f"\n--- Column Analysis (First File) ---")
-                print(f"  Actual columns in CSV: {len(actual_columns)}")
-                print(f"  Expected columns: {len(EXPECTED_COLUMNS)}")
+                valid_columns = [col for col in EXPECTED_COLUMNS if col in actual_columns]
+                df_chunk = df_chunk[valid_columns]
 
-                # Find unexpected columns
-                unexpected = [col for col in actual_columns if col not in EXPECTED_COLUMNS]
-                if unexpected:
-                    print(f"    Unexpected columns found ({len(unexpected)}): {unexpected[:10]}...")
+                if header is None:
+                    header = valid_columns
+                    print(f"\nâœ“ Using {len(header)} validated columns")
+                    print(f"  First 15: {header[:15]}")
+                    print(f"  Last 10: {header[-10:]}")
 
-                # Find missing columns
-                missing = [col for col in EXPECTED_COLUMNS if col not in actual_columns]
-                if missing:
-                    print(f"    Missing expected columns ({len(missing)}): {missing}")
+                if sample_rate < 1.0:
+                    df_chunk = df_chunk.sample(frac=sample_rate, random_state=42)
 
-                print(f"  âœ“ Filtering to expected columns only")
+                df_chunk['network_type'] = infer_network_type(csv_path.name)
+                df_chunk['day'] = infer_capture_day(csv_path.name)
+                df_chunk['source_file'] = csv_path.name
 
-            # Filter to only expected columns that exist in the CSV
-            valid_columns = [col for col in EXPECTED_COLUMNS if col in actual_columns]
-            df_chunk = df_chunk[valid_columns]
+                all_data.append(df_chunk)
 
-            if header is None:
-                header = valid_columns
-                print(f"\nâœ“ Using {len(header)} validated columns")
-                print(f"  First 15: {header[:15]}")
-                print(f"  Last 10: {header[-10:]}")
+            except Exception as e:
+                print(f"  Error loading {csv_path.name}: {e}")
+                continue
 
-            # Apply sampling
-            if sample_rate < 1.0:
-                df_chunk = df_chunk.sample(frac=sample_rate, random_state=42)
+        if not all_data:
+            raise ValueError("No local data loaded. Check the raw CSV files in the data directory.")
 
-            # Add metadata columns
-            df_chunk['network_type'] = network_type
-            df_chunk['day'] = day
-            df_chunk['source_file'] = s3_key
-
-            all_data.append(df_chunk)
-
-        except Exception as e:
-            print(f"  Error loading {s3_key}: {e}")
-            continue
-
-    if not all_data:
-        raise ValueError("No data loaded! Check bucket name and prefix.")
-
-    # Concatenate all data
-    print(f"\nCombining {len(all_data)} dataframes...")
-    df = pd.concat(all_data, ignore_index=True)
-
-    print(f"âœ“ Total flows loaded: {len(df):,}")
+        print(f"\nCombining {len(all_data)} dataframes...")
+        df = pd.concat(all_data, ignore_index=True)
+        print(f"âœ“ Total flows loaded: {len(df):,}")
 
     # Normalize Stage labels (case-insensitive)
     print(f"\n{'='*80}")
@@ -511,9 +490,14 @@ def load_dapt2020_with_network_context(max_files=None, sample_rate=1.0, merge_ne
     print(f"\nParsing timestamps...")
     if 'Timestamp' in df.columns:
         try:
-            df['timestamp_sort'] = pd.to_datetime(df['Timestamp'], errors='coerce')
+            df['timestamp_sort'] = pd.to_datetime(df['Timestamp'], errors='coerce', dayfirst=True)
         except:
-            df['timestamp_sort'] = pd.to_datetime(df['Timestamp'], format='mixed', errors='coerce')
+            df['timestamp_sort'] = pd.to_datetime(
+                df['Timestamp'],
+                format='mixed',
+                errors='coerce',
+                dayfirst=True,
+            )
 
     # Sort by timestamp
     df = df.sort_values('timestamp_sort').reset_index(drop=True)

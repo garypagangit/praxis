@@ -62,3 +62,19 @@ powershell -ExecutionPolicy Bypass -File .\scripts\import_code.ps1 -SourcePath C
 ```
 
 You can also use `-Preview` first to see what would be copied without changing anything.
+
+## Import Local DAPT2020 CSV Data
+
+To copy and consolidate the 10 local DAPT2020 CSV files into the repo:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\import_dapt2020_data.ps1 -SourceDirectory C:\Users\garyp\Downloads
+```
+
+This writes:
+
+- raw files to `data/raw/dapt2020/`
+- a combined dataset to `data/processed/dapt2020/combined_flows.csv`
+- a summary file to `data/processed/dapt2020/summary.json`
+
+The imported GML notebook bundle under `imports/gml_to_detect_apt_final/` is now configured to use those local paths instead of AWS/S3.
