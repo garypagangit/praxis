@@ -24,9 +24,11 @@ The setup script auto-detects common Python install locations if the plain `pyth
 When you are ready to back this up or run from standalone Colab:
 
 ```powershell
-git remote add origin https://github.com/YOUR-USER/YOUR-REPO.git
-git push -u origin main
+gh auth login --web --git-protocol https
+powershell -ExecutionPolicy Bypass -File .\scripts\publish_github.ps1 -GitHubUser YOUR-USER -RepoName praxis -CreateRepo -Push
 ```
+
+If the GitHub repo already exists, you can omit `-CreateRepo`.
 
 ## Run on Colab
 
