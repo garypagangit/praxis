@@ -45,4 +45,20 @@ The notebook installs the repo in editable mode, so any code you push to GitHub 
 - `configs/example.json`
 - `requirements.txt`
 
-Once you share a GitHub repo URL, the next useful step is wiring `origin` and pushing this project upstream from here.
+## Bring In Existing Code
+
+If you already have code in another folder, a single file, or a zip archive, use:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\import_code.ps1 -SourcePath C:\path\to\your\code
+```
+
+By default this copies the source into `src/praxis/imported/` and skips common junk folders like `.git`, `.venv`, `__pycache__`, and `.ipynb_checkpoints`.
+
+If you want a different destination inside this repo:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\import_code.ps1 -SourcePath C:\path\to\your\code -Destination src\praxis\my_module
+```
+
+You can also use `-Preview` first to see what would be copied without changing anything.
