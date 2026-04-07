@@ -1,22 +1,75 @@
 param(
-    [string]$PythonExe = "python"
+    [string]$PythonExe = ""
 )
 
 $ErrorActionPreference = "Stop"
 
+function Invoke-Checked {
+    param(
+        [string]$FilePath,
+        [string[]]$Arguments = @()
+    )
+
+    & $FilePath @Arguments
+    if ($LASTEXITCODE -ne 0) {
+        throw "Command failed: $FilePath $($Arguments -join ' ')"
+    }
+}
+
+function Resolve-PythonExe {
+    param(
+        [string]$RequestedPath
+    )
+
+    if ($RequestedPath) {
+        if (-not (Test-Path -LiteralPath $RequestedPath)) {
+            throw "Python executable not found at $RequestedPath"
+        }
+        return $RequestedPath
+    }
+
+    $candidates = @()
+    $command = Get-Command python -ErrorAction SilentlyContinue
+    if ($command -and $command.Source -and $command.Source -notlike "*WindowsApps*") {
+        $candidates += $command.Source
+    }
+
+    $candidates += @(
+        (Join-Path $env:LocalAppData "Programs\Python\Python311\python.exe"),
+        (Join-Path $env:LocalAppData "Programs\Python\Python312\python.exe"),
+        (Join-Path $env:ProgramFiles "Python311\python.exe"),
+        (Join-Path $env:ProgramFiles "Python312\python.exe")
+    )
+
+    foreach ($candidate in ($candidates | Select-Object -Unique)) {
+        if ($candidate -and (Test-Path -LiteralPath $candidate)) {
+            return $candidate
+        }
+    }
+
+    throw "Could not find a usable Python installation. Install Python 3.11 and rerun this script."
+}
+
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $venvPath = Join-Path $repoRoot ".venv"
+$PythonExe = Resolve-PythonExe -RequestedPath $PythonExe
 
-& $PythonExe -m venv $venvPath
+Invoke-Checked -FilePath $PythonExe -Arguments @("-m", "venv", $venvPath)
 
 $venvPython = Join-Path $venvPath "Scripts\python.exe"
 
-& $venvPython -m pip install --upgrade pip
-& $venvPython -m pip install -r (Join-Path $repoRoot "requirements-local.txt")
-& $venvPython -m pip install -r (Join-Path $repoRoot "requirements.txt")
-& $venvPython -m pip install -e $repoRoot
+Invoke-Checked -FilePath $venvPython -Arguments @(
+    "-m", "pip", "install", "-r", (Join-Path $repoRoot "requirements-local.txt")
+)
+Invoke-Checked -FilePath $venvPython -Arguments @(
+    "-m", "pip", "install", "-r", (Join-Path $repoRoot "requirements.txt")
+)
+Invoke-Checked -FilePath $venvPython -Arguments @(
+    "-m", "pip", "install", "--no-build-isolation", "-e", $repoRoot
+)
 
 Write-Host ""
 Write-Host "Environment ready."
+Write-Host "Base Python: $PythonExe"
 Write-Host "Interpreter: $venvPython"
 Write-Host "Next: run .\\scripts\\run_train.ps1"

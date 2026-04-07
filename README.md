@@ -17,6 +17,8 @@ This repository is now set up as a small, clean starting point for an AI project
 4. Start from `src/praxis/train.py` and `configs/example.json`.
 5. Run `.\scripts\run_train.ps1` for a smoke test.
 
+The setup script auto-detects common Python install locations if the plain `python` command is still pointing at the Windows Store alias.
+
 ## Push to GitHub
 
 When you are ready to back this up or run from standalone Colab:
