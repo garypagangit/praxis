@@ -76,7 +76,6 @@ if ($CreateRepo) {
         } else {
             $createArgs += "--public"
         }
-        $createArgs += @("--source", $repoRoot, "--remote", "origin")
         Invoke-Checked -FilePath $ghExe -Arguments $createArgs
     } else {
         Write-Host "GitHub repository already exists: $GitHubUser/$RepoName"
