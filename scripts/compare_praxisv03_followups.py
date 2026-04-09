@@ -3,12 +3,14 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
 
 GRAPH_MODELS = {"GATv2", "RGCN", "ST-GCN", "GIN", "GCN-DGI"}
 DE_STAGE = "Data Exfiltration"
+REQUIRED_RUN_FILES = ("metrics-table.csv", "per-class-metrics.csv")
 
 
 @dataclass
@@ -75,6 +77,13 @@ def load_per_stage(path: Path) -> dict[str, dict[str, dict[str, float | int]]]:
 
 def load_run(path: Path) -> RunArtifacts | None:
     if not path.exists():
+        return None
+    missing = [name for name in REQUIRED_RUN_FILES if not (path / name).exists()]
+    if missing:
+        print(
+            f"Skipping incomplete run at {path}: missing {', '.join(missing)}",
+            file=sys.stderr,
+        )
         return None
     return RunArtifacts(
         path=path,
