@@ -2,10 +2,10 @@ $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $venvPython = Join-Path $repoRoot ".venv\Scripts\python.exe"
-$configPath = Join-Path $repoRoot "configs\dapt2020-local-fast.json"
-$logDir = Join-Path $repoRoot "runs\dapt2020-local-fast"
+$configPath = Join-Path $repoRoot "configs\praxisv03-unraveled-stage-balanced-local.json"
+$logDir = Join-Path $repoRoot "runs\praxisv03-unraveled-stage-balanced-local"
 $logPath = Join-Path $logDir "console.log"
-$cacheDir = Join-Path $env:LocalAppData "PraxisCache\dapt2020-local-fast"
+$cacheDir = Join-Path $env:LocalAppData "PraxisCache\praxisv03-unraveled-stage-balanced-local"
 $mplConfigDir = Join-Path $cacheDir "matplotlib"
 $torchHome = Join-Path $cacheDir "torch"
 

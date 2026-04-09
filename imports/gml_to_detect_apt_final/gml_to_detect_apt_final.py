@@ -14,6 +14,7 @@
 
 import os
 from pathlib import Path
+import sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,6 +25,11 @@ import json
 import random
 from collections import defaultdict, Counter
 warnings.filterwarnings('ignore')
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 import optuna
 from optuna.visualization import plot_optimization_history, plot_param_importances
@@ -100,17 +106,117 @@ except:
     IS_COLAB = False
 
 DRIVE_BASE = '/content/drive/My Drive/DAPT2020_Results'
+REPO_ROOT = Path(__file__).resolve().parents[2] if '__file__' in globals() else Path.cwd()
+LOCAL_RUN_OUTPUT_DIR = Path(
+    os.getenv(
+        'DAPT2020_LOCAL_OUTPUT_DIR',
+        str(REPO_ROOT / 'runs' / 'dapt2020-local-fast'),
+    )
+)
+LOCAL_RUN_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def env_flag(name: str, default: bool) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
+def env_int(name: str, default: int) -> int:
+    value = os.getenv(name)
+    if value is None or value.strip() == '':
+        return default
+    return int(value)
+
+
+def env_float(name: str, default: float) -> float:
+    value = os.getenv(name)
+    if value is None or value.strip() == '':
+        return default
+    return float(value)
+
+
+DEFAULT_EXECUTION_PROFILE = os.getenv(
+    'DAPT2020_EXECUTION_PROFILE',
+    'full' if IS_COLAB else 'local-fast',
+).strip().lower()
+
+PROFILE_DEFAULTS = {
+    'full': {
+        'max_files': None,
+        'sample_rate': 1.0,
+        'flows_per_graph': 1000,
+        'batch_size': 4,
+        'n_blocks': 10,
+        'train_epochs': 50,
+        'dgi_pretrain_epochs': 50,
+        'run_dgi_pretraining': True,
+        'run_optuna_optimization': True,
+        'optuna_trials': 100,
+        'fresh_study': True,
+    },
+    'local-fast': {
+        'max_files': None,
+        'sample_rate': 1.0,
+        'flows_per_graph': 1000,
+        'batch_size': 4,
+        'n_blocks': 10,
+        'train_epochs': 5,
+        'dgi_pretrain_epochs': 5,
+        'run_dgi_pretraining': True,
+        'run_optuna_optimization': True,
+        'optuna_trials': 1,
+        'fresh_study': True,
+    },
+}
+
+
+def resolve_runtime_profile(max_files=None, sample_rate=None) -> dict:
+    profile_name = DEFAULT_EXECUTION_PROFILE
+    defaults = PROFILE_DEFAULTS.get(profile_name, PROFILE_DEFAULTS['local-fast']).copy()
+
+    defaults['profile'] = profile_name
+    defaults['max_files'] = max_files if max_files is not None else defaults['max_files']
+    defaults['sample_rate'] = sample_rate if sample_rate is not None else defaults['sample_rate']
+    defaults['flows_per_graph'] = env_int(
+        'DAPT2020_FLOWS_PER_GRAPH', defaults['flows_per_graph']
+    )
+    defaults['batch_size'] = env_int(
+        'DAPT2020_BATCH_SIZE', defaults['batch_size']
+    )
+    defaults['n_blocks'] = env_int(
+        'DAPT2020_N_BLOCKS', defaults['n_blocks']
+    )
+    defaults['train_epochs'] = env_int(
+        'DAPT2020_TRAIN_EPOCHS', defaults['train_epochs']
+    )
+    defaults['dgi_pretrain_epochs'] = env_int(
+        'DAPT2020_DGI_PRETRAIN_EPOCHS', defaults['dgi_pretrain_epochs']
+    )
+    defaults['run_dgi_pretraining'] = env_flag(
+        'DAPT2020_RUN_DGI_PRETRAINING', defaults['run_dgi_pretraining']
+    )
+    defaults['run_optuna_optimization'] = env_flag(
+        'DAPT2020_RUN_OPTUNA', defaults['run_optuna_optimization']
+    )
+    defaults['optuna_trials'] = env_int(
+        'DAPT2020_OPTUNA_TRIALS', defaults['optuna_trials']
+    )
+    defaults['fresh_study'] = env_flag(
+        'DAPT2020_FRESH_STUDY', defaults['fresh_study']
+    )
+    return defaults
+
 
 def colab_path(relative: str) -> str:
     if IS_COLAB:
-        full = os.path.join(DRIVE_BASE, relative)
-        os.makedirs(os.path.dirname(full), exist_ok=True)
-        return full
+        full = Path(DRIVE_BASE) / relative
     else:
-        os.makedirs(os.path.dirname(os.path.join('.', relative)) or '.', exist_ok=True)
-        return os.path.join('.', relative)
+        full = LOCAL_RUN_OUTPUT_DIR / relative
+    full.parent.mkdir(parents=True, exist_ok=True)
+    return str(full)
 
-REPO_ROOT = Path(__file__).resolve().parents[2] if '__file__' in globals() else Path.cwd()
 LOCAL_DATA_DIR = Path(
     os.getenv('DAPT2020_LOCAL_DATA_DIR', str(REPO_ROOT / 'data' / 'raw' / 'dapt2020'))
 )
@@ -284,6 +390,7 @@ print("DAPT2020 â€” GATv2 + R-GCN + ST-GCN + GIN + GCN-DGI (5-Model Pipelin
 print(f"{'='*80}")
 print(f"Local raw data dir: {LOCAL_DATA_DIR}")
 print(f"Local consolidated CSV: {LOCAL_CONSOLIDATED_CSV}")
+print(f"Local output dir: {LOCAL_RUN_OUTPUT_DIR}")
 print("âœ“ Network-aware processing (public/private)")
 print("âœ“ Stratified temporal splitting")
 print("âœ“ Proper normalization (fit on train only)")
@@ -3978,34 +4085,49 @@ def create_graph_visualizations_integrated(train_df, feature_cols, scaler, outpu
 # MAIN EXECUTION
 # ========================================
 
-def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=False):
+def main(max_files=None, sample_rate=None, strategy='hybrid', merge_networks=False):
     """Main execution pipeline for DAPT2020"""
 
     # Reset all RNG sources at pipeline entry
     # across repeated runs and multi-seed experiments.
     set_global_seeds(GLOBAL_SEED)
 
+    runtime_profile = resolve_runtime_profile(max_files=max_files, sample_rate=sample_rate)
+
     config = {
-        'max_files': max_files,
-        'sample_rate': sample_rate,
-        'flows_per_graph': 1000,
-        'batch_size': 4,
+        'execution_profile': runtime_profile['profile'],
+        'max_files': runtime_profile['max_files'],
+        'sample_rate': runtime_profile['sample_rate'],
+        'flows_per_graph': runtime_profile['flows_per_graph'],
+        'batch_size': runtime_profile['batch_size'],
         'learning_rate': 0.0005,
-        'epochs': 50,
+        'epochs': runtime_profile['train_epochs'],
+        'optuna_trials': runtime_profile['optuna_trials'],
+        'run_optuna_optimization': runtime_profile['run_optuna_optimization'],
+        'fresh_study': runtime_profile['fresh_study'],
+        'run_dgi_pretraining': runtime_profile['run_dgi_pretraining'],
+        'dgi_pretrain_epochs': runtime_profile['dgi_pretrain_epochs'],
         'split_strategy': strategy,
-        'n_blocks': 10,
+        'n_blocks': runtime_profile['n_blocks'],
         'merge_networks': merge_networks,
         'device': torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     }
 
     print(f"\n{'='*80}")
-    print("DAPT2020 GNN PIPELINE - 6 MODELS")
+    print("DAPT2020 GNN PIPELINE - 5 MODELS")
     print(f"{'='*80}")
     print(f"Device: {config['device']}")
-    print(f"Max files: {'ALL' if max_files is None else max_files}")
-    print(f"Sample rate: {sample_rate*100:.0f}%")
+    print(f"Profile: {config['execution_profile']}")
+    print(f"Max files: {'ALL' if config['max_files'] is None else config['max_files']}")
+    print(f"Sample rate: {config['sample_rate']*100:.0f}%")
     print(f"Split strategy: {strategy}")
     print(f"Merge networks: {merge_networks}")
+    print(f"Train epochs: {config['epochs']}")
+    print(f"DGI pretraining: {config['run_dgi_pretraining']} ({config['dgi_pretrain_epochs']} epochs)")
+    print(f"Optuna enabled: {config['run_optuna_optimization']}")
+    if config['run_optuna_optimization']:
+        print(f"Optuna trials per model: {config['optuna_trials']}")
+    print(f"Run output directory: {LOCAL_RUN_OUTPUT_DIR}")
     print(f"{'='*80}\n")
 
     try:
@@ -4083,7 +4205,7 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
 
         # DGI PRETRAINING (runs once before Optuna/training)
         # Set RUN_DGI_PRETRAINING = False to skip and fall back torandom init for GCN-DGI
-        RUN_DGI_PRETRAINING = True
+        RUN_DGI_PRETRAINING = config['run_dgi_pretraining']
 
         if RUN_DGI_PRETRAINING:
             print(f"\n{'='*80}")
@@ -4103,7 +4225,7 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
                 num_features   = num_features,
                 device         = device,
                 hidden_dim     = DGI_PRETRAIN_HIDDEN_DIM,
-                epochs         = 50,
+                epochs         = config['dgi_pretrain_epochs'],
                 lr             = 1e-3,
                 patience       = 10,
                 verbose        = True
@@ -4137,12 +4259,12 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
 
         all_results = {}
 
-        RUN_OPTUNA_OPTIMIZATION = True  # Set to False to skip all Optuna optimization
+        RUN_OPTUNA_OPTIMIZATION = config['run_optuna_optimization']
 
         # FRESH_STUDY
         # Controls whether Optuna starts from a clean slate or loads prior
         # trial history from the SQLite DB on Drive.
-        FRESH_STUDY = True
+        FRESH_STUDY = config['fresh_study']
 
         # Dictionary to store optimal parameters for each model
         all_optuna_results = {}
@@ -4169,7 +4291,8 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
             print("  â€¢ Hidden Dimension")
             print("  â€¢ Batch Size")
             print("  â€¢ Weight Decay")
-            print(f"\nOptimization: 50 trials per model (250 total)")
+            total_trials = config['optuna_trials'] * len(models_config)
+            print(f"\nOptimization: {config['optuna_trials']} trial(s) per model ({total_trials} total)")
             print(f"{'='*80}\n")
 
             # Models to optimize
@@ -4190,7 +4313,7 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
                 print(f"OPTIMIZING MODEL {model_idx+1}/5: {model_name}")
                 print(f"{'='*80}")
                 print(f"Progress: Model {model_idx+1} of 5")
-                print(f"Trials per model: 50 (INCREASED from 30)")
+                print(f"Trials per model: {config['optuna_trials']}")
                 print(f"Hyperparameters: 8 (5 original + 3 new)")
                 print(f"{'='*80}\n")
 
@@ -4353,7 +4476,7 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
                                 train_node_level(
                                     model_trial, train_loader_trial,
                                     optimizer_trial, criterion_trial, device,
-                                    epochs=50,
+                                    epochs=config['epochs'],
                                     disable_early_stopping=True  # all trials run full budget
                                 )
 
@@ -4429,7 +4552,7 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
                     print(f"\n Starting Optuna optimization for {model_name}...")
                     study.optimize(
                         objective_func,
-                        n_trials=100,
+                        n_trials=config['optuna_trials'],
                         timeout=None,
                         show_progress_bar=True,
                         n_jobs=1
@@ -4663,7 +4786,7 @@ def main(max_files=None, sample_rate=1.0, strategy='hybrid', merge_networks=Fals
                             num_features = num_features,
                             device       = device,
                             hidden_dim   = opt_hidden_dim,
-                            epochs       = 50,
+                            epochs       = config['dgi_pretrain_epochs'],
                             lr           = 1e-3,
                             patience     = 10,
                             verbose      = True

@@ -39,6 +39,8 @@ Open `Praxisv01.ipynb` and do one of these:
 
 The notebook installs the repo in editable mode, so any code you push to GitHub can be pulled and run from Colab compute.
 
+For the Unraveled `praxisv03` Colab workflow and the next high-budget experiments, use `Praxisv03_Colab.ipynb` together with `COLAB_UNRAVELED_RUNBOOK.md`.
+
 ## First files to edit
 
 - `src/praxis/train.py`
