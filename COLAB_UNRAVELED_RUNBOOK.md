@@ -208,3 +208,19 @@ What you want to learn from these three runs:
 - If Colab memory is tight on `T4`, reduce `sequence_batch_size` from `16` to `8` in the Mamba config.
 - If graph runs are too slow, remove `ST-GCN` from `enabled_models` first. It was the weakest and most runtime-expensive local graph baseline.
 - Keep artifacts on Drive. Do not rely on Colab local disk for anything you want to keep.
+
+## Compare Against The Local Baseline
+
+After the three Colab runs finish and the run folders are available under `runs/`, generate a single comparison report:
+
+```python
+!python scripts/compare_praxisv03_followups.py
+```
+
+This writes:
+
+```text
+runs/praxisv03-followup-comparison.md
+```
+
+The report compares the new Colab runs against the existing local stage-balanced baseline, highlights `Data Exfiltration` changes, and gives a simple diagnosis hint about whether the failure looks more like chunking/minority dilution or a broader model limitation.
