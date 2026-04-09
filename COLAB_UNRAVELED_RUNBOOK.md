@@ -53,7 +53,7 @@ Run this in a fresh Colab notebook:
 
 ```python
 REPO_URL = "https://github.com/garypagangit/praxis.git"
-BRANCH = "main"
+BRANCH = "feature/praxisv03-colab"
 WORKSPACE_DIR = "/content/praxis-workspace"
 DRIVE_ROOT = "/content/drive/MyDrive/praxis"
 ```
