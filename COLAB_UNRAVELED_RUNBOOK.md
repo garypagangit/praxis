@@ -214,13 +214,18 @@ What you want to learn from these three runs:
 After the three Colab runs finish and the run folders are available under `runs/`, generate a single comparison report:
 
 ```python
-!python scripts/compare_praxisv03_followups.py
+!python scripts/compare_praxisv03_followups.py \
+    --baseline-run references/praxisv03-unraveled-stage-balanced-local-baseline.json \
+    --candidate-run /content/drive/MyDrive/praxis/runs/praxisv03-unraveled-stage-balanced-colab-mamba-proper \
+    --candidate-run /content/drive/MyDrive/praxis/runs/praxisv03-unraveled-stage-balanced-colab-graph-chunk128 \
+    --candidate-run /content/drive/MyDrive/praxis/runs/praxisv03-unraveled-stage-balanced-colab-graph-de-weighted \
+    --output /content/drive/MyDrive/praxis/runs/praxisv03-followup-comparison.md
 ```
 
 This writes:
 
 ```text
-runs/praxisv03-followup-comparison.md
+/content/drive/MyDrive/praxis/runs/praxisv03-followup-comparison.md
 ```
 
 The report compares the new Colab runs against the existing local stage-balanced baseline, highlights `Data Exfiltration` changes, and gives a simple diagnosis hint about whether the failure looks more like chunking/minority dilution or a broader model limitation.

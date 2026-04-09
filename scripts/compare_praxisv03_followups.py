@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -23,8 +24,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--baseline-run",
-        default="runs/praxisv03-unraveled-stage-balanced-local",
-        help="Path to the existing local baseline run directory.",
+        default="references/praxisv03-unraveled-stage-balanced-local-baseline.json",
+        help="Path to the baseline run directory or a checked-in baseline reference JSON file.",
     )
     parser.add_argument(
         "--candidate-run",
@@ -79,6 +80,15 @@ def load_run(path: Path) -> RunArtifacts | None:
         path=path,
         overall=load_metrics_table(path),
         per_stage=load_per_stage(path),
+    )
+
+
+def load_reference_json(path: Path) -> RunArtifacts:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return RunArtifacts(
+        path=path,
+        overall=payload["overall"],
+        per_stage=payload["per_stage"],
     )
 
 
@@ -225,9 +235,15 @@ def render_report(baseline: RunArtifacts, candidates: list[RunArtifacts]) -> str
 
 def main() -> None:
     args = parse_args()
-    baseline = load_run(Path(args.baseline_run).resolve())
+    baseline_path = Path(args.baseline_run).resolve()
+    if baseline_path.is_dir():
+        baseline = load_run(baseline_path)
+    elif baseline_path.is_file():
+        baseline = load_reference_json(baseline_path)
+    else:
+        baseline = None
     if baseline is None:
-        raise FileNotFoundError(f"Baseline run not found: {args.baseline_run}")
+        raise FileNotFoundError(f"Baseline run or reference file not found: {args.baseline_run}")
 
     seen: set[Path] = set()
     candidates: list[RunArtifacts] = []
