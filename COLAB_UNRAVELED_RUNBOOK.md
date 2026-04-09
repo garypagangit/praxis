@@ -52,7 +52,7 @@ In Colab:
 Run this in a fresh Colab notebook:
 
 ```python
-REPO_URL = "https://github.com/garypagangit/praxis.git"
+REPO_SLUG = "garypagangit/praxis"
 BRANCH = "feature/praxisv03-colab"
 WORKSPACE_DIR = "/content/praxis-workspace"
 DRIVE_ROOT = "/content/drive/MyDrive/praxis"
@@ -64,27 +64,40 @@ drive.mount("/content/drive")
 ```
 
 ```python
+import getpass
 import os
 import subprocess
 import sys
 from pathlib import Path
 
+repo_url = f"https://github.com/{REPO_SLUG}.git"
+token = getpass.getpass(
+    "GitHub token with read access to the private repo (leave blank only if the repo is public): "
+).strip()
+if token:
+    repo_url = f"https://{token}@github.com/{REPO_SLUG}.git"
+
 workspace = Path(WORKSPACE_DIR)
 if workspace.exists() and (workspace / ".git").exists():
+    subprocess.run(["git", "remote", "set-url", "origin", repo_url], cwd=workspace, check=True)
     subprocess.run(["git", "fetch", "origin", BRANCH], cwd=workspace, check=True)
     subprocess.run(["git", "checkout", BRANCH], cwd=workspace, check=True)
     subprocess.run(["git", "pull", "--ff-only", "origin", BRANCH], cwd=workspace, check=True)
 else:
     if workspace.exists():
         raise RuntimeError(f"{workspace} exists but is not a git repo. Remove it first.")
-    subprocess.run(["git", "clone", "--branch", BRANCH, REPO_URL, str(workspace)], check=True)
+    subprocess.run(["git", "clone", "--branch", BRANCH, repo_url, str(workspace)], check=True)
 
 subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(workspace / "requirements.txt")], check=True)
 subprocess.run([sys.executable, "-m", "pip", "install", "-e", str(workspace)], check=True)
 
 os.chdir(workspace)
+token = None
 print("Workspace:", workspace)
+subprocess.run([sys.executable, "-c", "import praxis; print(praxis.__file__)"], check=True)
 ```
+
+If the clone step fails with `Repository not found`, the repo is still private to Colab and the fix is to use a GitHub fine-grained personal access token with read access to `garypagangit/praxis`.
 
 ```python
 from praxis.colab_bootstrap import configure_persistent_runtime
