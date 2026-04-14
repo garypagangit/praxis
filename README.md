@@ -60,10 +60,10 @@ This is the simplest path to using Praxis from multiple machines:
 4. Set the repo value at the top of the notebook to your own GitHub repo.
 5. If the repo is private, use a GitHub fine-grained personal access token with read access when Colab prompts for it.
 
-Recommended defaults:
+Current defaults in this repo:
 
-- `Praxisv01.ipynb`: set `REPO_URL` to `https://github.com/YOUR-GITHUB-USER/praxis.git`
-- `Praxisv03_Colab.ipynb`: set `REPO_SLUG` to `YOUR-GITHUB-USER/praxis` and leave `BRANCH = "main"`
+- `Praxisv01.ipynb`: `REPO_URL = "https://github.com/garypagangit/praxis.git"`
+- `Praxisv03_Colab.ipynb`: `REPO_SLUG = "garypagangit/praxis"` and `BRANCH = "main"`
 
 Keep datasets and run outputs in Drive or local machine storage. Keep code and notebooks in GitHub.
 
