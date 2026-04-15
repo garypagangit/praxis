@@ -127,6 +127,18 @@ s3://praxis-garypagangit-us-east-1/datasets/unraveled/network-flows/
 
 ## Bootstrap The EC2 Instance
 
+Fastest one-shot option after the repo is present on the EC2 instance:
+
+```bash
+cd /mnt/praxis/repo
+chmod +x scripts/setup_praxis_aws_one_shot.sh
+S3_BUCKET=praxis-garypagangit-us-east-1 ./scripts/setup_praxis_aws_one_shot.sh
+```
+
+The script prompts for your GitHub token, updates the private repo, installs dependencies, optionally syncs the dataset from S3, and starts JupyterLab.
+
+Manual bootstrap if you want the steps individually:
+
 After SSH login:
 
 ```bash

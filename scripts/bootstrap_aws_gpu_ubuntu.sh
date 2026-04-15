@@ -18,6 +18,7 @@ echo "Repo: ${REPO_URL} (${REPO_BRANCH})"
 
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  awscli \
   git \
   htop \
   tmux \
