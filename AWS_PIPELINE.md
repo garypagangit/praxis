@@ -12,10 +12,10 @@ This is the high-performance, low-friction workflow for Praxis. The goal is to s
 
 ## Recommended AWS Build
 
-- Region: `us-east-1`
-- First-choice instance: `p6-b200.48xlarge`
-- Fallback instance: `p5en.48xlarge`
-- Next fallback: `p5e.48xlarge`
+- Default region for a persistent workflow: `us-east-1`
+- First-choice persistent instance: `p5en.48xlarge`
+- Fallback persistent instance: `p5e.48xlarge`
+- Highest-peak-performance option: `p6-b200.48xlarge` in `us-west-2` through EC2 Capacity Blocks for ML
 - AMI: latest `AWS Deep Learning Base OSS Nvidia Driver GPU AMI (Ubuntu 22.04)`
 - Root disk: default is fine
 - Data disk: `gp3`, `4096 GiB`, `16000 IOPS`, `1000 MiB/s`
