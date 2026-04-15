@@ -130,11 +130,24 @@ s3://praxis-garypagangit-us-east-1/datasets/unraveled/network-flows/
 After SSH login:
 
 ```bash
+cd /mnt/praxis/repo
 chmod +x scripts/bootstrap_aws_gpu_ubuntu.sh
 ./scripts/bootstrap_aws_gpu_ubuntu.sh
 ```
 
 If you are connecting through Session Manager instead of SSH, the same commands work in the browser shell.
+
+If the GitHub repo is private, use a fine-grained GitHub token with repository `Contents` access:
+
+```bash
+cd /mnt/praxis/repo
+export GITHUB_TOKEN=YOUR_GITHUB_TOKEN
+chmod +x scripts/bootstrap_aws_gpu_ubuntu.sh
+./scripts/bootstrap_aws_gpu_ubuntu.sh
+unset GITHUB_TOKEN
+```
+
+The bootstrap script uses the token only for the git fetch or clone, then resets the git remote back to the plain GitHub URL so the token is not left in `.git/config`.
 
 ## Pull The Dataset Onto The Instance
 
@@ -167,11 +180,24 @@ python -m praxis.train --config configs/praxisv03-unraveled-aws-graph-de-weighte
 On the EC2 instance:
 
 ```bash
+cd /mnt/praxis/repo
 chmod +x scripts/start_jupyter_aws.sh
 ./scripts/start_jupyter_aws.sh
 ```
 
 If `tmux` is available, this starts JupyterLab in a background session named `praxis-jupyter`.
+
+If you get `No such file or directory`, you are usually in the wrong directory or the repo bootstrap did not complete. Confirm this first:
+
+```bash
+ls /mnt/praxis/repo/scripts
+```
+
+You should see:
+
+- `bootstrap_aws_gpu_ubuntu.sh`
+- `start_jupyter_aws.sh`
+- `sync_unraveled_from_s3.sh`
 
 ## Open A Tunnel From Windows
 

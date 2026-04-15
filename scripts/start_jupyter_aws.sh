@@ -6,7 +6,26 @@ REPO_DIR="${REPO_DIR:-${PRAXIS_ROOT}/repo}"
 PORT="${PORT:-8888}"
 HOST="${HOST:-127.0.0.1}"
 
+if [[ ! -d "${REPO_DIR}" ]]; then
+  echo "Repo directory not found: ${REPO_DIR}"
+  echo "Clone the repo into ${REPO_DIR} and run the bootstrap first."
+  echo "If the repo is private, use a GitHub token during clone:"
+  echo "  git clone https://x-access-token:YOUR_GITHUB_TOKEN@github.com/garypagangit/praxis.git ${REPO_DIR}"
+  echo "  cd ${REPO_DIR}"
+  echo "  GITHUB_TOKEN=YOUR_GITHUB_TOKEN ./scripts/bootstrap_aws_gpu_ubuntu.sh"
+  exit 1
+fi
+
 cd "${REPO_DIR}"
+
+if [[ ! -f ".venv/bin/activate" ]]; then
+  echo "Virtualenv not found in ${REPO_DIR}/.venv"
+  echo "Run:"
+  echo "  cd ${REPO_DIR}"
+  echo "  GITHUB_TOKEN=your_token_here ./scripts/bootstrap_aws_gpu_ubuntu.sh"
+  exit 1
+fi
+
 source .venv/bin/activate
 
 mkdir -p "${PRAXIS_ROOT}/logs"

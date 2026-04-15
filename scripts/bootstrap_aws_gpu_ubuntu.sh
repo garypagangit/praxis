@@ -5,6 +5,13 @@ PRAXIS_ROOT="${PRAXIS_ROOT:-/mnt/praxis}"
 REPO_URL="${REPO_URL:-https://github.com/garypagangit/praxis.git}"
 REPO_BRANCH="${REPO_BRANCH:-main}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
+GITHUB_TOKEN="${GITHUB_TOKEN:-}"
+GITHUB_USER="${GITHUB_USER:-x-access-token}"
+
+AUTH_REPO_URL="${REPO_URL}"
+if [[ -n "${GITHUB_TOKEN}" && "${REPO_URL}" =~ ^https://github\.com/ ]]; then
+  AUTH_REPO_URL="${REPO_URL/https:\/\/github.com\//https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/}"
+fi
 
 echo "Bootstrap root: ${PRAXIS_ROOT}"
 echo "Repo: ${REPO_URL} (${REPO_BRANCH})"
@@ -28,13 +35,18 @@ sudo chown -R "${USER}:${USER}" "${PRAXIS_ROOT}"
 REPO_DIR="${PRAXIS_ROOT}/repo"
 
 if [[ -d "${REPO_DIR}/.git" ]]; then
+  if [[ -n "${GITHUB_TOKEN}" ]]; then
+    git -C "${REPO_DIR}" remote set-url origin "${AUTH_REPO_URL}"
+  fi
   git -C "${REPO_DIR}" fetch origin "${REPO_BRANCH}"
   git -C "${REPO_DIR}" checkout "${REPO_BRANCH}"
   git -C "${REPO_DIR}" pull --ff-only origin "${REPO_BRANCH}"
 else
   rm -rf "${REPO_DIR}"
-  git clone --branch "${REPO_BRANCH}" "${REPO_URL}" "${REPO_DIR}"
+  git clone --branch "${REPO_BRANCH}" "${AUTH_REPO_URL}" "${REPO_DIR}"
 fi
+
+git -C "${REPO_DIR}" remote set-url origin "${REPO_URL}"
 
 cd "${REPO_DIR}"
 
