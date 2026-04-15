@@ -10,6 +10,33 @@ This is the high-performance, low-friction workflow for Praxis. The goal is to s
 - A large attached EBS volume stores the repo, caches, datasets, and outputs
 - You connect to the instance with SSH plus VS Code Remote SSH or an SSH tunnel to Jupyter
 
+## Easiest Connection Modes
+
+### Option 1: Session Manager
+
+This is the easiest connection path if your local machine is awkward about SSH tooling.
+
+- no inbound SSH needed
+- no local SSH key management required
+- browser-based shell from the AWS console
+
+Attach an instance role with `AmazonSSMManagedInstanceCore`, then connect through the EC2 console or Systems Manager.
+
+### Option 2: EC2 Instance Connect
+
+This is the easiest direct SSH-style connection from the AWS console for Ubuntu.
+
+- simple browser-based connect flow
+- good for quick one-off admin work
+
+### Option 3: SSH + Jupyter tunnel
+
+This is the best daily workflow after the instance is stable.
+
+- run Jupyter on the EC2 box
+- forward one local port
+- keep the notebook server on the instance, not on your laptop
+
 ## Recommended AWS Build
 
 - Default region for a persistent workflow: `us-east-1`
@@ -107,6 +134,8 @@ chmod +x scripts/bootstrap_aws_gpu_ubuntu.sh
 ./scripts/bootstrap_aws_gpu_ubuntu.sh
 ```
 
+If you are connecting through Session Manager instead of SSH, the same commands work in the browser shell.
+
 ## Pull The Dataset Onto The Instance
 
 On the EC2 instance:
@@ -132,6 +161,36 @@ Follow-up runs:
 python -m praxis.train --config configs/praxisv03-unraveled-aws-graph-chunk128.json
 python -m praxis.train --config configs/praxisv03-unraveled-aws-graph-de-weighted.json
 ```
+
+## Start Jupyter On The Instance
+
+On the EC2 instance:
+
+```bash
+chmod +x scripts/start_jupyter_aws.sh
+./scripts/start_jupyter_aws.sh
+```
+
+If `tmux` is available, this starts JupyterLab in a background session named `praxis-jupyter`.
+
+## Open A Tunnel From Windows
+
+From this Windows machine:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\open_aws_jupyter_tunnel.ps1 `
+  -Host YOUR-EC2-DNS-NAME `
+  -User ubuntu `
+  -KeyPath C:\path\to\your-key.pem
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8888
+```
+
+Use the Jupyter token printed in the EC2 shell or visible in the `tmux` output.
 
 ## Working Style
 
