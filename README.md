@@ -67,6 +67,16 @@ Current defaults in this repo:
 
 Keep datasets and run outputs in Drive or local machine storage. Keep code and notebooks in GitHub.
 
+## AWS Pipeline
+
+If you want a persistent high-performance workflow instead of Colab runtime resets, use the AWS-first pipeline in [AWS_PIPELINE.md](C:/Users/garyp/OneDrive/Documents/codex/AWS_PIPELINE.md).
+
+Highlights:
+
+- upload the Unraveled dataset once to S3 with [sync_unraveled_to_s3.ps1](C:/Users/garyp/OneDrive/Documents/codex/scripts/sync_unraveled_to_s3.ps1)
+- bootstrap a persistent GPU instance with [bootstrap_aws_gpu_ubuntu.sh](C:/Users/garyp/OneDrive/Documents/codex/scripts/bootstrap_aws_gpu_ubuntu.sh)
+- run the AWS-targeted configs under `configs/praxisv03-unraveled-aws-*.json`
+
 ## Run on Colab
 
 Open `Praxisv01.ipynb` and do one of these:
