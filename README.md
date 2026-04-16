@@ -67,6 +67,33 @@ Current defaults in this repo:
 
 Keep datasets and run outputs in Drive or local machine storage. Keep code and notebooks in GitHub.
 
+If you want the single easiest fresh-start workflow, use the new guide in [PIPELINE_EASY_START.md](C:/Users/garyp/OneDrive/Documents/codex/PIPELINE_EASY_START.md). It standardizes on:
+
+- Codex for coding
+- GitHub for source control
+- Colab for compute
+- Google Drive for persistent datasets and run artifacts
+
+The quickest first proof run is now:
+
+```python
+from getpass import getpass
+from praxis.colab_bootstrap import setup_easy_colab
+
+paths = setup_easy_colab(
+    repo_slug="garypagangit/praxis",
+    branch="main",
+    github_token=getpass("GitHub token: ").strip(),
+)
+```
+
+Then run:
+
+```python
+%cd /content/praxis-workspace
+!python -m praxis.train --config configs/praxisv03-unraveled-colab-smoke.json
+```
+
 ## AWS Pipeline
 
 If you want a persistent high-performance workflow instead of Colab runtime resets, use the AWS-first pipeline in [AWS_PIPELINE.md](C:/Users/garyp/OneDrive/Documents/codex/AWS_PIPELINE.md).
