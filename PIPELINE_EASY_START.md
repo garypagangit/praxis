@@ -44,10 +44,13 @@ Cell 1:
 
 ```python
 from getpass import getpass
+from urllib.parse import quote
+
+github_token = getpass("GitHub token for garypagangit/praxis: ").strip()
+%pip install -q "git+https://x-access-token:{quote(github_token, safe='')}@github.com/garypagangit/praxis.git"
 
 from praxis.colab_bootstrap import setup_easy_colab
 
-github_token = getpass("GitHub token for garypagangit/praxis: ").strip()
 paths = setup_easy_colab(
     repo_slug="garypagangit/praxis",
     branch="main",

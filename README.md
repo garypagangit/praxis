@@ -78,12 +78,17 @@ The quickest first proof run is now:
 
 ```python
 from getpass import getpass
+from urllib.parse import quote
+
+token = getpass("GitHub token: ").strip()
+%pip install -q "git+https://x-access-token:{quote(token, safe='')}@github.com/garypagangit/praxis.git"
+
 from praxis.colab_bootstrap import setup_easy_colab
 
 paths = setup_easy_colab(
     repo_slug="garypagangit/praxis",
     branch="main",
-    github_token=getpass("GitHub token: ").strip(),
+    github_token=token,
 )
 ```
 
