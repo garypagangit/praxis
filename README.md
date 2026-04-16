@@ -103,6 +103,20 @@ Then run:
 
 If you want a persistent high-performance workflow instead of Colab runtime resets, use the AWS-first pipeline in [AWS_PIPELINE.md](C:/Users/garyp/OneDrive/Documents/codex/AWS_PIPELINE.md).
 
+If your main goal is to stop switching between an editor and Colab, use the single-IDE guide in [SINGLE_IDE_PIPELINE.md](C:/Users/garyp/OneDrive/Documents/codex/SINGLE_IDE_PIPELINE.md). That path uses SageMaker Code Editor as both the editor and runtime, plus:
+
+- [scripts/setup_sagemaker_code_editor.sh](C:/Users/garyp/OneDrive/Documents/codex/scripts/setup_sagemaker_code_editor.sh)
+- [scripts/run_synthetic_smoke.sh](C:/Users/garyp/OneDrive/Documents/codex/scripts/run_synthetic_smoke.sh)
+- [scripts/link_unraveled_data.sh](C:/Users/garyp/OneDrive/Documents/codex/scripts/link_unraveled_data.sh)
+- [scripts/run_praxisv03_ide_smoke.sh](C:/Users/garyp/OneDrive/Documents/codex/scripts/run_praxisv03_ide_smoke.sh)
+
+The fastest first run in that flow is:
+
+```bash
+bash scripts/setup_sagemaker_code_editor.sh
+bash scripts/run_synthetic_smoke.sh
+```
+
 Highlights:
 
 - upload the Unraveled dataset once to S3 with [sync_unraveled_to_s3.ps1](C:/Users/garyp/OneDrive/Documents/codex/scripts/sync_unraveled_to_s3.ps1)

@@ -253,6 +253,10 @@ def main() -> None:
         from praxis.unraveled_v03 import run_unraveled_v03
 
         run_dir = run_unraveled_v03(settings)
+    elif settings["pipeline"] == "synthetic_smoke":
+        from praxis.synthetic_smoke import run_synthetic_smoke
+
+        run_dir = run_synthetic_smoke(settings)
     else:
         raise ValueError(f"Unsupported pipeline: {settings['pipeline']}")
 
