@@ -1,0 +1,17 @@
+{
+  "name": "praxis04-treatment-stage",
+  "experiment": "praxis04-stage-routing",
+  "model": "Treatment-Stage",
+  "seed": 13,
+  "seed_torch": false,
+  "data_dir": "data/cic-ids-2018",
+  "seeds": [13, 42, 137, 271, 1729],
+  "n_classes": 5,
+  "router": "stage_conditioned",
+  "submodels": ["RF", "MLP", "BiLSTM"],
+  "router_input": ["features", "predicted_stage_logits"],
+  "stage_head": {
+    "hidden_dim": 64,
+    "loss_weight": 0.25
+  }
+}

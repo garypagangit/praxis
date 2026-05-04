@@ -1,0 +1,89 @@
+name: Praxis 04 Cloud Pilot
+
+on:
+  workflow_dispatch:
+    inputs:
+      sample_rows_per_file:
+        description: "Rows to read from each CIC-IDS2018 CSV for the cloud pilot"
+        required: true
+        default: "10000"
+      seeds:
+        description: "Comma-separated seeds"
+        required: true
+        default: "13,42,137,271,1729"
+
+jobs:
+  praxis04-cloud-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scikit-learn matplotlib pytest awscli
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e .
+
+      - name: Download CIC-IDS2018 processed CSVs
+        run: |
+          mkdir -p data/cic-ids-2018
+          python -m awscli s3 cp --no-sign-request --region ca-central-1 \
+            "s3://cse-cic-ids2018/Processed Traffic Data for ML Algorithms/" \
+            data/cic-ids-2018/ --recursive
+          python scripts/praxis04_write_manifest.py --data-dir data/cic-ids-2018
+
+      - name: Build cloud pilot config
+        env:
+          SAMPLE_ROWS: ${{ inputs.sample_rows_per_file }}
+          SEEDS: ${{ inputs.seeds }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          config = json.loads(Path("configs/praxis04-local-pilot.json").read_text())
+          config["sample_rows_per_file"] = int(os.environ["SAMPLE_ROWS"])
+          config["chunksize"] = int(os.environ["SAMPLE_ROWS"])
+          config["seeds"] = [int(item.strip()) for item in os.environ["SEEDS"].split(",") if item.strip()]
+          config["rf_n_estimators"] = 16
+          config["mlp_max_iter"] = 30
+          config["bilstm_epochs"] = 2
+          config["router_epochs"] = 30
+          Path("configs/praxis04-cloud-pilot.generated.json").write_text(json.dumps(config, indent=2))
+          PY
+
+      - name: Run Praxis 04 cloud pilot
+        run: |
+          python scripts/run_praxis04_local_pilot.py \
+            --base-config configs/praxis04-cloud-pilot.generated.json \
+            --output-root runs
+          python scripts/analyze_praxis04.py \
+            --results-dir runs \
+            --output runs/praxis04_headline_table.csv
+
+      - name: Upload Praxis 04 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: praxis04-cloud-pilot
+          path: |
+            runs/praxis04_headline_table.csv
+            runs/per_class_table.csv
+            runs/router_entropy.csv
+            runs/router_entropy.png
+            runs/significance_tests.json
+            runs/praxis04-pilot-*/metrics.json
+            runs/praxis04-pilot-*/config.json
+            data/cic-ids-2018/manifest.json
+          if-no-files-found: error
+

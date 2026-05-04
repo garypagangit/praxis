@@ -158,6 +158,23 @@ That writes artifacts under `runs/praxisv03-unraveled-best-local/`.
 - `configs/example.json`
 - `requirements.txt`
 
+## Praxis 04 Stage Routing
+
+The Praxis 04 preregistered plan lives in [PRAXIS04_TESTPLAN.md](C:/Users/garyp/OneDrive/Documents/codex/PRAXIS04_TESTPLAN.md).
+
+Quick deterministic smoke:
+
+```powershell
+.\.venv\Scripts\python.exe -m praxis.praxis04.train --config configs\praxis04-treatment-stage.json --smoke
+```
+
+After downloading CIC-IDS2018 CSVs:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\download_praxis04_cicids2018.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\run_praxis04_all.ps1 -Full
+```
+
 ## Bring In Existing Code
 
 If you already have code in another folder, a single file, or a zip archive, use:
