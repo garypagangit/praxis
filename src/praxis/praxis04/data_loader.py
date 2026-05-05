@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import zlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
@@ -95,31 +96,57 @@ def load_cicids2018_csvs(
     data_dir: str | Path,
     sample_rows_per_file: int | None = None,
     chunksize: int = 200_000,
+    sample_seed: int = 42,
+    sample_strategy: str = "head",
 ) -> pd.DataFrame:
+    if sample_strategy not in {"head", "uniform"}:
+        raise ValueError("sample_strategy must be 'head' or 'uniform'.")
     frames = []
     feature_columns: list[str] | None = None
     rows_by_file: dict[str, int] = {}
     dropped_by_file: dict[str, int] = {}
+    sampled_by_file: dict[str, int] = {}
     for path in sorted(Path(data_dir).rglob("*.csv")):
         read_rows = 0
         dropped_rows = 0
-        if sample_rows_per_file:
-            iterator = pd.read_csv(path, chunksize=min(chunksize, int(sample_rows_per_file)), low_memory=False)
+        sample_limit = int(sample_rows_per_file) if sample_rows_per_file else None
+        sampled_frames = []
+        sampled_priorities = []
+        file_seed = int(sample_seed) ^ zlib.crc32(str(path.name).encode("utf-8"))
+        rng = np.random.default_rng(file_seed)
+        if sample_limit and sample_strategy == "head":
+            iterator = pd.read_csv(path, chunksize=min(chunksize, sample_limit), low_memory=False)
         else:
             iterator = pd.read_csv(path, chunksize=chunksize, low_memory=False)
         for chunk in iterator:
-            if sample_rows_per_file and read_rows >= int(sample_rows_per_file):
+            if sample_limit and sample_strategy == "head" and read_rows >= sample_limit:
                 break
-            if sample_rows_per_file:
-                chunk = chunk.head(int(sample_rows_per_file) - read_rows)
+            if sample_limit and sample_strategy == "head":
+                chunk = chunk.head(sample_limit - read_rows)
             read_rows += len(chunk)
             chunk.columns = [str(column).strip() for column in chunk.columns]
             label_column = discover_label_column(chunk.columns)
             if feature_columns is None:
                 feature_columns = infer_numeric_columns(chunk, label_column)
             compact, dropped = compact_numeric_chunk(chunk, feature_columns, label_column, path)
-            frames.append(compact)
             dropped_rows += dropped
+            if sample_limit and sample_strategy == "uniform":
+                priorities = rng.random(len(compact), dtype=np.float64)
+                sampled_frames, sampled_priorities = keep_lowest_priority_sample(
+                    sampled_frames,
+                    sampled_priorities,
+                    compact,
+                    priorities,
+                    sample_limit,
+                )
+            else:
+                frames.append(compact)
+        if sample_limit and sample_strategy == "uniform":
+            sampled = concat_sampled_frames(sampled_frames, sampled_priorities)
+            frames.append(sampled)
+            sampled_by_file[path.name] = len(sampled)
+        else:
+            sampled_by_file[path.name] = max(0, read_rows - dropped_rows)
         rows_by_file[path.name] = read_rows
         dropped_by_file[path.name] = dropped_rows
     if not frames:
@@ -128,9 +155,44 @@ def load_cicids2018_csvs(
     frame.attrs["load_summary"] = {
         "rows_read_by_file": rows_by_file,
         "rows_dropped_by_file": dropped_by_file,
+        "rows_sampled_by_file": sampled_by_file,
+        "sample_rows_per_file": sample_rows_per_file,
+        "sample_seed": sample_seed,
+        "sampling_strategy": sample_strategy if sample_rows_per_file else "full",
         "feature_columns": feature_columns or [],
     }
     return frame
+
+
+def keep_lowest_priority_sample(
+    sampled_frames: list[pd.DataFrame],
+    sampled_priorities: list[np.ndarray],
+    compact: pd.DataFrame,
+    priorities: np.ndarray,
+    sample_limit: int,
+) -> tuple[list[pd.DataFrame], list[np.ndarray]]:
+    if len(compact) == 0:
+        return sampled_frames, sampled_priorities
+    sampled_frames.append(compact.reset_index(drop=True))
+    sampled_priorities.append(priorities)
+    total = sum(len(frame) for frame in sampled_frames)
+    if total <= sample_limit:
+        return sampled_frames, sampled_priorities
+
+    combined = pd.concat(sampled_frames, ignore_index=True, copy=False)
+    combined_priority = np.concatenate(sampled_priorities)
+    keep_idx = np.argpartition(combined_priority, sample_limit - 1)[:sample_limit]
+    keep_idx = keep_idx[np.argsort(combined_priority[keep_idx], kind="mergesort")]
+    return [combined.iloc[keep_idx].reset_index(drop=True)], [combined_priority[keep_idx]]
+
+
+def concat_sampled_frames(sampled_frames: list[pd.DataFrame], sampled_priorities: list[np.ndarray]) -> pd.DataFrame:
+    if not sampled_frames:
+        return pd.DataFrame()
+    combined = pd.concat(sampled_frames, ignore_index=True, copy=False)
+    priority = np.concatenate(sampled_priorities)
+    order = np.argsort(priority, kind="mergesort")
+    return combined.iloc[order].reset_index(drop=True)
 
 
 def infer_numeric_columns(chunk: pd.DataFrame, label_column: str) -> list[str]:
@@ -224,6 +286,10 @@ def temporal_day_split(
     frame: pd.DataFrame,
     val_fraction_of_train_days: float = 0.2,
     holdout_day_pattern: str = "02-03-2018",
+    min_train_rows_per_label: int = 0,
+    min_val_rows_per_label: int = 0,
+    support_fraction_per_label: float = 0.0,
+    split_seed: int = 42,
 ) -> SplitFrames:
     if "attack_day" not in frame.columns:
         raise ValueError("Expected attack_day column before temporal split.")
@@ -240,31 +306,124 @@ def temporal_day_split(
     val_days = remaining_days[-val_count:] if val_count else []
     train_days = [day for day in remaining_days if day not in set(val_days)]
 
+    train = frame[frame["attack_day"].isin(train_days)].copy()
+    val = frame[frame["attack_day"].isin(val_days)].copy()
+    test = frame[frame["attack_day"].isin(test_days)].copy()
+    support_moves = []
+    if min_train_rows_per_label > 0 or min_val_rows_per_label > 0 or support_fraction_per_label > 0:
+        train, val, test, support_moves = apply_label_support_floor(
+            train,
+            val,
+            test,
+            min_train_rows_per_label=min_train_rows_per_label,
+            min_val_rows_per_label=min_val_rows_per_label,
+            support_fraction_per_label=support_fraction_per_label,
+            seed=split_seed,
+        )
+
     split = SplitFrames(
-        train=frame[frame["attack_day"].isin(train_days)].reset_index(drop=True),
-        val=frame[frame["attack_day"].isin(val_days)].reset_index(drop=True),
-        test=frame[frame["attack_day"].isin(test_days)].reset_index(drop=True),
+        train=train.reset_index(drop=True),
+        val=val.reset_index(drop=True),
+        test=test.reset_index(drop=True),
         summary={
             "train_days": train_days,
             "val_days": val_days,
             "test_days": test_days,
-            "train_rows": int(frame["attack_day"].isin(train_days).sum()),
-            "val_rows": int(frame["attack_day"].isin(val_days).sum()),
-            "test_rows": int(frame["attack_day"].isin(test_days).sum()),
+            "train_rows": int(len(train)),
+            "val_rows": int(len(val)),
+            "test_rows": int(len(test)),
+            "support_floor_moves": support_moves,
         },
     )
     return split
+
+
+def apply_label_support_floor(
+    train: pd.DataFrame,
+    val: pd.DataFrame,
+    test: pd.DataFrame,
+    min_train_rows_per_label: int,
+    min_val_rows_per_label: int,
+    support_fraction_per_label: float,
+    seed: int,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, list[dict[str, int | str]]]:
+    if "attack_label" not in train.columns or "attack_label" not in val.columns or "attack_label" not in test.columns:
+        return train, val, test, []
+    rng = np.random.default_rng(seed)
+    train_counts = train["attack_label"].astype(str).value_counts().to_dict()
+    val_counts = val["attack_label"].astype(str).value_counts().to_dict()
+    moves = []
+    train_move_indices = []
+    val_move_indices = []
+    for label in sorted(test["attack_label"].astype(str).unique()):
+        candidate_indices = test.index[test["attack_label"].astype(str) == label].to_numpy()
+        if len(candidate_indices) == 0:
+            continue
+        current = int(train_counts.get(label, 0))
+        current_val = int(val_counts.get(label, 0))
+        min_needed = max(0, int(min_train_rows_per_label) - current)
+        fraction_needed = int(np.ceil(len(candidate_indices) * float(support_fraction_per_label)))
+        train_move_count = min(len(candidate_indices), max(min_needed, fraction_needed))
+        remaining_after_train = max(0, len(candidate_indices) - train_move_count)
+        val_move_count = min(remaining_after_train, max(0, int(min_val_rows_per_label) - current_val))
+        move_count = train_move_count + val_move_count
+        if move_count <= 0:
+            continue
+        chosen = rng.choice(candidate_indices, size=move_count, replace=False)
+        train_chosen = chosen[:train_move_count]
+        val_chosen = chosen[train_move_count:]
+        train_move_indices.extend(train_chosen.tolist())
+        val_move_indices.extend(val_chosen.tolist())
+        moves.append(
+            {
+                "attack_label": label,
+                "moved_train_rows": int(train_move_count),
+                "moved_val_rows": int(val_move_count),
+                "train_rows_before": current,
+                "val_rows_before": current_val,
+                "test_rows_before": int(len(candidate_indices)),
+            }
+        )
+    all_move_indices = train_move_indices + val_move_indices
+    if not all_move_indices:
+        return train, val, test, moves
+    train_moved = test.loc[train_move_indices].copy() if train_move_indices else test.iloc[0:0].copy()
+    val_moved = test.loc[val_move_indices].copy() if val_move_indices else test.iloc[0:0].copy()
+    remaining_test = test.drop(index=all_move_indices)
+    return (
+        pd.concat([train, train_moved], ignore_index=True, copy=False),
+        pd.concat([val, val_moved], ignore_index=True, copy=False),
+        remaining_test,
+        moves,
+    )
 
 
 def load_preprocessed_split(
     data_dir: str | Path,
     sample_rows_per_file: int | None = None,
     chunksize: int = 200_000,
+    sample_seed: int = 42,
+    sample_strategy: str = "head",
+    min_train_rows_per_label: int = 0,
+    min_val_rows_per_label: int = 0,
+    support_fraction_per_label: float = 0.0,
 ) -> SplitFrames:
-    raw = load_cicids2018_csvs(data_dir, sample_rows_per_file=sample_rows_per_file, chunksize=chunksize)
+    raw = load_cicids2018_csvs(
+        data_dir,
+        sample_rows_per_file=sample_rows_per_file,
+        chunksize=chunksize,
+        sample_seed=sample_seed,
+        sample_strategy=sample_strategy,
+    )
     cleaned, clean_summary = clean_cicids2018(raw)
     enriched = add_stage_columns(cleaned)
-    split = temporal_day_split(enriched)
+    split = temporal_day_split(
+        enriched,
+        min_train_rows_per_label=min_train_rows_per_label,
+        min_val_rows_per_label=min_val_rows_per_label,
+        support_fraction_per_label=support_fraction_per_label,
+        split_seed=sample_seed,
+    )
     split.summary["cleaning"] = clean_summary
     split.summary["stage_counts"] = enriched["kill_chain_stage"].value_counts().to_dict()
     return split

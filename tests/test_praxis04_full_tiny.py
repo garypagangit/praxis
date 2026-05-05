@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 
+from praxis.praxis04.data_loader import load_preprocessed_split
 from praxis.praxis04.experiment import run_experiment
 
 
@@ -52,3 +53,82 @@ def test_praxis04_full_tiny_csv_run(tmp_path):
     assert "macro_f1" in payload["metrics"]
     assert (tmp_path / "run" / "predictions.npz").exists()
     assert (tmp_path / "run" / "predictions_preview.json").exists()
+
+
+def test_uniform_sampler_reaches_late_rows(tmp_path):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    rows = []
+    for repeat in range(40):
+        rows.append(
+            {
+                "Flow Duration": repeat,
+                "Tot Fwd Pkts": repeat % 3,
+                "Tot Bwd Pkts": repeat % 5,
+                "Init_Win_bytes_forward": 1,
+                "Label": "Benign",
+            }
+        )
+    for repeat in range(40):
+        rows.append(
+            {
+                "Flow Duration": 1000 + repeat,
+                "Tot Fwd Pkts": repeat % 3,
+                "Tot Bwd Pkts": repeat % 5,
+                "Init_Win_bytes_forward": 1,
+                "Label": "Bot",
+            }
+        )
+    write_day(data_dir / "Friday-02-03-2018_TrafficForML_CICFlowMeter.csv", rows)
+    write_day(data_dir / "Friday-16-02-2018_TrafficForML_CICFlowMeter.csv", rows)
+
+    head = load_preprocessed_split(data_dir, sample_rows_per_file=20, chunksize=10, sample_strategy="head")
+    uniform = load_preprocessed_split(
+        data_dir,
+        sample_rows_per_file=20,
+        chunksize=10,
+        sample_strategy="uniform",
+        sample_seed=13,
+    )
+
+    assert set(head.train["attack_label"].unique()) == {"Benign"}
+    assert "Bot" in set(uniform.train["attack_label"].unique())
+
+
+def test_support_floor_moves_unseen_test_labels_to_train(tmp_path):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    write_day(
+        data_dir / "Friday-02-03-2018_TrafficForML_CICFlowMeter.csv",
+        [
+            {
+                "Flow Duration": idx,
+                "Tot Fwd Pkts": idx % 3,
+                "Tot Bwd Pkts": idx % 5,
+                "Init_Win_bytes_forward": 1,
+                "Label": "Bot",
+            }
+            for idx in range(12)
+        ],
+    )
+    write_day(
+        data_dir / "Friday-16-02-2018_TrafficForML_CICFlowMeter.csv",
+        [
+            {
+                "Flow Duration": idx,
+                "Tot Fwd Pkts": idx % 3,
+                "Tot Bwd Pkts": idx % 5,
+                "Init_Win_bytes_forward": 1,
+                "Label": "Benign",
+            }
+            for idx in range(12)
+        ],
+    )
+
+    strict = load_preprocessed_split(data_dir)
+    support = load_preprocessed_split(data_dir, min_train_rows_per_label=3, min_val_rows_per_label=2, sample_seed=13)
+
+    assert "Bot" not in set(strict.train["attack_label"].unique())
+    assert support.train["attack_label"].value_counts().to_dict()["Bot"] == 3
+    assert support.val["attack_label"].value_counts().to_dict()["Bot"] == 2
+    assert support.summary["support_floor_moves"][0]["attack_label"] == "Bot"
