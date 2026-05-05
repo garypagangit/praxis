@@ -1,0 +1,32 @@
+{
+  "experiment": "praxis04-stage-routing-optuna-smoke-tuned",
+  "data_dir": "data/cic-ids-2018",
+  "sample_rows_per_file": 10000,
+  "sample_strategy": "uniform",
+  "min_train_rows_per_label": 100,
+  "min_val_rows_per_label": 0,
+  "support_fraction_per_label": 0.0,
+  "chunksize": 100000,
+  "seeds": [13, 42, 137, 271, 1729],
+  "n_classes": 5,
+  "deterministic_torch": false,
+  "rf_n_estimators": 160,
+  "rf_max_depth": 12,
+  "n_jobs": 1,
+  "mlp_hidden_layers": [128],
+  "mlp_max_iter": 30,
+  "mlp_early_stopping": true,
+  "bilstm_seq_len": 4,
+  "bilstm_hidden_dim": 32,
+  "bilstm_epochs": 6,
+  "bilstm_batch_size": 256,
+  "router_epochs": 0,
+  "router_lr": 0.05,
+  "router_stage_scale": 3.903310915450115,
+  "router_init_metric": "nll",
+  "router_init_temperature": 0.12740209273986586,
+  "stage_max_iter": 100,
+  "falsification": {
+    "note": "Model-development config frozen from the 12-trial Optuna smoke. Do not treat this as a preregistered full-study config because the smoke objective used final pilot Macro-F1."
+  }
+}

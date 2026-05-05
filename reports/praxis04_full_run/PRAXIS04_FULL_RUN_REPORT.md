@@ -90,7 +90,7 @@ This local sanity run uses a 5k head sample per file, support floors, and Macro-
 |---|---|---|---|---|---|---|---|---|
 |praxis04-modeldev-support-v6-ablation-nostage|Ablation-NoStage|13|0.9961|0.0896|0.9956|0.6635|0.1226|0.9987|
 |praxis04-modeldev-support-v6-ablation-oraclestage|Ablation-OracleStage|13|0.9983|0.4635|0.9956|0.6635|0.1226|0.9987|
-|praxis04-modeldev-support-v6-baseline-single|Baseline-Single|13|0.9956|0.0000|0.9956|nan|nan|nan|
+|praxis04-modeldev-support-v6-baseline-single|Baseline-Single|13|0.9956|0.0000|0.9956||||
 |praxis04-modeldev-support-v6-baseline-tse|Baseline-TSE|13|0.9956|0.0092|0.9956|0.6635|0.1226|0.9987|
 |praxis04-modeldev-support-v6-treatment-stage|Treatment-Stage|13|0.9974|0.3504|0.9956|0.6635|0.1226|0.9987|
 
@@ -100,10 +100,10 @@ The per-sample expert oracle is only slightly above RF in the current sanity run
 
 ## 5. Optuna Tuning Plan
 
-Run:
+Smoke run:
 
 ```powershell
-.\.venv\Scripts\python.exe scripts\run_praxis04_optuna.py --base-config configs\praxis04-representative-pilot.json --n-trials 24 --seed 13 --output-root runs\praxis04-optuna
+.\.venv\Scripts\python.exe scripts\run_praxis04_optuna.py --base-config configs\praxis04-representative-pilot.json --n-trials 12 --seed 13 --output-root runs\praxis04-optuna-smoke
 ```
 
 Search space:
@@ -130,6 +130,32 @@ Code explanation:
 - Each trial writes full Praxis metrics into `runs/praxis04-optuna/trial_*/metrics.json`.
 - `tuning_space.json`, `trials.csv`, and `best_trial.json` are emitted for reproducibility.
 
+Completed 12-trial smoke, top trials:
+
+|trial|macro_f1|rf_n_estimators|rf_max_depth|mlp_hidden_layers|router_init_metric|router_epochs|min_train_rows_per_label|min_val_rows_per_label|
+|---|---|---|---|---|---|---|---|---|
+|11|0.6634|152|12.0000|[128]|nll|0|100|0|
+|10|0.6634|160|12.0000|[128]|nll|0|100|0|
+|0|0.6590|128|24.0000|[128]|nll|0|100|25|
+|7|0.6585|56|24.0000|[256, 128]|nll|30|100|50|
+|5|0.4925|144|24.0000|[128, 64]|macro_f1|30|100|10|
+|3|0.4907|32||[128, 64]|nll|30|25|10|
+|9|0.4869|96|16.0000|[128]|nll|60|50|10|
+|8|0.2807|40||[128]|nll|60|0|10|
+
+Best smoke summary:
+
+|best_trial|best_value|router_macro_f1|expert_RF_macro_f1|expert_MLP_macro_f1|expert_BiLSTM_macro_f1|expert_oracle_per_sample_macro_f1|stage_classifier_test_accuracy|router_entropy_mean|
+|---|---|---|---|---|---|---|---|---|
+|10|0.6634|0.6634|0.6428|0.6650|0.4941|0.6650|0.7384|1.0985|
+
+Key tuning finding:
+
+- The best two trials converged on the same score (`0.6634`) with strong RF settings, `nll` router initialization, `router_epochs=0`, and `min_train_rows_per_label=100`.
+- Trials with `min_train_rows_per_label=0` consistently collapsed, confirming that rare-label train support is a core model-development decision rather than a cosmetic preprocessing choice.
+- In the best trial, MLP (`0.6650` Macro-F1) slightly outperformed RF (`0.6428` Macro-F1), and the per-sample expert oracle was `0.6650`. That means there is some expert complementarity, but the router is still not beating the best single expert.
+- This smoke tuned against final pilot Macro-F1, so it is **not** a preregistered result. It is a model-development artifact used to choose a candidate config for the next 5-seed pilot.
+
 ## 6. Full Repeatable Run
 
 Representative pilot:
@@ -137,6 +163,13 @@ Representative pilot:
 ```powershell
 .\.venv\Scripts\python.exe scripts\run_praxis04_local_pilot.py --base-config configs\praxis04-representative-pilot.json --output-root runs\praxis04-representative-pilot
 .\.venv\Scripts\python.exe scripts\analyze_praxis04.py --results-dir runs\praxis04-representative-pilot --output runs\praxis04-representative-pilot\praxis04_headline_table.csv
+```
+
+Smoke-tuned 5-seed pilot:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\run_praxis04_local_pilot.py --base-config configs\praxis04-tuned-stage-router-smoke.json --output-root runs\praxis04-tuned-stage-router-smoke-5seed
+.\.venv\Scripts\python.exe scripts\analyze_praxis04.py --results-dir runs\praxis04-tuned-stage-router-smoke-5seed --output runs\praxis04-tuned-stage-router-smoke-5seed\praxis04_headline_table.csv
 ```
 
 Strict preregistered full run:
@@ -172,8 +205,8 @@ python3 scripts/submit_praxis04_sagemaker.py \
 
 - The original pilot was under-informative because the router and sampling setup hid the stage effect.
 - The revised model-dev path makes the stage signal auditable and keeps strict-vs-support-floor behavior explicit.
-- The most important scientific question now is expert complementarity. If RF dominates every class/stage, no router can produce a meaningful gain.
-- The next run should be the representative pilot plus Optuna tuning, followed by the full 5-seed run only if the pilot shows non-trivial expert diversity.
+- The 12-trial Optuna smoke found expert complementarity: MLP slightly beat RF on the tuned representative pilot, but the stage router still did not beat the best single expert.
+- The next run should be the smoke-tuned 5-seed pilot. If treatment-stage does not beat Baseline-TSE and the best single expert across seeds, the research direction should shift toward improving expert diversity before the full preregistered run.
 
 ## 9. References
 

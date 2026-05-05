@@ -79,8 +79,14 @@ def main() -> None:
     if not modeldev_df.empty:
         modeldev_df.to_csv(tables_dir / "modeldev_support_smoke.csv", index=False)
 
+    optuna_df, optuna_best = load_optuna_smoke()
+    if not optuna_df.empty:
+        optuna_df.to_csv(tables_dir / "optuna_smoke_trials.csv", index=False)
+    if optuna_best:
+        (tables_dir / "optuna_smoke_best.json").write_text(json.dumps(optuna_best, indent=2), encoding="utf-8")
+
     write_results_chart(paper_df, cloud_df, modeldev_df, REPORT_DIR / "final_results_chart.png")
-    write_report(paper_df, cloud_df, modeldev_df, REPORT_DIR / "PRAXIS04_FULL_RUN_REPORT.md")
+    write_report(paper_df, cloud_df, modeldev_df, optuna_df, optuna_best, REPORT_DIR / "PRAXIS04_FULL_RUN_REPORT.md")
     print(f"Wrote {REPORT_DIR / 'PRAXIS04_FULL_RUN_REPORT.md'}")
 
 
@@ -120,6 +126,50 @@ def load_modeldev_smoke() -> pd.DataFrame:
                 row[f"expert_{expert}_macro_f1"] = expert_metrics["macro_f1"]
         rows.append(row)
     return pd.DataFrame(rows)
+
+
+def load_optuna_smoke() -> tuple[pd.DataFrame, dict[str, object]]:
+    root = Path("runs/praxis04-optuna-smoke")
+    trials_path = root / "trials.csv"
+    best_path = root / "best_trial.json"
+    if not trials_path.exists() or not best_path.exists():
+        return pd.DataFrame(), {}
+
+    trials = pd.read_csv(trials_path)
+    selected = pd.DataFrame(
+        {
+            "trial": trials["number"],
+            "macro_f1": trials["value"],
+            "rf_n_estimators": trials.get("params_rf_n_estimators"),
+            "rf_max_depth": trials.get("params_rf_max_depth"),
+            "mlp_hidden_layers": trials.get("params_mlp_hidden_layers"),
+            "router_init_metric": trials.get("params_router_init_metric"),
+            "router_epochs": trials.get("params_router_epochs"),
+            "min_train_rows_per_label": trials.get("params_min_train_rows_per_label"),
+            "min_val_rows_per_label": trials.get("params_min_val_rows_per_label"),
+        }
+    ).sort_values("macro_f1", ascending=False)
+
+    best = json.loads(best_path.read_text(encoding="utf-8"))
+    best_trial = int(best["best_trial"])
+    metrics_path = root / f"trial_{best_trial:03d}" / "metrics.json"
+    metrics = json.loads(metrics_path.read_text(encoding="utf-8")) if metrics_path.exists() else {}
+    metric_block = metrics.get("metrics", {})
+    expert_block = metrics.get("expert_metrics", {})
+    stage_block = metrics.get("stage_signal_summary", {})
+    best_summary = {
+        "best_trial": best_trial,
+        "best_value": best.get("best_value"),
+        "best_params": best.get("best_params", {}),
+        "router_macro_f1": metric_block.get("macro_f1"),
+        "router_entropy_mean": metric_block.get("router_entropy_mean"),
+        "stage_classifier_test_accuracy": stage_block.get("stage_classifier_test_accuracy"),
+        "expert_RF_macro_f1": expert_block.get("RF", {}).get("macro_f1"),
+        "expert_MLP_macro_f1": expert_block.get("MLP", {}).get("macro_f1"),
+        "expert_BiLSTM_macro_f1": expert_block.get("BiLSTM", {}).get("macro_f1"),
+        "expert_oracle_per_sample_macro_f1": expert_block.get("oracle_per_sample_expert", {}).get("macro_f1"),
+    }
+    return selected, best_summary
 
 
 def write_results_chart(paper_df: pd.DataFrame, cloud_df: pd.DataFrame, modeldev_df: pd.DataFrame, path: Path) -> None:
@@ -166,12 +216,21 @@ def markdown_table(rows: list[dict], columns: list[str]) -> str:
 
 
 def format_cell(value) -> str:
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return ""
     if isinstance(value, float):
         return f"{value:.4f}"
     return str(value)
 
 
-def write_report(paper_df: pd.DataFrame, cloud_df: pd.DataFrame, modeldev_df: pd.DataFrame, path: Path) -> None:
+def write_report(
+    paper_df: pd.DataFrame,
+    cloud_df: pd.DataFrame,
+    modeldev_df: pd.DataFrame,
+    optuna_df: pd.DataFrame,
+    optuna_best: dict[str, object],
+    path: Path,
+) -> None:
     eda_summary = {}
     summary_path = EDA_DIR / "eda_summary.json"
     if summary_path.exists():
@@ -181,6 +240,8 @@ def write_report(paper_df: pd.DataFrame, cloud_df: pd.DataFrame, modeldev_df: pd
 
     cloud_rows = cloud_df.to_dict(orient="records") if not cloud_df.empty else []
     modeldev_rows = modeldev_df.to_dict(orient="records") if not modeldev_df.empty else []
+    optuna_rows = optuna_df.head(8).to_dict(orient="records") if not optuna_df.empty else []
+    optuna_best_rows = [optuna_best] if optuna_best else []
 
     text = f"""# Praxis 04 Full Run Report
 
@@ -267,10 +328,10 @@ The per-sample expert oracle is only slightly above RF in the current sanity run
 
 ## 5. Optuna Tuning Plan
 
-Run:
+Smoke run:
 
 ```powershell
-.\\.venv\\Scripts\\python.exe scripts\\run_praxis04_optuna.py --base-config configs\\praxis04-representative-pilot.json --n-trials 24 --seed 13 --output-root runs\\praxis04-optuna
+.\\.venv\\Scripts\\python.exe scripts\\run_praxis04_optuna.py --base-config configs\\praxis04-representative-pilot.json --n-trials 12 --seed 13 --output-root runs\\praxis04-optuna-smoke
 ```
 
 Search space:
@@ -284,6 +345,21 @@ Code explanation:
 - Each trial writes full Praxis metrics into `runs/praxis04-optuna/trial_*/metrics.json`.
 - `tuning_space.json`, `trials.csv`, and `best_trial.json` are emitted for reproducibility.
 
+Completed 12-trial smoke, top trials:
+
+{markdown_table(optuna_rows, ["trial", "macro_f1", "rf_n_estimators", "rf_max_depth", "mlp_hidden_layers", "router_init_metric", "router_epochs", "min_train_rows_per_label", "min_val_rows_per_label"])}
+
+Best smoke summary:
+
+{markdown_table(optuna_best_rows, ["best_trial", "best_value", "router_macro_f1", "expert_RF_macro_f1", "expert_MLP_macro_f1", "expert_BiLSTM_macro_f1", "expert_oracle_per_sample_macro_f1", "stage_classifier_test_accuracy", "router_entropy_mean"])}
+
+Key tuning finding:
+
+- The best two trials converged on the same score (`0.6634`) with strong RF settings, `nll` router initialization, `router_epochs=0`, and `min_train_rows_per_label=100`.
+- Trials with `min_train_rows_per_label=0` consistently collapsed, confirming that rare-label train support is a core model-development decision rather than a cosmetic preprocessing choice.
+- In the best trial, MLP (`0.6650` Macro-F1) slightly outperformed RF (`0.6428` Macro-F1), and the per-sample expert oracle was `0.6650`. That means there is some expert complementarity, but the router is still not beating the best single expert.
+- This smoke tuned against final pilot Macro-F1, so it is **not** a preregistered result. It is a model-development artifact used to choose a candidate config for the next 5-seed pilot.
+
 ## 6. Full Repeatable Run
 
 Representative pilot:
@@ -291,6 +367,13 @@ Representative pilot:
 ```powershell
 .\\.venv\\Scripts\\python.exe scripts\\run_praxis04_local_pilot.py --base-config configs\\praxis04-representative-pilot.json --output-root runs\\praxis04-representative-pilot
 .\\.venv\\Scripts\\python.exe scripts\\analyze_praxis04.py --results-dir runs\\praxis04-representative-pilot --output runs\\praxis04-representative-pilot\\praxis04_headline_table.csv
+```
+
+Smoke-tuned 5-seed pilot:
+
+```powershell
+.\\.venv\\Scripts\\python.exe scripts\\run_praxis04_local_pilot.py --base-config configs\\praxis04-tuned-stage-router-smoke.json --output-root runs\\praxis04-tuned-stage-router-smoke-5seed
+.\\.venv\\Scripts\\python.exe scripts\\analyze_praxis04.py --results-dir runs\\praxis04-tuned-stage-router-smoke-5seed --output runs\\praxis04-tuned-stage-router-smoke-5seed\\praxis04_headline_table.csv
 ```
 
 Strict preregistered full run:
@@ -326,8 +409,8 @@ python3 scripts/submit_praxis04_sagemaker.py \\
 
 - The original pilot was under-informative because the router and sampling setup hid the stage effect.
 - The revised model-dev path makes the stage signal auditable and keeps strict-vs-support-floor behavior explicit.
-- The most important scientific question now is expert complementarity. If RF dominates every class/stage, no router can produce a meaningful gain.
-- The next run should be the representative pilot plus Optuna tuning, followed by the full 5-seed run only if the pilot shows non-trivial expert diversity.
+- The 12-trial Optuna smoke found expert complementarity: MLP slightly beat RF on the tuned representative pilot, but the stage router still did not beat the best single expert.
+- The next run should be the smoke-tuned 5-seed pilot. If treatment-stage does not beat Baseline-TSE and the best single expert across seeds, the research direction should shift toward improving expert diversity before the full preregistered run.
 
 ## 9. References
 
