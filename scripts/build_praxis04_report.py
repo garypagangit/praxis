@@ -85,8 +85,30 @@ def main() -> None:
     if optuna_best:
         (tables_dir / "optuna_smoke_best.json").write_text(json.dumps(optuna_best, indent=2), encoding="utf-8")
 
+    tuned_summary, tuned_by_seed, tuned_per_class, tuned_significance = load_tuned_5seed()
+    if not tuned_summary.empty:
+        tuned_summary.to_csv(tables_dir / "tuned_5seed_summary.csv", index=False)
+        tuned_by_seed.to_csv(tables_dir / "tuned_5seed_by_seed.csv", index=False)
+        tuned_per_class.to_csv(tables_dir / "tuned_5seed_per_class.csv", index=False)
+        (tables_dir / "tuned_5seed_significance.json").write_text(
+            json.dumps(tuned_significance, indent=2),
+            encoding="utf-8",
+        )
+        write_tuned_chart(tuned_summary, REPORT_DIR / "tuned_5seed_macro_f1.png")
+
     write_results_chart(paper_df, cloud_df, modeldev_df, REPORT_DIR / "final_results_chart.png")
-    write_report(paper_df, cloud_df, modeldev_df, optuna_df, optuna_best, REPORT_DIR / "PRAXIS04_FULL_RUN_REPORT.md")
+    write_report(
+        paper_df,
+        cloud_df,
+        modeldev_df,
+        optuna_df,
+        optuna_best,
+        tuned_summary,
+        tuned_by_seed,
+        tuned_per_class,
+        tuned_significance,
+        REPORT_DIR / "PRAXIS04_FULL_RUN_REPORT.md",
+    )
     print(f"Wrote {REPORT_DIR / 'PRAXIS04_FULL_RUN_REPORT.md'}")
 
 
@@ -172,6 +194,49 @@ def load_optuna_smoke() -> tuple[pd.DataFrame, dict[str, object]]:
     return selected, best_summary
 
 
+def load_tuned_5seed() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict[str, object]]:
+    root = Path("runs/praxis04-tuned-stage-router-smoke-5seed")
+    headline_path = root / "praxis04_headline_table.csv"
+    per_class_path = root / "per_class_table.csv"
+    significance_path = root / "significance_tests.json"
+    if not headline_path.exists():
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), {}
+
+    headline = pd.read_csv(headline_path)
+    summary = (
+        headline.groupby("model", as_index=False)
+        .agg(
+            seeds=("seed", "count"),
+            macro_f1_mean=("macro_f1", "mean"),
+            macro_f1_std=("macro_f1", "std"),
+            macro_f1_min=("macro_f1", "min"),
+            macro_f1_max=("macro_f1", "max"),
+            router_entropy_mean=("router_entropy_mean", "mean"),
+        )
+        .sort_values("macro_f1_mean", ascending=False)
+    )
+    pivot = headline.pivot_table(index="seed", columns="model", values="macro_f1", aggfunc="first").reset_index()
+    if {"Treatment-Stage", "Baseline-TSE"}.issubset(pivot.columns):
+        pivot["Treatment_minus_Baseline_TSE"] = pivot["Treatment-Stage"] - pivot["Baseline-TSE"]
+    if {"Treatment-Stage", "Baseline-Single"}.issubset(pivot.columns):
+        pivot["Treatment_minus_RF"] = pivot["Treatment-Stage"] - pivot["Baseline-Single"]
+    if {"Ablation-OracleStage", "Treatment-Stage"}.issubset(pivot.columns):
+        pivot["Oracle_minus_Treatment"] = pivot["Ablation-OracleStage"] - pivot["Treatment-Stage"]
+
+    if per_class_path.exists():
+        per_class_raw = pd.read_csv(per_class_path)
+        per_class = (
+            per_class_raw.groupby(["model", "class_name"], as_index=False)
+            .agg(seeds=("seed", "count"), f1_mean=("f1", "mean"), f1_min=("f1", "min"), f1_max=("f1", "max"))
+            .sort_values(["class_name", "model"])
+        )
+    else:
+        per_class = pd.DataFrame()
+
+    significance = json.loads(significance_path.read_text(encoding="utf-8")) if significance_path.exists() else {}
+    return summary, pivot, per_class, significance
+
+
 def write_results_chart(paper_df: pd.DataFrame, cloud_df: pd.DataFrame, modeldev_df: pd.DataFrame, path: Path) -> None:
     import matplotlib.pyplot as plt
 
@@ -206,6 +271,20 @@ def write_results_chart(paper_df: pd.DataFrame, cloud_df: pd.DataFrame, modeldev
     plt.close(fig)
 
 
+def write_tuned_chart(summary: pd.DataFrame, path: Path) -> None:
+    import matplotlib.pyplot as plt
+
+    plot_df = summary.sort_values("macro_f1_mean", ascending=True)
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.barh(plot_df["model"], plot_df["macro_f1_mean"] * 100, xerr=plot_df["macro_f1_std"].fillna(0) * 100)
+    ax.set_xlabel("Macro-F1 (%)")
+    ax.set_title("Praxis 04 Smoke-Tuned 5-Seed Pilot")
+    ax.set_xlim(max(0, (plot_df["macro_f1_mean"].min() - 0.08) * 100), min(100, (plot_df["macro_f1_mean"].max() + 0.06) * 100))
+    fig.tight_layout()
+    fig.savefig(path, dpi=180)
+    plt.close(fig)
+
+
 def markdown_table(rows: list[dict], columns: list[str]) -> str:
     if not rows:
         return "_No rows available._"
@@ -229,6 +308,10 @@ def write_report(
     modeldev_df: pd.DataFrame,
     optuna_df: pd.DataFrame,
     optuna_best: dict[str, object],
+    tuned_summary: pd.DataFrame,
+    tuned_by_seed: pd.DataFrame,
+    tuned_per_class: pd.DataFrame,
+    tuned_significance: dict[str, object],
     path: Path,
 ) -> None:
     eda_summary = {}
@@ -242,6 +325,25 @@ def write_report(
     modeldev_rows = modeldev_df.to_dict(orient="records") if not modeldev_df.empty else []
     optuna_rows = optuna_df.head(8).to_dict(orient="records") if not optuna_df.empty else []
     optuna_best_rows = [optuna_best] if optuna_best else []
+    tuned_summary_rows = tuned_summary.to_dict(orient="records") if not tuned_summary.empty else []
+    tuned_seed_rows = tuned_by_seed.to_dict(orient="records") if not tuned_by_seed.empty else []
+    tuned_rare_rows = []
+    if not tuned_per_class.empty:
+        tuned_rare_rows = tuned_per_class[
+            tuned_per_class["class_name"].isin(["Infilteration", "Brute Force -Web", "SSH-Bruteforce"])
+        ].to_dict(orient="records")
+    significance_rows = []
+    treatment_vs_baseline = tuned_significance.get("macro_f1_treatment_vs_baseline_tse", {})
+    if treatment_vs_baseline:
+        significance_rows = [
+            {
+                "comparison": "Treatment-Stage vs Baseline-TSE",
+                "observed_delta": treatment_vs_baseline.get("observed_delta"),
+                "p_value_one_sided": treatment_vs_baseline.get("p_value_one_sided_treatment_gt_baseline"),
+                "ci_low": treatment_vs_baseline.get("ci_low"),
+                "ci_high": treatment_vs_baseline.get("ci_high"),
+            }
+        ]
 
     text = f"""# Praxis 04 Full Run Report
 
@@ -376,6 +478,32 @@ Smoke-tuned 5-seed pilot:
 .\\.venv\\Scripts\\python.exe scripts\\analyze_praxis04.py --results-dir runs\\praxis04-tuned-stage-router-smoke-5seed --output runs\\praxis04-tuned-stage-router-smoke-5seed\\praxis04_headline_table.csv
 ```
 
+Completed smoke-tuned 5-seed results:
+
+![Smoke-tuned 5-seed Macro-F1](tuned_5seed_macro_f1.png)
+
+{markdown_table(tuned_summary_rows, ["model", "seeds", "macro_f1_mean", "macro_f1_std", "macro_f1_min", "macro_f1_max", "router_entropy_mean"])}
+
+Paired treatment comparison:
+
+{markdown_table(significance_rows, ["comparison", "observed_delta", "p_value_one_sided", "ci_low", "ci_high"])}
+
+Per-seed deltas:
+
+{markdown_table(tuned_seed_rows, ["seed", "Baseline-Single", "Baseline-TSE", "Treatment-Stage", "Ablation-NoStage", "Ablation-OracleStage", "Treatment_minus_Baseline_TSE", "Treatment_minus_RF", "Oracle_minus_Treatment"])}
+
+Rare-class check:
+
+{markdown_table(tuned_rare_rows, ["model", "class_name", "seeds", "f1_mean", "f1_min", "f1_max"])}
+
+Pilot conclusion:
+
+- H1 is falsified for this smoke-tuned architecture: Treatment-Stage mean Macro-F1 (`0.5981`) is below Baseline-TSE (`0.6313`) and below RF-only (`0.6438`).
+- H2 is also falsified: router entropy remains near `ln(3) = 1.0986`, so the router is not concentrating trust by stage.
+- Oracle-stage does not improve over Baseline-TSE or NoStage, so the issue is not merely weak stage prediction. True stage labels do not unlock a better router here.
+- The rare-stage objective fails: Infilteration remains at F1 `0.0` for every model. The staged router does not recover the held-out rare class.
+- The right next scientific move is **not** the expensive full preregistered run. The current path should stop as a negative routing result and pivot toward expert diversity / rare-class modeling.
+
 Strict preregistered full run:
 
 ```powershell
@@ -409,8 +537,9 @@ python3 scripts/submit_praxis04_sagemaker.py \\
 
 - The original pilot was under-informative because the router and sampling setup hid the stage effect.
 - The revised model-dev path makes the stage signal auditable and keeps strict-vs-support-floor behavior explicit.
-- The 12-trial Optuna smoke found expert complementarity: MLP slightly beat RF on the tuned representative pilot, but the stage router still did not beat the best single expert.
-- The next run should be the smoke-tuned 5-seed pilot. If treatment-stage does not beat Baseline-TSE and the best single expert across seeds, the research direction should shift toward improving expert diversity before the full preregistered run.
+- The 12-trial Optuna smoke found limited expert complementarity, but the 5-seed pilot showed that stage routing does not survive replication.
+- The clean conclusion is a useful negative result: for this CIC-IDS2018 split, feature set, experts, and static calibrated router, per-stage routing adds no defensible benefit.
+- Further work should target rare-class/expert design before re-testing routing: stronger sequence models, calibrated rare-class losses, explicit Infilteration support, and validation-objective tuning instead of final-pilot tuning.
 
 ## 9. References
 

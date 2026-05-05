@@ -172,6 +172,57 @@ Smoke-tuned 5-seed pilot:
 .\.venv\Scripts\python.exe scripts\analyze_praxis04.py --results-dir runs\praxis04-tuned-stage-router-smoke-5seed --output runs\praxis04-tuned-stage-router-smoke-5seed\praxis04_headline_table.csv
 ```
 
+Completed smoke-tuned 5-seed results:
+
+![Smoke-tuned 5-seed Macro-F1](tuned_5seed_macro_f1.png)
+
+|model|seeds|macro_f1_mean|macro_f1_std|macro_f1_min|macro_f1_max|router_entropy_mean|
+|---|---|---|---|---|---|---|
+|Baseline-Single|5|0.6438|0.0016|0.6425|0.6456|0.0000|
+|Ablation-NoStage|5|0.6313|0.0742|0.4986|0.6652|1.0959|
+|Ablation-OracleStage|5|0.6313|0.0742|0.4986|0.6652|1.0986|
+|Baseline-TSE|5|0.6313|0.0742|0.4986|0.6652|1.0985|
+|Treatment-Stage|5|0.5981|0.0910|0.4982|0.6652|1.0984|
+
+Paired treatment comparison:
+
+|comparison|observed_delta|p_value_one_sided|ci_low|ci_high|
+|---|---|---|---|---|
+|Treatment-Stage vs Baseline-TSE|-0.0332|1.0000|-0.0997|0.0000|
+
+Per-seed deltas:
+
+|seed|Baseline-Single|Baseline-TSE|Treatment-Stage|Ablation-NoStage|Ablation-OracleStage|Treatment_minus_Baseline_TSE|Treatment_minus_RF|Oracle_minus_Treatment|
+|---|---|---|---|---|---|---|---|---|
+|13|0.6428|0.6634|0.6634|0.6634|0.6634|0.0000|0.0206|0.0000|
+|42|0.6455|0.6652|0.6652|0.6652|0.6652|0.0000|0.0197|0.0000|
+|137|0.6456|0.6644|0.4982|0.6644|0.6644|-0.1661|-0.1474|0.1661|
+|271|0.6425|0.6648|0.6648|0.6650|0.6648|0.0000|0.0223|0.0000|
+|1729|0.6427|0.4986|0.4986|0.4986|0.4986|-0.0000|-0.1442|0.0000|
+
+Rare-class check:
+
+|model|class_name|seeds|f1_mean|f1_min|f1_max|
+|---|---|---|---|---|---|
+|Treatment-Stage|Brute Force -Web|1|0.0000|0.0000|0.0000|
+|Ablation-NoStage|Infilteration|5|0.0000|0.0000|0.0000|
+|Ablation-OracleStage|Infilteration|5|0.0000|0.0000|0.0000|
+|Baseline-Single|Infilteration|5|0.0000|0.0000|0.0000|
+|Baseline-TSE|Infilteration|5|0.0000|0.0000|0.0000|
+|Treatment-Stage|Infilteration|5|0.0000|0.0000|0.0000|
+|Ablation-NoStage|SSH-Bruteforce|1|0.0000|0.0000|0.0000|
+|Ablation-OracleStage|SSH-Bruteforce|1|0.0000|0.0000|0.0000|
+|Baseline-TSE|SSH-Bruteforce|1|0.0000|0.0000|0.0000|
+|Treatment-Stage|SSH-Bruteforce|1|0.0000|0.0000|0.0000|
+
+Pilot conclusion:
+
+- H1 is falsified for this smoke-tuned architecture: Treatment-Stage mean Macro-F1 (`0.5981`) is below Baseline-TSE (`0.6313`) and below RF-only (`0.6438`).
+- H2 is also falsified: router entropy remains near `ln(3) = 1.0986`, so the router is not concentrating trust by stage.
+- Oracle-stage does not improve over Baseline-TSE or NoStage, so the issue is not merely weak stage prediction. True stage labels do not unlock a better router here.
+- The rare-stage objective fails: Infilteration remains at F1 `0.0` for every model. The staged router does not recover the held-out rare class.
+- The right next scientific move is **not** the expensive full preregistered run. The current path should stop as a negative routing result and pivot toward expert diversity / rare-class modeling.
+
 Strict preregistered full run:
 
 ```powershell
@@ -205,8 +256,9 @@ python3 scripts/submit_praxis04_sagemaker.py \
 
 - The original pilot was under-informative because the router and sampling setup hid the stage effect.
 - The revised model-dev path makes the stage signal auditable and keeps strict-vs-support-floor behavior explicit.
-- The 12-trial Optuna smoke found expert complementarity: MLP slightly beat RF on the tuned representative pilot, but the stage router still did not beat the best single expert.
-- The next run should be the smoke-tuned 5-seed pilot. If treatment-stage does not beat Baseline-TSE and the best single expert across seeds, the research direction should shift toward improving expert diversity before the full preregistered run.
+- The 12-trial Optuna smoke found limited expert complementarity, but the 5-seed pilot showed that stage routing does not survive replication.
+- The clean conclusion is a useful negative result: for this CIC-IDS2018 split, feature set, experts, and static calibrated router, per-stage routing adds no defensible benefit.
+- Further work should target rare-class/expert design before re-testing routing: stronger sequence models, calibrated rare-class losses, explicit Infilteration support, and validation-objective tuning instead of final-pilot tuning.
 
 ## 9. References
 
