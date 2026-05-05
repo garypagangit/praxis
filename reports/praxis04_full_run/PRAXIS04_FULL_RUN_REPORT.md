@@ -29,6 +29,8 @@ Key dataset finding:
 
 The CIC-IDS2018 files are strongly day- and label-confounded. A strict holdout of `Friday-02-03-2018` puts `Bot` in test while the early pilot had no `Bot` support in train or router validation. That makes the strict pilot useful as a hard generalization stress test, but not sufficient for tuning a multi-class router. For model development we added explicit support-floor settings, and they are written into the run summary so the decision is auditable.
 
+Important correction from the rare-class pivot: `Infilteration` is concentrated on `Thursday-01-03-2018` and `Wednesday-28-02-2018`, not `Friday-02-03-2018`. The smoke-tuned 5-seed run held out `02-03-2018`, which produced a valid `Bot` stress test but did not contain true `Infilteration` rows after sampling. The `Infilteration F1 = 0.0` rows in that run are therefore an unsupported-label artifact, not a fair rare-stage estimate.
+
 ## 2. Feature and Resampling Decisions
 
 Feature handling:
@@ -219,9 +221,8 @@ Pilot conclusion:
 
 - H1 is falsified for this smoke-tuned architecture: Treatment-Stage mean Macro-F1 (`0.5981`) is below Baseline-TSE (`0.6313`) and below RF-only (`0.6438`).
 - H2 is also falsified: router entropy remains near `ln(3) = 1.0986`, so the router is not concentrating trust by stage.
-- Oracle-stage does not improve over Baseline-TSE or NoStage, so the issue is not merely weak stage prediction. True stage labels do not unlock a better router here.
-- The rare-stage objective fails: Infilteration remains at F1 `0.0` for every model. The staged router does not recover the held-out rare class.
-- The right next scientific move is **not** the expensive full preregistered run. The current path should stop as a negative routing result and pivot toward expert diversity / rare-class modeling.
+- On the `02-03-2018` smoke split, Oracle-stage does not improve over Baseline-TSE or NoStage. That split is still useful as a `Bot` transfer stress test, but it is not an `Infilteration` rare-stage test.
+- The right next scientific move is **not** the expensive full preregistered run. The current path should stop as a negative routing result and pivot toward stage-prediction quality plus rare-class/expert modeling.
 
 Strict preregistered full run:
 
@@ -239,7 +240,46 @@ python3 scripts/submit_praxis04_sagemaker.py \
   --wait
 ```
 
-## 7. Experiment Steps
+## 7. Rare-Day Pivot
+
+Reason for pivot:
+
+The first 5-seed conclusion was too harsh on `Infilteration` because the selected holdout day did not actually test true `Infilteration` rows. I reran a targeted seed-13 pivot with `28-02-2018` held out, `01-03-2018` left in train, no support-floor leakage, and 10k uniform rows per file. The held-out sample contained `8,919` Benign and `1,081` Infilteration rows.
+
+Repeatable commands:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\run_praxis04_rare_class_pivot.py --seeds 13 --output-root runs\praxis04-rare-class-pivot-seed13
+.\.venv\Scripts\python.exe scripts\run_praxis04_rare_class_pivot.py --seeds 13 --output-root runs\praxis04-rare-class-pivot-router80-seed13 --router-epochs 80 --name-suffix _router80 --variants praxis04-rare28-baseline-tse praxis04-rare28-treatment-stage praxis04-rare28-oracle-stage
+.\.venv\Scripts\python.exe scripts\run_praxis04_rare_class_pivot.py --seeds 13 --output-root runs\praxis04-rare-class-pivot-stage-rf-seed13 --router-epochs 80 --stage-classifier-model rf --stage-class-weight balanced --stage-rf-n-estimators 160 --name-suffix _router80_stageRF --variants praxis04-rare28-treatment-stage
+.\.venv\Scripts\python.exe scripts\run_praxis04_rare_class_pivot.py --seeds 13 --output-root runs\praxis04-rare-class-pivot-stage-logit-balanced-seed13 --router-epochs 80 --stage-classifier-model logistic --stage-class-weight balanced --stage-max-iter 500 --name-suffix _router80_stageLogitBalanced --variants praxis04-rare28-treatment-stage
+.\.venv\Scripts\python.exe scripts\summarize_praxis04_rare_pivot.py --run-roots runs\praxis04-rare-class-pivot-seed13 runs\praxis04-rare-class-pivot-router80-seed13 runs\praxis04-rare-class-pivot-stage-rf-seed13 runs\praxis04-rare-class-pivot-stage-logit-balanced-seed13 --output-dir reports\praxis04_full_run
+```
+
+Rare-day chart:
+
+![Rare-day pivot](rare_day_pivot_seed13.png)
+
+Key rows:
+
+|model/config|supported Macro-F1|Infilteration F1|Benign F1|stage test acc|router entropy|
+|---|---|---|---|---|---|
+|Static Treatment-Stage|0.5012|0.1518|0.8507|0.7966|1.0985|
+|Static Baseline-TSE|0.5012|0.1518|0.8507||1.0985|
+|Single RF|0.4022|0.2125|0.5920||0.0000|
+|Trained Baseline-TSE router80|0.4372|0.1762|0.6982||0.0560|
+|Trained Treatment-Stage router80|0.4127|0.2121|0.6133|0.7966|0.0747|
+|Treatment router80 + RF stage head|0.4739|0.2112|0.7367|0.7640|0.2425|
+|Treatment router80 + balanced logistic stage head|0.4111|0.2125|0.6097|0.3762|0.0746|
+|OracleStage router80|0.7173|0.5157|0.9189||0.0922|
+
+Rare-day finding:
+
+Oracle-stage routing is no longer flat when the test day actually contains `Infilteration`: with a trained router and ground-truth stage labels, `Infilteration F1` rises to `0.5157` and supported Macro-F1 rises to `0.7173`. That is the strongest evidence that the conditional routing idea has an upper bound worth caring about.
+
+The real Treatment-Stage model does not reach that upper bound. The predicted-stage version stays near RF-level `Infilteration F1` (`0.2121`) and loses a lot of Benign F1. The default stage classifier reaches only `0.7966` test accuracy on this day; a balanced RF stage head (`0.7640`) and balanced logistic stage head (`0.3762`) do not fix the bottleneck. The conclusion is therefore specific and useful: **per-stage routing is not validated yet, but oracle-stage success shows the next bottleneck is stage prediction under day shift, not the routing idea in isolation.**
+
+## 8. Experiment Steps
 
 1. Download CSE-CIC-IDS2018 processed CSVs and write SHA-256 manifest.
 2. Run EDA and verify class/day/stage imbalance.
@@ -252,15 +292,15 @@ python3 scripts/submit_praxis04_sagemaker.py \
 9. Aggregate Macro-F1, per-class F1, AUPRC, FPR@95 benign recall, router entropy, and expert diagnostics.
 10. Use paired bootstrap across seeds for treatment-vs-baseline comparisons.
 
-## 8. Current Interpretation
+## 9. Current Interpretation
 
 - The original pilot was under-informative because the router and sampling setup hid the stage effect.
 - The revised model-dev path makes the stage signal auditable and keeps strict-vs-support-floor behavior explicit.
 - The 12-trial Optuna smoke found limited expert complementarity, but the 5-seed pilot showed that stage routing does not survive replication.
-- The clean conclusion is a useful negative result: for this CIC-IDS2018 split, feature set, experts, and static calibrated router, per-stage routing adds no defensible benefit.
-- Further work should target rare-class/expert design before re-testing routing: stronger sequence models, calibrated rare-class losses, explicit Infilteration support, and validation-objective tuning instead of final-pilot tuning.
+- The clean conclusion is a useful conditional negative result: the current predicted-stage router adds no defensible benefit, but oracle-stage routing can help on the actual `Infilteration` day.
+- Further work should target stage-prediction robustness before re-testing routing: stage-head models trained against day shift, calibrated binary `Lateral Movement` detection, and expert losses that preserve Benign precision while improving `Infilteration` recall.
 
-## 9. References
+## 10. References
 
 - Wu et al., TSE-APT, MDPI Electronics 14(15), 2025: https://www.mdpi.com/2079-9292/14/15/2924
 - CSE-CIC-IDS2018 AWS Open Data: https://registry.opendata.aws/cse-cic-ids2018/

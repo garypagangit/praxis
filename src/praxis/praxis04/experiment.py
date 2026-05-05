@@ -30,6 +30,8 @@ def run_experiment(config: dict[str, Any], output_dir: str | Path) -> dict[str, 
         chunksize=int(config.get("chunksize", 200_000)),
         sample_seed=seed,
         sample_strategy=str(config.get("sample_strategy", "head")),
+        holdout_day_pattern=str(config.get("holdout_day_pattern", "02-03-2018")),
+        val_fraction_of_train_days=float(config.get("val_fraction_of_train_days", 0.2)),
         min_train_rows_per_label=int(config.get("min_train_rows_per_label", 0)),
         min_val_rows_per_label=int(config.get("min_val_rows_per_label", 0)),
         support_fraction_per_label=float(config.get("support_fraction_per_label", 0.0)),
@@ -37,7 +39,8 @@ def run_experiment(config: dict[str, Any], output_dir: str | Path) -> dict[str, 
     matrices = split_to_matrices(split)
 
     expert_names, expert_train, expert_val, expert_test = train_experts(config, matrices)
-    if config["model"] == "Baseline-Single":
+    single_expert = config["model"] == "Baseline-Single" or len(expert_names) == 1
+    if single_expert:
         y_proba = expert_test[:, 0, :]
         gates = np.ones((len(matrices.x_test), 1), dtype=np.float32)
     else:
@@ -103,7 +106,7 @@ def run_experiment(config: dict[str, Any], output_dir: str | Path) -> dict[str, 
         "expert_metrics": expert_diagnostics(matrices.y_test, expert_test, expert_names, matrices.label_names),
         "metrics": metrics,
     }
-    if config["model"] != "Baseline-Single":
+    if not single_expert:
         payload["stage_signal_summary"] = stage_summary
 
     write_json(output_path / "metrics.json", payload)
@@ -185,7 +188,17 @@ def build_router_inputs(
     stage_dim = 0
 
     if "predicted_stage_logits" in mode:
-        clf = StageClassifier({"seed": seed, "max_iter": int(config.get("stage_max_iter", 200))})
+        clf = StageClassifier(
+            {
+                "seed": seed,
+                "model_type": config.get("stage_classifier_model", "logistic"),
+                "max_iter": int(config.get("stage_max_iter", 200)),
+                "class_weight": config.get("stage_class_weight", None),
+                "n_estimators": int(config.get("stage_rf_n_estimators", 160)),
+                "max_depth": config.get("stage_rf_max_depth", None),
+                "n_jobs": int(config.get("n_jobs", 1)),
+            }
+        )
         clf.fit(matrices.x_train, matrices.stage_train)
         train_stage = align_proba(clf.predict_proba(matrices.x_train), clf.model.classes_, len(matrices.stage_names))
         val_stage = (

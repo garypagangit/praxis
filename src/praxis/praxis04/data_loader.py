@@ -302,7 +302,10 @@ def temporal_day_split(
         test_days = days[-max(1, int(round(len(days) * 0.2))) :]
 
     remaining_days = [day for day in days if day not in set(test_days)]
-    val_count = max(1, int(round(len(remaining_days) * val_fraction_of_train_days))) if len(remaining_days) > 1 else 0
+    if len(remaining_days) > 1 and val_fraction_of_train_days > 0:
+        val_count = max(1, int(round(len(remaining_days) * val_fraction_of_train_days)))
+    else:
+        val_count = 0
     val_days = remaining_days[-val_count:] if val_count else []
     train_days = [day for day in remaining_days if day not in set(val_days)]
 
@@ -404,6 +407,8 @@ def load_preprocessed_split(
     chunksize: int = 200_000,
     sample_seed: int = 42,
     sample_strategy: str = "head",
+    holdout_day_pattern: str = "02-03-2018",
+    val_fraction_of_train_days: float = 0.2,
     min_train_rows_per_label: int = 0,
     min_val_rows_per_label: int = 0,
     support_fraction_per_label: float = 0.0,
@@ -419,6 +424,8 @@ def load_preprocessed_split(
     enriched = add_stage_columns(cleaned)
     split = temporal_day_split(
         enriched,
+        val_fraction_of_train_days=val_fraction_of_train_days,
+        holdout_day_pattern=holdout_day_pattern,
         min_train_rows_per_label=min_train_rows_per_label,
         min_val_rows_per_label=min_val_rows_per_label,
         support_fraction_per_label=support_fraction_per_label,

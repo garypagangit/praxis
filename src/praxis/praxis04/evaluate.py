@@ -41,6 +41,14 @@ def classification_metrics(
     output: dict[str, Any] = {
         "macro_f1": float(f1_score(y_true, y_pred, average="macro", zero_division=0)),
         "per_class_f1": {names[class_id] if class_id < len(names) else str(class_id): float(value) for class_id, value in zip(class_ids, per_class)},
+        "per_class_support": {
+            names[class_id] if class_id < len(names) else str(class_id): int((y_true == class_id).sum())
+            for class_id in class_ids
+        },
+        "per_class_predicted": {
+            names[class_id] if class_id < len(names) else str(class_id): int((y_pred == class_id).sum())
+            for class_id in class_ids
+        },
     }
 
     if y_proba is not None:
