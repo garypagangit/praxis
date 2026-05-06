@@ -1,6 +1,6 @@
 # Praxis 05 Phase A Status
 
-Status: local Phase A runway complete; full pre-registered Phase A not yet run.
+Status: local Phase A runway complete; full pre-registered Phase A is cloud-ready but not submitted from this machine because Hugging Face auth is missing.
 
 ## Bottom Line
 
@@ -130,7 +130,39 @@ The frozen formal Phase A remains:
 - Train vectors: up to `10,000,000`
 - Seeds: `[13, 42, 137, 271, 1729]`
 
-This is a GPU job. Running it on this CPU session would be slow and would not be the cleanest evidence path. If it passes, proceed to Phase B. If it fails feature death again, the correct next step is the one allowed PIDSMaker pivot to a larger-hidden-state model, not manual threshold moving.
+This is a GPU job. A formal seed was attempted locally on CPU after patching the SAE evaluator to stream batches instead of materializing the full activation x feature matrix. The job timed out before completing seed `13`, confirming that local CPU is the wrong execution path.
+
+Cloud runner files:
+
+- `jobs/praxis05/hf_phase_a_full_magic.py`
+- `scripts/submit_praxis05_hf_jobs.ps1`
+
+The Hugging Face Jobs CLI is available in the clean Praxis 5 venv at:
+
+```powershell
+$env:USERPROFILE\.venvs\praxis05\Scripts\hf.exe
+```
+
+Cloud submission currently fails only because this machine is not logged into Hugging Face:
+
+```text
+Error: Not logged in. Run 'hf auth login' first.
+```
+
+Mobile-friendly launch sequence after logging in:
+
+```powershell
+& "$env:USERPROFILE\.venvs\praxis05\Scripts\hf.exe" auth login
+
+.\scripts\submit_praxis05_hf_jobs.ps1 `
+  -OutputRepo "<your-hf-username>/praxis05-phase-a-full-magic" `
+  -Flavor "a10g-large" `
+  -Timeout "12h"
+```
+
+The job clones this repository and MAGIC, reruns the MAGIC CADETS quick-eval gate, extracts real CADETS train activations, trains the frozen 5-seed/4096-feature/20000-step SAEs on GPU, runs the kill-switch diagnostics, and uploads `summary.json`, `diagnostics.json`, the activation-cache manifest, config, and a zipped run bundle to the requested Hugging Face dataset repo.
+
+If the full GPU Phase A passes, proceed to Phase B. If it fails feature death again, the correct next step is the one allowed PIDSMaker pivot to a larger-hidden-state model, not manual threshold moving.
 
 ## Current Recommendation
 
@@ -141,4 +173,3 @@ Next best actions, in order:
 1. Run the full pre-registered Phase A on GPU.
 2. If full MAGIC Phase A fails, pivot once to PIDSMaker with a larger hidden state.
 3. If the pivot also fails, write the negative-result note: current provenance-graph APT detector embeddings may be too compressed for MI-style TopK SAE decomposition.
-

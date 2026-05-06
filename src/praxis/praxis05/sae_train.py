@@ -74,14 +74,13 @@ def train_saelens_topk(config: dict[str, Any], cache_dir: str | Path, output_dir
     trained_sae = trainer.fit()
     trained_sae.eval()
 
-    eval_x = x.to(device)
-    with torch.no_grad():
-        recon = trained_sae(eval_x).detach().cpu()
-        acts = trained_sae.encode(eval_x).detach().cpu()
-    x_cpu = x.cpu()
-    reconstruction_mse = float(torch.mean((recon - x_cpu) ** 2).item())
-    mean_baseline_mse = float(torch.mean((x_cpu - x_cpu.mean(dim=0, keepdim=True)) ** 2).item())
-    feature_counts = (acts > 0).sum(dim=0).cpu()
+    reconstruction_mse, mean_baseline_mse, feature_counts = _evaluate_saelens_sae_batched(
+        trained_sae,
+        x,
+        device,
+        n_features,
+        int(config.get("eval_batch_size", batch_size)),
+    )
     death_rate = float((feature_counts == 0).float().mean().item())
     decoder_weight = trained_sae.W_dec.detach().cpu().contiguous()
 
@@ -113,6 +112,35 @@ def _cyclic_tensor_batches(x: torch.Tensor, batch_size: int, seed: int):
     while True:
         for indexes in torch.randperm(len(x), generator=generator).split(batch_size):
             yield x[indexes]
+
+
+def _evaluate_saelens_sae_batched(
+    trained_sae: Any,
+    x: torch.Tensor,
+    device: str,
+    n_features: int,
+    batch_size: int,
+) -> tuple[float, float, torch.Tensor]:
+    x_cpu = x.cpu()
+    baseline_mean = x_cpu.mean(dim=0, keepdim=True)
+    total_recon_sse = 0.0
+    total_baseline_sse = 0.0
+    total_elements = 0
+    feature_counts = torch.zeros(n_features, dtype=torch.long)
+
+    with torch.no_grad():
+        for xb in x_cpu.split(batch_size):
+            xb_device = xb.to(device)
+            recon = trained_sae(xb_device).detach().cpu()
+            acts = trained_sae.encode(xb_device).detach().cpu()
+            total_recon_sse += float(torch.sum((recon - xb) ** 2).item())
+            total_baseline_sse += float(torch.sum((xb - baseline_mean) ** 2).item())
+            total_elements += int(xb.numel())
+            feature_counts += (acts > 0).sum(dim=0).to(dtype=torch.long)
+
+    reconstruction_mse = total_recon_sse / max(total_elements, 1)
+    mean_baseline_mse = total_baseline_sse / max(total_elements, 1)
+    return reconstruction_mse, mean_baseline_mse, feature_counts
 
 
 def train_torch_topk_smoke(config: dict[str, Any], cache_dir: str | Path, output_dir: str | Path, seed: int) -> dict[str, Any]:
