@@ -1,0 +1,24 @@
+{
+  "name": "praxis05-phase-a-local-real-pilot",
+  "backend": "saelens",
+  "saelens_version": "6.43.0",
+  "sae_type": "topk",
+  "k": 32,
+  "expansion_factor": 16,
+  "n_features": 1024,
+  "batch_size": 1024,
+  "learning_rate": 0.0003,
+  "steps": 1000,
+  "max_train_vectors": 20000,
+  "seeds": [13, 42, 137, 271, 1729],
+  "diagnostics": {
+    "mse_ratio_pass_max": 0.25,
+    "death_rate_pass_max": 0.5,
+    "seed_stability_top_k": 100,
+    "seed_stability_cosine_threshold": 0.8,
+    "seed_stability_pass_min": 0.3
+  },
+  "phase_a_only": true,
+  "pilot_only": true,
+  "notes": "Local CPU smoke of the real SAELens backend on real MAGIC activations. Not a substitute for the pre-registered 4096-feature/20000-step Phase A sweep."
+}

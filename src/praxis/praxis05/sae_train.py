@@ -64,6 +64,7 @@ def train_saelens_topk(config: dict[str, Any], cache_dir: str | Path, output_dir
         total_training_samples=total_training_samples,
         train_batch_size_samples=batch_size,
         lr=float(config.get("learning_rate", 3e-4)),
+        lr_end=float(config.get("learning_rate_end", config.get("learning_rate", 3e-4))),
         device=device,
         n_checkpoints=0,
         save_final_checkpoint=False,
