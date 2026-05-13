@@ -45,11 +45,26 @@ Reason:
 - Manual Cadets labels can work only if tied to source truth, but that may become a small bespoke subset.
 - OpTC has a public ground-truth artifact and a larger enterprise-style setting, which is better aligned with defensible provenance detector claims.
 
+## 2026-05-13 Feasibility Check
+
+The first OpTC metadata check is complete:
+
+| Artifact | Result |
+|---|---|
+| Local metadata | `external/datasets/optc/README.md`, `ecar.md`, and `OpTCRedTeamGroundTruth.pdf` are present locally and ignored from Git. |
+| Ground-truth parser | `scripts/build_optc_ground_truth_seed_manifest.py` extracts timestamped seed events from the red-team PDF. |
+| Seed manifest report | `reports/provenance_architecture/OPTC_GROUND_TRUTH_SEED_MANIFEST_20260513.md` |
+| Timestamped red-team events | `101` |
+| Covered days | `Plain PowerShell Empire`, `Custom Powershell Empire`, `Malicious Upgrade` |
+| Unique normalized host mentions | `30` |
+
+Decision: OpTC remains the best first provenance-label path. It now has a concrete seed manifest, but it is still not detector-ready until eCAR host events are attached to windows.
+
 ## Half-Day Investigation Plan
 
 | Step | Action | Pass condition |
 |---:|---|---|
-| 1 | Fetch OpTC metadata and ground-truth document, not full data yet. | Ground-truth intervals can be converted to `start_ns,end_ns,label`. |
+| 1 | Fetch OpTC metadata and ground-truth document, not full data yet. | **Done.** Ground-truth seed timestamps were extracted. |
 | 2 | Identify the smallest host/time subset containing both benign and red-team intervals. | Expected `>=20` benign and `>=20` attack windows after windowing. |
 | 3 | Map OpTC eCAR fields to the existing window factory schema. | Event type, process/exec, subject/object ids, timestamp available. |
 | 4 | Run a 1-host or 1-day smoke conversion. | Windows/features generated without schema hacks. |

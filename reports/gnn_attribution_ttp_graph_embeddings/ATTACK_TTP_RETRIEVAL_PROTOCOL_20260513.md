@@ -34,6 +34,8 @@ From `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_GRAPHSAGE_PILOT_20
 
 Decision: keep overlap/SVD retrieval. Do not claim GraphSAGE yet.
 
+The refresh in `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_BASELINE_REFRESH_20260513.md` reproduced the same headline values and keeps the gate open for this narrow protocol.
+
 ## Data
 
 Primary data:

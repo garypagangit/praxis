@@ -1,0 +1,141 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{enumitem}
+
+\title{Selective Test-Time Adaptation for Streaming APT Stage Detection Under Source-File Shift}
+\author{Praxis 06 Draft}
+\date{May 13, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Advanced persistent threat detectors face source-file and temporal shift, especially for rare attack stages such as Reconnaissance.
+This paper evaluates a narrow, safety-constrained form of no-label test-time adaptation for streaming APT stage detection.
+The method adapts batch-normalization statistics at test time but applies a validation-selected selective gate that preserves confident Data Exfiltration predictions and only overrides a small fraction of uncertain rows.
+On the locked Unraveled held-out source-file split, selective TTA improves Macro-F1 from 0.7685 to 0.8658 and Reconnaissance F1 from 0.0250 to 0.5050, with an override rate of 4.7 percent.
+A matched-rate confidence rejection baseline does not explain the result: it leaves Reconnaissance F1 at 0.0000.
+The claim is intentionally narrow: this is an operating-point and decision-policy improvement under a locked split, not a general proof that TTA improves all APT datasets.
+\end{abstract}
+
+\section{Introduction}
+
+APT detection systems must operate under source-file, host, and temporal shift.
+Rare stages are the most fragile part of this setting: a detector may have useful probability rankings overall while still failing the operational decision point for a stage such as Reconnaissance.
+The contribution here is a selective no-label adaptation protocol that constrains test-time adaptation with a safety gate.
+
+The paper makes four claims:
+\begin{enumerate}[leftmargin=*]
+  \item Selective TTA improves locked held-out source-file Macro-F1.
+  \item Selective TTA recovers Reconnaissance under this split.
+  \item The gate preserves Data Exfiltration on average under the declared guard.
+  \item The effect is not equivalent to rejecting uncertain frozen predictions.
+\end{enumerate}
+
+\section{Related Work}
+
+The closest adaptation baseline is Tent, which performs fully test-time adaptation by entropy minimization \cite{wang2021tent}.
+Test-time training and related adaptation methods motivate the general idea that unlabeled test streams can expose distribution-shift structure \cite{sun2020testtime}.
+This work differs by treating adaptation as unsafe by default in a security setting, then adding a validation-selected guard around high-consequence classes.
+For APT detection context, TSE-APT provides a recent ensemble-learning reference point \cite{cheng2025tseapt}, while provenance-based systems such as MAGIC and Kairos motivate downstream graph and host-provenance directions \cite{jia2024magic,cheng2024kairos}.
+
+\section{Method}
+
+The frozen detector is a support-floor MLP trained on the trusted Unraveled pipeline.
+The selected adaptation method is batch-normalization adaptation.
+During inference, the method processes the stream in a single pass with batch size 4096, dropout disabled, batch-normalization layers in train mode, default batch-normalization momentum, and checkpoint reloads per split and method.
+
+The gate is named \texttt{recon\_guarded}.
+It preserves confident frozen Data Exfiltration predictions and permits overrides only for uncertain frozen predictions when adapted confidence is sufficient.
+This policy was selected on validation artifacts before final test replay.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure1_method_diagram.png}
+  \caption{Selective TTA decision path. Frozen predictions, adapted probabilities, and the validation-selected gate jointly determine the final operating point.}
+  \label{fig:method}
+\end{figure}
+
+\section{Experimental Setup}
+
+The locked split is source-file held out.
+Table~\ref{tab:splits} summarizes row counts and class support.
+
+\begin{table}[t]
+  \centering
+  \caption{Locked split support.}
+  \label{tab:splits}
+  \begin{tabular}{lrrrrrrr}
+    \toprule
+    Split & Rows & Sources & Benign & Recon & Foothold & Lateral & DE \\
+    \midrule
+    Train & 307733 & 142 & 268710 & 5151 & 15047 & 15748 & 3077 \\
+    Val & 61886 & 6 & 22011 & 23791 & 5784 & 8047 & 2253 \\
+    Test & 65869 & 25 & 47888 & 5852 & 6287 & 3650 & 2192 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Primary metrics are Macro-F1, Reconnaissance F1, Data Exfiltration F1, PR-AUC, and override rate.
+The matched confidence-reject baseline rejects the same fraction of rows as the selective TTA gate but does not use adapted probabilities.
+
+\section{Results}
+
+\begin{table}[t]
+  \centering
+  \caption{Main locked result.}
+  \label{tab:main}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Method & Macro-F1 & Recon F1 & DE F1 & PR-AUC & Rate \\
+    \midrule
+    Frozen MLP & 0.7685 & 0.0250 & 0.9157 & 0.8732 & 0.0000 \\
+    Locked selective TTA & 0.8658 & 0.5050 & 0.9202 & 0.8738 & 0.0470 \\
+    Frozen confidence reject & 0.7730 & 0.0000 & 0.9374 & 0.8533 & 0.0470 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:main} shows that selective TTA improves Macro-F1 by 0.0974 and Reconnaissance F1 by 0.4800.
+The matched confidence-reject baseline leaves Reconnaissance F1 at 0.0000, so the result is not explained by withholding hard examples.
+PR-AUC changes by only 0.0006.
+We therefore frame the contribution as an operating-point decision-policy improvement over similar underlying ranking quality, not as evidence that the representation itself learned a broadly better Reconnaissance model at test time.
+
+\begin{table}[t]
+  \centering
+  \caption{Locked per-seed result.}
+  \label{tab:seeds}
+  \begin{tabular}{rrrrrrrr}
+    \toprule
+    Seed & Macro & Recon & DE & PR-AUC & Override & Macro $\Delta$ & Recon $\Delta$ \\
+    \midrule
+    42 & 0.8821 & 0.5978 & 0.9177 & 0.8584 & 0.0593 & 0.1010 & 0.5264 \\
+    43 & 0.8614 & 0.4776 & 0.9181 & 0.8925 & 0.0407 & 0.0951 & 0.4763 \\
+    44 & 0.8539 & 0.4397 & 0.9246 & 0.8704 & 0.0409 & 0.0960 & 0.4372 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Robustness and Limitations}
+
+The seven-seed defense addendum preserves the core Reconnaissance recovery but exposes meaningful Data Exfiltration variance.
+For that reason, the original locked replay remains primary and the seven-seed result is treated as robustness evidence.
+Validation-distribution sensitivity also matters: test-like validation subsamples mostly preserve the effect, but threshold choice is not perfectly stable.
+External validity is limited by DAPT2020, where the detector recipe transfers but TTA is negative.
+
+\section{Conclusion}
+
+Selective no-label TTA can recover a rare APT stage under a locked held-out source-file split when adaptation is constrained by a validation-selected safety gate.
+The strongest version of the claim is narrow and practical: the method improves the final decision policy for Reconnaissance without relying on labels at test time and without being reducible to confidence rejection.
+The result should be submitted as a constrained security-ML adaptation finding, with DAPT2020 retained as an honest boundary on generality.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
