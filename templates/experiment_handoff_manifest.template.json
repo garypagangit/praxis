@@ -1,0 +1,84 @@
+{
+  "id": "replace-with-stable-experiment-id",
+  "name": "Replace With Experiment Name",
+  "created": "YYYY-MM-DD",
+  "updated": "YYYY-MM-DD",
+  "status": "planned",
+  "posture": "unknown",
+  "owner": "garyp",
+  "hypothesis": "One sentence describing the claim being tested.",
+  "falsification_criteria": [
+    "Metric or gate that would make this a negative result.",
+    "Safety or leakage condition that blocks publication."
+  ],
+  "datasets": [
+    {
+      "id": "dataset-id-from-configs-dataset-registry",
+      "local_paths": [
+        "local/path/if/available"
+      ],
+      "s3_prefixes": [
+        "s3://bucket/datasets/example/"
+      ],
+      "label_requirements": "Describe exact labels, time intervals, benign support, or attack support required."
+    }
+  ],
+  "code": {
+    "entrypoints": [
+      "scripts/run_example.py"
+    ],
+    "configs": [
+      "configs/example.json"
+    ],
+    "tests": [
+      "tests/test_example.py"
+    ],
+    "cloud_jobs": [
+      "cloud_jobs/example/run_on_instance.sh"
+    ]
+  },
+  "artifact_policy": {
+    "commit_lightweight_paths": [
+      "reports/example/",
+      "configs/example.json",
+      "scripts/run_example.py",
+      "cloud_jobs/example/"
+    ],
+    "do_not_commit_paths": [
+      "data/",
+      "runs/",
+      "outputs/",
+      "artifacts/",
+      "checkpoints/"
+    ],
+    "s3_output_prefix": "s3://praxis-garypagan-272615233626-us-east-1/experiments/replace-with-stable-experiment-id/"
+  },
+  "runs": [
+    {
+      "run_id": "example-run-YYYYMMDD",
+      "environment": "local",
+      "command": "python scripts/run_example.py --config configs/example.json --run-name example-run-YYYYMMDD",
+      "output_paths": [
+        "runs/example-run-YYYYMMDD/"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/replace-with-stable-experiment-id/runs/example-run-YYYYMMDD/"
+      ],
+      "summary_files": [
+        "reports/example/EXAMPLE_RESULT_YYYYMMDD.md"
+      ],
+      "metrics": {
+        "primary_metric_name": null,
+        "primary_metric_value": null
+      },
+      "decision": "unknown"
+    }
+  ],
+  "current_decision": "unknown",
+  "next_action": "Describe the next honest action.",
+  "cloud_startup_notes": [
+    "Read CLOUD_HANDOFF.md first.",
+    "Do not assume local data/runs/checkpoints exist.",
+    "Fetch only the S3 prefixes listed in this manifest."
+  ]
+}

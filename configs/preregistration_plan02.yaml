@@ -1,0 +1,97 @@
+plan_id: "02"
+plan_title: "Stage-Conditioned Class Imbalance"
+created_at_local: "2026-05-09"
+status: "draft_started_from_eda_gate"
+
+thesis: >
+  Per-stage imbalance handling should improve rare kill-chain stage detection
+  compared with global class weighting because CIC-IDS2018 label support is
+  strongly day- and stage-confounded.
+
+primary_dataset:
+  name: "CSE-CIC-IDS2018 processed flow CSVs"
+  local_path: "data/cic-ids-2018"
+  eda_output: "reports/plan02_stage_conditioned_imbalance/eda"
+
+eda_gate_observations:
+  total_rows: 16233002
+  files: 10
+  attack_labels: 16
+  stages: 6
+  rare_stage_focus:
+    - stage: "Lateral Movement"
+      label: "Infilteration"
+      rows: 161934
+      observed_days:
+        - "28-02-2018"
+        - "01-03-2018"
+    - stage: "Command and Control"
+      label: "Bot"
+      rows: 286191
+      observed_days:
+        - "02-03-2018"
+  caution: >
+    The prior Praxis 04 default holdout day, 02-03-2018, is a Bot stress test
+    and is not a fair Infilteration rare-stage test. Plan 02 must run both a
+    Bot holdout and an Infilteration holdout before interpreting rare-stage
+    claims.
+
+research_questions:
+  rq1: "Does stage-aware imbalance handling improve rare-stage F1 versus global class weighting?"
+  rq2: "Are gains specific to Lateral Movement / Infilteration or do they generalize to Bot / C2?"
+  rq3: "Can rare-stage recall improve without unacceptable Benign precision loss?"
+
+hypotheses:
+  h1: >
+    Stage-conditioned class weighting or focal weighting improves Lateral
+    Movement / Infilteration F1 by at least 0.03 absolute over the best global
+    class-weight baseline.
+  h2: >
+    Rare-stage F1 gains do not reduce Benign F1 by more than 0.02 absolute.
+  h3: >
+    If gains appear only with support moved from the held-out day into train,
+    the result is model-development evidence, not a preregistered strict-holdout
+    result.
+
+pilot_conditions:
+  c0: "RF baseline with existing balanced class weights"
+  c1: "Global class-weighted RF/MLP/BiLSTM ensemble using existing Praxis 04 baseline path"
+  c2: "Stage-aware sample weighting, to be implemented after baseline pilot"
+  c3: "Stage-aware focal loss, to be implemented after baseline pilot"
+  c4: "Optional stage-conditioned real-row support floor, marked exploratory"
+
+pilot_splits:
+  bot_stress:
+    holdout_day_pattern: "02-03-2018"
+    purpose: "Command and Control / Bot transfer stress test"
+  infiltration_rare_stage:
+    holdout_day_pattern: "28-02-2018"
+    purpose: "Lateral Movement / Infilteration rare-stage test"
+
+metrics:
+  primary: "Macro-F1 over attack labels"
+  rare_stage:
+    - "Infilteration F1"
+    - "Bot F1"
+  safety:
+    - "Benign F1"
+    - "FPR at 95% Benign recall"
+  diagnostics:
+    - "Per-stage support by split"
+    - "Per-label support by split"
+    - "Seed mean and std"
+
+falsification:
+  reject_h1_if: >
+    Stage-aware condition fails to improve Infilteration F1 by at least 0.03
+    absolute over the best global baseline on the Infilteration holdout.
+  reject_h2_if: "Benign F1 drops by more than 0.02 absolute."
+  stop_if: >
+    Any split has zero support for the target rare label in train or test,
+    unless the run is explicitly marked exploratory support-floor development.
+
+next_actions:
+  - "Run baseline CIC-only pilot on 28-02-2018 holdout."
+  - "Run baseline CIC-only pilot on 02-03-2018 holdout."
+  - "Compare rare-label failure modes before adding stage-aware focal or sample weighting."
+

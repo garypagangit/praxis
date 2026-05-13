@@ -1,0 +1,261 @@
+{
+  "bucket": "praxis-garypagan-272615233626-us-east-1",
+  "region": "us-east-1",
+  "layout_version": "2026-05-08",
+  "conventions": {
+    "dataset_prefix_layout": [
+      "raw/",
+      "processed/",
+      "manifests/",
+      "reports/",
+      "checksums/",
+      "_incoming/",
+      "_work/"
+    ],
+    "model_prefix_layout": [
+      "access-notes/",
+      "adapters/",
+      "eval-outputs/",
+      "manifests/",
+      "_incoming/",
+      "_work/"
+    ]
+  },
+  "datasets": [
+    {
+      "id": "unraveled",
+      "name": "Unraveled",
+      "category": "network-security-telemetry",
+      "access_tier": "local_available",
+      "s3_prefix": "datasets/unraveled/",
+      "local_paths": {
+        "network_flows": "imports/unraveled/data/network-flows",
+        "host_logs": "imports/unraveled/data/host-logs",
+        "nids": "imports/unraveled/data/nids",
+        "processed_v02": "data/processed/unraveled_v02",
+        "processed_v03": "data/processed/unraveled_v03"
+      },
+      "source_url": null,
+      "experiments_impacted": [
+        "Praxis v03 trusted APT stage classification",
+        "Praxis 05 MAGIC/SAE kill-switch framing",
+        "Contrastive SSL",
+        "TTA",
+        "Watermarking if applied to telemetry representations"
+      ]
+    },
+    {
+      "id": "cic-ids-2018",
+      "name": "CIC-IDS2018",
+      "category": "network-intrusion",
+      "access_tier": "local_available",
+      "s3_prefix": "datasets/cic-ids-2018/",
+      "local_paths": {
+        "raw": "data/cic-ids-2018"
+      },
+      "source_url": "https://www.unb.ca/cic/datasets/ids-2018.html",
+      "experiments_impacted": [
+        "Praxis 04 stage routing",
+        "AI Supply Chain baselines if using intrusion generalization",
+        "TTA",
+        "Contrastive SSL"
+      ]
+    },
+    {
+      "id": "dapt2020",
+      "name": "DAPT2020",
+      "category": "apt-network-flows",
+      "access_tier": "local_available",
+      "s3_prefix": "datasets/dapt2020/",
+      "local_paths": {
+        "raw": "data/raw/dapt2020",
+        "processed": "data/processed/dapt2020"
+      },
+      "source_url": null,
+      "experiments_impacted": [
+        "APT stage classification transfer checks",
+        "TTA",
+        "Contrastive SSL"
+      ]
+    },
+    {
+      "id": "darpa-tc",
+      "name": "DARPA Transparent Computing",
+      "category": "host-provenance",
+      "access_tier": "public_or_request_depending_engagement",
+      "s3_prefix": "datasets/darpa-tc/",
+      "local_paths": {
+        "raw": "external/datasets/darpa-tc"
+      },
+      "source_url": "https://github.com/darpa-i2o/Transparent-Computing",
+      "experiments_impacted": [
+        "SEC-LoRD",
+        "Praxis 05 MAGIC/SAE",
+        "Contrastive SSL",
+        "TTA",
+        "Watermarking for provenance graphs"
+      ]
+    },
+    {
+      "id": "optc",
+      "name": "Operationally Transparent Cyber",
+      "category": "enterprise-telemetry",
+      "access_tier": "public_mirror_or_large_download",
+      "s3_prefix": "datasets/optc/",
+      "local_paths": {
+        "raw": "external/datasets/optc"
+      },
+      "source_url": "https://github.com/FiveDirections/OpTC-data",
+      "experiments_impacted": [
+        "OpTC-specific untouched idea",
+        "TTA",
+        "Contrastive SSL",
+        "Cross-dataset telemetry validation"
+      ]
+    },
+    {
+      "id": "aptnotes",
+      "name": "APTNotes",
+      "category": "cti-reports",
+      "access_tier": "free_public_git",
+      "s3_prefix": "datasets/aptnotes/",
+      "local_paths": {
+        "raw": "external/datasets/aptnotes"
+      },
+      "source_url": "https://github.com/kbandla/APTnotes",
+      "experiments_impacted": [
+        "SEC-LoRD",
+        "AI Supply Chain",
+        "CTI-RCM",
+        "Watermarking on CTI text",
+        "Untouched CTI extraction ideas"
+      ]
+    },
+    {
+      "id": "mitre-attack",
+      "name": "MITRE ATT&CK STIX",
+      "category": "cti-knowledge-base",
+      "access_tier": "free_public_git",
+      "s3_prefix": "datasets/mitre-attack/",
+      "local_paths": {
+        "raw": "external/datasets/mitre-attack"
+      },
+      "source_url": "https://github.com/mitre-attack/attack-stix-data",
+      "experiments_impacted": [
+        "SEC-LoRD",
+        "AI Supply Chain",
+        "AnnoCTR augmentation",
+        "CTIBench/CTI-RCM support",
+        "Watermarking semantic labels"
+      ]
+    },
+    {
+      "id": "nvd",
+      "name": "NVD CVE 2.0",
+      "category": "vulnerability-feed",
+      "access_tier": "free_public_api_key_recommended",
+      "s3_prefix": "datasets/nvd/",
+      "local_paths": {
+        "raw": "external/datasets/nvd"
+      },
+      "source_url": "https://nvd.nist.gov/developers/vulnerabilities",
+      "experiments_impacted": [
+        "AI Supply Chain",
+        "CTI-RCM",
+        "NVD-feed one-off idea"
+      ]
+    },
+    {
+      "id": "annoctr",
+      "name": "AnnoCTR",
+      "category": "annotated-cti-reports",
+      "access_tier": "free_public_git",
+      "s3_prefix": "datasets/annoctr/",
+      "local_paths": {
+        "raw": "external/datasets/annoctr"
+      },
+      "source_url": "https://github.com/boschresearch/anno-ctr-lrec-coling-2024",
+      "experiments_impacted": [
+        "SEC-LoRD",
+        "CTI entity/tactic/technique extraction",
+        "Watermarking on annotated CTI text"
+      ]
+    },
+    {
+      "id": "ctibench",
+      "name": "CTIBench",
+      "category": "cti-llm-benchmark",
+      "access_tier": "free_public_huggingface",
+      "s3_prefix": "datasets/ctibench/",
+      "local_paths": {
+        "raw": "external/datasets/ctibench"
+      },
+      "source_url": "https://huggingface.co/datasets/AI4Sec/cti-bench",
+      "experiments_impacted": [
+        "SEC-LoRD",
+        "AI Supply Chain",
+        "CTI-RCM",
+        "LLM benchmark ideas"
+      ]
+    },
+    {
+      "id": "poisonbench",
+      "name": "PoisonBench",
+      "category": "llm-safety-poisoning",
+      "access_tier": "free_public_huggingface",
+      "s3_prefix": "datasets/poisonbench/",
+      "local_paths": {
+        "raw": "external/datasets/poisonbench"
+      },
+      "source_url": "https://huggingface.co/datasets/TingchenFu/PoisonBench",
+      "experiments_impacted": [
+        "AI Supply Chain",
+        "PoisonBench one-off idea",
+        "Watermarking robustness checks"
+      ]
+    },
+    {
+      "id": "cti-rcm",
+      "name": "CTI-RCM",
+      "category": "cti-cve-to-cwe-task",
+      "access_tier": "component_of_ctibench",
+      "s3_prefix": "datasets/cti-rcm/",
+      "local_paths": {
+        "raw": "external/datasets/cti-rcm"
+      },
+      "source_url": "https://huggingface.co/datasets/AI4Sec/cti-bench",
+      "experiments_impacted": [
+        "CTI-RCM one-off idea",
+        "AI Supply Chain"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "llama-3-1-8b",
+      "name": "Meta Llama 3.1 8B",
+      "access_tier": "gated_huggingface_meta_approval",
+      "s3_prefix": "models/meta-llama/llama-3-1-8b/",
+      "source_url": "https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "experiments_impacted": [
+        "SEC-LoRD",
+        "AI Supply Chain",
+        "Watermarking",
+        "CTI LLM benchmark ideas"
+      ]
+    },
+    {
+      "id": "llama-3-2-3b",
+      "name": "Meta Llama 3.2 3B",
+      "access_tier": "gated_huggingface_meta_approval",
+      "s3_prefix": "models/meta-llama/llama-3-2-3b/",
+      "source_url": "https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct",
+      "experiments_impacted": [
+        "SEC-LoRD",
+        "AI Supply Chain",
+        "Watermarking",
+        "smaller local/cheap GPU LLM runs"
+      ]
+    }
+  ]
+}

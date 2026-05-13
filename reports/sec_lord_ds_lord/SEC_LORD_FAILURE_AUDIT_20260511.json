@@ -1,0 +1,232 @@
+{
+  "runs": [
+    {
+      "model": "Llama-3.2-3B-Instruct",
+      "prediction_file": "runs\\sec-lord-llama-cti-20260510\\predictions.jsonl",
+      "rows": 1000,
+      "unique_questions": 500,
+      "same_question_set": 500,
+      "expected_distribution": {
+        "B": 163,
+        "D": 80,
+        "C": 170,
+        "A": 87
+      },
+      "strict_delta_seeded_minus_vanilla": -0.18600000000000003,
+      "conditions": {
+        "domain_seeded_prompt": {
+          "rows": 500,
+          "old_correct": 119,
+          "old_accuracy": 0.238,
+          "strict_correct": 45,
+          "strict_accuracy": 0.09,
+          "strict_invalid": 432,
+          "expected_distribution": {
+            "B": 163,
+            "D": 80,
+            "C": 170,
+            "A": 87
+          },
+          "strict_prediction_distribution": {
+            "": 432,
+            "A": 9,
+            "B": 23,
+            "D": 18,
+            "C": 18
+          },
+          "strict_accuracy_by_expected": {
+            "A": 0.06896551724137931,
+            "B": 0.12269938650306748,
+            "C": 0.07647058823529412,
+            "D": 0.075
+          },
+          "invalid_output_examples": [
+            [
+              "assistant\n\nI'm ready to",
+              432
+            ]
+          ]
+        },
+        "vanilla_prompt": {
+          "rows": 500,
+          "old_correct": 191,
+          "old_accuracy": 0.382,
+          "strict_correct": 138,
+          "strict_accuracy": 0.276,
+          "strict_invalid": 265,
+          "expected_distribution": {
+            "B": 163,
+            "D": 80,
+            "C": 170,
+            "A": 87
+          },
+          "strict_prediction_distribution": {
+            "D": 88,
+            "C": 63,
+            "": 265,
+            "B": 61,
+            "A": 23
+          },
+          "strict_accuracy_by_expected": {
+            "A": 0.14942528735632185,
+            "B": 0.27607361963190186,
+            "C": 0.2823529411764706,
+            "D": 0.4
+          },
+          "invalid_output_examples": [
+            [
+              "assistant\n\nI'm ready to",
+              263
+            ],
+            [
+              "assistant\n\nI'm not able",
+              1
+            ],
+            [
+              "assistant\n\nT1199",
+              1
+            ]
+          ]
+        }
+      },
+      "paired_outcomes": {
+        "both_wrong": 354,
+        "vanilla_only": 101,
+        "both_correct": 37,
+        "seeded_only": 8
+      }
+    },
+    {
+      "model": "Llama-3.1-8B-Instruct",
+      "prediction_file": "runs\\sec-lord-llama-cti-20260510-8b\\predictions.jsonl",
+      "rows": 1000,
+      "unique_questions": 500,
+      "same_question_set": 500,
+      "expected_distribution": {
+        "B": 163,
+        "D": 80,
+        "C": 170,
+        "A": 87
+      },
+      "strict_delta_seeded_minus_vanilla": -0.18200000000000005,
+      "conditions": {
+        "domain_seeded_prompt": {
+          "rows": 500,
+          "old_correct": 186,
+          "old_accuracy": 0.372,
+          "strict_correct": 142,
+          "strict_accuracy": 0.284,
+          "strict_invalid": 239,
+          "expected_distribution": {
+            "B": 163,
+            "D": 80,
+            "C": 170,
+            "A": 87
+          },
+          "strict_prediction_distribution": {
+            "C": 57,
+            "": 239,
+            "A": 73,
+            "B": 66,
+            "D": 65
+          },
+          "strict_accuracy_by_expected": {
+            "A": 0.3218390804597701,
+            "B": 0.3067484662576687,
+            "C": 0.23529411764705882,
+            "D": 0.3
+          },
+          "invalid_output_examples": [
+            [
+              "assistant\n\nI'm ready",
+              200
+            ],
+            [
+              "assistant\n\nBased on the",
+              33
+            ],
+            [
+              "assistant\n\nTo answer your",
+              3
+            ],
+            [
+              "assistant\n\nI'll use",
+              2
+            ],
+            [
+              "assistant\n\nTo mitigate Ad",
+              1
+            ]
+          ]
+        },
+        "vanilla_prompt": {
+          "rows": 500,
+          "old_correct": 254,
+          "old_accuracy": 0.508,
+          "strict_correct": 233,
+          "strict_accuracy": 0.466,
+          "strict_invalid": 87,
+          "expected_distribution": {
+            "B": 163,
+            "D": 80,
+            "C": 170,
+            "A": 87
+          },
+          "strict_prediction_distribution": {
+            "B": 81,
+            "C": 132,
+            "A": 93,
+            "D": 107,
+            "": 87
+          },
+          "strict_accuracy_by_expected": {
+            "A": 0.4367816091954023,
+            "B": 0.3803680981595092,
+            "C": 0.5411764705882353,
+            "D": 0.5125
+          },
+          "invalid_output_examples": [
+            [
+              "assistant\n\nI'm not",
+              59
+            ],
+            [
+              "assistant\n\nI'm ready",
+              19
+            ],
+            [
+              "assistant\n\nTo answer your",
+              3
+            ],
+            [
+              "assistant\n\nBased on the",
+              2
+            ],
+            [
+              "assistant\n\nTo identify the",
+              1
+            ],
+            [
+              "assistant\n\nI don't",
+              1
+            ],
+            [
+              "assistant\n\nSince you didn",
+              1
+            ],
+            [
+              "assistant\n\nA1025",
+              1
+            ]
+          ]
+        }
+      },
+      "paired_outcomes": {
+        "vanilla_only": 106,
+        "both_wrong": 252,
+        "both_correct": 127,
+        "seeded_only": 15
+      }
+    }
+  ]
+}

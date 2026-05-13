@@ -627,7 +627,14 @@ def load_dapt2020_with_network_context(max_files=None, sample_rate=1.0, merge_ne
 # SPLIT-AWARE TEMPORAL FEATURE ENGINEERING
 # ========================================
 
-def compute_temporal_features_split_aware(train_df, val_df, test_df, feature_cols):
+def compute_temporal_features_split_aware(
+    train_df,
+    val_df,
+    test_df,
+    feature_cols,
+    delta_seed_mode="carry_split_state",
+    include_delta_features=True,
+):
     """
     Compute six temporal features without data leakage across splits: Cyclic sin/cos of hour-of-day, Cyclic sin/cos of day-of-week, delta_src, delta_dst
     """
@@ -636,7 +643,9 @@ def compute_temporal_features_split_aware(train_df, val_df, test_df, feature_col
     print("COMPUTING SPLIT-AWARE TEMPORAL FEATURES (no leakage)")
     print(f"{'='*80}")
 
-    new_cols = ['tod_sin', 'tod_cos', 'dow_sin', 'dow_cos', 'delta_src', 'delta_dst']
+    cyclic_cols = ['tod_sin', 'tod_cos', 'dow_sin', 'dow_cos']
+    delta_cols = ['delta_src', 'delta_dst']
+    new_cols = list(cyclic_cols)
 
     # Cyclic time features
     def _add_cyclic(df):
@@ -680,6 +689,12 @@ def compute_temporal_features_split_aware(train_df, val_df, test_df, feature_col
 
         return df, last_src, last_dst
 
+    normalized_delta_seed_mode = str(delta_seed_mode).strip().lower()
+    if normalized_delta_seed_mode not in {"carry_split_state", "reset_each_split"}:
+        raise ValueError(
+            "delta_seed_mode must be one of: carry_split_state, reset_each_split"
+        )
+
     #Cyclic features: derived from each flow's own timestamp
     train_df = _add_cyclic(train_df)
     val_df   = _add_cyclic(val_df)
@@ -687,38 +702,56 @@ def compute_temporal_features_split_aware(train_df, val_df, test_df, feature_col
     print(f"  âœ“ tod_sin / tod_cos   cyclic hour-of-day  range [-1, 1]  (all splits)")
     print(f"  âœ“ dow_sin / dow_cos   cyclic day-of-week  range [-1, 1]  (all splits)")
 
-    #Delta features: each split seeds from end of the prior split
-    # Train empty seeds
-    print(f"\n  Computing delta_src / delta_dst (row-by-row, leak-free)...")
-    print(f"  â†’ Train split ({len(train_df):,} rows)...")
-    train_df, last_src_after_train, last_dst_after_train = _add_deltas(
-        train_df, seed_last_src={}, seed_last_dst={}
-    )
+    if include_delta_features:
+        new_cols.extend(delta_cols)
+        print(f"\n  Computing delta_src / delta_dst (row-by-row)...")
+        print(f"  delta_seed_mode = {normalized_delta_seed_mode}")
+        print(f"  â†’ Train split ({len(train_df):,} rows)...")
+        train_df, last_src_after_train, last_dst_after_train = _add_deltas(
+            train_df, seed_last_src={}, seed_last_dst={}
+        )
 
-    # Val seeds from end of train
-    print(f"  â†’ Val split   ({len(val_df):,} rows, seeded from train)...")
-    val_df, last_src_after_val, last_dst_after_val = _add_deltas(
-        val_df,
-        seed_last_src=last_src_after_train,
-        seed_last_dst=last_dst_after_train
-    )
+        if normalized_delta_seed_mode == "carry_split_state":
+            print(f"  â†’ Val split   ({len(val_df):,} rows, seeded from train)...")
+            val_seed_src = last_src_after_train
+            val_seed_dst = last_dst_after_train
+            test_seed_note = "seeded from train+val"
+        else:
+            print(f"  â†’ Val split   ({len(val_df):,} rows, reset at split boundary)...")
+            val_seed_src = {}
+            val_seed_dst = {}
+            test_seed_note = "reset at split boundary"
 
-    # Test seeds from end of train+val
-    print(f"  â†’ Test split  ({len(test_df):,} rows, seeded from train+val)...")
-    test_df, _, _ = _add_deltas(
-        test_df,
-        seed_last_src=last_src_after_val,
-        seed_last_dst=last_dst_after_val
-    )
+        val_df, last_src_after_val, last_dst_after_val = _add_deltas(
+            val_df,
+            seed_last_src=val_seed_src,
+            seed_last_dst=val_seed_dst
+        )
 
-    # Diagnostic
-    for split_name, split_df in [('Train', train_df), ('Val', val_df), ('Test', test_df)]:
-        nz_src = split_df['delta_src'][split_df['delta_src'] > 0]
-        nz_dst = split_df['delta_dst'][split_df['delta_dst'] > 0]
-        src_med = f"{nz_src.median():.1f}s" if len(nz_src) > 0 else "n/a"
-        dst_med = f"{nz_dst.median():.1f}s" if len(nz_dst) > 0 else "n/a"
-        print(f"  âœ“ {split_name:<6}  delta_src median={src_med}  "
-              f"delta_dst median={dst_med}")
+        if normalized_delta_seed_mode == "carry_split_state":
+            test_seed_src = last_src_after_val
+            test_seed_dst = last_dst_after_val
+        else:
+            test_seed_src = {}
+            test_seed_dst = {}
+
+        print(f"  â†’ Test split  ({len(test_df):,} rows, {test_seed_note})...")
+        test_df, _, _ = _add_deltas(
+            test_df,
+            seed_last_src=test_seed_src,
+            seed_last_dst=test_seed_dst
+        )
+
+        # Diagnostic
+        for split_name, split_df in [('Train', train_df), ('Val', val_df), ('Test', test_df)]:
+            nz_src = split_df['delta_src'][split_df['delta_src'] > 0]
+            nz_dst = split_df['delta_dst'][split_df['delta_dst'] > 0]
+            src_med = f"{nz_src.median():.1f}s" if len(nz_src) > 0 else "n/a"
+            dst_med = f"{nz_dst.median():.1f}s" if len(nz_dst) > 0 else "n/a"
+            print(f"  âœ“ {split_name:<6}  delta_src median={src_med}  "
+                  f"delta_dst median={dst_med}")
+    else:
+        print(f"\n  Skipping delta_src / delta_dst by configuration.")
 
     #Register new columns
     feature_cols = feature_cols + new_cols

@@ -1,0 +1,22 @@
+{
+  "name": "plan02-infiltration-rf-smoke",
+  "model": "Baseline-Single",
+  "submodels": ["RF"],
+  "router_input": ["features"],
+  "seed": 13,
+  "data_dir": "data/cic-ids-2018",
+  "sample_rows_per_file": 10000,
+  "sample_strategy": "uniform",
+  "holdout_day_pattern": "28-02-2018",
+  "min_train_rows_per_label": 0,
+  "min_val_rows_per_label": 0,
+  "support_fraction_per_label": 0.0,
+  "chunksize": 100000,
+  "deterministic_torch": false,
+  "rf_n_estimators": 80,
+  "rf_max_depth": 14,
+  "n_jobs": 1,
+  "falsification": {
+    "note": "Plan 02 RF-only smoke on strict Infilteration holdout."
+  }
+}

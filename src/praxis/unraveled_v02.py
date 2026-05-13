@@ -101,6 +101,8 @@ DEFAULTS = {
     "feature_profile": "full",
     "max_missing_fraction": 0.98,
     "scaler": "robust",
+    "temporal_delta_seed_mode": "carry_split_state",
+    "include_delta_features": True,
     "graph_k": 5,
     "stgcn_temporal_k": 4,
     "flows_per_graph": 512,
@@ -210,6 +212,10 @@ def normalize_text_value(value: object) -> str:
 def stable_seed(base_seed: int, value: str) -> int:
     digest = hashlib.sha256(f"{base_seed}:{value}".encode("utf-8")).hexdigest()
     return int(digest[:16], 16) % (2**31 - 1)
+
+
+def normalize_stage_key(value: object) -> str:
+    return "".join(character for character in str(value).strip().lower() if character.isalnum())
 
 
 def infer_sensor(path: Path) -> str:
@@ -496,6 +502,284 @@ def split_by_group_holdout(
     return train_df, val_df, test_df
 
 
+def parse_holdout_stage_support_floor(
+    raw: Any,
+) -> dict[str, np.ndarray] | None:
+    if raw is None:
+        return None
+    if not isinstance(raw, dict):
+        raise ValueError("holdout_min_stage_support must be a mapping of split names to stage floors.")
+
+    floors = {
+        "train": np.zeros(len(STAGE_NAMES), dtype=np.int64),
+        "val": np.zeros(len(STAGE_NAMES), dtype=np.int64),
+        "test": np.zeros(len(STAGE_NAMES), dtype=np.int64),
+    }
+    stage_name_to_index = {
+        normalize_stage_key(stage_name): index for index, stage_name in enumerate(STAGE_NAMES)
+    }
+
+    for split_key, split_payload in raw.items():
+        split_name = str(split_key).strip().lower()
+        if split_name not in floors:
+            raise ValueError(
+                "holdout_min_stage_support keys must be train, val, or test. "
+                f"Got: {split_key}"
+            )
+        if not isinstance(split_payload, dict):
+            raise ValueError(
+                f"holdout_min_stage_support[{split_key!r}] must be a mapping of stage names to counts."
+            )
+
+        for stage_key, value in split_payload.items():
+            if isinstance(stage_key, int):
+                stage_index = stage_key
+            else:
+                key_text = str(stage_key).strip()
+                if key_text.isdigit():
+                    stage_index = int(key_text)
+                else:
+                    normalized = normalize_stage_key(key_text)
+                    if normalized not in stage_name_to_index:
+                        raise ValueError(
+                            f"Unknown stage in holdout_min_stage_support[{split_key!r}]: {stage_key}"
+                        )
+                    stage_index = stage_name_to_index[normalized]
+
+            if stage_index < 0 or stage_index >= len(STAGE_NAMES):
+                raise ValueError(
+                    f"Stage index out of range in holdout_min_stage_support[{split_key!r}]: {stage_index}"
+                )
+
+            floors[split_name][stage_index] = int(value)
+
+    return floors
+
+
+def split_by_group_holdout_support_aware(
+    df: pd.DataFrame,
+    group_col: str,
+    val_size: float,
+    test_size: float,
+    stage_support_floor: dict[str, np.ndarray],
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    group_stats = (
+        df.groupby(group_col)
+        .agg(
+            first_timestamp=("timestamp_sort", "min"),
+            rows=("MultiLabel", "size"),
+        )
+        .sort_values("first_timestamp")
+    )
+    stage_counts = df.groupby([group_col, "MultiLabel"]).size().unstack(fill_value=0)
+    for stage_index in range(len(STAGE_NAMES)):
+        if stage_index not in stage_counts.columns:
+            stage_counts[stage_index] = 0
+    group_stats = group_stats.join(stage_counts[[stage_index for stage_index in range(len(STAGE_NAMES))]])
+
+    groups = group_stats.index.tolist()
+    if len(groups) < 3:
+        raise ValueError(f"Strict holdout on `{group_col}` requires at least 3 groups.")
+
+    rows_arr = group_stats["rows"].to_numpy(dtype=np.int64)
+    stage_arr = group_stats[[stage_index for stage_index in range(len(STAGE_NAMES))]].to_numpy(dtype=np.int64)
+    total_rows = int(rows_arr.sum())
+    row_targets = {
+        "train": total_rows * max(1.0 - float(val_size) - float(test_size), 0.0),
+        "val": total_rows * float(val_size),
+        "test": total_rows * float(test_size),
+    }
+
+    prefix_rows = np.concatenate([[0], np.cumsum(rows_arr, dtype=np.int64)])
+    prefix_stage = np.vstack(
+        [
+            np.zeros((1, len(STAGE_NAMES)), dtype=np.int64),
+            np.cumsum(stage_arr, axis=0, dtype=np.int64),
+        ]
+    )
+
+    best_candidate: dict[str, Any] | None = None
+    valid_candidate_count = 0
+    best_partial_candidate: dict[str, Any] | None = None
+
+    def build_split_counts(start: int, end: int) -> np.ndarray:
+        return prefix_stage[end] - prefix_stage[start]
+
+    for train_end in range(1, len(groups) - 1):
+        train_rows = int(prefix_rows[train_end])
+        train_counts = build_split_counts(0, train_end)
+        if np.any(train_counts < stage_support_floor["train"]):
+            deficits = stage_support_floor["train"] - train_counts
+            deficits = np.maximum(deficits, 0)
+            partial_score = float(deficits.sum())
+            if best_partial_candidate is None or partial_score < best_partial_candidate["deficit_score"]:
+                best_partial_candidate = {
+                    "train_end": train_end,
+                    "val_end": train_end + 1,
+                    "train_counts": train_counts.copy(),
+                    "val_counts": np.zeros(len(STAGE_NAMES), dtype=np.int64),
+                    "test_counts": np.zeros(len(STAGE_NAMES), dtype=np.int64),
+                    "train_rows": train_rows,
+                    "val_rows": 0,
+                    "test_rows": 0,
+                    "deficit_score": partial_score,
+                }
+            continue
+
+        for val_end in range(train_end + 1, len(groups)):
+            val_rows_count = int(prefix_rows[val_end] - prefix_rows[train_end])
+            test_rows_count = int(prefix_rows[len(groups)] - prefix_rows[val_end])
+            if val_rows_count <= 0 or test_rows_count <= 0:
+                continue
+
+            val_counts = build_split_counts(train_end, val_end)
+            test_counts = build_split_counts(val_end, len(groups))
+            split_counts = {
+                "train": train_counts,
+                "val": val_counts,
+                "test": test_counts,
+            }
+            if any(np.any(split_counts[split_name] < stage_support_floor[split_name]) for split_name in split_counts):
+                deficits = {
+                    split_name: np.maximum(stage_support_floor[split_name] - split_counts[split_name], 0)
+                    for split_name in split_counts
+                }
+                deficit_score = float(sum(deficit.sum() for deficit in deficits.values()))
+                if (
+                    best_partial_candidate is None
+                    or deficit_score < best_partial_candidate["deficit_score"]
+                ):
+                    best_partial_candidate = {
+                        "train_end": train_end,
+                        "val_end": val_end,
+                        "train_counts": train_counts.copy(),
+                        "val_counts": val_counts.copy(),
+                        "test_counts": test_counts.copy(),
+                        "train_rows": train_rows,
+                        "val_rows": val_rows_count,
+                        "test_rows": test_rows_count,
+                        "deficit_score": deficit_score,
+                    }
+                continue
+
+            valid_candidate_count += 1
+            row_counts = {
+                "train": train_rows,
+                "val": val_rows_count,
+                "test": test_rows_count,
+            }
+            row_score = sum(
+                abs(row_counts[split_name] - row_targets[split_name]) / max(row_targets[split_name], 1.0)
+                for split_name in ("train", "val", "test")
+            )
+            if best_candidate is None or row_score < best_candidate["row_score"]:
+                best_candidate = {
+                    "train_end": train_end,
+                    "val_end": val_end,
+                    "row_score": float(row_score),
+                    "train_rows": train_rows,
+                    "val_rows": val_rows_count,
+                    "test_rows": test_rows_count,
+                    "train_counts": train_counts.copy(),
+                    "val_counts": val_counts.copy(),
+                    "test_counts": test_counts.copy(),
+                }
+
+    if best_candidate is None:
+        details = {}
+        if best_partial_candidate is not None:
+            details = {
+                "closest_candidate_rows": {
+                    "train": int(best_partial_candidate["train_rows"]),
+                    "val": int(best_partial_candidate["val_rows"]),
+                    "test": int(best_partial_candidate["test_rows"]),
+                },
+                "closest_candidate_counts": {
+                    "train": {
+                        STAGE_NAMES[idx]: int(best_partial_candidate["train_counts"][idx])
+                        for idx in range(len(STAGE_NAMES))
+                    },
+                    "val": {
+                        STAGE_NAMES[idx]: int(best_partial_candidate["val_counts"][idx])
+                        for idx in range(len(STAGE_NAMES))
+                    },
+                    "test": {
+                        STAGE_NAMES[idx]: int(best_partial_candidate["test_counts"][idx])
+                        for idx in range(len(STAGE_NAMES))
+                    },
+                },
+                "deficit_score": float(best_partial_candidate["deficit_score"]),
+            }
+        raise ValueError(
+            f"Could not find a strict holdout split on `{group_col}` that satisfies "
+            f"holdout_min_stage_support. Details: {details}"
+        )
+
+    train_groups = groups[: best_candidate["train_end"]]
+    val_groups = groups[best_candidate["train_end"] : best_candidate["val_end"]]
+    test_groups = groups[best_candidate["val_end"] :]
+
+    train_df = (
+        df[df[group_col].isin(train_groups)]
+        .sort_values("timestamp_sort")
+        .reset_index(drop=True)
+    )
+    val_df = (
+        df[df[group_col].isin(val_groups)]
+        .sort_values("timestamp_sort")
+        .reset_index(drop=True)
+    )
+    test_df = (
+        df[df[group_col].isin(test_groups)]
+        .sort_values("timestamp_sort")
+        .reset_index(drop=True)
+    )
+
+    summary = {
+        "group_col": group_col,
+        "candidate_count": int(valid_candidate_count),
+        "row_targets": {split_name: int(round(row_targets[split_name])) for split_name in row_targets},
+        "rows_per_split": {
+            "train": int(best_candidate["train_rows"]),
+            "val": int(best_candidate["val_rows"]),
+            "test": int(best_candidate["test_rows"]),
+        },
+        "groups_per_split": {
+            "train": int(len(train_groups)),
+            "val": int(len(val_groups)),
+            "test": int(len(test_groups)),
+        },
+        "row_score": float(best_candidate["row_score"]),
+        "stage_support_floor": {
+            split_name: {
+                STAGE_NAMES[idx]: int(stage_support_floor[split_name][idx])
+                for idx in range(len(STAGE_NAMES))
+            }
+            for split_name in ("train", "val", "test")
+        },
+        "stage_counts": {
+            "train": {
+                STAGE_NAMES[idx]: int(best_candidate["train_counts"][idx])
+                for idx in range(len(STAGE_NAMES))
+            },
+            "val": {
+                STAGE_NAMES[idx]: int(best_candidate["val_counts"][idx])
+                for idx in range(len(STAGE_NAMES))
+            },
+            "test": {
+                STAGE_NAMES[idx]: int(best_candidate["test_counts"][idx])
+                for idx in range(len(STAGE_NAMES))
+            },
+        },
+        "split_groups": {
+            "train": [str(item) for item in train_groups],
+            "val": [str(item) for item in val_groups],
+            "test": [str(item) for item in test_groups],
+        },
+    }
+    return train_df, val_df, test_df, summary
+
+
 def add_frequency_features(
     train_df: pd.DataFrame,
     val_df: pd.DataFrame,
@@ -606,6 +890,10 @@ def prepare_features_and_splits(
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, list[str], dict[str, Any]]:
     numeric_feature_cols = infer_numeric_feature_columns(df)
     split_mode = str(settings.get("split_mode", "within_group_temporal")).lower()
+    holdout_support_floor = parse_holdout_stage_support_floor(
+        settings.get("holdout_min_stage_support")
+    )
+    split_search_summary: dict[str, Any] | None = None
     if split_mode == "within_group_temporal":
         split_group_col = str(settings["split_group_col"])
         train_df, val_df, test_df = split_within_group_temporal(
@@ -618,20 +906,38 @@ def prepare_features_and_splits(
         )
     elif split_mode == "held_out_capture_day":
         split_group_col = "capture_day"
-        train_df, val_df, test_df = split_by_group_holdout(
-            df=df,
-            group_col=split_group_col,
-            val_size=float(settings["val_size"]),
-            test_size=float(settings["test_size"]),
-        )
+        if holdout_support_floor is None:
+            train_df, val_df, test_df = split_by_group_holdout(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+            )
+        else:
+            train_df, val_df, test_df, split_search_summary = split_by_group_holdout_support_aware(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+                stage_support_floor=holdout_support_floor,
+            )
     elif split_mode == "held_out_source_file":
         split_group_col = "source_file"
-        train_df, val_df, test_df = split_by_group_holdout(
-            df=df,
-            group_col=split_group_col,
-            val_size=float(settings["val_size"]),
-            test_size=float(settings["test_size"]),
-        )
+        if holdout_support_floor is None:
+            train_df, val_df, test_df = split_by_group_holdout(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+            )
+        else:
+            train_df, val_df, test_df, split_search_summary = split_by_group_holdout_support_aware(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+                stage_support_floor=holdout_support_floor,
+            )
     else:
         raise ValueError(f"Unsupported Praxisv02 split_mode: {split_mode}")
 
@@ -644,7 +950,14 @@ def prepare_features_and_splits(
     )
 
     train_df, val_df, test_df, feature_cols = gml.compute_temporal_features_split_aware(
-        train_df, val_df, test_df, feature_cols
+        train_df,
+        val_df,
+        test_df,
+        feature_cols,
+        delta_seed_mode=str(
+            settings.get("temporal_delta_seed_mode", "carry_split_state")
+        ).lower(),
+        include_delta_features=bool(settings.get("include_delta_features", True)),
     )
 
     feature_cols, dropped_features = select_feature_columns(
@@ -673,6 +986,10 @@ def prepare_features_and_splits(
         "dropped_features": dropped_features,
         "feature_profile": str(settings.get("feature_profile", "full")).lower(),
         "scaler": str(settings["scaler"]),
+        "temporal_delta_seed_mode": str(
+            settings.get("temporal_delta_seed_mode", "carry_split_state")
+        ).lower(),
+        "include_delta_features": bool(settings.get("include_delta_features", True)),
         "categorical_frequency_maps": {
             column: {"unique_values": len(mapping)}
             for column, mapping in encodings.items()
@@ -688,6 +1005,16 @@ def prepare_features_and_splits(
             "val_test": int(len(set(val_df[split_group_col]) & set(test_df[split_group_col]))),
         },
     }
+    if holdout_support_floor is not None:
+        preprocess_summary["holdout_min_stage_support"] = {
+            split_name: {
+                STAGE_NAMES[idx]: int(holdout_support_floor[split_name][idx])
+                for idx in range(len(STAGE_NAMES))
+            }
+            for split_name in ("train", "val", "test")
+        }
+    if split_search_summary is not None:
+        preprocess_summary["strict_holdout_split"] = split_search_summary
     write_json(run_dir / "preprocess-summary.json", preprocess_summary)
     return train_df, val_df, test_df, feature_cols, preprocess_summary
 

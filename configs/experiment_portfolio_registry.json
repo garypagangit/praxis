@@ -1,0 +1,293 @@
+{
+  "portfolio_version": "2026-05-08",
+  "bucket": "praxis-garypagan-272615233626-us-east-1",
+  "dataset_registry": "configs/dataset_registry.json",
+  "s3_registry_prefix": "s3://praxis-garypagan-272615233626-us-east-1/registry/",
+  "experiments": [
+    {
+      "id": "praxis04-stage-conditional-routing",
+      "name": "Praxis 04 - Stage-Conditional Routing",
+      "status": "tested_results_in_hand",
+      "venue_fit": ["NDSS workshop", "EuroS&P workshop"],
+      "dataset_ids": ["cic-ids-2018"],
+      "model_dependencies": [],
+      "storage_inputs": ["datasets/cic-ids-2018/raw/"],
+      "storage_outputs": ["experiments/praxis04-stage-conditional-routing/"],
+      "access_blockers": [],
+      "notes": "Clean negative result: oracle tied NoStage; stage prediction is the bottleneck. Write-up needed."
+    },
+    {
+      "id": "sec-lord-ds-lord",
+      "name": "SEC-LoRD / DS-LoRD",
+      "status": "active_test_plan_done",
+      "venue_fit": ["ACL", "EMNLP", "CCS"],
+      "dataset_ids": ["aptnotes", "mitre-attack", "ctibench", "nvd"],
+      "model_dependencies": ["llama-3-1-8b", "llama-3-2-3b"],
+      "storage_inputs": [
+        "datasets/aptnotes/raw/",
+        "datasets/mitre-attack/raw/",
+        "datasets/ctibench/raw/",
+        "datasets/nvd/raw/"
+      ],
+      "storage_outputs": ["experiments/sec-lord-ds-lord/"],
+      "access_blockers": ["huggingface_meta_llama_approval", "hf_cli_login"],
+      "notes": "Full test plan plus Praxis scaffold built. EDA gate not yet run. Expected compute roughly $60-120."
+    },
+    {
+      "id": "ai-supply-chain-training-provenance",
+      "name": "AI Supply Chain - Training Provenance",
+      "status": "active_test_plan_done",
+      "venue_fit": ["NeurIPS workshop", "USENIX Security"],
+      "dataset_ids": ["poisonbench", "nvd", "aptnotes", "mitre-attack", "ctibench"],
+      "model_dependencies": ["llama-3-1-8b", "llama-3-2-3b"],
+      "storage_inputs": [
+        "datasets/poisonbench/raw/",
+        "datasets/nvd/raw/",
+        "datasets/aptnotes/raw/",
+        "datasets/mitre-attack/raw/",
+        "datasets/ctibench/raw/"
+      ],
+      "storage_outputs": ["experiments/ai-supply-chain-training-provenance/"],
+      "access_blockers": ["huggingface_meta_llama_approval", "nvd_api_key_for_full_sync"],
+      "notes": "Detects poisoning in LLM fine-tuning pipelines via training-step gradient diagnostics."
+    },
+    {
+      "id": "tta-streaming-apt",
+      "name": "Test-Time Adaptation for Streaming APT",
+      "status": "newly_added",
+      "venue_fit": ["USENIX Security", "NDSS", "IEEE S&P"],
+      "dataset_ids": ["unraveled", "cic-ids-2018", "dapt2020", "optc"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/unraveled/network-flows/",
+        "datasets/cic-ids-2018/raw/",
+        "datasets/dapt2020/raw/",
+        "datasets/optc/raw/"
+      ],
+      "storage_outputs": ["experiments/tta-streaming-apt/"],
+      "access_blockers": ["optc_full_data_selection"],
+      "notes": "Adapts detector batch-norm statistics or entropy at inference time under day-level distribution shift."
+    },
+    {
+      "id": "contrastive-ssl-provenance-graphs",
+      "name": "Contrastive SSL on Provenance Graphs",
+      "status": "newly_added",
+      "venue_fit": ["IEEE S&P", "USENIX Security", "CCS"],
+      "dataset_ids": ["darpa-tc", "optc", "unraveled"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/darpa-tc/raw/",
+        "datasets/optc/raw/",
+        "datasets/unraveled/host-logs/"
+      ],
+      "storage_outputs": ["experiments/contrastive-ssl-provenance-graphs/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection", "optc_full_data_selection"],
+      "notes": "Pre-trains provenance graph encoders on unlabeled benign logs using node masking, edge dropping, and subgraph sampling."
+    },
+    {
+      "id": "apt-detector-watermarking",
+      "name": "APT Detector Watermarking",
+      "status": "newly_added",
+      "venue_fit": ["CCS", "USENIX Security"],
+      "dataset_ids": ["unraveled", "cic-ids-2018", "poisonbench"],
+      "model_dependencies": ["llama-3-1-8b", "llama-3-2-3b"],
+      "storage_inputs": [
+        "datasets/unraveled/network-flows/",
+        "datasets/cic-ids-2018/raw/",
+        "datasets/poisonbench/raw/"
+      ],
+      "storage_outputs": ["experiments/apt-detector-watermarking/"],
+      "access_blockers": ["huggingface_meta_llama_approval_if_llm_watermarking_variant"],
+      "notes": "Embeds behavioral fingerprints in trained APT detectors; reuses SEC-LoRD extraction as threat model."
+    },
+    {
+      "id": "sae-for-apt",
+      "name": "SAE-for-APT",
+      "status": "untouched_still_strong",
+      "venue_fit": ["IEEE S&P", "USENIX Security"],
+      "dataset_ids": ["darpa-tc", "unraveled"],
+      "model_dependencies": [],
+      "storage_inputs": ["datasets/darpa-tc/raw/", "datasets/unraveled/host-logs/"],
+      "storage_outputs": ["experiments/sae-for-apt/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection"],
+      "notes": "Trains sparse autoencoders on MAGIC hidden states to discover interpretable APT-stage features."
+    },
+    {
+      "id": "gnn-attribution-ttp-graph-embeddings",
+      "name": "GNN Attribution - TTP Graph Embeddings",
+      "status": "untouched_still_strong",
+      "venue_fit": ["IEEE S&P", "USENIX Security", "ACSAC"],
+      "dataset_ids": ["mitre-attack", "aptnotes", "annoctr"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/mitre-attack/raw/",
+        "datasets/aptnotes/raw/",
+        "datasets/annoctr/raw/"
+      ],
+      "storage_outputs": ["experiments/gnn-attribution-ttp-graph-embeddings/"],
+      "access_blockers": [],
+      "notes": "Produces APT group embeddings using graph-structured TTP behavior rather than flat features."
+    },
+    {
+      "id": "stage-conditioned-class-imbalance",
+      "name": "Stage-Conditioned Class Imbalance",
+      "status": "untouched_still_strong",
+      "venue_fit": ["NDSS", "AsiaCCS"],
+      "dataset_ids": ["unraveled", "darpa-tc", "cic-ids-2018"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/unraveled/network-flows/",
+        "datasets/darpa-tc/raw/",
+        "datasets/cic-ids-2018/raw/"
+      ],
+      "storage_outputs": ["experiments/stage-conditioned-class-imbalance/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection_for_graph_variant"],
+      "notes": "Per-stage focal loss/resampling instead of global imbalance handling."
+    },
+    {
+      "id": "few-shot-attribution-emerging-apt-groups",
+      "name": "Few-Shot Attribution - Emerging APT Groups",
+      "status": "untouched_still_strong",
+      "venue_fit": ["ACSAC", "IEEE S&P"],
+      "dataset_ids": ["mitre-attack", "aptnotes", "annoctr", "ctibench"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/mitre-attack/raw/",
+        "datasets/aptnotes/raw/",
+        "datasets/annoctr/raw/",
+        "datasets/ctibench/raw/"
+      ],
+      "storage_outputs": ["experiments/few-shot-attribution-emerging-apt-groups/"],
+      "access_blockers": [],
+      "notes": "Meta-learning or contrastive attribution for new APT groups from minimal samples."
+    },
+    {
+      "id": "membership-inference-apt-detectors",
+      "name": "Membership Inference Against APT Detectors",
+      "status": "untouched_still_strong",
+      "venue_fit": ["USENIX Security", "CCS"],
+      "dataset_ids": ["darpa-tc", "aptnotes", "unraveled"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/darpa-tc/raw/",
+        "datasets/aptnotes/raw/",
+        "datasets/unraveled/network-flows/"
+      ],
+      "storage_outputs": ["experiments/membership-inference-apt-detectors/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection"],
+      "notes": "Tests whether adversaries can infer if their traces were in detector training data."
+    },
+    {
+      "id": "stage-routing-provenance-graphs",
+      "name": "Stage Routing on Provenance Graphs",
+      "status": "untouched_still_strong",
+      "venue_fit": ["NDSS workshop", "USENIX Security workshop"],
+      "dataset_ids": ["darpa-tc"],
+      "model_dependencies": [],
+      "storage_inputs": ["datasets/darpa-tc/raw/"],
+      "storage_outputs": ["experiments/stage-routing-provenance-graphs/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection"],
+      "notes": "Ports Praxis 04 oracle-vs-predicted stage routing question to provenance graph detectors."
+    },
+    {
+      "id": "cross-detector-adversarial-robustness",
+      "name": "Cross-Detector Adversarial Robustness",
+      "status": "untouched_still_strong",
+      "venue_fit": ["CCS", "USENIX Security"],
+      "dataset_ids": ["darpa-tc", "unraveled", "cic-ids-2018", "dapt2020"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/darpa-tc/raw/",
+        "datasets/unraveled/network-flows/",
+        "datasets/cic-ids-2018/raw/",
+        "datasets/dapt2020/raw/"
+      ],
+      "storage_outputs": ["experiments/cross-detector-adversarial-robustness/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection"],
+      "notes": "Tests evasion attacks across multiple APT detector families and defenses."
+    },
+    {
+      "id": "concept-drift-provenance-graph-detectors",
+      "name": "Concept Drift on Provenance Graph Detectors",
+      "status": "untouched_still_strong",
+      "venue_fit": ["NDSS", "AsiaCCS"],
+      "dataset_ids": ["darpa-tc", "optc"],
+      "model_dependencies": [],
+      "storage_inputs": ["datasets/darpa-tc/raw/", "datasets/optc/raw/"],
+      "storage_outputs": ["experiments/concept-drift-provenance-graph-detectors/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection", "optc_full_data_selection"],
+      "notes": "Uses realistic temporal boundaries in provenance graphs for concept drift evaluation."
+    },
+    {
+      "id": "llm-threat-intelligence-fusion",
+      "name": "LLM Threat Intelligence Fusion",
+      "status": "untouched_still_strong",
+      "venue_fit": ["EMNLP", "ACL security track"],
+      "dataset_ids": ["aptnotes", "mitre-attack", "nvd", "annoctr", "ctibench"],
+      "model_dependencies": ["llama-3-1-8b", "llama-3-2-3b"],
+      "storage_inputs": [
+        "datasets/aptnotes/raw/",
+        "datasets/mitre-attack/raw/",
+        "datasets/nvd/raw/",
+        "datasets/annoctr/raw/",
+        "datasets/ctibench/raw/"
+      ],
+      "storage_outputs": ["experiments/llm-threat-intelligence-fusion/"],
+      "access_blockers": ["huggingface_meta_llama_approval", "nvd_api_key_for_full_sync"],
+      "notes": "RAG or fine-tuned LLM fuses CTI sources into early-warning indicators."
+    },
+    {
+      "id": "continuous-time-tgn-apt-provenance",
+      "name": "Continuous-Time TGN for APT Provenance",
+      "status": "untouched_still_strong",
+      "venue_fit": ["IEEE S&P", "CCS", "NDSS"],
+      "dataset_ids": ["darpa-tc", "optc"],
+      "model_dependencies": [],
+      "storage_inputs": ["datasets/darpa-tc/raw/", "datasets/optc/raw/"],
+      "storage_outputs": ["experiments/continuous-time-tgn-apt-provenance/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection", "optc_full_data_selection"],
+      "notes": "Applies continuous-time temporal graph memory modules to timestamped provenance edges."
+    },
+    {
+      "id": "causal-gnn-evasion-resistant-apt",
+      "name": "Causal GNN for Evasion-Resistant APT Detection",
+      "status": "untouched_still_strong",
+      "venue_fit": ["CCS", "IEEE S&P"],
+      "dataset_ids": ["darpa-tc", "optc"],
+      "model_dependencies": [],
+      "storage_inputs": ["datasets/darpa-tc/raw/", "datasets/optc/raw/"],
+      "storage_outputs": ["experiments/causal-gnn-evasion-resistant-apt/"],
+      "access_blockers": ["darpa_tc_full_engagement_selection", "optc_full_data_selection"],
+      "notes": "Separates causal process-interaction nodes from environmental/spurious ones."
+    },
+    {
+      "id": "reverse-ttp-extraction-evasion-behaviour",
+      "name": "Reverse TTP Extraction from Evasion Behaviour",
+      "status": "shelved_high_risk",
+      "venue_fit": ["IEEE S&P"],
+      "dataset_ids": ["mitre-attack", "aptnotes"],
+      "model_dependencies": [],
+      "storage_inputs": ["datasets/mitre-attack/raw/", "datasets/aptnotes/raw/"],
+      "storage_outputs": ["experiments/reverse-ttp-extraction-evasion-behaviour/"],
+      "access_blockers": ["custom_honeypot_simulation_needed"],
+      "notes": "Reconstructs unknown toolkit by observing evasion queries against a honeypot detector."
+    },
+    {
+      "id": "xai-analyst-in-loop-attribution",
+      "name": "XAI for Analyst-in-the-Loop Attribution",
+      "status": "shelved_needs_industry_partner",
+      "venue_fit": ["IEEE S&P", "CCS"],
+      "dataset_ids": ["mitre-attack", "aptnotes", "annoctr", "ctibench"],
+      "model_dependencies": [],
+      "storage_inputs": [
+        "datasets/mitre-attack/raw/",
+        "datasets/aptnotes/raw/",
+        "datasets/annoctr/raw/",
+        "datasets/ctibench/raw/"
+      ],
+      "storage_outputs": ["experiments/xai-analyst-in-loop-attribution/"],
+      "access_blockers": ["soc_analyst_collaboration_needed"],
+      "notes": "Produces analyst-interpretable evidence chains for ML-based APT attribution."
+    }
+  ]
+}

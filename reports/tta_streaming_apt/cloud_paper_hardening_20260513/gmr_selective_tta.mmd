@@ -1,0 +1,12 @@
+graph TD
+  A[Training source files] --> B[Frozen support-floor MLP]
+  B --> C[Frozen test probabilities]
+  D[Unlabeled held-out stream] --> E[BatchNorm test-time adaptation]
+  E --> F[Adapted test probabilities]
+  C --> G[Selective recon_guarded gate]
+  F --> G
+  H[Validation-selected thresholds] --> G
+  G --> I[Locked stage predictions]
+  I --> J[Macro F1 / Recon F1 / DE F1 / PR-AUC]
+  C --> K[Matched confidence-reject baseline]
+  K --> L[Alternative explanation check]

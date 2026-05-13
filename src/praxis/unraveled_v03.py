@@ -54,6 +54,8 @@ DEFAULTS = {
     "feature_profile": "clean",
     "max_missing_fraction": 0.98,
     "scaler": "robust",
+    "temporal_delta_seed_mode": "carry_split_state",
+    "include_delta_features": True,
     "graph_k": 5,
     "stgcn_temporal_k": 4,
     "flows_per_graph": 512,
@@ -420,6 +422,9 @@ def prepare_features_and_splits_v03(
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, list[str], dict[str, Any]]:
     numeric_feature_cols = v02.infer_numeric_feature_columns(df)
     split_mode = str(settings.get("split_mode", "stage_balanced_capture_day")).lower()
+    holdout_support_floor = v02.parse_holdout_stage_support_floor(
+        settings.get("holdout_min_stage_support")
+    )
     split_search_summary: dict[str, Any] | None = None
 
     if split_mode == "stage_balanced_capture_day":
@@ -452,20 +457,38 @@ def prepare_features_and_splits_v03(
         )
     elif split_mode == "held_out_capture_day":
         split_group_col = "capture_day"
-        train_df, val_df, test_df = v02.split_by_group_holdout(
-            df=df,
-            group_col=split_group_col,
-            val_size=float(settings["val_size"]),
-            test_size=float(settings["test_size"]),
-        )
+        if holdout_support_floor is None:
+            train_df, val_df, test_df = v02.split_by_group_holdout(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+            )
+        else:
+            train_df, val_df, test_df, split_search_summary = v02.split_by_group_holdout_support_aware(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+                stage_support_floor=holdout_support_floor,
+            )
     elif split_mode == "held_out_source_file":
         split_group_col = "source_file"
-        train_df, val_df, test_df = v02.split_by_group_holdout(
-            df=df,
-            group_col=split_group_col,
-            val_size=float(settings["val_size"]),
-            test_size=float(settings["test_size"]),
-        )
+        if holdout_support_floor is None:
+            train_df, val_df, test_df = v02.split_by_group_holdout(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+            )
+        else:
+            train_df, val_df, test_df, split_search_summary = v02.split_by_group_holdout_support_aware(
+                df=df,
+                group_col=split_group_col,
+                val_size=float(settings["val_size"]),
+                test_size=float(settings["test_size"]),
+                stage_support_floor=holdout_support_floor,
+            )
     else:
         raise ValueError(f"Unsupported Praxisv03 split_mode: {split_mode}")
 
@@ -478,7 +501,14 @@ def prepare_features_and_splits_v03(
     )
 
     train_df, val_df, test_df, feature_cols = gml.compute_temporal_features_split_aware(
-        train_df, val_df, test_df, feature_cols
+        train_df,
+        val_df,
+        test_df,
+        feature_cols,
+        delta_seed_mode=str(
+            settings.get("temporal_delta_seed_mode", "carry_split_state")
+        ).lower(),
+        include_delta_features=bool(settings.get("include_delta_features", True)),
     )
 
     feature_cols, dropped_features = v02.select_feature_columns(
@@ -507,6 +537,10 @@ def prepare_features_and_splits_v03(
         "dropped_features": dropped_features,
         "feature_profile": str(settings.get("feature_profile", "clean")).lower(),
         "scaler": str(settings["scaler"]),
+        "temporal_delta_seed_mode": str(
+            settings.get("temporal_delta_seed_mode", "carry_split_state")
+        ).lower(),
+        "include_delta_features": bool(settings.get("include_delta_features", True)),
         "categorical_frequency_maps": {
             column: {"unique_values": len(mapping)}
             for column, mapping in encodings.items()
@@ -527,8 +561,19 @@ def prepare_features_and_splits_v03(
             "val_test": int(len(set(val_df["source_file"]) & set(test_df["source_file"]))),
         },
     }
+    if holdout_support_floor is not None:
+        preprocess_summary["holdout_min_stage_support"] = {
+            split_name: {
+                STAGE_NAMES[idx]: int(holdout_support_floor[split_name][idx])
+                for idx in range(len(STAGE_NAMES))
+            }
+            for split_name in ("train", "val", "test")
+        }
     if split_search_summary is not None:
-        preprocess_summary["stage_balanced_split"] = split_search_summary
+        if split_mode.startswith("stage_balanced_"):
+            preprocess_summary["stage_balanced_split"] = split_search_summary
+        else:
+            preprocess_summary["strict_holdout_split"] = split_search_summary
 
     v02.write_json(run_dir / "preprocess-summary.json", preprocess_summary)
     return train_df, val_df, test_df, feature_cols, preprocess_summary
@@ -904,7 +949,7 @@ def train_sequence_model_v03(
             mask = mask.to(device)
             optimizer.zero_grad()
             logits = model(xs)
-            loss = criterion(logits, ys)
+            loss = criterion(logits.view(-1, logits.shape[-1]), ys.view(-1))
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
             optimizer.step()
@@ -1315,6 +1360,16 @@ def result_path_for_model(run_dir: Path, model_name: str) -> Path:
     return run_dir / f"{model_name.lower().replace('-', '_')}_results.json"
 
 
+def checkpoint_path_for_model(run_dir: Path, model_name: str) -> Path:
+    return run_dir / f"{model_name.lower().replace('-', '_')}_state_dict.pt"
+
+
+def save_model_checkpoint(run_dir: Path, model_name: str, model: nn.Module) -> Path:
+    checkpoint_path = checkpoint_path_for_model(run_dir, model_name)
+    torch.save(model.state_dict(), checkpoint_path)
+    return checkpoint_path
+
+
 def load_existing_results(run_dir: Path, model_names: list[str]) -> dict[str, Any]:
     results: dict[str, Any] = {}
     for model_name in model_names:
@@ -1454,11 +1509,13 @@ def run_unraveled_v03(settings: dict[str, Any]) -> Path:
             shuffle=False,
         )
         test_metrics = v02.evaluate_graph_model(best_model, test_loader, device)
+        checkpoint_path = save_model_checkpoint(run_dir, model_name, best_model)
         results[model_name] = {
             "best_params": best_params,
             "val_metrics": val_metrics,
             "test_metrics": test_metrics,
             "history": history,
+            "checkpoint_path": str(checkpoint_path),
             "graph_counts": {
                 "train": len(train_graphs),
                 "val": len(val_graphs),
@@ -1488,11 +1545,13 @@ def run_unraveled_v03(settings: dict[str, Any]) -> Path:
                 shuffle=False,
             )
             test_metrics = v02.evaluate_row_model(mlp_model, test_loader, device)
+            checkpoint_path = save_model_checkpoint(run_dir, "MLP", mlp_model)
             results["MLP"] = {
                 "best_params": best_params,
                 "val_metrics": val_metrics,
                 "test_metrics": test_metrics,
                 "history": history,
+                "checkpoint_path": str(checkpoint_path),
                 "row_counts": {
                     "train": int(len(train_df)),
                     "val": int(len(val_df)),
@@ -1545,11 +1604,13 @@ def run_unraveled_v03(settings: dict[str, Any]) -> Path:
                 collate_fn=v02.collate_sequence_chunks,
             )
             test_metrics = v02.evaluate_sequence_model(mamba_model, test_loader, device)
+            checkpoint_path = save_model_checkpoint(run_dir, "Mamba", mamba_model)
             results["Mamba"] = {
                 "best_params": best_params,
                 "val_metrics": val_metrics,
                 "test_metrics": test_metrics,
                 "history": history,
+                "checkpoint_path": str(checkpoint_path),
                 "sequence_counts": {
                     "train": len(train_chunks),
                     "val": len(val_chunks),

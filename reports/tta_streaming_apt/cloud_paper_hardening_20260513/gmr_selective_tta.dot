@@ -1,0 +1,16 @@
+digraph selective_tta {
+  rankdir=LR;
+  train [label="Training source files"];
+  frozen [label="Frozen support-floor MLP"];
+  frozen_probs [label="Frozen test probabilities"];
+  stream [label="Unlabeled held-out stream"];
+  bn [label="BatchNorm TTA"];
+  adapted [label="Adapted test probabilities"];
+  gate [label="recon_guarded validation-selected gate"];
+  pred [label="Locked stage predictions"];
+  metrics [label="Macro F1 / Recon F1 / DE F1 / PR-AUC"];
+  reject [label="Matched confidence-reject baseline"];
+  train -> frozen -> frozen_probs -> gate -> pred -> metrics;
+  stream -> bn -> adapted -> gate;
+  frozen_probs -> reject;
+}

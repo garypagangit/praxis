@@ -1,0 +1,34 @@
+[
+  {
+    "family": "tree_ensemble",
+    "name": "extra_trees_balanced",
+    "needs_scaling": false,
+    "notes": "Useful for surrogate/ownership and robustness checks.",
+    "purpose": "high-variance tree ensemble comparator",
+    "supports_proba": true
+  },
+  {
+    "family": "linear",
+    "name": "logreg_balanced",
+    "needs_scaling": true,
+    "notes": "Good first comparator for drift, watermark, and MIA protocols.",
+    "purpose": "fast calibrated baseline for provenance-window features",
+    "supports_proba": true
+  },
+  {
+    "family": "neural_tabular",
+    "name": "mlp_small",
+    "needs_scaling": true,
+    "notes": "CPU-smokeable; GPU variants should freeze architecture in a run spec.",
+    "purpose": "small neural baseline for extraction/watermark/MIA protocols",
+    "supports_proba": true
+  },
+  {
+    "family": "tree_ensemble",
+    "name": "random_forest_balanced",
+    "needs_scaling": false,
+    "notes": "Use as stable detector-zoo member before neural graph models.",
+    "purpose": "nonlinear tabular baseline with class balancing",
+    "supports_proba": true
+  }
+]

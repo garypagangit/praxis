@@ -1,0 +1,389 @@
+{
+  "handoff_version": "2026-05-13",
+  "purpose": "Lightweight canonical memory for past and future Praxis experiment runs across local, cloud, and fresh Codex sessions.",
+  "source_of_truth": {
+    "final_evaluation": "reports/EXPERIMENT_FINAL_EVALUATION_20260511.md",
+    "dashboard": "reports/EXPERIMENT_DASHBOARD.md",
+    "dataset_registry": "configs/dataset_registry.json",
+    "portfolio_registry": "configs/experiment_portfolio_registry.json",
+    "detector_zoo_registry": "configs/detector_zoo_registry.json",
+    "cloud_handoff": "CLOUD_HANDOFF.md",
+    "bucket": "praxis-garypagan-272615233626-us-east-1",
+    "s3_registry_prefix": "s3://praxis-garypagan-272615233626-us-east-1/registry/"
+  },
+  "cloud_state_policy": {
+    "cloud_sessions_are_stateless": true,
+    "commit_lightweight_memory": [
+      "reports/",
+      "configs/",
+      "scripts/",
+      "src/",
+      "tests/",
+      "cloud_jobs/",
+      "templates/",
+      "CLOUD_HANDOFF.md"
+    ],
+    "do_not_commit_heavy_or_private_artifacts": [
+      "data/",
+      "runs/",
+      "outputs/",
+      "artifacts/",
+      "checkpoints/",
+      "external/",
+      "*.ckpt",
+      "*.pt",
+      "*.pth",
+      "*.safetensors"
+    ],
+    "heavy_artifact_rule": "Sync heavy outputs to S3 under experiments/<experiment_id>/, then commit a small report and registry pointer.",
+    "negative_result_rule": "Do not rescue negative results by threshold moving after reading outcomes."
+  },
+  "experiments": [
+    {
+      "id": "tta-streaming-apt",
+      "name": "TTA for Streaming APT Detection",
+      "posture": "lead_positive",
+      "best_evidence": "Locked replay Macro-F1 0.8658, Recon F1 0.5050, PR-AUC 0.8738, override rate 4.7%; matched confidence-reject baseline kept Recon F1 at 0.0000; 2026-05-13 cloud paper-hardening audit passed 12/12 checks.",
+      "decision": "Move to Praxis 06 venue conversion; keep DAPT2020 as appendix recipe evidence plus a negative TTA feasibility check.",
+      "lightweight_evidence_paths": [
+        "reports/tta_streaming_apt/ROBUSTNESS_AUDIT_20260509.md",
+        "reports/tta_streaming_apt/LOCKED_FINAL_REPLAY_20260509.md",
+        "reports/tta_streaming_apt/PRAXIS06_CANDIDATE_REPORT_20260509.md",
+        "reports/tta_streaming_apt/PRAXIS06_FULL_DRAFT_20260512.md",
+        "reports/tta_streaming_apt/PRAXIS06_PAPER_READY_FINAL_REPORT_20260513.md",
+        "reports/tta_streaming_apt/TTA_FUNCTIONING_CAPABILITY_REPORT_20260513.md",
+        "reports/tta_streaming_apt/cloud_paper_hardening_20260513/",
+        "reports/tta_streaming_apt/PRAXIS06_DEFENSE_CHECKLIST_20260512.md",
+        "reports/tta_streaming_apt/PRAXIS06_SUBMISSION_PACKAGE_INDEX_20260512.md",
+        "reports/tta_streaming_apt/DAPT2020_EXTERNAL_VALIDITY_NOTE_20260512.md",
+        "reports/tta_streaming_apt/DAPT2020_TTA_FEASIBILITY_GATE_20260512.md",
+        "reports/tta_streaming_apt/paper_assets_20260509/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/tta-streaming-apt/"
+      ],
+      "next_cloud_action": "No further cloud sweep needed for the locked claim. Use cloud only for venue-format builds, artifact packaging, or a preregistered external replication."
+    },
+    {
+      "id": "praxis04-stage-conditional-routing",
+      "name": "Praxis 04 - Stage-Conditional Routing",
+      "posture": "negative",
+      "best_evidence": "Treatment-Stage Macro-F1 0.5981 vs Baseline-TSE 0.6313, p-value 1.0000.",
+      "decision": "Keep as bottleneck evidence that predicted stage routing under shift failed.",
+      "lightweight_evidence_paths": [
+        "reports/praxis04_full_run/PRAXIS04_FULL_RUN_REPORT.md",
+        "reports/praxis04_full_run/tables/",
+        "reports/praxis04_full_run/eda/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/praxis04-stage-conditional-routing/"
+      ],
+      "next_cloud_action": "Do not run expensive full routing follow-up unless a new stage-prediction gate is defined first."
+    },
+    {
+      "id": "stage-conditioned-class-imbalance",
+      "name": "Stage-Conditioned Class Imbalance",
+      "posture": "negative",
+      "best_evidence": "Best Infilteration F1 gain only +0.0049; Benign F1 collapsed to 0.5481.",
+      "decision": "Park simple weighting and resampling path.",
+      "lightweight_evidence_paths": [
+        "reports/plan02_stage_conditioned_imbalance/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/stage-conditioned-class-imbalance/"
+      ],
+      "next_cloud_action": "Only reopen with a new calibrated rare-class rescue protocol or representation-learning gate."
+    },
+    {
+      "id": "stage1-routing-recovery",
+      "name": "Stage 1 Routing Recovery",
+      "posture": "diagnostic_only",
+      "best_evidence": "Best macro policy 0.7723 +/- 0.0894; Recon improved but Data Exfiltration fell.",
+      "decision": "Not clean enough for a standalone claim.",
+      "lightweight_evidence_paths": [
+        "reports/EXPERIMENT_DASHBOARD.md"
+      ],
+      "local_or_ignored_artifacts": [
+        "runs/stage1-routing-recovery-sweep-20260509-full/report.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/stage1-routing-recovery/"
+      ],
+      "next_cloud_action": "Promote a small report under reports/ before relying on this diagnostic in cloud."
+    },
+    {
+      "id": "praxis05-sae-apt-interpretability",
+      "name": "Praxis 05 SAE for APT Interpretability",
+      "posture": "hold",
+      "best_evidence": "Full AWS Phase A failed feature-death 0.9119 and seed-stability 0.2815 gates.",
+      "decision": "Do not proceed to Phase B; only one PIDSMaker or larger-hidden-state pivot is justified.",
+      "lightweight_evidence_paths": [
+        "reports/praxis05_phase_a/PHASE_A_STATUS.md",
+        "reports/praxis05_phase_a/FULL_GPU_PHASE_A_20260510.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/sae-for-apt/"
+      ],
+      "next_cloud_action": "If reopened, start with activation export for a larger-hidden-state detector; do not relax Phase A gates."
+    },
+    {
+      "id": "sec-lord-ds-lord",
+      "name": "SEC-LoRD / DS-LoRD",
+      "posture": "hold_negative_current_method",
+      "best_evidence": "Strict audit: 3B vanilla 0.276 vs seeded 0.090; 8B vanilla 0.466 vs seeded 0.284.",
+      "decision": "Stop current prompt seeding; no extraction until redesign passes strict gate.",
+      "lightweight_evidence_paths": [
+        "reports/sec_lord_ds_lord/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/"
+      ],
+      "next_cloud_action": "Redesign answer format and seed selection, then rerun strict prompt gate before any extraction work."
+    },
+    {
+      "id": "ai-supply-chain-backdoor-detection",
+      "name": "AI Supply Chain Backdoor Detection",
+      "posture": "pending_weak",
+      "best_evidence": "Real LoRA traces: loss effect 0.0401, grad-norm -0.0673, update-norm 0.0203.",
+      "decision": "Needs stronger poison construction and richer gradient diagnostics.",
+      "lightweight_evidence_paths": [
+        "reports/ai_supply_chain_training_provenance/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/ai-supply-chain-training-provenance/"
+      ],
+      "next_cloud_action": "Improve poison construction and diagnostics before multi-seed cloud replication."
+    },
+    {
+      "id": "contrastive-ssl-provenance-graphs",
+      "name": "Contrastive SSL on Provenance Graphs",
+      "posture": "pending_weak",
+      "best_evidence": "Positive > negative cosine rate only 0.5227.",
+      "decision": "Do not spend GPU on GraphCL until node features or negatives improve.",
+      "lightweight_evidence_paths": [
+        "reports/contrastive_ssl_provenance_graphs/",
+        "reports/provenance_graphs/DARPA_E5_CADETS_AVRO_PROBE_20260509.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/contrastive-ssl-provenance-graphs/"
+      ],
+      "next_cloud_action": "Work on node features and negative sampling locally or in a small CPU gate first."
+    },
+    {
+      "id": "continuous-time-tgn-apt-provenance",
+      "name": "Continuous-Time TGN",
+      "posture": "pending_weak",
+      "best_evidence": "Previous-event baseline Macro F1 0.6044 beat logistic temporal/hash features 0.5972.",
+      "decision": "Reframe from next-event prediction to anomaly/window detection.",
+      "lightweight_evidence_paths": [
+        "reports/continuous_time_tgn_apt_provenance/",
+        "reports/provenance_graphs/DARPA_E5_CADETS_AVRO_PROBE_20260509.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/continuous-time-tgn-apt-provenance/"
+      ],
+      "next_cloud_action": "Do not start GPU TGN until anomaly/window labels or a stronger proxy target are defined."
+    },
+    {
+      "id": "apt-detector-watermarking",
+      "name": "APT Detector Watermarking",
+      "posture": "active_failed_first_gate",
+      "best_evidence": "Macro-F1 dropped -0.0866; trigger signature accuracy stayed 0.2391.",
+      "decision": "Redesign trigger objective or add owner-verification head before surrogate testing.",
+      "lightweight_evidence_paths": [
+        "reports/apt_detector_watermarking/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/apt-detector-watermarking/"
+      ],
+      "next_cloud_action": "Run only a redesigned utility/signature gate, not surrogate extraction."
+    },
+    {
+      "id": "membership-inference-apt-detectors",
+      "name": "Membership Inference",
+      "posture": "negative",
+      "best_evidence": "Same-distribution shadow ROC-AUC 0.5599; temporal nonmembers 0.7256.",
+      "decision": "Park as evidence that temporal shift drives apparent leakage.",
+      "lightweight_evidence_paths": [
+        "reports/membership_inference_apt_detectors/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/membership-inference-apt-detectors/"
+      ],
+      "next_cloud_action": "Do not promote unless a stronger same-distribution signal appears under a frozen shadow protocol."
+    },
+    {
+      "id": "gnn-attribution-ttp-graph-embeddings",
+      "name": "GNN TTP Graph Embeddings",
+      "posture": "hold",
+      "best_evidence": "SVD retrieval strong, but GraphSAGE top-5 0.060 vs SVD 0.926.",
+      "decision": "Keep simple TTP-set result; do not pitch GNN yet.",
+      "lightweight_evidence_paths": [
+        "reports/cti_attribution_label_sufficiency/",
+        "reports/gnn_attribution_ttp_graph_embeddings/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/gnn-attribution-ttp-graph-embeddings/"
+      ],
+      "next_cloud_action": "Only reopen GNN with richer text/metadata features or a better graph objective."
+    },
+    {
+      "id": "few-shot-attribution-emerging-apt-groups",
+      "name": "Few-Shot APT Group Attribution",
+      "posture": "active_narrow_result",
+      "best_evidence": "ATT&CK TTP-set SVD top-5 0.879 at 5 shots.",
+      "decision": "Viable as ATT&CK profile retrieval, not CTI prose attribution without labels.",
+      "lightweight_evidence_paths": [
+        "reports/cti_attribution_label_sufficiency/",
+        "reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_BASELINE_20260510.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/few-shot-attribution-emerging-apt-groups/"
+      ],
+      "next_cloud_action": "Build group-held-out TTP-set protocol; add document-to-group labels only if pursuing prose attribution."
+    },
+    {
+      "id": "llm-threat-intelligence-fusion",
+      "name": "LLM Threat Intelligence Fusion",
+      "posture": "blocked",
+      "best_evidence": "Sources support retrieval/extraction, not early-warning outcome labels.",
+      "decision": "Define outcome labels before model work.",
+      "lightweight_evidence_paths": [
+        "reports/cti_attribution_label_sufficiency/ATTACK_ANNOCTR_LABEL_GATE_20260510.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/llm-threat-intelligence-fusion/"
+      ],
+      "next_cloud_action": "Do not run an LLM model first; build a dated campaign/outcome evaluation set."
+    },
+    {
+      "id": "concept-drift-provenance-detectors",
+      "name": "Concept Drift on Provenance Detectors",
+      "posture": "pending_architecture_ready",
+      "best_evidence": "Full Cadets windows exist; weak density proxy chronological Macro-F1 up to 0.9788.",
+      "decision": "Needs interval labels, confirmed benign windows, or another labeled stream for publishable drift claims.",
+      "lightweight_evidence_paths": [
+        "reports/concept_drift_provenance_detectors/",
+        "reports/provenance_architecture/FULL_CADETS_WINDOW_FACTORY_20260511.md",
+        "reports/provenance_architecture/CADETS_ATTACK_TOUCH_DENSITY_PROXY_GATE_20260512.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/concept-drift-provenance-graph-detectors/",
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/provenance-window-factory/"
+      ],
+      "next_cloud_action": "Use density only as weak-proxy diagnostics until interval labels or confirmed benign windows exist."
+    },
+    {
+      "id": "stage-routing-provenance-graphs",
+      "name": "Stage Routing on Provenance Graphs",
+      "posture": "hold",
+      "best_evidence": "Praxis 04 shows stage prediction bottleneck.",
+      "decision": "Only reopen if graph stage labels or predictor beat the temporal split bottleneck.",
+      "lightweight_evidence_paths": [
+        "reports/praxis04_full_run/PRAXIS04_FULL_RUN_REPORT.md",
+        "reports/provenance_architecture/"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/stage-routing-provenance-graphs/"
+      ],
+      "next_cloud_action": "Create a graph-stage-label gate before any supervised detector run."
+    },
+    {
+      "id": "cross-detector-adversarial-robustness",
+      "name": "Cross-Detector Adversarial Robustness",
+      "posture": "later",
+      "best_evidence": "No stable detector suite yet.",
+      "decision": "Wait for 2-4 trained detector families.",
+      "lightweight_evidence_paths": [
+        "reports/EXPERIMENT_FINAL_EVALUATION_20260511.md",
+        "configs/detector_zoo_registry.json"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/cross-detector-adversarial-robustness/"
+      ],
+      "next_cloud_action": "Do not launch until detector zoo has trained families with class support."
+    },
+    {
+      "id": "causal-gnn-evasion-resistant-apt",
+      "name": "Causal GNN for Evasion Resistance",
+      "posture": "later",
+      "best_evidence": "High-ceiling, no local gate yet.",
+      "decision": "Keep as follow-on after 2+ publishable wins.",
+      "lightweight_evidence_paths": [
+        "reports/EXPERIMENT_FINAL_EVALUATION_20260511.md"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/causal-gnn-evasion-resistant-apt/"
+      ],
+      "next_cloud_action": "No cloud run until publication base and detector suite mature."
+    },
+    {
+      "id": "reverse-ttp-extraction",
+      "name": "Reverse TTP Extraction",
+      "posture": "shelved",
+      "best_evidence": "No public simulator or data.",
+      "decision": "Revisit only after stronger publication base.",
+      "lightweight_evidence_paths": [
+        "reports/EXPERIMENT_FINAL_EVALUATION_20260511.md"
+      ],
+      "cloud_artifact_prefixes": [],
+      "next_cloud_action": "Do not run."
+    }
+  ],
+  "architecture_components": [
+    {
+      "id": "provenance-window-factory",
+      "status": "architecture_ready_label_blocked",
+      "evidence": "Local smoke converted 98862 Cadets edges to 20 windows; full E5 job processed 480537673 edge events to 9611 windows.",
+      "opens": [
+        "concept-drift-provenance-detectors",
+        "continuous-time-tgn-apt-provenance",
+        "contrastive-ssl-provenance-graphs",
+        "stage-routing-provenance-graphs",
+        "apt-detector-watermarking",
+        "membership-inference-apt-detectors"
+      ],
+      "does_not_solve": "Does not invent labels or confirmed benign support.",
+      "lightweight_evidence_paths": [
+        "reports/provenance_architecture/"
+      ]
+    },
+    {
+      "id": "detector-zoo-registry",
+      "status": "registry_ready_training_blocked_by_class_support",
+      "evidence": "Four baseline families instantiate; detector gate blocked full Cadets because support was 9609 attack-touch vs 2 benign/unlabeled.",
+      "opens": [
+        "watermarking",
+        "membership-inference",
+        "adversarial-robustness"
+      ],
+      "does_not_solve": "No detector claim until class support is adequate.",
+      "lightweight_evidence_paths": [
+        "configs/detector_zoo_registry.json",
+        "reports/provenance_architecture/DETECTOR_ZOO_REGISTRY_20260511.md",
+        "reports/provenance_architecture/PROVENANCE_DETECTOR_ZOO_GATE_FULL_E5CADETS_20260511.md"
+      ]
+    }
+  ],
+  "future_experiment_contract": {
+    "template_manifest": "templates/experiment_handoff_manifest.template.json",
+    "template_cloud_prompt": "templates/experiment_cloud_prompt.template.md",
+    "required_before_cloud": [
+      "stable experiment id",
+      "hypothesis and falsification criteria",
+      "dataset ids and S3 prefixes",
+      "entrypoint script and config",
+      "expected metrics and stop conditions",
+      "heavy artifact storage prefix",
+      "small report path under reports/",
+      "registry entry"
+    ],
+    "required_after_cloud": [
+      "sync heavy run outputs to S3",
+      "write or update lightweight report",
+      "record exact metrics and decision",
+      "update this handoff registry",
+      "commit and push lightweight memory"
+    ]
+  }
+}
