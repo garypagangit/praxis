@@ -17,8 +17,8 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | Priority | Track | Current posture | Best evidence | Next action |
 |---:|---|---|---|---|
 | 1 | TTA for Streaming APT Detection / Praxis 06 | Lead positive; cloud hardening PASS; seven-seed defense addendum complete | Locked replay Macro-F1 `0.8658`, Recon F1 `0.5050`, PR-AUC `0.8738`, override rate `4.7%`; matched confidence-reject Recon F1 `0.0000`; cloud paper audit passed 12/12 checks; seven-seed addendum Macro F1 `0.8477 +/- 0.0226`, Recon F1 `0.5147 +/- 0.0589` | Convert the draft/assets into the target venue package. Keep original locked replay primary; use seven-seed run as robustness addendum. No threshold changes. |
-| 2 | Praxis 06 venue package | Expanded thesis-neutral LaTeX draft; thesis wrapper added; CI and layout sanity PASS | LaTeX workspace exists under `paper/praxis06_tta/`; GitHub Actions run `25881761738` built both PDFs from commit `37a64c5`: article `8` pages, thesis chapter `14` pages; contact-sheet reviews passed for both | Do line-by-line thesis editorial pass, then tune thesis/venue formatting. No threshold changes. |
-| 3 | Few-Shot APT Group Attribution | Active narrow result; 2026-05-13 retrieval refresh PASS | ATT&CK TTP-set SVD top-5 `0.879` at 5 shots; overlap top-5 `0.960`; median rank `1.0` | Turn this into a formal ATT&CK profile retrieval result. Do not call it CTI prose attribution without report-to-group labels. |
+| 2 | Praxis 06 venue package | Expanded thesis-neutral LaTeX draft; thesis wrapper added; CI/layout sanity PASS; defense deck scaffold complete | LaTeX workspace exists under `paper/praxis06_tta/`; GitHub Actions run `25881761738` built both PDFs from commit `37a64c5`: article `8` pages, thesis chapter `14` pages; contact-sheet reviews passed for both; 12-slide defense PPTX generated | Do line-by-line thesis editorial pass, then tune thesis/venue formatting and polish slide visuals. No threshold changes. |
+| 3 | Few-Shot APT Group Attribution | Active narrow result; 2026-05-13 retrieval refresh PASS; formal result #2 write-up started | ATT&CK TTP-set SVD top-5 `0.879` at 5 shots; overlap top-5 `0.960`; median rank `1.0`; GraphSAGE pilot remains negative | Develop this as the second narrow selected result: ATT&CK TTP-set profile retrieval, not CTI prose attribution and not a GNN claim. |
 | 4 | Provenance labels / OpTC or interval truth | Architecture-ready but label-blocked; OpTC seed manifest and eCAR conversion scaffold ready | Full E5 Cadets: `480,537,673` edge events to `9,611` windows; class support `9,609` attack-touch vs `2` benign/unlabeled`; OpTC PDF yielded `101` timestamped red-team seed events across 3 days | Next: download/mirror a targeted OpTC eCAR shard, run `scripts/build_optc_window_gate.ps1`, and require `>=20` benign / `>=20` attack windows before detector training. |
 | 5 | APT Detector Watermarking | Active, first gate failed | Macro-F1 delta `-0.0866`; trigger signature accuracy `0.2391` | Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction. |
 | 6 | AI Supply Chain Backdoor Detection | Pending weak | LoRA trace effects: loss `0.0401`, grad-norm `-0.0673`, update-norm `0.0203` | Build a stronger poison construction and richer gradient/update diagnostics before multi-seed cloud replication. |
@@ -42,9 +42,9 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 ## Recommended Next Sequence
 
 1. Do a line-by-line thesis editorial pass of the article and thesis-chapter outputs. The work is paper assembly and venue conversion, not another threshold search.
-2. Tune thesis/venue formatting. Use the seven-seed hardening addendum as robustness material, not as a replacement for the locked replay.
+2. Polish the Praxis 06 defense deck from `paper/praxis06_tta/defense_slides/PRAXIS06_DEFENSE_SLIDES_20260514.pptx`, then tune thesis/venue formatting. Use the seven-seed hardening addendum as robustness material, not as a replacement for the locked replay.
 3. Keep the pushed handoff memory current. Last pushed commits: `7fdb4b9` and `9e0a183`.
-4. Use the formal protocol for ATT&CK TTP-set few-shot attribution as a second narrow result: `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_PROTOCOL_20260513.md`.
+4. Advance the second selected result from protocol to paper section using `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md` and `paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md`.
 5. Spend provenance effort on labels, not models. The recommended first path is a targeted OpTC subset, with Cadets interval labels as fallback: `reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md`.
 6. Run only cheap redesign gates for watermarking, AI supply-chain provenance, and SEC-LoRD. Each now has a corrected gate memo before expensive cloud work.
 
@@ -65,6 +65,12 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md` | Records the thesis-chapter-first packaging decision and venue conversion notes. |
 | `paper/praxis06_tta/VISUAL_LAYOUT_REVIEW_20260514.md` | Contact-sheet visual sanity review for the latest 8-page CI PDF. |
 | `paper/praxis06_tta/THESIS_CHAPTER_LAYOUT_REVIEW_20260514.md` | Contact-sheet visual sanity review for the 14-page thesis-chapter PDF. |
+| `paper/praxis06_tta/defense_slides/README.md` | Defense-deck handoff index with the open-first files and rebuild command. |
+| `paper/praxis06_tta/defense_slides/PRAXIS06_DEFENSE_SLIDE_OUTLINE_20260514.md` | Slide-by-slide Praxis 06 defense outline with speaker intent and backup-slide plan. |
+| `paper/praxis06_tta/defense_slides/PRAXIS06_DEFENSE_SLIDES_20260514.pptx` | Usable 12-slide PowerPoint defense deck generated from the outline. |
+| `scripts/build_praxis06_defense_deck.py` | Rebuild script for the Praxis 06 PowerPoint deck. |
+| `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md` | Formal result #2 write-up for ATT&CK TTP-set profile retrieval. |
+| `paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md` | Paper/chapter outline for turning the ATT&CK retrieval result into a manuscript section. |
 | `.github/workflows/praxis06-paper.yml` | GitHub Actions paper build path for Praxis 06. |
 | `reports/tta_streaming_apt/PRAXIS06_CI_BUILD_20260514.md` | CI build proof that the Praxis 06 LaTeX draft compiles to PDF. |
 | `reports/provenance_architecture/OPTC_ECAR_CONVERSION_GATE_20260514.md` | OpTC eCAR-to-window conversion gate and pass criteria. |
