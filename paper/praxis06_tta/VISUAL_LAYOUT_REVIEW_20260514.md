@@ -52,3 +52,9 @@ This was a rendered contact-sheet pass, not a full committee-style read. Before 
 Status: **layout sanity PASS for current thesis-neutral draft**.
 
 The package is ready for target-style conversion or thesis-chapter editorial review. No additional experiment or threshold work is needed for this stage.
+
+## Follow-up
+
+The thesis wrapper was reviewed separately after it was added:
+
+- `paper/praxis06_tta/THESIS_CHAPTER_LAYOUT_REVIEW_20260514.md`

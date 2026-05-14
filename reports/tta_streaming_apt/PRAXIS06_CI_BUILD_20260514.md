@@ -36,7 +36,7 @@ Local artifact sanity check after download:
 
 The LaTeX toolchain blocker is closed for the expanded thesis-neutral draft. Local Windows still lacks `pdflatex` and `pandoc`, but GitHub Actions can compile the current source and produce a PDF artifact.
 
-Local artifact sanity used `pypdf` to verify the expanded, figure-integrated article PDF opens, has `8` pages, and contains extractable title/abstract text. The thesis-chapter wrapper PDF also opens, has `14` pages, and contains extractable title text. PyMuPDF previously rendered all 8 article pages to `tmp/pdfs/praxis06-tta-paper-ci-25875430166/`; every page had nonblank pixel variance and extractable text. A human visual pass is still recommended before submission.
+Local artifact sanity used `pypdf` to verify the expanded, figure-integrated article PDF opens, has `8` pages, and contains extractable title/abstract text. The thesis-chapter wrapper PDF also opens, has `14` pages, and contains extractable title text. PyMuPDF rendered all 8 article pages to `tmp/pdfs/praxis06-tta-paper-ci-25875430166/` and all 14 thesis pages to `tmp/pdfs/praxis06-thesis-chapter-ci-25881761738/`; every page had nonblank pixel variance and extractable text. A line-by-line thesis editorial pass is still recommended before committee circulation.
 
 | Render check | Result |
 |---|---:|
@@ -45,6 +45,14 @@ Local artifact sanity used `pypdf` to verify the expanded, figure-integrated art
 | Minimum page text chars | `966` |
 | Minimum grayscale stddev | `26.68` |
 | Render output dir | `tmp/pdfs/praxis06-tta-paper-ci-25875430166/` |
+
+| Thesis render check | Result |
+|---|---:|
+| Rendered pages | `14` |
+| PNG dimensions | `765 x 990` |
+| Minimum page text chars | `150` |
+| Minimum grayscale stddev | `15.60` |
+| Render output dir | `tmp/pdfs/praxis06-thesis-chapter-ci-25881761738/` |
 
 The next paper task is editorial, not infrastructure:
 
