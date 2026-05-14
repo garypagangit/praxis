@@ -38,6 +38,27 @@ The paper makes four claims:
   \item The effect is not equivalent to rejecting uncertain frozen predictions.
 \end{enumerate}
 
+\section{Research Questions and Hypotheses}
+
+The study is deliberately scoped to a locked held-out source-file split.
+It asks whether selective no-label adaptation can improve a rare-stage operating point without creating a new safety failure.
+
+\begin{table}[t]
+  \centering
+  \caption{Research questions and decision criteria.}
+  \label{tab:rq}
+  \begin{tabular}{p{0.16\linewidth}p{0.48\linewidth}p{0.25\linewidth}}
+    \toprule
+    Item & Question or hypothesis & Decision criterion \\
+    \midrule
+    RQ1 & Does selective no-label TTA improve held-out source-file Macro-F1? & Macro-F1 delta at least 0.05. \\
+    RQ2 & Does it recover the rare shifted Reconnaissance stage? & Recon F1 delta at least 0.25. \\
+    RQ3 & Does the gate avoid sacrificing Data Exfiltration? & Mean DE delta nonnegative and per-seed DE delta above -0.05. \\
+    RQ4 & Is the effect more than confidence filtering? & Matched-rate confidence rejection does not recover Recon. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \section{Related Work}
 
 The closest adaptation baseline is Tent, which performs fully test-time adaptation by entropy minimization \cite{wang2021tent}.
@@ -54,6 +75,14 @@ During inference, the method processes the stream in a single pass with batch si
 The gate is named \texttt{recon\_guarded}.
 It preserves confident frozen Data Exfiltration predictions and permits overrides only for uncertain frozen predictions when adapted confidence is sufficient.
 This policy was selected on validation artifacts before final test replay.
+
+\subsection{Graphical Model Representation}
+
+Figure~\ref{fig:method} is the operational graphical model representation.
+The frozen model emits class probabilities for each incoming row.
+The adaptation branch updates only batch-normalization statistics using the unlabeled stream.
+The selective gate then combines frozen confidence, adapted confidence, and class-specific safety rules to decide whether the final label remains frozen or is overridden.
+The gate is not learned on the test set.
 
 \begin{figure}[t]
   \centering
@@ -102,6 +131,24 @@ The matched confidence-reject baseline rejects the same fraction of rows as the 
   \end{tabular}
 \end{table}
 
+\begin{table}[t]
+  \centering
+  \caption{Defense hardening summary. The original locked replay remains primary.}
+  \label{tab:hardening}
+  \begin{tabular}{p{0.36\linewidth}p{0.52\linewidth}}
+    \toprule
+    Check & Result \\
+    \midrule
+    Seven-seed robustness & All seven seeds improve Macro-F1 and Recon F1; mean Recon F1 is 0.5147. \\
+    Validation-distribution sensitivity & Test-like validation subsamples mostly preserve the effect, but threshold stability is a limitation. \\
+    Stronger frozen baselines & Focal/class-balanced frozen variants still collapse on Recon. \\
+    BN stream-order ablation & Shuffling reduces Recon F1 but does not erase the overall operating-point story. \\
+    Override decomposition & Mean override-to-Recon fraction is 0.8075; no frozen DE predictions are overwritten. \\
+    DAPT2020 check & Detector recipe transfers, but TTA is negative; no broad cross-dataset claim is made. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 Table~\ref{tab:main} shows that selective TTA improves Macro-F1 by 0.0974 and Reconnaissance F1 by 0.4800.
 The matched confidence-reject baseline leaves Reconnaissance F1 at 0.0000, so the result is not explained by withholding hard examples.
 PR-AUC changes by only 0.0006.
@@ -128,6 +175,14 @@ The seven-seed defense addendum preserves the core Reconnaissance recovery but e
 For that reason, the original locked replay remains primary and the seven-seed result is treated as robustness evidence.
 Validation-distribution sensitivity also matters: test-like validation subsamples mostly preserve the effect, but threshold choice is not perfectly stable.
 External validity is limited by DAPT2020, where the detector recipe transfers but TTA is negative.
+
+\subsection{Claims Not Made}
+
+This paper does not claim that TTA works across all APT datasets.
+It does not claim that PR-AUC or representation quality materially improves.
+It does not claim that the method is robust to adversarial stream poisoning.
+It does not use DAPT2020 as positive TTA evidence.
+These limits are part of the contribution: the positive claim is narrow, reproducible, and bounded by the observed failures.
 
 \section{Conclusion}
 

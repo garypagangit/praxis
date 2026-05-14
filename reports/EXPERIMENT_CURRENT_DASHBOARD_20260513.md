@@ -1,8 +1,8 @@
 # Experiment Current Dashboard
 
-Updated: 2026-05-13
+Updated: 2026-05-14
 
-Sources: `reports/EXPERIMENT_FINAL_EVALUATION_20260511.md`, `reports/EXPERIMENT_DASHBOARD.md`, `configs/experiment_cloud_handoff_registry.json`, and the local handoff checks run on 2026-05-13.
+Sources: `reports/EXPERIMENT_FINAL_EVALUATION_20260511.md`, `reports/EXPERIMENT_DASHBOARD.md`, `configs/experiment_cloud_handoff_registry.json`, and the local handoff checks run on 2026-05-14.
 
 ## Where We Left Off
 
@@ -17,7 +17,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | Priority | Track | Current posture | Best evidence | Next action |
 |---:|---|---|---|---|
 | 1 | TTA for Streaming APT Detection / Praxis 06 | Lead positive; cloud hardening PASS; seven-seed defense addendum complete | Locked replay Macro-F1 `0.8658`, Recon F1 `0.5050`, PR-AUC `0.8738`, override rate `4.7%`; matched confidence-reject Recon F1 `0.0000`; cloud paper audit passed 12/12 checks; seven-seed addendum Macro F1 `0.8477 +/- 0.0226`, Recon F1 `0.5147 +/- 0.0589` | Convert the draft/assets into the target venue package. Keep original locked replay primary; use seven-seed run as robustness addendum. No threshold changes. |
-| 2 | Cloud/reproducibility handoff | Operational blocker | Handoff checker passes; registry has 19 experiments and 2 architecture components; focused tests pass | Commit and push lightweight memory so cloud runs can see the same state. Do not commit `data/`, `runs/`, `tmp/`, checkpoints, or generated bundles. |
+| 2 | Praxis 06 venue package | In progress | LaTeX workspace exists under `paper/praxis06_tta/`; handoff memory is committed and pushed through `9e0a183` | Finish venue/thesis formatting and compile in a LaTeX-capable environment. No threshold changes. |
 | 3 | Few-Shot APT Group Attribution | Active narrow result; 2026-05-13 retrieval refresh PASS | ATT&CK TTP-set SVD top-5 `0.879` at 5 shots; overlap top-5 `0.960`; median rank `1.0` | Turn this into a formal ATT&CK profile retrieval result. Do not call it CTI prose attribution without report-to-group labels. |
 | 4 | Provenance labels / OpTC or interval truth | Architecture-ready but label-blocked; OpTC seed manifest extracted | Full E5 Cadets: `480,537,673` edge events to `9,611` windows; class support `9,609` attack-touch vs `2` benign/unlabeled`; OpTC PDF yielded `101` timestamped red-team seed events across 3 days | Next: map targeted OpTC eCAR shards into the window factory and require `>=20` benign / `>=20` attack windows before detector training. |
 | 5 | APT Detector Watermarking | Active, first gate failed | Macro-F1 delta `-0.0866`; trigger signature accuracy `0.2391` | Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction. |
@@ -41,9 +41,9 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 
 ## Recommended Next Sequence
 
-1. Freeze the lightweight project memory. Commit `CLOUD_HANDOFF.md`, `configs/experiment_cloud_handoff_registry.json`, current reports, relevant configs/scripts/src/tests, and templates. Keep heavy local artifacts out of Git.
-2. Finish Praxis 06 packaging around TTA. The work is paper assembly and venue conversion, not another threshold search. Use the seven-seed hardening addendum as robustness material, not as a replacement for the locked replay.
-3. Decide the target venue format and convert `reports/tta_streaming_apt/PRAXIS06_FULL_DRAFT_20260512.md` into that format.
+1. Finish Praxis 06 packaging around TTA. The work is paper assembly and venue conversion, not another threshold search. Use the seven-seed hardening addendum as robustness material, not as a replacement for the locked replay.
+2. Decide the target venue format and compile `paper/praxis06_tta/main.tex` in a LaTeX-capable environment.
+3. Keep the pushed handoff memory current. Last pushed commits: `7fdb4b9` and `9e0a183`.
 4. Use the formal protocol for ATT&CK TTP-set few-shot attribution as a second narrow result: `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_PROTOCOL_20260513.md`.
 5. Spend provenance effort on labels, not models. The recommended first path is a targeted OpTC subset, with Cadets interval labels as fallback: `reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md`.
 6. Run only cheap redesign gates for watermarking, AI supply-chain provenance, and SEC-LoRD. Each now has a corrected gate memo before expensive cloud work.
@@ -60,6 +60,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `reports/apt_detector_watermarking/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for detector watermarking before surrogate extraction. |
 | `reports/ai_supply_chain_training_provenance/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for poisoned LoRA training-trace provenance. |
 | `reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure. |
+| `paper/praxis06_tta/main.tex` | Venue-neutral LaTeX skeleton for the Praxis 06 TTA paper. |
 
 ## Immediate Commands
 
@@ -82,4 +83,6 @@ TTA defense-hardening addendum: `reports/tta_streaming_apt/PRAXIS06_DEFENSE_HARD
 
 ## Current Risk
 
-The science is clearer than the repository state. The local workspace contains many untracked lightweight reports/scripts/configs plus heavy scratch artifacts in `tmp/` and generated outputs in `results/`. Until the lightweight files are committed and pushed, a fresh cloud run will not fully remember the experiment history.
+The main repository-state risk has been reduced: standard lightweight handoff files are committed and pushed. Remaining local noise is outside the standard lightweight prefixes: `.vscode/settings.json`, standalone planning documents, and `codex_mobile_project_20260429/`.
+
+The current paper-packaging risk is toolchain-related. This Windows environment does not currently have `pandoc` or `pdflatex`, so the LaTeX skeleton is source-ready but not locally compiled.
