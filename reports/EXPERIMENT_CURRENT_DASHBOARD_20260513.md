@@ -88,4 +88,4 @@ TTA defense-hardening addendum: `reports/tta_streaming_apt/PRAXIS06_DEFENSE_HARD
 
 The main repository-state risk has been reduced: standard lightweight handoff files are committed and pushed. Remaining local noise is outside the standard lightweight prefixes: `.vscode/settings.json`, standalone planning documents, and `codex_mobile_project_20260429/`.
 
-The local Windows environment does not currently have `pandoc` or `pdflatex`, but the GitHub Actions paper build now compiles the venue-neutral LaTeX skeleton successfully. The remaining packaging risk is editorial: choosing the target venue/thesis style and fitting the paper to that format.
+The local Windows environment does not currently have `pandoc` or `pdflatex`, but the GitHub Actions paper build now compiles the expanded LaTeX draft successfully. The latest CI PDF also renders locally with PyMuPDF, so the remaining packaging risk is editorial: choosing the target venue/thesis style, visually reviewing page layout, and fitting the paper to that format.

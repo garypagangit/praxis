@@ -33,7 +33,15 @@ Local artifact sanity check after download:
 
 The LaTeX toolchain blocker is closed for the expanded thesis-neutral draft. Local Windows still lacks `pdflatex` and `pandoc`, but GitHub Actions can compile the current source and produce a PDF artifact.
 
-Local artifact sanity used `pypdf` to verify the expanded, figure-integrated PDF opens, has `8` pages, and contains extractable title/abstract text. Poppler/`pdftoppm` is not installed locally, so final image-level page rendering remains a layout-review item before submission.
+Local artifact sanity used `pypdf` to verify the expanded, figure-integrated PDF opens, has `8` pages, and contains extractable title/abstract text. PyMuPDF then rendered all 8 pages to `tmp/pdfs/praxis06-tta-paper-ci-25875430166/`; every page had nonblank pixel variance and extractable text. A human visual pass is still recommended before submission.
+
+| Render check | Result |
+|---|---:|
+| Rendered pages | `8` |
+| PNG dimensions | `918 x 1188` |
+| Minimum page text chars | `966` |
+| Minimum grayscale stddev | `26.68` |
+| Render output dir | `tmp/pdfs/praxis06-tta-paper-ci-25875430166/` |
 
 The next paper task is editorial, not infrastructure:
 
