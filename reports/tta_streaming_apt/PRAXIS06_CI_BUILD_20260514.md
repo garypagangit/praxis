@@ -9,13 +9,13 @@ Status: **PASS**
 | Field | Value |
 |---|---|
 | Workflow | `Praxis 06 paper build` |
-| Run URL | `https://github.com/garypagangit/praxis/actions/runs/25875144659` |
+| Run URL | `https://github.com/garypagangit/praxis/actions/runs/25875430166` |
 | Event | `push` |
 | Branch | `experiment/tta-streaming-apt` |
-| Commit | `46168453e3426df8dde5062da095fe3f81770be5` |
+| Commit | `ecfb6e025445336bbab11eb8bbb38255c0dbc5ba` |
 | Conclusion | `success` |
-| Started | `2026-05-14T17:32:32Z` |
-| Completed | `2026-05-14T17:34:23Z` |
+| Started | `2026-05-14T17:38:23Z` |
+| Completed | `2026-05-14T17:40:05Z` |
 
 ## Artifact Check
 
@@ -25,15 +25,15 @@ Local artifact sanity check after download:
 
 | Check | Value |
 |---|---:|
-| PDF path | `tmp/praxis06-tta-paper-ci-25875144659/main.pdf` |
-| Pages | `7` |
-| Size bytes | `309999` |
+| PDF path | `tmp/praxis06-tta-paper-ci-25875430166/main.pdf` |
+| Pages | `8` |
+| Size bytes | `677961` |
 
 ## Decision
 
 The LaTeX toolchain blocker is closed for the expanded thesis-neutral draft. Local Windows still lacks `pdflatex` and `pandoc`, but GitHub Actions can compile the current source and produce a PDF artifact.
 
-Local artifact sanity used `pypdf` to verify the expanded PDF opens, has `7` pages, and contains extractable title/abstract text. Poppler/`pdftoppm` is not installed locally, so final image-level page rendering remains a layout-review item before submission.
+Local artifact sanity used `pypdf` to verify the expanded, figure-integrated PDF opens, has `8` pages, and contains extractable title/abstract text. Poppler/`pdftoppm` is not installed locally, so final image-level page rendering remains a layout-review item before submission.
 
 The next paper task is editorial, not infrastructure:
 

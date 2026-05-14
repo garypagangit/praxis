@@ -11,7 +11,7 @@ Updated: 2026-05-14
 | Local references | Done: `references.bib` |
 | Build script | Done: `build.ps1` |
 | GitHub Actions compile path | Done: `.github/workflows/praxis06-paper.yml` |
-| CI compile | Pass: expanded run `25875144659`, 7-page PDF artifact |
+| CI compile | Pass: figure-integrated run `25875430166`, 8-page PDF artifact |
 | Local compile | Optional/blocking only for local work: `pdflatex`/`latexmk` not installed locally |
 | Claim guard | Done: original locked replay remains primary |
 
