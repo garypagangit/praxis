@@ -34,3 +34,11 @@ Pandoc is not installed in this local environment, so this workspace starts from
 ## Claim Guard
 
 Do not change thresholds, gate policy, or primary result framing during venue conversion. The original locked three-seed replay remains the primary result; the seven-seed run is robustness material.
+
+## CI Build
+
+The GitHub Actions workflow compiled the venue-neutral skeleton successfully on 2026-05-14:
+
+- Run: `https://github.com/garypagangit/praxis/actions/runs/25874826445`
+- Artifact: `praxis06-tta-paper`
+- Local sanity check after download: 4 pages, 251,618 bytes.
