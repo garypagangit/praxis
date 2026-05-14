@@ -14,14 +14,16 @@ Updated: 2026-05-14
 | CI compile | Pass: figure-integrated run `25875430166`, 8-page PDF artifact |
 | Local compile | Optional/blocking only for local work: `pdflatex`/`latexmk` not installed locally |
 | Local PDF render sanity | Pass: PyMuPDF rendered all 8 pages from CI artifact to `tmp/pdfs/praxis06-tta-paper-ci-25875430166/` |
+| Contact-sheet layout review | Pass: `paper/praxis06_tta/VISUAL_LAYOUT_REVIEW_20260514.md` |
+| Target style decision | Thesis chapter first: `paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md` |
 | Claim guard | Done: original locked replay remains primary |
 
 ## Next Editorial Pass
 
-1. Pick target format: thesis chapter, arXiv, ACM, IEEE, USENIX-style.
-2. Replace `article` class with the target class.
-3. Tune section lengths for the target page budget.
-4. Do a human visual pass on the rendered PDF pages for table/figure placement.
+1. Do a full-size human read of the 8-page PDF.
+2. Convert the current source into a thesis-chapter wrapper if the committee package is the next deliverable.
+3. If targeting a venue instead, replace `article` class with the target class.
+4. Tune section lengths for the target page budget.
 5. Fix table widths and figure placement after target-class compile.
 
 ## Must Not Change
