@@ -17,10 +17,11 @@ Primary LaTeX source:
 
 Latest confirmed build:
 
-- GitHub Actions run: `25875430166`
-- Commit: `ecfb6e0`
+- GitHub Actions run: `25881761738`
+- Commit: `37a64c5`
 - Artifact: `praxis06-tta-paper`
-- PDF: `8` pages, figure-integrated
+- Article PDF: `8` pages, figure-integrated
+- Thesis chapter PDF: `14` pages, chapter wrapper
 
 ## Claim Guard
 
@@ -61,4 +62,4 @@ Keep these unchanged during thesis/venue conversion:
 
 ## Next Editorial Step
 
-Confirm the thesis wrapper compiles, then do a full-size PDF read for phrasing, figure placement, and table readability. Create a venue-specific branch only after the committee/thesis chapter package is stable.
+Do a full-size PDF read for phrasing, figure placement, and table readability. Create a venue-specific branch only after the committee/thesis chapter package is stable.

@@ -9,13 +9,13 @@ Status: **PASS**
 | Field | Value |
 |---|---|
 | Workflow | `Praxis 06 paper build` |
-| Run URL | `https://github.com/garypagangit/praxis/actions/runs/25875430166` |
+| Run URL | `https://github.com/garypagangit/praxis/actions/runs/25881761738` |
 | Event | `push` |
 | Branch | `experiment/tta-streaming-apt` |
-| Commit | `ecfb6e025445336bbab11eb8bbb38255c0dbc5ba` |
+| Commit | `37a64c53a12dd26c6430a2ddab2bac4cc0bae37f` |
 | Conclusion | `success` |
-| Started | `2026-05-14T17:38:23Z` |
-| Completed | `2026-05-14T17:40:05Z` |
+| Started | `2026-05-14T19:46:15Z` |
+| Completed | `2026-05-14T19:48:46Z` |
 
 ## Artifact Check
 
@@ -25,15 +25,18 @@ Local artifact sanity check after download:
 
 | Check | Value |
 |---|---:|
-| PDF path | `tmp/praxis06-tta-paper-ci-25875430166/main.pdf` |
-| Pages | `8` |
-| Size bytes | `677961` |
+| Article PDF path | `tmp/praxis06-tta-paper-ci-25881761738/main.pdf` |
+| Article pages | `8` |
+| Article size bytes | `677961` |
+| Thesis PDF path | `tmp/praxis06-tta-paper-ci-25881761738/thesis_chapter.pdf` |
+| Thesis pages | `14` |
+| Thesis size bytes | `618638` |
 
 ## Decision
 
 The LaTeX toolchain blocker is closed for the expanded thesis-neutral draft. Local Windows still lacks `pdflatex` and `pandoc`, but GitHub Actions can compile the current source and produce a PDF artifact.
 
-Local artifact sanity used `pypdf` to verify the expanded, figure-integrated PDF opens, has `8` pages, and contains extractable title/abstract text. PyMuPDF then rendered all 8 pages to `tmp/pdfs/praxis06-tta-paper-ci-25875430166/`; every page had nonblank pixel variance and extractable text. A human visual pass is still recommended before submission.
+Local artifact sanity used `pypdf` to verify the expanded, figure-integrated article PDF opens, has `8` pages, and contains extractable title/abstract text. The thesis-chapter wrapper PDF also opens, has `14` pages, and contains extractable title text. PyMuPDF previously rendered all 8 article pages to `tmp/pdfs/praxis06-tta-paper-ci-25875430166/`; every page had nonblank pixel variance and extractable text. A human visual pass is still recommended before submission.
 
 | Render check | Result |
 |---|---:|
