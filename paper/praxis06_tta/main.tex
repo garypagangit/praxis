@@ -244,6 +244,13 @@ The 2026-05-13 hardening run added four more seeds, validation-distribution sens
 These checks strengthen the defense while preserving the locked-policy story.
 The original three-seed locked replay remains primary because it is the pre-final validation-selected replay; the seven-seed run is reported as robustness evidence.
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.83\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure4_recon_pr_operating_points.png}
+  \caption{Reconnaissance precision-recall operating-point view from the defense-hardening run. The figure supports the framing that the contribution is an operating-point decision-policy improvement, not a broad PR-AUC gain.}
+  \label{fig:recon-pr}
+\end{figure}
+
 \section{External Validity}
 
 DAPT2020 supports only an appendix-level detector-recipe check, not TTA generality.
@@ -255,6 +262,13 @@ A lightweight feature-shift diagnostic suggests one plausible mechanism boundary
 Unraveled has moderate train-to-test feature-scale shift: median absolute log standard-deviation ratio is 0.1192, with 11 of 67 features above a twofold standard-deviation ratio.
 DAPT2020 has similar median shift but extreme tail instability: p90 absolute log standard-deviation ratio is 26.9379, with 16 of 82 features above the twofold mark.
 This supports the cautious hypothesis that BN adaptation helps when target-stream feature scales are compatible with the source-trained normalization layers and can fail when a small set of features has extreme scale mismatch or unstable batch composition.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.83\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure5_de_pr_operating_points.png}
+  \caption{Data Exfiltration precision-recall operating-point view from the defense-hardening run. This figure is supporting evidence for the safety discussion, not a separate DE generalization claim.}
+  \label{fig:de-pr}
+\end{figure}
 
 \section{Threats to Validity}
 
