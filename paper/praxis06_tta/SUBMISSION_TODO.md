@@ -7,6 +7,7 @@ Updated: 2026-05-14
 | Item | Status |
 |---|---|
 | Venue-neutral LaTeX skeleton | Done: `main.tex` |
+| Thesis-neutral expanded manuscript | Done: `main.tex` now includes related work, method, results, external validity, threats, and appendices |
 | Local references | Done: `references.bib` |
 | Build script | Done: `build.ps1` |
 | GitHub Actions compile path | Done: `.github/workflows/praxis06-paper.yml` |
@@ -16,15 +17,12 @@ Updated: 2026-05-14
 
 ## Next Editorial Pass
 
-1. Pick target format: thesis chapter, arXiv, ACM, IEEE, USENIX-style.
-2. Replace `article` class with the target class.
-3. Expand Related Work into three paragraphs:
-   - test-time adaptation,
-   - APT/stage detection,
-   - safety-gated security ML decisions.
-4. Move large defense-hardening details to appendix if venue page limit is tight.
+1. Push the expanded manuscript and confirm GitHub Actions still compiles it.
+2. Pick target format: thesis chapter, arXiv, ACM, IEEE, USENIX-style.
+3. Replace `article` class with the target class.
+4. Tune section lengths for the target page budget.
 5. Add the PR operating-point figures from the defense hardening run when final figure paths are selected.
-6. Compile in a LaTeX-capable environment and fix table widths.
+6. Fix table widths and figure placement after target-class compile.
 
 ## Must Not Change
 
