@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Experiment Current Dashboard</title><style>:root{--ink:#111827;--muted:#4b5563;--line:#d1d5db;--soft:#f8fafc;--blue:#1d4ed8;--blue-soft:#dbeafe}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);background:#eef2f7;line-height:1.55}main{max-width:1220px;margin:28px auto;background:white;padding:42px 48px;border:1px solid #e5e7eb;box-shadow:0 18px 60px rgba(15,23,42,.10)}h1{font-size:34px;line-height:1.15;margin:0 0 18px;padding-bottom:14px;border-bottom:4px solid var(--blue)}h2{font-size:23px;margin-top:34px;padding-bottom:6px;border-bottom:1px solid var(--line)}p{margin:12px 0}li{margin:5px 0}code{background:#f3f4f6;border:1px solid #e5e7eb;padding:1px 5px;border-radius:4px;font-family:Consolas,"Liberation Mono",monospace;font-size:.93em}pre{background:#111827;color:#f9fafb;padding:16px;overflow:auto;border-radius:8px}pre code{background:transparent;border:0;color:inherit;padding:0}.table-wrap{overflow-x:auto;margin:16px 0 24px;border:1px solid var(--line);border-radius:8px}table{width:100%;border-collapse:collapse;min-width:820px}th{background:var(--blue-soft);color:#0f172a;font-weight:700;text-align:left}th,td{border-bottom:1px solid #e5e7eb;padding:9px 11px;vertical-align:top}tr:nth-child(even)td{background:var(--soft)}tr:last-child td{border-bottom:0}.meta{color:var(--muted);font-size:13px;margin-bottom:24px}.print-note{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}@media print{body{background:white}main{box-shadow:none;border:0;margin:0;max-width:none;padding:20px}.table-wrap{overflow:visible}}</style></head>
+<body><main><div class="meta">Exported from <code>reports\EXPERIMENT_CURRENT_DASHBOARD_20260513.md</code> on 2026-05-14.</div>
+<h1>Experiment Current Dashboard</h1>
+<p>Updated: 2026-05-14</p>
+<p>Sources: <code>reports/EXPERIMENT_FINAL_EVALUATION_20260511.md</code>, <code>reports/EXPERIMENT_DASHBOARD.md</code>, <code>configs/experiment_cloud_handoff_registry.json</code>, and the local handoff checks run on 2026-05-14.</p>
+<h2>Where We Left Off</h2>
+<p>The portfolio has one defense-ready positive result: <code>TTA for Streaming APT Detection</code>. The locked replay, AWS agreement, robustness checks, matched confidence-reject baseline, and paper assets make it the only current Praxis-grade claim.</p>
+<p>The second major result is architectural rather than scientific: provenance windowing and the detector-zoo registry now work, including the full E5 Cadets window factory, but supervised provenance claims remain blocked because the available node-touch labels collapse almost every window into attack-touch.</p>
+<p>The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04, stage-conditioned imbalance, MIA, SEC-LoRD prompt seeding, GraphSAGE TTP embeddings, first-pass watermarking, AI supply-chain provenance, SSL provenance, and next-event TGN each taught a clear constraint.</p>
+<h2>Priority Dashboard</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Priority</th><th>Track</th><th>Current posture</th><th>Best evidence</th><th>Next action</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>TTA for Streaming APT Detection / Praxis 06</td><td>Lead positive; cloud hardening PASS; seven-seed defense addendum complete</td><td>Locked replay Macro-F1 <code>0.8658</code>, Recon F1 <code>0.5050</code>, PR-AUC <code>0.8738</code>, override rate <code>4.7%</code>; matched confidence-reject Recon F1 <code>0.0000</code>; cloud paper audit passed 12/12 checks; seven-seed addendum Macro F1 <code>0.8477 +/- 0.0226</code>, Recon F1 <code>0.5147 +/- 0.0589</code></td><td>Convert the draft/assets into the target venue package. Keep original locked replay primary; use seven-seed run as robustness addendum. No threshold changes.</td></tr>
+<tr><td>2</td><td>Praxis 06 venue package</td><td>Expanded thesis-neutral LaTeX draft; thesis wrapper added; CI/layout sanity PASS; defense deck scaffold complete</td><td>LaTeX workspace exists under <code>paper/praxis06_tta/</code>; GitHub Actions run <code>25881761738</code> built both PDFs from commit <code>37a64c5</code>: article <code>8</code> pages, thesis chapter <code>14</code> pages; contact-sheet reviews passed for both; 12-slide defense PPTX generated</td><td>Do line-by-line thesis editorial pass, then tune thesis/venue formatting and polish slide visuals. No threshold changes.</td></tr>
+<tr><td>3</td><td>Few-Shot APT Group Attribution</td><td>Active narrow result; 2026-05-13 retrieval refresh PASS; formal result #2 write-up started</td><td>ATT&amp;CK TTP-set SVD top-5 <code>0.879</code> at 5 shots; overlap top-5 <code>0.960</code>; median rank <code>1.0</code>; GraphSAGE pilot remains negative</td><td>Develop this as the second narrow selected result: ATT&amp;CK TTP-set profile retrieval, not CTI prose attribution and not a GNN claim.</td></tr>
+<tr><td>4</td><td>Provenance labels / OpTC or interval truth</td><td>Architecture-ready but label-blocked; OpTC seed manifest and eCAR conversion scaffold ready</td><td>Full E5 Cadets: <code>480,537,673</code> edge events to <code>9,611</code> windows; class support <code>9,609</code> attack-touch vs <code>2</code> benign/unlabeled<code>; OpTC PDF yielded </code>101` timestamped red-team seed events across 3 days</td><td>Next: download/mirror a targeted OpTC eCAR shard, run <code>scripts/build_optc_window_gate.ps1</code>, and require <code>&gt;=20</code> benign / <code>&gt;=20</code> attack windows before detector training.</td></tr>
+<tr><td>5</td><td>APT Detector Watermarking</td><td>Active, first gate failed</td><td>Macro-F1 delta <code>-0.0866</code>; trigger signature accuracy <code>0.2391</code></td><td>Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction.</td></tr>
+<tr><td>6</td><td>AI Supply Chain Backdoor Detection</td><td>Pending weak</td><td>LoRA trace effects: loss <code>0.0401</code>, grad-norm <code>-0.0673</code>, update-norm <code>0.0203</code></td><td>Build a stronger poison construction and richer gradient/update diagnostics before multi-seed cloud replication.</td></tr>
+<tr><td>7</td><td>SEC-LoRD / DS-LoRD</td><td>Hold, current method negative</td><td>Strict audit: 3B vanilla <code>0.276</code> vs seeded <code>0.090</code>; 8B vanilla <code>0.466</code> vs seeded <code>0.284</code></td><td>Redesign task formatting and seed selection; re-gate with strict answer parsing before extraction.</td></tr>
+<tr><td>8</td><td>Concept Drift / SSL / TGN on Provenance</td><td>Pending weak or architecture-ready</td><td>Density proxy is learnable, but not ground truth; SSL positive &gt; negative cosine only <code>0.5227</code>; previous-event baseline beat next-event TGN features</td><td>Run only weak-proxy diagnostics until labels exist. No GPU GraphCL/TGN push yet.</td></tr>
+</tbody></table></div>
+<h2>Paper Anchors Behind The Dashboard</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Priority</th><th>Track</th><th>Research paper / source anchor</th><th>Gap this experiment fills</th><th>Current decision</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>TTA for Streaming APT Detection / Praxis 06</td><td>Wang et al. (2021), <em>Tent: Fully Test-Time Adaptation by Entropy Minimization</em></td><td>Applies no-label adaptation to high-consequence cybersecurity streams with validation-selected safety gates rather than unconstrained adaptation</td><td>Selected lead positive</td></tr>
+<tr><td>2</td><td>Praxis 06 venue package</td><td>Same Praxis 06 anchor: Wang et al. (2021), plus the local DAPT2020 external-validity check</td><td>Converts the bounded TTA finding into a defensible thesis/venue package without expanding the claim</td><td>Packaging in progress</td></tr>
+<tr><td>3</td><td>Few-Shot APT Group Attribution</td><td>Strom et al. (2020), <em>MITRE ATT&amp;CK: Design and Philosophy</em>; Hamilton et al. (2017), GraphSAGE as the failed learned-embedding comparison</td><td>Formalizes few-shot ATT&amp;CK group-profile retrieval from observed TTP sets; separates profile retrieval from CTI prose attribution</td><td>Selected second narrow result</td></tr>
+<tr><td>4</td><td>Provenance labels / OpTC or interval truth</td><td>Han et al. (2020), UNICORN; Gama et al. (2014), concept drift adaptation; OpTC red-team ground-truth artifact</td><td>Provides label-faithful provenance windows before drift, TGN, SSL, MIA, watermarking, or detector-zoo claims</td><td>Architecture-ready, label-blocked</td></tr>
+<tr><td>5</td><td>APT Detector Watermarking</td><td>Adi et al. (2018), DNN watermarking by backdooring</td><td>Tests whether APT detectors can carry owner-verifiable signatures without losing normal detection utility</td><td>Failed first utility/signature gate; redesign only</td></tr>
+<tr><td>6</td><td>AI Supply Chain Backdoor Detection</td><td>Gu et al. (2017), BadNets / ML supply-chain backdoor risk</td><td>Moves from final-model behavior to training-trace provenance diagnostics for poisoned fine-tuning runs</td><td>Pending weak; redesign only</td></tr>
+<tr><td>7</td><td>SEC-LoRD / DS-LoRD</td><td>Carlini et al. (2021), extracting training data from LLMs; Lewis et al. (2020), retrieval-augmented generation</td><td>Tests whether question-specific CTI evidence can improve strict task compliance before any LoRD-style extraction claim</td><td>Current method negative; redesign gate only</td></tr>
+<tr><td>8</td><td>Concept Drift / SSL / TGN on Provenance</td><td>Gama et al. (2014), drift; You et al. (2020), GraphCL; Rossi et al. (2020), TGN; Han et al. (2020), UNICORN</td><td>Reopens dynamic/representation provenance modeling only after honest labels exist</td><td>Hold weak-proxy diagnostics only</td></tr>
+</tbody></table></div>
+<h2>Reference Details For Paper Anchors</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Anchor</th><th>APA reference</th></tr></thead>
+<tbody>
+<tr><td>TTA / Praxis 06</td><td>Wang, D., Shelhamer, E., Liu, S., Olshausen, B., &amp; Darrell, T. (2021). <em>Tent: Fully test-time adaptation by entropy minimization</em>. International Conference on Learning Representations. https://openreview.net/forum?id=uXl3bZLkr3c</td></tr>
+<tr><td>ATT&amp;CK profile retrieval</td><td>Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., &amp; Thomas, C. B. (2020). <em>MITRE ATT&amp;CK: Design and philosophy</em>. MITRE. https://www.mitre.org/news-insights/publication/mitre-attck-design-and-philosophy</td></tr>
+<tr><td>Graph embedding comparison</td><td>Hamilton, W. L., Ying, Z., &amp; Leskovec, J. (2017). Inductive representation learning on large graphs. In <em>Advances in Neural Information Processing Systems 30</em>. https://papers.nips.cc/paper/6703-inductive-representation-learning-on-large-graphs</td></tr>
+<tr><td>Provenance APT detection</td><td>Han, X., Pasquier, T., Bates, A., Mickens, J., &amp; Seltzer, M. (2020). UNICORN: Runtime provenance-based detector for advanced persistent threats. In <em>Network and Distributed System Security Symposium</em>. https://tfjmp.org/publication/2020-ndss/</td></tr>
+<tr><td>Concept drift</td><td>Gama, J., Zliobaite, I., Bifet, A., Pechenizkiy, M., &amp; Bouchachia, A. (2014). A survey on concept drift adaptation. <em>ACM Computing Surveys, 46</em>(4), 1-37. https://doi.org/10.1145/2523813</td></tr>
+<tr><td>Detector watermarking</td><td>Adi, Y., Baum, C., Cisse, M., Pinkas, B., &amp; Keshet, J. (2018). Turning your weakness into a strength: Watermarking deep neural networks by backdooring. In <em>27th USENIX Security Symposium</em> (pp. 1615-1631). https://www.usenix.org/conference/usenixsecurity18/presentation/adi</td></tr>
+<tr><td>Supply-chain backdoors</td><td>Gu, T., Dolan-Gavitt, B., &amp; Garg, S. (2017). BadNets: Identifying vulnerabilities in the machine learning model supply chain. <em>arXiv:1708.06733</em>. https://arxiv.org/abs/1708.06733</td></tr>
+<tr><td>LLM extraction / SEC-LoRD</td><td>Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A., Brown, T., Song, D., Erlingsson, U., Oprea, A., &amp; Raffel, C. (2021). Extracting training data from large language models. In <em>30th USENIX Security Symposium</em> (pp. 2633-2650). https://www.usenix.org/conference/usenixsecurity21/presentation/carlini-extracting</td></tr>
+<tr><td>Retrieval-conditioned CTI prompts</td><td>Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Kuttler, H., Lewis, M., Yih, W., Rocktaschel, T., Riedel, S., &amp; Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. In <em>Advances in Neural Information Processing Systems 33</em>. https://papers.nips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html</td></tr>
+<tr><td>Graph contrastive learning</td><td>You, Y., Chen, T., Sui, Y., Chen, T., Wang, Z., &amp; Shen, Y. (2020). Graph contrastive learning with augmentations. In <em>Advances in Neural Information Processing Systems 33</em>. https://arxiv.org/abs/2010.13902</td></tr>
+<tr><td>Temporal graph networks</td><td>Rossi, E., Chamberlain, B., Frasca, F., Eynard, D., Monti, F., &amp; Bronstein, M. (2020). Temporal graph networks for deep learning on dynamic graphs. <em>arXiv:2006.10637</em>. https://arxiv.org/abs/2006.10637</td></tr>
+<tr><td>OpTC label path note</td><td><code>external/datasets/optc/OpTCRedTeamGroundTruth.pdf</code> is treated as a release ground-truth artifact rather than a peer-reviewed paper; it supports the label path, not a detector claim.</td></tr>
+</tbody></table></div>
+<h2>Stop Or Hold List</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Track</th><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Praxis 04 - Stage-Conditional Routing</td><td>Preserve as negative bottleneck evidence. Predicted-stage routing failed under shift.</td></tr>
+<tr><td>Stage-Conditioned Class Imbalance</td><td>Park simple weighting/resampling. Rare-class gain was too small and Benign collapsed.</td></tr>
+<tr><td>Membership Inference</td><td>Park as negative/control evidence: temporal shift explains most apparent leakage.</td></tr>
+<tr><td>GNN TTP Graph Embeddings</td><td>Hold GNN claim. Keep the simple SVD/overlap TTP-set result.</td></tr>
+<tr><td>Praxis 05 SAE on MAGIC hidden states</td><td>Hold. Phase A failed feature-death and seed-stability gates. Only a larger-hidden-state PIDSMaker pivot is justified.</td></tr>
+<tr><td>LLM Threat Intelligence Fusion</td><td>Blocked until dated campaign/outcome labels exist.</td></tr>
+<tr><td>Cross-Detector Adversarial Robustness</td><td>Later; needs 2-4 stable trained detector families.</td></tr>
+<tr><td>Causal GNN for Evasion Resistance</td><td>Later; keep as a follow-on after stronger publication base.</td></tr>
+<tr><td>Reverse TTP Extraction</td><td>Shelved; no public simulator/data path.</td></tr>
+</tbody></table></div>
+<h2>Recommended Next Sequence</h2>
+<ol>
+<li>Do a line-by-line thesis editorial pass of the article and thesis-chapter outputs. The work is paper assembly and venue conversion, not another threshold search.</li>
+<li>Polish the Praxis 06 defense deck from <code>paper/praxis06_tta/defense_slides/PRAXIS06_DEFENSE_SLIDES_20260514.pptx</code>, then tune thesis/venue formatting. Use the seven-seed hardening addendum as robustness material, not as a replacement for the locked replay.</li>
+<li>Keep the pushed handoff memory current. Last pushed commits: <code>7fdb4b9</code> and <code>9e0a183</code>.</li>
+<li>Advance the second selected result from protocol to paper section using <code>reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md</code> and <code>paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md</code>.</li>
+<li>Spend provenance effort on labels, not models. The recommended first path is a targeted OpTC subset, with Cadets interval labels as fallback: <code>reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md</code>.</li>
+<li>Run only cheap redesign gates for watermarking, AI supply-chain provenance, and SEC-LoRD. Each now has a corrected gate memo before expensive cloud work.</li>
+</ol>
+<h2>New Decision Artifacts</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Artifact</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>reports/EXPERIMENT_IDEA_DECISION_MATRIX_20260513.md</code></td><td>Definitive doctoral-style table of experiment ideas, research gap, status, metrics, and selected/dropped/reframed decision.</td></tr>
+<tr><td><code>reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_PROTOCOL_20260513.md</code></td><td>Formal protocol for the next narrow positive: ATT&amp;CK TTP-set group-profile retrieval.</td></tr>
+<tr><td><code>reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_BASELINE_REFRESH_20260513.md</code></td><td>Refreshed ATT&amp;CK TTP-set retrieval baseline confirming SVD top-5 <code>0.879</code> and overlap top-5 <code>0.960</code> at 5 shots.</td></tr>
+<tr><td><code>reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md</code></td><td>Label-path decision; recommends targeted OpTC subset first, Cadets interval labels as fallback.</td></tr>
+<tr><td><code>reports/provenance_architecture/OPTC_GROUND_TRUTH_SEED_MANIFEST_20260513.md</code></td><td>First OpTC label feasibility artifact: 101 timestamped red-team seed events extracted from the public ground-truth PDF.</td></tr>
+<tr><td><code>reports/apt_detector_watermarking/NEXT_GATE_DESIGN_20260513.md</code></td><td>Cheap redesign gate for detector watermarking before surrogate extraction.</td></tr>
+<tr><td><code>reports/ai_supply_chain_training_provenance/NEXT_GATE_DESIGN_20260513.md</code></td><td>Cheap redesign gate for poisoned LoRA training-trace provenance.</td></tr>
+<tr><td><code>reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md</code></td><td>Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure.</td></tr>
+<tr><td><code>paper/praxis06_tta/main.tex</code></td><td>Expanded thesis-neutral LaTeX draft for the Praxis 06 TTA paper.</td></tr>
+<tr><td><code>paper/praxis06_tta/thesis_chapter.tex</code></td><td>Thesis/Praxis chapter wrapper that reuses the article body.</td></tr>
+<tr><td><code>paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md</code></td><td>Records the thesis-chapter-first packaging decision and venue conversion notes.</td></tr>
+<tr><td><code>paper/praxis06_tta/VISUAL_LAYOUT_REVIEW_20260514.md</code></td><td>Contact-sheet visual sanity review for the latest 8-page CI PDF.</td></tr>
+<tr><td><code>paper/praxis06_tta/THESIS_CHAPTER_LAYOUT_REVIEW_20260514.md</code></td><td>Contact-sheet visual sanity review for the 14-page thesis-chapter PDF.</td></tr>
+<tr><td><code>paper/praxis06_tta/defense_slides/README.md</code></td><td>Defense-deck handoff index with the open-first files and rebuild command.</td></tr>
+<tr><td><code>paper/praxis06_tta/defense_slides/PRAXIS06_DEFENSE_SLIDE_OUTLINE_20260514.md</code></td><td>Slide-by-slide Praxis 06 defense outline with speaker intent and backup-slide plan.</td></tr>
+<tr><td><code>paper/praxis06_tta/defense_slides/PRAXIS06_DEFENSE_SLIDES_20260514.pptx</code></td><td>Usable 12-slide PowerPoint defense deck generated from the outline.</td></tr>
+<tr><td><code>scripts/build_praxis06_defense_deck.py</code></td><td>Rebuild script for the Praxis 06 PowerPoint deck.</td></tr>
+<tr><td><code>reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md</code></td><td>Formal result #2 write-up for ATT&amp;CK TTP-set profile retrieval.</td></tr>
+<tr><td><code>paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md</code></td><td>Paper/chapter outline for turning the ATT&amp;CK retrieval result into a manuscript section.</td></tr>
+<tr><td><code>.github/workflows/praxis06-paper.yml</code></td><td>GitHub Actions paper build path for Praxis 06.</td></tr>
+<tr><td><code>reports/tta_streaming_apt/PRAXIS06_CI_BUILD_20260514.md</code></td><td>CI build proof that the Praxis 06 LaTeX draft compiles to PDF.</td></tr>
+<tr><td><code>reports/provenance_architecture/OPTC_ECAR_CONVERSION_GATE_20260514.md</code></td><td>OpTC eCAR-to-window conversion gate and pass criteria.</td></tr>
+<tr><td><code>paper/portfolio_experiment_decks/README.md</code></td><td>Handoff index for PowerPoint decks covering dashboard items 3, 4, and 7.</td></tr>
+<tr><td><code>paper/portfolio_experiment_decks/EXPERIMENT_03_ATTACK_TTP_RETRIEVAL_DECK_20260514.pptx</code></td><td>PowerPoint deck for the selected ATT&amp;CK TTP-set profile retrieval result.</td></tr>
+<tr><td><code>paper/portfolio_experiment_decks/EXPERIMENT_04_PROVENANCE_LABEL_PATH_DECK_20260514.pptx</code></td><td>PowerPoint deck for the provenance label path and OpTC gate.</td></tr>
+<tr><td><code>paper/portfolio_experiment_decks/EXPERIMENT_07_SEC_LORD_REDESIGN_GATE_DECK_20260514.pptx</code></td><td>PowerPoint deck for the SEC-LoRD / DS-LoRD redesign gate.</td></tr>
+<tr><td><code>scripts/build_portfolio_experiment_decks.py</code></td><td>Rebuild script for the portfolio experiment decks.</td></tr>
+<tr><td><code>reports/EXPERIMENT_CURRENT_DASHBOARD_20260514.html</code></td><td>Browser-viewable dashboard export with the paper-anchor table.</td></tr>
+</tbody></table></div>
+<h2>Immediate Commands</h2>
+<p>Use the diagnostic environment for checks:</p>
+<pre><code class="language-powershell">
+.\.venv-diag\Scripts\python.exe -m pytest tests/test_detector_registry.py tests/test_provenance_window_factory.py
+powershell -ExecutionPolicy Bypass -File .\scripts\check_cloud_handoff_state.ps1
+</code></pre>
+<p>Before cloud runs, paste the startup prompt from <code>templates/experiment_cloud_prompt.template.md</code> and name a single experiment id from <code>configs/experiment_cloud_handoff_registry.json</code>.</p>
+<p>Primary TTA capability report: <code>reports/tta_streaming_apt/TTA_FUNCTIONING_CAPABILITY_REPORT_20260513.md</code>.</p>
+<p>Paper-ready TTA final report: <code>reports/tta_streaming_apt/PRAXIS06_PAPER_READY_FINAL_REPORT_20260513.md</code>.</p>
+<p>Cloud TTA paper-hardening audit: <code>reports/tta_streaming_apt/cloud_paper_hardening_20260513/PRAXIS06_FINAL_CLOUD_PAPER_AUDIT_20260513.md</code>.</p>
+<p>TTA defense-hardening addendum: <code>reports/tta_streaming_apt/PRAXIS06_DEFENSE_HARDENING_ADDENDUM_20260513.md</code>.</p>
+<h2>Current Risk</h2>
+<p>The main repository-state risk has been reduced: standard lightweight handoff files are committed and pushed. Remaining local noise is outside the standard lightweight prefixes: <code>.vscode/settings.json</code>, standalone planning documents, and <code>codex_mobile_project_20260429/</code>.</p>
+<p>The local Windows environment does not currently have <code>pandoc</code> or <code>pdflatex</code>, but the GitHub Actions paper build now compiles the expanded LaTeX draft successfully. The latest CI PDF also renders locally with PyMuPDF, so the remaining packaging risk is editorial: choosing the target venue/thesis style, visually reviewing page layout, and fitting the paper to that format.</p>
+<div class="print-note">Open this file directly in a browser, or print to PDF for a shareable snapshot.</div></main></body></html>

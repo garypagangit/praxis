@@ -25,6 +25,36 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | 7 | SEC-LoRD / DS-LoRD | Hold, current method negative | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284` | Redesign task formatting and seed selection; re-gate with strict answer parsing before extraction. |
 | 8 | Concept Drift / SSL / TGN on Provenance | Pending weak or architecture-ready | Density proxy is learnable, but not ground truth; SSL positive > negative cosine only `0.5227`; previous-event baseline beat next-event TGN features | Run only weak-proxy diagnostics until labels exist. No GPU GraphCL/TGN push yet. |
 
+## Paper Anchors Behind The Dashboard
+
+| Priority | Track | Research paper / source anchor | Gap this experiment fills | Current decision |
+|---:|---|---|---|---|
+| 1 | TTA for Streaming APT Detection / Praxis 06 | Wang et al. (2021), *Tent: Fully Test-Time Adaptation by Entropy Minimization* | Applies no-label adaptation to high-consequence cybersecurity streams with validation-selected safety gates rather than unconstrained adaptation | Selected lead positive |
+| 2 | Praxis 06 venue package | Same Praxis 06 anchor: Wang et al. (2021), plus the local DAPT2020 external-validity check | Converts the bounded TTA finding into a defensible thesis/venue package without expanding the claim | Packaging in progress |
+| 3 | Few-Shot APT Group Attribution | Strom et al. (2020), *MITRE ATT&CK: Design and Philosophy*; Hamilton et al. (2017), GraphSAGE as the failed learned-embedding comparison | Formalizes few-shot ATT&CK group-profile retrieval from observed TTP sets; separates profile retrieval from CTI prose attribution | Selected second narrow result |
+| 4 | Provenance labels / OpTC or interval truth | Han et al. (2020), UNICORN; Gama et al. (2014), concept drift adaptation; OpTC red-team ground-truth artifact | Provides label-faithful provenance windows before drift, TGN, SSL, MIA, watermarking, or detector-zoo claims | Architecture-ready, label-blocked |
+| 5 | APT Detector Watermarking | Adi et al. (2018), DNN watermarking by backdooring | Tests whether APT detectors can carry owner-verifiable signatures without losing normal detection utility | Failed first utility/signature gate; redesign only |
+| 6 | AI Supply Chain Backdoor Detection | Gu et al. (2017), BadNets / ML supply-chain backdoor risk | Moves from final-model behavior to training-trace provenance diagnostics for poisoned fine-tuning runs | Pending weak; redesign only |
+| 7 | SEC-LoRD / DS-LoRD | Carlini et al. (2021), extracting training data from LLMs; Lewis et al. (2020), retrieval-augmented generation | Tests whether question-specific CTI evidence can improve strict task compliance before any LoRD-style extraction claim | Current method negative; redesign gate only |
+| 8 | Concept Drift / SSL / TGN on Provenance | Gama et al. (2014), drift; You et al. (2020), GraphCL; Rossi et al. (2020), TGN; Han et al. (2020), UNICORN | Reopens dynamic/representation provenance modeling only after honest labels exist | Hold weak-proxy diagnostics only |
+
+## Reference Details For Paper Anchors
+
+| Anchor | APA reference |
+|---|---|
+| TTA / Praxis 06 | Wang, D., Shelhamer, E., Liu, S., Olshausen, B., & Darrell, T. (2021). *Tent: Fully test-time adaptation by entropy minimization*. International Conference on Learning Representations. https://openreview.net/forum?id=uXl3bZLkr3c |
+| ATT&CK profile retrieval | Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., & Thomas, C. B. (2020). *MITRE ATT&CK: Design and philosophy*. MITRE. https://www.mitre.org/news-insights/publication/mitre-attck-design-and-philosophy |
+| Graph embedding comparison | Hamilton, W. L., Ying, Z., & Leskovec, J. (2017). Inductive representation learning on large graphs. In *Advances in Neural Information Processing Systems 30*. https://papers.nips.cc/paper/6703-inductive-representation-learning-on-large-graphs |
+| Provenance APT detection | Han, X., Pasquier, T., Bates, A., Mickens, J., & Seltzer, M. (2020). UNICORN: Runtime provenance-based detector for advanced persistent threats. In *Network and Distributed System Security Symposium*. https://tfjmp.org/publication/2020-ndss/ |
+| Concept drift | Gama, J., Zliobaite, I., Bifet, A., Pechenizkiy, M., & Bouchachia, A. (2014). A survey on concept drift adaptation. *ACM Computing Surveys, 46*(4), 1-37. https://doi.org/10.1145/2523813 |
+| Detector watermarking | Adi, Y., Baum, C., Cisse, M., Pinkas, B., & Keshet, J. (2018). Turning your weakness into a strength: Watermarking deep neural networks by backdooring. In *27th USENIX Security Symposium* (pp. 1615-1631). https://www.usenix.org/conference/usenixsecurity18/presentation/adi |
+| Supply-chain backdoors | Gu, T., Dolan-Gavitt, B., & Garg, S. (2017). BadNets: Identifying vulnerabilities in the machine learning model supply chain. *arXiv:1708.06733*. https://arxiv.org/abs/1708.06733 |
+| LLM extraction / SEC-LoRD | Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A., Brown, T., Song, D., Erlingsson, U., Oprea, A., & Raffel, C. (2021). Extracting training data from large language models. In *30th USENIX Security Symposium* (pp. 2633-2650). https://www.usenix.org/conference/usenixsecurity21/presentation/carlini-extracting |
+| Retrieval-conditioned CTI prompts | Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Kuttler, H., Lewis, M., Yih, W., Rocktaschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. In *Advances in Neural Information Processing Systems 33*. https://papers.nips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html |
+| Graph contrastive learning | You, Y., Chen, T., Sui, Y., Chen, T., Wang, Z., & Shen, Y. (2020). Graph contrastive learning with augmentations. In *Advances in Neural Information Processing Systems 33*. https://arxiv.org/abs/2010.13902 |
+| Temporal graph networks | Rossi, E., Chamberlain, B., Frasca, F., Eynard, D., Monti, F., & Bronstein, M. (2020). Temporal graph networks for deep learning on dynamic graphs. *arXiv:2006.10637*. https://arxiv.org/abs/2006.10637 |
+| OpTC label path note | `external/datasets/optc/OpTCRedTeamGroundTruth.pdf` is treated as a release ground-truth artifact rather than a peer-reviewed paper; it supports the label path, not a detector claim. |
+
 ## Stop Or Hold List
 
 | Track | Decision |
@@ -74,6 +104,12 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `.github/workflows/praxis06-paper.yml` | GitHub Actions paper build path for Praxis 06. |
 | `reports/tta_streaming_apt/PRAXIS06_CI_BUILD_20260514.md` | CI build proof that the Praxis 06 LaTeX draft compiles to PDF. |
 | `reports/provenance_architecture/OPTC_ECAR_CONVERSION_GATE_20260514.md` | OpTC eCAR-to-window conversion gate and pass criteria. |
+| `paper/portfolio_experiment_decks/README.md` | Handoff index for PowerPoint decks covering dashboard items 3, 4, and 7. |
+| `paper/portfolio_experiment_decks/EXPERIMENT_03_ATTACK_TTP_RETRIEVAL_DECK_20260514.pptx` | PowerPoint deck for the selected ATT&CK TTP-set profile retrieval result. |
+| `paper/portfolio_experiment_decks/EXPERIMENT_04_PROVENANCE_LABEL_PATH_DECK_20260514.pptx` | PowerPoint deck for the provenance label path and OpTC gate. |
+| `paper/portfolio_experiment_decks/EXPERIMENT_07_SEC_LORD_REDESIGN_GATE_DECK_20260514.pptx` | PowerPoint deck for the SEC-LoRD / DS-LoRD redesign gate. |
+| `scripts/build_portfolio_experiment_decks.py` | Rebuild script for the portfolio experiment decks. |
+| `reports/EXPERIMENT_CURRENT_DASHBOARD_20260514.html` | Browser-viewable dashboard export with the paper-anchor table. |
 
 ## Immediate Commands
 
