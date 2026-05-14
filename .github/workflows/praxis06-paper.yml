@@ -1,0 +1,29 @@
+name: Praxis 06 paper build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "paper/praxis06_tta/**"
+      - "reports/tta_streaming_apt/paper_assets_20260509/**"
+      - ".github/workflows/praxis06-paper.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile Praxis 06 paper
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: paper/praxis06_tta
+          root_file: main.tex
+          latexmk_use_xelatex: false
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: praxis06-tta-paper
+          path: paper/praxis06_tta/main.pdf

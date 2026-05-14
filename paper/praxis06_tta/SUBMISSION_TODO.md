@@ -9,6 +9,7 @@ Updated: 2026-05-14
 | Venue-neutral LaTeX skeleton | Done: `main.tex` |
 | Local references | Done: `references.bib` |
 | Build script | Done: `build.ps1` |
+| GitHub Actions compile path | Done: `.github/workflows/praxis06-paper.yml` |
 | Local compile | Blocked: `pdflatex`/`latexmk` not installed locally |
 | Claim guard | Done: original locked replay remains primary |
 

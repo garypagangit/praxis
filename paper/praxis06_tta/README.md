@@ -20,6 +20,8 @@ Pandoc is not installed in this local environment, so this workspace starts from
 |---|---|
 | `main.tex` | Venue-neutral LaTeX manuscript skeleton. |
 | `references.bib` | Local copy of the Praxis 06 BibTeX references. |
+| `build.ps1` | Local build helper when `latexmk` or `pdflatex` is installed. |
+| `.github/workflows/praxis06-paper.yml` | GitHub Actions PDF build path for environments without local LaTeX. |
 
 ## Next Conversion Pass
 

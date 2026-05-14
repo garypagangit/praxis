@@ -17,9 +17,9 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | Priority | Track | Current posture | Best evidence | Next action |
 |---:|---|---|---|---|
 | 1 | TTA for Streaming APT Detection / Praxis 06 | Lead positive; cloud hardening PASS; seven-seed defense addendum complete | Locked replay Macro-F1 `0.8658`, Recon F1 `0.5050`, PR-AUC `0.8738`, override rate `4.7%`; matched confidence-reject Recon F1 `0.0000`; cloud paper audit passed 12/12 checks; seven-seed addendum Macro F1 `0.8477 +/- 0.0226`, Recon F1 `0.5147 +/- 0.0589` | Convert the draft/assets into the target venue package. Keep original locked replay primary; use seven-seed run as robustness addendum. No threshold changes. |
-| 2 | Praxis 06 venue package | In progress | LaTeX workspace exists under `paper/praxis06_tta/`; handoff memory is committed and pushed through `9e0a183` | Finish venue/thesis formatting and compile in a LaTeX-capable environment. No threshold changes. |
+| 2 | Praxis 06 venue package | In progress | LaTeX workspace exists under `paper/praxis06_tta/`; GitHub Actions PDF build path added; handoff memory is committed and pushed through `8959fb0` | Trigger/verify the paper build, then choose target venue/thesis style. No threshold changes. |
 | 3 | Few-Shot APT Group Attribution | Active narrow result; 2026-05-13 retrieval refresh PASS | ATT&CK TTP-set SVD top-5 `0.879` at 5 shots; overlap top-5 `0.960`; median rank `1.0` | Turn this into a formal ATT&CK profile retrieval result. Do not call it CTI prose attribution without report-to-group labels. |
-| 4 | Provenance labels / OpTC or interval truth | Architecture-ready but label-blocked; OpTC seed manifest extracted | Full E5 Cadets: `480,537,673` edge events to `9,611` windows; class support `9,609` attack-touch vs `2` benign/unlabeled`; OpTC PDF yielded `101` timestamped red-team seed events across 3 days | Next: map targeted OpTC eCAR shards into the window factory and require `>=20` benign / `>=20` attack windows before detector training. |
+| 4 | Provenance labels / OpTC or interval truth | Architecture-ready but label-blocked; OpTC seed manifest and eCAR conversion scaffold ready | Full E5 Cadets: `480,537,673` edge events to `9,611` windows; class support `9,609` attack-touch vs `2` benign/unlabeled`; OpTC PDF yielded `101` timestamped red-team seed events across 3 days | Next: download/mirror a targeted OpTC eCAR shard, run `scripts/build_optc_window_gate.ps1`, and require `>=20` benign / `>=20` attack windows before detector training. |
 | 5 | APT Detector Watermarking | Active, first gate failed | Macro-F1 delta `-0.0866`; trigger signature accuracy `0.2391` | Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction. |
 | 6 | AI Supply Chain Backdoor Detection | Pending weak | LoRA trace effects: loss `0.0401`, grad-norm `-0.0673`, update-norm `0.0203` | Build a stronger poison construction and richer gradient/update diagnostics before multi-seed cloud replication. |
 | 7 | SEC-LoRD / DS-LoRD | Hold, current method negative | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284` | Redesign task formatting and seed selection; re-gate with strict answer parsing before extraction. |
@@ -61,6 +61,8 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `reports/ai_supply_chain_training_provenance/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for poisoned LoRA training-trace provenance. |
 | `reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure. |
 | `paper/praxis06_tta/main.tex` | Venue-neutral LaTeX skeleton for the Praxis 06 TTA paper. |
+| `.github/workflows/praxis06-paper.yml` | GitHub Actions paper build path for Praxis 06. |
+| `reports/provenance_architecture/OPTC_ECAR_CONVERSION_GATE_20260514.md` | OpTC eCAR-to-window conversion gate and pass criteria. |
 
 ## Immediate Commands
 
