@@ -13,6 +13,7 @@ Reason: the current evidence package is already defense-ready and bounded. A the
 Primary LaTeX source:
 
 - `paper/praxis06_tta/main.tex`
+- `paper/praxis06_tta/thesis_chapter.tex`
 
 Latest confirmed build:
 
@@ -60,4 +61,4 @@ Keep these unchanged during thesis/venue conversion:
 
 ## Next Editorial Step
 
-Do a full-size PDF read for phrasing, figure placement, and table readability, then create a thesis-chapter version or venue-specific branch once the target is chosen.
+Confirm the thesis wrapper compiles, then do a full-size PDF read for phrasing, figure placement, and table readability. Create a venue-specific branch only after the committee/thesis chapter package is stable.

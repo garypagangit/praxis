@@ -19,11 +19,15 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: paper/praxis06_tta
-          root_file: main.tex
+          root_file: |
+            main.tex
+            thesis_chapter.tex
           latexmk_use_xelatex: false
 
       - name: Upload compiled PDF
         uses: actions/upload-artifact@v4
         with:
           name: praxis06-tta-paper
-          path: paper/praxis06_tta/main.pdf
+          path: |
+            paper/praxis06_tta/main.pdf
+            paper/praxis06_tta/thesis_chapter.pdf

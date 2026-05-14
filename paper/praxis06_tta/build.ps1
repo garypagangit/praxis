@@ -1,5 +1,7 @@
 param(
-    [string]$Engine = "auto"
+    [string]$Engine = "auto",
+    [ValidateSet("main", "thesis_chapter")]
+    [string]$Target = "main"
 )
 
 $ErrorActionPreference = "Stop"
@@ -10,6 +12,7 @@ function HasCommand($Name) {
 
 Push-Location $PSScriptRoot
 try {
+    $tex = "$Target.tex"
     if ($Engine -eq "auto") {
         if (HasCommand "latexmk") {
             $Engine = "latexmk"
@@ -21,12 +24,12 @@ try {
     }
 
     if ($Engine -eq "latexmk") {
-        latexmk -pdf -interaction=nonstopmode main.tex
+        latexmk -pdf -interaction=nonstopmode $tex
     } elseif ($Engine -eq "pdflatex") {
-        pdflatex -interaction=nonstopmode main.tex
-        bibtex main
-        pdflatex -interaction=nonstopmode main.tex
-        pdflatex -interaction=nonstopmode main.tex
+        pdflatex -interaction=nonstopmode $tex
+        bibtex $Target
+        pdflatex -interaction=nonstopmode $tex
+        pdflatex -interaction=nonstopmode $tex
     } else {
         throw "Unsupported engine: $Engine"
     }

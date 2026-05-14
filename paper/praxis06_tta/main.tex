@@ -1,3 +1,5 @@
+\ifdefined\praxiswrapper
+\else
 \documentclass[10pt]{article}
 
 \usepackage[margin=1in]{geometry}
@@ -25,6 +27,7 @@ A matched-rate confidence-rejection baseline does not explain the result: it lea
 The PR-AUC change is only +0.0006, so the contribution is framed as a safety-constrained operating-point improvement, not as evidence that the underlying representation learns a broadly better Reconnaissance ranking at test time.
 The result is defense-ready but intentionally bounded: DAPT2020 supports detector-recipe transfer only, while its TTA feasibility gate is negative.
 \end{abstract}
+\fi
 
 \section{Introduction}
 
@@ -294,7 +297,12 @@ Selective no-label TTA can recover a rare APT stage under a locked held-out sour
 The strongest version of the claim is narrow and practical: the method improves the final decision policy for Reconnaissance without relying on labels at test time and without being reducible to confidence rejection.
 The result should be submitted as a constrained security-ML adaptation finding, with DAPT2020 retained as an honest boundary on generality.
 
+\ifdefined\praxiswrapper
+\chapter*{Chapter Appendices}
+\addcontentsline{toc}{chapter}{Chapter Appendices}
+\else
 \appendix
+\fi
 
 \section{Audit and Reproducibility Artifacts}
 
@@ -368,7 +376,10 @@ This is a limitation to name explicitly in a defense or venue submission.
 
 The frozen baselines strengthen the motivation for deployment-time adaptation: reasonable rare-class handling does not recover Reconnaissance under the locked held-out source-file split.
 
+\ifdefined\praxiswrapper
+\else
 \bibliographystyle{plain}
 \bibliography{references}
 
 \end{document}
+\fi

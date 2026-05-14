@@ -17,7 +17,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | Priority | Track | Current posture | Best evidence | Next action |
 |---:|---|---|---|---|
 | 1 | TTA for Streaming APT Detection / Praxis 06 | Lead positive; cloud hardening PASS; seven-seed defense addendum complete | Locked replay Macro-F1 `0.8658`, Recon F1 `0.5050`, PR-AUC `0.8738`, override rate `4.7%`; matched confidence-reject Recon F1 `0.0000`; cloud paper audit passed 12/12 checks; seven-seed addendum Macro F1 `0.8477 +/- 0.0226`, Recon F1 `0.5147 +/- 0.0589` | Convert the draft/assets into the target venue package. Keep original locked replay primary; use seven-seed run as robustness addendum. No threshold changes. |
-| 2 | Praxis 06 venue package | Expanded thesis-neutral LaTeX draft; CI build PASS; thesis-first style decision recorded | LaTeX workspace exists under `paper/praxis06_tta/`; GitHub Actions run `25875430166` built an 8-page PDF from commit `ecfb6e0`; contact-sheet layout sanity passed; `main.tex` now carries related work, method, results, external validity, threats, PR operating-point figures, and appendices | Do a full-size PDF read, then wrap/convert for thesis chapter or chosen venue. No threshold changes. |
+| 2 | Praxis 06 venue package | Expanded thesis-neutral LaTeX draft; thesis wrapper added; CI recheck pending | LaTeX workspace exists under `paper/praxis06_tta/`; GitHub Actions run `25875430166` built an 8-page article PDF from commit `ecfb6e0`; `thesis_chapter.tex` now reuses the same body for the committee/chapter package | Confirm CI compiles both article and thesis-chapter PDFs, then do full-size PDF reads. No threshold changes. |
 | 3 | Few-Shot APT Group Attribution | Active narrow result; 2026-05-13 retrieval refresh PASS | ATT&CK TTP-set SVD top-5 `0.879` at 5 shots; overlap top-5 `0.960`; median rank `1.0` | Turn this into a formal ATT&CK profile retrieval result. Do not call it CTI prose attribution without report-to-group labels. |
 | 4 | Provenance labels / OpTC or interval truth | Architecture-ready but label-blocked; OpTC seed manifest and eCAR conversion scaffold ready | Full E5 Cadets: `480,537,673` edge events to `9,611` windows; class support `9,609` attack-touch vs `2` benign/unlabeled`; OpTC PDF yielded `101` timestamped red-team seed events across 3 days | Next: download/mirror a targeted OpTC eCAR shard, run `scripts/build_optc_window_gate.ps1`, and require `>=20` benign / `>=20` attack windows before detector training. |
 | 5 | APT Detector Watermarking | Active, first gate failed | Macro-F1 delta `-0.0866`; trigger signature accuracy `0.2391` | Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction. |
@@ -41,8 +41,8 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 
 ## Recommended Next Sequence
 
-1. Do a full-size PDF read of the figure-integrated Praxis 06 draft. The work is paper assembly and venue conversion, not another threshold search.
-2. Convert `paper/praxis06_tta/main.tex` into a thesis-chapter wrapper first unless a venue target is chosen. Use the seven-seed hardening addendum as robustness material, not as a replacement for the locked replay.
+1. Confirm the CI build compiles both `main.tex` and `thesis_chapter.tex`. The work is paper assembly and venue conversion, not another threshold search.
+2. Do full-size PDF reads of the article and thesis-chapter outputs. Use the seven-seed hardening addendum as robustness material, not as a replacement for the locked replay.
 3. Keep the pushed handoff memory current. Last pushed commits: `7fdb4b9` and `9e0a183`.
 4. Use the formal protocol for ATT&CK TTP-set few-shot attribution as a second narrow result: `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_PROTOCOL_20260513.md`.
 5. Spend provenance effort on labels, not models. The recommended first path is a targeted OpTC subset, with Cadets interval labels as fallback: `reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md`.
@@ -61,6 +61,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `reports/ai_supply_chain_training_provenance/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for poisoned LoRA training-trace provenance. |
 | `reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure. |
 | `paper/praxis06_tta/main.tex` | Expanded thesis-neutral LaTeX draft for the Praxis 06 TTA paper. |
+| `paper/praxis06_tta/thesis_chapter.tex` | Thesis/Praxis chapter wrapper that reuses the article body. |
 | `paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md` | Records the thesis-chapter-first packaging decision and venue conversion notes. |
 | `paper/praxis06_tta/VISUAL_LAYOUT_REVIEW_20260514.md` | Contact-sheet visual sanity review for the latest 8-page CI PDF. |
 | `.github/workflows/praxis06-paper.yml` | GitHub Actions paper build path for Praxis 06. |
