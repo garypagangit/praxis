@@ -4,6 +4,7 @@ import argparse
 import gzip
 import json
 import sys
+from collections.abc import MutableMapping
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
@@ -34,7 +35,14 @@ def open_text(path: Path):
     return path.open("r", encoding="utf-8", errors="replace")
 
 
-def iter_json_records(path: Path) -> Iterable[dict[str, Any]]:
+def normalize_hostname(value: Any) -> str:
+    hostname = str(value or "").strip().lower()
+    if "." in hostname:
+        hostname = hostname.split(".", 1)[0]
+    return hostname
+
+
+def iter_json_records(path: Path, stats: MutableMapping[str, int] | None = None) -> Iterable[dict[str, Any]]:
     with open_text(path) as handle:
         first_non_ws = ""
         while True:
@@ -59,7 +67,12 @@ def iter_json_records(path: Path) -> Iterable[dict[str, Any]]:
             line = line.strip()
             if not line:
                 continue
-            item = json.loads(line)
+            try:
+                item = json.loads(line)
+            except json.JSONDecodeError:
+                if stats is not None:
+                    stats["malformed_records"] = stats.get("malformed_records", 0) + 1
+                continue
             if isinstance(item, dict):
                 yield item
 
@@ -127,7 +140,7 @@ def normalize_optc_event(row: dict[str, Any], source_file: Path, record_index: i
         "object2_uuid": event_uuid or "UNKNOWN",
         "properties": {
             "exec": str(exec_name),
-            "hostname": str(row.get("hostname") or "UNKNOWN").lower(),
+            "hostname": normalize_hostname(row.get("hostname")) or "unknown",
             "principal": str(row.get("principal") or ""),
             "pid": row.get("pid"),
             "ppid": row.get("ppid"),
@@ -153,20 +166,21 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    host_filter = {item.lower() for item in args.host_filter or []}
+    host_filter = {normalize_hostname(item) for item in args.host_filter or []}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     written = 0
     seen = 0
     files = 0
+    stats: dict[str, int] = {}
     with args.output.open("w", encoding="utf-8") as out:
         for path in iter_input_paths(args.inputs):
             files += 1
-            for record_index, row in enumerate(iter_json_records(path)):
+            for record_index, row in enumerate(iter_json_records(path, stats)):
                 seen += 1
                 if args.limit is not None and written >= args.limit:
                     break
                 if host_filter:
-                    hostname = str(row.get("hostname") or "").lower()
+                    hostname = normalize_hostname(row.get("hostname"))
                     if hostname not in host_filter:
                         continue
                 normalized = normalize_optc_event(row, path, record_index)
@@ -183,6 +197,7 @@ def main() -> None:
                 "input_files": files,
                 "records_seen": seen,
                 "edges_written": written,
+                "malformed_records": int(stats.get("malformed_records", 0)),
                 "output": str(args.output),
             },
             indent=2,

@@ -153,12 +153,21 @@ def label_windows(windows_path: Path, attacks: pd.DataFrame, gray_minutes: float
 
 
 def render_report(path: Path, summary: dict[str, Any]) -> None:
+    support = summary.get("window_support") or {}
+    attack_windows = int(support.get("attack", 0))
+    background_windows = int(support.get("background", 0))
+    if support and attack_windows >= 20 and background_windows >= 20:
+        status = "**first targeted eCAR window-label gate PASS**"
+    elif support:
+        status = "**window labels generated; support gate not yet passed**"
+    else:
+        status = "**label path concrete; eCAR shard still required**"
     lines = [
         "# OpTC Label Acquisition Plan",
         "",
         "Generated: 2026-05-14",
         "",
-        "Status: **label path concrete; eCAR shard still required**",
+        f"Status: {status}",
         "",
         "## How We Get Labels",
         "",
@@ -228,12 +237,12 @@ def render_report(path: Path, summary: dict[str, Any]) -> None:
             "  -Inputs external\\datasets\\optc\\ecar\\evaluation\\24Sep19 `",
             "  -Labels runs\\optc-label-acquisition-20260514\\optc_attack_intervals.csv `",
             "  -HostFilter sysclient0501 `",
-            "  -OutRoot runs\\optc-window-gate-20260514 `",
-            "  -Limit 200000 `",
+            "  -OutRoot runs\\optc-window-gate-20260514-pass `",
+            "  -Limit 625000 `",
             "  -EventsPerWindow 5000",
             "```",
             "",
-            "Then rerun this script with `--windows runs\\optc-window-gate-20260514\\windows.csv` to count `attack`, `background`, and `gray_buffer` support.",
+            "Then rerun this script with `--windows runs\\optc-window-gate-20260514-pass\\windows.csv` to count `attack`, `background`, and `gray_buffer` support.",
             "",
             "## Claim Guard",
             "",
@@ -243,6 +252,12 @@ def render_report(path: Path, summary: dict[str, Any]) -> None:
     if "window_support" in summary:
         lines.extend(
             [
+                "",
+                "## Gate Decision",
+                "",
+                f"- Attack support: `{attack_windows}` windows.",
+                f"- Background support: `{background_windows}` windows.",
+                "- Decision: `PASS` when both attack and background support are `>=20`; gray-buffer windows are reported and excluded from supervised training.",
                 "",
                 "## Current Window Support",
                 "",

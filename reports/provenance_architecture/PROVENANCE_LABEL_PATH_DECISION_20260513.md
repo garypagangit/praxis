@@ -2,7 +2,7 @@
 
 Generated: 2026-05-13
 
-Status: **architecture ready; supervised claims blocked until label path clears**
+Status: **architecture ready; first targeted OpTC label gate cleared**
 
 ## Bottom Line
 
@@ -58,17 +58,17 @@ The first OpTC metadata check is complete:
 | Covered days | `Plain PowerShell Empire`, `Custom Powershell Empire`, `Malicious Upgrade` |
 | Unique normalized host mentions | `30` |
 
-Decision: OpTC remains the best first provenance-label path. It now has a concrete seed manifest, but it is still not detector-ready until eCAR host events are attached to windows.
+Decision: OpTC remains the best first provenance-label path. The first targeted host/day (`sysclient0501`, day 2) has now cleared the minimum label-support gate, but it is still only a feasibility result until another host/day or benign shard supports chronological or cross-host checks.
 
 ## 2026-05-14 Label Acquisition Plan
 
-The label path is now concrete in `reports/provenance_architecture/OPTC_LABEL_ACQUISITION_PLAN_20260514.md`.
+The label path is concrete in `reports/provenance_architecture/OPTC_LABEL_ACQUISITION_PLAN_20260514.md`, and the first gate result is recorded in `reports/provenance_architecture/OPTC_WINDOW_LABEL_GATE_RESULT_20260514.md`.
 
 How labels are obtained:
 
 1. Use the OpTC red-team ground-truth PDF as attack seed truth.
 2. Expand each timestamped red-team event into a padded interval, default `-15` to `+15` minutes.
-3. Download the matching OpTC `ecar/evaluation/<day>-red` host/day shard from the public release.
+3. Download the matching OpTC `ecar/evaluation/<day>` host/day shard from the public release.
 4. Convert eCAR JSON to normalized provenance edges with `scripts/convert_optc_ecar_to_edges.py`.
 5. Build windows with `scripts/build_optc_window_gate.ps1`, passing `-Labels runs\optc-label-acquisition-20260514\optc_attack_intervals.csv`.
 6. After windowing, count attack-window, background/no-red-team-overlap, and gray-buffer support.
@@ -77,9 +77,9 @@ First target shortlist from the seed manifest:
 
 | Host | Day | Seed events | Suggested folder |
 |---|---:|---:|---|
-| `sysclient0501` | `2` | `28` | `external/datasets/optc/ecar/evaluation/24Sep19-red` |
+| `sysclient0501` | `2` | `28` | `external/datasets/optc/ecar/evaluation/24Sep19` |
 | `sysclient0201` | `1` | `18` | `external/datasets/optc/ecar/evaluation/23Sep19-red` |
-| `sysclient0051` | `3` | `12` | `external/datasets/optc/ecar/evaluation/25Sep19-red` |
+| `sysclient0051` | `3` | `12` | `external/datasets/optc/ecar/evaluation/25Sept` |
 
 Claim guard: this gives window-level red-team interval overlap, not perfect event-level malicious labels. Non-overlap windows should be called `background/no-red-team-overlap` unless a stronger third-party label source is audited.
 
@@ -90,7 +90,9 @@ Claim guard: this gives window-level red-team interval overlap, not perfect even
 | 1 | Fetch OpTC metadata and ground-truth document, not full data yet. | **Done.** Ground-truth seed timestamps were extracted. |
 | 2 | Identify the smallest host/time subset containing both benign and red-team intervals. | Expected `>=20` benign and `>=20` attack windows after windowing. |
 | 3 | Map OpTC eCAR fields to the existing window factory schema. | Event type, process/exec, subject/object ids, timestamp available. |
-| 4 | Run a 1-host or 1-day smoke conversion. | Windows/features generated without schema hacks. |
+| 4 | Run a 1-host or 1-day smoke conversion. | **Done.** `sysclient0501` day 2 converted `625,000` eCAR edges into `125` windows. |
+| 5 | Attach interval labels and require support. | **Done for first target.** Support is `82` attack, `21` background, `22` gray-buffer. |
+| 6 | Run a detector-registry smoke. | **Done as feasibility only.** Stratified split works, but chronological generalization is not shown because attack windows precede gray/background windows. |
 | 5 | Attach intervals and run detector-zoo gate. | Gate passes support checks before any supervised model claim. |
 
 ## Fallback Plan
@@ -117,7 +119,7 @@ If OpTC setup stalls:
 
 - Do not train supervised detectors on node-touch labels alone.
 - Do not call density proxy detection an attack detector.
-- Do not spend GPU on TGN/GraphCL before the label gate.
+- Do not spend GPU on TGN/GraphCL before adding another OpTC host/day or benign shard.
 
 ## External Note
 

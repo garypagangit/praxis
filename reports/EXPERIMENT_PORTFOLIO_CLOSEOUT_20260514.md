@@ -2,7 +2,7 @@
 
 Generated: 2026-05-14
 
-Repository state: pushed through `1c35b7d` on branch `experiment/tta-streaming-apt`.
+Repository state: pushed through `8e0ca30` on branch `experiment/tta-streaming-apt`; local OpTC label-gate work now extends beyond that commit.
 
 ## Bottom Line
 
@@ -12,7 +12,7 @@ The portfolio now has two selected positive results and a clear stop/gate/block 
 |---|---|---|---|---|
 | Selected result 1 | TTA for Streaming APT Detection / Praxis 06 | **Selected lead positive** | Locked replay Macro-F1 `0.8658`, Recon F1 `0.5050`, override `4.7%`; confidence-reject Recon F1 `0.0000`; seven-seed addendum Recon F1 `0.5147 +/- 0.0589`; cloud audit PASS | Editorial packaging only: thesis/venue formatting and slide polish. No threshold changes. |
 | Selected result 2 | ATT&CK TTP-set profile retrieval | **Selected narrow positive** | 5-shot top-5: overlap `0.960`, SVD `0.879`, random `0.028`, frequency prior `0.041`; median rank `1.0`; GraphSAGE negative | Convert into thesis/paper section as profile retrieval, not CTI prose attribution and not a GNN claim. |
-| Architecture/blocker | Provenance labels / OpTC | **Architecture ready, label path concrete but eCAR shard missing** | E5 Cadets window factory works, but label support is `9,609` attack-touch vs `2` benign/unlabeled; OpTC seed manifest has `101` timestamped red-team events; target shortlist starts with `sysclient0501`, `sysclient0201`, and `sysclient0051` | Download targeted OpTC `ecar/evaluation/<day>-red` shard, attach padded red-team intervals, and require `>=20` background / `>=20` attack windows before supervised detector training. |
+| Architecture/feasibility | Provenance labels / OpTC | **First targeted label gate PASS; detector smoke feasibility only** | E5 Cadets window factory still label-blocked, but OpTC `sysclient0501` day 2 produced `625,000` converted eCAR edges, `125` windows, and support `82` attack / `21` background / `22` gray-buffer; stratified detector smoke consumed `103` non-gray windows after excluding label-derived columns | Add another host/day or benign shard before any provenance detector claim. Current result is targeted label/detector feasibility, not chronological generalization. |
 | Archived | APT detector watermarking | **Closed negative for current detector lineage** | Direct fine-tune: Macro-F1 delta `-0.0866`, trigger signature `0.2391`; sidecar owner-head: utility delta `+0.0000`, trigger detection `0.5217` vs `>=0.9500` | Do not run surrogate extraction. Reopen only with stronger detector families or a materially different ownership protocol. |
 | Gate ready | AI supply-chain training provenance | **Weak first result; falsifiable gate ready** | First LoRA trace effects weak: loss `0.0401`, grad-norm `-0.0673`, update-norm `0.0203`; 9-run multi-strength gate now built | Run only if cheap cloud budget is available. Promote only if 5% poison clears ROC-AUC/AP `>=0.7000` with stable signs on `>=2/3` seeds. |
 | Gate ready | SEC-LoRD / DS-LoRD | **Old method negative; retrieved-evidence gate ready** | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284`; retrieved-evidence gate has `500` rows and `1.000` evidence coverage | Run one strict prompt gate: vanilla vs broad-seed negative control vs retrieved evidence. No extraction unless retrieved evidence beats vanilla by `>= +0.030`. |
@@ -26,6 +26,7 @@ The portfolio now has two selected positive results and a clear stop/gate/block 
 - Experiments 3, 4, and 7 have standalone PowerPoint decks under `paper/portfolio_experiment_decks/`.
 - Watermarking has been given one fair redesign gate and is now archived for the current detector lineage.
 - AI supply-chain and SEC-LoRD have concrete gate-ready artifacts instead of vague next steps.
+- Provenance is no longer blocked at the first label-acquisition step: one targeted OpTC host/day has passed the minimum label-support gate and a detector-registry smoke.
 
 ## Do Not Do
 
@@ -33,7 +34,7 @@ The portfolio now has two selected positive results and a clear stop/gate/block 
 |---|---|
 | Praxis 06 | Do not re-search thresholds or replace the locked replay with robustness runs. |
 | ATT&CK retrieval | Do not call the result CTI prose attribution or a GraphSAGE win. |
-| Provenance | Do not train supervised detectors on attack-touch labels as if they were ground truth. |
+| Provenance | Do not train supervised detectors on attack-touch labels as if they were ground truth; do not claim temporal generalization from the single OpTC stratified smoke. |
 | Watermarking | Do not run surrogate extraction from the failed direct or sidecar gates. |
 | AI supply-chain | Do not claim provenance detection from the weak first LoRA trace effects. |
 | SEC-LoRD | Do not run extraction from broad seeded prompts; strict answer parsing failed. |
@@ -42,6 +43,6 @@ The portfolio now has two selected positive results and a clear stop/gate/block 
 
 1. Finish Praxis 06 editorial packaging and defense slides.
 2. Convert ATT&CK retrieval into the second thesis/paper section.
-3. If running more experiments, run only the gate-ready jobs: SEC-LoRD retrieved evidence and AI supply-chain multi-strength provenance.
-4. For provenance modeling, spend effort on acquiring label-faithful OpTC/eCAR data, not new models.
+3. For provenance, expand OpTC labels to another host/day or benign shard before detector claims.
+4. If running more experiments, run only the gate-ready jobs: SEC-LoRD retrieved evidence and AI supply-chain multi-strength provenance.
 5. Keep the dashboard and this closeout file updated only when a posture changes.

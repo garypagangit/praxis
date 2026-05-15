@@ -21,6 +21,9 @@ foreach ($hostName in $HostFilter) {
     $convertArgs += @("--host-filter", $hostName)
 }
 & $python @convertArgs
+if ($LASTEXITCODE -ne 0) {
+    throw "OpTC eCAR conversion failed with exit code $LASTEXITCODE"
+}
 
 $windowArgs = @(
     "scripts\build_provenance_window_factory.py",
@@ -33,5 +36,8 @@ if ($Labels -ne "") {
     $windowArgs += @("--labels", $Labels)
 }
 & $python @windowArgs
+if ($LASTEXITCODE -ne 0) {
+    throw "OpTC window factory failed with exit code $LASTEXITCODE"
+}
 
 Write-Host "Report written to $report"

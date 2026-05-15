@@ -2,7 +2,7 @@
 
 Generated: 2026-05-14
 
-Status: **label path concrete; eCAR shard still required**
+Status: **first targeted eCAR window-label gate PASS**
 
 ## How We Get Labels
 
@@ -26,7 +26,7 @@ This produces an honest binary target: `attack-window` vs `background/no-red-tea
 
 - Attack intervals: `runs\optc-label-acquisition-20260514\optc_attack_intervals.csv`
 - Target host/day shortlist: `runs\optc-label-acquisition-20260514\optc_target_host_days.csv`
-- Optional window labels: `not generated; pass --windows after eCAR windowing`
+- Optional window labels: `runs\optc-label-acquisition-20260514\optc_window_labels.csv`
 
 ## Seed Summary
 
@@ -70,13 +70,27 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build_optc_window_gate.ps1 `
   -Inputs external\datasets\optc\ecar\evaluation\24Sep19 `
   -Labels runs\optc-label-acquisition-20260514\optc_attack_intervals.csv `
   -HostFilter sysclient0501 `
-  -OutRoot runs\optc-window-gate-20260514 `
-  -Limit 200000 `
+  -OutRoot runs\optc-window-gate-20260514-pass `
+  -Limit 625000 `
   -EventsPerWindow 5000
 ```
 
-Then rerun this script with `--windows runs\optc-window-gate-20260514\windows.csv` to count `attack`, `background`, and `gray_buffer` support.
+Then rerun this script with `--windows runs\optc-window-gate-20260514-pass\windows.csv` to count `attack`, `background`, and `gray_buffer` support.
 
 ## Claim Guard
 
 Do not call this event-level malicious labeling. The defensible claim is window-level red-team interval overlap against background windows from the same OpTC release.
+
+## Gate Decision
+
+- Attack support: `82` windows.
+- Background support: `21` windows.
+- Decision: `PASS` when both attack and background support are `>=20`; gray-buffer windows are reported and excluded from supervised training.
+
+## Current Window Support
+
+| Label | Windows |
+|---|---:|
+| `attack` | `82` |
+| `background` | `21` |
+| `gray_buffer` | `22` |

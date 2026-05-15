@@ -2,6 +2,7 @@ from pathlib import Path
 
 from scripts.convert_optc_ecar_to_edges import (
     iter_json_records,
+    normalize_hostname,
     normalize_optc_event,
     parse_timestamp_nanos,
 )
@@ -54,3 +55,21 @@ def test_parse_timestamp_nanos_reads_iso_offset() -> None:
         parse_timestamp_nanos("2019-09-23T09:12:26.333-04:00")
         == 1569244346333000000
     )
+
+
+def test_normalize_hostname_strips_optc_domain() -> None:
+    assert normalize_hostname("SysClient0501.systemia.com") == "sysclient0501"
+
+
+def test_iter_json_records_skips_malformed_jsonl(tmp_path: Path) -> None:
+    path = tmp_path / "events.jsonl"
+    path.write_text(
+        '{"timestamp": 1, "object": "FILE"}\n{"timestamp": \n{"timestamp": 2}\n',
+        encoding="utf-8",
+    )
+    stats: dict[str, int] = {}
+
+    rows = list(iter_json_records(path, stats))
+
+    assert [row["timestamp"] for row in rows] == [1, 2]
+    assert stats["malformed_records"] == 1

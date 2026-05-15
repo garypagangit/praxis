@@ -2,13 +2,28 @@
 
 Generated: 2026-05-14
 
-Status: **conversion scaffold ready; full eCAR shard still needed**
+Status: **first targeted conversion and label-support gate PASS**
 
 ## Purpose
 
 Move the provenance track from a red-team seed manifest to detector-ready windows.
 
-The seed manifest already extracted `101` timestamped red-team events from `OpTCRedTeamGroundTruth.pdf`. The next requirement is host telemetry around those timestamps. OpTC eCAR records can now be converted into the normalized JSONL edge schema consumed by the provenance window factory.
+The seed manifest already extracted `101` timestamped red-team events from `OpTCRedTeamGroundTruth.pdf`. The first targeted host/day telemetry shard has now been downloaded and converted for `sysclient0501` day 2.
+
+## First Targeted Gate Result
+
+| Metric | Value |
+|---|---:|
+| Host/day | `sysclient0501` / day `2` |
+| eCAR folder | `external/datasets/optc/ecar/evaluation/24Sep19` |
+| Converted edges | `625000` |
+| Windows | `125` |
+| Attack windows | `82` |
+| Background windows | `21` |
+| Gray-buffer windows | `22` |
+| Decision | `PASS` |
+
+This remains a targeted label/detector feasibility result. It is not yet a broad provenance detector claim.
 
 ## Added Tools
 
@@ -59,8 +74,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build_optc_window_gate.ps1 `
 
 ## Current Limitation
 
-This gate is not complete until an actual OpTC eCAR shard is downloaded from the public Google Drive release or mirrored to S3. The local `external/datasets/optc/` folder currently contains metadata and ground truth, not the full endpoint telemetry.
+The downloaded host/day shard is enough for a first support gate. A broader detector claim still needs another host/day or benign shard so chronological and cross-host checks are possible.
 
 ## Next Action
 
-Download a targeted eCAR shard for one red-team day and the hosts listed in `runs/optc-label-acquisition-20260514/optc_target_host_days.csv`, then run the gate command above. Do not train a detector until the label-support gate passes.
+Add another targeted OpTC host/day or benign shard, then rerun the label-support and detector smoke gates. Do not escalate to TGN/GraphCL or broad detector claims from the single-host stratified smoke.
