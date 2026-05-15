@@ -17,6 +17,7 @@ The seed manifest already extracted `101` timestamped red-team events from `OpTC
 | `scripts/convert_optc_ecar_to_edges.py` | Converts OpTC eCAR JSON/JSONL/GZ records to normalized provenance edge JSONL, including numeric and ISO timestamp formats. |
 | `scripts/build_optc_window_gate.ps1` | Runs eCAR conversion, optional host filtering, optional interval-label attachment, then calls the existing provenance window factory. |
 | `scripts/build_optc_interval_labels.py` | Converts the extracted OpTC red-team seed manifest into padded attack intervals and a target host/day download shortlist. |
+| `scripts/download_optc_target_ecar.py` | Downloads one targeted OpTC eCAR host/day folder using the PIDSMaker Google Drive URL map. |
 
 ## Field Mapping
 
@@ -34,11 +35,13 @@ The seed manifest already extracted `101` timestamped red-team events from `OpTC
 
 ```powershell
 .\.venv-diag\Scripts\python.exe scripts\build_optc_interval_labels.py
+.\.venv-diag\Scripts\python.exe -m pip install gdown
+.\.venv-diag\Scripts\python.exe scripts\download_optc_target_ecar.py --host sysclient0501 --day 2
 
 powershell -ExecutionPolicy Bypass -File .\scripts\build_optc_window_gate.ps1 `
-  -Inputs <path-to-optc-ecar-json-or-folder> `
+  -Inputs external\datasets\optc\ecar\evaluation\24Sep19 `
   -Labels runs\optc-label-acquisition-20260514\optc_attack_intervals.csv `
-  -HostFilter sysclient0201 `
+  -HostFilter sysclient0501 `
   -OutRoot runs\optc-window-gate-20260514 `
   -Limit 200000 `
   -EventsPerWindow 5000

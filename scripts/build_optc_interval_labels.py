@@ -16,7 +16,12 @@ def iso_from_ns(value: int) -> str:
 
 def day_folder(timestamp_ns: int) -> str:
     dt = datetime.fromtimestamp(timestamp_ns / 1_000_000_000, tz=timezone.utc)
-    return dt.strftime("%d%b%y-red")
+    folder_by_date = {
+        "2019-09-23": "23Sep19-red",
+        "2019-09-24": "24Sep19",
+        "2019-09-25": "25Sept",
+    }
+    return folder_by_date.get(dt.strftime("%Y-%m-%d"), dt.strftime("%d%b%y"))
 
 
 def normalize_host(value: Any) -> str:
@@ -207,13 +212,22 @@ def render_report(path: Path, summary: dict[str, Any]) -> None:
             "| Gray-buffer windows | reported/excluded from supervised training |",
             "| Split support | train/validation/test each include the claimed positive class |",
             "",
+            "## Targeted Download Command",
+            "",
+            "Install `gdown` into the diagnostic environment once if needed, then download only the target host/day folder:",
+            "",
+            "```powershell",
+            ".\\.venv-diag\\Scripts\\python.exe -m pip install gdown",
+            ".\\.venv-diag\\Scripts\\python.exe .\\scripts\\download_optc_target_ecar.py --host sysclient0501 --day 2",
+            "```",
+            "",
             "## Run Command After Download",
             "",
             "```powershell",
             "powershell -ExecutionPolicy Bypass -File .\\scripts\\build_optc_window_gate.ps1 `",
-            "  -Inputs external\\datasets\\optc\\ecar\\evaluation\\23Sep19-red `",
+            "  -Inputs external\\datasets\\optc\\ecar\\evaluation\\24Sep19 `",
             "  -Labels runs\\optc-label-acquisition-20260514\\optc_attack_intervals.csv `",
-            "  -HostFilter sysclient0201 `",
+            "  -HostFilter sysclient0501 `",
             "  -OutRoot runs\\optc-window-gate-20260514 `",
             "  -Limit 200000 `",
             "  -EventsPerWindow 5000",

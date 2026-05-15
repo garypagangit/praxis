@@ -39,11 +39,11 @@ This produces an honest binary target: `attack-window` vs `background/no-red-tea
 
 | Day | Host | Seed events | eCAR folder | Host filter |
 |---:|---|---:|---|---|
-| `2` | `sysclient0501` | `28` | `external/datasets/optc/ecar/evaluation/24Sep19-red` | `sysclient0501` |
+| `2` | `sysclient0501` | `28` | `external/datasets/optc/ecar/evaluation/24Sep19` | `sysclient0501` |
 | `1` | `sysclient0201` | `18` | `external/datasets/optc/ecar/evaluation/23Sep19-red` | `sysclient0201` |
-| `3` | `sysclient0051` | `12` | `external/datasets/optc/ecar/evaluation/25Sep19-red` | `sysclient0051` |
+| `3` | `sysclient0051` | `12` | `external/datasets/optc/ecar/evaluation/25Sept` | `sysclient0051` |
 | `1` | `sysclient0660` | `9` | `external/datasets/optc/ecar/evaluation/23Sep19-red` | `sysclient0660` |
-| `2` | `sysclient0005` | `6` | `external/datasets/optc/ecar/evaluation/24Sep19-red` | `sysclient0005` |
+| `2` | `sysclient0005` | `6` | `external/datasets/optc/ecar/evaluation/24Sep19` | `sysclient0005` |
 
 ## Window Label Gate
 
@@ -54,13 +54,22 @@ This produces an honest binary target: `attack-window` vs `background/no-red-tea
 | Gray-buffer windows | reported/excluded from supervised training |
 | Split support | train/validation/test each include the claimed positive class |
 
+## Targeted Download Command
+
+Install `gdown` into the diagnostic environment once if needed, then download only the target host/day folder:
+
+```powershell
+.\.venv-diag\Scripts\python.exe -m pip install gdown
+.\.venv-diag\Scripts\python.exe .\scripts\download_optc_target_ecar.py --host sysclient0501 --day 2
+```
+
 ## Run Command After Download
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\build_optc_window_gate.ps1 `
-  -Inputs external\datasets\optc\ecar\evaluation\23Sep19-red `
+  -Inputs external\datasets\optc\ecar\evaluation\24Sep19 `
   -Labels runs\optc-label-acquisition-20260514\optc_attack_intervals.csv `
-  -HostFilter sysclient0201 `
+  -HostFilter sysclient0501 `
   -OutRoot runs\optc-window-gate-20260514 `
   -Limit 200000 `
   -EventsPerWindow 5000
