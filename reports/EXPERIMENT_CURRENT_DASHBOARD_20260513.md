@@ -84,6 +84,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | Artifact | Purpose |
 |---|---|
 | `reports/EXPERIMENT_IDEA_DECISION_MATRIX_20260513.md` | Definitive doctoral-style table of experiment ideas, research gap, status, metrics, and selected/dropped/reframed decision. |
+| `reports/EXPERIMENT_PORTFOLIO_CLOSEOUT_20260514.md` | Compact closeout: selected positives, archived negatives, gate-ready items, and label/data blockers. |
 | `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_PROTOCOL_20260513.md` | Formal protocol for the next narrow positive: ATT&CK TTP-set group-profile retrieval. |
 | `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_BASELINE_REFRESH_20260513.md` | Refreshed ATT&CK TTP-set retrieval baseline confirming SVD top-5 `0.879` and overlap top-5 `0.960` at 5 shots. |
 | `reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md` | Label-path decision; recommends targeted OpTC subset first, Cadets interval labels as fallback. |
