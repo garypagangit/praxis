@@ -64,6 +64,19 @@ For each eligible group:
 | overlap_cosine | 10 | `0.969` | `1.000` | `1.000` | `0.982` | `1.0` | `605` |
 | svd32_graph_embedding | 10 | `0.931` | `0.993` | `1.000` | `0.959` | `1.0` | `605` |
 
+## Closeout Floor Baselines
+
+The 2026-05-14 closeout added two floor baselines without changing the original query-sampling protocol:
+
+| Method | Shots | Top-1 | Top-5 | Top-10 | MRR | Median rank | Lift over random Top-5 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| random_uniform | `5` | `0.005` | `0.028` | `0.053` | `0.033` | `84.0` | `1.0x` |
+| frequency_prior | `5` | `0.008` | `0.041` | `0.083` | `0.044` | `61.0` | `1.5x` |
+| overlap_cosine | `5` | `0.721` | `0.960` | `0.992` | `0.824` | `1.0` | `34.2x` |
+| svd32_graph_embedding | `5` | `0.623` | `0.879` | `0.949` | `0.732` | `1.0` | `31.3x` |
+
+Closeout report: `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_CLOSEOUT_20260514.md`.
+
 ## GNN Gate Result
 
 The learned GraphSAGE pilot does **not** justify a GNN attribution claim.
@@ -123,8 +136,7 @@ Recommended structure:
 
 ## Next Work
 
-1. Add random and frequency-prior baselines for a stronger floor.
-2. Add degree-bucket analysis.
-3. Add example retrievals with query techniques and top candidates.
-4. Add held-edge split as a stress test, but keep the main claim on known-profile retrieval.
-5. Create a short thesis/paper subsection after those additions.
+1. Convert this report and the closeout report into a short thesis/paper subsection.
+2. Add a small figure or table showing example query techniques to top candidates.
+3. Add held-edge split as a stress test, but keep the main claim on known-profile retrieval.
+4. Optional: add historical ATT&CK release drift only if release snapshots are available.

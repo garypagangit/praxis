@@ -45,8 +45,12 @@ Both are bounded cybersecurity findings. Neither depends on overstating a failed
 
 ## Next Additions Before Final Chapter
 
-- Random and frequency-prior baselines.
-- Degree-bucket robustness.
-- Example retrieval table.
+- Random and frequency-prior baselines. **Done 2026-05-14.**
+- Degree-bucket robustness. **Done 2026-05-14.**
+- Example retrieval table. **Done 2026-05-14.**
 - Held-edge stress-test appendix.
 - Clean claim guard: profile retrieval only.
+
+Closeout report: `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_CLOSEOUT_20260514.md`.
+
+At 5 shots, overlap top-5 is `0.960` and SVD top-5 is `0.879`, compared with random `0.028` and frequency-prior `0.041`. The remaining work is paper conversion, not rescuing the result.

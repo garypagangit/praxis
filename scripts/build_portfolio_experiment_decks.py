@@ -133,15 +133,26 @@ def build_attack_ttp_retrieval():
         ["Scope", "Profile retrieval from TTP sets, not CTI prose attribution"],
     ], 0.75, 1.55, 11.9, 4.7, 15)
 
-    s = slide(prs, "Main Result")
+    s = slide(prs, "Main Result With Floor Baselines")
     add_table(s, [
-        ["Method", "Shots", "Top-1", "Top-5", "MRR", "Median rank"],
-        ["overlap_cosine", "3", "0.425", "0.846", "0.602", "2.0"],
-        ["svd32_graph_embedding", "3", "0.306", "0.684", "0.479", "3.0"],
-        ["overlap_cosine", "5", "0.721", "0.960", "0.824", "1.0"],
-        ["svd32_graph_embedding", "5", "0.623", "0.879", "0.732", "1.0"],
+        ["Method", "Shots", "Top-1", "Top-5", "MRR", "Median rank", "Lift vs random"],
+        ["random_uniform", "5", "0.005", "0.028", "0.033", "84.0", "1.0x"],
+        ["frequency_prior", "5", "0.008", "0.041", "0.044", "61.0", "1.5x"],
+        ["overlap_cosine", "5", "0.721", "0.960", "0.824", "1.0", "34.2x"],
+        ["svd32_graph_embedding", "5", "0.623", "0.879", "0.732", "1.0", "31.3x"],
     ], 0.75, 1.55, 11.9, 4.5, 15)
-    add_note(s, "The clean claim is that five observed TTPs are enough for strong candidate ranking.")
+    add_note(s, "The closeout claim is now stronger: retrieval beats random and frequency-prior floors while preserving the original overlap/SVD numbers.")
+
+    s = slide(prs, "Degree-Bucket Check")
+    add_table(s, [
+        ["Method", "Bucket", "Top-5", "MRR", "Median rank"],
+        ["overlap_cosine", "low", "0.995", "0.953", "1.0"],
+        ["overlap_cosine", "mid", "0.995", "0.866", "1.0"],
+        ["overlap_cosine", "high", "0.887", "0.644", "2.0"],
+        ["svd32_graph_embedding", "low", "0.951", "0.866", "1.0"],
+        ["svd32_graph_embedding", "mid", "0.854", "0.667", "1.0"],
+        ["svd32_graph_embedding", "high", "0.831", "0.659", "1.0"],
+    ], 0.75, 1.55, 11.9, 4.5, 15)
 
     s = slide(prs, "Negative GNN Gate")
     add_table(s, [
