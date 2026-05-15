@@ -12,10 +12,10 @@ Updated: 2026-05-15
 | Local references | Done: `references.bib` |
 | Build script | Done: `build.ps1` |
 | GitHub Actions compile path | Done: `.github/workflows/praxis06-paper.yml` |
-| CI compile | Pass: run `25881761738` built both article and thesis-chapter PDFs |
+| CI compile | Pass: run `25944754838` built both article and thesis-chapter PDFs from commit `8e8e979` |
 | Local compile | Optional/blocking only for local work: `pdflatex`/`latexmk` not installed locally |
-| Local PDF render sanity | Pass: PyMuPDF rendered all 8 article pages from CI artifact to `tmp/pdfs/praxis06-tta-paper-ci-25875430166/`; thesis wrapper opens and extracts text |
-| Contact-sheet layout review | Pass: `paper/praxis06_tta/VISUAL_LAYOUT_REVIEW_20260514.md` |
+| Local PDF render sanity | Pass: PyMuPDF rendered all 9 article pages and all 14 thesis pages from CI artifact `25944754838` |
+| Contact-sheet layout review | Pass: `paper/praxis06_tta/VISUAL_LAYOUT_REVIEW_20260515.md` |
 | Thesis wrapper layout review | Pass: `paper/praxis06_tta/THESIS_CHAPTER_LAYOUT_REVIEW_20260514.md` |
 | Target style decision | Thesis chapter first: `paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md` |
 | Claim guard | Done: original locked replay remains primary |
