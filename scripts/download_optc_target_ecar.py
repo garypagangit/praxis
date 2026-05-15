@@ -35,17 +35,27 @@ def host_to_pidmaker_key(host: str) -> str:
     return f"optc_h{numeric:03d}"
 
 
-def resolve_target(host: str, day: str, output_root: Path) -> dict[str, Any]:
+def resolve_target(
+    host: str,
+    output_root: Path,
+    day: str | None = None,
+    relative_dir: str | None = None,
+) -> dict[str, Any]:
     url_map = load_url_map()
     key = host_to_pidmaker_key(host)
-    relative_dir = DAY_TO_RELATIVE_DIR[str(day)]
+    if relative_dir is None:
+        if day is None:
+            raise ValueError("Either day or relative_dir must be provided.")
+        relative_dir = DAY_TO_RELATIVE_DIR[str(day)]
+    if not relative_dir.endswith("/"):
+        relative_dir += "/"
     if key not in url_map:
         raise KeyError(f"No OpTC URL map entry for {host!r} ({key}).")
     for item_relative_dir, url in url_map[key]:
         if item_relative_dir == relative_dir:
             return {
                 "host": host.lower(),
-                "day": str(day),
+                "day": str(day) if day is not None else "",
                 "pidmaker_key": key,
                 "relative_dir": relative_dir,
                 "url": url,
@@ -55,9 +65,13 @@ def resolve_target(host: str, day: str, output_root: Path) -> dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Download one targeted OpTC eCAR host/day folder.")
+    parser = argparse.ArgumentParser(description="Download one targeted OpTC eCAR host/day or benign folder.")
     parser.add_argument("--host", required=True, help="Target OpTC host, e.g. sysclient0501.")
-    parser.add_argument("--day", required=True, choices=sorted(DAY_TO_RELATIVE_DIR), help="OpTC red-team day: 1, 2, or 3.")
+    parser.add_argument("--day", choices=sorted(DAY_TO_RELATIVE_DIR), help="OpTC red-team day: 1, 2, or 3.")
+    parser.add_argument(
+        "--relative-dir",
+        help="Exact PIDSMaker OpTC relative folder, e.g. benign/20-23Sep19/. Overrides --day.",
+    )
     parser.add_argument(
         "--output-root",
         type=Path,
@@ -67,7 +81,7 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="Print the resolved URL and output path without downloading.")
     args = parser.parse_args()
 
-    target = resolve_target(args.host, args.day, args.output_root)
+    target = resolve_target(args.host, args.output_root, args.day, args.relative_dir)
     print(json.dumps(target, indent=2, sort_keys=True))
     if args.dry_run:
         return

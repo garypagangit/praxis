@@ -1,46 +1,25 @@
-# Provenance Window Factory
+# OpTC Window Gate
 
-Generated: 2026-05-11
+Generated: 2026-05-15
+
+Status: **superseded by expanded OpTC gate**
+
+This report path was used by the reusable window-builder wrapper while constructing targeted OpTC host/day slices. The single-slice window-factory output is no longer the decision artifact.
+
+## Current Decision Artifact
+
+Use `reports/provenance_architecture/OPTC_CROSS_HOST_GATE_20260515.md`.
+
+That expanded gate combines:
+
+- Three red-team host/day slices: `sysclient0501` day 2, `sysclient0201` day 1, and `sysclient0051` day 3.
+- Three clean benign baselines for the same host groups from `benign/20-23Sep19`.
+- `717` usable non-gray windows and `108` excluded gray-buffer windows.
 
 ## Decision
 
-Status: **SUPERVISED WINDOW FACTORY READY**.
+The OpTC window-label path is ready as a label/data artifact. Detector promotion is blocked because host/day holdout fails even though pooled/random sanity is strong.
 
-This is an architecture unlock, not a scientific result. It creates reusable chronological provenance windows and fixed-width feature tables that graph SSL, TGN, drift, stage-routing, watermarking, and detector-zoo experiments can share.
+## Claim Guard
 
-## Artifacts
-
-| Artifact | Path |
-|---|---|
-| windows | `runs\optc-window-gate-20260514-pass\windows.csv` |
-| features | `runs\optc-window-gate-20260514-pass\window_features.csv` |
-| labels_template | `runs\optc-window-gate-20260514-pass\labels_template.csv` |
-| manifest | `runs\optc-window-gate-20260514-pass\manifest.json` |
-
-## Corpus Summary
-
-| Metric | Value |
-|---|---:|
-| Edge rows | 625000 |
-| Windows | 125 |
-| Labeled windows | 82 |
-| Node-label rows | 0 |
-| Node-labeled windows | 0 |
-| Source files | 1 |
-| Timestamp span seconds | 10909.466 |
-| Event vocabulary size | 28 |
-| Exec vocabulary size | 32 |
-
-## Experiments This Opens
-
-| Experiment | What this provides | Still missing for a defensible claim |
-|---|---|---|
-| Concept drift on provenance detectors | Chronological windows and drift-ready feature tables | Longer host streams plus labels/anomaly spans |
-| Continuous-time TGN | Sorted temporal windows and node/event vocabulary | Supervised anomaly target or self-supervised objective better than next-event type |
-| Contrastive SSL on provenance graphs | Shared window boundaries and feature vocabulary | Better node features and hard-negative policy |
-| Stage routing on provenance graphs | Common temporal windows for graph-stage prediction | Stage labels or reliable attack-window mapping |
-| Watermarking / MIA / adversarial robustness | Detector-zoo compatible window features | Stable detector suite and non-proxy labels |
-
-## Honest Limitation
-
-The current Cadets sample can validate plumbing, but it does not by itself prove drift, graph-stage prediction, or detector robustness. For that we need longer streams and labels.
+Do not use this per-slice wrapper report to claim a detector. Use it only as evidence that the window factory can build OpTC feature tables. The detector decision lives in the expanded cross-host gate.

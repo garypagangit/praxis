@@ -1,19 +1,20 @@
 # OpTC Label Acquisition Plan
 
-Generated: 2026-05-14
+Generated: 2026-05-15
 
-Status: **first targeted eCAR window-label gate PASS**
+Status: **expanded window-label support passed; detector promotion blocked by host/day shift**
 
 ## How We Get Labels
 
 1. Use the public OpTC red-team ground-truth PDF as the attack seed source.
 2. Expand each timestamped red-team event into a padded attack interval.
-3. Download the matching OpTC eCAR host/day shard from the public release.
-4. Convert eCAR JSON to normalized provenance edges.
-5. Build chronological windows and attach attack intervals.
-6. Treat windows outside attack intervals and outside the gray buffer as background only for a red-team-window detection claim.
+3. Download matching OpTC eCAR red-team host/day shards from the public release.
+4. Download clean benign eCAR baselines for the same mapped host groups.
+5. Convert eCAR JSON to normalized provenance edges.
+6. Build chronological windows and attach attack intervals.
+7. Treat windows outside attack intervals and outside the gray buffer as `background`.
 
-This produces an honest binary target: `attack-window` vs `background/no-red-team-overlap`. It does not produce perfect event-level malicious labels.
+This produces an honest binary window target: `attack-window` vs `background/no-red-team-overlap`. It does not produce event-level malicious labels.
 
 ## Source Anchors
 
@@ -22,75 +23,73 @@ This produces an honest binary target: `attack-window` vs `background/no-red-tea
 - Dataset structure note: COMIDDS documents `eCar/benign`, `eCar/evaluation`, and `eCar/short`, and notes that the ground truth file is needed for manual labels.
 - Optional later upgrade: use published third-party OpTC label projects only after auditing compatibility with this window schema.
 
-## Generated Artifacts
+## Generated Label Artifacts
 
-- Attack intervals: `runs\optc-label-acquisition-20260514\optc_attack_intervals.csv`
-- Target host/day shortlist: `runs\optc-label-acquisition-20260514\optc_target_host_days.csv`
-- Optional window labels: `runs\optc-label-acquisition-20260514\optc_window_labels.csv`
+| Artifact | Path |
+|---|---|
+| Base attack intervals | `runs/optc-label-acquisition-20260514/optc_attack_intervals.csv` |
+| First target shortlist | `runs/optc-label-acquisition-20260514/optc_target_host_days.csv` |
+| Expanded gate report | `reports/provenance_architecture/OPTC_CROSS_HOST_GATE_20260515.md` |
+| Expanded metrics | `runs/optc-cross-host-gate-20260515/metrics.csv` |
+| Expanded split assignments | `runs/optc-cross-host-gate-20260515/split_assignments.csv` |
 
 ## Seed Summary
 
 - Timestamped seed events: `101`
 - Attack interval padding: `-15.0 / +15.0` minutes
+- Gray buffer: `30.0` minutes around attack intervals
 - Unique seed hosts: `21`
 - Covered days: `3`
 
-## First Download Target
+## Expanded Slice Support
 
-| Day | Host | Seed events | eCAR folder | Host filter |
-|---:|---|---:|---|---|
-| `2` | `sysclient0501` | `28` | `external/datasets/optc/ecar/evaluation/24Sep19` | `sysclient0501` |
-| `1` | `sysclient0201` | `18` | `external/datasets/optc/ecar/evaluation/23Sep19-red` | `sysclient0201` |
-| `3` | `sysclient0051` | `12` | `external/datasets/optc/ecar/evaluation/25Sept` | `sysclient0051` |
-| `1` | `sysclient0660` | `9` | `external/datasets/optc/ecar/evaluation/23Sep19-red` | `sysclient0660` |
-| `2` | `sysclient0005` | `6` | `external/datasets/optc/ecar/evaluation/24Sep19` | `sysclient0005` |
+| Slice | Host | Source | Attack | Background | Gray buffer | Total |
+|---|---|---|---:|---:|---:|---:|
+| `sysclient0501_day2` | `sysclient0501` | `evaluation/24Sep19` | `82` | `21` | `22` | `125` |
+| `sysclient0201_day1` | `sysclient0201` | `evaluation/23Sep19-red` | `112` | `54` | `34` | `200` |
+| `sysclient0051_day3` | `sysclient0051` | `evaluation/25Sept` | `41` | `107` | `52` | `200` |
+| `sysclient0501_benign` | `sysclient0501` | `benign/20-23Sep19` | `0` | `100` | `0` | `100` |
+| `sysclient0201_benign` | `sysclient0201` | `benign/20-23Sep19` | `0` | `100` | `0` | `100` |
+| `sysclient0051_benign` | `sysclient0051` | `benign/20-23Sep19` | `0` | `100` | `0` | `100` |
 
-## Window Label Gate
+The expanded gate has `717` usable non-gray windows and excludes `108` gray-buffer windows. This is enough for honest host/day holdout testing.
 
-| Check | Required |
-|---|---:|
-| Attack windows | `>=20` |
-| Background windows | `>=20` |
-| Gray-buffer windows | reported/excluded from supervised training |
-| Split support | train/validation/test each include the claimed positive class |
+## Commands
 
-## Targeted Download Command
-
-Install `gdown` into the diagnostic environment once if needed, then download only the target host/day folder:
+Download red-team and benign shards with the local PIDSMaker URL map:
 
 ```powershell
-.\.venv-diag\Scripts\python.exe -m pip install gdown
 .\.venv-diag\Scripts\python.exe .\scripts\download_optc_target_ecar.py --host sysclient0501 --day 2
+.\.venv-diag\Scripts\python.exe .\scripts\download_optc_target_ecar.py --host sysclient0201 --day 1
+.\.venv-diag\Scripts\python.exe .\scripts\download_optc_target_ecar.py --host sysclient0051 --day 3
+.\.venv-diag\Scripts\python.exe .\scripts\download_optc_target_ecar.py --host sysclient0501 --relative-dir benign/20-23Sep19
+.\.venv-diag\Scripts\python.exe .\scripts\download_optc_target_ecar.py --host sysclient0201 --relative-dir benign/20-23Sep19
+.\.venv-diag\Scripts\python.exe .\scripts\download_optc_target_ecar.py --host sysclient0051 --relative-dir benign/20-23Sep19
 ```
 
-## Run Command After Download
+Build host-filtered windows, generate labels, then run the expanded gate:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\build_optc_window_gate.ps1 `
-  -Inputs external\datasets\optc\ecar\evaluation\24Sep19 `
-  -Labels runs\optc-label-acquisition-20260514\optc_attack_intervals.csv `
+  -Inputs .\external\datasets\optc\ecar\evaluation\24Sep19 `
+  -Labels .\runs\optc-label-acquisition-20260514\optc_attack_intervals.csv `
   -HostFilter sysclient0501 `
-  -OutRoot runs\optc-window-gate-20260514-pass `
+  -OutRoot .\runs\optc-window-gate-20260514-pass `
   -Limit 625000 `
   -EventsPerWindow 5000
+
+.\.venv-diag\Scripts\python.exe .\scripts\run_optc_cross_host_gate.py
 ```
 
-Then rerun this script with `--windows runs\optc-window-gate-20260514-pass\windows.csv` to count `attack`, `background`, and `gray_buffer` support.
-
-## Claim Guard
-
-Do not call this event-level malicious labeling. The defensible claim is window-level red-team interval overlap against background windows from the same OpTC release.
+For benign runs, pass only matching `AIA-*` host-group files to avoid scanning unrelated multi-GB shards.
 
 ## Gate Decision
 
-- Attack support: `82` windows.
-- Background support: `21` windows.
-- Decision: `PASS` when both attack and background support are `>=20`; gray-buffer windows are reported and excluded from supervised training.
+- Label support: **PASS**.
+- Pooled detector sanity: **PASS as a smoke check only**; all-behavior random forest and extra trees reach Macro-F1 `0.8750` on pooled stratified test.
+- Host/day detector holdout: **FAIL**.
+- Strict host holdout: **FAIL**.
 
-## Current Window Support
+## Claim Guard
 
-| Label | Windows |
-|---|---:|
-| `attack` | `82` |
-| `background` | `21` |
-| `gray_buffer` | `22` |
+The Praxis-ready claim is label/data readiness and a clear detector-generalization blocker. Do not claim a provenance detector from the pooled/random split while host/day holdout fails.
