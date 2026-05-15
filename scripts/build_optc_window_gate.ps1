@@ -1,6 +1,8 @@
 param(
     [Parameter(Mandatory=$true)]
     [string[]]$Inputs,
+    [string]$Labels = "",
+    [string[]]$HostFilter = @(),
     [string]$OutRoot = "runs/optc-window-gate-20260514",
     [int]$Limit = 200000,
     [int]$EventsPerWindow = 5000
@@ -15,6 +17,9 @@ $report = "reports/provenance_architecture/OPTC_WINDOW_GATE_20260514.md"
 New-Item -ItemType Directory -Force -Path $OutRoot | Out-Null
 
 $convertArgs = @("scripts\convert_optc_ecar_to_edges.py", "--inputs") + $Inputs + @("--output", $edges, "--limit", $Limit)
+foreach ($hostName in $HostFilter) {
+    $convertArgs += @("--host-filter", $hostName)
+}
 & $python @convertArgs
 
 $windowArgs = @(
@@ -24,6 +29,9 @@ $windowArgs = @(
     "--report", $report,
     "--events-per-window", $EventsPerWindow
 )
+if ($Labels -ne "") {
+    $windowArgs += @("--labels", $Labels)
+}
 & $python @windowArgs
 
 Write-Host "Report written to $report"

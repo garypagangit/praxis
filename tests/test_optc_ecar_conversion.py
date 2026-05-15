@@ -3,6 +3,7 @@ from pathlib import Path
 from scripts.convert_optc_ecar_to_edges import (
     iter_json_records,
     normalize_optc_event,
+    parse_timestamp_nanos,
 )
 
 
@@ -46,3 +47,10 @@ def test_iter_json_records_reads_jsonl(tmp_path: Path) -> None:
 
     assert len(rows) == 2
     assert rows[0]["object"] == "FILE"
+
+
+def test_parse_timestamp_nanos_reads_iso_offset() -> None:
+    assert (
+        parse_timestamp_nanos("2019-09-23T09:12:26.333-04:00")
+        == 1569244346333000000
+    )

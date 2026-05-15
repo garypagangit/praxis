@@ -4,6 +4,7 @@ import argparse
 import gzip
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -63,11 +64,39 @@ def iter_json_records(path: Path) -> Iterable[dict[str, Any]]:
                 yield item
 
 
+def parse_timestamp_nanos(value: Any) -> int | None:
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        # OpTC numeric examples are milliseconds since epoch.
+        return int(float(value) * 1_000_000)
+    text = str(value).strip()
+    if not text:
+        return None
+    try:
+        return int(float(text) * 1_000_000)
+    except ValueError:
+        pass
+    try:
+        dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    utc_dt = dt.astimezone(timezone.utc)
+    epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+    delta = utc_dt - epoch
+    return (
+        delta.days * 86_400 * 1_000_000_000
+        + delta.seconds * 1_000_000_000
+        + delta.microseconds * 1_000
+    )
+
+
 def normalize_optc_event(row: dict[str, Any], source_file: Path, record_index: int) -> dict[str, Any] | None:
     timestamp_ms = row.get("timestamp_ms", row.get("timestamp"))
-    try:
-        timestamp_nanos = int(float(timestamp_ms) * 1_000_000)
-    except (TypeError, ValueError):
+    timestamp_nanos = parse_timestamp_nanos(timestamp_ms)
+    if timestamp_nanos is None:
         return None
 
     properties = row.get("properties") or {}

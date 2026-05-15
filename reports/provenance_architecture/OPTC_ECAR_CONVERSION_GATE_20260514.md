@@ -14,8 +14,9 @@ The seed manifest already extracted `101` timestamped red-team events from `OpTC
 
 | Tool | Purpose |
 |---|---|
-| `scripts/convert_optc_ecar_to_edges.py` | Converts OpTC eCAR JSON/JSONL/GZ records to normalized provenance edge JSONL. |
-| `scripts/build_optc_window_gate.ps1` | Runs eCAR conversion, then calls the existing provenance window factory. |
+| `scripts/convert_optc_ecar_to_edges.py` | Converts OpTC eCAR JSON/JSONL/GZ records to normalized provenance edge JSONL, including numeric and ISO timestamp formats. |
+| `scripts/build_optc_window_gate.ps1` | Runs eCAR conversion, optional host filtering, optional interval-label attachment, then calls the existing provenance window factory. |
+| `scripts/build_optc_interval_labels.py` | Converts the extracted OpTC red-team seed manifest into padded attack intervals and a target host/day download shortlist. |
 
 ## Field Mapping
 
@@ -32,8 +33,12 @@ The seed manifest already extracted `101` timestamped red-team events from `OpTC
 ## Gate Command
 
 ```powershell
+.\.venv-diag\Scripts\python.exe scripts\build_optc_interval_labels.py
+
 powershell -ExecutionPolicy Bypass -File .\scripts\build_optc_window_gate.ps1 `
   -Inputs <path-to-optc-ecar-json-or-folder> `
+  -Labels runs\optc-label-acquisition-20260514\optc_attack_intervals.csv `
+  -HostFilter sysclient0201 `
   -OutRoot runs\optc-window-gate-20260514 `
   -Limit 200000 `
   -EventsPerWindow 5000
@@ -55,4 +60,4 @@ This gate is not complete until an actual OpTC eCAR shard is downloaded from the
 
 ## Next Action
 
-Download a targeted eCAR shard for one red-team day and the hosts listed in the seed manifest, then run the gate command above. Do not train a detector until the label-support gate passes.
+Download a targeted eCAR shard for one red-team day and the hosts listed in `runs/optc-label-acquisition-20260514/optc_target_host_days.csv`, then run the gate command above. Do not train a detector until the label-support gate passes.

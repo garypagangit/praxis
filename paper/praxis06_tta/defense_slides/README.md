@@ -6,6 +6,7 @@ Generated: 2026-05-14
 
 - `PRAXIS06_DEFENSE_SLIDES_20260514.pptx` - usable 12-slide PowerPoint deck.
 - `PRAXIS06_DEFENSE_SLIDE_OUTLINE_20260514.md` - editable slide-by-slide outline with speaker intent and backup-slide plan.
+- `PRAXIS06_DEFENSE_SPEAKER_NOTES_20260514.md` - rehearsal-ready talk track, timing, and likely committee Q&A.
 
 ## Rebuild
 

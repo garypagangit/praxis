@@ -60,6 +60,29 @@ The first OpTC metadata check is complete:
 
 Decision: OpTC remains the best first provenance-label path. It now has a concrete seed manifest, but it is still not detector-ready until eCAR host events are attached to windows.
 
+## 2026-05-14 Label Acquisition Plan
+
+The label path is now concrete in `reports/provenance_architecture/OPTC_LABEL_ACQUISITION_PLAN_20260514.md`.
+
+How labels are obtained:
+
+1. Use the OpTC red-team ground-truth PDF as attack seed truth.
+2. Expand each timestamped red-team event into a padded interval, default `-15` to `+15` minutes.
+3. Download the matching OpTC `ecar/evaluation/<day>-red` host/day shard from the public release.
+4. Convert eCAR JSON to normalized provenance edges with `scripts/convert_optc_ecar_to_edges.py`.
+5. Build windows with `scripts/build_optc_window_gate.ps1`, passing `-Labels runs\optc-label-acquisition-20260514\optc_attack_intervals.csv`.
+6. After windowing, count attack-window, background/no-red-team-overlap, and gray-buffer support.
+
+First target shortlist from the seed manifest:
+
+| Host | Day | Seed events | Suggested folder |
+|---|---:|---:|---|
+| `sysclient0501` | `2` | `28` | `external/datasets/optc/ecar/evaluation/24Sep19-red` |
+| `sysclient0201` | `1` | `18` | `external/datasets/optc/ecar/evaluation/23Sep19-red` |
+| `sysclient0051` | `3` | `12` | `external/datasets/optc/ecar/evaluation/25Sep19-red` |
+
+Claim guard: this gives window-level red-team interval overlap, not perfect event-level malicious labels. Non-overlap windows should be called `background/no-red-team-overlap` unless a stronger third-party label source is audited.
+
 ## Half-Day Investigation Plan
 
 | Step | Action | Pass condition |
