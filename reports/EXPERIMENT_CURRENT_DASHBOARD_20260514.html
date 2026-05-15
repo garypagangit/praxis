@@ -19,7 +19,7 @@
 <tr><td>4</td><td>Provenance labels / OpTC or interval truth</td><td>Architecture-ready but label-blocked; OpTC seed manifest and eCAR conversion scaffold ready</td><td>Full E5 Cadets: <code>480,537,673</code> edge events to <code>9,611</code> windows; class support <code>9,609</code> attack-touch vs <code>2</code> benign/unlabeled; OpTC PDF yielded <code>101</code> timestamped red-team seed events across 3 days</td><td>Next: download/mirror a targeted OpTC eCAR shard, run <code>scripts/build_optc_window_gate.ps1</code>, and require <code>&gt;=20</code> benign / <code>&gt;=20</code> attack windows before detector training.</td></tr>
 <tr><td>5</td><td>APT Detector Watermarking</td><td>Active, first gate failed</td><td>Macro-F1 delta <code>-0.0866</code>; trigger signature accuracy <code>0.2391</code></td><td>Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction.</td></tr>
 <tr><td>6</td><td>AI Supply Chain Backdoor Detection</td><td>Pending weak</td><td>LoRA trace effects: loss <code>0.0401</code>, grad-norm <code>-0.0673</code>, update-norm <code>0.0203</code></td><td>Build a stronger poison construction and richer gradient/update diagnostics before multi-seed cloud replication.</td></tr>
-<tr><td>7</td><td>SEC-LoRD / DS-LoRD</td><td>Hold, current method negative</td><td>Strict audit: 3B vanilla <code>0.276</code> vs seeded <code>0.090</code>; 8B vanilla <code>0.466</code> vs seeded <code>0.284</code></td><td>Redesign task formatting and seed selection; re-gate with strict answer parsing before extraction.</td></tr>
+<tr><td>7</td><td>SEC-LoRD / DS-LoRD</td><td>Hold; current method negative; retrieved-evidence prompt gate ready</td><td>Strict audit: 3B vanilla <code>0.276</code> vs seeded <code>0.090</code>; 8B vanilla <code>0.466</code> vs seeded <code>0.284</code>; new prompt gate has <code>500</code> CTI-MCQ rows with <code>1.000</code> ATT&amp;CK evidence coverage</td><td>Run one cheap strict model gate: vanilla vs retrieved evidence vs broad-seed negative control. No extraction unless retrieved evidence beats vanilla by <code>&gt;= +0.030</code>.</td></tr>
 <tr><td>8</td><td>Concept Drift / SSL / TGN on Provenance</td><td>Pending weak or architecture-ready</td><td>Density proxy is learnable, but not ground truth; SSL positive &gt; negative cosine only <code>0.5227</code>; previous-event baseline beat next-event TGN features</td><td>Run only weak-proxy diagnostics until labels exist. No GPU GraphCL/TGN push yet.</td></tr>
 </tbody></table></div>
 <h2>Paper Anchors Behind The Dashboard</h2>
@@ -87,6 +87,7 @@
 <tr><td><code>reports/apt_detector_watermarking/NEXT_GATE_DESIGN_20260513.md</code></td><td>Cheap redesign gate for detector watermarking before surrogate extraction.</td></tr>
 <tr><td><code>reports/ai_supply_chain_training_provenance/NEXT_GATE_DESIGN_20260513.md</code></td><td>Cheap redesign gate for poisoned LoRA training-trace provenance.</td></tr>
 <tr><td><code>reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md</code></td><td>Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure.</td></tr>
+<tr><td><code>reports/sec_lord_ds_lord/SEC_LORD_RETRIEVED_EVIDENCE_GATE_READY_20260514.md</code></td><td>Concrete SEC-LoRD retrieved-evidence prompt gate; 500 CTI-MCQ rows with exact ATT&amp;CK evidence coverage.</td></tr>
 <tr><td><code>paper/praxis06_tta/main.tex</code></td><td>Expanded thesis-neutral LaTeX draft for the Praxis 06 TTA paper.</td></tr>
 <tr><td><code>paper/praxis06_tta/thesis_chapter.tex</code></td><td>Thesis/Praxis chapter wrapper that reuses the article body.</td></tr>
 <tr><td><code>paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md</code></td><td>Records the thesis-chapter-first packaging decision and venue conversion notes.</td></tr>
@@ -109,6 +110,7 @@
 <tr><td><code>scripts/build_portfolio_experiment_decks.py</code></td><td>Rebuild script for the portfolio experiment decks.</td></tr>
 <tr><td><code>scripts/run_attack_ttp_retrieval_closeout.py</code></td><td>Reproducible closeout analysis for ATT&amp;CK retrieval floors, buckets, and examples.</td></tr>
 <tr><td><code>scripts/export_experiment_dashboard_html.py</code></td><td>Rebuild script for the browser-viewable dashboard export.</td></tr>
+<tr><td><code>scripts/build_sec_lord_retrieved_evidence_gate.py</code></td><td>Builds the SEC-LoRD vanilla / broad-seed / retrieved-evidence strict prompt gate.</td></tr>
 <tr><td><code>reports/EXPERIMENT_CURRENT_DASHBOARD_20260514.html</code></td><td>Browser-viewable dashboard export with the paper-anchor table.</td></tr>
 </tbody></table></div>
 <h2>Immediate Commands</h2>

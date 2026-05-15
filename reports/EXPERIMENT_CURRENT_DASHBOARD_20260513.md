@@ -22,7 +22,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | 4 | Provenance labels / OpTC or interval truth | Architecture-ready but label-blocked; OpTC seed manifest and eCAR conversion scaffold ready | Full E5 Cadets: `480,537,673` edge events to `9,611` windows; class support `9,609` attack-touch vs `2` benign/unlabeled; OpTC PDF yielded `101` timestamped red-team seed events across 3 days | Next: download/mirror a targeted OpTC eCAR shard, run `scripts/build_optc_window_gate.ps1`, and require `>=20` benign / `>=20` attack windows before detector training. |
 | 5 | APT Detector Watermarking | Active, first gate failed | Macro-F1 delta `-0.0866`; trigger signature accuracy `0.2391` | Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction. |
 | 6 | AI Supply Chain Backdoor Detection | Pending weak | LoRA trace effects: loss `0.0401`, grad-norm `-0.0673`, update-norm `0.0203` | Build a stronger poison construction and richer gradient/update diagnostics before multi-seed cloud replication. |
-| 7 | SEC-LoRD / DS-LoRD | Hold, current method negative | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284` | Redesign task formatting and seed selection; re-gate with strict answer parsing before extraction. |
+| 7 | SEC-LoRD / DS-LoRD | Hold; current method negative; retrieved-evidence prompt gate ready | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284`; new prompt gate has `500` CTI-MCQ rows with `1.000` ATT&CK evidence coverage | Run one cheap strict model gate: vanilla vs retrieved evidence vs broad-seed negative control. No extraction unless retrieved evidence beats vanilla by `>= +0.030`. |
 | 8 | Concept Drift / SSL / TGN on Provenance | Pending weak or architecture-ready | Density proxy is learnable, but not ground truth; SSL positive > negative cosine only `0.5227`; previous-event baseline beat next-event TGN features | Run only weak-proxy diagnostics until labels exist. No GPU GraphCL/TGN push yet. |
 
 ## Paper Anchors Behind The Dashboard
@@ -90,6 +90,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `reports/apt_detector_watermarking/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for detector watermarking before surrogate extraction. |
 | `reports/ai_supply_chain_training_provenance/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for poisoned LoRA training-trace provenance. |
 | `reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure. |
+| `reports/sec_lord_ds_lord/SEC_LORD_RETRIEVED_EVIDENCE_GATE_READY_20260514.md` | Concrete SEC-LoRD retrieved-evidence prompt gate; 500 CTI-MCQ rows with exact ATT&CK evidence coverage. |
 | `paper/praxis06_tta/main.tex` | Expanded thesis-neutral LaTeX draft for the Praxis 06 TTA paper. |
 | `paper/praxis06_tta/thesis_chapter.tex` | Thesis/Praxis chapter wrapper that reuses the article body. |
 | `paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md` | Records the thesis-chapter-first packaging decision and venue conversion notes. |
@@ -112,6 +113,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `scripts/build_portfolio_experiment_decks.py` | Rebuild script for the portfolio experiment decks. |
 | `scripts/run_attack_ttp_retrieval_closeout.py` | Reproducible closeout analysis for ATT&CK retrieval floors, buckets, and examples. |
 | `scripts/export_experiment_dashboard_html.py` | Rebuild script for the browser-viewable dashboard export. |
+| `scripts/build_sec_lord_retrieved_evidence_gate.py` | Builds the SEC-LoRD vanilla / broad-seed / retrieved-evidence strict prompt gate. |
 | `reports/EXPERIMENT_CURRENT_DASHBOARD_20260514.html` | Browser-viewable dashboard export with the paper-anchor table. |
 
 ## Immediate Commands

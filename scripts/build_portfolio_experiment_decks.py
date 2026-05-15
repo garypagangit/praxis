@@ -260,11 +260,12 @@ def build_sec_lord():
     prs = new_deck()
     path = OUT_DIR / "EXPERIMENT_07_SEC_LORD_REDESIGN_GATE_DECK_20260514.pptx"
 
-    s = slide(prs, "Experiment 7: SEC-LoRD / DS-LoRD", "Current method is negative; redesign gate only")
+    s = slide(prs, "Experiment 7: SEC-LoRD / DS-LoRD", "Current method is negative; retrieved-evidence gate is ready")
     add_bullets(s, [
         "Goal: test whether security-domain evidence improves CTI task behavior before any extraction claim.",
         "Current broad domain-seeded prompting failed under strict parsing.",
-        "Decision: no extraction until a retrieved-evidence prompt clears a strict gate.",
+        "Prompt gate now exists: 500 CTI-MCQ rows with exact ATT&CK evidence coverage.",
+        "Decision: no extraction until the retrieved-evidence prompt clears the strict model gate.",
     ], width=11.5, size=24)
 
     s = slide(prs, "Paper Anchor And Gap")
@@ -301,6 +302,20 @@ def build_sec_lord():
         ["Comparisons", "Vanilla strict, retrieved-evidence prompt, broad seed negative control"],
     ], 0.75, 1.55, 11.9, 4.6, 15)
 
+    s = slide(prs, "Gate Input Is Now Built")
+    add_table(s, [
+        ["Item", "Value"],
+        ["CTI-MCQ rows", "500"],
+        ["Rows with exact ATT&CK technique fact", "500"],
+        ["Rows with evidence snippets", "500"],
+        ["Evidence coverage", "1.000"],
+        ["Output format", "Answer: <A|B|C|D>"],
+    ], 0.75, 1.55, 11.9, 3.6, 16)
+    add_bullets(s, [
+        "Artifact: runs/sec-lord-retrieved-evidence-gate-20260514/retrieved_evidence_prompts.jsonl",
+        "Report: reports/sec_lord_ds_lord/SEC_LORD_RETRIEVED_EVIDENCE_GATE_READY_20260514.md",
+    ], top=5.35, width=11.5, size=17)
+
     s = slide(prs, "Gate Metrics")
     add_table(s, [
         ["Metric", "Threshold"],
@@ -318,9 +333,9 @@ def build_sec_lord():
 
     s = slide(prs, "Next Action")
     add_bullets(s, [
-        "Implement retrieved-evidence prompt construction over the same CTI-MCQ set.",
         "Run vanilla vs retrieved-evidence vs broad-seeded negative control.",
         "Score with strict parser only.",
+        "Pass requires retrieved evidence >= vanilla +0.030 absolute and no worse invalid rate.",
         "Escalate to extraction only if the gate passes.",
     ], width=11.5, size=23)
 

@@ -38,6 +38,24 @@ Answer: <A|B|C|D>
 - Same CTI-MCQ set used in the strict audit.
 - Optional second gate: AnnoCTR TTP linking exact match if labels are available.
 
+## 2026-05-14 Gate Readiness Update
+
+The retrieved-evidence prompt set is now built:
+
+| Item | Value |
+|---|---:|
+| CTI-MCQ rows | `500` |
+| Rows with exact ATT&CK technique fact | `500` |
+| Rows with evidence snippets | `500` |
+| Evidence coverage | `1.000` |
+
+Artifacts:
+
+- `runs/sec-lord-retrieved-evidence-gate-20260514/retrieved_evidence_prompts.jsonl`
+- `reports/sec_lord_ds_lord/SEC_LORD_RETRIEVED_EVIDENCE_GATE_READY_20260514.md`
+
+This does not change the status of the current method. SEC-LoRD remains negative until a model run shows retrieved evidence beats vanilla under strict parsing.
+
 ## Required Metrics
 
 | Metric | Threshold |
