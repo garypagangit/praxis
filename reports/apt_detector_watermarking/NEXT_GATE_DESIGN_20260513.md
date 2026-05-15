@@ -2,7 +2,7 @@
 
 Generated: 2026-05-13
 
-Status: **redesign required before cloud escalation**
+Status: **redesign attempted; current detector lineage archived**
 
 ## Current Decision
 
@@ -16,6 +16,8 @@ The first utility/signature gate failed:
 | Trigger signature accuracy | `0.2391` | `0.2391` | `0.0000` |
 
 Do not run surrogate extraction until a detector can preserve utility and learn the owner signature.
+
+Update on 2026-05-14: the proposed owner-verification sidecar was implemented and run in `reports/apt_detector_watermarking/WATERMARK_OWNER_HEAD_GATE_20260514.md`. It preserved detector utility by construction, but failed the held-out trigger-detection gate: `0.5217` trigger detection vs required `>=0.9500`, with eval false watermark rate `0.0435`. This closes the current detector lineage as negative.
 
 ## New Method
 
@@ -62,3 +64,12 @@ If the gate passes, run surrogate-retention testing:
 ## Fail Decision
 
 If the owner-verification head cannot hit signature accuracy without utility loss, archive watermarking as negative for this detector lineage and revisit only after a stronger detector suite exists.
+
+## Final 2026-05-14 Decision
+
+Archive this experiment for the current detector lineage. Both attempted routes failed:
+
+- Direct trigger fine-tuning harmed normal detection and did not learn the owner signature.
+- The sidecar owner-verification head preserved normal detection but failed held-out trigger detection.
+
+The next honest reopen condition is a stronger detector suite or a materially different service-level ownership protocol. No surrogate extraction should be run from the current artifacts.

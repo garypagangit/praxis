@@ -20,8 +20,8 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | 2 | Praxis 06 venue package | Expanded thesis-neutral LaTeX draft; thesis wrapper added; CI/layout sanity PASS; defense deck scaffold complete | LaTeX workspace exists under `paper/praxis06_tta/`; GitHub Actions run `25881761738` built both PDFs from commit `37a64c5`: article `8` pages, thesis chapter `14` pages; contact-sheet reviews passed for both; 12-slide defense PPTX generated | Do line-by-line thesis editorial pass, then tune thesis/venue formatting and polish slide visuals. No threshold changes. |
 | 3 | Few-Shot APT Group Attribution | Selected second narrow result; retrieval closeout PASS | ATT&CK TTP-set 5-shot top-5: overlap `0.960`, SVD `0.879`, random `0.028`, frequency prior `0.041`; median rank `1.0`; degree-bucket analysis complete; GraphSAGE pilot remains negative | Convert this into a compact thesis/paper section. Keep scope as ATT&CK TTP-set profile retrieval, not CTI prose attribution and not a GNN claim. |
 | 4 | Provenance labels / OpTC or interval truth | Architecture-ready but label-blocked; OpTC seed manifest and eCAR conversion scaffold ready | Full E5 Cadets: `480,537,673` edge events to `9,611` windows; class support `9,609` attack-touch vs `2` benign/unlabeled; OpTC PDF yielded `101` timestamped red-team seed events across 3 days | Next: download/mirror a targeted OpTC eCAR shard, run `scripts/build_optc_window_gate.ps1`, and require `>=20` benign / `>=20` attack windows before detector training. |
-| 5 | APT Detector Watermarking | Active, first gate failed | Macro-F1 delta `-0.0866`; trigger signature accuracy `0.2391` | Redesign the trigger objective or add a separate owner-verification head before any surrogate extraction. |
-| 6 | AI Supply Chain Backdoor Detection | Pending weak | LoRA trace effects: loss `0.0401`, grad-norm `-0.0673`, update-norm `0.0203` | Build a stronger poison construction and richer gradient/update diagnostics before multi-seed cloud replication. |
+| 5 | APT Detector Watermarking | Closed negative for current detector lineage; direct trigger and owner-head redesign both failed | Direct watermark fine-tune: Macro-F1 delta `-0.0866`, trigger signature accuracy `0.2391`; sidecar owner-head: utility delta `+0.0000`, eval trigger detection `0.5217` vs required `>=0.9500`, eval false watermark rate `0.0435` | Archive for now. Do not run surrogate extraction. Reopen only after a stronger detector suite exists or the ownership claim is reframed away from transferable watermarking. |
+| 6 | AI Supply Chain Backdoor Detection | Weak first LoRA result; multi-strength redesign gate ready | First LoRA trace effects: loss `0.0401`, grad-norm `-0.0673`, update-norm `0.0203`; new gate defines `9` paired clean/poison runs across `1%`, `5%`, `10%` poison and seeds `41/42/43` with richer trace logging | Run the cheap multi-strength cloud gate only if resources allow. Promote only if 5% poison clears ROC-AUC/AP `>=0.7000` with stable signs on `>=2/3` seeds; otherwise archive for this cycle. |
 | 7 | SEC-LoRD / DS-LoRD | Hold; current method negative; retrieved-evidence prompt gate ready | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284`; new prompt gate has `500` CTI-MCQ rows with `1.000` ATT&CK evidence coverage | Run one cheap strict model gate: vanilla vs retrieved evidence vs broad-seed negative control. No extraction unless retrieved evidence beats vanilla by `>= +0.030`. |
 | 8 | Concept Drift / SSL / TGN on Provenance | Pending weak or architecture-ready | Density proxy is learnable, but not ground truth; SSL positive > negative cosine only `0.5227`; previous-event baseline beat next-event TGN features | Run only weak-proxy diagnostics until labels exist. No GPU GraphCL/TGN push yet. |
 
@@ -33,8 +33,8 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | 2 | Praxis 06 venue package | Same Praxis 06 anchor: Wang et al. (2021), plus the local DAPT2020 external-validity check | Converts the bounded TTA finding into a defensible thesis/venue package without expanding the claim | Packaging in progress |
 | 3 | Few-Shot APT Group Attribution | Strom et al. (2020), *MITRE ATT&CK: Design and Philosophy*; Hamilton et al. (2017), GraphSAGE as the failed learned-embedding comparison | Formalizes few-shot ATT&CK group-profile retrieval from observed TTP sets; separates profile retrieval from CTI prose attribution | Selected second narrow result |
 | 4 | Provenance labels / OpTC or interval truth | Han et al. (2020), UNICORN; Gama et al. (2014), concept drift adaptation; OpTC red-team ground-truth artifact | Provides label-faithful provenance windows before drift, TGN, SSL, MIA, watermarking, or detector-zoo claims | Architecture-ready, label-blocked |
-| 5 | APT Detector Watermarking | Adi et al. (2018), DNN watermarking by backdooring | Tests whether APT detectors can carry owner-verifiable signatures without losing normal detection utility | Failed first utility/signature gate; redesign only |
-| 6 | AI Supply Chain Backdoor Detection | Gu et al. (2017), BadNets / ML supply-chain backdoor risk | Moves from final-model behavior to training-trace provenance diagnostics for poisoned fine-tuning runs | Pending weak; redesign only |
+| 5 | APT Detector Watermarking | Adi et al. (2018), DNN watermarking by backdooring | Tests whether APT detectors can carry owner-verifiable signatures without losing normal detection utility | Closed negative for this detector lineage |
+| 6 | AI Supply Chain Backdoor Detection | Gu et al. (2017), BadNets / ML supply-chain backdoor risk | Moves from final-model behavior to training-trace provenance diagnostics for poisoned fine-tuning runs | Weak first result; falsifiable multi-strength gate ready |
 | 7 | SEC-LoRD / DS-LoRD | Carlini et al. (2021), extracting training data from LLMs; Lewis et al. (2020), retrieval-augmented generation | Tests whether question-specific CTI evidence can improve strict task compliance before any LoRD-style extraction claim | Current method negative; redesign gate only |
 | 8 | Concept Drift / SSL / TGN on Provenance | Gama et al. (2014), drift; You et al. (2020), GraphCL; Rossi et al. (2020), TGN; Han et al. (2020), UNICORN | Reopens dynamic/representation provenance modeling only after honest labels exist | Hold weak-proxy diagnostics only |
 
@@ -64,6 +64,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | Membership Inference | Park as negative/control evidence: temporal shift explains most apparent leakage. |
 | GNN TTP Graph Embeddings | Hold GNN claim. Keep the simple SVD/overlap TTP-set result. |
 | Praxis 05 SAE on MAGIC hidden states | Hold. Phase A failed feature-death and seed-stability gates. Only a larger-hidden-state PIDSMaker pivot is justified. |
+| APT Detector Watermarking | Archive current detector lineage. Direct watermarking harmed utility and failed signature learning; the owner-verification sidecar preserved utility but missed the trigger-detection gate. |
 | LLM Threat Intelligence Fusion | Blocked until dated campaign/outcome labels exist. |
 | Cross-Detector Adversarial Robustness | Later; needs 2-4 stable trained detector families. |
 | Causal GNN for Evasion Resistance | Later; keep as a follow-on after stronger publication base. |
@@ -76,7 +77,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 3. Keep the pushed handoff memory current. Last pushed commits: `7fdb4b9` and `9e0a183`.
 4. Convert the second selected result into a thesis/paper section using `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md`, `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_CLOSEOUT_20260514.md`, and `paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md`.
 5. Spend provenance effort on labels, not models. The recommended first path is a targeted OpTC subset, with Cadets interval labels as fallback: `reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md`.
-6. Run only cheap redesign gates for watermarking, AI supply-chain provenance, and SEC-LoRD. Each now has a corrected gate memo before expensive cloud work.
+6. Watermarking is archived for now. AI supply-chain provenance and SEC-LoRD are both gate-ready; run them only as cheap strict gates before any expensive extraction or replication work.
 
 ## New Decision Artifacts
 
@@ -88,7 +89,9 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `reports/provenance_architecture/PROVENANCE_LABEL_PATH_DECISION_20260513.md` | Label-path decision; recommends targeted OpTC subset first, Cadets interval labels as fallback. |
 | `reports/provenance_architecture/OPTC_GROUND_TRUTH_SEED_MANIFEST_20260513.md` | First OpTC label feasibility artifact: 101 timestamped red-team seed events extracted from the public ground-truth PDF. |
 | `reports/apt_detector_watermarking/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for detector watermarking before surrogate extraction. |
+| `reports/apt_detector_watermarking/WATERMARK_OWNER_HEAD_GATE_20260514.md` | Redesign closeout for detector watermarking; owner-verification head failed held-out trigger detection. |
 | `reports/ai_supply_chain_training_provenance/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for poisoned LoRA training-trace provenance. |
+| `reports/ai_supply_chain_training_provenance/AI_SUPPLY_CHAIN_MULTISTRENGTH_GATE_READY_20260514.md` | Concrete 9-run multi-strength LoRA provenance gate for AI supply-chain backdoor detection. |
 | `reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure. |
 | `reports/sec_lord_ds_lord/SEC_LORD_RETRIEVED_EVIDENCE_GATE_READY_20260514.md` | Concrete SEC-LoRD retrieved-evidence prompt gate; 500 CTI-MCQ rows with exact ATT&CK evidence coverage. |
 | `paper/praxis06_tta/main.tex` | Expanded thesis-neutral LaTeX draft for the Praxis 06 TTA paper. |
@@ -112,6 +115,8 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `paper/portfolio_experiment_decks/EXPERIMENT_07_SEC_LORD_REDESIGN_GATE_DECK_20260514.pptx` | PowerPoint deck for the SEC-LoRD / DS-LoRD redesign gate. |
 | `scripts/build_portfolio_experiment_decks.py` | Rebuild script for the portfolio experiment decks. |
 | `scripts/run_attack_ttp_retrieval_closeout.py` | Reproducible closeout analysis for ATT&CK retrieval floors, buckets, and examples. |
+| `scripts/run_watermark_owner_head_gate.py` | Reproducible owner-verification-head gate for the watermarking redesign. |
+| `scripts/build_ai_supply_chain_multistrength_gate.py` | Builds paired clean/poison LoRA gate files for the AI supply-chain provenance redesign. |
 | `scripts/export_experiment_dashboard_html.py` | Rebuild script for the browser-viewable dashboard export. |
 | `scripts/build_sec_lord_retrieved_evidence_gate.py` | Builds the SEC-LoRD vanilla / broad-seed / retrieved-evidence strict prompt gate. |
 | `reports/EXPERIMENT_CURRENT_DASHBOARD_20260514.html` | Browser-viewable dashboard export with the paper-anchor table. |

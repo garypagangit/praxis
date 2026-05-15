@@ -2,7 +2,7 @@
 
 Generated: 2026-05-13
 
-Status: **redesign required before multi-seed cloud replication**
+Status: **redesign gate ready; multi-seed cloud replication not yet run**
 
 ## Current Decision
 
@@ -15,6 +15,8 @@ The real LoRA trace gate produced weak separation:
 | update_norm | `0.0203` |
 
 Final validation loss was higher for poison by `+0.0774`, but training-trace diagnostics are not yet strong enough for a provenance detector claim.
+
+Update on 2026-05-14: the multi-strength redesign gate is now concrete in `reports/ai_supply_chain_training_provenance/AI_SUPPLY_CHAIN_MULTISTRENGTH_GATE_READY_20260514.md`. It creates 9 paired clean/poison runs: 3 poison strengths (`1%`, `5%`, `10%`) across 3 seeds, with deterministic trigger rows and a richer LoRA trace logging contract. This does not promote the result; it only makes the next cloud gate falsifiable.
 
 ## New Method
 
@@ -62,3 +64,7 @@ If the trace classifier clears ROC-AUC/AP gates without relying only on final va
 ## Fail Decision
 
 If trace diagnostics remain near random, archive as negative evidence: final model behavior may show poison, but the current training-trace provenance features do not identify it reliably.
+
+## Current Reopen Condition
+
+Run the 9 paired multi-strength gate and promote only if the 5% poison condition clears ROC-AUC/AP `>=0.7000` with same-direction trace signs on at least `2/3` seeds. If the result only separates at 10% poison through obvious validation collapse, archive it for this dissertation cycle.
