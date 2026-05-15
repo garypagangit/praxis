@@ -1,6 +1,6 @@
 # Praxis 06 Defense Slide Outline
 
-Generated: 2026-05-14
+Generated: 2026-05-15
 
 Deck source status: **ready for slide build**
 
@@ -59,7 +59,7 @@ Message:
 
 - Praxis 04 stage routing failed under shift.
 - Stage-conditioned imbalance did not rescue rare classes cleanly.
-- Several graph/provenance paths were label-blocked.
+- Provenance now has an OpTC label/data artifact, but detector generalization remains blocked by host/day shift.
 
 Key number:
 
@@ -67,7 +67,7 @@ Key number:
 
 Speaker note:
 
-This sets up why the thesis moved from more routing/weighting to deployment-time adaptation.
+This sets up why the thesis moved from more routing/weighting to deployment-time adaptation, while keeping provenance as a separate boundary result.
 
 ---
 

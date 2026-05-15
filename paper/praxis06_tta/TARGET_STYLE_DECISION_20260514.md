@@ -1,6 +1,6 @@
 # Praxis 06 Target Style Decision
 
-Generated: 2026-05-14
+Generated: 2026-05-15
 
 ## Decision
 
@@ -34,7 +34,7 @@ Keep these unchanged during thesis/venue conversion:
 | Thresholds | No new threshold search. |
 | PR-AUC framing | Decision-policy improvement, not representation/ranking improvement. |
 | DAPT2020 | Detector-recipe appendix and negative TTA boundary only. |
-| Provenance | Label-blocked architecture track, not a positive detector claim. |
+| Provenance | Expanded OpTC labels are a data artifact; host/day detector generalization remains blocked. |
 
 ## Recommended Thesis Chapter Shape
 
@@ -62,4 +62,4 @@ Keep these unchanged during thesis/venue conversion:
 
 ## Next Editorial Step
 
-Do a full-size PDF read for phrasing, figure placement, and table readability. Create a venue-specific branch only after the committee/thesis chapter package is stable.
+Do a full-size PDF read for phrasing, figure placement, and table readability after the next CI build. Create a venue-specific branch only after the committee/thesis chapter package is stable.

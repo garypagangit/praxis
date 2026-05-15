@@ -1,14 +1,14 @@
 # Praxis 06 Submission TODO
 
-Updated: 2026-05-14
+Updated: 2026-05-15
 
 ## Current Package
 
 | Item | Status |
 |---|---|
 | Venue-neutral LaTeX skeleton | Done: `main.tex` |
-| Thesis-neutral expanded manuscript | Done: `main.tex` now includes related work, method, results, external validity, threats, and appendices |
-| Thesis chapter wrapper | Done: `thesis_chapter.tex` reuses the same paper body |
+| Thesis-neutral expanded manuscript | Done: `main.tex` now includes related work, method, results, external validity, threats, and appendices; first editorial claim-alignment pass complete |
+| Thesis chapter wrapper | Done: `thesis_chapter.tex` reuses the same paper body and names portfolio boundary evidence |
 | Local references | Done: `references.bib` |
 | Build script | Done: `build.ps1` |
 | GitHub Actions compile path | Done: `.github/workflows/praxis06-paper.yml` |
@@ -22,10 +22,10 @@ Updated: 2026-05-14
 
 ## Next Editorial Pass
 
-1. Do a line-by-line thesis editorial pass for prose and committee formatting.
-2. If targeting a venue instead, replace `article` class with the target class.
-3. Tune section lengths for the target page budget.
-4. Fix table widths and figure placement after target-class compile.
+1. Trigger/inspect the next CI PDF build because local `pdflatex` is unavailable.
+2. Do visual table and figure placement tuning from the CI PDFs.
+3. If targeting a venue instead, replace `article` class with the target class.
+4. Tune section lengths for the target page budget.
 
 ## Must Not Change
 

@@ -13,14 +13,14 @@
 
 \title{Selective Test-Time Adaptation for Streaming APT Stage Detection Under Source-File Shift}
 \author{Praxis 06 Draft}
-\date{May 14, 2026}
+\date{May 15, 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
 Advanced persistent threat (APT) stage detectors degrade when deployment streams differ from the capture sources, days, and host or network conditions seen during training.
-This paper evaluates a deliberately narrow form of no-label test-time adaptation (TTA) for streaming APT stage detection.
+This paper evaluates a deliberately narrow form of no-label test-time adaptation (TTA) for streaming APT stage detection under held-out source-file shift.
 The method adapts batch-normalization statistics at inference time but applies a validation-selected selective gate that protects confident Data Exfiltration predictions and overrides only a small fraction of uncertain rows.
 On the locked Unraveled held-out source-file split, selective TTA improves Macro-F1 from 0.7685 to 0.8658 and Reconnaissance F1 from 0.0250 to 0.5050, with an override rate of 4.7 percent.
 A matched-rate confidence-rejection baseline does not explain the result: it leaves Reconnaissance F1 at 0.0000.
@@ -38,7 +38,7 @@ An analyst-facing detector must distinguish Benign, Reconnaissance, Foothold, La
 The motivation for this study comes from a prior negative result.
 Praxis 04 tested stage-conditional routing and found that predicted-stage routing did not survive held-out source-file shift.
 The Treatment-Stage router underperformed the baseline, and rare-stage behavior remained brittle.
-That failure suggests that the deployment bottleneck is not merely a missing router or a better threshold; the model's operating point must be robust when the target stream shifts.
+That failure suggests that the deployment bottleneck is not merely a missing router or a better threshold; the final decision policy must remain useful when the target stream shifts.
 
 This paper studies selective no-label TTA for streaming APT stage detection.
 The frozen detector is a support-floor MLP trained before deployment.
@@ -50,6 +50,13 @@ The contribution is intentionally modest.
 We do not claim that TTA generally solves APT detection.
 We show that, under one locked source-file split and one audited feature pipeline, a validation-selected selective gate can recover a rare shifted stage without reducing mean Data Exfiltration F1.
 This is the right kind of result for a doctoral defense: narrow, repeatable, and explicit about its boundaries.
+
+The chapter makes three concrete contributions:
+\begin{enumerate}[leftmargin=*]
+  \item a locked selective TTA replay for multi-stage APT detection under source-file shift;
+  \item a matched-rate confidence-rejection comparison that rules out the simplest low-confidence filtering explanation;
+  \item a defense-hardening package that names where the result does and does not generalize.
+\end{enumerate}
 
 \section{Research Questions and Hypotheses}
 
@@ -96,13 +103,14 @@ Selective TTA is therefore positioned as a deployment-time operating-point inter
 \paragraph{Provenance context.}
 Provenance-based intrusion systems such as MAGIC and Kairos show the broader direction for host and graph evidence \cite{jia2024magic,cheng2024kairos}.
 Those systems motivate future provenance experiments in this portfolio, but they are not evidence for the TTA claim here.
-The current provenance track remains label-blocked, so this paper stays with the audited Unraveled flow-feature pipeline.
+The current OpTC provenance work is a label/data artifact with detector generalization still blocked by host/day shift, so this paper stays with the audited Unraveled flow-feature pipeline.
 
 \section{Method}
 
 \subsection{Frozen Detector}
 
 The frozen detector is a support-floor MLP from the trusted Unraveled feature lineage.
+In this context, support-floor means that the recipe was chosen to avoid trivial rare-class collapse before any test-time adaptation was applied.
 The detector recipe uses targeted ADASYN plus weighted cross-entropy and was selected before the final TTA proof.
 The frozen model supplies baseline class probabilities, confidence values, and Data Exfiltration guard decisions.
 
@@ -110,7 +118,7 @@ The frozen model supplies baseline class probabilities, confidence values, and D
 
 The selected adaptation method is \texttt{bn\_adapt}.
 During inference, the method updates batch-normalization behavior over the unlabeled evaluation stream.
-No test labels are used, and classifier weights are not retrained on labeled target examples.
+No test labels are used, no target labels are inferred for training, and classifier weights are not retrained on labeled target examples.
 
 The locked replay uses a single pass over the evaluation stream with batch size 4096.
 The stream is consumed in dataframe order through a non-shuffled data loader.
@@ -129,7 +137,7 @@ It compares frozen and adapted predictions under validation-selected thresholds 
 
 The locked policy uses \texttt{bn\_adapt}, a Data Exfiltration delta guard of 0.05, and seeds 42, 43, and 44.
 Per-seed thresholds were selected on validation artifacts before final replay.
-The final test replay did not run a new broad threshold search.
+The final test replay did not run a new broad threshold search, and all reported locked results use the pre-final validation-selected policy.
 
 \subsection{Graphical Model Representation}
 
@@ -151,7 +159,7 @@ The gate is not learned on the test set.
 \subsection{Dataset and Split}
 
 The evaluation uses Unraveled network-flow telemetry processed through the trusted support-floor feature pipeline.
-The locked split holds out source files to approximate deployment shift.
+The locked split holds out source files to approximate a deployment stream whose capture sources differ from the training sources.
 Train, validation, and test source files are disjoint.
 Temporal delta features are reset within each split so cross-split temporal state cannot leak into validation or test.
 
@@ -265,6 +273,7 @@ A lightweight feature-shift diagnostic suggests one plausible mechanism boundary
 Unraveled has moderate train-to-test feature-scale shift: median absolute log standard-deviation ratio is 0.1192, with 11 of 67 features above a twofold standard-deviation ratio.
 DAPT2020 has similar median shift but extreme tail instability: p90 absolute log standard-deviation ratio is 26.9379, with 16 of 82 features above the twofold mark.
 This supports the cautious hypothesis that BN adaptation helps when target-stream feature scales are compatible with the source-trained normalization layers and can fail when a small set of features has extreme scale mismatch or unstable batch composition.
+The hypothesis is diagnostic only; it is not used to select a new TTA policy after the locked replay.
 
 \begin{figure}[t]
   \centering
@@ -275,7 +284,7 @@ This supports the cautious hypothesis that BN adaptation helps when target-strea
 
 \section{Threats to Validity}
 
-The positive claim is one dataset family, one feature pipeline, and one locked source-file split.
+The positive claim is limited to one dataset family, one feature pipeline, and one locked source-file split.
 Held-out source-file shift is a deployment proxy, not live SOC deployment.
 The validation split is Recon-heavy relative to the test split, and the sensitivity check shows that threshold choice is not perfectly stable.
 BN adaptation assumes useful structure in the unlabeled stream and could be manipulated by an adversary.
@@ -290,6 +299,7 @@ It does not claim that the method is robust to adversarial stream poisoning.
 It does not use DAPT2020 as positive TTA evidence.
 It does not claim the provenance graph experiments are positive.
 These limits are part of the contribution: the positive claim is narrow, reproducible, and bounded by the observed failures.
+They also separate the selected positive result from the portfolio's negative or architecture-only tracks.
 
 \section{Conclusion}
 

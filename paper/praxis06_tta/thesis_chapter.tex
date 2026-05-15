@@ -14,7 +14,7 @@
 
 \title{Praxis 06 Thesis Chapter\\Selective Test-Time Adaptation for Streaming APT Stage Detection Under Source-File Shift}
 \author{Praxis Research Package}
-\date{May 14, 2026}
+\date{May 15, 2026}
 
 \begin{document}
 \maketitle
@@ -24,7 +24,7 @@
 \section*{Chapter Abstract}
 
 Advanced persistent threat (APT) stage detectors degrade when deployment streams differ from the capture sources, days, and host or network conditions seen during training.
-This chapter evaluates a deliberately narrow form of no-label test-time adaptation (TTA) for streaming APT stage detection.
+This chapter evaluates a deliberately narrow form of no-label test-time adaptation (TTA) for streaming APT stage detection under held-out source-file shift.
 The method adapts batch-normalization statistics at inference time but applies a validation-selected selective gate that protects confident Data Exfiltration predictions and overrides only a small fraction of uncertain rows.
 On the locked Unraveled held-out source-file split, selective TTA improves Macro-F1 from 0.7685 to 0.8658 and Reconnaissance F1 from 0.0250 to 0.5050, with an override rate of 4.7 percent.
 A matched-rate confidence-rejection baseline does not explain the result: it leaves Reconnaissance F1 at 0.0000.
@@ -36,6 +36,7 @@ The result is defense-ready but intentionally bounded: DAPT2020 supports detecto
 This chapter is the current lead positive result in the experiment portfolio.
 Its role is not to claim universal TTA for APT detection.
 Its role is to establish one reproducible, cloud-audited finding: a locked, validation-selected, safety-gated adaptation policy can recover rare-stage Reconnaissance under held-out source-file shift while preserving the original Data Exfiltration safety guard.
+The surrounding portfolio results should be read as boundary evidence: ATT\&CK TTP-set retrieval is a second narrow positive, while the OpTC provenance work is label/data readiness with detector generalization still blocked.
 
 \def\praxiswrapper{1}
 \input{main}

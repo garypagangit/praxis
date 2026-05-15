@@ -1,6 +1,6 @@
 # Praxis 06 Defense Speaker Notes
 
-Generated: 2026-05-14
+Generated: 2026-05-15
 
 Use with: `paper/praxis06_tta/defense_slides/PRAXIS06_DEFENSE_SLIDES_20260514.pptx`
 
@@ -28,7 +28,7 @@ Keep the original locked replay primary. The seven-seed result is robustness, no
 |---:|---|---|
 | 1 | "This is the lead positive result from the portfolio. The claim is deliberately narrow because security adaptation without guardrails can be unsafe." | "TTA solves APT detection." |
 | 2 | "The failure mode is not overall accuracy collapse; it is rare-stage collapse hidden inside acceptable-looking aggregate metrics." | "Recon is always the most important class." |
-| 3 | "The earlier routing and imbalance attempts are not failures to hide; they explain why the final method became a gated deployment-time policy." | "Those experiments were wasted." |
+| 3 | "The earlier routing and imbalance attempts are not failures to hide; they explain why the final method became a gated deployment-time policy. Provenance is now label/data ready, but detector generalization is still a separate blocker." | "Those experiments were wasted." |
 | 4 | "These gates define the claim: Macro improves, Recon recovers, DE is protected, override stays selective, and a matched reject baseline cannot explain the result." | "We tuned until it worked." |
 | 5 | "The contribution is the selective decision policy around adaptation. BatchNorm adaptation alone is not the story." | "The model learns new labels at test time." |
 | 6 | "Labels are not used during test adaptation; the validation split selects the safety policy, and the test stream is a locked replay." | "The graph is causal proof." |

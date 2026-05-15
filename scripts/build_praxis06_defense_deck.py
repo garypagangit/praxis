@@ -106,7 +106,7 @@ def build() -> None:
         "Praxis 04 stage routing failed under shift.",
         "Treatment-Stage Macro-F1 0.5981 vs Baseline-TSE 0.6313.",
         "Stage-conditioned imbalance did not rescue rare classes cleanly.",
-        "Provenance graph detector claims remain label-blocked.",
+        "OpTC provenance labels are ready; detector generalization remains blocked.",
     ])
     add_speaker_note(slide, "This sets up why we moved from more routing or weighting to deployment-time adaptation.")
 
