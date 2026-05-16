@@ -1,8 +1,8 @@
 # Experiment Current Dashboard
 
-Updated: 2026-05-15
+Updated: 2026-05-16
 
-Sources: `reports/EXPERIMENT_FINAL_EVALUATION_20260511.md`, `reports/EXPERIMENT_DASHBOARD.md`, `configs/experiment_cloud_handoff_registry.json`, the local handoff checks run on 2026-05-14, and the expanded OpTC cross-host gate run on 2026-05-15.
+Sources: `reports/EXPERIMENT_FINAL_EVALUATION_20260511.md`, `reports/EXPERIMENT_DASHBOARD.md`, `configs/experiment_cloud_handoff_registry.json`, the local handoff checks run on 2026-05-14, the expanded OpTC cross-host gate run on 2026-05-15, and the SEC-LoRD relationship-evidence gate built on 2026-05-16.
 
 ## Where We Left Off
 
@@ -22,7 +22,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | 4 | Provenance labels / OpTC or interval truth | Expanded OpTC label/data gate PASS; detector claim not promoted | Full E5 Cadets remains label-blocked (`9,609` attack-touch vs `2` benign/unlabeled). OpTC now has three red-team host/day slices plus three benign baselines: `717` usable non-gray windows and `108` gray-buffer windows excluded. Red support: `sysclient0501` day 2 `82/21` attack/background, `sysclient0201` day 1 `112/54`, `sysclient0051` day 3 `41/107`; each matched benign baseline adds `100` background windows. Pooled sanity is strong (`all_behavior` RF/ET Macro-F1 `0.8750`), but host-baselined and strict host holdout both fail. | Treat OpTC as a Praxis-ready label/data artifact, not a detector result. Next detector work must solve host/day generalization or be framed explicitly as label-acquisition/protocol feasibility. |
 | 5 | APT Detector Watermarking | Closed negative for current detector lineage; direct trigger and owner-head redesign both failed | Direct watermark fine-tune: Macro-F1 delta `-0.0866`, trigger signature accuracy `0.2391`; sidecar owner-head: utility delta `+0.0000`, eval trigger detection `0.5217` vs required `>=0.9500`, eval false watermark rate `0.0435` | Archive for now. Do not run surrogate extraction. Reopen only after a stronger detector suite exists or the ownership claim is reframed away from transferable watermarking. |
 | 6 | AI Supply Chain Backdoor Detection | Weak first LoRA result; multi-strength redesign gate ready | First LoRA trace effects: loss `0.0401`, grad-norm `-0.0673`, update-norm `0.0203`; new gate defines `9` paired clean/poison runs across `1%`, `5%`, `10%` poison and seeds `41/42/43` with richer trace logging | Run the cheap multi-strength cloud gate only if resources allow. Promote only if 5% poison clears ROC-AUC/AP `>=0.7000` with stable signs on `>=2/3` seeds; otherwise archive for this cycle. |
-| 7 | SEC-LoRD / DS-LoRD | Hold; current method negative; retrieved-evidence prompt gate ready | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284`; new prompt gate has `500` CTI-MCQ rows with `1.000` ATT&CK evidence coverage | Run one cheap strict model gate: vanilla vs retrieved evidence vs broad-seed negative control. No extraction unless retrieved evidence beats vanilla by `>= +0.030`. |
+| 7 | SEC-LoRD / DS-LoRD | Old broad-seed method negative; relationship-evidence rescue gate ready | Strict audit: 3B vanilla `0.276` vs seeded `0.090`; 8B vanilla `0.466` vs seeded `0.284`. New relationship-evidence gate uses ATT&CK `enterprise-attack-12.0`, retrieves evidence for `486/500` rows, and defines a no-label evidence-addressable slice of `106` rows. Evidence-pointer audit on that slice is `0.811`; previous 8B vanilla strict accuracy on the same slice was `0.538`, broad-seed `0.245`. | Run `scripts/build_sec_lord_relationship_evidence_gate.py`, then one cheap strict model gate on the `106` evidence-addressable rows: vanilla vs relationship evidence vs broad-seed negative control. No extraction unless relationship evidence beats vanilla by `>= +0.030`, invalid rate is no worse, and evidence-only paired wins exceed vanilla-only wins. |
 | 8 | Concept Drift / SSL / TGN on Provenance | Pending weak or architecture-ready | Density proxy is learnable, but not ground truth; SSL positive > negative cosine only `0.5227`; previous-event baseline beat next-event TGN features | Run only weak-proxy diagnostics until labels exist. No GPU GraphCL/TGN push yet. |
 
 ## Paper Anchors Behind The Dashboard
@@ -35,7 +35,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | 4 | Provenance labels / OpTC or interval truth | Han et al. (2020), UNICORN; Gama et al. (2014), concept drift adaptation; OpTC red-team ground-truth artifact | Provides label-faithful provenance windows before drift, TGN, SSL, MIA, watermarking, or detector-zoo claims | Expanded label/data artifact ready; detector claim blocked by host/day shift |
 | 5 | APT Detector Watermarking | Adi et al. (2018), DNN watermarking by backdooring | Tests whether APT detectors can carry owner-verifiable signatures without losing normal detection utility | Closed negative for this detector lineage |
 | 6 | AI Supply Chain Backdoor Detection | Gu et al. (2017), BadNets / ML supply-chain backdoor risk | Moves from final-model behavior to training-trace provenance diagnostics for poisoned fine-tuning runs | Weak first result; falsifiable multi-strength gate ready |
-| 7 | SEC-LoRD / DS-LoRD | Carlini et al. (2021), extracting training data from LLMs; Lewis et al. (2020), retrieval-augmented generation | Tests whether question-specific CTI evidence can improve strict task compliance before any LoRD-style extraction claim | Current method negative; redesign gate only |
+| 7 | SEC-LoRD / DS-LoRD | Carlini et al. (2021), extracting training data from LLMs; Lewis et al. (2020), retrieval-augmented generation | Tests whether question-specific CTI evidence can improve strict task compliance before any LoRD-style extraction claim | Current broad-seed method negative; relationship-evidence rescue gate ready |
 | 8 | Concept Drift / SSL / TGN on Provenance | Gama et al. (2014), drift; You et al. (2020), GraphCL; Rossi et al. (2020), TGN; Han et al. (2020), UNICORN | Reopens dynamic/representation provenance modeling only after honest labels exist | Hold weak-proxy diagnostics only |
 
 ## Reference Details For Paper Anchors
@@ -77,7 +77,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 3. Keep the pushed handoff memory current. Latest pushed experiment commits include `ed45763` for the expanded OpTC provenance label gate.
 4. Convert the second selected result into a thesis/paper section using `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md`, `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_CLOSEOUT_20260514.md`, and `paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md`.
 5. Keep provenance as label/data readiness until detector generalization is solved. The expanded OpTC subset is now enough for honest host/day holdout tests, and those tests block a detector claim.
-6. Watermarking is archived for now. AI supply-chain provenance and SEC-LoRD are both gate-ready; run them only as cheap strict gates before any expensive extraction or replication work.
+6. Watermarking is archived for now. AI supply-chain provenance remains gate-ready. SEC-LoRD now has one plausible rescue path: run the 106-row relationship-evidence strict gate before any extraction work.
 
 ## New Decision Artifacts
 
@@ -99,6 +99,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `reports/ai_supply_chain_training_provenance/AI_SUPPLY_CHAIN_MULTISTRENGTH_GATE_READY_20260514.md` | Concrete 9-run multi-strength LoRA provenance gate for AI supply-chain backdoor detection. |
 | `reports/sec_lord_ds_lord/NEXT_GATE_DESIGN_20260513.md` | Cheap redesign gate for SEC-LoRD/DS-LoRD after strict parser failure. |
 | `reports/sec_lord_ds_lord/SEC_LORD_RETRIEVED_EVIDENCE_GATE_READY_20260514.md` | Concrete SEC-LoRD retrieved-evidence prompt gate; 500 CTI-MCQ rows with exact ATT&CK evidence coverage. |
+| `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_GATE_20260516.md` | Stronger SEC-LoRD rescue gate using ATT&CK relationship evidence and a no-label 106-row evidence-addressable slice. |
 | `paper/praxis06_tta/main.tex` | Expanded thesis-neutral LaTeX draft for the Praxis 06 TTA paper. |
 | `paper/praxis06_tta/thesis_chapter.tex` | Thesis/Praxis chapter wrapper that reuses the article body. |
 | `paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md` | Records the thesis-chapter-first packaging decision and venue conversion notes. |
@@ -130,6 +131,7 @@ The remaining experiments are a useful queue, not a pile of half-wins. Praxis 04
 | `scripts/run_optc_cross_host_gate.py` | Runs the expanded OpTC label/data and host/day holdout detector gate. |
 | `scripts/export_experiment_dashboard_html.py` | Rebuild script for the browser-viewable dashboard export. |
 | `scripts/build_sec_lord_retrieved_evidence_gate.py` | Builds the SEC-LoRD vanilla / broad-seed / retrieved-evidence strict prompt gate. |
+| `scripts/build_sec_lord_relationship_evidence_gate.py` | Builds the stronger SEC-LoRD relationship-evidence gate and no-label evidence-addressable slice. |
 | `reports/EXPERIMENT_CURRENT_DASHBOARD_20260514.html` | Browser-viewable dashboard export with the paper-anchor table. |
 
 ## Immediate Commands
