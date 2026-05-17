@@ -96,6 +96,25 @@ Artifact:
 
 The relationship-evidence rescue path remains alive, but it still needs the actual model/API gate before any SEC-LoRD promotion.
 
+## 2026-05-17 Cloud Runner Update
+
+The actual model gate is now packaged for a GPU cloud instance:
+
+- `cloud_jobs/sec_lord_relationship_evidence_20260517/input/evidence_addressable_prompts.jsonl`
+- `cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py`
+- `cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh`
+- `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_CLOUD_GATE_READY_20260517.md`
+
+Run:
+
+```bash
+MODEL_ID=meta-llama/Llama-3.1-8B-Instruct \
+BATCH_SIZE=2 \
+bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
+```
+
+The dry run validates `106` rows and the three frozen conditions: vanilla, relationship evidence, and broad-seed negative control.
+
 ## Required Metrics
 
 | Metric | Threshold |
