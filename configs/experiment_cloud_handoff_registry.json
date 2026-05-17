@@ -129,16 +129,16 @@
     {
       "id": "sec-lord-ds-lord",
       "name": "SEC-LoRD / DS-LoRD",
-      "posture": "relationship_evidence_cloud_model_gate_ready",
-      "best_evidence": "Strict audit: 3B vanilla 0.276 vs seeded 0.090; 8B vanilla 0.466 vs seeded 0.284. 2026-05-16 relationship-evidence gate: 486/500 rows with evidence, 106 no-label evidence-addressable rows, evidence-pointer audit 86/106 = 0.811 vs previous 8B vanilla 57/106 = 0.538 and broad seed 26/106 = 0.245 on the same slice. 2026-05-17 cloud job packages the frozen 106-row prompt slice and dry-runs all three conditions.",
-      "decision": "Old broad prompt seeding remains negative; relationship evidence has offline support and a packaged cloud model gate, but still needs the real GPU/API result before any extraction.",
+      "posture": "relationship_evidence_model_gate_passed",
+      "best_evidence": "Old broad prompt seeding remains negative: strict audit 3B vanilla 0.276 vs seeded 0.090; 8B vanilla 0.466 vs seeded 0.284. 2026-05-17 Llama-3.1-8B relationship-evidence gate on the frozen 106-row evidence-addressable slice: vanilla 68/106 = 0.642, relationship evidence 97/106 = 0.915, broad seed 68/106 = 0.642; delta relationship minus vanilla +0.274; invalids 0 vs 0; evidence-only wins 33 vs vanilla-only 4.",
+      "decision": "Promote only as a retrieval-conditioned CTI-MCQ task-compliance result. Do not treat it as a LoRD extraction claim; extraction remains a separate unrun experiment.",
       "lightweight_evidence_paths": [
         "reports/sec_lord_ds_lord/"
       ],
       "cloud_artifact_prefixes": [
         "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/"
       ],
-      "next_cloud_action": "On a GPU box with Llama access, run: bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh. It evaluates vanilla vs relationship-evidence vs broad-seed negative-control on the frozen 106-row prompt slice; require relationship evidence to beat vanilla by >=0.030 with no worse invalid rate before extraction."
+      "next_cloud_action": "No rerun needed for this gate unless doing replication. Write the result narrowly; design any LoRD extraction experiment separately with its own gate."
     },
     {
       "id": "ai-supply-chain-backdoor-detection",

@@ -115,6 +115,30 @@ bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
 
 The dry run validates `106` rows and the three frozen conditions: vanilla, relationship evidence, and broad-seed negative control.
 
+## 2026-05-17 Model Gate Result
+
+The cloud GPU run completed on `meta-llama/Llama-3.1-8B-Instruct` and passed the frozen strict gate:
+
+| Condition | Strict accuracy | Correct | Invalid |
+|---|---:|---:|---:|
+| Vanilla | `0.642` | `68/106` | `0` |
+| Relationship evidence | `0.915` | `97/106` | `0` |
+| Broad seed negative control | `0.642` | `68/106` | `1` |
+
+Pass criteria:
+
+- Relationship-evidence delta vs vanilla: `+0.274`, pass.
+- Invalid rate no worse than vanilla: `0.000` vs `0.000`, pass.
+- Evidence-only paired wins exceed vanilla-only wins: `33` vs `4`, pass.
+
+Artifacts:
+
+- `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md`
+- `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.json`
+- S3 output: `s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/`
+
+Decision: promote this only as a retrieval-conditioned CTI-MCQ task-compliance result. It is not a LoRD extraction result.
+
 ## Required Metrics
 
 | Metric | Threshold |

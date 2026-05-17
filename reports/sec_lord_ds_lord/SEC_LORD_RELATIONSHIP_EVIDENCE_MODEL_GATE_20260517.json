@@ -1,0 +1,77 @@
+{
+  "condition_summaries": [
+    {
+      "accuracy": 0.6415094339622641,
+      "condition": "vanilla",
+      "condition_key": "vanilla_strict_prompt",
+      "correct": 68,
+      "elapsed_seconds": 16.234147787094116,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "parsed_distribution": {
+        "A": 23,
+        "B": 31,
+        "C": 37,
+        "D": 15
+      },
+      "rows": 106,
+      "seconds_per_row": 0.15315233761409544
+    },
+    {
+      "accuracy": 0.9150943396226415,
+      "condition": "relationship_evidence",
+      "condition_key": "relationship_evidence_prompt",
+      "correct": 97,
+      "elapsed_seconds": 23.101141929626465,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "parsed_distribution": {
+        "A": 19,
+        "B": 32,
+        "C": 41,
+        "D": 14
+      },
+      "rows": 106,
+      "seconds_per_row": 0.21793530122289118
+    },
+    {
+      "accuracy": 0.6415094339622641,
+      "condition": "broad_seed",
+      "condition_key": "broad_seed_negative_control_prompt",
+      "correct": 68,
+      "elapsed_seconds": 20.022087812423706,
+      "invalid": 1,
+      "invalid_rate": 0.009433962264150943,
+      "parsed_distribution": {
+        "<invalid>": 1,
+        "A": 27,
+        "B": 30,
+        "C": 35,
+        "D": 13
+      },
+      "rows": 106,
+      "seconds_per_row": 0.18888762087192176
+    }
+  ],
+  "decision": {
+    "accuracy_delta_relationship_minus_vanilla": 0.2735849056603774,
+    "accuracy_ok": true,
+    "broad_seed_accuracy": 0.6415094339622641,
+    "invalid_ok": true,
+    "next_step": "Design the separate SEC-LoRD extraction experiment; keep this CTI-MCQ result scoped as retrieval-conditioned task compliance.",
+    "paired_ok": true,
+    "passed": true,
+    "status": "PASS - RELATIONSHIP EVIDENCE MODEL GATE"
+  },
+  "device": "cuda",
+  "input_jsonl": "/opt/praxis/jobs/sec-lord-relationship-evidence-20260517/input/evidence_addressable_prompts.jsonl",
+  "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "paired_summary": {
+    "both_correct": 64,
+    "both_wrong": 5,
+    "evidence_only": 33,
+    "rows": 106,
+    "vanilla_only": 4
+  },
+  "rows": 106
+}

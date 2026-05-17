@@ -59,7 +59,10 @@ python -m pip install -r "${WORKDIR}/code/requirements.txt"
 nvidia-smi || true
 
 if [ -z "${HF_TOKEN:-}" ] && command -v aws >/dev/null 2>&1; then
-  export HF_TOKEN="$(aws secretsmanager get-secret-value --secret-id "${HF_SECRET_ID}" --query SecretString --output text)"
+  set +x
+  HF_TOKEN="$(aws secretsmanager get-secret-value --secret-id "${HF_SECRET_ID}" --query SecretString --output text)"
+  export HF_TOKEN
+  set -x
 fi
 
 python "${WORKDIR}/code/run_sec_lord_relationship_evidence_cloud.py" \

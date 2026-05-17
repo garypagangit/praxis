@@ -2,13 +2,15 @@
 
 Generated: 2026-05-17
 
-Status: **cloud GPU runner packaged; model result not run locally**
+Status: **cloud GPU runner packaged; model gate completed separately**
 
 ## Bottom Line
 
 SEC-LoRD has a frozen 106-row relationship-evidence model gate ready for a GPU box. The local offline audit showed enough signal to justify one real model/API run, but it did not promote the claim.
 
 The cloud job now contains the prompt slice, runner, requirements, and instance script needed to execute the gate without relying on ignored local `runs/` state.
+
+The model gate was later run successfully. See `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md`.
 
 ## Packaged Artifacts
 
