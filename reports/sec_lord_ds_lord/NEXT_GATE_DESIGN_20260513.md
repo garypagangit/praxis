@@ -77,6 +77,25 @@ Artifacts:
 
 The evidence-addressable slice is selected without labels: include a row only when exactly one answer option has strong lexical support from retrieved evidence. Labels are used afterward only for audit. This is the recommended SEC-LoRD rescue path.
 
+## 2026-05-16 Offline Run Update
+
+The relationship-evidence slice was run as far as the local environment allows. Local model generation is blocked because `transformers` and CUDA are unavailable, so this is an offline support audit, not a model pass:
+
+| Item | Value |
+|---|---:|
+| Evidence-addressable rows | `106` |
+| Evidence-pointer strict accuracy | `86/106 = 0.811` |
+| Previous 8B vanilla strict accuracy on same rows | `57/106 = 0.538` |
+| Previous 8B broad-seed strict accuracy on same rows | `26/106 = 0.245` |
+| Pointer-only wins over 8B vanilla | `42` |
+| 8B vanilla-only wins over pointer | `13` |
+
+Artifact:
+
+- `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_OFFLINE_GATE_20260516.md`
+
+The relationship-evidence rescue path remains alive, but it still needs the actual model/API gate before any SEC-LoRD promotion.
+
 ## Required Metrics
 
 | Metric | Threshold |

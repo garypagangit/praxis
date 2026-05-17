@@ -129,16 +129,16 @@
     {
       "id": "sec-lord-ds-lord",
       "name": "SEC-LoRD / DS-LoRD",
-      "posture": "relationship_evidence_gate_ready",
-      "best_evidence": "Strict audit: 3B vanilla 0.276 vs seeded 0.090; 8B vanilla 0.466 vs seeded 0.284. 2026-05-16 relationship-evidence gate: 486/500 rows with evidence, 106 no-label evidence-addressable rows, evidence-pointer audit 0.811 vs previous 8B vanilla 0.538 on same slice.",
-      "decision": "Old broad prompt seeding remains negative; run the relationship-evidence strict gate before any extraction.",
+      "posture": "relationship_evidence_offline_support_model_gate_required",
+      "best_evidence": "Strict audit: 3B vanilla 0.276 vs seeded 0.090; 8B vanilla 0.466 vs seeded 0.284. 2026-05-16 relationship-evidence gate: 486/500 rows with evidence, 106 no-label evidence-addressable rows, evidence-pointer audit 86/106 = 0.811 vs previous 8B vanilla 57/106 = 0.538 and broad seed 26/106 = 0.245 on the same slice. Local model run blocked by missing transformers/CUDA.",
+      "decision": "Old broad prompt seeding remains negative; relationship evidence has offline support but still needs a strict model/API gate before any extraction.",
       "lightweight_evidence_paths": [
         "reports/sec_lord_ds_lord/"
       ],
       "cloud_artifact_prefixes": [
         "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/"
       ],
-      "next_cloud_action": "Run scripts/build_sec_lord_relationship_evidence_gate.py, then evaluate vanilla vs relationship-evidence vs broad-seed negative-control on runs/sec-lord-relationship-evidence-gate-20260516/evidence_addressable_prompts.jsonl; require relationship evidence to beat vanilla by >=0.030 with no worse invalid rate before extraction."
+      "next_cloud_action": "Run scripts/build_sec_lord_relationship_evidence_gate.py, then evaluate vanilla vs relationship-evidence vs broad-seed negative-control on runs/sec-lord-relationship-evidence-gate-20260516/evidence_addressable_prompts.jsonl using a real model/API runtime; require relationship evidence to beat vanilla by >=0.030 with no worse invalid rate before extraction."
     },
     {
       "id": "ai-supply-chain-backdoor-detection",
