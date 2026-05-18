@@ -1,0 +1,345 @@
+\ifdefined\praxiswrapper
+\else
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{enumitem}
+
+\title{Retrieval-Conditioned CTI Compliance: A Protocol-Specific Result}
+\author{Praxis 07 Draft}
+\date{May 18, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language models are increasingly used for cyber threat intelligence (CTI), but broad cyber role prompts do not reliably supply the answer-bearing facts needed for strict task compliance.
+This paper evaluates a narrow retrieval-conditioned prompting protocol for CTI multiple-choice questions.
+Using a locked 106-row, no-label, evidence-addressable CTI-MCQ slice and MITRE ATT\&CK \texttt{enterprise-attack-12.0}, we compare vanilla prompting, broad CTI seed prompting, relationship-evidence retrieval, technique-only retrieval, random ATT\&CK facts, and empty evidence blocks under a strict one-line parser.
+On Llama-3.1-8B-Instruct, relationship evidence improves strict accuracy from 68/106 (0.642) to 97/106 (0.915), with zero invalid outputs and 33 evidence-only paired wins versus 4 vanilla-only wins.
+The effect replicates on Llama-3.2-3B-Instruct: relationship evidence improves accuracy from 0.547 to 0.887.
+A slice audit passes label-isolation and determinism checks, but the complement slice has lower vanilla accuracy (230/394 = 0.584), so the result is reported as a soft-pass slice result with transparent baseline reporting.
+An ablation shows that relationship evidence is the strongest tested condition (0.915), but technique-only evidence also improves accuracy (0.764), so the mechanism claim must remain bounded.
+The final claim is not SEC-LoRD extraction and not open-ended CTI reasoning: question-specific ATT\&CK retrieval improves strict CTI-MCQ compliance under a locked protocol.
+\end{abstract}
+\fi
+
+\section{Introduction}
+
+Cyber threat intelligence workflows often ask analysts to connect observed behavior to a structured knowledge base: a technique to a mitigation, a technique to a data source, a procedure example to a group, or a detection cue to an ATT\&CK entry.
+Large language models can help with this work, but broad cyber-security role prompts are a weak substitute for question-specific evidence.
+The portfolio result that motivated this paper is blunt: the old SEC-LoRD broad-seed prompt path made strict CTI-MCQ compliance worse rather than better.
+On the earlier strict audit, broad seeding reduced 3B accuracy from 0.276 to 0.090 and 8B accuracy from 0.466 to 0.284.
+
+This paper reframes that failure into a smaller and more defensible question:
+can a frozen language model answer CTI multiple-choice questions more reliably when the prompt includes question-ranked ATT\&CK evidence?
+The answer is yes under the locked protocol studied here, but the claim must be made carefully.
+Relationship-level ATT\&CK evidence produces the strongest tested results, yet technique-only evidence also helps.
+The paper therefore argues for retrieval-conditioned CTI compliance, not a pure relationship-causality mechanism and not a LoRD-style extraction claim.
+
+The evaluation unit is a 106-row evidence-addressable CTI-MCQ slice selected by a label-free relationship-support criterion over ATT\&CK \texttt{enterprise-attack-12.0}.
+The model must emit exactly one parseable answer line.
+Invalid responses are counted as failures.
+No rows are dropped after generation.
+This strict setup matters because analyst-facing systems fail not only when they choose the wrong option, but also when they do not comply with the expected output contract.
+
+The paper makes four contributions:
+\begin{enumerate}[leftmargin=*]
+  \item a label-free evidence-addressable CTI-MCQ slice construction and audit protocol;
+  \item a strict parser evaluation showing large gains from relationship-evidence prompting over vanilla and broad-seed prompting at 8B and 3B;
+  \item a complement-slice audit that preserves the result while requiring transparent adjusted-baseline reporting;
+  \item an ablation showing that relationship evidence is the strongest tested evidence form, while bounding the mechanism because technique-only evidence also improves performance.
+\end{enumerate}
+
+\section{Background and Claim Boundary}
+
+\paragraph{ATT\&CK as a structured CTI source.}
+MITRE ATT\&CK organizes adversary behavior as techniques and related operational knowledge \cite{strom2020attack}.
+The important point for this work is that the useful CTI evidence is not only the technique name.
+ATT\&CK encodes relationships among techniques, mitigations, detections, data sources, software, groups, tactics, and procedure examples \cite{mitreAttackRelationships}.
+Many CTI questions are naturally answerable only when the relevant relationship is surfaced.
+
+\paragraph{Retrieval-augmented generation.}
+Retrieval-augmented generation motivates the use of external evidence for knowledge-intensive tasks where parametric memory alone is unreliable \cite{lewis2020rag}.
+This paper does not introduce a new retriever architecture.
+Instead, it tests a security-specific evidence unit: question-ranked ATT\&CK evidence.
+The experiment asks whether retrieval changes strict task compliance under fixed model weights and fixed answer parsing.
+
+\paragraph{CTI benchmarking.}
+CTIBench argues that cyber threat intelligence needs task-specific evaluation rather than only general language benchmarks \cite{alam2024ctibench}.
+This paper uses CTI-MCQ as a narrow compliance task.
+That choice is intentionally conservative.
+Multiple-choice compliance is not the same as open-ended analyst reasoning, campaign attribution, or operational triage.
+The advantage is that the expected answer is auditable and invalid outputs can be counted directly.
+
+\paragraph{Extraction boundary.}
+The old SEC-LoRD naming came from a different line of work: memorization and training-data extraction from language models \cite{carlini2021extracting}.
+This paper is not an extraction experiment.
+It does not test whether a model memorized private CTI text or can emit training examples.
+It tests whether retrieval-conditioned prompts improve strict answer compliance on a public CTI-MCQ task.
+
+\section{Problem Formulation}
+
+Each example contains a question, four answer options, and a hidden expected option used only for final scoring.
+The model receives one prompt from a predefined condition and must return exactly:
+\[
+\text{\texttt{Answer: <A|B|C|D>}}.
+\]
+The strict parser extracts a single option letter from the first answer line.
+If no valid option is parseable, the response is invalid and counted as incorrect.
+
+Let \(y_i\) be the expected answer for row \(i\), and let \(\hat{y}_{i,c}\) be the parsed answer under condition \(c\).
+Strict accuracy for condition \(c\) is:
+\[
+\mathrm{Acc}(c) = \frac{1}{N}\sum_{i=1}^{N} \mathbf{1}[\hat{y}_{i,c}=y_i].
+\]
+Invalid rate is the fraction of rows for which no valid answer is parsed.
+Paired wins compare two conditions on the same row.
+For the primary comparison, an evidence-only win means relationship evidence is correct and vanilla is wrong; a vanilla-only win means vanilla is correct and relationship evidence is wrong.
+
+\section{Method}
+
+\subsection{Evidence Index}
+
+The evidence corpus is MITRE ATT\&CK \texttt{enterprise-attack-12.0}.
+The builder extracts technique descriptions and relationship facts including mitigations, detections, data sources, tactic links, and procedure examples.
+The evidence builder ranks candidate facts against each CTI-MCQ question and option set.
+The primary selected slice uses rows where exactly one answer option has strong support from retrieved evidence.
+The selected slice has 106 rows.
+The complement has 394 rows.
+
+\subsection{Prompt Conditions}
+
+\begin{table}[t]
+  \centering
+  \caption{Prompt conditions.}
+  \label{tab:conditions}
+  \begin{tabular}{p{0.22\linewidth}p{0.66\linewidth}}
+    \toprule
+    Condition & Purpose \\
+    \midrule
+    Vanilla & Strict answer prompt with no CTI seed and no evidence block. \\
+    Broad seed & Negative control for the old SEC-LoRD broad CTI vocabulary prompt. \\
+    Relationship evidence & Main treatment: question-ranked ATT\&CK relationship facts. \\
+    Technique-only evidence & Ablation using technique description and tactic evidence, with no relationship facts. \\
+    Random facts & Negative control using relationship facts for a different random ATT\&CK technique. \\
+    Empty evidence & Negative control with an evidence block header but no answer-bearing content. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:conditions} gives the six prompt conditions.
+The relationship-evidence condition is the primary treatment.
+The broad-seed condition is retained because it is the older failed SEC-LoRD route and must remain visible.
+Technique-only, random-facts, and empty-evidence conditions separate three possible explanations: answer-bearing relationship evidence, question-specific ATT\&CK evidence more generally, and prompt formatting.
+
+\subsection{Slice Audit}
+
+The evidence-addressable slice is the load-bearing evaluation unit.
+The audit has four components.
+A1 removes \texttt{expected\_output} from the prompt-construction scaffold and verifies the selected slice is byte-identical.
+A2 runs Llama-3.1-8B vanilla prompting on the 394-row complement slice.
+A3 reruns selection with three seeds and measures symmetric difference.
+A4 checks that the support criterion was committed before the 8B scoring artifact.
+
+\section{Experimental Setup}
+
+\begin{table}[t]
+  \centering
+  \caption{Locked evaluation setup.}
+  \label{tab:setup}
+  \begin{tabular}{p{0.28\linewidth}p{0.58\linewidth}}
+    \toprule
+    Item & Value \\
+    \midrule
+    Benchmark scaffold & CTIBench CTI-MCQ \\
+    Retrieval source & MITRE ATT\&CK \texttt{enterprise-attack-12.0} \\
+    Selected slice & 106 evidence-addressable rows \\
+    Complement & 394 rows \\
+    Slice ID hash & \texttt{3bd1a6a809abf95063860b60e288bac2248ab655da55f79b0cdbc91671601091} \\
+    Primary model & \texttt{meta-llama/Llama-3.1-8B-Instruct} \\
+    Replication model & \texttt{meta-llama/Llama-3.2-3B-Instruct} \\
+    Parser & Strict one-line answer parser; invalids count as failures \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+All cloud model gates were run on the AWS \texttt{g5.xlarge} GPU instance used by the local Praxis experiment pipeline.
+The runs are recorded as lightweight reports under \texttt{reports/relationship\_evidence\_cti\_compliance/}, with heavy predictions stored in the corresponding S3 experiment output paths.
+
+\section{Results}
+
+\subsection{Main 8B Gate}
+
+\begin{table}[t]
+  \centering
+  \caption{Primary Llama-3.1-8B model gate on the locked 106-row slice.}
+  \label{tab:main8b}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Condition & Accuracy & Correct & Rows & Invalid & Invalid rate \\
+    \midrule
+    Vanilla & 0.642 & 68 & 106 & 0 & 0.000 \\
+    Relationship evidence & 0.915 & 97 & 106 & 0 & 0.000 \\
+    Broad seed & 0.642 & 68 & 106 & 1 & 0.009 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:main8b} is the primary positive result.
+Relationship evidence improves strict accuracy by +0.274 absolute over vanilla prompting.
+The broad-seed negative control ties vanilla accuracy and produces one invalid response.
+This is important because the old broad-seed SEC-LoRD route was negative; the new signal comes from question-specific evidence, not from a broader cyber role prompt.
+
+\begin{table}[t]
+  \centering
+  \caption{Paired comparison for the primary 8B gate.}
+  \label{tab:paired8b}
+  \begin{tabular}{rrrr}
+    \toprule
+    Both correct & Vanilla only & Evidence only & Both wrong \\
+    \midrule
+    64 & 4 & 33 & 5 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:paired8b} shows the gain is row-level, not only aggregate.
+Relationship evidence has 33 evidence-only wins compared with 4 vanilla-only wins.
+
+\subsection{Slice Audit}
+
+\begin{table}[t]
+  \centering
+  \caption{Slice audit summary.}
+  \label{tab:sliceaudit}
+  \begin{tabular}{p{0.18\linewidth}p{0.28\linewidth}p{0.42\linewidth}}
+    \toprule
+    Check & Result & Interpretation \\
+    \midrule
+    A1 label isolation & PASS & Removing \texttt{expected\_output} produces the same 106-row slice. \\
+    A2 complement vanilla & SOFT PASS & Complement vanilla is 230/394 = 0.584, below slice vanilla 0.642. \\
+    A3 determinism & PASS & Three selection seeds produce symmetric difference 0. \\
+    A4 criterion timing & PASS & Criterion commit precedes the committed 8B result artifact. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The slice audit does not invalidate the result, but it changes how the result must be reported.
+The complement slice is somewhat harder under vanilla prompting.
+Therefore, the paper should not imply that the 106-row slice is a random sample of the full CTI-MCQ distribution.
+It should report the slice vanilla baseline, the complement vanilla baseline, and the relationship-evidence lift on the locked evidence-addressable slice.
+
+\subsection{3B Cross-Model Gate}
+
+\begin{table}[t]
+  \centering
+  \caption{Llama-3.2-3B cross-model gate on the same 106-row slice.}
+  \label{tab:crossmodel}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Condition & Accuracy & Correct & Rows & Invalid & Invalid rate \\
+    \midrule
+    Vanilla & 0.547 & 58 & 106 & 0 & 0.000 \\
+    Relationship evidence & 0.887 & 94 & 106 & 0 & 0.000 \\
+    Broad seed & 0.575 & 61 & 106 & 0 & 0.000 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The cross-model gate passes.
+On Llama-3.2-3B-Instruct, relationship evidence improves strict accuracy by +0.340 absolute over vanilla prompting.
+Evidence-only paired wins again dominate vanilla-only wins, 40 to 4.
+This supports a within-family replication claim across Llama instruction-tuned capacities.
+
+\subsection{8B Ablation}
+
+\begin{table}[t]
+  \centering
+  \caption{Llama-3.1-8B ablation gate.}
+  \label{tab:ablation}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    Condition & Accuracy & Correct & Rows & Invalid & Invalid rate & Mean evidence tokens \\
+    \midrule
+    Vanilla & 0.642 & 68 & 106 & 0 & 0.000 & 0.0 \\
+    Relationship evidence & 0.915 & 97 & 106 & 0 & 0.000 & 265.8 \\
+    Technique-only evidence & 0.764 & 81 & 106 & 0 & 0.000 & 53.2 \\
+    Random facts & 0.566 & 60 & 106 & 8 & 0.075 & 249.5 \\
+    Empty evidence & 0.670 & 71 & 106 & 1 & 0.009 & 5.0 \\
+    Broad seed & 0.642 & 68 & 106 & 1 & 0.009 & 0.0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:ablation} is the key mechanism result.
+The original relationship-evidence lift reproduces exactly: 0.915 versus 0.642, a +0.274 gain.
+Relationship evidence also beats technique-only evidence by +0.151.
+Random facts and empty evidence do not reproduce the relationship-evidence lift.
+
+However, the clean relationship-only mechanism does not hold.
+Technique-only evidence improves accuracy to 0.764, a +0.123 gain over vanilla.
+The random-facts arm also has an invalid rate of 0.075, which fails the strict invalid-rate ablation gate.
+The defensible interpretation is therefore mixed:
+retrieval-conditioned evidence helps; relationship evidence is strongest; but the evidence does not isolate relationship facts as the only cause of the improvement.
+
+\section{Discussion}
+
+\subsection{What the Result Shows}
+
+The result shows that question-specific ATT\&CK retrieval can improve strict CTI-MCQ compliance under a locked protocol.
+The primary 8B gain is large, paired wins favor retrieval, invalid outputs do not explain the treatment effect, and the 3B replication shows that the effect is not limited to one model size.
+The broad-seed control is also important: a general CTI role prompt does not recreate the result.
+
+\subsection{Why the Mechanism Is Bounded}
+
+The ablation prevents overclaiming.
+If relationship evidence were the only meaningful mechanism, technique-only evidence would have stayed near vanilla.
+It did not.
+Technique-only evidence improves over vanilla, which means that at least part of the lift comes from question-specific ATT\&CK retrieval generally.
+At the same time, relationship evidence remains far above technique-only evidence.
+The safest statement is that relationship evidence is the strongest tested retrieval unit, not that relationships alone explain the entire effect.
+
+\subsection{Why This Is Not Extraction}
+
+No extraction claim follows from these results.
+The model is not asked to reproduce private training data.
+The experiment supplies public ATT\&CK evidence at inference time and measures strict answer compliance.
+This is closer to retrieval-conditioned task evaluation than to memorization analysis.
+The old SEC-LoRD/DS-LoRD track remains a separate unclaimed extraction experiment.
+
+\section{Limitations}
+
+First, the evaluation slice is evidence-addressable, not the full CTI-MCQ distribution.
+The complement audit shows that the selected slice differs from the complement under vanilla prompting.
+This is acceptable only because the paper reports the slice boundary and the complement baseline.
+
+Second, multiple-choice compliance is narrower than open-ended CTI analysis.
+The result does not show that the model can write reliable reports, attribute campaigns, or perform analyst-grade synthesis.
+
+Third, the evidence source is a fixed ATT\&CK snapshot.
+Future work should test whether the protocol remains stable under newer ATT\&CK releases and other structured CTI sources.
+
+Fourth, the ablation is not a perfect token-matched causal experiment.
+Relationship evidence has a larger mean evidence block than technique-only evidence.
+That reflects the actual retrieval unit, but it means the mechanism should remain bounded.
+
+\section{Conclusion}
+
+Praxis 07 turns a failed broad-seed SEC-LoRD direction into a defensible retrieval-conditioned CTI compliance result.
+On a locked, label-free evidence-addressable CTI-MCQ slice, question-specific ATT\&CK retrieval substantially improves strict answer compliance over vanilla prompting and broad CTI seed prompting.
+The effect appears at both 8B and 3B, and relationship evidence is the strongest tested condition.
+The ablation also keeps the claim honest: technique-only evidence helps, so the paper should not claim pure relationship causality.
+The final contribution is a bounded but real result: retrieval-conditioned ATT\&CK evidence can improve strict CTI task compliance under a transparent, auditable protocol.
+
+\ifdefined\praxiswrapper
+\else
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
+\fi

@@ -1,0 +1,44 @@
+\documentclass[12pt]{report}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{setspace}
+
+\onehalfspacing
+
+\title{Praxis 07 Thesis Chapter\\Retrieval-Conditioned CTI Compliance: A Protocol-Specific Result}
+\author{Praxis Research Package}
+\date{May 18, 2026}
+
+\begin{document}
+\maketitle
+
+\chapter{Retrieval-Conditioned CTI Compliance}
+
+\section*{Chapter Abstract}
+
+Large language models are increasingly used for cyber threat intelligence, but broad cyber role prompts do not reliably supply answer-bearing ATT\&CK facts.
+This chapter evaluates a narrow retrieval-conditioned prompting protocol for strict CTI multiple-choice compliance.
+On a locked 106-row, no-label, evidence-addressable CTI-MCQ slice, relationship evidence from MITRE ATT\&CK improves Llama-3.1-8B strict accuracy from 0.642 to 0.915, with no invalid-rate regression and 33 evidence-only paired wins versus 4 vanilla-only wins.
+The effect replicates on Llama-3.2-3B, improving from 0.547 to 0.887.
+A slice audit gives a soft pass because the complement slice has lower vanilla accuracy, and the ablation bounds the mechanism because technique-only evidence also improves over vanilla.
+The final claim is therefore retrieval-conditioned CTI compliance under a locked protocol, not SEC-LoRD extraction and not pure relationship causality.
+
+\section*{Role in the Dissertation}
+
+This chapter is a second narrow positive result in the portfolio after Praxis 06.
+Its role is to show that a failed broad prompt-seeding direction can be reframed into a defensible retrieval-conditioned CTI task-compliance result.
+The contribution is intentionally smaller than open-ended CTI analysis: the model must answer a locked multiple-choice task with a strict parser, and the paper keeps the evidence-addressable slice boundary visible.
+
+\def\praxiswrapper{1}
+\input{main}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

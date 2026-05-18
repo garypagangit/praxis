@@ -2,7 +2,7 @@
 
 Generated: 2026-05-17
 
-Status: **post-gate outline; ready for thesis/chapter drafting**
+Status: **post-gate outline; first LaTeX draft created**
 
 ## Candidate Title
 
@@ -128,6 +128,6 @@ The 8B ablation reproduced the main effect and bounded the mechanism: relationsh
 
 ## Next Writing Work
 
-1. Convert this outline into a thesis-neutral LaTeX section.
-2. Keep the title conservative unless external replication is added.
-3. Do not run extraction from this result chain.
+1. Edit `main.tex` for prose density and committee-facing flow.
+2. Add one pipeline figure and one example row.
+3. Compile `main.tex` and `thesis_chapter.tex` in a TeX-enabled environment.
