@@ -55,3 +55,11 @@ bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
 - Broad-seed negative control is reported and cannot be hidden.
 
 No extraction experiment should run from this gate. If this ablation gate passes, promote the result as relationship-evidence CTI task compliance and keep extraction separate.
+
+## 2026-05-17 Follow-On Results
+
+- A2 complement audit: **SOFT PASS**, complement vanilla `230/394 = 0.584`.
+- 3B cross-model gate: **PASS**, relationship `0.887` vs vanilla `0.547`.
+- 8B ablation: **MIXED**, relationship `0.915`, technique-only `0.764`, random facts `0.566`, empty evidence `0.670`.
+
+Current packaging decision: use the bounded Praxis 07 title **Retrieval-Conditioned CTI Compliance: A Protocol-Specific Result**.

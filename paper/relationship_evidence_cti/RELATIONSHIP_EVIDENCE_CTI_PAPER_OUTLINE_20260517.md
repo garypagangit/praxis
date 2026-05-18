@@ -1,20 +1,20 @@
-# Paper Outline: Relationship-Evidence Retrieval For CTI Task Compliance
+# Paper Outline: Retrieval-Conditioned CTI Compliance
 
 Generated: 2026-05-17
 
-Status: **outline draft**
+Status: **post-gate outline; ready for thesis/chapter drafting**
 
 ## Candidate Title
 
-Relationship-Aware Retrieval Improves Cyber Threat Intelligence Task Compliance
+Retrieval-Conditioned CTI Compliance: A Protocol-Specific Result
 
 ## One-Sentence Claim
 
-On a frozen no-label evidence-addressable CTI-MCQ slice, a frozen Llama-3.1-8B model improves from `0.642` strict accuracy under vanilla prompting to `0.915` when prompted with ATT&CK relationship evidence, while broad CTI seed prompting does not improve over vanilla.
+On a frozen no-label evidence-addressable CTI-MCQ slice, question-specific ATT&CK retrieval improves strict multiple-choice compliance over vanilla and broad-seed prompting at both 8B and 3B; relationship evidence is the strongest tested retrieval form, but technique-only evidence also helps, so the mechanism claim remains bounded.
 
 ## Abstract Skeleton
 
-Large language models are increasingly used for cyber threat intelligence, but CTI questions often depend on structured relationships between techniques, mitigations, detections, data sources, software, groups, and procedure examples. We test whether retrieving relationship-level evidence from MITRE ATT&CK improves strict CTI question-answering compliance. Using a frozen CTI-MCQ slice and ATT&CK `enterprise-attack-12.0`, we compare vanilla prompting, broad CTI seed prompting, and relationship-evidence prompting on a frozen Llama-3.1-8B model. Relationship evidence improves strict accuracy from `68/106` to `97/106`, with no invalid-rate regression and `33` evidence-only paired wins versus `4` vanilla-only wins. We position the result as retrieval-conditioned CTI task compliance, not training-data extraction, and define ablations needed to separate relationship evidence from simpler technique-only retrieval.
+Large language models are increasingly used for cyber threat intelligence, but CTI questions often require answer-bearing ATT&CK facts that broad role prompts do not reliably supply. We test whether question-specific ATT&CK retrieval improves strict CTI question-answering compliance under a parser that accepts only `Answer: <A|B|C|D>`. Using a frozen 106-row no-label evidence-addressable CTI-MCQ slice and ATT&CK `enterprise-attack-12.0`, relationship evidence improves Llama-3.1-8B strict accuracy from `68/106` to `97/106`, with no invalid-rate regression and `33` evidence-only paired wins versus `4` vanilla-only wins. The effect replicates on Llama-3.2-3B (`0.547` to `0.887`). Ablation shows relationship evidence is strongest (`0.915`) but technique-only evidence also helps (`0.764`), so we position the result as retrieval-conditioned CTI compliance rather than a pure relationship-causality claim or training-data extraction result.
 
 ## Paper Structure
 
@@ -22,8 +22,8 @@ Large language models are increasingly used for cyber threat intelligence, but C
 
    - CTI workflows need accurate, evidence-grounded answers.
    - Broad cyber role prompting can harm strict compliance.
-   - ATT&CK relationship structure is a natural retrieval unit.
-   - Main result: relationship evidence yields a large strict-compliance gain.
+   - ATT&CK evidence is a natural retrieval unit.
+   - Main result: relationship evidence yields the strongest strict-compliance gain, with conservative mechanism scope.
 
 2. Background
 
@@ -45,12 +45,12 @@ Large language models are increasingly used for cyber threat intelligence, but C
    - ATT&CK snapshot and evidence index.
    - Question-ranked relationship retrieval.
    - Prompt conditions: vanilla, broad seed, relationship evidence.
-   - Planned ablation: technique-only evidence.
+   - Ablation: technique-only evidence, random facts, empty evidence.
    - No-label evidence-addressable slice construction.
 
 5. Experimental Design
 
-   - Model: `meta-llama/Llama-3.1-8B-Instruct`.
+   - Models: `meta-llama/Llama-3.1-8B-Instruct`, `meta-llama/Llama-3.2-3B-Instruct`.
    - Slice: `106` CTI-MCQ rows.
    - Frozen prompts and decoding.
    - Metrics: strict accuracy, invalid rate, paired wins.
@@ -66,13 +66,14 @@ Large language models are increasingly used for cyber threat intelligence, but C
 7. Ablations And Robustness
 
    - Technique-only retrieval vs relationship evidence.
-   - Diagnostic `130`-row slice.
-   - Second model or smaller model replication.
-   - Evidence-family dropout: no procedures, no mitigations, no detection/data source evidence.
+   - Random-facts and empty-evidence negative controls.
+   - 3B cross-model replication.
+   - Slice audit and complement baseline.
 
 8. Discussion
 
-   - Why relationship-level evidence helps.
+   - Why retrieved evidence helps.
+   - Why relationship-level evidence is strongest but not fully isolated.
    - Why broad seed prompting fails.
    - How this differs from extraction.
    - What this means for CTI assistants and analyst workflows.
@@ -86,8 +87,8 @@ Large language models are increasingly used for cyber threat intelligence, but C
 
 10. Conclusion
 
-   - Relationship-aware retrieval is a defensible, measurable CTI prompt intervention.
-   - The next step is ablation and replication, not an extraction claim.
+   - Retrieval-conditioned ATT&CK evidence is a defensible, measurable CTI prompt intervention.
+   - The result is bounded and not an extraction claim.
 
 ## Core Tables
 
@@ -97,7 +98,7 @@ Large language models are increasingly used for cyber threat intelligence, but C
 | Table 2 | Prompt conditions and evidence sources. |
 | Table 3 | Main strict scorecard. |
 | Table 4 | Paired wins and invalid rates. |
-| Table 5 | Ablation/replication results when run. |
+| Table 5 | Ablation and replication results. |
 
 ## Core Figures
 
@@ -111,20 +112,22 @@ Large language models are increasingly used for cyber threat intelligence, but C
 
 In the first cloud GPU gate, relationship evidence improved strict accuracy by `+0.274` absolute over vanilla prompting. The relationship-evidence condition answered `97/106` rows correctly with zero invalid outputs. Vanilla answered `68/106` rows correctly with zero invalid outputs. The broad-seed negative control answered `68/106` rows correctly and produced one invalid output. Paired scoring showed `33` relationship-evidence-only wins versus `4` vanilla-only wins.
 
+The slice audit produced a soft pass: label isolation and determinism checks passed, while complement vanilla accuracy was `230/394 = 0.584`, lower than the slice vanilla baseline `0.642`. The result must therefore report the complement baseline and adjusted lift.
+
+The 3B cross-model gate passed: relationship evidence improved from `0.547` vanilla to `0.887`, with broad seed at `0.575` and zero invalids.
+
+The 8B ablation reproduced the main effect and bounded the mechanism: relationship evidence `0.915`, technique-only `0.764`, random facts `0.566`, empty evidence `0.670`, vanilla `0.642`, broad seed `0.642`.
+
 ## Strong Claim Version
 
-After the ablation gate passes:
-
-> Relationship-aware retrieval, not broad domain seeding, improves strict CTI answer compliance because CTI questions often ask about relationships encoded in ATT&CK rather than technique descriptions alone.
+> Question-specific ATT&CK retrieval, not broad domain seeding, improves strict CTI answer compliance on a locked evidence-addressable CTI-MCQ slice; relationship evidence is the strongest tested retrieval form.
 
 ## Conservative Claim Version
 
-Before the ablation gate:
-
-> A frozen Llama-3.1-8B model substantially improves strict CTI-MCQ compliance on an evidence-addressable slice when prompted with question-ranked ATT&CK relationship evidence.
+> A frozen Llama instruction-tuned model substantially improves strict CTI-MCQ compliance on an evidence-addressable slice when prompted with question-ranked ATT&CK evidence, with the mechanism scoped to this retrieval protocol.
 
 ## Next Writing Work
 
-1. Implement and run technique-only ablation.
-2. Add a second-model or diagnostic-slice replication.
-3. Convert this outline into a thesis-neutral LaTeX section only after the ablation table exists.
+1. Convert this outline into a thesis-neutral LaTeX section.
+2. Keep the title conservative unless external replication is added.
+3. Do not run extraction from this result chain.

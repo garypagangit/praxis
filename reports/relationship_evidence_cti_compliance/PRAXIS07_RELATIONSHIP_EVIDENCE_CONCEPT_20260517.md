@@ -2,19 +2,19 @@
 
 Generated: 2026-05-17
 
-Status: **new narrow positive experiment branch opened**
+Status: **defensible narrow positive; mechanism bounded by ablation**
 
 Branch: `experiment/relationship-evidence-cti-compliance`
 
 ## Working Title
 
-**Praxis 07: Relationship-Aware Retrieval for Cyber Threat Intelligence Question Answering**
+**Praxis 07: Retrieval-Conditioned CTI Compliance**
 
-Short title: **Relationship-Evidence CTI Compliance**
+Short title: **Retrieval-Conditioned CTI Compliance**
 
 ## Thesis
 
-Cyber threat intelligence questions often ask for the relationship between an observed ATT&CK technique and a mitigation, data source, detection cue, software family, procedure example, or tactic. A language model prompted only with a broad CTI role or short technique facts can miss the answer-bearing relationship. Retrieval that surfaces ATT&CK relationship evidence should improve strict CTI task compliance without changing model weights.
+Cyber threat intelligence questions often require answer-bearing ATT&CK facts that are not reliably supplied by a broad CTI role prompt. Retrieval-conditioned ATT&CK evidence improves strict CTI-MCQ compliance without changing model weights. Relationship-level evidence is the strongest tested evidence form, but the final mechanism claim must be bounded because technique-only evidence also improves over vanilla prompting.
 
 ## Problem Statement
 
@@ -38,9 +38,10 @@ The old SEC-LoRD prompt-seeding route exposed this clearly. Broad domain seeding
 
 This experiment **does claim**:
 
-- Relationship-level ATT&CK evidence can materially improve strict CTI-MCQ answer compliance for a frozen Llama-3.1-8B model on a frozen, no-label evidence-addressable slice.
-- Broad CTI role seeding is not enough; in the current gate it ties vanilla accuracy and produces an invalid response.
-- The useful unit of retrieval is not only a technique description, but the relationship neighborhood around a technique.
+- Question-specific ATT&CK retrieval materially improves strict CTI-MCQ answer compliance on a locked, no-label evidence-addressable slice.
+- The effect replicates across Llama-3.1-8B and Llama-3.2-3B instruction-tuned models.
+- Broad CTI role seeding is not enough; it does not reproduce the relationship-evidence lift.
+- Relationship evidence is the best tested condition and beats technique-only evidence in the 8B ablation.
 
 This experiment **does not claim**:
 
@@ -48,7 +49,7 @@ This experiment **does not claim**:
 - The model is extracting training data.
 - The method solves open-ended CTI analysis or campaign attribution.
 - The 106-row slice is the whole CTIBench distribution.
-- The result is final until ablations and at least one replication model/slice are run.
+- Relationship evidence is the only causal mechanism; technique-only evidence also helps.
 
 ## Current Positive Evidence
 
@@ -70,15 +71,23 @@ ATT&CK snapshot: `enterprise-attack-12.0`
 
 Slice: `106` no-label evidence-addressable CTI-MCQ rows selected from the retrieval support audit, not by model outcomes.
 
+Follow-on gates completed on 2026-05-17:
+
+| Gate | Result | Decision |
+|---|---|---|
+| Slice audit | Complement vanilla `230/394 = 0.584`; A1/A3/A4 pass | **SOFT PASS**, report adjusted baseline/lift |
+| 3B cross-model | Vanilla `0.547`, relationship `0.887`, broad seed `0.575` | **PASS**, effect replicates across Llama instruct capacities |
+| 8B ablation | Vanilla `0.642`, relationship `0.915`, technique-only `0.764`, random `0.566`, empty `0.670` | **MIXED**, main effect robust but mechanism unclear |
+
 ## Core Research Questions
 
 | ID | Question | Current status |
 |---|---|---|
 | RQ1 | Does relationship evidence improve strict CTI-MCQ answer compliance over vanilla prompting? | Passed in first cloud GPU gate. |
 | RQ2 | Does relationship evidence outperform broad CTI seed prompting? | Passed in first cloud GPU gate. |
-| RQ3 | Are gains driven by relationship evidence rather than label leakage? | Partially controlled by no-label slice construction; needs frozen-script audit in write-up. |
-| RQ4 | Is the relationship neighborhood better than technique-only retrieval? | Not yet run; this is the most important ablation. |
-| RQ5 | Does the effect replicate across another model or a wider evidence-addressable slice? | Not yet run. |
+| RQ3 | Are gains driven by relationship evidence rather than label leakage? | Slice audit soft pass: no-label/determinism checks pass; complement slice is somewhat harder. |
+| RQ4 | Is the relationship neighborhood better than technique-only retrieval? | Yes on 8B (`0.915` vs `0.764`), but technique-only also helps, so mechanism is mixed. |
+| RQ5 | Does the effect replicate across another model or a wider evidence-addressable slice? | Replicates on Llama-3.2-3B (`+0.340` over vanilla). |
 
 ## Strong Defensible Experiment Shape
 
@@ -93,24 +102,11 @@ The Praxis-ready version should be reframed away from SEC-LoRD extraction and to
 
 ## Proposed Contribution
 
-This contribution is small but real: it shows that CTI retrieval quality depends on matching the structure of CTI questions. When questions ask about mitigations, detections, procedures, software, or data sources, a technique-name-only retrieval unit is underpowered. The ATT&CK relationship graph gives a better evidence unit and produces a large strict-compliance gain in the first frozen model gate.
+This contribution is small but real: it shows that strict CTI-MCQ compliance improves when prompts include question-specific ATT&CK evidence instead of only broad cyber seed text. Relationship evidence is strongest, but the ablation requires conservative wording: the result is retrieval-conditioned CTI compliance, not proof that relationship facts alone cause the full lift.
 
 ## Recommended Next Step
 
-Run a targeted ablation/replication gate:
-
-- Vanilla strict prompt.
-- Broad-seed negative control.
-- Technique-only retrieval.
-- Relationship-evidence retrieval.
-
-Pass threshold for promotion to paper claim:
-
-- Relationship evidence beats vanilla by `>= +0.030`.
-- Relationship evidence beats technique-only retrieval by `>= +0.030`.
-- Invalid rate is no worse than vanilla.
-- Evidence-only paired wins exceed vanilla-only wins.
-- The result holds on one additional model or on the diagnostic `130`-row evidence-addressable slice.
+Package the result as a bounded Praxis 07 paper/chapter section using `reports/relationship_evidence_cti_compliance/PRAXIS07_RESULT_SYNTHESIS_20260517.md`. Do not run more rescue gates unless they are pre-registered external-validity or reviewer-requested robustness checks.
 
 ## References
 

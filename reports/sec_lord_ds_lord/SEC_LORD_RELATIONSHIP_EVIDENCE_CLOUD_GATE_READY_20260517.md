@@ -2,15 +2,15 @@
 
 Generated: 2026-05-17
 
-Status: **cloud GPU runner packaged; ablation runner ready**
+Status: **cloud GPU runner packaged; follow-on gates executed**
 
 ## Bottom Line
 
 SEC-LoRD has a frozen 106-row relationship-evidence model gate packaged for a GPU box. The local offline audit showed enough signal to justify one real model/API run, and the first three-condition cloud model gate later passed.
 
-The cloud job now contains the prompt slice, complement-slice input, runner, requirements, and instance script needed to execute the next A2 complement audit or the later ablation gate without relying on ignored local `runs/` state.
+The cloud job now contains the prompt slice, complement-slice input, runner, requirements, and instance script used to execute the A2 complement audit, 3B cross-model gate, and 8B ablation gate without relying on ignored local `runs/` state.
 
-The completed first model gate is recorded in `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md`. The packaged prompt input has since been regenerated with `technique_only_evidence_prompt`, `random_facts_evidence_prompt`, and `empty_evidence_prompt` for the Praxis 07 ablation gate. Local slice-audit checks A1/A3/A4 are recorded in `reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_LOCAL_20260517.md`.
+The completed first model gate is recorded in `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md`. The completed follow-on gates are recorded in `reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_20260517.md`, `reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_CROSS_MODEL_GATE_3B_20260517.md`, and `reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_ABLATION_GATE_20260517.md`.
 
 ## Packaged Artifacts
 
@@ -36,7 +36,7 @@ If the AWS secret `praxis/huggingface/token` is available to the instance role, 
 
 ## A2 Complement Audit Command
 
-Run this before 3B cross-model or ablation:
+Executed on 2026-05-17; retained for reproducibility:
 
 ```bash
 INPUT_JSONL=complement_vanilla_prompts.jsonl \

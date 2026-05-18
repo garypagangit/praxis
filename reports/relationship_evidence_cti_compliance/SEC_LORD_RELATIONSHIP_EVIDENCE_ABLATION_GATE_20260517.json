@@ -1,0 +1,208 @@
+{
+  "condition_summaries": [
+    {
+      "accuracy": 0.6415094339622641,
+      "condition": "vanilla",
+      "condition_key": "vanilla_strict_prompt",
+      "correct": 68,
+      "elapsed_seconds": 16.29405975341797,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 0.0,
+      "mean_output_tokens": 4.047169811320755,
+      "mean_prompt_tokens": 88.51886792452831,
+      "parsed_distribution": {
+        "A": 23,
+        "B": 31,
+        "C": 37,
+        "D": 15
+      },
+      "rows": 106,
+      "seconds_per_row": 0.15371754484356576
+    },
+    {
+      "accuracy": 0.9150943396226415,
+      "condition": "relationship_evidence",
+      "condition_key": "relationship_evidence_prompt",
+      "correct": 97,
+      "elapsed_seconds": 23.22999358177185,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 265.8207547169811,
+      "mean_output_tokens": 3.4339622641509435,
+      "mean_prompt_tokens": 385.37735849056605,
+      "parsed_distribution": {
+        "A": 19,
+        "B": 32,
+        "C": 41,
+        "D": 14
+      },
+      "rows": 106,
+      "seconds_per_row": 0.21915088284690426
+    },
+    {
+      "accuracy": 0.7641509433962265,
+      "condition": "technique_only_evidence",
+      "condition_key": "technique_only_evidence_prompt",
+      "correct": 81,
+      "elapsed_seconds": 16.152514219284058,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 53.18867924528302,
+      "mean_output_tokens": 3.311320754716981,
+      "mean_prompt_tokens": 177.70754716981133,
+      "parsed_distribution": {
+        "A": 21,
+        "B": 31,
+        "C": 39,
+        "D": 15
+      },
+      "rows": 106,
+      "seconds_per_row": 0.15238220961588733
+    },
+    {
+      "accuracy": 0.5660377358490566,
+      "condition": "random_facts",
+      "condition_key": "random_facts_evidence_prompt",
+      "correct": 60,
+      "elapsed_seconds": 22.387617111206055,
+      "invalid": 8,
+      "invalid_rate": 0.07547169811320754,
+      "mean_evidence_block_tokens": 249.46226415094338,
+      "mean_output_tokens": 3.2169811320754715,
+      "mean_prompt_tokens": 387.3679245283019,
+      "parsed_distribution": {
+        "<invalid>": 8,
+        "A": 22,
+        "B": 19,
+        "C": 31,
+        "D": 26
+      },
+      "rows": 106,
+      "seconds_per_row": 0.21120393501137788
+    },
+    {
+      "accuracy": 0.6698113207547169,
+      "condition": "empty_evidence",
+      "condition_key": "empty_evidence_prompt",
+      "correct": 71,
+      "elapsed_seconds": 14.207108736038208,
+      "invalid": 1,
+      "invalid_rate": 0.009433962264150943,
+      "mean_evidence_block_tokens": 5.0,
+      "mean_output_tokens": 3.2452830188679247,
+      "mean_prompt_tokens": 121.51886792452831,
+      "parsed_distribution": {
+        "<invalid>": 1,
+        "A": 25,
+        "B": 32,
+        "C": 35,
+        "D": 13
+      },
+      "rows": 106,
+      "seconds_per_row": 0.13402932769847367
+    },
+    {
+      "accuracy": 0.6415094339622641,
+      "condition": "broad_seed",
+      "condition_key": "broad_seed_negative_control_prompt",
+      "correct": 68,
+      "elapsed_seconds": 20.08153223991394,
+      "invalid": 1,
+      "invalid_rate": 0.009433962264150943,
+      "mean_evidence_block_tokens": 0.0,
+      "mean_output_tokens": 3.8679245283018866,
+      "mean_prompt_tokens": 268.5188679245283,
+      "parsed_distribution": {
+        "<invalid>": 1,
+        "A": 27,
+        "B": 30,
+        "C": 35,
+        "D": 13
+      },
+      "rows": 106,
+      "seconds_per_row": 0.18944841735767867
+    }
+  ],
+  "decision": {
+    "accuracy_delta_relationship_minus_technique_only": 0.15094339622641506,
+    "accuracy_delta_relationship_minus_vanilla": 0.2735849056603774,
+    "accuracy_ok": true,
+    "all_invalid_ok": false,
+    "broad_seed_accuracy": 0.6415094339622641,
+    "empty_evidence_accuracy": 0.6698113207547169,
+    "empty_ok": true,
+    "hypothesis_verdict": "unclear",
+    "invalid_ok": true,
+    "next_step": "Do not promote the mechanism claim; inspect AB gates and reframe around the winning condition.",
+    "paired_ok": true,
+    "passed": false,
+    "random_facts_accuracy": 0.5660377358490566,
+    "random_ok": true,
+    "relationship_lift_reproduced": true,
+    "status": "STOP - RELATIONSHIP EVIDENCE ABLATION GATE FAILED",
+    "technique_ok": true,
+    "technique_only_accuracy": 0.7641509433962265
+  },
+  "device": "cuda",
+  "input_jsonl": "/opt/praxis/jobs/sec-lord-relationship-evidence-20260517/input/evidence_addressable_prompts.jsonl",
+  "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+  "paired_summary": {
+    "both_correct": 64,
+    "both_wrong": 5,
+    "evidence_only": 33,
+    "rows": 106,
+    "vanilla_only": 4
+  },
+  "pairwise_win_matrix": {
+    "broad_seed": {
+      "broad_seed": 68,
+      "empty_evidence": 7,
+      "random_facts": 17,
+      "relationship_evidence": 3,
+      "technique_only_evidence": 7,
+      "vanilla": 8
+    },
+    "empty_evidence": {
+      "broad_seed": 10,
+      "empty_evidence": 71,
+      "random_facts": 18,
+      "relationship_evidence": 4,
+      "technique_only_evidence": 5,
+      "vanilla": 4
+    },
+    "random_facts": {
+      "broad_seed": 9,
+      "empty_evidence": 7,
+      "random_facts": 60,
+      "relationship_evidence": 4,
+      "technique_only_evidence": 5,
+      "vanilla": 6
+    },
+    "relationship_evidence": {
+      "broad_seed": 32,
+      "empty_evidence": 30,
+      "random_facts": 41,
+      "relationship_evidence": 97,
+      "technique_only_evidence": 19,
+      "vanilla": 33
+    },
+    "technique_only_evidence": {
+      "broad_seed": 20,
+      "empty_evidence": 15,
+      "random_facts": 26,
+      "relationship_evidence": 3,
+      "technique_only_evidence": 81,
+      "vanilla": 17
+    },
+    "vanilla": {
+      "broad_seed": 8,
+      "empty_evidence": 1,
+      "random_facts": 14,
+      "relationship_evidence": 4,
+      "technique_only_evidence": 4,
+      "vanilla": 68
+    }
+  },
+  "rows": 106
+}

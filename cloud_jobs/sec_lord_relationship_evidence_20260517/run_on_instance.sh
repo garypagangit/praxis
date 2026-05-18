@@ -16,8 +16,10 @@ REPO_DIR="${REPO_DIR:-$(pwd)}"
 WORKDIR="${WORKDIR:-/opt/praxis/jobs/${JOB}}"
 VENVDIR="${VENVDIR:-/opt/praxis/venvs/${JOB}}"
 OUTDIR="${OUTDIR:-${WORKDIR}/output}"
+S3_OUTPUT="${S3_BASE}/output"
 if [ -n "${OUTPUT_SUFFIX}" ]; then
   OUTDIR="${OUTDIR%/}/${OUTPUT_SUFFIX}"
+  S3_OUTPUT="${S3_OUTPUT%/}/${OUTPUT_SUFFIX}"
 fi
 LOG="${LOG:-${WORKDIR}/${JOB}.log}"
 
@@ -29,7 +31,7 @@ exec > >(tee -a "${LOG}") 2>&1
 if [ -f "${REPO_DIR}/cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py" ]; then
   cp "${REPO_DIR}/cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py" "${WORKDIR}/code/"
   cp "${REPO_DIR}/cloud_jobs/sec_lord_relationship_evidence_20260517/requirements.txt" "${WORKDIR}/code/"
-  cp "${REPO_DIR}/cloud_jobs/sec_lord_relationship_evidence_20260517/input/evidence_addressable_prompts.jsonl" "${WORKDIR}/input/"
+  cp "${REPO_DIR}"/cloud_jobs/sec_lord_relationship_evidence_20260517/input/*.jsonl "${WORKDIR}/input/"
 elif command -v aws >/dev/null 2>&1; then
   aws s3 sync "${S3_BASE}/code/" "${WORKDIR}/code/"
   aws s3 sync "${S3_BASE}/input/" "${WORKDIR}/input/"
@@ -81,6 +83,6 @@ python "${WORKDIR}/code/run_sec_lord_relationship_evidence_cloud.py" \
   --conditions "${CONDITIONS}"
 
 if command -v aws >/dev/null 2>&1; then
-  aws s3 sync "${OUTDIR}/" "${S3_BASE}/output/"
+  aws s3 sync "${OUTDIR}/" "${S3_OUTPUT}/"
   aws s3 cp "${LOG}" "${S3_BASE}/logs/${JOB}.log" || true
 fi

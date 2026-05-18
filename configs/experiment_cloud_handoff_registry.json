@@ -142,10 +142,10 @@
     },
     {
       "id": "relationship-evidence-cti-compliance",
-      "name": "Relationship-Evidence Retrieval for CTI Task Compliance",
-      "posture": "narrow_positive_needs_ablation",
-      "best_evidence": "Llama-3.1-8B on the frozen 106-row no-label evidence-addressable CTI-MCQ slice: vanilla 68/106 = 0.642, relationship evidence 97/106 = 0.915, broad seed 68/106 = 0.642; delta relationship minus vanilla +0.274; invalids 0 vs 0; evidence-only wins 33 vs vanilla-only 4.",
-      "decision": "Promote as a separate Praxis-style retrieval-conditioned CTI task-compliance experiment. The thesis is relationship-level ATT&CK evidence, not LoRD extraction. Next gate must add technique-only ablation and one replication slice or model.",
+      "name": "Retrieval-Conditioned CTI Compliance",
+      "posture": "defensible_narrow_positive_mechanism_bounded",
+      "best_evidence": "Locked 106-row no-label evidence-addressable CTI-MCQ slice. 8B gate: vanilla 68/106 = 0.642, relationship evidence 97/106 = 0.915, broad seed 68/106 = 0.642; lift +0.274; evidence-only wins 33 vs vanilla-only 4. Slice audit soft pass: complement vanilla 230/394 = 0.584. 3B cross-model gate: vanilla 0.547, relationship 0.887, broad seed 0.575; lift +0.340. 8B ablation: relationship 0.915, technique-only 0.764, random facts 0.566, empty evidence 0.670, vanilla 0.642.",
+      "decision": "Package as a separate Praxis-style retrieval-conditioned CTI task-compliance experiment. Relationship evidence is the strongest tested condition, but the mechanism is mixed because technique-only evidence also helps. Do not claim LoRD extraction or pure relationship causality.",
       "lightweight_evidence_paths": [
         "reports/relationship_evidence_cti_compliance/",
         "paper/relationship_evidence_cti/",
@@ -161,7 +161,7 @@
         "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/",
         "s3://praxis-garypagan-272615233626-us-east-1/experiments/relationship-evidence-cti-compliance/"
       ],
-      "next_cloud_action": "Run the A2 complement-slice vanilla audit first: INPUT_JSONL=complement_vanilla_prompts.jsonl CONDITIONS=vanilla OUTPUT_SUFFIX=slice-audit-complement-8b-vanilla MODEL_ID=meta-llama/Llama-3.1-8B-Instruct BATCH_SIZE=2 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh. Local A1/A3/A4 already pass. Do not run 3B or ablation until A2 is interpreted."
+      "next_cloud_action": "No additional cloud run needed for the current Praxis 07 claim. Package the paper/chapter section; only run a pre-registered external-validity replication if needed."
     },
     {
       "id": "ai-supply-chain-backdoor-detection",

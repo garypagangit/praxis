@@ -1,0 +1,102 @@
+{
+  "condition_summaries": [
+    {
+      "accuracy": 0.5471698113207547,
+      "condition": "vanilla",
+      "condition_key": "vanilla_strict_prompt",
+      "correct": 58,
+      "elapsed_seconds": 8.277031660079956,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 0.0,
+      "mean_output_tokens": 3.0660377358490565,
+      "mean_prompt_tokens": 88.51886792452831,
+      "parsed_distribution": {
+        "A": 19,
+        "B": 33,
+        "C": 38,
+        "D": 16
+      },
+      "rows": 106,
+      "seconds_per_row": 0.07808520434037694
+    },
+    {
+      "accuracy": 0.8867924528301887,
+      "condition": "relationship_evidence",
+      "condition_key": "relationship_evidence_prompt",
+      "correct": 94,
+      "elapsed_seconds": 11.888601064682007,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 265.8207547169811,
+      "mean_output_tokens": 3.0943396226415096,
+      "mean_prompt_tokens": 385.37735849056605,
+      "parsed_distribution": {
+        "A": 20,
+        "B": 30,
+        "C": 42,
+        "D": 14
+      },
+      "rows": 106,
+      "seconds_per_row": 0.11215661381775478
+    },
+    {
+      "accuracy": 0.5754716981132075,
+      "condition": "broad_seed",
+      "condition_key": "broad_seed_negative_control_prompt",
+      "correct": 61,
+      "elapsed_seconds": 10.667122840881348,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 0.0,
+      "mean_output_tokens": 3.009433962264151,
+      "mean_prompt_tokens": 268.5188679245283,
+      "parsed_distribution": {
+        "A": 23,
+        "B": 28,
+        "C": 39,
+        "D": 16
+      },
+      "rows": 106,
+      "seconds_per_row": 0.10063323434793724
+    }
+  ],
+  "decision": {
+    "accuracy_delta_relationship_minus_vanilla": 0.339622641509434,
+    "accuracy_ok": true,
+    "broad_seed_accuracy": 0.5754716981132075,
+    "invalid_ok": true,
+    "next_step": "Run technique-only, random-facts, and empty-evidence ablations before naming the Praxis mechanism.",
+    "paired_ok": true,
+    "passed": true,
+    "status": "PASS - RELATIONSHIP EVIDENCE MODEL GATE"
+  },
+  "device": "cuda",
+  "input_jsonl": "/opt/praxis/jobs/sec-lord-relationship-evidence-20260517/input/evidence_addressable_prompts.jsonl",
+  "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+  "paired_summary": {
+    "both_correct": 54,
+    "both_wrong": 8,
+    "evidence_only": 40,
+    "rows": 106,
+    "vanilla_only": 4
+  },
+  "pairwise_win_matrix": {
+    "broad_seed": {
+      "broad_seed": 61,
+      "relationship_evidence": 6,
+      "vanilla": 11
+    },
+    "relationship_evidence": {
+      "broad_seed": 39,
+      "relationship_evidence": 94,
+      "vanilla": 40
+    },
+    "vanilla": {
+      "broad_seed": 8,
+      "relationship_evidence": 4,
+      "vanilla": 58
+    }
+  },
+  "rows": 106
+}

@@ -1,12 +1,12 @@
 {
   "id": "relationship-evidence-cti-compliance",
-  "name": "Relationship-Evidence Retrieval for CTI Task Compliance",
+  "name": "Retrieval-Conditioned CTI Compliance",
   "created": "2026-05-17",
   "updated": "2026-05-17",
   "status": "active",
-  "posture": "narrow_positive_needs_ablation",
+  "posture": "defensible_narrow_positive_mechanism_bounded",
   "owner": "garyp",
-  "hypothesis": "Question-ranked ATT&CK relationship evidence improves strict CTI-MCQ answer compliance over vanilla prompting, broad CTI seed prompting, and technique-only retrieval.",
+  "hypothesis": "Question-ranked ATT&CK evidence improves strict CTI-MCQ answer compliance over vanilla prompting and broad CTI seed prompting. Relationship evidence is the strongest tested retrieval form, but the ablation bounds the mechanism because technique-only evidence also helps.",
   "falsification_criteria": [
     "Relationship evidence fails to beat vanilla strict accuracy by at least +0.030.",
     "Relationship evidence fails to beat technique-only retrieval by at least +0.030 in the ablation gate.",
@@ -66,7 +66,14 @@
       "scripts/audit_sec_lord_relationship_evidence_slice.py",
       "reports/relationship_evidence_cti_compliance/followon_prereg_20260517/",
       "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_LOCAL_20260517.md",
-      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_LOCAL_20260517.json"
+      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_LOCAL_20260517.json",
+      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_20260517.md",
+      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_20260517.json",
+      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_CROSS_MODEL_GATE_3B_20260517.md",
+      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_CROSS_MODEL_GATE_3B_20260517.json",
+      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_ABLATION_GATE_20260517.md",
+      "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_ABLATION_GATE_20260517.json",
+      "reports/relationship_evidence_cti_compliance/PRAXIS07_RESULT_SYNTHESIS_20260517.md"
     ],
     "do_not_commit_paths": [
       "data/",
@@ -107,10 +114,87 @@
         "vanilla_only_wins": 4
       },
       "decision": "pass_as_narrow_cti_compliance_gate"
+    },
+    {
+      "run_id": "sec-lord-relationship-evidence-a2-complement-20260517",
+      "environment": "aws-g5.xlarge",
+      "command": "INPUT_JSONL=complement_vanilla_prompts.jsonl CONDITIONS=vanilla OUTPUT_SUFFIX=slice-audit-complement-8b-vanilla MODEL_ID=meta-llama/Llama-3.1-8B-Instruct BATCH_SIZE=2 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh",
+      "output_paths": [
+        "runs/sec-lord-relationship-evidence-a2-complement-20260517/"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/"
+      ],
+      "summary_files": [
+        "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_20260517.md",
+        "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_20260517.json"
+      ],
+      "metrics": {
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "rows": 394,
+        "vanilla_strict_accuracy": 0.583756345177665,
+        "correct": 230,
+        "invalid": 0
+      },
+      "decision": "soft_pass_adjusted_lift_required"
+    },
+    {
+      "run_id": "sec-lord-relationship-evidence-cross-model-3b-20260517",
+      "environment": "aws-g5.xlarge",
+      "command": "INPUT_JSONL=evidence_addressable_prompts.jsonl CONDITIONS=vanilla,relationship_evidence,broad_seed OUTPUT_SUFFIX=cross-model-3b MODEL_ID=meta-llama/Llama-3.2-3B-Instruct BATCH_SIZE=2 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh",
+      "output_paths": [
+        "runs/sec-lord-relationship-evidence-cross-model-3b-20260517/"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/cross-model-3b/"
+      ],
+      "summary_files": [
+        "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_CROSS_MODEL_GATE_3B_20260517.md",
+        "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_CROSS_MODEL_GATE_3B_20260517.json"
+      ],
+      "metrics": {
+        "model": "meta-llama/Llama-3.2-3B-Instruct",
+        "rows": 106,
+        "vanilla_strict_accuracy": 0.5471698113207547,
+        "relationship_evidence_strict_accuracy": 0.8867924528301887,
+        "broad_seed_strict_accuracy": 0.5754716981132075,
+        "relationship_minus_vanilla": 0.339622641509434,
+        "evidence_only_wins": 40,
+        "vanilla_only_wins": 4
+      },
+      "decision": "cross_model_pass"
+    },
+    {
+      "run_id": "sec-lord-relationship-evidence-ablation-8b-20260517",
+      "environment": "aws-g5.xlarge",
+      "command": "INPUT_JSONL=evidence_addressable_prompts.jsonl CONDITIONS=all OUTPUT_SUFFIX=ablation-8b MODEL_ID=meta-llama/Llama-3.1-8B-Instruct BATCH_SIZE=2 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh",
+      "output_paths": [
+        "runs/sec-lord-relationship-evidence-ablation-8b-20260517/"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/ablation-8b/"
+      ],
+      "summary_files": [
+        "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_ABLATION_GATE_20260517.md",
+        "reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_ABLATION_GATE_20260517.json"
+      ],
+      "metrics": {
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "rows": 106,
+        "vanilla_strict_accuracy": 0.6415094339622641,
+        "relationship_evidence_strict_accuracy": 0.9150943396226415,
+        "technique_only_strict_accuracy": 0.7641509433962265,
+        "random_facts_strict_accuracy": 0.5660377358490566,
+        "empty_evidence_strict_accuracy": 0.6698113207547169,
+        "broad_seed_strict_accuracy": 0.6415094339622641,
+        "relationship_minus_vanilla": 0.2735849056603774,
+        "relationship_minus_technique_only": 0.15094339622641506
+      },
+      "decision": "main_effect_reproduced_mechanism_unclear"
     }
   ],
-  "current_decision": "Promote as a new narrow Praxis-style experiment about relationship-evidence CTI task compliance. Do not claim SEC-LoRD extraction.",
-  "next_action": "Run the A2 complement-slice 8B vanilla cloud audit, then interpret slice difficulty before the 3B cross-model gate or ablation gate.",
+  "current_decision": "Promote as a bounded Praxis-style experiment about retrieval-conditioned CTI task compliance. Relationship evidence is the strongest arm, but do not claim pure relationship causality or SEC-LoRD extraction.",
+  "next_action": "Package the paper/chapter section from PRAXIS07_RESULT_SYNTHESIS_20260517.md. No more cloud runs unless pre-registered as external validity.",
   "cloud_startup_notes": [
     "Read CLOUD_HANDOFF.md first.",
     "Use profile praxis-build for AWS CLI SSO.",
