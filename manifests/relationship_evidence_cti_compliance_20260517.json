@@ -1,0 +1,117 @@
+{
+  "id": "relationship-evidence-cti-compliance",
+  "name": "Relationship-Evidence Retrieval for CTI Task Compliance",
+  "created": "2026-05-17",
+  "updated": "2026-05-17",
+  "status": "active",
+  "posture": "narrow_positive_needs_ablation",
+  "owner": "garyp",
+  "hypothesis": "Question-ranked ATT&CK relationship evidence improves strict CTI-MCQ answer compliance over vanilla prompting, broad CTI seed prompting, and technique-only retrieval.",
+  "falsification_criteria": [
+    "Relationship evidence fails to beat vanilla strict accuracy by at least +0.030.",
+    "Relationship evidence fails to beat technique-only retrieval by at least +0.030 in the ablation gate.",
+    "Relationship evidence has a higher invalid response rate than vanilla.",
+    "Evidence-only paired wins do not exceed vanilla-only paired wins.",
+    "The result depends on using labels during prompt construction or dropping invalid outputs."
+  ],
+  "datasets": [
+    {
+      "id": "ctibench",
+      "local_paths": [
+        "runs/sec-lord-cti-scaffold-20260509/cti_mcq_queries.jsonl"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/datasets/ctibench/"
+      ],
+      "label_requirements": "Expected option is used only for final strict scoring and support audits, not prompt construction."
+    },
+    {
+      "id": "mitre-attack",
+      "local_paths": [
+        "external/datasets/mitre-attack/enterprise-attack/enterprise-attack-12.0.json"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/datasets/mitre-attack/"
+      ],
+      "label_requirements": "Use a fixed ATT&CK snapshot for relationship evidence retrieval."
+    }
+  ],
+  "code": {
+    "entrypoints": [
+      "scripts/build_sec_lord_relationship_evidence_gate.py",
+      "scripts/run_sec_lord_relationship_evidence_offline_gate.py",
+      "cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py"
+    ],
+    "configs": [
+      "configs/experiment_cloud_handoff_registry.json"
+    ],
+    "tests": [
+      "tests/test_detector_registry.py",
+      "tests/test_provenance_window_factory.py"
+    ],
+    "cloud_jobs": [
+      "cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh"
+    ]
+  },
+  "artifact_policy": {
+    "commit_lightweight_paths": [
+      "reports/relationship_evidence_cti_compliance/",
+      "paper/relationship_evidence_cti/",
+      "manifests/relationship_evidence_cti_compliance_20260517.json",
+      "reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md",
+      "reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.json",
+      "cloud_jobs/sec_lord_relationship_evidence_20260517/",
+      "scripts/build_sec_lord_relationship_evidence_gate.py",
+      "scripts/run_sec_lord_relationship_evidence_offline_gate.py"
+    ],
+    "do_not_commit_paths": [
+      "data/",
+      "runs/",
+      "outputs/",
+      "artifacts/",
+      "checkpoints/",
+      "external/"
+    ],
+    "s3_output_prefix": "s3://praxis-garypagan-272615233626-us-east-1/experiments/relationship-evidence-cti-compliance/"
+  },
+  "runs": [
+    {
+      "run_id": "sec-lord-relationship-evidence-model-gate-20260517",
+      "environment": "aws-g5.xlarge",
+      "command": "bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh",
+      "output_paths": [
+        "runs/sec-lord-relationship-evidence-model-gate-20260517/"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/"
+      ],
+      "summary_files": [
+        "reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md",
+        "reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.json"
+      ],
+      "metrics": {
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "rows": 106,
+        "vanilla_strict_accuracy": 0.6415094339622641,
+        "relationship_evidence_strict_accuracy": 0.9150943396226415,
+        "broad_seed_strict_accuracy": 0.6415094339622641,
+        "relationship_minus_vanilla": 0.2735849056603774,
+        "vanilla_invalid": 0,
+        "relationship_evidence_invalid": 0,
+        "broad_seed_invalid": 1,
+        "evidence_only_wins": 33,
+        "vanilla_only_wins": 4
+      },
+      "decision": "pass_as_narrow_cti_compliance_gate"
+    }
+  ],
+  "current_decision": "Promote as a new narrow Praxis-style experiment about relationship-evidence CTI task compliance. Do not claim SEC-LoRD extraction.",
+  "next_action": "Add technique-only retrieval ablation, then rerun a four-condition cloud gate and one replication model or diagnostic slice.",
+  "cloud_startup_notes": [
+    "Read CLOUD_HANDOFF.md first.",
+    "Use profile praxis-build for AWS CLI SSO.",
+    "Do not assume local runs or external datasets exist.",
+    "Fetch only the S3 prefixes listed in this manifest.",
+    "Keep Hugging Face tokens in Secrets Manager or environment variables; never echo them into logs."
+  ]
+}

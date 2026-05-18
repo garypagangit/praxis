@@ -361,6 +361,26 @@ def relationship_evidence_prompt(row: dict[str, Any], evidence: list[dict[str, A
     )
 
 
+def technique_only_evidence_prompt(
+    row: dict[str, Any], evidence: list[dict[str, Any]], attack_version: str
+) -> str:
+    if evidence:
+        evidence_block = "\n".join(
+            f"- [{item['kind']}] {item['text']}" for item in evidence
+        )
+    else:
+        evidence_block = "- No retrieved technique description evidence."
+    return (
+        "Answer the CTI multiple-choice question using only the provided MITRE ATT&CK technique description evidence when it directly supports an option.\n"
+        f"Evidence source: {attack_version}.\n"
+        "Do not explain. Return exactly one line in this format: Answer: <A|B|C|D>\n\n"
+        f"Evidence:\n{evidence_block}\n\n"
+        f"Question: {row['question']}\n"
+        f"Options:\n{options_text(row)}\n\n"
+        "Answer:"
+    )
+
+
 def option_support_scores(row: dict[str, Any], evidence: list[dict[str, Any]]) -> dict[str, float]:
     evidence_norm = normalized(" ".join(item["text"] for item in evidence))
     evidence_tokens = tokens(" ".join(item["text"] for item in evidence))
@@ -499,7 +519,13 @@ def build_gate(
 
     for row in rows:
         technique_id = technique_from_url(row.get("url", ""))
-        evidence = rank_evidence(row, candidate_index.get(technique_id, []), top_k)
+        candidates = candidate_index.get(technique_id, [])
+        evidence = rank_evidence(row, candidates, top_k)
+        technique_only_evidence = rank_evidence(
+            row,
+            [candidate for candidate in candidates if candidate["kind"] == "technique"],
+            min(top_k, 3),
+        )
         if evidence:
             rows_with_any_evidence += 1
         evidence_counts[len(evidence)] += 1
@@ -539,9 +565,13 @@ def build_gate(
                 "question": row["question"],
                 "options": row["options"],
                 "relationship_evidence": evidence,
+                "technique_only_evidence": technique_only_evidence,
                 "option_support_scores": support_scores,
                 "vanilla_strict_prompt": strict_vanilla_prompt(row),
                 "broad_seed_negative_control_prompt": broad_seed_prompt(row, seed_terms),
+                "technique_only_evidence_prompt": technique_only_evidence_prompt(
+                    row, technique_only_evidence, attack_version
+                ),
                 "relationship_evidence_prompt": relationship_evidence_prompt(
                     row, evidence, attack_version
                 ),
@@ -566,6 +596,7 @@ def build_gate(
         "comparisons": [
             "vanilla_strict_prompt",
             "broad_seed_negative_control_prompt",
+            "technique_only_evidence_prompt",
             "relationship_evidence_prompt",
         ],
         "examples": examples,
@@ -623,11 +654,13 @@ def render_report(path: Path, summary: dict[str, Any], out_dir: Path) -> None:
         "|---|---|",
         "| `vanilla_strict_prompt` | Strong plain baseline with exact `Answer: <A|B|C|D>` output requirement. |",
         "| `broad_seed_negative_control_prompt` | Keeps the failed domain-stuffing strategy visible as a negative control. |",
+        "| `technique_only_evidence_prompt` | Tests whether short technique descriptions alone explain the gain. |",
         "| `relationship_evidence_prompt` | Uses question-ranked ATT&CK relationship evidence instead of broad seed stuffing. |",
         "",
         "## Pass Gate",
         "",
         "- Relationship-evidence strict accuracy must beat vanilla by at least `+0.030` absolute.",
+        "- Relationship-evidence strict accuracy must beat technique-only retrieval by at least `+0.030` absolute.",
         "- Relationship-evidence invalid response rate must be no worse than vanilla.",
         "- Evidence-only paired wins must exceed vanilla-only paired wins.",
         "- Broad seed negative control remains reported and cannot be hidden.",

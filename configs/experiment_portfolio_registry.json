@@ -34,6 +34,21 @@
       "notes": "Full test plan plus Praxis scaffold built. EDA gate not yet run. Expected compute roughly $60-120."
     },
     {
+      "id": "relationship-evidence-cti-compliance",
+      "name": "Relationship-Evidence Retrieval for CTI Task Compliance",
+      "status": "narrow_positive_needs_ablation",
+      "venue_fit": ["ACL security track", "EMNLP industry/Findings", "ACSAC", "USENIX Security workshop"],
+      "dataset_ids": ["mitre-attack", "ctibench"],
+      "model_dependencies": ["llama-3-1-8b", "llama-3-2-3b"],
+      "storage_inputs": [
+        "datasets/mitre-attack/raw/",
+        "datasets/ctibench/raw/"
+      ],
+      "storage_outputs": ["experiments/relationship-evidence-cti-compliance/"],
+      "access_blockers": ["huggingface_meta_llama_approval", "hf_cli_login"],
+      "notes": "Reframed from SEC-LoRD rescue into a defensible RAG/CTI compliance experiment: relationship-level ATT&CK evidence improved Llama-3.1-8B strict CTI-MCQ accuracy from 0.642 to 0.915 on the frozen 106-row evidence-addressable slice. Next required gate is technique-only ablation plus replication."
+    },
+    {
       "id": "ai-supply-chain-training-provenance",
       "name": "AI Supply Chain - Training Provenance",
       "status": "active_test_plan_done",

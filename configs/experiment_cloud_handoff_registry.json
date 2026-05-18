@@ -141,6 +141,28 @@
       "next_cloud_action": "No rerun needed for this gate unless doing replication. Write the result narrowly; design any LoRD extraction experiment separately with its own gate."
     },
     {
+      "id": "relationship-evidence-cti-compliance",
+      "name": "Relationship-Evidence Retrieval for CTI Task Compliance",
+      "posture": "narrow_positive_needs_ablation",
+      "best_evidence": "Llama-3.1-8B on the frozen 106-row no-label evidence-addressable CTI-MCQ slice: vanilla 68/106 = 0.642, relationship evidence 97/106 = 0.915, broad seed 68/106 = 0.642; delta relationship minus vanilla +0.274; invalids 0 vs 0; evidence-only wins 33 vs vanilla-only 4.",
+      "decision": "Promote as a separate Praxis-style retrieval-conditioned CTI task-compliance experiment. The thesis is relationship-level ATT&CK evidence, not LoRD extraction. Next gate must add technique-only ablation and one replication slice or model.",
+      "lightweight_evidence_paths": [
+        "reports/relationship_evidence_cti_compliance/",
+        "paper/relationship_evidence_cti/",
+        "manifests/relationship_evidence_cti_compliance_20260517.json",
+        "reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md",
+        "reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.json",
+        "cloud_jobs/sec_lord_relationship_evidence_20260517/",
+        "scripts/build_sec_lord_relationship_evidence_gate.py",
+        "scripts/run_sec_lord_relationship_evidence_offline_gate.py"
+      ],
+      "cloud_artifact_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/",
+        "s3://praxis-garypagan-272615233626-us-east-1/experiments/relationship-evidence-cti-compliance/"
+      ],
+      "next_cloud_action": "Implement technique-only retrieval ablation, then run a four-condition cloud gate: vanilla, broad seed, technique-only evidence, relationship evidence. Promote only if relationship evidence beats both vanilla and technique-only by >= +0.030 with no invalid-rate regression."
+    },
+    {
       "id": "ai-supply-chain-backdoor-detection",
       "name": "AI Supply Chain Backdoor Detection",
       "posture": "pending_weak",

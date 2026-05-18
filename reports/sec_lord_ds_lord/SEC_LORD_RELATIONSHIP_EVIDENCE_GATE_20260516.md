@@ -43,11 +43,13 @@ Regenerate command:
 |---|---|
 | `vanilla_strict_prompt` | Strong plain baseline with exact `Answer: <A|B|C|D>` output requirement. |
 | `broad_seed_negative_control_prompt` | Keeps the failed domain-stuffing strategy visible as a negative control. |
+| `technique_only_evidence_prompt` | Tests whether short technique descriptions alone explain the gain. |
 | `relationship_evidence_prompt` | Uses question-ranked ATT&CK relationship evidence instead of broad seed stuffing. |
 
 ## Pass Gate
 
 - Relationship-evidence strict accuracy must beat vanilla by at least `+0.030` absolute.
+- Relationship-evidence strict accuracy must beat technique-only retrieval by at least `+0.030` absolute.
 - Relationship-evidence invalid response rate must be no worse than vanilla.
 - Evidence-only paired wins must exceed vanilla-only paired wins.
 - Broad seed negative control remains reported and cannot be hidden.

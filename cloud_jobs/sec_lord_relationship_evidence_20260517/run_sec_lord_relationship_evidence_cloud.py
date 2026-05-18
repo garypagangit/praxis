@@ -12,6 +12,7 @@ from typing import Any
 
 CONDITIONS = [
     ("vanilla_strict_prompt", "vanilla"),
+    ("technique_only_evidence_prompt", "technique_only_evidence"),
     ("relationship_evidence_prompt", "relationship_evidence"),
     ("broad_seed_negative_control_prompt", "broad_seed"),
 ]
@@ -242,26 +243,32 @@ def paired_summary(predictions: list[dict[str, Any]]) -> dict[str, Any]:
 
 def decide(summary_by_condition: dict[str, dict[str, Any]], paired: dict[str, Any]) -> dict[str, Any]:
     vanilla = summary_by_condition["vanilla"]
+    technique_only = summary_by_condition["technique_only_evidence"]
     evidence = summary_by_condition["relationship_evidence"]
     broad = summary_by_condition["broad_seed"]
     delta = evidence["accuracy"] - vanilla["accuracy"]
+    technique_delta = evidence["accuracy"] - technique_only["accuracy"]
     invalid_ok = evidence["invalid_rate"] <= vanilla["invalid_rate"]
     paired_ok = paired["evidence_only"] > paired["vanilla_only"]
     accuracy_ok = delta >= 0.03
-    passed = accuracy_ok and invalid_ok and paired_ok
+    technique_ok = technique_delta >= 0.03
+    passed = accuracy_ok and technique_ok and invalid_ok and paired_ok
     if passed:
-        status = "PASS - RELATIONSHIP EVIDENCE MODEL GATE"
-        next_step = "Design the separate SEC-LoRD extraction experiment; keep this CTI-MCQ result scoped as retrieval-conditioned task compliance."
+        status = "PASS - RELATIONSHIP EVIDENCE ABLATION GATE"
+        next_step = "Promote as relationship-evidence CTI task compliance after one replication slice or model; keep extraction separate."
     else:
-        status = "STOP - RELATIONSHIP EVIDENCE MODEL GATE FAILED"
-        next_step = "Archive SEC-LoRD for this cycle or reframe it as retrieval evaluation; do not run extraction."
+        status = "STOP - RELATIONSHIP EVIDENCE ABLATION GATE FAILED"
+        next_step = "Reframe around the winning retrieval condition; do not claim relationship-specific evidence or extraction."
     return {
         "status": status,
         "passed": passed,
         "accuracy_delta_relationship_minus_vanilla": delta,
+        "accuracy_delta_relationship_minus_technique_only": technique_delta,
         "accuracy_ok": accuracy_ok,
+        "technique_ok": technique_ok,
         "invalid_ok": invalid_ok,
         "paired_ok": paired_ok,
+        "technique_only_accuracy": technique_only["accuracy"],
         "broad_seed_accuracy": broad["accuracy"],
         "next_step": next_step,
     }
@@ -306,6 +313,7 @@ def render_report(path: Path, payload: dict[str, Any]) -> None:
             "## Pass Criteria",
             "",
             f"- Accuracy delta relationship minus vanilla: `{decision['accuracy_delta_relationship_minus_vanilla']:.3f}`; pass = `{decision['accuracy_ok']}`.",
+            f"- Accuracy delta relationship minus technique-only: `{decision['accuracy_delta_relationship_minus_technique_only']:.3f}`; pass = `{decision['technique_ok']}`.",
             f"- Relationship invalid rate no worse than vanilla: pass = `{decision['invalid_ok']}`.",
             f"- Evidence-only paired wins exceed vanilla-only wins: pass = `{decision['paired_ok']}`.",
             "- Broad-seed negative control is reported above and cannot be hidden.",
