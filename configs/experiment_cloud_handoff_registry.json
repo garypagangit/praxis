@@ -154,13 +154,14 @@
         "reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.json",
         "cloud_jobs/sec_lord_relationship_evidence_20260517/",
         "scripts/build_sec_lord_relationship_evidence_gate.py",
-        "scripts/run_sec_lord_relationship_evidence_offline_gate.py"
+        "scripts/run_sec_lord_relationship_evidence_offline_gate.py",
+        "scripts/audit_sec_lord_relationship_evidence_slice.py"
       ],
       "cloud_artifact_prefixes": [
         "s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/sec-lord-relationship-evidence-20260517/output/",
         "s3://praxis-garypagan-272615233626-us-east-1/experiments/relationship-evidence-cti-compliance/"
       ],
-      "next_cloud_action": "Implement technique-only retrieval ablation, then run a four-condition cloud gate: vanilla, broad seed, technique-only evidence, relationship evidence. Promote only if relationship evidence beats both vanilla and technique-only by >= +0.030 with no invalid-rate regression."
+      "next_cloud_action": "Run the A2 complement-slice vanilla audit first: INPUT_JSONL=complement_vanilla_prompts.jsonl CONDITIONS=vanilla OUTPUT_SUFFIX=slice-audit-complement-8b-vanilla MODEL_ID=meta-llama/Llama-3.1-8B-Instruct BATCH_SIZE=2 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh. Local A1/A3/A4 already pass. Do not run 3B or ablation until A2 is interpreted."
     },
     {
       "id": "ai-supply-chain-backdoor-detection",

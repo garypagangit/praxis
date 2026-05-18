@@ -1,0 +1,59 @@
+{
+  "a1_label_isolation": {
+    "content_hash_match": true,
+    "mismatched_ids": [],
+    "no_label_content_hash": "7baabc17245445e5b0b01c97b05a24e5b1a4cb8dbc7681ee120f9383e961317d",
+    "no_label_id_hash": "3bd1a6a809abf95063860b60e288bac2248ab655da55f79b0cdbc91671601091",
+    "no_label_rows": 106,
+    "original_content_hash": "7baabc17245445e5b0b01c97b05a24e5b1a4cb8dbc7681ee120f9383e961317d",
+    "original_id_hash": "3bd1a6a809abf95063860b60e288bac2248ab655da55f79b0cdbc91671601091",
+    "original_rows": 106,
+    "verdict": "PASS"
+  },
+  "a2_complement_cloud_ready": {
+    "id_hash": "b9b022658fafa7999b8177ec0f00a859fe2d87d85610ce6416bf4a325d9f9345",
+    "path": "cloud_jobs\\sec_lord_relationship_evidence_20260517\\input\\complement_vanilla_prompts.jsonl",
+    "rows": 394
+  },
+  "a3_determinism": {
+    "max_symmetric_difference": 0,
+    "seed_runs": [
+      {
+        "id_hash": "3bd1a6a809abf95063860b60e288bac2248ab655da55f79b0cdbc91671601091",
+        "rows": 106,
+        "seed": 20260517,
+        "symmetric_difference_vs_first": 0
+      },
+      {
+        "id_hash": "3bd1a6a809abf95063860b60e288bac2248ab655da55f79b0cdbc91671601091",
+        "rows": 106,
+        "seed": 20260518,
+        "symmetric_difference_vs_first": 0
+      },
+      {
+        "id_hash": "3bd1a6a809abf95063860b60e288bac2248ab655da55f79b0cdbc91671601091",
+        "rows": 106,
+        "seed": 20260519,
+        "symmetric_difference_vs_first": 0
+      }
+    ],
+    "verdict": "PASS"
+  },
+  "a4_threshold_before_scoring": {
+    "criterion_commit": {
+      "commit": "3c9382c26af6d6667ce5f454260bcca0eadf35a3",
+      "subject": "Add SEC-LoRD relationship evidence gate",
+      "timestamp": "2026-05-16T10:33:11-04:00"
+    },
+    "model_gate_report_commit": {
+      "commit": "046e310447beeeb85ddb6c710953fca9a4f3c171",
+      "subject": "Record SEC-LoRD relationship evidence model gate",
+      "timestamp": "2026-05-17T18:26:27-04:00"
+    },
+    "ordering_evidence": "Criterion commit precedes the committed 8B result artifact. The exact SSM runtime timestamp is not in the lightweight report.",
+    "ordering_pass": true,
+    "verdict": "PASS"
+  },
+  "decision": "A1, A3, and A4 passed locally. Run A2, the 8B vanilla complement-slice cloud check, before cross-model or ablation claims.",
+  "overall_local_status": "LOCAL PASS - A2 CLOUD RUN READY"
+}

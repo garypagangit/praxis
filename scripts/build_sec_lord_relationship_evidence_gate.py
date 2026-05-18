@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -19,6 +20,16 @@ DEFAULT_REPORT = Path(
 DEFAULT_PREVIOUS_PREDICTIONS = {
     "Llama-3.2-3B-Instruct": Path("runs/sec-lord-llama-cti-20260510/predictions.jsonl"),
     "Llama-3.1-8B-Instruct": Path("runs/sec-lord-llama-cti-20260510-8b/predictions.jsonl"),
+}
+
+DEFAULT_RANDOM_FACTS_SEED = 20260517
+TECHNIQUE_METADATA_KINDS = {
+    "technique",
+    "tactic",
+    "platform",
+    "parent_technique",
+    "parent_tactic",
+    "parent_platform",
 }
 
 STOPWORDS = {
@@ -292,6 +303,12 @@ def broad_seed_prompt(row: dict[str, Any], seed_terms: list[str]) -> str:
     )
 
 
+def evidence_block(evidence: list[dict[str, Any]], empty_text: str) -> str:
+    if evidence:
+        return "\n".join(f"- [{item['kind']}] {item['text']}" for item in evidence)
+    return empty_text
+
+
 def kind_bonus(kind: str, query_text: str) -> float:
     query = query_text.lower()
     bonus = 0.0
@@ -344,17 +361,12 @@ def rank_evidence(row: dict[str, Any], candidates: list[dict[str, str]], top_k: 
 
 
 def relationship_evidence_prompt(row: dict[str, Any], evidence: list[dict[str, Any]], attack_version: str) -> str:
-    if evidence:
-        evidence_block = "\n".join(
-            f"- [{item['kind']}] {item['text']}" for item in evidence
-        )
-    else:
-        evidence_block = "- No retrieved relationship evidence."
+    block = evidence_block(evidence, "- No retrieved relationship evidence.")
     return (
         "Answer the CTI multiple-choice question using the provided MITRE ATT&CK evidence when it directly supports an option.\n"
         f"Evidence source: {attack_version}.\n"
         "Do not explain. Return exactly one line in this format: Answer: <A|B|C|D>\n\n"
-        f"Evidence:\n{evidence_block}\n\n"
+        f"Evidence:\n{block}\n\n"
         f"Question: {row['question']}\n"
         f"Options:\n{options_text(row)}\n\n"
         "Answer:"
@@ -364,21 +376,78 @@ def relationship_evidence_prompt(row: dict[str, Any], evidence: list[dict[str, A
 def technique_only_evidence_prompt(
     row: dict[str, Any], evidence: list[dict[str, Any]], attack_version: str
 ) -> str:
-    if evidence:
-        evidence_block = "\n".join(
-            f"- [{item['kind']}] {item['text']}" for item in evidence
-        )
-    else:
-        evidence_block = "- No retrieved technique description evidence."
+    block = evidence_block(evidence, "- No retrieved technique description evidence.")
     return (
-        "Answer the CTI multiple-choice question using only the provided MITRE ATT&CK technique description evidence when it directly supports an option.\n"
+        "Answer the CTI multiple-choice question using only the provided MITRE ATT&CK technique description and tactic evidence when it directly supports an option.\n"
         f"Evidence source: {attack_version}.\n"
         "Do not explain. Return exactly one line in this format: Answer: <A|B|C|D>\n\n"
-        f"Evidence:\n{evidence_block}\n\n"
+        f"Evidence:\n{block}\n\n"
         f"Question: {row['question']}\n"
         f"Options:\n{options_text(row)}\n\n"
         "Answer:"
     )
+
+
+def random_facts_evidence_prompt(
+    row: dict[str, Any],
+    evidence: list[dict[str, Any]],
+    attack_version: str,
+    random_technique_id: str,
+) -> str:
+    block = evidence_block(evidence, "- No random ATT&CK relationship facts available.")
+    return (
+        "Answer the CTI multiple-choice question using the provided Evidence block only if it directly supports an option.\n"
+        "The Evidence block may or may not be relevant to this question.\n"
+        f"Evidence source: {attack_version}; random technique: {random_technique_id}.\n"
+        "Do not explain. Return exactly one line in this format: Answer: <A|B|C|D>\n\n"
+        f"Evidence:\n{block}\n\n"
+        f"Question: {row['question']}\n"
+        f"Options:\n{options_text(row)}\n\n"
+        "Answer:"
+    )
+
+
+def empty_evidence_prompt(row: dict[str, Any], attack_version: str) -> str:
+    return (
+        "Answer the CTI multiple-choice question using the provided Evidence block only if it directly supports an option.\n"
+        f"Evidence source: {attack_version}.\n"
+        "Do not explain. Return exactly one line in this format: Answer: <A|B|C|D>\n\n"
+        "Evidence:\n- No evidence provided.\n\n"
+        f"Question: {row['question']}\n"
+        f"Options:\n{options_text(row)}\n\n"
+        "Answer:"
+    )
+
+
+def relationship_fact_candidates(candidates: list[dict[str, str]]) -> list[dict[str, str]]:
+    return [
+        candidate
+        for candidate in candidates
+        if candidate.get("kind", "") not in TECHNIQUE_METADATA_KINDS
+    ]
+
+
+def sample_random_facts(
+    rng: random.Random,
+    candidate_index: dict[str, list[dict[str, str]]],
+    current_technique_id: str,
+    count: int,
+) -> tuple[str, list[dict[str, Any]]]:
+    eligible = [
+        technique_id
+        for technique_id, candidates in sorted(candidate_index.items())
+        if technique_id != current_technique_id and relationship_fact_candidates(candidates)
+    ]
+    if not eligible:
+        return "", []
+    random_technique_id = rng.choice(eligible)
+    pool = relationship_fact_candidates(candidate_index[random_technique_id])
+    sample_size = min(max(count, 1), len(pool))
+    selected = rng.sample(pool, sample_size)
+    return random_technique_id, [
+        {"kind": item["kind"], "text": clean_text(item["text"]), "score": 0.0}
+        for item in selected
+    ]
 
 
 def option_support_scores(row: dict[str, Any], evidence: list[dict[str, Any]]) -> dict[str, float]:
@@ -502,12 +571,14 @@ def build_gate(
     attack_json: Path,
     limit: int | None,
     top_k: int,
+    random_seed: int = DEFAULT_RANDOM_FACTS_SEED,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows = read_jsonl(scaffold_dir / "cti_mcq_queries.jsonl", limit)
     seed_bank = json.loads((scaffold_dir / "domain_seed_bank.json").read_text(encoding="utf-8"))
     seed_terms = seed_bank["domain_seed_terms"]
     candidate_index = build_candidate_index(attack_json)
     attack_version = attack_json.stem
+    rng = random.Random(random_seed)
 
     prompt_rows: list[dict[str, Any]] = []
     evidence_counts: Counter[int] = Counter()
@@ -523,8 +594,18 @@ def build_gate(
         evidence = rank_evidence(row, candidates, top_k)
         technique_only_evidence = rank_evidence(
             row,
-            [candidate for candidate in candidates if candidate["kind"] == "technique"],
+            [
+                candidate
+                for candidate in candidates
+                if candidate["kind"] in {"technique", "tactic"}
+            ],
             min(top_k, 3),
+        )
+        random_technique_id, random_facts_evidence = sample_random_facts(
+            rng=rng,
+            candidate_index=candidate_index,
+            current_technique_id=technique_id,
+            count=len(evidence) or top_k,
         )
         if evidence:
             rows_with_any_evidence += 1
@@ -566,12 +647,18 @@ def build_gate(
                 "options": row["options"],
                 "relationship_evidence": evidence,
                 "technique_only_evidence": technique_only_evidence,
+                "random_facts_evidence": random_facts_evidence,
+                "random_facts_technique_id": random_technique_id,
                 "option_support_scores": support_scores,
                 "vanilla_strict_prompt": strict_vanilla_prompt(row),
                 "broad_seed_negative_control_prompt": broad_seed_prompt(row, seed_terms),
                 "technique_only_evidence_prompt": technique_only_evidence_prompt(
                     row, technique_only_evidence, attack_version
                 ),
+                "random_facts_evidence_prompt": random_facts_evidence_prompt(
+                    row, random_facts_evidence, attack_version, random_technique_id
+                ),
+                "empty_evidence_prompt": empty_evidence_prompt(row, attack_version),
                 "relationship_evidence_prompt": relationship_evidence_prompt(
                     row, evidence, attack_version
                 ),
@@ -584,6 +671,7 @@ def build_gate(
         "attack_json": str(attack_json),
         "attack_version": attack_version,
         "top_k_evidence": top_k,
+        "random_facts_seed": random_seed,
         "rows_with_any_evidence": rows_with_any_evidence,
         "evidence_coverage": rows_with_any_evidence / max(row_count, 1),
         "expected_option_phrase_in_evidence": expected_phrase_supported,
@@ -597,6 +685,8 @@ def build_gate(
             "vanilla_strict_prompt",
             "broad_seed_negative_control_prompt",
             "technique_only_evidence_prompt",
+            "random_facts_evidence_prompt",
+            "empty_evidence_prompt",
             "relationship_evidence_prompt",
         ],
         "examples": examples,
@@ -654,13 +744,16 @@ def render_report(path: Path, summary: dict[str, Any], out_dir: Path) -> None:
         "|---|---|",
         "| `vanilla_strict_prompt` | Strong plain baseline with exact `Answer: <A|B|C|D>` output requirement. |",
         "| `broad_seed_negative_control_prompt` | Keeps the failed domain-stuffing strategy visible as a negative control. |",
-        "| `technique_only_evidence_prompt` | Tests whether short technique descriptions alone explain the gain. |",
+        "| `technique_only_evidence_prompt` | Tests whether technique descriptions and tactic names alone explain the gain. |",
+        "| `random_facts_evidence_prompt` | Negative control for irrelevant ATT&CK relationship facts with the same evidence-block structure. |",
+        "| `empty_evidence_prompt` | Negative control for the evidence-block header without answer-bearing content. |",
         "| `relationship_evidence_prompt` | Uses question-ranked ATT&CK relationship evidence instead of broad seed stuffing. |",
         "",
         "## Pass Gate",
         "",
         "- Relationship-evidence strict accuracy must beat vanilla by at least `+0.030` absolute.",
         "- Relationship-evidence strict accuracy must beat technique-only retrieval by at least `+0.030` absolute.",
+        "- Random-facts and empty-evidence controls must not reproduce the relationship-evidence lift.",
         "- Relationship-evidence invalid response rate must be no worse than vanilla.",
         "- Evidence-only paired wins must exceed vanilla-only paired wins.",
         "- Broad seed negative control remains reported and cannot be hidden.",
@@ -724,6 +817,7 @@ def main() -> None:
     parser.add_argument("--top-k", type=int, default=6)
     parser.add_argument("--addressable-threshold", type=float, default=10.0)
     parser.add_argument("--diagnostic-threshold", type=float, default=4.0)
+    parser.add_argument("--random-facts-seed", type=int, default=DEFAULT_RANDOM_FACTS_SEED)
     args = parser.parse_args()
 
     prompt_rows, summary = build_gate(
@@ -731,6 +825,7 @@ def main() -> None:
         attack_json=args.attack_json,
         limit=args.limit,
         top_k=args.top_k,
+        random_seed=args.random_facts_seed,
     )
     args.out_dir.mkdir(parents=True, exist_ok=True)
     primary_rows, primary_summary = addressable_subset_summary(

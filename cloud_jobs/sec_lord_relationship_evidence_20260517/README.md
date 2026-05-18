@@ -13,6 +13,8 @@ Each row contains:
 
 - `vanilla_strict_prompt`
 - `technique_only_evidence_prompt`
+- `random_facts_evidence_prompt`
+- `empty_evidence_prompt`
 - `relationship_evidence_prompt`
 - `broad_seed_negative_control_prompt`
 - `expected_output`
@@ -32,10 +34,22 @@ HF_TOKEN=... \
 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
 ```
 
+Run only the complement-slice vanilla audit:
+
+```bash
+INPUT_JSONL=complement_vanilla_prompts.jsonl \
+CONDITIONS=vanilla \
+OUTPUT_SUFFIX=slice-audit-complement-8b-vanilla \
+MODEL_ID=meta-llama/Llama-3.1-8B-Instruct \
+BATCH_SIZE=2 \
+bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
+```
+
 ## Pass Gate
 
 - Relationship-evidence strict accuracy beats vanilla by at least `+0.030`.
 - Relationship-evidence strict accuracy beats technique-only retrieval by at least `+0.030`.
+- Random-facts and empty-evidence controls do not reproduce the relationship-evidence lift.
 - Relationship-evidence invalid rate is no worse than vanilla.
 - Relationship-evidence-only paired wins exceed vanilla-only paired wins.
 - Broad-seed negative control is reported and cannot be hidden.

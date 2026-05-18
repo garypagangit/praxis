@@ -19,9 +19,12 @@ For CTI multiple-choice questions whose answers are supported by ATT&CK relation
 | Frozen prompt slice | `cloud_jobs/sec_lord_relationship_evidence_20260517/input/evidence_addressable_prompts.jsonl` |
 | Relationship evidence builder | `scripts/build_sec_lord_relationship_evidence_gate.py` |
 | Offline support audit | `scripts/run_sec_lord_relationship_evidence_offline_gate.py` |
+| Slice leakage audit | `scripts/audit_sec_lord_relationship_evidence_slice.py` |
 | Cloud model runner | `cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py` |
+| Complement-slice cloud input | `cloud_jobs/sec_lord_relationship_evidence_20260517/input/complement_vanilla_prompts.jsonl` |
 | First model-gate report | `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.md` |
 | First model-gate JSON | `reports/sec_lord_ds_lord/SEC_LORD_RELATIONSHIP_EVIDENCE_MODEL_GATE_20260517.json` |
+| Local slice audit report | `reports/relationship_evidence_cti_compliance/SEC_LORD_RELATIONSHIP_EVIDENCE_SLICE_AUDIT_LOCAL_20260517.md` |
 
 ## Conditions
 
@@ -30,9 +33,11 @@ For CTI multiple-choice questions whose answers are supported by ATT&CK relation
 | `vanilla` | Strong plain prompt baseline with strict answer format. |
 | `broad_seed` | Negative control for the old SEC-LoRD broad prompt-seeding method. |
 | `technique_only_evidence` | Required ablation to test whether relationship evidence is better than short technique facts. |
+| `random_facts` | Negative control for irrelevant ATT&CK relationship facts with the same evidence-block structure. |
+| `empty_evidence` | Negative control for the evidence-block header without answer-bearing content. |
 | `relationship_evidence` | Main treatment: question-ranked ATT&CK mitigations, detections/data sources, tactics, software/group procedure examples, and technique metadata. |
 
-The prompt builder and cloud runner now support all four conditions. The next cloud run should regenerate the frozen prompt JSONL with `technique_only_evidence_prompt`, upload the updated cloud job input, and run the four-condition gate.
+The prompt builder and cloud runner now support the full ablation set plus the broad-seed legacy control. The pre-registered sequence says to run the slice audit before cross-model or ablation work.
 
 ## Metrics
 
@@ -50,6 +55,7 @@ The result may be promoted as a thesis/paper claim only if all criteria hold:
 
 - `relationship_evidence - vanilla >= +0.030` strict accuracy.
 - `relationship_evidence - technique_only_evidence >= +0.030` strict accuracy.
+- Random-facts and empty-evidence controls do not reproduce the relationship-evidence lift.
 - Relationship-evidence invalid rate is no worse than vanilla.
 - Relationship-evidence-only paired wins exceed vanilla-only paired wins.
 - Broad seed is reported, even if negative.
@@ -80,7 +86,9 @@ This is enough to justify the new Praxis 07 experiment. It is not enough by itse
 
 ## Next Cloud Gate
 
-Name: `relationship-evidence-ablation-20260518`
+Name: `relationship-evidence-slice-audit-a2-20260518`
+
+Purpose: run the complement-slice vanilla check before spending budget on cross-model or ablation runs.
 
 Recommended command shape:
 
@@ -92,6 +100,9 @@ aws sts get-caller-identity --profile praxis-build
 On the GPU host:
 
 ```bash
+INPUT_JSONL=complement_vanilla_prompts.jsonl \
+CONDITIONS=vanilla \
+OUTPUT_SUFFIX=slice-audit-complement-8b-vanilla \
 MODEL_ID=meta-llama/Llama-3.1-8B-Instruct \
 BATCH_SIZE=2 \
 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
@@ -102,6 +113,9 @@ For PowerShell users, environment variables must be set separately:
 ```powershell
 $env:MODEL_ID = "meta-llama/Llama-3.1-8B-Instruct"
 $env:BATCH_SIZE = "2"
+$env:INPUT_JSONL = "complement_vanilla_prompts.jsonl"
+$env:CONDITIONS = "vanilla"
+$env:OUTPUT_SUFFIX = "slice-audit-complement-8b-vanilla"
 bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
 ```
 
@@ -117,4 +131,4 @@ bash cloud_jobs/sec_lord_relationship_evidence_20260517/run_on_instance.sh
 
 ## Current Recommendation
 
-Proceed. The first gate is strong enough to justify a branch and a formal protocol. The next work should be ablation and replication, not extraction.
+Proceed, but in the pre-registered order. Local A1/A3/A4 slice-audit checks pass. The next cloud work is A2 complement-slice vanilla, then 3B cross-model, then the five-arm ablation.

@@ -6,6 +6,9 @@ MODEL_ID="${MODEL_ID:-meta-llama/Llama-3.1-8B-Instruct}"
 BATCH_SIZE="${BATCH_SIZE:-2}"
 MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-8}"
 MAX_INPUT_TOKENS="${MAX_INPUT_TOKENS:-4096}"
+INPUT_JSONL="${INPUT_JSONL:-evidence_addressable_prompts.jsonl}"
+CONDITIONS="${CONDITIONS:-all}"
+OUTPUT_SUFFIX="${OUTPUT_SUFFIX:-}"
 HF_SECRET_ID="${HF_SECRET_ID:-praxis/huggingface/token}"
 AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
 S3_BASE="${S3_BASE:-s3://praxis-garypagan-272615233626-us-east-1/experiments/sec-lord-ds-lord/cloud_jobs/${JOB}}"
@@ -13,6 +16,9 @@ REPO_DIR="${REPO_DIR:-$(pwd)}"
 WORKDIR="${WORKDIR:-/opt/praxis/jobs/${JOB}}"
 VENVDIR="${VENVDIR:-/opt/praxis/venvs/${JOB}}"
 OUTDIR="${OUTDIR:-${WORKDIR}/output}"
+if [ -n "${OUTPUT_SUFFIX}" ]; then
+  OUTDIR="${OUTDIR%/}/${OUTPUT_SUFFIX}"
+fi
 LOG="${LOG:-${WORKDIR}/${JOB}.log}"
 
 export AWS_DEFAULT_REGION
@@ -67,11 +73,12 @@ fi
 
 python "${WORKDIR}/code/run_sec_lord_relationship_evidence_cloud.py" \
   --model-id "${MODEL_ID}" \
-  --input-jsonl "${WORKDIR}/input/evidence_addressable_prompts.jsonl" \
+  --input-jsonl "${WORKDIR}/input/${INPUT_JSONL}" \
   --output-dir "${OUTDIR}" \
   --batch-size "${BATCH_SIZE}" \
   --max-new-tokens "${MAX_NEW_TOKENS}" \
-  --max-input-tokens "${MAX_INPUT_TOKENS}"
+  --max-input-tokens "${MAX_INPUT_TOKENS}" \
+  --conditions "${CONDITIONS}"
 
 if command -v aws >/dev/null 2>&1; then
   aws s3 sync "${OUTDIR}/" "${S3_BASE}/output/"
