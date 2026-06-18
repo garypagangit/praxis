@@ -1,5 +1,9 @@
 # Praxis Starter Workspace
 
+## Experiment Portfolio
+
+The publishable experiment list is tracked in [EXPERIMENTS.md](EXPERIMENTS.md). It numbers the research portfolio from Experiment 01 to Experiment N with titles, status, evidence, claim boundaries, and source artifacts.
+
 This repository is now set up as a small, clean starting point for an AI project that you edit locally and run on Colab compute.
 
 ## What goes where
