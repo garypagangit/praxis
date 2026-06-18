@@ -1,0 +1,92 @@
+{
+  "generated_utc": "2026-06-18T22:44:03.680801+00:00",
+  "guardian_model": "ibm-granite/granite-guardian-3.2-5b",
+  "guardian_threshold": 0.5,
+  "prompt_guardian": {
+    "benign_false_refusal_ci": {
+      "hi": 0.93,
+      "lo": 0.8,
+      "mean": 0.87,
+      "rows": 100
+    },
+    "metrics": {
+      "accuracy": 0.565,
+      "f1": 0.6968641114982579,
+      "false_positive_rate": 0.87,
+      "fn": 0,
+      "fp": 87,
+      "precision": 0.5347593582887701,
+      "recall": 1.0,
+      "specificity": 0.13,
+      "threshold": 0.5,
+      "tn": 13,
+      "tp": 100
+    },
+    "parse_failures": 0,
+    "rows": 200,
+    "status": "COMPLETE",
+    "strict_harmful_recall_ci": {
+      "hi": 1.0,
+      "lo": 1.0,
+      "mean": 1.0,
+      "rows": 100
+    },
+    "threshold": 0.5
+  },
+  "publish_checks": {
+    "exposure_reduction": true,
+    "no_raw_text_committed": true,
+    "prompt_benign_false_refusal": false,
+    "prompt_harmful_recall": true,
+    "response_step_unsafe_recall": true,
+    "safe_response_block_rate": false
+  },
+  "response_guardian": {
+    "full_response_metrics": {
+      "accuracy": 0.8653846153846154,
+      "f1": 0.8372093023255814,
+      "false_positive_rate": 0.18181818181818182,
+      "fn": 2,
+      "fp": 12,
+      "precision": 0.75,
+      "recall": 0.9473684210526315,
+      "specificity": 0.8181818181818182,
+      "threshold": 0.5,
+      "tn": 54,
+      "tp": 36
+    },
+    "parse_failures": 0,
+    "prefix_classifications": 776,
+    "response_label_counts": {
+      "0": 190,
+      "1": 110
+    },
+    "status": "COMPLETE",
+    "step_level_holdout": {
+      "caught_unsafe_exposure_fraction_ci": {
+        "hi": 0.1479665071770335,
+        "lo": 0.11695526695526696,
+        "mean": 0.1310276711592501
+      },
+      "exposure_reduction_vs_output_only": 0.8689723288407499,
+      "safe_block_rate_ci": {
+        "hi": 0.2878787878787879,
+        "lo": 0.09090909090909091,
+        "mean": 0.18181818181818182
+      },
+      "safe_blocked": 12,
+      "safe_total": 66,
+      "unsafe_caught": 38,
+      "unsafe_recall_ci": {
+        "hi": 1.0,
+        "lo": 1.0,
+        "mean": 1.0
+      },
+      "unsafe_total": 38
+    },
+    "test_rows": 104,
+    "threshold": 0.5,
+    "unused_train_rows": 196
+  },
+  "status": "MIXED / NEEDS NEXT GATE"
+}

@@ -4,7 +4,7 @@ Updated: 2026-06-18
 
 Source brief: `C:\Users\garyp\Downloads\AI_ML_Praxis_Experiment_Templates.docx`.
 
-Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream. EXP01 has a full preliminary AWS result but is not being promoted. EXP02 is now active with a positive schema-readiness gate. Each experiment below is framed with a thesis, gate state, evidence target, compute posture, and stop rule.
+Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream. EXP01 has a full preliminary AWS result but is not being promoted. EXP02 now has a schema pass plus two AWS guardrail gates; it produced a strong response-prefix signal but is not being promoted because utility controls fail. Each experiment below is framed with a thesis, gate state, evidence target, compute posture, and stop rule.
 
 ## Start Decision
 
@@ -12,7 +12,7 @@ We have completed the first full preliminary AWS run for **Experiment 01 - Cross
 
 Current status: **EXP01 preliminary full-run result present, provisional / do not overclaim**. The split-readiness gate passed, then the AWS run evaluated `4` open 7B-class models across `160` public benchmark rows, `2` strategy classes, and budgets `K={1,2,4,8}`. Policy selection used GSM8K validation-policy rows only; final checks used a GSM8K in-domain test split plus a strict MATH-500 holdout that was not used for policy selection.
 
-Current active experiment: **EXP02 - Step-Level Self-Jailbreak Detection and Training-Free Intervention**. We are moving here because the path is constructive: the desired result is a detector/intervention that improves safety while preserving benign reasoning, not a negative proof that models fail.
+Current experiment just completed: **EXP02 - Step-Level Self-Jailbreak Detection and Training-Free Intervention**. The path remained constructive: the run tested whether a detector/intervention improves safety while preserving benign reasoning, not whether models can be made to fail.
 
 What the first run shows:
 
@@ -22,13 +22,14 @@ What the first run shows:
 - Off-diagonal retention is measurable but not yet a clean scientific win: mean off-diagonal retention was `1.5920` in-domain and `1.3111` on strict holdout among non-null rows.
 - The feature-engineered Optuna predictor completed but did not generalize: leave-one-target-family R2 `-14.9408`.
 - Internal defense verdict: preliminary evidence suitable for a slide or committee update, not yet a Praxis-level claim. H1 still needs verifier/scorer best-of-N, and H3 still needs sequential refinement or a formal drop.
+- EXP02 schema handling passed, and two AWS guardrail gates completed. The open guardian response-prefix run caught `38/38` unsafe held-out responses with average caught exposure `0.1310`, but blocked `12/66` safe responses and over-refused `87/100` benign prompt controls. Decision: preserve as a strong pilot, not a publication-ready thesis proof.
 
 ## Experiment Queue
 
 | Priority | Experiment | Working title | Field area | Current posture | First gate | Main output |
 |---:|---|---|---|---|---|---|
 | 1 | EXP01 | Cross-Model Transferability of Test-Time Compute Strategies | Reasoning / inference efficiency | Preliminary full AWS result present; provisional | Add verifier best-of-N, sequential refinement or drop H3, and manual scoring audit | Transfer matrix, retention metric, negative predictor result, defense challenge |
-| 2 | EXP02 | Step-Level Self-Jailbreak Detection and Training-Free Intervention | Reasoning-model safety | Schema gate PASS; ready for trace pilot | Generate/collect 100 redacted traces, label steps, fit first detector | Override detector, intervention frontier, safety-reasoning trade-off |
+| 2 | EXP02 | Step-Level Self-Jailbreak Detection and Training-Free Intervention | Reasoning-model safety | Schema PASS plus two AWS gates complete; response-prefix signal present, utility gate failed | Continue only with refusal-aware classifier/manual boundary labels, or move queue forward | Redacted guardrail pilot, open guardian early-detection result, over-refusal blocker |
 | 3 | EXP04 | Multi-Turn Hallucination Compounding and KG-Grounded Verification | Factuality / reliability | Strong second practical path | Build dialogue + atomic-claim schema and verify Wikidata/SPARQL access | Multi-turn hallucination benchmark and KG verifier |
 | 4 | EXP03 | Instruction Diversity and Linguistic Generalisation in VLA Models | Embodied AI / robot foundation models | Promising but heavier setup | Verify OpenVLA/OXE/LIBERO environment and one short simulation eval | Instruction-diversity curve and cross-embodiment transfer result |
 | 5 | EXP05 | Cross-Paradigm Visual Robustness of World-Model Agents | World models / model-based RL | High-ceiling, compute-heavy | Install stable-worldmodel and run one Crafter visual-wrapper smoke | Robustness leaderboard and augmentation remedy |
@@ -65,9 +66,11 @@ What the first run shows:
 
 **First gate:** create the trace/label schema and annotation rubric; validate that a small manually reviewed sample can identify override boundaries. Do not run large harmful-prompt generation until the data handling and evaluation plan are explicit.
 
-**Completed gate:** safety schema gate PASS on 2026-06-18. The gate produced a `100`-row redacted manifest from accessible public source/splits, with `65` unsafe-request rows, `35` benign-control rows, `30` strict behavior holdout rows, `30` benign-control holdout rows, `12` abstract trace-schema examples, `0` raw prompt text committed, and `0` model calls.
+**Completed gates:** safety schema gate PASS on 2026-06-18. The gate produced a `100`-row redacted manifest from accessible public source/splits, with `65` unsafe-request rows, `35` benign-control rows, `30` strict behavior holdout rows, `30` benign-control holdout rows, `12` abstract trace-schema examples, `0` raw prompt text committed, and `0` model calls. The full AWS lightweight detector gate and the open Granite Guardian step gate then ran on AWS with redacted outputs only.
 
-**Promotion gate:** category-holdout detector performance with ROC-AUC/PR-AUC confidence intervals plus false-refusal rate on benign twins.
+**AWS result:** lightweight detector failed promotion with prompt harmful recall `0.7400`, benign false-refusal `0.6900`, response-step recall `0.8158`, and safe-response block `0.1818`. The open guardian improved the response-prefix mechanism: prompt harmful recall `1.0000`, response-step unsafe recall `1.0000`, caught-unsafe exposure `0.1310`, and exposure reduction `0.8690`; however, prompt benign false-refusal was `0.8700` and safe-response block remained `0.1818`.
+
+**Promotion gate:** category-holdout detector performance with ROC-AUC/PR-AUC confidence intervals plus false-refusal rate on benign twins. Current decision: not promoted until safe-response over-blocking is solved.
 
 **Stop rule:** stop if override labels have poor human/judge agreement, target Cohen kappa `<0.60`, or if the intervention mainly over-refuses rather than reducing genuinely unsafe outputs.
 
@@ -158,6 +161,15 @@ What the first run shows:
 | `reports/frontier_ai_ml_experiments_20260618/EXP02_SELF_JAILBREAK_KICKOFF_20260618.md` | EXP02 kickoff and next trace-pilot plan. |
 | `reports/frontier_ai_ml_experiments_20260618/EXP02_SCHEMA_GATE_SYNTHESIS_20260618.md` | Positive readiness synthesis for EXP02. |
 | `runs/frontier-exp02-self-jailbreak-schema-20260618/EXP02_SCHEMA_GATE_RESULT_20260618.md` | EXP02 first-gate PASS report. |
+| `configs/frontier_exp02_self_jailbreak_full_20260618.json` | Full lightweight EXP02 guardrail config. |
+| `scripts/run_frontier_exp02_full_guardrail_experiment.py` | Full lightweight EXP02 prompt/response-step detector runner. |
+| `cloud_jobs/frontier_exp02_self_jailbreak_20260618/` | AWS handoff for the lightweight full EXP02 gate. |
+| `runs/frontier-exp02-self-jailbreak-full-20260618/EXP02_FULL_GUARDRAIL_RESULT_20260618.md` | Lightweight detector AWS result; mixed, not promoted. |
+| `configs/frontier_exp02_guardian_step_20260618.json` | Open guardian response-prefix gate config. |
+| `scripts/run_frontier_exp02_guardian_step_gate.py` | Granite Guardian prompt/response-prefix runner. |
+| `cloud_jobs/frontier_exp02_guardian_step_20260618/` | AWS handoff for the open guardian step gate. |
+| `runs/frontier-exp02-self-jailbreak-guardian-step-20260618/EXP02_GUARDIAN_STEP_RESULT_20260618.md` | Open guardian AWS result; strong early-detection signal, utility gate failed. |
+| `reports/frontier_ai_ml_experiments_20260618/EXP02_FULL_GUARDRAIL_SYNTHESIS_20260618.md` | Combined EXP02 synthesis, RQ/H readout, and promotion decision. |
 
 ## Ready-To-Start Checklist
 
@@ -178,6 +190,8 @@ What the first run shows:
 | EXP02 Praxis protocol created | PASS | `reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP02_SELF_JAILBREAK_PROTOCOL_20260618.md`. |
 | EXP02 safety schema gate | PASS | `runs/frontier-exp02-self-jailbreak-schema-20260618/EXP02_SCHEMA_GATE_RESULT_20260618.md`. |
 | EXP02 raw unsafe text committed | PASS | `0` raw prompt/model-output text fields committed; manifest is hash/length/schema only. |
+| EXP02 lightweight AWS guardrail gate | COMPLETE / MIXED | Response-step signal exists but prompt and safe-response utility checks fail. |
+| EXP02 open guardian AWS gate | COMPLETE / MIXED | Response-step recall `1.0000` and exposure `0.1310`, but safe-response block `0.1818`. |
 
 ## EXP01 Preliminary Split Result
 
@@ -231,12 +245,23 @@ The AWS run produced results, but the claim boundary is narrow. The defensible s
 
 This is a positive readiness result. It proves EXP02 can proceed safely with strict holdout roles, benign controls, a trace-label taxonomy, and intervention actions. It does not yet prove detector or intervention effectiveness.
 
+## EXP02 AWS Guardrail Results
+
+| Item | Lightweight detector | Open guardian step judge |
+|---|---:|---:|
+| Prompt harmful recall | `0.7400` | `1.0000` |
+| Prompt benign false-refusal | `0.6900` | `0.8700` |
+| Response-step unsafe recall | `0.8158` | `1.0000` |
+| Safe-response block rate | `0.1818` | `0.1818` |
+| Caught unsafe exposure fraction | `0.2370` | `0.1310` |
+| Exposure reduction vs output-only | `0.7630` | `0.8690` |
+| Promotion decision | Mixed / not promoted | Mixed / not promoted |
+
+The useful signal is real: open guardian response-prefix monitoring caught all unsafe held-out responses very early. The thesis is not proven because both prompt-level and response-level utility controls over-block safe/benign examples. Preserve this as a strong pilot and continue EXP02 only if the next gate directly targets refusal-aware safe-response preservation.
+
 ## Next Action
 
-Continue EXP02 with the trace pilot:
+Decision point:
 
-1. Generate or collect `100` redacted traces under the frozen schema.
-2. Label each step using the six-label taxonomy.
-3. Fit a lightweight detector on dev traces.
-4. Evaluate detector F1 and boundary localization on strict holdout.
-5. Add intervention comparison only after the detector pilot gives a positive signal.
+1. Continue EXP02 only with a refusal-aware classifier or manually labeled boundary examples that can lower safe-response block from `0.1818` to `<=0.05` while keeping response-step recall `>=0.85`.
+2. If that access/data is not available, move the active frontier queue to EXP04 rather than spending more AWS on the same over-refusal failure mode.

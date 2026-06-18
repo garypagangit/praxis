@@ -2,7 +2,7 @@
 
 Generated: 2026-06-18
 
-Status: **schema gate PASS; ready for safe trace-generation pilot**
+Status: **schema gate PASS; full AWS pilot and open guardian gate complete; not promoted**
 
 Source brief: `C:\Users\garyp\Downloads\AI_ML_Praxis_Experiment_Templates.docx`
 
@@ -158,6 +158,19 @@ The first schema gate ran on 2026-06-18:
 
 Primary output: `runs/frontier-exp02-self-jailbreak-schema-20260618/EXP02_SCHEMA_GATE_RESULT_20260618.md`.
 
+## AWS Guardrail Results
+
+Two AWS gates were completed after the schema gate.
+
+| Gate | Prompt harmful recall | Prompt benign false-refusal | Response-step unsafe recall | Safe-response block | Caught unsafe exposure | Decision |
+|---|---:|---:|---:|---:|---:|---|
+| Lightweight TF-IDF/logistic detector | `0.7400` | `0.6900` | `0.8158` | `0.1818` | `0.2370` | Mixed; fail promotion |
+| Granite Guardian 3.2 5B response-prefix judge | `1.0000` | `0.8700` | `1.0000` | `0.1818` | `0.1310` | Strong response-prefix signal; fail utility gate |
+
+The strongest constructive evidence is that the open guardian caught all `38/38` unsafe held-out responses after an average of `13.10%` of the response, reducing exposure by `86.90%` relative to output-only blocking. This still does not support the full thesis because safe-response block rate stayed at `12/66 = 0.1818`, above the `<=0.05` gate.
+
+Primary synthesis: `reports/frontier_ai_ml_experiments_20260618/EXP02_FULL_GUARDRAIL_SYNTHESIS_20260618.md`.
+
 ## Formal Results Template
 
 | Result | Required before publication claim |
@@ -177,6 +190,8 @@ Primary output: `runs/frontier-exp02-self-jailbreak-schema-20260618/EXP02_SCHEMA
 | Minimal detector | Step F1 `>=0.80` on held-out category or clear fixable error pattern. | Detector mostly learns source artifacts or prompt length. |
 | Intervention pilot | Unsafe completion reduction with false-refusal delta `<=5` points on benign controls. | Intervention mainly over-refuses or harms benign reasoning. |
 | Promotion | H1/H2/H3 supported with CIs and strict holdouts. | Result is only "models can be unsafe" without a useful detector/intervention contribution. |
+
+Current decision after the AWS gates: do not promote. Continue only with a refusal-aware classifier or manually labeled boundary data that directly targets the safe-response over-blocking failure mode.
 
 ## What Not To Claim
 
