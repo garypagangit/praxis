@@ -1,0 +1,123 @@
+{
+  "experiment_id": "EXP01",
+  "name": "frontier-exp01-ttc-transfer-smoke-20260618",
+  "purpose": "Stage A smoke for cross-model test-time compute transferability.",
+  "created": "2026-06-18",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "kickoff_doc": "reports/frontier_ai_ml_experiments_20260618/EXP01_TTC_TRANSFER_KICKOFF_20260618.md",
+  "output_dir": "runs/frontier-exp01-ttc-transfer-smoke-20260618",
+  "datasets": [
+    {
+      "name": "gsm8k",
+      "split": "test",
+      "sample_size": 25,
+      "role": "smoke"
+    },
+    {
+      "name": "math500",
+      "split": "test",
+      "sample_size": 25,
+      "role": "smoke"
+    }
+  ],
+  "splits": {
+    "dev_fraction": 0.5,
+    "test_fraction": 0.5,
+    "split_seed": 20260618
+  },
+  "models": [
+    {
+      "id": "model_a",
+      "adapter": "placeholder",
+      "notes": "Fill with first low-cost local or API model before running."
+    },
+    {
+      "id": "model_b",
+      "adapter": "placeholder",
+      "notes": "Fill with second low-cost local or API model before running."
+    }
+  ],
+  "strategies": [
+    {
+      "id": "single_sample",
+      "budgets_k": [
+        1
+      ]
+    },
+    {
+      "id": "majority_vote",
+      "budgets_k": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "best_of_n_simple_scorer",
+      "budgets_k": [
+        2,
+        4
+      ],
+      "status": "optional_until_scorer_ready"
+    }
+  ],
+  "seeds": [
+    41,
+    42,
+    43
+  ],
+  "required_log_fields": [
+    "problem_id",
+    "problem_text_hash",
+    "dataset",
+    "split_role",
+    "model",
+    "strategy",
+    "budget_k",
+    "seed",
+    "samples",
+    "selected_answer_raw",
+    "selected_answer_normalized",
+    "gold_answer_normalized",
+    "is_correct",
+    "tokens_used",
+    "wall_time_seconds"
+  ],
+  "feature_engineering_plan": {
+    "stage": "after_minimal_transfer_matrix",
+    "features": [
+      "base_accuracy",
+      "answer_entropy",
+      "unique_answer_rate",
+      "self_consistency_margin",
+      "tokens_used",
+      "wall_time_seconds",
+      "model_family",
+      "model_scale",
+      "strategy_id",
+      "budget_k",
+      "dataset_id",
+      "problem_length"
+    ],
+    "label": "retention_or_accuracy_delta",
+    "strict_rule": "features may be computed from candidate samples and metadata, but final-test labels are scoring-only and cannot be used for feature selection"
+  },
+  "optuna_plan": {
+    "allowed": true,
+    "scope": "transfer_predictor_hyperparameters_only",
+    "not_allowed_for": [
+      "prompt rescue",
+      "budget rescue after test inspection",
+      "final holdout tuning"
+    ],
+    "activation_gate": "only after source-target-strategy transfer cells exist",
+    "split_rule": "Optuna trials tune on predictor train/dev cells; final family holdout is evaluated once"
+  },
+  "pass_criteria": {
+    "answer_scorer_manual_agreement_min": 0.95,
+    "required_jsonl_logs": true,
+    "retention_computable": true,
+    "fixed_seed_rerun_stable_row_count": true
+  },
+  "cloud_profile": "praxis-build",
+  "cloud_status": "do_not_launch_until_local_smoke_passes"
+}

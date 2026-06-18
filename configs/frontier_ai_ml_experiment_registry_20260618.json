@@ -1,0 +1,158 @@
+{
+  "generated": "2026-06-18",
+  "source_docx": "C:\\Users\\garyp\\Downloads\\AI_ML_Praxis_Experiment_Templates.docx",
+  "dashboard_markdown": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "dashboard_html": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.html",
+  "first_experiment": "EXP01",
+  "experiments": [
+    {
+      "id": "EXP01",
+      "title": "Cross-Model Transferability of Test-Time Compute Strategies",
+      "working_title": "Test-Time Compute Transferability Map",
+      "field_area": "Reasoning / inference efficiency",
+      "priority": 1,
+      "posture": "preliminary_full_aws_result_present_provisional",
+      "first_gate": "PASS: split-readiness gate and full preliminary AWS matrix completed.",
+      "next_gate": "Add verifier/scorer best-of-N, sequential refinement or formal H3 drop, manual scoring audit, and bootstrap confidence intervals.",
+      "strict_holdout": "Model-family holdout plus AIME or HumanEval OOD domain holdout.",
+      "primary_metrics": [
+        "accuracy",
+        "retention",
+        "bootstrap confidence intervals",
+        "predictor R2",
+        "tokens_used"
+      ],
+      "datasets": [
+        "MATH",
+        "GSM8K",
+        "MATH-500",
+        "AIME 2024/25",
+        "HumanEval"
+      ],
+      "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP01_TTC_TRANSFER_PROTOCOL_20260618.md",
+      "starter_config": "configs/frontier_exp01_ttc_smoke_20260618.json",
+      "full_config": "configs/frontier_exp01_ttc_full_20260618.json",
+      "smoke_output_dir": "runs/frontier-exp01-ttc-transfer-smoke-20260618",
+      "full_output_dir": "runs/frontier-exp01-ttc-transfer-full-20260618",
+      "full_result_report": "runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_FULL_AWS_RESULT_20260618.md",
+      "defensibility_challenge": "runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_INTERNAL_DEFENSIBILITY_CHALLENGE_20260618.md",
+      "split_gate_script": "scripts/run_frontier_exp01_ttc_split_gate.py",
+      "cloud_job_dir": "cloud_jobs/frontier_exp01_ttc_transfer_20260618",
+      "kickoff_doc": "reports/frontier_ai_ml_experiments_20260618/EXP01_TTC_TRANSFER_KICKOFF_20260618.md",
+      "preliminary_result": {
+        "status": "PROVISIONAL_DO_NOT_OVERCLAIM",
+        "models": 4,
+        "rows": 160,
+        "score_rows": 2560,
+        "transfer_rows": 32,
+        "best_qwen2p5_7b_validation_policy": "majority_vote K=8",
+        "qwen2p5_7b_validation_accuracy": 0.825,
+        "qwen2p5_7b_test_in_domain_accuracy": 0.725,
+        "qwen2p5_7b_strict_holdout_accuracy": 0.225,
+        "mean_offdiagonal_retention_in_domain": 1.59195402298851,
+        "mean_offdiagonal_retention_strict_holdout": 1.31111111111111,
+        "predictor_status": "COMPLETE",
+        "predictor_leave_one_target_family_r2": -14.94077666731859
+      }
+    },
+    {
+      "id": "EXP02",
+      "title": "Step-Level Self-Jailbreak Detection and Training-Free Intervention",
+      "working_title": "Step-Level Self-Jailbreak Guardrail",
+      "field_area": "Reasoning-model safety",
+      "priority": 2,
+      "posture": "protocol_first",
+      "first_gate": "Build trace schema and annotation rubric before large harmful-prompt generation.",
+      "strict_holdout": "Misuse-category holdout plus WildJailBreak OOD attack-style holdout.",
+      "primary_metrics": [
+        "detector F1",
+        "ROC-AUC",
+        "PR-AUC",
+        "attack success rate",
+        "false refusal rate",
+        "reasoning accuracy"
+      ],
+      "datasets": [
+        "StrongREJECT",
+        "SORRY-Bench",
+        "WildJailBreak",
+        "JailbreakBench",
+        "MATH-500",
+        "GSM8K",
+        "GPQA"
+      ]
+    },
+    {
+      "id": "EXP03",
+      "title": "Instruction Diversity and Linguistic Generalisation in Vision-Language-Action Models",
+      "working_title": "OpenVLA Instruction Diversity Sweep",
+      "field_area": "Embodied AI / robot foundation models",
+      "priority": 4,
+      "posture": "environment_gate_needed",
+      "first_gate": "Verify OpenVLA/OXE/LIBERO environment and one official evaluation smoke.",
+      "strict_holdout": "Held-out instruction templates, LIBERO suite, and robot embodiment.",
+      "primary_metrics": [
+        "LIBERO success rate",
+        "paraphrase robustness success",
+        "cross-embodiment success",
+        "transfer gap"
+      ],
+      "datasets": [
+        "Open X-Embodiment",
+        "Bridge V2",
+        "LIBERO",
+        "OpenVLA weights",
+        "OpenVLA-OFT recipe"
+      ]
+    },
+    {
+      "id": "EXP04",
+      "title": "Multi-Turn Hallucination Compounding and Knowledge-Graph-Grounded Verification",
+      "working_title": "KG-Grounded Multi-Turn Hallucination Verifier",
+      "field_area": "Factuality / reliability",
+      "priority": 3,
+      "posture": "schema_gate_needed",
+      "first_gate": "Build 20 multi-turn dialogues and verify Wikidata evidence coverage.",
+      "strict_holdout": "Factual-domain holdout plus model-family holdout.",
+      "primary_metrics": [
+        "per-turn hallucination rate",
+        "hallucination slope",
+        "verifier precision",
+        "verifier recall",
+        "verifier F1",
+        "helpfulness delta"
+      ],
+      "datasets": [
+        "HaluEval",
+        "HaluEval 2.0",
+        "HotpotQA",
+        "Natural Questions",
+        "FaithEval",
+        "Wikidata"
+      ]
+    },
+    {
+      "id": "EXP05",
+      "title": "Cross-Paradigm Visual Robustness of World-Model Agents",
+      "working_title": "World-Model Visual Robustness Leaderboard",
+      "field_area": "World models / model-based RL",
+      "priority": 5,
+      "posture": "compute_heavy_hold_until_smoke",
+      "first_gate": "Install stable-worldmodel and run one Crafter clean plus perturbed evaluation smoke.",
+      "strict_holdout": "Held-out perturbation type plus held-out games or levels.",
+      "primary_metrics": [
+        "human-normalized score retention",
+        "interquartile mean",
+        "bootstrap confidence intervals",
+        "clean-score cost"
+      ],
+      "datasets": [
+        "Atari 100K",
+        "Crafter/Craftax",
+        "ProcGen",
+        "DeepMind Control",
+        "stable-worldmodel"
+      ]
+    }
+  ]
+}

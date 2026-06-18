@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Experiment Current Dashboard</title><style>:root{--ink:#111827;--muted:#4b5563;--line:#d1d5db;--soft:#f8fafc;--blue:#1d4ed8;--blue-soft:#dbeafe}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);background:#eef2f7;line-height:1.55}main{max-width:1220px;margin:28px auto;background:white;padding:42px 48px;border:1px solid #e5e7eb;box-shadow:0 18px 60px rgba(15,23,42,.10)}h1{font-size:34px;line-height:1.15;margin:0 0 18px;padding-bottom:14px;border-bottom:4px solid var(--blue)}h2{font-size:23px;margin-top:34px;padding-bottom:6px;border-bottom:1px solid var(--line)}p{margin:12px 0}li{margin:5px 0}code{background:#f3f4f6;border:1px solid #e5e7eb;padding:1px 5px;border-radius:4px;font-family:Consolas,"Liberation Mono",monospace;font-size:.93em}pre{background:#111827;color:#f9fafb;padding:16px;overflow:auto;border-radius:8px}pre code{background:transparent;border:0;color:inherit;padding:0}.table-wrap{overflow-x:auto;margin:16px 0 24px;border:1px solid var(--line);border-radius:8px}table{width:100%;border-collapse:collapse;min-width:820px}th{background:var(--blue-soft);color:#0f172a;font-weight:700;text-align:left}th,td{border-bottom:1px solid #e5e7eb;padding:9px 11px;vertical-align:top}tr:nth-child(even)td{background:var(--soft)}tr:last-child td{border-bottom:0}.meta{color:var(--muted);font-size:13px;margin-bottom:24px}.print-note{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}@media print{body{background:white}main{box-shadow:none;border:0;margin:0;max-width:none;padding:20px}.table-wrap{overflow:visible}}</style></head>
+<body><main><div class="meta">Exported from <code>reports\frontier_ai_ml_experiments_20260618\FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md</code> on 2026-06-18.</div>
+<h1>Frontier AI/ML Experiment Dashboard</h1>
+<p>Updated: 2026-06-18</p>
+<p>Source brief: <code>C:\Users\garyp\Downloads\AI_ML_Praxis_Experiment_Templates.docx</code>.</p>
+<p>Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream. EXP01 now has a full preliminary AWS result; the other experiments remain queued behind their first gates. Each experiment below is framed with a thesis, gate state, evidence target, compute posture, and stop rule.</p>
+<h2>Start Decision</h2>
+<p>We have completed the first full preliminary AWS run for <strong>Experiment 01 - Cross-Model Transferability of Test-Time Compute Strategies</strong>.</p>
+<p>Current status: <strong>EXP01 preliminary full-run result present, provisional / do not overclaim</strong>. The split-readiness gate passed, then the AWS run evaluated <code>4</code> open 7B-class models across <code>160</code> public benchmark rows, <code>2</code> strategy classes, and budgets <code>K={1,2,4,8}</code>. Policy selection used GSM8K validation-policy rows only; final checks used a GSM8K in-domain test split plus a strict MATH-500 holdout that was not used for policy selection.</p>
+<p>What the first run shows:</p>
+<ul>
+<li>The transfer matrix is complete for the configured model set: <code>32</code> rows.</li>
+<li>Best selected validation policy for <code>qwen2p5_7b_instruct</code> was majority vote <code>K=8</code>, with validation accuracy <code>0.8250</code>, in-domain test accuracy <code>0.7250</code>, and strict MATH-500 holdout accuracy <code>0.2250</code>.</li>
+<li>Other model-family results were much weaker under exact scoring: Qwen2.5-Math-7B selected majority vote <code>K=8</code> with strict holdout <code>0.0625</code>; DeepSeek-R1-Distill-Qwen-7B selected majority vote <code>K=8</code> with strict holdout <code>0.0000</code>; Mistral-7B selected single-sample <code>K=1</code> with strict holdout <code>0.0375</code>.</li>
+<li>Off-diagonal retention is measurable but not yet a clean scientific win: mean off-diagonal retention was <code>1.5920</code> in-domain and <code>1.3111</code> on strict holdout among non-null rows.</li>
+<li>The feature-engineered Optuna predictor completed but did not generalize: leave-one-target-family R2 <code>-14.9408</code>.</li>
+<li>Internal defense verdict: preliminary evidence suitable for a slide or committee update, not yet a Praxis-level claim. H1 still needs verifier/scorer best-of-N, and H3 still needs sequential refinement or a formal drop.</li>
+</ul>
+<h2>Experiment Queue</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Priority</th><th>Experiment</th><th>Working title</th><th>Field area</th><th>Current posture</th><th>First gate</th><th>Main output</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>EXP01</td><td>Cross-Model Transferability of Test-Time Compute Strategies</td><td>Reasoning / inference efficiency</td><td>Preliminary full AWS result present; provisional</td><td>Add verifier best-of-N, sequential refinement or drop H3, and manual scoring audit</td><td>Transfer matrix, retention metric, negative predictor result, defense challenge</td></tr>
+<tr><td>2</td><td>EXP02</td><td>Step-Level Self-Jailbreak Detection and Training-Free Intervention</td><td>Reasoning-model safety</td><td>High-value but safety-sensitive</td><td>Build trace schema and label protocol; run no harmful generation until policy and dataset handling are explicit</td><td>Override detector, intervention frontier, safety-reasoning trade-off</td></tr>
+<tr><td>3</td><td>EXP04</td><td>Multi-Turn Hallucination Compounding and KG-Grounded Verification</td><td>Factuality / reliability</td><td>Strong second practical path</td><td>Build dialogue + atomic-claim schema and verify Wikidata/SPARQL access</td><td>Multi-turn hallucination benchmark and KG verifier</td></tr>
+<tr><td>4</td><td>EXP03</td><td>Instruction Diversity and Linguistic Generalisation in VLA Models</td><td>Embodied AI / robot foundation models</td><td>Promising but heavier setup</td><td>Verify OpenVLA/OXE/LIBERO environment and one short simulation eval</td><td>Instruction-diversity curve and cross-embodiment transfer result</td></tr>
+<tr><td>5</td><td>EXP05</td><td>Cross-Paradigm Visual Robustness of World-Model Agents</td><td>World models / model-based RL</td><td>High-ceiling, compute-heavy</td><td>Install stable-worldmodel and run one Crafter visual-wrapper smoke</td><td>Robustness leaderboard and augmentation remedy</td></tr>
+</tbody></table></div>
+<h2>EXP01 - Cross-Model Transferability of Test-Time Compute Strategies</h2>
+<p><strong>Thesis:</strong> test-time compute scaling strategies are not fully model-agnostic; compute-optimal policies discovered on one model family may degrade when transferred to another family or scale.</p>
+<p><strong>Research questions:</strong> do source-optimal TTC strategies transfer zero-shot; which strategy class is most transferable; can cheap model signals predict degradation?</p>
+<p><strong>Hypotheses:</strong> verifier-based best-of-N transfers better than majority voting; retention degrades with answer-distribution entropy divergence; sequential self-refinement transfers worst.</p>
+<p><strong>Datasets:</strong> MATH, GSM8K, MATH-500, AIME 2024/25, HumanEval.</p>
+<p><strong>Strategy classes:</strong> best-of-N with verifier or reward model, majority voting/self-consistency, sequential self-refinement, and policy-verifier budget allocation.</p>
+<p><strong>Completed gates:</strong> the 50-row split-readiness gate passed with scoring-only labels separated from prompt-side manifests. The full preliminary AWS run completed on <code>2026-06-18</code> with four open models, <code>160</code> rows, <code>2,560</code> scored model/strategy rows, and <code>32</code> transfer rows.</p>
+<p><strong>Promotion gate:</strong> add verifier/scorer best-of-N, add sequential self-refinement or formally drop H3, manually audit exact-answer scoring agreement, and add bootstrap confidence intervals. Predictor family holdout currently gives a clearly explained negative: leave-one-target-family R2 <code>-14.9408</code>.</p>
+<p><strong>Stop rule:</strong> stop or narrow if answer extraction/scoring cannot reach <code>&gt;=0.95</code> agreement on the smoke set, or if compute cost for the minimal off-diagonal matrix exceeds the agreed budget.</p>
+<p><strong>Kickoff doc:</strong> <code>reports/frontier_ai_ml_experiments_20260618/EXP01_TTC_TRANSFER_KICKOFF_20260618.md</code>.</p>
+<h2>EXP02 - Step-Level Self-Jailbreak Detection and Training-Free Intervention</h2>
+<p><strong>Thesis:</strong> self-jailbreak behavior occurs at a localizable reasoning-step boundary; a detector plus inference-time intervention can reduce unsafe final outputs without weight updates and with less reasoning degradation than fine-tuning.</p>
+<p><strong>Research questions:</strong> can override points be detected from traces; can intervention match Chain-of-Guardrail-like safety; what reasoning cost is paid?</p>
+<p><strong>Hypotheses:</strong> step detector F1 above <code>0.85</code>; intervention attack-success rate within five points of SFT; reasoning accuracy retained better than SFT.</p>
+<p><strong>Datasets:</strong> StrongREJECT, SORRY-Bench, WildJailBreak, JailbreakBench, MATH-500, GSM8K, GPQA.</p>
+<p><strong>First gate:</strong> create the trace/label schema and annotation rubric; validate that a small manually reviewed sample can identify override boundaries. Do not run large harmful-prompt generation until the data handling and evaluation plan are explicit.</p>
+<p><strong>Promotion gate:</strong> category-holdout detector performance with ROC-AUC/PR-AUC confidence intervals plus false-refusal rate on benign twins.</p>
+<p><strong>Stop rule:</strong> stop if override labels have poor human/judge agreement, target Cohen kappa <code>&lt;0.60</code>, or if the intervention mainly over-refuses rather than reducing genuinely unsafe outputs.</p>
+<h2>EXP03 - Instruction Diversity and Linguistic Generalisation in VLA Models</h2>
+<p><strong>Thesis:</strong> linguistic diversity in trajectory annotations is a binding constraint for VLA instruction generalisation; synthetic instruction variants can improve paraphrase robustness and cross-embodiment transfer without new robot data collection.</p>
+<p><strong>Research questions:</strong> how do variants per trajectory affect task success; where do returns saturate; does improvement transfer to an unseen embodiment?</p>
+<p><strong>Hypotheses:</strong> paraphrase robustness rises and saturates near five variants per trajectory; exact-task success stays roughly flat; cross-embodiment transfer improves.</p>
+<p><strong>Datasets and tools:</strong> Open X-Embodiment, Bridge V2, LIBERO, OpenVLA-7B, OpenVLA-OFT.</p>
+<p><strong>First gate:</strong> environment readiness. Install LIBERO/OpenVLA-OFT, load one Bridge/OXE subset, and run one official evaluation smoke before any LoRA sweep.</p>
+<p><strong>Promotion gate:</strong> 0/1/5/10 variant sweep with three seeds, confidence intervals, held-out instruction templates, and one held-out embodiment.</p>
+<p><strong>Stop rule:</strong> stop if the simulation/evaluation stack cannot reproduce baseline success within tolerance before augmentation.</p>
+<h2>EXP04 - Multi-Turn Hallucination Compounding and KG-Grounded Verification</h2>
+<p><strong>Thesis:</strong> hallucination compounds across conversational turns when later turns reference prior answers; a knowledge-graph-grounded verifier can measure and reduce this compounding more faithfully than single-turn checks.</p>
+<p><strong>Research questions:</strong> how does hallucination rate change with turn depth; does KG verification beat LLM-judge/NLI baselines; does verifier-in-the-loop correction reduce downstream hallucination?</p>
+<p><strong>Hypotheses:</strong> hallucination rate rises monotonically with depth on reference-carrying turns; KG verifier has higher detection F1; correction reduces hallucination at modest helpfulness cost.</p>
+<p><strong>Datasets and tools:</strong> HaluEval, HaluEval 2.0, HotpotQA, Natural Questions, FaithEval, Wikidata.</p>
+<p><strong>First gate:</strong> build 20 multi-turn dialogues and a claim-extraction/verification schema; verify that Wikidata entity linking and SPARQL evidence are usable on at least 80% of atomic claims in the smoke set.</p>
+<p><strong>Promotion gate:</strong> domain-holdout verifier evaluation with human-calibrated labels and bootstrap confidence intervals for per-turn hallucination slopes.</p>
+<p><strong>Stop rule:</strong> stop or reframe if entity linking leaves too many claims unverifiable, target unverifiable rate <code>&gt;40%</code> on the smoke.</p>
+<h2>EXP05 - Cross-Paradigm Visual Robustness of World-Model Agents</h2>
+<p><strong>Thesis:</strong> world-model agent robustness to visual distribution shift depends on representation paradigm; a controlled platform can produce a robustness leaderboard and test an augmentation remedy.</p>
+<p><strong>Research questions:</strong> how much does each paradigm degrade under perturbation; which paradigm is most robust; can observation augmentation close the gap?</p>
+<p><strong>Hypotheses:</strong> diffusion world models retain more score under fine-grained perturbations; robustness relates to compression ratio; training-time observation augmentation improves retention with minimal clean-score cost.</p>
+<p><strong>Datasets and tools:</strong> Atari 100K, Crafter/Craftax, ProcGen, DeepMind Control, stable-worldmodel.</p>
+<p><strong>First gate:</strong> install stable-worldmodel and run one Crafter agent evaluation under clean frames plus one perturbation wrapper.</p>
+<p><strong>Promotion gate:</strong> at least five seeds, interquartile mean and bootstrap confidence intervals, held-out perturbation type, and clean-score convergence checks.</p>
+<p><strong>Stop rule:</strong> stop if clean baseline scores cannot be reproduced within tolerance or visual wrappers change environment semantics rather than perception only.</p>
+<h2>Shared Gating Rules</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Gate</th><th>Requirement</th></tr></thead>
+<tbody>
+<tr><td>G0 - source integrity</td><td>Preserve the DOCX source and extracted text; do not treat illustrative expected-results tables as measured results.</td></tr>
+<tr><td>G1 - smoke harness</td><td>Each experiment must first produce a small, reproducible smoke artifact with logs and a pass/fail decision.</td></tr>
+<tr><td>G2 - validation discipline</td><td>Dev/tuning data must be separate from final test data; seed grid and thresholds must be fixed before formal evaluation.</td></tr>
+<tr><td>G3 - holdout</td><td>Each experiment needs a strict holdout: model family, harm category, robot embodiment, factual domain, or perturbation type.</td></tr>
+<tr><td>G4 - confidence</td><td>Report bootstrap confidence intervals or distributional RL metrics; no single-run headline claims.</td></tr>
+<tr><td>G5 - claim boundary</td><td>Every result must state what it does not show.</td></tr>
+</tbody></table></div>
+<h2>Immediate File Map</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Artifact</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>tmp/docs/AI_ML_Praxis_Experiment_Templates_extracted.md</code></td><td>Extracted text from the attached DOCX source.</td></tr>
+<tr><td><code>configs/frontier_ai_ml_experiment_registry_20260618.json</code></td><td>Machine-readable registry for the five new experiments.</td></tr>
+<tr><td><code>configs/frontier_exp01_ttc_smoke_20260618.json</code></td><td>Starter config for the first EXP01 smoke run.</td></tr>
+<tr><td><code>configs/frontier_exp01_ttc_full_20260618.json</code></td><td>Full preliminary AWS config for four open 7B-class models, GSM8K/MATH-500 rows, and <code>K={1,2,4,8}</code>.</td></tr>
+<tr><td><code>cloud_jobs/frontier_exp01_ttc_transfer_20260618/</code></td><td>AWS runner, requirements, and instance launch handoff for EXP01.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md</code></td><td>Markdown dashboard and start-state source.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.html</code></td><td>Browser dashboard generated from the Markdown source.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP01_TTC_TRANSFER_PROTOCOL_20260618.md</code></td><td>Formal Praxis protocol for EXP01 with RQ/H, literature review, GMR, splits, feature engineering, Optuna discipline, and results gates.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/EXP01_TTC_TRANSFER_KICKOFF_20260618.md</code></td><td>First-experiment kickoff protocol and readiness checklist.</td></tr>
+<tr><td><code>runs/frontier-exp01-ttc-transfer-smoke-20260618/README.md</code></td><td>Empty run folder handoff for the first smoke run outputs.</td></tr>
+<tr><td><code>runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_FULL_AWS_RESULT_20260618.md</code></td><td>Full preliminary AWS result with selected policies, accuracy table, transfer matrix, and predictor outcome.</td></tr>
+<tr><td><code>runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_INTERNAL_DEFENSIBILITY_CHALLENGE_20260618.md</code></td><td>Internal defense challenge and promotion blockers.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/EXP01_FULL_RESULT_SYNTHESIS_20260618.md</code></td><td>Compact Praxis-style synthesis of RQ/H readout, key results, and promotion blockers.</td></tr>
+<tr><td><code>scripts/run_frontier_exp01_ttc_split_gate.py</code></td><td>Standard-library preliminary split-readiness gate for EXP01.</td></tr>
+</tbody></table></div>
+<h2>Ready-To-Start Checklist</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Item</th><th>Status</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Source DOCX extracted</td><td>PASS</td><td>245 paragraphs and 73 table rows extracted.</td></tr>
+<tr><td>Experiment queue created</td><td>PASS</td><td>Five experiments ordered by feasibility and impact.</td></tr>
+<tr><td>First experiment selected</td><td>PASS</td><td>EXP01 TTC transferability.</td></tr>
+<tr><td>EXP01 Praxis protocol created</td><td>PASS</td><td><code>reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP01_TTC_TRANSFER_PROTOCOL_20260618.md</code>.</td></tr>
+<tr><td>EXP01 preliminary split gate</td><td>PASS</td><td><code>runs/frontier-exp01-ttc-transfer-smoke-20260618/PRELIMINARY_SPLIT_READINESS_20260618.md</code>.</td></tr>
+<tr><td>EXP01 full AWS run</td><td>PASS / PROVISIONAL</td><td><code>runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_FULL_AWS_RESULT_20260618.md</code>.</td></tr>
+<tr><td>EXP01 internal defensibility challenge</td><td>PASS / DO NOT OVERCLAIM</td><td><code>runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_INTERNAL_DEFENSIBILITY_CHALLENGE_20260618.md</code>.</td></tr>
+<tr><td>AWS profile available</td><td>PASS</td><td>Use <code>--profile praxis-build</code> when cloud compute is needed.</td></tr>
+<tr><td>GitHub connection available</td><td>PASS</td><td>Previous smoke confirmed push capability.</td></tr>
+<tr><td>First action defined</td><td>COMPLETE</td><td>Build and run preliminary EXP01 harness on AWS.</td></tr>
+<tr><td>EXP01 starter config created</td><td>PASS</td><td><code>configs/frontier_exp01_ttc_smoke_20260618.json</code>.</td></tr>
+<tr><td>EXP01 run folder created</td><td>PASS</td><td><code>runs/frontier-exp01-ttc-transfer-smoke-20260618/</code>.</td></tr>
+</tbody></table></div>
+<h2>EXP01 Preliminary Split Result</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Item</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>GSM8K total rows visible through Dataset Viewer</td><td><code>1,319</code></td></tr>
+<tr><td>MATH-500 total rows visible through Dataset Viewer</td><td><code>500</code></td></tr>
+<tr><td>Smoke rows sampled</td><td><code>50</code></td></tr>
+<tr><td>Validation-policy rows</td><td><code>12</code></td></tr>
+<tr><td>In-domain test rows</td><td><code>13</code></td></tr>
+<tr><td>Strict MATH-500 holdout rows</td><td><code>25</code></td></tr>
+<tr><td>Model calls made</td><td><code>0</code></td></tr>
+</tbody></table></div>
+<p>This is a readiness result, not a model-performance result. The next defensible result must come from frozen JSONL generation logs, scoring logs, and a retention table.</p>
+<h2>EXP01 Full Preliminary AWS Result</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Item</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Open models evaluated</td><td><code>4</code></td></tr>
+<tr><td>Public benchmark rows</td><td><code>160</code></td></tr>
+<tr><td>Score rows</td><td><code>2,560</code></td></tr>
+<tr><td>Transfer rows</td><td><code>32</code></td></tr>
+<tr><td>Strict holdout rows</td><td><code>80</code></td></tr>
+<tr><td>Best Qwen2.5-7B validation policy</td><td><code>majority_vote K=8</code></td></tr>
+<tr><td>Qwen2.5-7B validation accuracy</td><td><code>0.8250</code></td></tr>
+<tr><td>Qwen2.5-7B in-domain test accuracy</td><td><code>0.7250</code></td></tr>
+<tr><td>Qwen2.5-7B strict MATH-500 holdout accuracy</td><td><code>0.2250</code></td></tr>
+<tr><td>Mean off-diagonal retention, in-domain</td><td><code>1.5920</code></td></tr>
+<tr><td>Mean off-diagonal retention, strict holdout</td><td><code>1.3111</code></td></tr>
+<tr><td>Predictor status</td><td><code>COMPLETE</code></td></tr>
+<tr><td>Leave-one-target-family predictor R2</td><td><code>-14.9408</code></td></tr>
+<tr><td>Defense verdict</td><td><code>PROVISIONAL / DO NOT OVERCLAIM</code></td></tr>
+</tbody></table></div>
+<p>The AWS run produced results, but the claim boundary is narrow. The defensible statement is that the current harness can measure cross-model TTC policy transfer under strict split discipline. It does not yet prove that TTC strategies are transferable in a strong general sense, because verifier-based best-of-N and sequential refinement remain untested, exact-answer scoring needs audit, and the transfer predictor failed to generalize across held-out target families.</p>
+<h2>Next Action</h2>
+<p>Continue EXP01 with a promotion gate, not another rescue run:</p>
+<ol>
+<li>Add a verifier/scorer best-of-N arm for H1 using the same frozen split discipline.</li>
+<li>Add sequential self-refinement or formally drop H3 from the EXP01 claim.</li>
+<li>Manually audit a random sample of exact-answer scoring and report agreement.</li>
+<li>Add bootstrap confidence intervals for accuracy and retention.</li>
+<li>Convert the result into a short Praxis section only after the promotion gate clarifies whether this is a positive transferability result, a negative predictor result, or a methods artifact.</li>
+</ol>
+<div class="print-note">Open this file directly in a browser, or print to PDF for a shareable snapshot.</div></main></body></html>

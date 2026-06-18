@@ -1,0 +1,145 @@
+{
+  "experiment_id": "EXP01",
+  "name": "frontier-exp01-ttc-transfer-full-20260618",
+  "purpose": "Full first-pass cross-model test-time compute transferability matrix using open models on AWS.",
+  "created": "2026-06-18",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP01_TTC_TRANSFER_PROTOCOL_20260618.md",
+  "output_dir": "runs/frontier-exp01-ttc-transfer-full-20260618",
+  "budget_usd_cap": 1000,
+  "datasets": [
+    {
+      "name": "gsm8k",
+      "split": "test",
+      "sample_size": 80,
+      "role": "policy_selection_and_in_domain_test"
+    },
+    {
+      "name": "math500",
+      "split": "test",
+      "sample_size": 80,
+      "role": "strict_domain_holdout_test"
+    }
+  ],
+  "splits": {
+    "dev_fraction": 0.5,
+    "test_fraction": 0.5,
+    "split_seed": 20260618
+  },
+  "models": [
+    {
+      "id": "qwen2p5_7b_instruct",
+      "hf_model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "family": "qwen",
+      "scale_b": 7,
+      "access": "open"
+    },
+    {
+      "id": "qwen2p5_math_7b_instruct",
+      "hf_model_id": "Qwen/Qwen2.5-Math-7B-Instruct",
+      "family": "qwen_math",
+      "scale_b": 7,
+      "access": "open"
+    },
+    {
+      "id": "deepseek_r1_distill_qwen_7b",
+      "hf_model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "family": "deepseek_distill_qwen",
+      "scale_b": 7,
+      "access": "open"
+    },
+    {
+      "id": "mistral_7b_instruct_v0p3",
+      "hf_model_id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "family": "mistral",
+      "scale_b": 7,
+      "access": "open"
+    }
+  ],
+  "generation": {
+    "generation_seed": 41,
+    "max_new_tokens": 192,
+    "max_input_tokens": 2048,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "batch_size": 4,
+    "sample_batch_size": 1,
+    "dtype": "float16",
+    "device_map": "auto"
+  },
+  "strategies": [
+    {
+      "id": "single_sample",
+      "source": "greedy",
+      "budgets_k": [
+        1
+      ]
+    },
+    {
+      "id": "majority_vote",
+      "source": "sample_pool",
+      "budgets_k": [
+        2,
+        4,
+        8
+      ]
+    }
+  ],
+  "sample_pool": {
+    "max_k": 8,
+    "derive_prefix_budgets": true
+  },
+  "required_log_fields": [
+    "problem_id",
+    "problem_text_hash",
+    "dataset",
+    "split_role",
+    "model",
+    "strategy",
+    "budget_k",
+    "seed",
+    "samples",
+    "selected_answer_raw",
+    "selected_answer_normalized",
+    "gold_answer_normalized",
+    "is_correct",
+    "tokens_used",
+    "wall_time_seconds"
+  ],
+  "feature_engineering_plan": {
+    "features": [
+      "source_base_validation_accuracy",
+      "target_base_validation_accuracy",
+      "base_accuracy_gap",
+      "target_answer_entropy",
+      "target_unique_answer_rate",
+      "self_consistency_margin",
+      "tokens_used",
+      "wall_time_seconds",
+      "source_family",
+      "target_family",
+      "strategy_id",
+      "budget_k",
+      "evaluation_role"
+    ],
+    "label": "retention",
+    "strict_rule": "feature selection and Optuna trials may not inspect strict holdout labels before the final held-out report"
+  },
+  "optuna_plan": {
+    "enabled": true,
+    "max_trials": 25,
+    "scope": "transfer_predictor_hyperparameters_only",
+    "split_rule": "leave-one-target-family-out evaluation; no prompt or budget rescue after test inspection"
+  },
+  "pass_criteria": {
+    "full_matrix_complete": true,
+    "retention_computable": true,
+    "strict_holdout_reported": true,
+    "answer_scorer_manual_agreement_target": 0.95,
+    "defensibility_challenge_required": true
+  },
+  "cloud_profile": "praxis-build",
+  "cloud_region": "us-east-1",
+  "cloud_instance_type": "g5.xlarge",
+  "cloud_status": "approved_by_user_budget_cap_1000"
+}
