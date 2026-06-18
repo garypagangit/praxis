@@ -5,10 +5,11 @@
 <h1>Frontier AI/ML Experiment Dashboard</h1>
 <p>Updated: 2026-06-18</p>
 <p>Source brief: <code>C:\Users\garyp\Downloads\AI_ML_Praxis_Experiment_Templates.docx</code>.</p>
-<p>Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream. EXP01 now has a full preliminary AWS result; the other experiments remain queued behind their first gates. Each experiment below is framed with a thesis, gate state, evidence target, compute posture, and stop rule.</p>
+<p>Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream. EXP01 has a full preliminary AWS result but is not being promoted. EXP02 is now active with a positive schema-readiness gate. Each experiment below is framed with a thesis, gate state, evidence target, compute posture, and stop rule.</p>
 <h2>Start Decision</h2>
 <p>We have completed the first full preliminary AWS run for <strong>Experiment 01 - Cross-Model Transferability of Test-Time Compute Strategies</strong>.</p>
 <p>Current status: <strong>EXP01 preliminary full-run result present, provisional / do not overclaim</strong>. The split-readiness gate passed, then the AWS run evaluated <code>4</code> open 7B-class models across <code>160</code> public benchmark rows, <code>2</code> strategy classes, and budgets <code>K={1,2,4,8}</code>. Policy selection used GSM8K validation-policy rows only; final checks used a GSM8K in-domain test split plus a strict MATH-500 holdout that was not used for policy selection.</p>
+<p>Current active experiment: <strong>EXP02 - Step-Level Self-Jailbreak Detection and Training-Free Intervention</strong>. We are moving here because the path is constructive: the desired result is a detector/intervention that improves safety while preserving benign reasoning, not a negative proof that models fail.</p>
 <p>What the first run shows:</p>
 <ul>
 <li>The transfer matrix is complete for the configured model set: <code>32</code> rows.</li>
@@ -23,7 +24,7 @@
 <thead><tr><th>Priority</th><th>Experiment</th><th>Working title</th><th>Field area</th><th>Current posture</th><th>First gate</th><th>Main output</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>EXP01</td><td>Cross-Model Transferability of Test-Time Compute Strategies</td><td>Reasoning / inference efficiency</td><td>Preliminary full AWS result present; provisional</td><td>Add verifier best-of-N, sequential refinement or drop H3, and manual scoring audit</td><td>Transfer matrix, retention metric, negative predictor result, defense challenge</td></tr>
-<tr><td>2</td><td>EXP02</td><td>Step-Level Self-Jailbreak Detection and Training-Free Intervention</td><td>Reasoning-model safety</td><td>High-value but safety-sensitive</td><td>Build trace schema and label protocol; run no harmful generation until policy and dataset handling are explicit</td><td>Override detector, intervention frontier, safety-reasoning trade-off</td></tr>
+<tr><td>2</td><td>EXP02</td><td>Step-Level Self-Jailbreak Detection and Training-Free Intervention</td><td>Reasoning-model safety</td><td>Schema gate PASS; ready for trace pilot</td><td>Generate/collect 100 redacted traces, label steps, fit first detector</td><td>Override detector, intervention frontier, safety-reasoning trade-off</td></tr>
 <tr><td>3</td><td>EXP04</td><td>Multi-Turn Hallucination Compounding and KG-Grounded Verification</td><td>Factuality / reliability</td><td>Strong second practical path</td><td>Build dialogue + atomic-claim schema and verify Wikidata/SPARQL access</td><td>Multi-turn hallucination benchmark and KG verifier</td></tr>
 <tr><td>4</td><td>EXP03</td><td>Instruction Diversity and Linguistic Generalisation in VLA Models</td><td>Embodied AI / robot foundation models</td><td>Promising but heavier setup</td><td>Verify OpenVLA/OXE/LIBERO environment and one short simulation eval</td><td>Instruction-diversity curve and cross-embodiment transfer result</td></tr>
 <tr><td>5</td><td>EXP05</td><td>Cross-Paradigm Visual Robustness of World-Model Agents</td><td>World models / model-based RL</td><td>High-ceiling, compute-heavy</td><td>Install stable-worldmodel and run one Crafter visual-wrapper smoke</td><td>Robustness leaderboard and augmentation remedy</td></tr>
@@ -44,8 +45,11 @@
 <p><strong>Hypotheses:</strong> step detector F1 above <code>0.85</code>; intervention attack-success rate within five points of SFT; reasoning accuracy retained better than SFT.</p>
 <p><strong>Datasets:</strong> StrongREJECT, SORRY-Bench, WildJailBreak, JailbreakBench, MATH-500, GSM8K, GPQA.</p>
 <p><strong>First gate:</strong> create the trace/label schema and annotation rubric; validate that a small manually reviewed sample can identify override boundaries. Do not run large harmful-prompt generation until the data handling and evaluation plan are explicit.</p>
+<p><strong>Completed gate:</strong> safety schema gate PASS on 2026-06-18. The gate produced a <code>100</code>-row redacted manifest from accessible public source/splits, with <code>65</code> unsafe-request rows, <code>35</code> benign-control rows, <code>30</code> strict behavior holdout rows, <code>30</code> benign-control holdout rows, <code>12</code> abstract trace-schema examples, <code>0</code> raw prompt text committed, and <code>0</code> model calls.</p>
 <p><strong>Promotion gate:</strong> category-holdout detector performance with ROC-AUC/PR-AUC confidence intervals plus false-refusal rate on benign twins.</p>
 <p><strong>Stop rule:</strong> stop if override labels have poor human/judge agreement, target Cohen kappa <code>&lt;0.60</code>, or if the intervention mainly over-refuses rather than reducing genuinely unsafe outputs.</p>
+<p><strong>Protocol:</strong> <code>reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP02_SELF_JAILBREAK_PROTOCOL_20260618.md</code>.</p>
+<p><strong>Kickoff doc:</strong> <code>reports/frontier_ai_ml_experiments_20260618/EXP02_SELF_JAILBREAK_KICKOFF_20260618.md</code>.</p>
 <h2>EXP03 - Instruction Diversity and Linguistic Generalisation in VLA Models</h2>
 <p><strong>Thesis:</strong> linguistic diversity in trajectory annotations is a binding constraint for VLA instruction generalisation; synthetic instruction variants can improve paraphrase robustness and cross-embodiment transfer without new robot data collection.</p>
 <p><strong>Research questions:</strong> how do variants per trajectory affect task success; where do returns saturate; does improvement transfer to an unseen embodiment?</p>
@@ -99,6 +103,12 @@
 <tr><td><code>runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_INTERNAL_DEFENSIBILITY_CHALLENGE_20260618.md</code></td><td>Internal defense challenge and promotion blockers.</td></tr>
 <tr><td><code>reports/frontier_ai_ml_experiments_20260618/EXP01_FULL_RESULT_SYNTHESIS_20260618.md</code></td><td>Compact Praxis-style synthesis of RQ/H readout, key results, and promotion blockers.</td></tr>
 <tr><td><code>scripts/run_frontier_exp01_ttc_split_gate.py</code></td><td>Standard-library preliminary split-readiness gate for EXP01.</td></tr>
+<tr><td><code>configs/frontier_exp02_self_jailbreak_schema_20260618.json</code></td><td>EXP02 safety schema gate config.</td></tr>
+<tr><td><code>scripts/run_frontier_exp02_safety_schema_gate.py</code></td><td>EXP02 metadata/redaction/schema gate runner.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP02_SELF_JAILBREAK_PROTOCOL_20260618.md</code></td><td>Formal Praxis protocol for EXP02 with RQ/H, lit review, GMR, splits, feature plan, and results gates.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/EXP02_SELF_JAILBREAK_KICKOFF_20260618.md</code></td><td>EXP02 kickoff and next trace-pilot plan.</td></tr>
+<tr><td><code>reports/frontier_ai_ml_experiments_20260618/EXP02_SCHEMA_GATE_SYNTHESIS_20260618.md</code></td><td>Positive readiness synthesis for EXP02.</td></tr>
+<tr><td><code>runs/frontier-exp02-self-jailbreak-schema-20260618/EXP02_SCHEMA_GATE_RESULT_20260618.md</code></td><td>EXP02 first-gate PASS report.</td></tr>
 </tbody></table></div>
 <h2>Ready-To-Start Checklist</h2>
 <div class="table-wrap"><table>
@@ -116,6 +126,9 @@
 <tr><td>First action defined</td><td>COMPLETE</td><td>Build and run preliminary EXP01 harness on AWS.</td></tr>
 <tr><td>EXP01 starter config created</td><td>PASS</td><td><code>configs/frontier_exp01_ttc_smoke_20260618.json</code>.</td></tr>
 <tr><td>EXP01 run folder created</td><td>PASS</td><td><code>runs/frontier-exp01-ttc-transfer-smoke-20260618/</code>.</td></tr>
+<tr><td>EXP02 Praxis protocol created</td><td>PASS</td><td><code>reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP02_SELF_JAILBREAK_PROTOCOL_20260618.md</code>.</td></tr>
+<tr><td>EXP02 safety schema gate</td><td>PASS</td><td><code>runs/frontier-exp02-self-jailbreak-schema-20260618/EXP02_SCHEMA_GATE_RESULT_20260618.md</code>.</td></tr>
+<tr><td>EXP02 raw unsafe text committed</td><td>PASS</td><td><code>0</code> raw prompt/model-output text fields committed; manifest is hash/length/schema only.</td></tr>
 </tbody></table></div>
 <h2>EXP01 Preliminary Split Result</h2>
 <div class="table-wrap"><table>
@@ -150,13 +163,29 @@
 <tr><td>Defense verdict</td><td><code>PROVISIONAL / DO NOT OVERCLAIM</code></td></tr>
 </tbody></table></div>
 <p>The AWS run produced results, but the claim boundary is narrow. The defensible statement is that the current harness can measure cross-model TTC policy transfer under strict split discipline. It does not yet prove that TTC strategies are transferable in a strong general sense, because verifier-based best-of-N and sequential refinement remain untested, exact-answer scoring needs audit, and the transfer predictor failed to generalize across held-out target families.</p>
+<h2>EXP02 Positive Readiness Result</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Item</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Gate status</td><td><code>PASS</code></td></tr>
+<tr><td>Accessible source/splits</td><td><code>3</code></td></tr>
+<tr><td>Redacted manifest rows</td><td><code>100</code></td></tr>
+<tr><td>Unsafe request rows</td><td><code>65</code></td></tr>
+<tr><td>Benign control rows</td><td><code>35</code></td></tr>
+<tr><td>Strict behavior holdout rows</td><td><code>30</code></td></tr>
+<tr><td>Benign control holdout rows</td><td><code>30</code></td></tr>
+<tr><td>Synthetic abstract trace examples</td><td><code>12</code></td></tr>
+<tr><td>Raw prompt text committed</td><td><code>0</code></td></tr>
+<tr><td>Model calls made</td><td><code>0</code></td></tr>
+</tbody></table></div>
+<p>This is a positive readiness result. It proves EXP02 can proceed safely with strict holdout roles, benign controls, a trace-label taxonomy, and intervention actions. It does not yet prove detector or intervention effectiveness.</p>
 <h2>Next Action</h2>
-<p>Continue EXP01 with a promotion gate, not another rescue run:</p>
+<p>Continue EXP02 with the trace pilot:</p>
 <ol>
-<li>Add a verifier/scorer best-of-N arm for H1 using the same frozen split discipline.</li>
-<li>Add sequential self-refinement or formally drop H3 from the EXP01 claim.</li>
-<li>Manually audit a random sample of exact-answer scoring and report agreement.</li>
-<li>Add bootstrap confidence intervals for accuracy and retention.</li>
-<li>Convert the result into a short Praxis section only after the promotion gate clarifies whether this is a positive transferability result, a negative predictor result, or a methods artifact.</li>
+<li>Generate or collect <code>100</code> redacted traces under the frozen schema.</li>
+<li>Label each step using the six-label taxonomy.</li>
+<li>Fit a lightweight detector on dev traces.</li>
+<li>Evaluate detector F1 and boundary localization on strict holdout.</li>
+<li>Add intervention comparison only after the detector pilot gives a positive signal.</li>
 </ol>
 <div class="print-note">Open this file directly in a browser, or print to PDF for a shareable snapshot.</div></main></body></html>

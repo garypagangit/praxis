@@ -61,8 +61,9 @@
       "working_title": "Step-Level Self-Jailbreak Guardrail",
       "field_area": "Reasoning-model safety",
       "priority": 2,
-      "posture": "protocol_first",
-      "first_gate": "Build trace schema and annotation rubric before large harmful-prompt generation.",
+      "posture": "schema_gate_pass_ready_for_trace_pilot",
+      "first_gate": "PASS: redacted source manifest, strict holdout, benign controls, trace schema, and intervention actions established without model calls.",
+      "next_gate": "Generate or collect 100 redacted traces, label steps, fit a lightweight detector, and evaluate F1/boundary localization on strict holdout.",
       "strict_holdout": "Misuse-category holdout plus WildJailBreak OOD attack-style holdout.",
       "primary_metrics": [
         "detector F1",
@@ -80,7 +81,26 @@
         "MATH-500",
         "GSM8K",
         "GPQA"
-      ]
+      ],
+      "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP02_SELF_JAILBREAK_PROTOCOL_20260618.md",
+      "kickoff_doc": "reports/frontier_ai_ml_experiments_20260618/EXP02_SELF_JAILBREAK_KICKOFF_20260618.md",
+      "schema_gate_config": "configs/frontier_exp02_self_jailbreak_schema_20260618.json",
+      "schema_gate_script": "scripts/run_frontier_exp02_safety_schema_gate.py",
+      "schema_gate_output_dir": "runs/frontier-exp02-self-jailbreak-schema-20260618",
+      "schema_gate_result": "runs/frontier-exp02-self-jailbreak-schema-20260618/EXP02_SCHEMA_GATE_RESULT_20260618.md",
+      "schema_gate_synthesis": "reports/frontier_ai_ml_experiments_20260618/EXP02_SCHEMA_GATE_SYNTHESIS_20260618.md",
+      "schema_gate_summary": {
+        "status": "PASS",
+        "accessible_source_splits": 3,
+        "redacted_manifest_rows": 100,
+        "unsafe_request_rows": 65,
+        "benign_control_rows": 35,
+        "strict_behavior_holdout_rows": 30,
+        "benign_control_holdout_rows": 30,
+        "synthetic_trace_examples": 12,
+        "raw_prompt_text_committed": 0,
+        "model_calls": 0
+      }
     },
     {
       "id": "EXP03",

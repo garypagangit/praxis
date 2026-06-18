@@ -1,0 +1,122 @@
+{
+  "name": "frontier-exp02-self-jailbreak-schema-20260618",
+  "experiment_id": "EXP02",
+  "title": "Step-Level Self-Jailbreak Detection and Training-Free Intervention",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP02_SELF_JAILBREAK_PROTOCOL_20260618.md",
+  "output_dir": "runs/frontier-exp02-self-jailbreak-schema-20260618",
+  "split_seed": 20260618,
+  "no_model_calls": true,
+  "content_policy": {
+    "commit_raw_prompt_text": false,
+    "commit_raw_model_outputs": false,
+    "first_gate_uses_metadata_only": true,
+    "allowed_committed_fields": [
+      "row_id",
+      "source_id",
+      "hf_dataset",
+      "hf_config",
+      "hf_split",
+      "row_idx",
+      "split_role",
+      "safety_label",
+      "text_field_hashes",
+      "text_field_lengths",
+      "category_hash",
+      "schema_columns",
+      "generated_utc"
+    ]
+  },
+  "dataset_sources": [
+    {
+      "source_id": "strongreject_validation",
+      "hf_dataset": "AlignmentResearch/StrongREJECT",
+      "hf_config": "default",
+      "hf_split": "validation",
+      "sample_size": 40,
+      "role": "schema_calibration",
+      "label_field": "clf_label",
+      "text_fields": [
+        "instructions",
+        "content",
+        "answer_prompt",
+        "gen_target",
+        "proxy_gen_target"
+      ],
+      "category_field": null
+    },
+    {
+      "source_id": "wildjailbreak_train",
+      "hf_dataset": "walledai/WildJailbreak",
+      "hf_config": "default",
+      "hf_split": "train",
+      "sample_size": 40,
+      "role": "detector_dev",
+      "label_field": "label",
+      "text_fields": [
+        "prompt"
+      ],
+      "category_field": null
+    },
+    {
+      "source_id": "jbb_behaviors_harmful",
+      "hf_dataset": "JailbreakBench/JBB-Behaviors",
+      "hf_config": "behaviors",
+      "hf_split": "harmful",
+      "sample_size": 30,
+      "role": "strict_behavior_holdout_test",
+      "label_override": "unsafe_request",
+      "text_fields": [
+        "Goal",
+        "Target",
+        "Behavior"
+      ],
+      "category_field": "Category"
+    },
+    {
+      "source_id": "jbb_behaviors_benign",
+      "hf_dataset": "JailbreakBench/JBB-Behaviors",
+      "hf_config": "behaviors",
+      "hf_split": "benign",
+      "sample_size": 30,
+      "role": "benign_control_test",
+      "label_override": "benign_control",
+      "text_fields": [
+        "Goal",
+        "Target",
+        "Behavior"
+      ],
+      "category_field": "Category"
+    }
+  ],
+  "planned_gated_sources": [
+    {
+      "source_id": "sorry_bench",
+      "hf_dataset": "sorry-bench/sorry-bench-202503",
+      "reason": "Dataset Viewer access returned 401 in this environment; keep as formal phase source if license/access is configured."
+    }
+  ],
+  "trace_label_set": [
+    "benign_reasoning",
+    "risk_recognition",
+    "refusal_boundary",
+    "override_attempt",
+    "safe_redirect",
+    "false_positive_challenge"
+  ],
+  "intervention_actions": [
+    "allow_continue",
+    "insert_safety_reflection",
+    "replace_with_safe_completion",
+    "ask_clarifying_benign_intent",
+    "refuse_and_redirect"
+  ],
+  "gate_thresholds": {
+    "min_accessible_sources": 3,
+    "min_redacted_rows": 100,
+    "require_unsafe_and_benign_labels": true,
+    "require_strict_holdout": true,
+    "require_no_raw_text_in_manifest": true,
+    "min_synthetic_trace_examples": 10
+  }
+}

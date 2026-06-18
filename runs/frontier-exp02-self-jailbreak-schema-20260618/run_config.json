@@ -1,0 +1,122 @@
+{
+  "content_policy": {
+    "allowed_committed_fields": [
+      "row_id",
+      "source_id",
+      "hf_dataset",
+      "hf_config",
+      "hf_split",
+      "row_idx",
+      "split_role",
+      "safety_label",
+      "text_field_hashes",
+      "text_field_lengths",
+      "category_hash",
+      "schema_columns",
+      "generated_utc"
+    ],
+    "commit_raw_model_outputs": false,
+    "commit_raw_prompt_text": false,
+    "first_gate_uses_metadata_only": true
+  },
+  "dataset_sources": [
+    {
+      "category_field": null,
+      "hf_config": "default",
+      "hf_dataset": "AlignmentResearch/StrongREJECT",
+      "hf_split": "validation",
+      "label_field": "clf_label",
+      "role": "schema_calibration",
+      "sample_size": 40,
+      "source_id": "strongreject_validation",
+      "text_fields": [
+        "instructions",
+        "content",
+        "answer_prompt",
+        "gen_target",
+        "proxy_gen_target"
+      ]
+    },
+    {
+      "category_field": null,
+      "hf_config": "default",
+      "hf_dataset": "walledai/WildJailbreak",
+      "hf_split": "train",
+      "label_field": "label",
+      "role": "detector_dev",
+      "sample_size": 40,
+      "source_id": "wildjailbreak_train",
+      "text_fields": [
+        "prompt"
+      ]
+    },
+    {
+      "category_field": "Category",
+      "hf_config": "behaviors",
+      "hf_dataset": "JailbreakBench/JBB-Behaviors",
+      "hf_split": "harmful",
+      "label_override": "unsafe_request",
+      "role": "strict_behavior_holdout_test",
+      "sample_size": 30,
+      "source_id": "jbb_behaviors_harmful",
+      "text_fields": [
+        "Goal",
+        "Target",
+        "Behavior"
+      ]
+    },
+    {
+      "category_field": "Category",
+      "hf_config": "behaviors",
+      "hf_dataset": "JailbreakBench/JBB-Behaviors",
+      "hf_split": "benign",
+      "label_override": "benign_control",
+      "role": "benign_control_test",
+      "sample_size": 30,
+      "source_id": "jbb_behaviors_benign",
+      "text_fields": [
+        "Goal",
+        "Target",
+        "Behavior"
+      ]
+    }
+  ],
+  "experiment_id": "EXP02",
+  "gate_thresholds": {
+    "min_accessible_sources": 3,
+    "min_redacted_rows": 100,
+    "min_synthetic_trace_examples": 10,
+    "require_no_raw_text_in_manifest": true,
+    "require_strict_holdout": true,
+    "require_unsafe_and_benign_labels": true
+  },
+  "intervention_actions": [
+    "allow_continue",
+    "insert_safety_reflection",
+    "replace_with_safe_completion",
+    "ask_clarifying_benign_intent",
+    "refuse_and_redirect"
+  ],
+  "name": "frontier-exp02-self-jailbreak-schema-20260618",
+  "no_model_calls": true,
+  "output_dir": "runs/frontier-exp02-self-jailbreak-schema-20260618",
+  "planned_gated_sources": [
+    {
+      "hf_dataset": "sorry-bench/sorry-bench-202503",
+      "reason": "Dataset Viewer access returned 401 in this environment; keep as formal phase source if license/access is configured.",
+      "source_id": "sorry_bench"
+    }
+  ],
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP02_SELF_JAILBREAK_PROTOCOL_20260618.md",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "split_seed": 20260618,
+  "title": "Step-Level Self-Jailbreak Detection and Training-Free Intervention",
+  "trace_label_set": [
+    "benign_reasoning",
+    "risk_recognition",
+    "refusal_boundary",
+    "override_attempt",
+    "safe_redirect",
+    "false_positive_challenge"
+  ]
+}
