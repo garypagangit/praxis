@@ -1,0 +1,68 @@
+{
+  "name": "frontier-exp04-halueval-nli-full-20260619",
+  "experiment_id": "EXP04",
+  "title": "Dataset-Backed Multi-Turn Hallucination Verification With NLI Evidence Scoring",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP04_KG_HALLUCINATION_PROTOCOL_20260619.md",
+  "smoke_gate": "runs/frontier-exp04-kg-hallucination-smoke-20260619/EXP04_KG_SMOKE_GATE_RESULT_20260619.md",
+  "output_dir": "runs/frontier-exp04-halueval-nli-full-20260619",
+  "split_seed": 20260619,
+  "nli_model": {
+    "model_id": "roberta-large-mnli",
+    "batch_size": 16,
+    "max_length": 512,
+    "use_fp16_on_cuda": true
+  },
+  "validation_source": {
+    "hf_dataset": "pminervini/HaluEval",
+    "hf_config": "qa",
+    "hf_split": "data",
+    "max_rows": 200,
+    "evidence_field": "knowledge",
+    "right_field": "right_answer",
+    "hallucinated_field": "hallucinated_answer",
+    "question_field": "question"
+  },
+  "strict_holdout_source": {
+    "hf_dataset": "pminervini/HaluEval",
+    "hf_config": "dialogue",
+    "hf_split": "data",
+    "max_rows": 200,
+    "evidence_field": "knowledge",
+    "right_field": "right_response",
+    "hallucinated_field": "hallucinated_response",
+    "question_field": "dialogue_history"
+  },
+  "threshold_grid": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "metrics": {
+    "bootstrap_samples": 1000,
+    "target_holdout_hallucination_f1": 0.7,
+    "target_f1_delta_over_lexical": 0.1,
+    "target_holdout_rows": 400
+  },
+  "content_policy": {
+    "commit_raw_dataset_text": false,
+    "model_generation_allowed": false,
+    "committed_artifacts": "hashes_lengths_labels_probabilities_metrics_only"
+  }
+}

@@ -61,9 +61,9 @@
       "working_title": "Step-Level Self-Jailbreak Guardrail",
       "field_area": "Reasoning-model safety",
       "priority": 2,
-      "posture": "schema_gate_pass_ready_for_trace_pilot",
+      "posture": "schema_pass_two_aws_gates_mixed_not_promoted",
       "first_gate": "PASS: redacted source manifest, strict holdout, benign controls, trace schema, and intervention actions established without model calls.",
-      "next_gate": "Generate or collect 100 redacted traces, label steps, fit a lightweight detector, and evaluate F1/boundary localization on strict holdout.",
+      "next_gate": "Continue only with refusal-aware classifier/manual boundary labels that lower safe-response block while preserving response-step recall.",
       "strict_holdout": "Misuse-category holdout plus WildJailBreak OOD attack-style holdout.",
       "primary_metrics": [
         "detector F1",
@@ -100,6 +100,15 @@
         "synthetic_trace_examples": 12,
         "raw_prompt_text_committed": 0,
         "model_calls": 0
+      },
+      "full_gate_summary": {
+        "status": "MIXED_NOT_PROMOTED",
+        "lightweight_prompt_harmful_recall": 0.74,
+        "lightweight_prompt_benign_false_refusal": 0.69,
+        "lightweight_response_step_recall": 0.8158,
+        "guardian_response_step_recall": 1.0,
+        "guardian_caught_unsafe_exposure": 0.131,
+        "guardian_safe_response_block": 0.1818
       }
     },
     {
@@ -108,8 +117,8 @@
       "working_title": "OpenVLA Instruction Diversity Sweep",
       "field_area": "Embodied AI / robot foundation models",
       "priority": 4,
-      "posture": "environment_gate_needed",
-      "first_gate": "Verify OpenVLA/OXE/LIBERO environment and one official evaluation smoke.",
+      "posture": "source_gate_pass_simulator_smoke_pending",
+      "first_gate": "PASS: source/readiness gate verified core repos, model checkpoints, one public LIBERO dataset path, and frozen instruction templates.",
       "strict_holdout": "Held-out instruction templates, LIBERO suite, and robot embodiment.",
       "primary_metrics": [
         "LIBERO success rate",
@@ -123,7 +132,20 @@
         "LIBERO",
         "OpenVLA weights",
         "OpenVLA-OFT recipe"
-      ]
+      ],
+      "source_gate_config": "configs/frontier_exp03_vla_source_gate_20260619.json",
+      "source_gate_script": "scripts/run_frontier_exp03_vla_source_gate.py",
+      "source_gate_output_dir": "runs/frontier-exp03-vla-source-gate-20260619",
+      "source_gate_result": "runs/frontier-exp03-vla-source-gate-20260619/EXP03_VLA_SOURCE_GATE_RESULT_20260619.md",
+      "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP03_VLA_INSTRUCTION_DIVERSITY_PROTOCOL_20260619.md",
+      "source_gate_summary": {
+        "status": "SOURCE_GATE_PASS_SIMULATOR_SMOKE_PENDING",
+        "accessible_repositories": 4,
+        "accessible_hf_models": 5,
+        "accessible_hf_datasets": 1,
+        "instruction_manifest_rows": 48,
+        "heldout_template_rows": 16
+      }
     },
     {
       "id": "EXP04",
@@ -131,8 +153,8 @@
       "working_title": "KG-Grounded Multi-Turn Hallucination Verifier",
       "field_area": "Factuality / reliability",
       "priority": 3,
-      "posture": "schema_gate_needed",
-      "first_gate": "Build 20 multi-turn dialogues and verify Wikidata evidence coverage.",
+      "posture": "kg_smoke_pass_halueval_nli_mixed",
+      "first_gate": "PASS: controlled KG smoke produced 20 dialogues, 60 atomic claims, full KG evidence coverage, and compounding signal.",
       "strict_holdout": "Factual-domain holdout plus model-family holdout.",
       "primary_metrics": [
         "per-turn hallucination rate",
@@ -149,7 +171,28 @@
         "Natural Questions",
         "FaithEval",
         "Wikidata"
-      ]
+      ],
+      "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP04_KG_HALLUCINATION_PROTOCOL_20260619.md",
+      "smoke_config": "configs/frontier_exp04_kg_hallucination_smoke_20260619.json",
+      "smoke_script": "scripts/run_frontier_exp04_kg_smoke_gate.py",
+      "smoke_output_dir": "runs/frontier-exp04-kg-hallucination-smoke-20260619",
+      "smoke_result": "runs/frontier-exp04-kg-hallucination-smoke-20260619/EXP04_KG_SMOKE_GATE_RESULT_20260619.md",
+      "full_config": "configs/frontier_exp04_halueval_nli_full_20260619.json",
+      "full_script": "scripts/run_frontier_exp04_halueval_nli_gate.py",
+      "full_output_dir": "runs/frontier-exp04-halueval-nli-full-20260619",
+      "full_result": "runs/frontier-exp04-halueval-nli-full-20260619/EXP04_HALUEVAL_NLI_GATE_RESULT_20260619.md",
+      "cloud_job_dir": "cloud_jobs/frontier_exp04_halueval_nli_20260619",
+      "result_summary": {
+        "controlled_kg_status": "PASS",
+        "controlled_kg_claims": 60,
+        "controlled_kg_f1": 1.0,
+        "controlled_compounding_slope": 0.25,
+        "halueval_nli_status": "MIXED_NOT_PROMOTED",
+        "halueval_holdout_examples": 400,
+        "halueval_nli_f1": 0.6878,
+        "halueval_lexical_f1": 0.6723,
+        "halueval_f1_delta": 0.0156
+      }
     },
     {
       "id": "EXP05",
@@ -157,8 +200,8 @@
       "working_title": "World-Model Visual Robustness Leaderboard",
       "field_area": "World models / model-based RL",
       "priority": 5,
-      "posture": "compute_heavy_hold_until_smoke",
-      "first_gate": "Install stable-worldmodel and run one Crafter clean plus perturbed evaluation smoke.",
+      "posture": "source_wrapper_gate_pass_agent_eval_pending",
+      "first_gate": "PASS: source/wrapper gate verified repos/packages and frozen visual perturbation wrappers.",
       "strict_holdout": "Held-out perturbation type plus held-out games or levels.",
       "primary_metrics": [
         "human-normalized score retention",
@@ -172,7 +215,21 @@
         "ProcGen",
         "DeepMind Control",
         "stable-worldmodel"
-      ]
+      ],
+      "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP05_WORLDMODEL_VISUAL_ROBUSTNESS_PROTOCOL_20260619.md",
+      "source_gate_config": "configs/frontier_exp05_worldmodel_source_gate_20260619.json",
+      "source_gate_script": "scripts/run_frontier_exp05_worldmodel_source_gate.py",
+      "source_gate_output_dir": "runs/frontier-exp05-worldmodel-source-gate-20260619",
+      "source_gate_result": "runs/frontier-exp05-worldmodel-source-gate-20260619/EXP05_WORLDMODEL_SOURCE_GATE_RESULT_20260619.md",
+      "source_gate_summary": {
+        "status": "SOURCE_GATE_PASS_AGENT_EVAL_PENDING",
+        "accessible_repositories": 4,
+        "accessible_pypi_packages": 2,
+        "perturbation_rows": 4,
+        "heldout_perturbations": 2,
+        "shape_failures": 0,
+        "min_mean_abs_pixel_delta": 0.0193
+      }
     }
   ]
 }

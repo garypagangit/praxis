@@ -1,0 +1,163 @@
+{
+  "atomic_claims": 60,
+  "baseline_always_supported_scores": {
+    "accuracy": 0.5833333333333334,
+    "f1": 0.0,
+    "fn": 15,
+    "fp": 0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "tn": 21,
+    "tp": 0
+  },
+  "baseline_f1_delta": 1.0,
+  "dev_rows": 24,
+  "dialogues": 20,
+  "expected_label_counts": {
+    "refuted": 25,
+    "supported": 35
+  },
+  "generated_utc": "2026-06-19T13:19:48.727141+00:00",
+  "holdout_expected_label_counts": {
+    "refuted": 15,
+    "supported": 21
+  },
+  "kg_evidence_coverage_ci": {
+    "hi": 1.0,
+    "lo": 1.0,
+    "mean": 1.0
+  },
+  "kg_hallucination_scores": {
+    "accuracy": 1.0,
+    "f1": 1.0,
+    "fn": 0,
+    "fp": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "tn": 21,
+    "tp": 15
+  },
+  "publish_checks": {
+    "atomic_claim_count": true,
+    "beats_baseline_f1": true,
+    "compounding_slope": true,
+    "dialogue_count": true,
+    "kg_evidence_coverage": true,
+    "kg_verifier_f1": true,
+    "strict_holdout_rows": true
+  },
+  "source_checks": [
+    {
+      "hf_dataset": "pminervini/HaluEval",
+      "is_valid": true,
+      "name": "HaluEval",
+      "splits": [
+        {
+          "config": "dialogue",
+          "num_rows": null,
+          "split": "data"
+        },
+        {
+          "config": "dialogue_samples",
+          "num_rows": null,
+          "split": "data"
+        },
+        {
+          "config": "general",
+          "num_rows": null,
+          "split": "data"
+        },
+        {
+          "config": "qa",
+          "num_rows": null,
+          "split": "data"
+        },
+        {
+          "config": "qa_samples",
+          "num_rows": null,
+          "split": "data"
+        },
+        {
+          "config": "summarization",
+          "num_rows": null,
+          "split": "data"
+        },
+        {
+          "config": "summarization_samples",
+          "num_rows": null,
+          "split": "data"
+        }
+      ],
+      "status": "ACCESSIBLE"
+    },
+    {
+      "hf_dataset": "hotpotqa/hotpot_qa",
+      "is_valid": true,
+      "name": "HotpotQA",
+      "splits": [
+        {
+          "config": "distractor",
+          "num_rows": null,
+          "split": "train"
+        },
+        {
+          "config": "distractor",
+          "num_rows": null,
+          "split": "validation"
+        },
+        {
+          "config": "fullwiki",
+          "num_rows": null,
+          "split": "train"
+        },
+        {
+          "config": "fullwiki",
+          "num_rows": null,
+          "split": "validation"
+        },
+        {
+          "config": "fullwiki",
+          "num_rows": null,
+          "split": "test"
+        }
+      ],
+      "status": "ACCESSIBLE"
+    },
+    {
+      "hf_dataset": "PatronusAI/HaluBench",
+      "is_valid": true,
+      "name": "HaluBench",
+      "splits": [
+        {
+          "config": "default",
+          "num_rows": null,
+          "split": "test"
+        }
+      ],
+      "status": "ACCESSIBLE"
+    }
+  ],
+  "status": "PASS - READY FOR FULL EXP04 GATE",
+  "strict_holdout_rows": 36,
+  "turn3_minus_turn1_hallucination_rate": 0.25,
+  "turn_hallucination_rates_holdout": {
+    "1": {
+      "hi": 0.5,
+      "lo": 0.0,
+      "mean": 0.25,
+      "rows": 12
+    },
+    "2": {
+      "hi": 0.75,
+      "lo": 0.25,
+      "mean": 0.5,
+      "rows": 12
+    },
+    "3": {
+      "hi": 0.75,
+      "lo": 0.25,
+      "mean": 0.5,
+      "rows": 12
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "frontier-exp03-vla-source-gate-20260619",
+  "experiment_id": "EXP03",
+  "title": "Instruction Diversity and Linguistic Generalisation in Vision-Language-Action Models",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP03_VLA_INSTRUCTION_DIVERSITY_PROTOCOL_20260619.md",
+  "output_dir": "runs/frontier-exp03-vla-source-gate-20260619",
+  "split_seed": 20260619,
+  "github_repositories": [
+    "openvla/openvla",
+    "moojink/openvla-oft",
+    "Lifelong-Robot-Learning/LIBERO",
+    "rail-berkeley/bridge_data_robot"
+  ],
+  "hf_models": [
+    "openvla/openvla-7b",
+    "openvla/openvla-7b-finetuned-libero-spatial",
+    "openvla/openvla-7b-finetuned-libero-10",
+    "moojink/openvla-7b-oft-finetuned-libero-10",
+    "moojink/openvla-7b-oft-finetuned-libero-spatial"
+  ],
+  "hf_datasets": [
+    "lerobot/libero_10",
+    "lerobot/libero_spatial",
+    "lerobot/libero_object",
+    "lerobot/libero_goal",
+    "lerobot/bridge_v2"
+  ],
+  "task_templates": [
+    {
+      "task_id": "libero_spatial_put_bowl_on_plate",
+      "suite": "LIBERO-Spatial",
+      "base_instruction": "put the black bowl on the plate"
+    },
+    {
+      "task_id": "libero_spatial_move_mug_left",
+      "suite": "LIBERO-Spatial",
+      "base_instruction": "move the mug to the left side of the tray"
+    },
+    {
+      "task_id": "libero_object_open_drawer",
+      "suite": "LIBERO-Object",
+      "base_instruction": "open the top drawer"
+    },
+    {
+      "task_id": "libero_object_pick_tomato",
+      "suite": "LIBERO-Object",
+      "base_instruction": "pick up the tomato"
+    },
+    {
+      "task_id": "libero_goal_place_book",
+      "suite": "LIBERO-Goal",
+      "base_instruction": "place the book on the shelf"
+    },
+    {
+      "task_id": "libero_goal_close_cabinet",
+      "suite": "LIBERO-Goal",
+      "base_instruction": "close the cabinet door"
+    },
+    {
+      "task_id": "libero_10_turn_stove",
+      "suite": "LIBERO-10",
+      "base_instruction": "turn on the stove"
+    },
+    {
+      "task_id": "libero_10_put_cup",
+      "suite": "LIBERO-10",
+      "base_instruction": "put the cup in the sink"
+    }
+  ],
+  "variant_templates": {
+    "train": [
+      "{base_instruction}",
+      "please {base_instruction}",
+      "can you {base_instruction}",
+      "carefully {base_instruction}"
+    ],
+    "heldout": [
+      "without rushing, {base_instruction}",
+      "perform the task where you {base_instruction}"
+    ]
+  },
+  "metrics": {
+    "min_accessible_repositories": 3,
+    "min_accessible_models": 3,
+    "min_accessible_datasets": 1,
+    "min_manifest_rows": 48,
+    "min_heldout_template_rows": 16
+  }
+}

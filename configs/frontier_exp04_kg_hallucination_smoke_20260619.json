@@ -1,0 +1,41 @@
+{
+  "name": "frontier-exp04-kg-hallucination-smoke-20260619",
+  "experiment_id": "EXP04",
+  "title": "Multi-Turn Hallucination Compounding and Knowledge-Graph-Grounded Verification",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP04_KG_HALLUCINATION_PROTOCOL_20260619.md",
+  "output_dir": "runs/frontier-exp04-kg-hallucination-smoke-20260619",
+  "split_seed": 20260619,
+  "smoke_dialogues": 20,
+  "turns_per_dialogue": 3,
+  "kg_endpoint": "https://query.wikidata.org/sparql",
+  "kg_backend": "wikidata_api",
+  "wikidata_api": "https://www.wikidata.org/w/api.php",
+  "user_agent": "praxis-exp04-kg-hallucination-smoke/20260619 (local research gate)",
+  "source_checks": [
+    {
+      "name": "HaluEval",
+      "hf_dataset": "pminervini/HaluEval"
+    },
+    {
+      "name": "HotpotQA",
+      "hf_dataset": "hotpotqa/hotpot_qa"
+    },
+    {
+      "name": "HaluBench",
+      "hf_dataset": "PatronusAI/HaluBench"
+    }
+  ],
+  "metrics": {
+    "min_kg_evidence_coverage": 0.8,
+    "min_verifier_f1": 0.85,
+    "min_strict_holdout_rows": 24,
+    "target_turn3_minus_turn1_hallucination_rate": 0.1,
+    "bootstrap_samples": 1000
+  },
+  "content_policy": {
+    "safe_to_commit_claim_text": true,
+    "model_generation_allowed": false,
+    "committed_artifacts": "factual_claims_qids_sparql_predictions_metrics_only"
+  }
+}
