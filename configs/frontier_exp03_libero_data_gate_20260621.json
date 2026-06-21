@@ -1,0 +1,41 @@
+{
+  "name": "frontier-exp03-libero-data-gate-20260621",
+  "experiment_id": "EXP03",
+  "title": "LIBERO Public Data and Simulator Readiness Gate",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP03_VLA_INSTRUCTION_DIVERSITY_PROTOCOL_20260619.md",
+  "prior_gate": "runs/frontier-exp03-vla-source-gate-20260619/EXP03_VLA_SOURCE_GATE_RESULT_20260619.md",
+  "output_dir": "runs/frontier-exp03-libero-data-gate-20260621",
+  "split_seed": 20260621,
+  "dataset": {
+    "dataset_id": "lerobot/libero_10",
+    "config": "default",
+    "split": "train",
+    "repo_base": "https://huggingface.co/datasets/lerobot/libero_10/resolve/main",
+    "expected_min_frames": 100000,
+    "expected_min_episodes": 300,
+    "expected_min_tasks": 10
+  },
+  "required_imports": [
+    "libero",
+    "robosuite",
+    "torch",
+    "transformers",
+    "gymnasium"
+  ],
+  "language_column_patterns": [
+    "instruction",
+    "language",
+    "task",
+    "text",
+    "prompt"
+  ],
+  "metrics": {
+    "min_public_frames": 100000,
+    "min_public_episodes": 300,
+    "min_public_tasks": 10,
+    "require_task_text_metadata": true,
+    "require_language_columns": true,
+    "require_simulator_imports": true
+  }
+}

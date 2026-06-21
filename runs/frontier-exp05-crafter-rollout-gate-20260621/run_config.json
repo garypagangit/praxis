@@ -1,0 +1,62 @@
+{
+  "claim_boundary": {
+    "agent_type": "deterministic_observation_checksum_policy",
+    "raw_frames_committed": false,
+    "training_performed": false,
+    "world_model_agent": false
+  },
+  "environment": {
+    "action_count": 17,
+    "episode_length": 1000,
+    "observation_shape": [
+      64,
+      64,
+      3
+    ],
+    "package": "crafter"
+  },
+  "experiment_id": "EXP05",
+  "metrics": {
+    "min_completed_episodes": 25,
+    "min_heldout_episodes": 10,
+    "min_nonzero_pixel_delta": 0.01,
+    "training_augmentation_required": true,
+    "world_model_paradigms_required": 2
+  },
+  "name": "frontier-exp05-crafter-rollout-gate-20260621",
+  "output_dir": "runs/frontier-exp05-crafter-rollout-gate-20260621",
+  "perturbations": [
+    {
+      "name": "brightness_down",
+      "split_role": "dev_perturbation",
+      "strength": 0.65
+    },
+    {
+      "name": "contrast_shift",
+      "split_role": "dev_perturbation",
+      "strength": 1.35
+    },
+    {
+      "name": "center_occlusion",
+      "split_role": "heldout_perturbation",
+      "strength": 0.25
+    },
+    {
+      "name": "salt_pepper",
+      "split_role": "heldout_perturbation",
+      "strength": 0.04
+    }
+  ],
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP05_WORLDMODEL_VISUAL_ROBUSTNESS_PROTOCOL_20260619.md",
+  "prior_gate": "runs/frontier-exp05-worldmodel-source-gate-20260619/EXP05_WORLDMODEL_SOURCE_GATE_RESULT_20260619.md",
+  "seeds": [
+    11,
+    23,
+    37,
+    41,
+    53
+  ],
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "split_seed": 20260621,
+  "title": "Crafter Clean/Perturbed Rollout Environment Gate"
+}

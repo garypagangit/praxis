@@ -1,15 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Experiment Current Dashboard</title><style>:root{--ink:#111827;--muted:#4b5563;--line:#d1d5db;--soft:#f8fafc;--blue:#1d4ed8;--blue-soft:#dbeafe}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);background:#eef2f7;line-height:1.55}main{max-width:1220px;margin:28px auto;background:white;padding:42px 48px;border:1px solid #e5e7eb;box-shadow:0 18px 60px rgba(15,23,42,.10)}h1{font-size:34px;line-height:1.15;margin:0 0 18px;padding-bottom:14px;border-bottom:4px solid var(--blue)}h2{font-size:23px;margin-top:34px;padding-bottom:6px;border-bottom:1px solid var(--line)}p{margin:12px 0}li{margin:5px 0}code{background:#f3f4f6;border:1px solid #e5e7eb;padding:1px 5px;border-radius:4px;font-family:Consolas,"Liberation Mono",monospace;font-size:.93em}pre{background:#111827;color:#f9fafb;padding:16px;overflow:auto;border-radius:8px}pre code{background:transparent;border:0;color:inherit;padding:0}.table-wrap{overflow-x:auto;margin:16px 0 24px;border:1px solid var(--line);border-radius:8px}table{width:100%;border-collapse:collapse;min-width:820px}th{background:var(--blue-soft);color:#0f172a;font-weight:700;text-align:left}th,td{border-bottom:1px solid #e5e7eb;padding:9px 11px;vertical-align:top}tr:nth-child(even)td{background:var(--soft)}tr:last-child td{border-bottom:0}.meta{color:var(--muted);font-size:13px;margin-bottom:24px}.print-note{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}@media print{body{background:white}main{box-shadow:none;border:0;margin:0;max-width:none;padding:20px}.table-wrap{overflow:visible}}</style></head>
-<body><main><div class="meta">Exported from <code>reports\frontier_ai_ml_experiments_20260618\FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md</code> on 2026-06-19.</div>
+<body><main><div class="meta">Exported from <code>reports\frontier_ai_ml_experiments_20260618\FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md</code> on 2026-06-21.</div>
 <h1>Frontier AI/ML Experiment Dashboard</h1>
-<p>Updated: 2026-06-19</p>
+<p>Updated: 2026-06-21</p>
 <p>Source brief: <code>C:\Users\garyp\Downloads\AI_ML_Praxis_Experiment_Templates.docx</code>.</p>
-<p>Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream. EXP01 has a full preliminary AWS result but is not being promoted. EXP02 has a schema pass plus two AWS guardrail gates; it produced a strong response-prefix signal but is not being promoted because utility controls fail. EXP03, EXP04, and EXP05 now each have first-pass Praxis gates. Each experiment below is framed with a thesis, gate state, evidence target, compute posture, and stop rule.</p>
+<p>Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream and close the batch with explicit final determinations. EXP01 has a full preliminary AWS result but is not being promoted. EXP02 has a schema pass plus two AWS guardrail gates; it produced a strong response-prefix signal but is not being promoted because utility controls fail. EXP03 is stopped/reframed because the public LIBERO path lacks language metadata and local simulator/model imports. EXP04 has a controlled KG positive but failed external verifier promotion. EXP05 now has an executable Crafter environment smoke but not a learned world-model result.</p>
+<p>Open-first final batch decision: <code>reports/frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md</code>.</p>
 <h2>Start Decision</h2>
 <p>We have completed the first full preliminary AWS run for <strong>Experiment 01 - Cross-Model Transferability of Test-Time Compute Strategies</strong>.</p>
 <p>Current status: <strong>EXP01 preliminary full-run result present, provisional / do not overclaim</strong>. The split-readiness gate passed, then the AWS run evaluated <code>4</code> open 7B-class models across <code>160</code> public benchmark rows, <code>2</code> strategy classes, and budgets <code>K={1,2,4,8}</code>. Policy selection used GSM8K validation-policy rows only; final checks used a GSM8K in-domain test split plus a strict MATH-500 holdout that was not used for policy selection.</p>
-<p>Current batch completed: <strong>EXP03-EXP05 first gates plus EXP04 AWS verifier gate</strong>. EXP04 is now the most mature next candidate: the controlled KG smoke passed, but the real HaluEval NLI strict holdout is mixed and needs a stronger verifier before publication.</p>
+<p>Current batch completed: <strong>all five frontier experiments have final current-cycle determinations</strong>. No experiment in this batch is promoted as a new publishable positive thesis result. The batch is preserved as a defensible audit trail of provisional, mixed, stopped, or environment-only results.</p>
 <p>What the first run shows:</p>
 <ul>
 <li>The transfer matrix is complete for the configured model set: <code>32</code> rows.</li>
@@ -19,9 +20,9 @@
 <li>The feature-engineered Optuna predictor completed but did not generalize: leave-one-target-family R2 <code>-14.9408</code>.</li>
 <li>Internal defense verdict: preliminary evidence suitable for a slide or committee update, not yet a Praxis-level claim. H1 still needs verifier/scorer best-of-N, and H3 still needs sequential refinement or a formal drop.</li>
 <li>EXP02 schema handling passed, and two AWS guardrail gates completed. The open guardian response-prefix run caught <code>38/38</code> unsafe held-out responses with average caught exposure <code>0.1310</code>, but blocked <code>12/66</code> safe responses and over-refused <code>87/100</code> benign prompt controls. Decision: preserve as a strong pilot, not a publication-ready thesis proof.</li>
-<li>EXP04 controlled KG smoke passed: <code>20</code> dialogues, <code>60</code> atomic claims, strict holdout <code>36</code> claims, KG evidence coverage <code>1.0000</code>, KG hallucination F1 <code>1.0000</code>, and turn-3 minus turn-1 hallucination rate <code>0.2500</code>. The AWS HaluEval NLI gate was mixed: strict dialogue holdout F1 <code>0.6878</code>, lexical baseline F1 <code>0.6723</code>, delta <code>+0.0156</code>.</li>
-<li>EXP03 source/readiness gate passed: <code>4</code> repos, <code>5</code> HF models, <code>1</code> public LIBERO dataset path, and <code>48</code> frozen instruction-template rows. Simulator smoke is still pending.</li>
-<li>EXP05 source/wrapper gate passed: <code>4</code> repos, <code>2</code> PyPI packages, <code>4</code> perturbation wrappers, <code>2</code> held-out perturbations, and <code>0</code> shape failures. Agent evaluation is still pending.</li>
+<li>EXP04 controlled KG smoke passed: <code>20</code> dialogues, <code>60</code> atomic claims, strict holdout <code>36</code> claims, KG evidence coverage <code>1.0000</code>, KG hallucination F1 <code>1.0000</code>, and turn-3 minus turn-1 hallucination rate <code>0.2500</code>. The AWS HaluEval NLI gate was mixed. The final HaluEval dialogue feature gate failed promotion: evidence+numeric strict holdout F1 <code>0.7215</code>, response-only F1 <code>0.7835</code>.</li>
+<li>EXP03 source/readiness gate passed, but the final LIBERO data gate stopped the claim: public <code>lerobot/libero_10</code> has <code>101,469</code> frames and <code>379</code> episodes, but no language/instruction columns and no task text metadata; local required imports were <code>0/5</code>.</li>
+<li>EXP05 source/wrapper gate passed, and the Crafter environment gate completed <code>25</code> clean/dev/held-out perturbation episodes. The thesis is not promoted because the agent was a deterministic observation-checksum policy, not a learned world-model, and no multi-paradigm or augmentation test ran.</li>
 </ul>
 <h2>Experiment Queue</h2>
 <div class="table-wrap"><table>
@@ -29,9 +30,9 @@
 <tbody>
 <tr><td>1</td><td>EXP01</td><td>Cross-Model Transferability of Test-Time Compute Strategies</td><td>Reasoning / inference efficiency</td><td>Preliminary full AWS result present; provisional</td><td>Add verifier best-of-N, sequential refinement or drop H3, and manual scoring audit</td><td>Transfer matrix, retention metric, negative predictor result, defense challenge</td></tr>
 <tr><td>2</td><td>EXP02</td><td>Step-Level Self-Jailbreak Detection and Training-Free Intervention</td><td>Reasoning-model safety</td><td>Schema PASS plus two AWS gates complete; response-prefix signal present, utility gate failed</td><td>Continue only with refusal-aware classifier/manual boundary labels, or move queue forward</td><td>Redacted guardrail pilot, open guardian early-detection result, over-refusal blocker</td></tr>
-<tr><td>3</td><td>EXP04</td><td>Multi-Turn Hallucination Compounding and KG-Grounded Verification</td><td>Factuality / reliability</td><td>KG smoke PASS; AWS HaluEval NLI mixed</td><td>Add stronger verifier/entity-grounding before live-model mitigation claim</td><td>Controlled KG compounding result plus HaluEval strict-holdout pilot</td></tr>
-<tr><td>4</td><td>EXP03</td><td>Instruction Diversity and Linguistic Generalisation in VLA Models</td><td>Embodied AI / robot foundation models</td><td>Source gate PASS; simulator smoke pending</td><td>Install LIBERO/OpenVLA-OFT and reproduce one official eval smoke</td><td>Frozen instruction-template manifest and asset map</td></tr>
-<tr><td>5</td><td>EXP05</td><td>Cross-Paradigm Visual Robustness of World-Model Agents</td><td>World models / model-based RL</td><td>Source/wrapper gate PASS; agent eval pending</td><td>Install Crafter/Craftax/stable-worldmodel and run clean plus perturbed rollout</td><td>Frozen perturbation manifest and source map</td></tr>
+<tr><td>3</td><td>EXP04</td><td>Multi-Turn Hallucination Compounding and KG-Grounded Verification</td><td>Factuality / reliability</td><td>Final failed promotion; response artifacts beat evidence features</td><td>Stop rescue runs for this cycle</td><td>Controlled KG positive plus external verifier failure</td></tr>
+<tr><td>4</td><td>EXP03</td><td>Instruction Diversity and Linguistic Generalisation in VLA Models</td><td>Embodied AI / robot foundation models</td><td>Final stop/reframe; public data lacks language metadata</td><td>Reopen only with instruction metadata and official simulator stack</td><td>LIBERO data/schema blocker</td></tr>
+<tr><td>5</td><td>EXP05</td><td>Cross-Paradigm Visual Robustness of World-Model Agents</td><td>World models / model-based RL</td><td>Environment smoke PASS; thesis not promoted</td><td>Reopen only with trained world-model baseline</td><td>Crafter clean/perturbed rollout smoke</td></tr>
 </tbody></table></div>
 <h2>EXP01 - Cross-Model Transferability of Test-Time Compute Strategies</h2>
 <p><strong>Thesis:</strong> test-time compute scaling strategies are not fully model-agnostic; compute-optimal policies discovered on one model family may degrade when transferred to another family or scale.</p>
@@ -61,8 +62,8 @@
 <p><strong>Hypotheses:</strong> paraphrase robustness rises and saturates near five variants per trajectory; exact-task success stays roughly flat; cross-embodiment transfer improves.</p>
 <p><strong>Datasets and tools:</strong> Open X-Embodiment, Bridge V2, LIBERO, OpenVLA-7B, OpenVLA-OFT.</p>
 <p><strong>First gate:</strong> environment readiness. Install LIBERO/OpenVLA-OFT, load one Bridge/OXE subset, and run one official evaluation smoke before any LoRA sweep.</p>
-<p><strong>Completed gate:</strong> source/readiness gate PASS on 2026-06-19. The gate verified <code>4</code> GitHub repositories, <code>5</code> HF model checkpoints, and one public Dataset Viewer path: <code>lerobot/libero_10</code>. Several related datasets returned <code>401</code> from this environment (<code>lerobot/libero_spatial</code>, <code>lerobot/libero_object</code>, <code>lerobot/libero_goal</code>, <code>lerobot/bridge_v2</code>). It also froze <code>48</code> instruction-template rows, including <code>16</code> held-out template rows with mean heldout/base token Jaccard <code>0.6264</code>.</p>
-<p><strong>Promotion gate:</strong> 0/1/5/10 variant sweep with three seeds, confidence intervals, held-out instruction templates, and one held-out embodiment.</p>
+<p><strong>Completed gates:</strong> source/readiness gate PASS on 2026-06-19. The gate verified <code>4</code> GitHub repositories, <code>5</code> HF model checkpoints, and one public Dataset Viewer path: <code>lerobot/libero_10</code>. The final LIBERO data/simulator gate on 2026-06-21 stopped the current thesis path: public <code>lerobot/libero_10</code> has <code>101,469</code> frames, <code>379</code> episodes, and <code>10</code> task indices, but the available schema exposes only <code>observation.state</code>, <code>action</code>, <code>timestamp</code>, <code>frame_index</code>, <code>episode_index</code>, <code>index</code>, and <code>task_index</code>. There are no natural-language instruction columns or task text metadata, and required local imports <code>libero</code>, <code>robosuite</code>, <code>torch</code>, <code>transformers</code>, and <code>gymnasium</code> are unavailable.</p>
+<p><strong>Final determination:</strong> stop/reframe for this cycle. The public data supports data-loader work, not instruction-diversity VLA evaluation.</p>
 <p><strong>Stop rule:</strong> stop if the simulation/evaluation stack cannot reproduce baseline success within tolerance before augmentation.</p>
 <h2>EXP04 - Multi-Turn Hallucination Compounding and KG-Grounded Verification</h2>
 <p><strong>Thesis:</strong> hallucination compounds across conversational turns when later turns reference prior answers; a knowledge-graph-grounded verifier can measure and reduce this compounding more faithfully than single-turn checks.</p>
@@ -70,8 +71,8 @@
 <p><strong>Hypotheses:</strong> hallucination rate rises monotonically with depth on reference-carrying turns; KG verifier has higher detection F1; correction reduces hallucination at modest helpfulness cost.</p>
 <p><strong>Datasets and tools:</strong> HaluEval, HaluEval 2.0, HotpotQA, Natural Questions, FaithEval, Wikidata.</p>
 <p><strong>First gate:</strong> build 20 multi-turn dialogues and a claim-extraction/verification schema; verify that Wikidata entity linking and SPARQL evidence are usable on at least 80% of atomic claims in the smoke set.</p>
-<p><strong>Completed gates:</strong> controlled KG smoke PASS on 2026-06-19. It produced <code>20</code> dialogues and <code>60</code> atomic claims, with strict holdout <code>36</code> claims, KG evidence coverage <code>1.0000</code>, KG hallucination F1 <code>1.0000</code>, and turn-3 minus turn-1 hallucination rate <code>0.2500</code>. Wikidata SPARQL was under public rate-limit, so the gate used batched Wikidata entity API evidence as the KG backend. The AWS HaluEval NLI gate then ran on <code>roberta-large-mnli</code>, tuning on HaluEval QA and evaluating on HaluEval dialogue strict holdout. It was mixed: F1 <code>0.6878</code> CI <code>[0.6461, 0.7332]</code>, accuracy <code>0.5575</code>, lexical baseline F1 <code>0.6723</code>, delta <code>+0.0156</code>.</p>
-<p><strong>Promotion gate:</strong> domain-holdout verifier evaluation with human-calibrated labels and bootstrap confidence intervals for per-turn hallucination slopes.</p>
+<p><strong>Completed gates:</strong> controlled KG smoke PASS on 2026-06-19. It produced <code>20</code> dialogues and <code>60</code> atomic claims, with strict holdout <code>36</code> claims, KG evidence coverage <code>1.0000</code>, KG hallucination F1 <code>1.0000</code>, and turn-3 minus turn-1 hallucination rate <code>0.2500</code>. Wikidata SPARQL was under public rate-limit, so the gate used batched Wikidata entity API evidence as the KG backend. The AWS HaluEval NLI gate then ran on <code>roberta-large-mnli</code>, tuning on HaluEval QA and evaluating on HaluEval dialogue strict holdout. It was mixed: F1 <code>0.6878</code> CI <code>[0.6461, 0.7332]</code>, accuracy <code>0.5575</code>, lexical baseline F1 <code>0.6723</code>, delta <code>+0.0156</code>. The final HaluEval dialogue feature gate trained row-disjoint response/evidence/numeric baselines on <code>12,118</code> train examples, selected thresholds on <code>2,990</code> validation examples, tested on <code>2,970</code> examples, and evaluated <code>1,922</code> strict-holdout examples. Evidence+numeric F1 was <code>0.7215</code>, but response-only F1 was <code>0.7835</code>.</p>
+<p><strong>Final determination:</strong> do not promote as a positive. The current evidence-aware verifier loses to response artifacts on a sealed HaluEval holdout.</p>
 <p><strong>Stop rule:</strong> stop or reframe if entity linking leaves too many claims unverifiable, target unverifiable rate <code>&gt;40%</code> on the smoke.</p>
 <h2>EXP05 - Cross-Paradigm Visual Robustness of World-Model Agents</h2>
 <p><strong>Thesis:</strong> world-model agent robustness to visual distribution shift depends on representation paradigm; a controlled platform can produce a robustness leaderboard and test an augmentation remedy.</p>
@@ -79,8 +80,8 @@
 <p><strong>Hypotheses:</strong> diffusion world models retain more score under fine-grained perturbations; robustness relates to compression ratio; training-time observation augmentation improves retention with minimal clean-score cost.</p>
 <p><strong>Datasets and tools:</strong> Atari 100K, Crafter/Craftax, ProcGen, DeepMind Control, stable-worldmodel.</p>
 <p><strong>First gate:</strong> install stable-worldmodel and run one Crafter agent evaluation under clean frames plus one perturbation wrapper.</p>
-<p><strong>Completed gate:</strong> source/wrapper gate PASS on 2026-06-19. It verified <code>4</code> repositories (<code>stable-worldmodel</code>, <code>crafter</code>, <code>craftax</code>, <code>dreamerv3</code>), <code>2</code> PyPI packages (<code>crafter</code>, <code>craftax</code>), and <code>4</code> frozen visual perturbation wrappers. Both held-out perturbations are explicit (<code>center_occlusion</code>, <code>salt_pepper</code>), all wrappers preserved <code>64x64x3</code> observation shape, and minimum mean absolute pixel delta was <code>0.0193</code>.</p>
-<p><strong>Promotion gate:</strong> at least five seeds, interquartile mean and bootstrap confidence intervals, held-out perturbation type, and clean-score convergence checks.</p>
+<p><strong>Completed gates:</strong> source/wrapper gate PASS on 2026-06-19. It verified <code>4</code> repositories (<code>stable-worldmodel</code>, <code>crafter</code>, <code>craftax</code>, <code>dreamerv3</code>), <code>2</code> PyPI packages (<code>crafter</code>, <code>craftax</code>), and <code>4</code> frozen visual perturbation wrappers. Both held-out perturbations are explicit (<code>center_occlusion</code>, <code>salt_pepper</code>), all wrappers preserved <code>64x64x3</code> observation shape, and minimum mean absolute pixel delta was <code>0.0193</code>. The final Crafter rollout gate on 2026-06-21 completed <code>25</code> episodes across clean, dev perturbations, and held-out perturbations using a deterministic observation-checksum policy. Clean mean reward was <code>1.5000</code>; held-out <code>center_occlusion</code> mean reward was <code>2.7000</code>; held-out <code>salt_pepper</code> mean reward was <code>1.7000</code>.</p>
+<p><strong>Final determination:</strong> environment path passes, but the world-model thesis is not promoted. The run did not evaluate a learned world-model agent, multiple paradigms, or augmentation.</p>
 <p><strong>Stop rule:</strong> stop if clean baseline scores cannot be reproduced within tolerance or visual wrappers change environment semantics rather than perception only.</p>
 <h2>Shared Gating Rules</h2>
 <div class="table-wrap"><table>
@@ -233,18 +234,18 @@
 <p>The useful signal is real: open guardian response-prefix monitoring caught all unsafe held-out responses very early. The thesis is not proven because both prompt-level and response-level utility controls over-block safe/benign examples. Preserve this as a strong pilot and continue EXP02 only if the next gate directly targets refusal-aware safe-response preservation.</p>
 <h2>EXP04 Results</h2>
 <div class="table-wrap"><table>
-<thead><tr><th>Item</th><th>Controlled KG smoke</th><th>AWS HaluEval NLI gate</th></tr></thead>
+<thead><tr><th>Item</th><th>Controlled KG smoke</th><th>AWS HaluEval NLI gate</th><th>HaluEval dialogue feature gate</th></tr></thead>
 <tbody>
-<tr><td>Status</td><td>PASS</td><td>MIXED</td></tr>
-<tr><td>Rows</td><td><code>60</code> atomic claims</td><td><code>400</code> strict holdout examples</td></tr>
-<tr><td>Strict holdout</td><td><code>36</code> claims</td><td>HaluEval dialogue</td></tr>
-<tr><td>Main F1</td><td><code>1.0000</code></td><td><code>0.6878</code></td></tr>
-<tr><td>Baseline F1</td><td><code>0.0000</code> always-supported</td><td><code>0.6723</code> lexical</td></tr>
-<tr><td>Delta</td><td><code>+1.0000</code></td><td><code>+0.0156</code></td></tr>
-<tr><td>Main limitation</td><td>Controlled templates</td><td>Weak external-holdout lift</td></tr>
+<tr><td>Status</td><td>PASS</td><td>MIXED</td><td>FAILED PROMOTION</td></tr>
+<tr><td>Rows</td><td><code>60</code> atomic claims</td><td><code>400</code> strict holdout examples</td><td><code>1,922</code> strict holdout examples</td></tr>
+<tr><td>Strict holdout</td><td><code>36</code> claims</td><td>HaluEval dialogue</td><td>Row-disjoint HaluEval dialogue</td></tr>
+<tr><td>Main F1</td><td><code>1.0000</code></td><td><code>0.6878</code></td><td><code>0.7215</code> evidence+numeric</td></tr>
+<tr><td>Baseline F1</td><td><code>0.0000</code> always-supported</td><td><code>0.6723</code> lexical</td><td><code>0.7835</code> response-only</td></tr>
+<tr><td>Delta</td><td><code>+1.0000</code></td><td><code>+0.0156</code></td><td><code>-0.0620</code> vs response-only</td></tr>
+<tr><td>Main limitation</td><td>Controlled templates</td><td>Weak external-holdout lift</td><td>Evidence features lose to artifacts</td></tr>
 </tbody></table></div>
-<p>EXP04 is worth keeping as the next possible publication path, but not as-is. The controlled KG measurement works; the external HaluEval verifier is not strong enough yet.</p>
-<h2>EXP03 Source Gate</h2>
+<p>EXP04 is closed for this cycle. The controlled KG measurement works, but the external HaluEval verifier is not strong enough for a positive publication claim.</p>
+<h2>EXP03 Final Data Gate</h2>
 <div class="table-wrap"><table>
 <thead><tr><th>Item</th><th>Value</th></tr></thead>
 <tbody>
@@ -254,9 +255,15 @@
 <tr><td>Instruction manifest rows</td><td><code>48</code></td></tr>
 <tr><td>Held-out template rows</td><td><code>16</code></td></tr>
 <tr><td>Mean heldout/base token Jaccard</td><td><code>0.6264</code></td></tr>
+<tr><td>Public LIBERO frames</td><td><code>101,469</code></td></tr>
+<tr><td>Public LIBERO episodes</td><td><code>379</code></td></tr>
+<tr><td>Public LIBERO task indices</td><td><code>10</code></td></tr>
+<tr><td>Language columns in public data</td><td><code>0</code></td></tr>
+<tr><td>Task text metadata columns</td><td><code>0</code></td></tr>
+<tr><td>Required local simulator/model imports</td><td><code>0/5</code></td></tr>
 </tbody></table></div>
-<p>This is a readiness result only. The simulator/evaluation stack must still be installed and smoke-tested.</p>
-<h2>EXP05 Source Gate</h2>
+<p>EXP03 is stopped/reframed for this cycle. The public data is real, but it is not sufficient to test instruction-diversity VLA generalisation.</p>
+<h2>EXP05 Final Rollout Gate</h2>
 <div class="table-wrap"><table>
 <thead><tr><th>Item</th><th>Value</th></tr></thead>
 <tbody>
@@ -266,14 +273,20 @@
 <tr><td>Held-out perturbations</td><td><code>2</code></td></tr>
 <tr><td>Shape failures</td><td><code>0</code></td></tr>
 <tr><td>Minimum mean absolute pixel delta</td><td><code>0.0193</code></td></tr>
+<tr><td>Crafter episodes completed</td><td><code>25</code></td></tr>
+<tr><td>Clean mean reward</td><td><code>1.5000</code></td></tr>
+<tr><td>Held-out center occlusion reward</td><td><code>2.7000</code></td></tr>
+<tr><td>Held-out salt-pepper reward</td><td><code>1.7000</code></td></tr>
+<tr><td>Learned world-model agent</td><td><code>False</code></td></tr>
+<tr><td>Multiple paradigms</td><td><code>False</code></td></tr>
 </tbody></table></div>
-<p>This is a readiness result only. Agent score retention is still unmeasured.</p>
+<p>EXP05 has an executable environment smoke but remains parked as a thesis claim. The measured agent is a deterministic observation-checksum policy, not a learned world-model.</p>
 <h2>Next Action</h2>
-<p>Recommended queue:</p>
+<p>Recommended decision:</p>
 <ol>
-<li>Continue EXP04 with a stronger verifier: entity/claim extraction plus KG/text evidence, not plain NLI alone.</li>
-<li>Run EXP03 simulator install smoke on AWS only when prepared for a long dependency/debug cycle.</li>
-<li>Run EXP05 clean/perturbed Crafter or Craftax rollout next if a fast agent baseline is acceptable.</li>
-<li>Keep EXP02 parked until the next gate directly targets the <code>0.1818</code> safe-response block problem.</li>
+<li>Close this frontier batch for the current cycle.</li>
+<li>Do not start more rescue runs on EXP03-EXP05 unless new external assets are added: instruction metadata and simulator stack for EXP03, a learned world-model baseline for EXP05, or a stronger evidence mechanism for EXP04.</li>
+<li>Preserve EXP01-EXP05 as a defensible experiment audit trail and negative/control evidence.</li>
+<li>Return publication effort to the stronger Praxis 06 TTA and Praxis 07 CTI-compliance packages.</li>
 </ol>
 <div class="print-note">Open this file directly in a browser, or print to PDF for a shareable snapshot.</div></main></body></html>

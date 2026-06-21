@@ -117,7 +117,7 @@
       "working_title": "OpenVLA Instruction Diversity Sweep",
       "field_area": "Embodied AI / robot foundation models",
       "priority": 4,
-      "posture": "source_gate_pass_simulator_smoke_pending",
+      "posture": "final_stop_reframe_public_data_lacks_language_and_simulator_support",
       "first_gate": "PASS: source/readiness gate verified core repos, model checkpoints, one public LIBERO dataset path, and frozen instruction templates.",
       "strict_holdout": "Held-out instruction templates, LIBERO suite, and robot embodiment.",
       "primary_metrics": [
@@ -145,6 +145,21 @@
         "accessible_hf_datasets": 1,
         "instruction_manifest_rows": 48,
         "heldout_template_rows": 16
+      },
+      "final_data_gate_config": "configs/frontier_exp03_libero_data_gate_20260621.json",
+      "final_data_gate_script": "scripts/run_frontier_exp03_libero_data_gate.py",
+      "final_data_gate_output_dir": "runs/frontier-exp03-libero-data-gate-20260621",
+      "final_data_gate_result": "runs/frontier-exp03-libero-data-gate-20260621/EXP03_LIBERO_DATA_GATE_RESULT_20260621.md",
+      "final_determination": {
+        "status": "FINAL_STOP_REFRAME",
+        "public_frames": 101469,
+        "public_episodes": 379,
+        "public_task_indices": 10,
+        "language_columns": 0,
+        "task_text_metadata_columns": 0,
+        "required_imports_available": 0,
+        "required_imports_total": 5,
+        "decision": "Do not publish as instruction-diversity VLA result in current cycle."
       }
     },
     {
@@ -153,7 +168,7 @@
       "working_title": "KG-Grounded Multi-Turn Hallucination Verifier",
       "field_area": "Factuality / reliability",
       "priority": 3,
-      "posture": "kg_smoke_pass_halueval_nli_mixed",
+      "posture": "final_failed_promotion_response_artifact_baseline_wins",
       "first_gate": "PASS: controlled KG smoke produced 20 dialogues, 60 atomic claims, full KG evidence coverage, and compounding signal.",
       "strict_holdout": "Factual-domain holdout plus model-family holdout.",
       "primary_metrics": [
@@ -191,7 +206,13 @@
         "halueval_holdout_examples": 400,
         "halueval_nli_f1": 0.6878,
         "halueval_lexical_f1": 0.6723,
-        "halueval_f1_delta": 0.0156
+        "halueval_f1_delta": 0.0156,
+        "dialogue_feature_status": "MIXED_RESPONSE_ARTIFACT_BASELINE_WINS",
+        "dialogue_feature_strict_holdout_examples": 1922,
+        "dialogue_feature_evidence_numeric_f1": 0.7215,
+        "dialogue_feature_response_only_f1": 0.7835,
+        "dialogue_feature_delta_over_response_only": -0.062,
+        "final_decision": "Do not publish as positive KG/evidence hallucination verifier in current cycle."
       }
     },
     {
@@ -200,7 +221,7 @@
       "working_title": "World-Model Visual Robustness Leaderboard",
       "field_area": "World models / model-based RL",
       "priority": 5,
-      "posture": "source_wrapper_gate_pass_agent_eval_pending",
+      "posture": "environment_smoke_pass_world_model_claim_not_promoted",
       "first_gate": "PASS: source/wrapper gate verified repos/packages and frozen visual perturbation wrappers.",
       "strict_holdout": "Held-out perturbation type plus held-out games or levels.",
       "primary_metrics": [
@@ -229,6 +250,21 @@
         "heldout_perturbations": 2,
         "shape_failures": 0,
         "min_mean_abs_pixel_delta": 0.0193
+      },
+      "rollout_gate_config": "configs/frontier_exp05_crafter_rollout_gate_20260621.json",
+      "rollout_gate_script": "scripts/run_frontier_exp05_crafter_rollout_gate.py",
+      "rollout_gate_output_dir": "runs/frontier-exp05-crafter-rollout-gate-20260621",
+      "rollout_gate_result": "runs/frontier-exp05-crafter-rollout-gate-20260621/EXP05_CRAFTER_ROLLOUT_GATE_RESULT_20260621.md",
+      "final_determination": {
+        "status": "ENVIRONMENT_SMOKE_PASS_WORLD_MODEL_CLAIM_NOT_PROMOTED",
+        "crafter_episodes": 25,
+        "clean_mean_reward": 1.5,
+        "center_occlusion_mean_reward": 2.7,
+        "salt_pepper_mean_reward": 1.7,
+        "world_model_agent": false,
+        "multiple_paradigms": false,
+        "training_augmentation": false,
+        "decision": "Park until a learned world-model baseline, multi-paradigm comparison, and augmentation gate are available."
       }
     }
   ]

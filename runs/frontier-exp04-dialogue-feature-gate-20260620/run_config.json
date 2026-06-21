@@ -1,0 +1,58 @@
+{
+  "content_policy": {
+    "commit_raw_dataset_text": false,
+    "committed_artifacts": "hashes_lengths_labels_scores_metrics_only",
+    "model_generation_allowed": false
+  },
+  "dataset": {
+    "config": "dialogue",
+    "expected_rows": 10000,
+    "name": "pminervini/HaluEval",
+    "parquet_url": "https://huggingface.co/datasets/pminervini/HaluEval/resolve/refs%2Fconvert%2Fparquet/dialogue/data/0000.parquet",
+    "split": "data"
+  },
+  "experiment_id": "EXP04",
+  "metrics": {
+    "bootstrap_samples": 1000,
+    "target_evidence_delta_over_numeric": 0.08,
+    "target_evidence_delta_over_response_only": 0.03,
+    "target_strict_holdout_examples": 1500,
+    "target_strict_holdout_f1": 0.8
+  },
+  "model_search": {
+    "c_values": [
+      0.1,
+      1.0,
+      3.0,
+      10.0
+    ],
+    "max_feature_values": [
+      30000,
+      60000
+    ],
+    "modes": [
+      "numeric",
+      "response",
+      "evidence",
+      "evidence_numeric"
+    ],
+    "threshold_grid_start": 0.05,
+    "threshold_grid_step": 0.01,
+    "threshold_grid_stop": 0.95
+  },
+  "name": "frontier-exp04-dialogue-feature-gate-20260620",
+  "output_dir": "runs/frontier-exp04-dialogue-feature-gate-20260620",
+  "praxis_protocol": "reports/frontier_ai_ml_experiments_20260618/PRAXIS_EXP04_KG_HALLUCINATION_PROTOCOL_20260619.md",
+  "prior_gate": "runs/frontier-exp04-halueval-nli-full-20260619/EXP04_HALUEVAL_NLI_GATE_RESULT_20260619.md",
+  "source_dashboard": "reports/frontier_ai_ml_experiments_20260618/FRONTIER_AI_ML_EXPERIMENT_DASHBOARD_20260618.md",
+  "split_seed": 20260620,
+  "splits": {
+    "paired_responses_stay_together": true,
+    "split_key": "underlying_dialogue_row_hash",
+    "strict_holdout_pct": 10,
+    "test_pct": 15,
+    "train_pct": 60,
+    "validation_pct": 15
+  },
+  "title": "HaluEval Dialogue Evidence-Feature Hallucination Gate"
+}

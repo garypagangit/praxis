@@ -1,10 +1,12 @@
 # Frontier AI/ML Experiment Dashboard
 
-Updated: 2026-06-19
+Updated: 2026-06-21
 
 Source brief: `C:\Users\garyp\Downloads\AI_ML_Praxis_Experiment_Templates.docx`.
 
-Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream. EXP01 has a full preliminary AWS result but is not being promoted. EXP02 has a schema pass plus two AWS guardrail gates; it produced a strong response-prefix signal but is not being promoted because utility controls fail. EXP03, EXP04, and EXP05 now each have first-pass Praxis gates. Each experiment below is framed with a thesis, gate state, evidence target, compute posture, and stop rule.
+Purpose: convert the attached block of five 2026 AI/ML experiment templates into a gated Praxis workstream and close the batch with explicit final determinations. EXP01 has a full preliminary AWS result but is not being promoted. EXP02 has a schema pass plus two AWS guardrail gates; it produced a strong response-prefix signal but is not being promoted because utility controls fail. EXP03 is stopped/reframed because the public LIBERO path lacks language metadata and local simulator/model imports. EXP04 has a controlled KG positive but failed external verifier promotion. EXP05 now has an executable Crafter environment smoke but not a learned world-model result.
+
+Open-first final batch decision: `reports/frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md`.
 
 ## Start Decision
 
@@ -12,7 +14,7 @@ We have completed the first full preliminary AWS run for **Experiment 01 - Cross
 
 Current status: **EXP01 preliminary full-run result present, provisional / do not overclaim**. The split-readiness gate passed, then the AWS run evaluated `4` open 7B-class models across `160` public benchmark rows, `2` strategy classes, and budgets `K={1,2,4,8}`. Policy selection used GSM8K validation-policy rows only; final checks used a GSM8K in-domain test split plus a strict MATH-500 holdout that was not used for policy selection.
 
-Current batch completed: **EXP03-EXP05 first gates plus EXP04 AWS verifier gate**. EXP04 is now the most mature next candidate: the controlled KG smoke passed, but the real HaluEval NLI strict holdout is mixed and needs a stronger verifier before publication.
+Current batch completed: **all five frontier experiments have final current-cycle determinations**. No experiment in this batch is promoted as a new publishable positive thesis result. The batch is preserved as a defensible audit trail of provisional, mixed, stopped, or environment-only results.
 
 What the first run shows:
 
@@ -23,9 +25,9 @@ What the first run shows:
 - The feature-engineered Optuna predictor completed but did not generalize: leave-one-target-family R2 `-14.9408`.
 - Internal defense verdict: preliminary evidence suitable for a slide or committee update, not yet a Praxis-level claim. H1 still needs verifier/scorer best-of-N, and H3 still needs sequential refinement or a formal drop.
 - EXP02 schema handling passed, and two AWS guardrail gates completed. The open guardian response-prefix run caught `38/38` unsafe held-out responses with average caught exposure `0.1310`, but blocked `12/66` safe responses and over-refused `87/100` benign prompt controls. Decision: preserve as a strong pilot, not a publication-ready thesis proof.
-- EXP04 controlled KG smoke passed: `20` dialogues, `60` atomic claims, strict holdout `36` claims, KG evidence coverage `1.0000`, KG hallucination F1 `1.0000`, and turn-3 minus turn-1 hallucination rate `0.2500`. The AWS HaluEval NLI gate was mixed: strict dialogue holdout F1 `0.6878`, lexical baseline F1 `0.6723`, delta `+0.0156`.
-- EXP03 source/readiness gate passed: `4` repos, `5` HF models, `1` public LIBERO dataset path, and `48` frozen instruction-template rows. Simulator smoke is still pending.
-- EXP05 source/wrapper gate passed: `4` repos, `2` PyPI packages, `4` perturbation wrappers, `2` held-out perturbations, and `0` shape failures. Agent evaluation is still pending.
+- EXP04 controlled KG smoke passed: `20` dialogues, `60` atomic claims, strict holdout `36` claims, KG evidence coverage `1.0000`, KG hallucination F1 `1.0000`, and turn-3 minus turn-1 hallucination rate `0.2500`. The AWS HaluEval NLI gate was mixed. The final HaluEval dialogue feature gate failed promotion: evidence+numeric strict holdout F1 `0.7215`, response-only F1 `0.7835`.
+- EXP03 source/readiness gate passed, but the final LIBERO data gate stopped the claim: public `lerobot/libero_10` has `101,469` frames and `379` episodes, but no language/instruction columns and no task text metadata; local required imports were `0/5`.
+- EXP05 source/wrapper gate passed, and the Crafter environment gate completed `25` clean/dev/held-out perturbation episodes. The thesis is not promoted because the agent was a deterministic observation-checksum policy, not a learned world-model, and no multi-paradigm or augmentation test ran.
 
 ## Experiment Queue
 
@@ -33,9 +35,9 @@ What the first run shows:
 |---:|---|---|---|---|---|---|
 | 1 | EXP01 | Cross-Model Transferability of Test-Time Compute Strategies | Reasoning / inference efficiency | Preliminary full AWS result present; provisional | Add verifier best-of-N, sequential refinement or drop H3, and manual scoring audit | Transfer matrix, retention metric, negative predictor result, defense challenge |
 | 2 | EXP02 | Step-Level Self-Jailbreak Detection and Training-Free Intervention | Reasoning-model safety | Schema PASS plus two AWS gates complete; response-prefix signal present, utility gate failed | Continue only with refusal-aware classifier/manual boundary labels, or move queue forward | Redacted guardrail pilot, open guardian early-detection result, over-refusal blocker |
-| 3 | EXP04 | Multi-Turn Hallucination Compounding and KG-Grounded Verification | Factuality / reliability | KG smoke PASS; AWS HaluEval NLI mixed | Add stronger verifier/entity-grounding before live-model mitigation claim | Controlled KG compounding result plus HaluEval strict-holdout pilot |
-| 4 | EXP03 | Instruction Diversity and Linguistic Generalisation in VLA Models | Embodied AI / robot foundation models | Source gate PASS; simulator smoke pending | Install LIBERO/OpenVLA-OFT and reproduce one official eval smoke | Frozen instruction-template manifest and asset map |
-| 5 | EXP05 | Cross-Paradigm Visual Robustness of World-Model Agents | World models / model-based RL | Source/wrapper gate PASS; agent eval pending | Install Crafter/Craftax/stable-worldmodel and run clean plus perturbed rollout | Frozen perturbation manifest and source map |
+| 3 | EXP04 | Multi-Turn Hallucination Compounding and KG-Grounded Verification | Factuality / reliability | Final failed promotion; response artifacts beat evidence features | Stop rescue runs for this cycle | Controlled KG positive plus external verifier failure |
+| 4 | EXP03 | Instruction Diversity and Linguistic Generalisation in VLA Models | Embodied AI / robot foundation models | Final stop/reframe; public data lacks language metadata | Reopen only with instruction metadata and official simulator stack | LIBERO data/schema blocker |
+| 5 | EXP05 | Cross-Paradigm Visual Robustness of World-Model Agents | World models / model-based RL | Environment smoke PASS; thesis not promoted | Reopen only with trained world-model baseline | Crafter clean/perturbed rollout smoke |
 
 ## EXP01 - Cross-Model Transferability of Test-Time Compute Strategies
 
@@ -93,9 +95,9 @@ What the first run shows:
 
 **First gate:** environment readiness. Install LIBERO/OpenVLA-OFT, load one Bridge/OXE subset, and run one official evaluation smoke before any LoRA sweep.
 
-**Completed gate:** source/readiness gate PASS on 2026-06-19. The gate verified `4` GitHub repositories, `5` HF model checkpoints, and one public Dataset Viewer path: `lerobot/libero_10`. Several related datasets returned `401` from this environment (`lerobot/libero_spatial`, `lerobot/libero_object`, `lerobot/libero_goal`, `lerobot/bridge_v2`). It also froze `48` instruction-template rows, including `16` held-out template rows with mean heldout/base token Jaccard `0.6264`.
+**Completed gates:** source/readiness gate PASS on 2026-06-19. The gate verified `4` GitHub repositories, `5` HF model checkpoints, and one public Dataset Viewer path: `lerobot/libero_10`. The final LIBERO data/simulator gate on 2026-06-21 stopped the current thesis path: public `lerobot/libero_10` has `101,469` frames, `379` episodes, and `10` task indices, but the available schema exposes only `observation.state`, `action`, `timestamp`, `frame_index`, `episode_index`, `index`, and `task_index`. There are no natural-language instruction columns or task text metadata, and required local imports `libero`, `robosuite`, `torch`, `transformers`, and `gymnasium` are unavailable.
 
-**Promotion gate:** 0/1/5/10 variant sweep with three seeds, confidence intervals, held-out instruction templates, and one held-out embodiment.
+**Final determination:** stop/reframe for this cycle. The public data supports data-loader work, not instruction-diversity VLA evaluation.
 
 **Stop rule:** stop if the simulation/evaluation stack cannot reproduce baseline success within tolerance before augmentation.
 
@@ -111,9 +113,9 @@ What the first run shows:
 
 **First gate:** build 20 multi-turn dialogues and a claim-extraction/verification schema; verify that Wikidata entity linking and SPARQL evidence are usable on at least 80% of atomic claims in the smoke set.
 
-**Completed gates:** controlled KG smoke PASS on 2026-06-19. It produced `20` dialogues and `60` atomic claims, with strict holdout `36` claims, KG evidence coverage `1.0000`, KG hallucination F1 `1.0000`, and turn-3 minus turn-1 hallucination rate `0.2500`. Wikidata SPARQL was under public rate-limit, so the gate used batched Wikidata entity API evidence as the KG backend. The AWS HaluEval NLI gate then ran on `roberta-large-mnli`, tuning on HaluEval QA and evaluating on HaluEval dialogue strict holdout. It was mixed: F1 `0.6878` CI `[0.6461, 0.7332]`, accuracy `0.5575`, lexical baseline F1 `0.6723`, delta `+0.0156`.
+**Completed gates:** controlled KG smoke PASS on 2026-06-19. It produced `20` dialogues and `60` atomic claims, with strict holdout `36` claims, KG evidence coverage `1.0000`, KG hallucination F1 `1.0000`, and turn-3 minus turn-1 hallucination rate `0.2500`. Wikidata SPARQL was under public rate-limit, so the gate used batched Wikidata entity API evidence as the KG backend. The AWS HaluEval NLI gate then ran on `roberta-large-mnli`, tuning on HaluEval QA and evaluating on HaluEval dialogue strict holdout. It was mixed: F1 `0.6878` CI `[0.6461, 0.7332]`, accuracy `0.5575`, lexical baseline F1 `0.6723`, delta `+0.0156`. The final HaluEval dialogue feature gate trained row-disjoint response/evidence/numeric baselines on `12,118` train examples, selected thresholds on `2,990` validation examples, tested on `2,970` examples, and evaluated `1,922` strict-holdout examples. Evidence+numeric F1 was `0.7215`, but response-only F1 was `0.7835`.
 
-**Promotion gate:** domain-holdout verifier evaluation with human-calibrated labels and bootstrap confidence intervals for per-turn hallucination slopes.
+**Final determination:** do not promote as a positive. The current evidence-aware verifier loses to response artifacts on a sealed HaluEval holdout.
 
 **Stop rule:** stop or reframe if entity linking leaves too many claims unverifiable, target unverifiable rate `>40%` on the smoke.
 
@@ -129,9 +131,9 @@ What the first run shows:
 
 **First gate:** install stable-worldmodel and run one Crafter agent evaluation under clean frames plus one perturbation wrapper.
 
-**Completed gate:** source/wrapper gate PASS on 2026-06-19. It verified `4` repositories (`stable-worldmodel`, `crafter`, `craftax`, `dreamerv3`), `2` PyPI packages (`crafter`, `craftax`), and `4` frozen visual perturbation wrappers. Both held-out perturbations are explicit (`center_occlusion`, `salt_pepper`), all wrappers preserved `64x64x3` observation shape, and minimum mean absolute pixel delta was `0.0193`.
+**Completed gates:** source/wrapper gate PASS on 2026-06-19. It verified `4` repositories (`stable-worldmodel`, `crafter`, `craftax`, `dreamerv3`), `2` PyPI packages (`crafter`, `craftax`), and `4` frozen visual perturbation wrappers. Both held-out perturbations are explicit (`center_occlusion`, `salt_pepper`), all wrappers preserved `64x64x3` observation shape, and minimum mean absolute pixel delta was `0.0193`. The final Crafter rollout gate on 2026-06-21 completed `25` episodes across clean, dev perturbations, and held-out perturbations using a deterministic observation-checksum policy. Clean mean reward was `1.5000`; held-out `center_occlusion` mean reward was `2.7000`; held-out `salt_pepper` mean reward was `1.7000`.
 
-**Promotion gate:** at least five seeds, interquartile mean and bootstrap confidence intervals, held-out perturbation type, and clean-score convergence checks.
+**Final determination:** environment path passes, but the world-model thesis is not promoted. The run did not evaluate a learned world-model agent, multiple paradigms, or augmentation.
 
 **Stop rule:** stop if clean baseline scores cannot be reproduced within tolerance or visual wrappers change environment semantics rather than perception only.
 
@@ -290,19 +292,19 @@ The useful signal is real: open guardian response-prefix monitoring caught all u
 
 ## EXP04 Results
 
-| Item | Controlled KG smoke | AWS HaluEval NLI gate |
-|---|---:|---:|
-| Status | PASS | MIXED |
-| Rows | `60` atomic claims | `400` strict holdout examples |
-| Strict holdout | `36` claims | HaluEval dialogue |
-| Main F1 | `1.0000` | `0.6878` |
-| Baseline F1 | `0.0000` always-supported | `0.6723` lexical |
-| Delta | `+1.0000` | `+0.0156` |
-| Main limitation | Controlled templates | Weak external-holdout lift |
+| Item | Controlled KG smoke | AWS HaluEval NLI gate | HaluEval dialogue feature gate |
+|---|---:|---:|---:|
+| Status | PASS | MIXED | FAILED PROMOTION |
+| Rows | `60` atomic claims | `400` strict holdout examples | `1,922` strict holdout examples |
+| Strict holdout | `36` claims | HaluEval dialogue | Row-disjoint HaluEval dialogue |
+| Main F1 | `1.0000` | `0.6878` | `0.7215` evidence+numeric |
+| Baseline F1 | `0.0000` always-supported | `0.6723` lexical | `0.7835` response-only |
+| Delta | `+1.0000` | `+0.0156` | `-0.0620` vs response-only |
+| Main limitation | Controlled templates | Weak external-holdout lift | Evidence features lose to artifacts |
 
-EXP04 is worth keeping as the next possible publication path, but not as-is. The controlled KG measurement works; the external HaluEval verifier is not strong enough yet.
+EXP04 is closed for this cycle. The controlled KG measurement works, but the external HaluEval verifier is not strong enough for a positive publication claim.
 
-## EXP03 Source Gate
+## EXP03 Final Data Gate
 
 | Item | Value |
 |---|---:|
@@ -312,10 +314,16 @@ EXP04 is worth keeping as the next possible publication path, but not as-is. The
 | Instruction manifest rows | `48` |
 | Held-out template rows | `16` |
 | Mean heldout/base token Jaccard | `0.6264` |
+| Public LIBERO frames | `101,469` |
+| Public LIBERO episodes | `379` |
+| Public LIBERO task indices | `10` |
+| Language columns in public data | `0` |
+| Task text metadata columns | `0` |
+| Required local simulator/model imports | `0/5` |
 
-This is a readiness result only. The simulator/evaluation stack must still be installed and smoke-tested.
+EXP03 is stopped/reframed for this cycle. The public data is real, but it is not sufficient to test instruction-diversity VLA generalisation.
 
-## EXP05 Source Gate
+## EXP05 Final Rollout Gate
 
 | Item | Value |
 |---|---:|
@@ -325,14 +333,20 @@ This is a readiness result only. The simulator/evaluation stack must still be in
 | Held-out perturbations | `2` |
 | Shape failures | `0` |
 | Minimum mean absolute pixel delta | `0.0193` |
+| Crafter episodes completed | `25` |
+| Clean mean reward | `1.5000` |
+| Held-out center occlusion reward | `2.7000` |
+| Held-out salt-pepper reward | `1.7000` |
+| Learned world-model agent | `False` |
+| Multiple paradigms | `False` |
 
-This is a readiness result only. Agent score retention is still unmeasured.
+EXP05 has an executable environment smoke but remains parked as a thesis claim. The measured agent is a deterministic observation-checksum policy, not a learned world-model.
 
 ## Next Action
 
-Recommended queue:
+Recommended decision:
 
-1. Continue EXP04 with a stronger verifier: entity/claim extraction plus KG/text evidence, not plain NLI alone.
-2. Run EXP03 simulator install smoke on AWS only when prepared for a long dependency/debug cycle.
-3. Run EXP05 clean/perturbed Crafter or Craftax rollout next if a fast agent baseline is acceptable.
-4. Keep EXP02 parked until the next gate directly targets the `0.1818` safe-response block problem.
+1. Close this frontier batch for the current cycle.
+2. Do not start more rescue runs on EXP03-EXP05 unless new external assets are added: instruction metadata and simulator stack for EXP03, a learned world-model baseline for EXP05, or a stronger evidence mechanism for EXP04.
+3. Preserve EXP01-EXP05 as a defensible experiment audit trail and negative/control evidence.
+4. Return publication effort to the stronger Praxis 06 TTA and Praxis 07 CTI-compliance packages.
