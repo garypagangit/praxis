@@ -7,7 +7,9 @@ Updated: 2026-06-22
 - Done: added a compact pipeline figure: CTI-MCQ row -> ATT&CK evidence retrieval -> strict answer parser.
 - Done: added an illustrative locked-slice row where relationship evidence supplies the answer-bearing fact.
 - Done: added a GitHub Actions PDF build path for `main.tex` and `thesis_chapter.tex`.
-- Next: inspect the CI PDF artifacts for page breaks, table density, and whether the example row should move to appendix for a target venue.
+- Done: GitHub Actions run `27945535963` built the corrected article and thesis PDFs after method visuals were pinned in place.
+- Done: PyMuPDF render found no blank or text-sparse pages; article is `7` pages and thesis chapter is `11` pages.
+- Next: do line-by-line proof reading and decide whether the example row should move to appendix for a target venue.
 - Decide whether this is a thesis section, workshop paper, or appendix result paired with Praxis 06.
 
 ## Do Not Do
