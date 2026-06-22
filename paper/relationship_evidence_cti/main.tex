@@ -10,6 +10,7 @@
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{enumitem}
+\usepackage{float}
 \usepackage{microtype}
 \usepackage{placeins}
 
@@ -121,7 +122,7 @@ The primary selected slice uses rows where exactly one answer option has strong 
 The selected slice has 106 rows.
 The complement has 394 rows.
 
-\begin{figure}[tbp]
+\begin{figure}[H]
   \centering
   \fbox{%
   \begin{minipage}{0.90\linewidth}
@@ -145,7 +146,7 @@ The complement has 394 rows.
 
 \subsection{Prompt Conditions}
 
-\begin{table}[t]
+\begin{table}[H]
   \centering
   \caption{Prompt conditions.}
   \label{tab:conditions}
@@ -172,7 +173,7 @@ Figure~\ref{fig:pipeline} shows where retrieval enters the evaluation loop.
 The prompt builder never receives the hidden expected answer.
 It receives only the question, options, and the evidence block allowed by the condition.
 
-\begin{table}[tbp]
+\begin{table}[H]
   \centering
   \caption{Illustrative locked-slice row where relationship evidence supplies the answer-bearing fact. The scored answer is used only after generation.}
   \label{tab:example-row}
