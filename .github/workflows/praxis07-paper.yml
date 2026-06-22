@@ -1,0 +1,32 @@
+name: Praxis 07 paper build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "paper/relationship_evidence_cti/**"
+      - ".github/workflows/praxis07-paper.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile Praxis 07 paper
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: paper/relationship_evidence_cti
+          root_file: |
+            main.tex
+            thesis_chapter.tex
+          latexmk_use_xelatex: false
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: relationship-evidence-cti-paper
+          path: |
+            paper/relationship_evidence_cti/main.pdf
+            paper/relationship_evidence_cti/thesis_chapter.pdf

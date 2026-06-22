@@ -10,6 +10,7 @@ This folder contains the Praxis 07 paper/chapter draft for the bounded CTI retri
 - `thesis_chapter.tex` - thesis/chapter wrapper that reuses `main.tex`.
 - `RELATIONSHIP_EVIDENCE_CTI_PAPER_OUTLINE_20260517.md` - post-gate outline and writing plan.
 - `references.bib` - local bibliography.
+- `.github/workflows/praxis07-paper.yml` - GitHub Actions PDF build path for environments without local LaTeX.
 
 ## Claim Boundary
 
@@ -45,3 +46,5 @@ Do not claim:
 ```
 
 The local Windows environment may not have a LaTeX engine installed. If `latexmk` or `pdflatex` is unavailable, compile in Overleaf, GitHub Actions, or a TeX-enabled cloud environment.
+
+The GitHub Actions workflow builds both the article and thesis wrapper and uploads the `relationship-evidence-cti-paper` artifact.

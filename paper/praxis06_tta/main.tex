@@ -10,6 +10,13 @@
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{placeins}
+
+\setlist{leftmargin=*,itemsep=2pt,topsep=4pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
 
 \title{Selective Test-Time Adaptation for Streaming APT Stage Detection Under Source-File Shift}
 \author{Praxis 06 Draft}
@@ -63,10 +70,12 @@ The chapter makes three concrete contributions:
 The study is scoped to a locked held-out source-file split.
 It asks whether selective no-label adaptation can improve a rare-stage operating point without creating a new safety failure.
 
-\begin{table}[t]
+\begin{table}[tbp]
   \centering
   \caption{Research questions and decision criteria.}
   \label{tab:rq}
+  \small
+  \setlength{\tabcolsep}{4pt}
   \begin{tabular}{p{0.16\linewidth}p{0.49\linewidth}p{0.25\linewidth}}
     \toprule
     Item & Question or hypothesis & Decision criterion \\
@@ -147,9 +156,9 @@ The adaptation branch updates only batch-normalization statistics using the unla
 The selective gate combines frozen confidence, adapted confidence, and class-specific safety rules to decide whether the final label remains frozen or is overridden.
 The gate is not learned on the test set.
 
-\begin{figure}[t]
+\begin{figure}[tbp]
   \centering
-  \includegraphics[width=0.92\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure1_method_diagram.png}
+  \includegraphics[width=0.88\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure1_method_diagram.png}
   \caption{Selective TTA decision path. Frozen predictions, adapted probabilities, and the validation-selected gate jointly determine the final operating point.}
   \label{fig:method}
 \end{figure}
@@ -163,10 +172,12 @@ The locked split holds out source files to approximate a deployment stream whose
 Train, validation, and test source files are disjoint.
 Temporal delta features are reset within each split so cross-split temporal state cannot leak into validation or test.
 
-\begin{table}[t]
+\begin{table}[tbp]
   \centering
   \caption{Locked split support.}
   \label{tab:splits}
+  \small
+  \setlength{\tabcolsep}{4pt}
   \begin{tabular}{lrrrrrrr}
     \toprule
     Split & Rows & Sources & Benign & Recon & Foothold & Lateral & DE \\
@@ -193,10 +204,12 @@ This controls the simplest alternative explanation: that the gain comes from wit
 
 \subsection{Locked Replay}
 
-\begin{table}[t]
+\begin{table}[tbp]
   \centering
   \caption{Main locked result.}
   \label{tab:main}
+  \small
+  \setlength{\tabcolsep}{5pt}
   \begin{tabular}{lrrrrr}
     \toprule
     Method & Macro-F1 & Recon F1 & DE F1 & PR-AUC & Rate \\
@@ -216,10 +229,12 @@ This is a central interpretation point.
 The contribution is not a claim that the representation learns a broadly better probability ranking at test time.
 The contribution is that BatchNorm adaptation plus a validation-selected gate moves a small fraction of rows to a better decision operating point for the shifted Reconnaissance class while retaining the frozen detector for most of the stream.
 
-\begin{table}[t]
+\begin{table}[tbp]
   \centering
   \caption{Locked per-seed result.}
   \label{tab:seeds}
+  \small
+  \setlength{\tabcolsep}{4pt}
   \begin{tabular}{rrrrrrrr}
     \toprule
     Seed & Macro & Recon & DE & PR-AUC & Override & Macro $\Delta$ & Recon $\Delta$ \\
@@ -233,10 +248,12 @@ The contribution is that BatchNorm adaptation plus a validation-selected gate mo
 
 \subsection{Defense Hardening}
 
-\begin{table}[t]
+\begin{table}[tbp]
   \centering
   \caption{Defense-hardening summary. The original locked replay remains primary.}
   \label{tab:hardening}
+  \small
+  \setlength{\tabcolsep}{4pt}
   \begin{tabular}{p{0.34\linewidth}p{0.54\linewidth}}
     \toprule
     Check & Result \\
@@ -255,9 +272,9 @@ The 2026-05-13 hardening run added four more seeds, validation-distribution sens
 These checks strengthen the defense while preserving the locked-policy story.
 The original three-seed locked replay remains primary because it is the pre-final validation-selected replay; the seven-seed run is reported as robustness evidence.
 
-\begin{figure}[t]
+\begin{figure}[tbp]
   \centering
-  \includegraphics[width=0.83\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure4_recon_pr_operating_points.png}
+  \includegraphics[width=0.78\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure4_recon_pr_operating_points.png}
   \caption{Reconnaissance precision-recall operating-point view from the defense-hardening run. The figure supports the framing that the contribution is an operating-point decision-policy improvement, not a broad PR-AUC gain.}
   \label{fig:recon-pr}
 \end{figure}
@@ -275,9 +292,9 @@ DAPT2020 has similar median shift but extreme tail instability: p90 absolute log
 This supports the cautious hypothesis that BN adaptation helps when target-stream feature scales are compatible with the source-trained normalization layers and can fail when a small set of features has extreme scale mismatch or unstable batch composition.
 The hypothesis is diagnostic only; it is not used to select a new TTA policy after the locked replay.
 
-\begin{figure}[t]
+\begin{figure}[tbp]
   \centering
-  \includegraphics[width=0.83\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure5_de_pr_operating_points.png}
+  \includegraphics[width=0.78\linewidth]{../../reports/tta_streaming_apt/paper_assets_20260509/figures/figure5_de_pr_operating_points.png}
   \caption{Data Exfiltration precision-recall operating-point view from the defense-hardening run. This figure is supporting evidence for the safety discussion, not a separate DE generalization claim.}
   \label{fig:de-pr}
 \end{figure}
@@ -307,6 +324,8 @@ Selective no-label TTA can recover a rare APT stage under a locked held-out sour
 The strongest version of the claim is narrow and practical: the method improves the final decision policy for Reconnaissance without relying on labels at test time and without being reducible to confidence rejection.
 The result should be submitted as a constrained security-ML adaptation finding, with DAPT2020 retained as an honest boundary on generality.
 
+\FloatBarrier
+
 \ifdefined\praxiswrapper
 \chapter*{Chapter Appendices}
 \addcontentsline{toc}{chapter}{Chapter Appendices}
@@ -329,10 +348,12 @@ Primary artifact pointers:
 
 \section{Seven-Seed Addendum}
 
-\begin{table}[h]
+\begin{table}[htbp]
   \centering
   \caption{Seven-seed robustness addendum.}
   \label{tab:seven-seed}
+  \small
+  \setlength{\tabcolsep}{4pt}
   \begin{tabular}{p{0.22\linewidth}p{0.22\linewidth}rrrr}
     \toprule
     Seed set & Threshold policy & Macro F1 & Recon F1 & DE F1 & Override \\
@@ -349,10 +370,12 @@ The addendum also reveals source-detector variance in Data Exfiltration behavior
 
 \section{Validation Sensitivity}
 
-\begin{table}[h]
+\begin{table}[htbp]
   \centering
   \caption{Validation-distribution sensitivity with test-like Reconnaissance proportions.}
   \label{tab:val-sensitivity}
+  \small
+  \setlength{\tabcolsep}{5pt}
   \begin{tabular}{rrrrr}
     \toprule
     Sample & Val Recon frac. & Test Macro F1 & Test Recon F1 & Override \\
@@ -368,10 +391,12 @@ This is a limitation to name explicitly in a defense or venue submission.
 
 \section{Stronger Frozen Baselines}
 
-\begin{table}[h]
+\begin{table}[htbp]
   \centering
   \caption{Frozen rare-class baselines.}
   \label{tab:frozen-baselines}
+  \small
+  \setlength{\tabcolsep}{5pt}
   \begin{tabular}{lrrrr}
     \toprule
     Frozen detector recipe & Macro F1 & Recon F1 & DE F1 & PR-AUC \\

@@ -1,6 +1,6 @@
 # Praxis 06 Submission TODO
 
-Updated: 2026-05-15
+Updated: 2026-06-22
 
 ## Current Package
 
@@ -19,11 +19,12 @@ Updated: 2026-05-15
 | Thesis wrapper layout review | Pass: `paper/praxis06_tta/THESIS_CHAPTER_LAYOUT_REVIEW_20260514.md` |
 | Target style decision | Thesis chapter first: `paper/praxis06_tta/TARGET_STYLE_DECISION_20260514.md` |
 | Claim guard | Done: original locked replay remains primary |
+| 2026-06-22 layout pass | Done: denser tables, more flexible float placement, smaller PR figures, and main-body float barrier before appendices |
 
 ## Next Editorial Pass
 
 1. Trigger/inspect the next CI PDF build because local `pdflatex` is unavailable.
-2. Do visual table and figure placement tuning from the CI PDFs.
+2. Do full-resolution PDF reading from the new CI PDFs for page breaks, table density, and venue compression.
 3. If targeting a venue instead, replace `article` class with the target class.
 4. Tune section lengths for the target page budget.
 

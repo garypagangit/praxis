@@ -4,11 +4,19 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{placeins}
+
+\setlist{leftmargin=*,itemsep=2pt,topsep=4pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
 
 \title{Retrieval-Conditioned CTI Compliance: A Protocol-Specific Result}
 \author{Praxis 07 Draft}
@@ -113,6 +121,28 @@ The primary selected slice uses rows where exactly one answer option has strong 
 The selected slice has 106 rows.
 The complement has 394 rows.
 
+\begin{figure}[tbp]
+  \centering
+  \fbox{%
+  \begin{minipage}{0.90\linewidth}
+    \small
+    \centering
+    \textbf{CTI-MCQ row}\\
+    question, four options, no answer label\\[4pt]
+    $\longrightarrow$\\[-1pt]
+    \textbf{ATT\&CK evidence retrieval}\\
+    rank technique descriptions and relationship facts from \texttt{enterprise-attack-12.0}\\[4pt]
+    $\longrightarrow$\\[-1pt]
+    \textbf{Conditioned prompt}\\
+    vanilla, broad seed, relationship evidence, or ablation arm\\[4pt]
+    $\longrightarrow$\\[-1pt]
+    \textbf{Strict parser and paired scoring}\\
+    accept only \texttt{Answer: <A|B|C|D>}; invalid outputs count as failures
+  \end{minipage}}
+  \caption{Praxis 07 evaluation pipeline. Labels are held out from prompt construction and used only after generation for strict scoring.}
+  \label{fig:pipeline}
+\end{figure}
+
 \subsection{Prompt Conditions}
 
 \begin{table}[t]
@@ -137,6 +167,28 @@ Table~\ref{tab:conditions} gives the six prompt conditions.
 The relationship-evidence condition is the primary treatment.
 The broad-seed condition is retained because it is the older failed SEC-LoRD route and must remain visible.
 Technique-only, random-facts, and empty-evidence conditions separate three possible explanations: answer-bearing relationship evidence, question-specific ATT\&CK evidence more generally, and prompt formatting.
+
+Figure~\ref{fig:pipeline} shows where retrieval enters the evaluation loop.
+The prompt builder never receives the hidden expected answer.
+It receives only the question, options, and the evidence block allowed by the condition.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Illustrative locked-slice row where relationship evidence supplies the answer-bearing fact. The scored answer is used only after generation.}
+  \label{tab:example-row}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{0.21\linewidth}p{0.67\linewidth}}
+    \toprule
+    Field & Example from \texttt{evidence\_addressable\_prompts.jsonl} \\
+    \midrule
+    Question & Which mitigation strategy from the MITRE ATT\&CK framework is recommended to counteract the abuse of setuid and setgid bits? \\
+    Options & A: M1028 - Ensure disk encryption; B: M1028 - Operating System Configuration; C: M1030 - Network Segmentation; D: M1040 - Application Isolation and Sandboxing. \\
+    Retrieved relationship fact & Mitigation M1028 Operating System Configuration for T1548.001 Setuid and Setgid: applications with known vulnerabilities or shell escapes should not have setuid or setgid bits set to reduce damage if compromised. \\
+    Scored answer & B: M1028 - Operating System Configuration. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \subsection{Slice Audit}
 
@@ -336,6 +388,8 @@ On a locked, label-free evidence-addressable CTI-MCQ slice, question-specific AT
 The effect appears at both 8B and 3B, and relationship evidence is the strongest tested condition.
 The ablation also keeps the claim honest: technique-only evidence helps, so the paper should not claim pure relationship causality.
 The final contribution is a bounded but real result: retrieval-conditioned ATT\&CK evidence can improve strict CTI task compliance under a transparent, auditable protocol.
+
+\FloatBarrier
 
 \ifdefined\praxiswrapper
 \else
