@@ -1,0 +1,25 @@
+{
+  "experiment_id": "moe-standing-committee-router-smoke-20260623",
+  "title": "OLMoE Standing-Committee Router Audit Smoke",
+  "run_date": "2026-06-23",
+  "source_gate": "reports/moe_standing_committee/MOE_STANDING_COMMITTEE_SOURCE_GATE_20260623.md",
+  "model_id": "allenai/OLMoE-1B-7B-0924",
+  "aws": {
+    "profile": "praxis-build",
+    "region": "us-east-1",
+    "instance_id": "i-07178e293e8df2a60",
+    "instance_type": "g5.xlarge",
+    "s3_bucket": "praxis-garypagan-272615233626-us-east-1",
+    "s3_prefix": "cloud_jobs/moe_standing_committee_20260623"
+  },
+  "prompt_domains": ["cyber", "code", "math", "policy", "writing"],
+  "prompts_per_domain": 12,
+  "max_length": 96,
+  "committee_size": 32,
+  "gate_thresholds": {
+    "router_capture_rate_min": 0.95,
+    "domain_pairwise_jaccard_mean_min_for_signal": 0.20,
+    "minimum_prompt_count": 60
+  },
+  "claim_boundary": "This is an AWS router-observability and standing-committee smoke test on OLMoE. It can justify a larger pre-registered router audit, but it is not a full standing-committee replication or fine-tuning-shift claim."
+}
