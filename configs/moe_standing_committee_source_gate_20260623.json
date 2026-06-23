@@ -1,0 +1,71 @@
+{
+  "experiment_id": "moe-standing-committee-source-gate-20260623",
+  "title": "Standing Committee Routing Under Domain and Fine-Tuning Shift",
+  "run_date": "2026-06-23",
+  "praxis_track": "MoE standing-committee routing audit",
+  "primary_literature_anchor": {
+    "title": "The Illusion of Specialization: Unveiling the Domain-Invariant Standing Committee in Mixture-of-Experts Models",
+    "arxiv": "2601.03425",
+    "url": "https://arxiv.org/abs/2601.03425"
+  },
+  "hub_api_base": "https://huggingface.co",
+  "aws_profile": "praxis-build",
+  "aws_region": "us-east-1",
+  "assumed_gpu_targets": [
+    {
+      "instance_family": "g5.xlarge",
+      "gpu_memory_gb": 24,
+      "intended_use": "OLMoE/router audit smoke only"
+    },
+    {
+      "instance_family": "g5.12xlarge",
+      "gpu_memory_gb": 96,
+      "intended_use": "medium MoE quantized inference audit if budget allows"
+    }
+  ],
+  "candidate_models": [
+    {
+      "repo_id": "allenai/OLMoE-1B-7B-0924",
+      "role": "primary_open_candidate",
+      "expected_family": "OLMoE"
+    },
+    {
+      "repo_id": "allenai/OLMoE-1B-7B-0924-Instruct",
+      "role": "primary_instruction_candidate",
+      "expected_family": "OLMoE"
+    },
+    {
+      "repo_id": "Qwen/Qwen3-30B-A3B",
+      "role": "large_reproduction_candidate",
+      "expected_family": "Qwen3-MoE"
+    },
+    {
+      "repo_id": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+      "role": "large_instruction_candidate",
+      "expected_family": "Qwen3-MoE"
+    },
+    {
+      "repo_id": "deepseek-ai/DeepSeek-V2-Lite",
+      "role": "large_reproduction_candidate",
+      "expected_family": "DeepSeek-V2"
+    },
+    {
+      "repo_id": "deepseek-ai/DeepSeek-V2-Lite-Chat",
+      "role": "large_chat_candidate",
+      "expected_family": "DeepSeek-V2"
+    },
+    {
+      "repo_id": "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct",
+      "role": "code_domain_candidate",
+      "expected_family": "DeepSeek-Coder-V2"
+    }
+  ],
+  "gate_thresholds": {
+    "minimum_public_config_candidates": 3,
+    "minimum_router_observable_candidates": 1,
+    "maximum_single_gpu_smoke_estimated_weight_gb": 20.0,
+    "maximum_medium_gpu_estimated_weight_gb": 80.0,
+    "minimum_source_gate_candidate_count": 1
+  },
+  "claim_boundary": "This gate establishes whether an inference-only MoE standing-committee audit is technically defensible from public model metadata. It does not claim a standing-committee replication until router traces are collected on held-out prompt domains."
+}
