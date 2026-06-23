@@ -1,0 +1,13 @@
+flowchart LR
+    A[Synthetic sequence tasks] --> B[Known latent circuits]
+    B --> C[Observed activation components]
+    B --> D[Known labels and logits]
+    C --> E[Probe-only ranking]
+    C --> F[Activation patching]
+    C --> G[Sparse dictionary codes]
+    D --> F
+    E --> H[Component recovery metrics]
+    F --> H
+    G --> I[Latent recovery metrics]
+    H --> J[Strict holdout decision]
+    I --> J

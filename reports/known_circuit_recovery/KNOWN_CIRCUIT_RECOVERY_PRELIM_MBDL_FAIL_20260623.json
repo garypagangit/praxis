@@ -1,0 +1,952 @@
+{
+  "claim_boundary": "This gate is a controlled benchmark-substrate result. It can support a Praxis claim that the local evaluation harness can recover known synthetic causal circuits, but it does not claim recovery of natural transformer circuits until a trained transformer or real activation corpus is added.",
+  "decision": "FAIL",
+  "experiment_id": "known-circuit-recovery-gate-20260623",
+  "run_date": "2026-06-23",
+  "seed_results": [
+    {
+      "component_recovery": {
+        "strict_holdout": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9911209766925638
+          },
+          "probe_only": {
+            "average_precision": 0.30400641025641023,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.3463500471595779
+          },
+          "random": {
+            "average_precision": 0.3485014619883041,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": -0.011481217032914184
+          }
+        },
+        "validation": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9911209766925638
+          },
+          "probe_only": {
+            "average_precision": 0.30400641025641023,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.3463500471595779
+          },
+          "random": {
+            "average_precision": 0.3485014619883041,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": -0.011481217032914184
+          }
+        }
+      },
+      "model_quality": {
+        "strict_holdout": {
+          "base_auc": 0.9374961419753087,
+          "base_log_loss": 0.3763521353621101
+        },
+        "validation": {
+          "base_auc": 0.9358429783950617,
+          "base_log_loss": 0.3675843681850242
+        }
+      },
+      "seed": 11,
+      "sparse_dictionary": {
+        "strict_holdout": {
+          "causal_mean_matched_abs_corr": 0.7216054003182913,
+          "causal_min_matched_abs_corr": 0.5233834079673431,
+          "causal_recovered_count_ge_070": 2.0
+        },
+        "validation": {
+          "causal_mean_matched_abs_corr": 0.6838277863875386,
+          "causal_min_matched_abs_corr": 0.4656668444605776,
+          "causal_recovered_count_ge_070": 2.0
+        }
+      },
+      "split_summary": {
+        "strict_holdout": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 39,
+          "task_id_min": 32,
+          "tasks": 8
+        },
+        "train": {
+          "positive_rate": 0.5,
+          "rows": 4320,
+          "task_id_max": 23,
+          "task_id_min": 0,
+          "tasks": 24
+        },
+        "validation": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 31,
+          "task_id_min": 24,
+          "tasks": 8
+        }
+      },
+      "top_components": {
+        "activation_patching_holdout": [
+          2,
+          3,
+          0,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "probe_only": [
+          10,
+          8,
+          9,
+          11,
+          3,
+          1,
+          18,
+          0
+        ],
+        "random": [
+          0,
+          13,
+          7,
+          26,
+          22,
+          27,
+          12,
+          18
+        ],
+        "true_causal_components": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "component_recovery": {
+        "strict_holdout": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.995560488346282
+          },
+          "probe_only": {
+            "average_precision": 0.15073232323232322,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.020092129807599824
+          },
+          "random": {
+            "average_precision": 0.4087024087024087,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.21718635553929333
+          }
+        },
+        "validation": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9944506104328524
+          },
+          "probe_only": {
+            "average_precision": 0.15073232323232322,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.020092129807599824
+          },
+          "random": {
+            "average_precision": 0.4087024087024087,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.21718635553929333
+          }
+        }
+      },
+      "model_quality": {
+        "strict_holdout": {
+          "base_auc": 0.9543904320987655,
+          "base_log_loss": 0.3688509253243028
+        },
+        "validation": {
+          "base_auc": 0.9492110339506172,
+          "base_log_loss": 0.35805720803260127
+        }
+      },
+      "seed": 23,
+      "sparse_dictionary": {
+        "strict_holdout": {
+          "causal_mean_matched_abs_corr": 0.6995576980693021,
+          "causal_min_matched_abs_corr": 0.6125029941765339,
+          "causal_recovered_count_ge_070": 1.0
+        },
+        "validation": {
+          "causal_mean_matched_abs_corr": 0.6805327797816869,
+          "causal_min_matched_abs_corr": 0.6140547600666817,
+          "causal_recovered_count_ge_070": 1.0
+        }
+      },
+      "split_summary": {
+        "strict_holdout": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 39,
+          "task_id_min": 32,
+          "tasks": 8
+        },
+        "train": {
+          "positive_rate": 0.5,
+          "rows": 4320,
+          "task_id_max": 23,
+          "task_id_min": 0,
+          "tasks": 24
+        },
+        "validation": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 31,
+          "task_id_min": 24,
+          "tasks": 8
+        }
+      },
+      "top_components": {
+        "activation_patching_holdout": [
+          0,
+          3,
+          2,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "probe_only": [
+          11,
+          10,
+          9,
+          8,
+          6,
+          14,
+          23,
+          5
+        ],
+        "random": [
+          1,
+          4,
+          10,
+          25,
+          19,
+          30,
+          9,
+          26
+        ],
+        "true_causal_components": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "component_recovery": {
+        "strict_holdout": {
+          "activation_patching": {
+            "average_precision": 0.78125,
+            "precision_at_k": 0.75,
+            "recall_at_k": 0.75,
+            "spearman_vs_true_effect": 0.48279689234184237
+          },
+          "probe_only": {
+            "average_precision": 0.22878787878787876,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.17668317322873495
+          },
+          "random": {
+            "average_precision": 0.5653409090909091,
+            "precision_at_k": 0.5,
+            "recall_at_k": 0.5,
+            "spearman_vs_true_effect": 0.10109849442871656
+          }
+        },
+        "validation": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.995560488346282
+          },
+          "probe_only": {
+            "average_precision": 0.22878787878787876,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.17668317322873495
+          },
+          "random": {
+            "average_precision": 0.5653409090909091,
+            "precision_at_k": 0.5,
+            "recall_at_k": 0.5,
+            "spearman_vs_true_effect": 0.10109849442871656
+          }
+        }
+      },
+      "model_quality": {
+        "strict_holdout": {
+          "base_auc": 0.9760821759259259,
+          "base_log_loss": 0.40015913388908214
+        },
+        "validation": {
+          "base_auc": 0.9731288580246915,
+          "base_log_loss": 0.40094411233394917
+        }
+      },
+      "seed": 37,
+      "sparse_dictionary": {
+        "strict_holdout": {
+          "causal_mean_matched_abs_corr": 0.5888710944062777,
+          "causal_min_matched_abs_corr": 0.5342954527302642,
+          "causal_recovered_count_ge_070": 0.0
+        },
+        "validation": {
+          "causal_mean_matched_abs_corr": 0.5845764155621798,
+          "causal_min_matched_abs_corr": 0.49080898887705227,
+          "causal_recovered_count_ge_070": 0.0
+        }
+      },
+      "split_summary": {
+        "strict_holdout": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 39,
+          "task_id_min": 32,
+          "tasks": 8
+        },
+        "train": {
+          "positive_rate": 0.5,
+          "rows": 4320,
+          "task_id_max": 23,
+          "task_id_min": 0,
+          "tasks": 24
+        },
+        "validation": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 31,
+          "task_id_min": 24,
+          "tasks": 8
+        }
+      },
+      "top_components": {
+        "activation_patching_holdout": [
+          0,
+          3,
+          2,
+          4,
+          6,
+          5,
+          7,
+          8
+        ],
+        "probe_only": [
+          11,
+          10,
+          8,
+          9,
+          2,
+          1,
+          6,
+          22
+        ],
+        "random": [
+          2,
+          0,
+          11,
+          19,
+          8,
+          28,
+          6,
+          31
+        ],
+        "true_causal_components": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "component_recovery": {
+        "strict_holdout": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9944506104328524
+          },
+          "probe_only": {
+            "average_precision": 0.13804271708683472,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": -0.05102763125739637
+          },
+          "random": {
+            "average_precision": 0.28402777777777777,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.030616578754437823
+          }
+        },
+        "validation": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9911209766925638
+          },
+          "probe_only": {
+            "average_precision": 0.13804271708683472,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": -0.05102763125739637
+          },
+          "random": {
+            "average_precision": 0.28402777777777777,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.030616578754437823
+          }
+        }
+      },
+      "model_quality": {
+        "strict_holdout": {
+          "base_auc": 0.9327353395061729,
+          "base_log_loss": 0.3637396035426899
+        },
+        "validation": {
+          "base_auc": 0.9439409722222222,
+          "base_log_loss": 0.3382468120622373
+        }
+      },
+      "seed": 41,
+      "sparse_dictionary": {
+        "strict_holdout": {
+          "causal_mean_matched_abs_corr": 0.6397870774928422,
+          "causal_min_matched_abs_corr": 0.49574201268074747,
+          "causal_recovered_count_ge_070": 1.0
+        },
+        "validation": {
+          "causal_mean_matched_abs_corr": 0.6384343249426576,
+          "causal_min_matched_abs_corr": 0.5458253157467711,
+          "causal_recovered_count_ge_070": 1.0
+        }
+      },
+      "split_summary": {
+        "strict_holdout": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 39,
+          "task_id_min": 32,
+          "tasks": 8
+        },
+        "train": {
+          "positive_rate": 0.5,
+          "rows": 4320,
+          "task_id_max": 23,
+          "task_id_min": 0,
+          "tasks": 24
+        },
+        "validation": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 31,
+          "task_id_min": 24,
+          "tasks": 8
+        }
+      },
+      "top_components": {
+        "activation_patching_holdout": [
+          2,
+          0,
+          3,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "probe_only": [
+          10,
+          8,
+          11,
+          9,
+          14,
+          18,
+          21,
+          3
+        ],
+        "random": [
+          26,
+          1,
+          13,
+          21,
+          0,
+          15,
+          27,
+          8
+        ],
+        "true_causal_components": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "component_recovery": {
+        "strict_holdout": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9911209766925638
+          },
+          "probe_only": {
+            "average_precision": 0.3060876623376624,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.35368526915282866
+          },
+          "random": {
+            "average_precision": 0.17558275058275058,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.07717929227681201
+          }
+        },
+        "validation": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9922308546059934
+          },
+          "probe_only": {
+            "average_precision": 0.3060876623376624,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.35368526915282866
+          },
+          "random": {
+            "average_precision": 0.17558275058275058,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.07717929227681201
+          }
+        }
+      },
+      "model_quality": {
+        "strict_holdout": {
+          "base_auc": 0.9500675154320988,
+          "base_log_loss": 0.33848630202484403
+        },
+        "validation": {
+          "base_auc": 0.9484625771604938,
+          "base_log_loss": 0.38263325178071705
+        }
+      },
+      "seed": 53,
+      "sparse_dictionary": {
+        "strict_holdout": {
+          "causal_mean_matched_abs_corr": 0.723045305745569,
+          "causal_min_matched_abs_corr": 0.544756269659528,
+          "causal_recovered_count_ge_070": 3.0
+        },
+        "validation": {
+          "causal_mean_matched_abs_corr": 0.7418946183248754,
+          "causal_min_matched_abs_corr": 0.5640656400124079,
+          "causal_recovered_count_ge_070": 2.0
+        }
+      },
+      "split_summary": {
+        "strict_holdout": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 39,
+          "task_id_min": 32,
+          "tasks": 8
+        },
+        "train": {
+          "positive_rate": 0.5,
+          "rows": 4320,
+          "task_id_max": 23,
+          "task_id_min": 0,
+          "tasks": 24
+        },
+        "validation": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 31,
+          "task_id_min": 24,
+          "tasks": 8
+        }
+      },
+      "top_components": {
+        "activation_patching_holdout": [
+          2,
+          3,
+          0,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "probe_only": [
+          10,
+          11,
+          8,
+          9,
+          2,
+          5,
+          1,
+          3
+        ],
+        "random": [
+          29,
+          5,
+          19,
+          24,
+          1,
+          31,
+          22,
+          10
+        ],
+        "true_causal_components": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "component_recovery": {
+        "strict_holdout": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9911209766925638
+          },
+          "probe_only": {
+            "average_precision": 0.2727342549923195,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.16615872428189693
+          },
+          "random": {
+            "average_precision": 0.22403381642512074,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.1144932476337831
+          }
+        },
+        "validation": {
+          "activation_patching": {
+            "average_precision": 0.78125,
+            "precision_at_k": 0.75,
+            "recall_at_k": 0.75,
+            "spearman_vs_true_effect": 0.48390677025527196
+          },
+          "probe_only": {
+            "average_precision": 0.2727342549923195,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.16615872428189693
+          },
+          "random": {
+            "average_precision": 0.22403381642512074,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.1144932476337831
+          }
+        }
+      },
+      "model_quality": {
+        "strict_holdout": {
+          "base_auc": 0.9294945987654322,
+          "base_log_loss": 0.3641053126395224
+        },
+        "validation": {
+          "base_auc": 0.9489255401234568,
+          "base_log_loss": 0.39743703088215687
+        }
+      },
+      "seed": 67,
+      "sparse_dictionary": {
+        "strict_holdout": {
+          "causal_mean_matched_abs_corr": 0.6182878939930455,
+          "causal_min_matched_abs_corr": 0.5274298487180592,
+          "causal_recovered_count_ge_070": 1.0
+        },
+        "validation": {
+          "causal_mean_matched_abs_corr": 0.6092376682153741,
+          "causal_min_matched_abs_corr": 0.5343900950440283,
+          "causal_recovered_count_ge_070": 0.0
+        }
+      },
+      "split_summary": {
+        "strict_holdout": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 39,
+          "task_id_min": 32,
+          "tasks": 8
+        },
+        "train": {
+          "positive_rate": 0.5,
+          "rows": 4320,
+          "task_id_max": 23,
+          "task_id_min": 0,
+          "tasks": 24
+        },
+        "validation": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 31,
+          "task_id_min": 24,
+          "tasks": 8
+        }
+      },
+      "top_components": {
+        "activation_patching_holdout": [
+          2,
+          3,
+          0,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "probe_only": [
+          10,
+          11,
+          9,
+          8,
+          2,
+          0,
+          3,
+          7
+        ],
+        "random": [
+          19,
+          26,
+          2,
+          5,
+          12,
+          24,
+          16,
+          14
+        ],
+        "true_causal_components": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "component_recovery": {
+        "strict_holdout": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9944506104328524
+          },
+          "probe_only": {
+            "average_precision": 0.1777126099706745,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.03763287805232982
+          },
+          "random": {
+            "average_precision": 0.269017094017094,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.15116935760003675
+          }
+        },
+        "validation": {
+          "activation_patching": {
+            "average_precision": 1.0,
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "spearman_vs_true_effect": 0.9944506104328524
+          },
+          "probe_only": {
+            "average_precision": 0.1777126099706745,
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "spearman_vs_true_effect": 0.03763287805232982
+          },
+          "random": {
+            "average_precision": 0.269017094017094,
+            "precision_at_k": 0.25,
+            "recall_at_k": 0.25,
+            "spearman_vs_true_effect": 0.15116935760003675
+          }
+        }
+      },
+      "model_quality": {
+        "strict_holdout": {
+          "base_auc": 0.9584645061728396,
+          "base_log_loss": 0.36786880886470075
+        },
+        "validation": {
+          "base_auc": 0.9318923611111111,
+          "base_log_loss": 0.38144959156523495
+        }
+      },
+      "seed": 79,
+      "sparse_dictionary": {
+        "strict_holdout": {
+          "causal_mean_matched_abs_corr": 0.6645566097610264,
+          "causal_min_matched_abs_corr": 0.5813009538430616,
+          "causal_recovered_count_ge_070": 1.0
+        },
+        "validation": {
+          "causal_mean_matched_abs_corr": 0.6785780459361882,
+          "causal_min_matched_abs_corr": 0.6215729757223687,
+          "causal_recovered_count_ge_070": 2.0
+        }
+      },
+      "split_summary": {
+        "strict_holdout": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 39,
+          "task_id_min": 32,
+          "tasks": 8
+        },
+        "train": {
+          "positive_rate": 0.5,
+          "rows": 4320,
+          "task_id_max": 23,
+          "task_id_min": 0,
+          "tasks": 24
+        },
+        "validation": {
+          "positive_rate": 0.5,
+          "rows": 1440,
+          "task_id_max": 31,
+          "task_id_min": 24,
+          "tasks": 8
+        }
+      },
+      "top_components": {
+        "activation_patching_holdout": [
+          2,
+          0,
+          3,
+          1,
+          4,
+          5,
+          6,
+          7
+        ],
+        "probe_only": [
+          8,
+          11,
+          10,
+          9,
+          3,
+          12,
+          19,
+          16
+        ],
+        "random": [
+          13,
+          2,
+          5,
+          12,
+          26,
+          30,
+          29,
+          14
+        ],
+        "true_causal_components": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  ],
+  "seeds": [
+    11,
+    23,
+    37,
+    41,
+    53,
+    67,
+    79
+  ],
+  "summary": {
+    "checks": {
+      "minimum_seeds": true,
+      "patching_delta_vs_random": true,
+      "patching_holdout_map": true,
+      "patching_holdout_precision_at_k": true,
+      "patching_stable_seed_fraction": true,
+      "sparse_dictionary_causal_mean_corr": false
+    },
+    "decision": "FAIL",
+    "holdout_model_auc": {
+      "mean": 0.9483901014109348,
+      "std": 0.01647195723605364
+    },
+    "patching_holdout_average_precision": {
+      "mean": 0.96875,
+      "std": 0.08267972847076846
+    },
+    "patching_holdout_precision_at_k": {
+      "mean": 0.9642857142857143,
+      "std": 0.09449111825230681
+    },
+    "patching_map_delta_vs_probe": 0.743306591905128,
+    "patching_map_delta_vs_random": 0.6437205402022337,
+    "patching_stable_seed_fraction": 0.8571428571428571,
+    "probe_holdout_average_precision": {
+      "mean": 0.2254434080948719,
+      "std": 0.07120639813843761
+    },
+    "random_holdout_average_precision": {
+      "mean": 0.3250294597977664,
+      "std": 0.13080179143196674
+    },
+    "sparse_dictionary_holdout_causal_mean_corr": {
+      "mean": 0.6651015828266221,
+      "std": 0.05225117270997178
+    }
+  },
+  "title": "Known-Circuit Recovery Benchmark for Activation Patching and Sparse Dictionaries"
+}

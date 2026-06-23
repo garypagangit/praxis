@@ -1,0 +1,72 @@
+{
+  "experiment_id": "known-circuit-recovery-gate-20260623",
+  "title": "Known-Circuit Recovery Benchmark for Activation Patching and Sparse Decomposition",
+  "run_date": "2026-06-23",
+  "praxis_track": "Synthetic ground-truth circuit recovery",
+  "literature_anchors": [
+    {
+      "title": "Investigating Gender Bias in Language Models Using Causal Mediation Analysis",
+      "purpose": "Activation patching / causal mediation anchor",
+      "url": "https://aclanthology.org/2020.neuronlp-1.1/"
+    },
+    {
+      "title": "Emergence of simple-cell receptive field properties by learning a sparse code for natural images",
+      "purpose": "Sparse coding anchor",
+      "url": "https://www.nature.com/articles/381607a0"
+    },
+    {
+      "title": "Towards Monosemanticity: Decomposing Language Models With Dictionary Learning",
+      "purpose": "Modern sparse dictionary / SAE-style interpretability anchor",
+      "url": "https://transformer-circuits.pub/2023/monosemantic-features/index.html"
+    }
+  ],
+  "seeds": [11, 23, 37, 41, 53, 67, 79],
+  "task_splits": {
+    "train_tasks": 24,
+    "validation_tasks": 8,
+    "strict_holdout_tasks": 8,
+    "samples_per_task": 180
+  },
+  "synthetic_data": {
+    "sequence_length": 12,
+    "vocab_size": 17,
+    "latent_circuit_count": 8,
+    "causal_latent_indices": [0, 1, 2, 3],
+    "observed_component_count": 32,
+    "direct_component_noise": 0.18,
+    "proxy_component_noise": 0.05,
+    "distractor_component_noise": 0.75,
+    "label_noise": 0.08
+  },
+  "methods": {
+    "patching": {
+      "patch_value": "train_mean",
+      "score": "increase_in_log_loss_after_component_patch"
+    },
+    "probe_only": {
+      "model": "LogisticRegression",
+      "max_iter": 1000,
+      "regularization_c": 0.4
+    },
+    "sparse_dictionary": {
+      "model": "SparsePCA",
+      "n_components": 12,
+      "alpha": 0.6,
+      "max_iter": 400,
+      "batch_size": 256
+    }
+  },
+  "preliminary_closeout": {
+    "artifact": "reports/known_circuit_recovery/KNOWN_CIRCUIT_RECOVERY_PRELIM_MBDL_FAIL_20260623.md",
+    "result": "MiniBatchDictionaryLearning preliminary sweep passed patching thresholds but failed the sparse-dictionary causal mean correlation gate at 0.6651 versus the unchanged 0.7000 threshold. The final run switches the sparse recovery estimator to SparsePCA without lowering any gate threshold."
+  },
+  "gate_thresholds": {
+    "patching_holdout_map_min": 0.90,
+    "patching_holdout_precision_at_k_min": 0.90,
+    "patching_holdout_map_delta_vs_random_min": 0.55,
+    "patching_stable_seed_fraction_min": 0.85,
+    "sparse_dictionary_causal_mean_corr_min": 0.70,
+    "minimum_seeds": 7
+  },
+  "claim_boundary": "This gate is a controlled benchmark-substrate result. It can support a Praxis claim that the local evaluation harness can recover known synthetic causal circuits, but it does not claim recovery of natural transformer circuits until a trained transformer or real activation corpus is added."
+}
