@@ -1,0 +1,85 @@
++ date -u
+Tue Jun 23 11:49:52 UTC 2026
++ whoami
+root
++ aws --version
+aws-cli/1.45.3 Python/3.10.12 Linux/6.8.0-1053-aws botocore/1.43.3
++ nvidia-smi
+Tue Jun 23 11:49:53 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A10G                    On  |   00000000:00:1E.0 Off |                    0 |
+|  0%   32C    P8             10W /  300W |       0MiB /  23028MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
++ '[' '!' -x /home/ubuntu/praxis_moe_router_audit_20260623/venv/bin/python ']'
++ source /home/ubuntu/praxis_moe_router_audit_20260623/venv/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/bash -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ unset VIRTUAL_ENV_PROMPT
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/home/ubuntu/praxis_moe_router_audit_20260623/venv
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+++ PATH=/home/ubuntu/praxis_moe_router_audit_20260623/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ PS1='(venv) '
+++ export PS1
+++ VIRTUAL_ENV_PROMPT='(venv) '
+++ export VIRTUAL_ENV_PROMPT
+++ '[' -n /usr/bin/bash -o -n '' ']'
+++ hash -r
++ aws s3 cp s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/run_olmoe_router_smoke.py /home/ubuntu/praxis_moe_router_audit_20260623/run_olmoe_router_smoke.py
+Completed 16.0 KiB/16.0 KiB (188.2 KiB/s) with 1 file(s) remainingdownload: s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/run_olmoe_router_smoke.py to praxis_moe_router_audit_20260623/run_olmoe_router_smoke.py
++ aws s3 cp s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/run_olmoe_router_audit.py /home/ubuntu/praxis_moe_router_audit_20260623/run_olmoe_router_audit.py
+Completed 11.8 KiB/11.8 KiB (141.7 KiB/s) with 1 file(s) remainingdownload: s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/run_olmoe_router_audit.py to praxis_moe_router_audit_20260623/run_olmoe_router_audit.py
++ export HF_HOME=/home/ubuntu/hf
++ HF_HOME=/home/ubuntu/hf
++ export TRANSFORMERS_CACHE=/home/ubuntu/hf
++ TRANSFORMERS_CACHE=/home/ubuntu/hf
++ python /home/ubuntu/praxis_moe_router_audit_20260623/run_olmoe_router_audit.py --model-id allenai/OLMoE-1B-7B-0924-Instruct --outdir /home/ubuntu/praxis_moe_router_audit_20260623/output_instruct --max-length 96 --committee-sizes 16,32,64 --primary-committee-size 32 --bootstrap-samples 200 --artifact-stem MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [01:48<03:36, 108.10s/it]Fetching 3 files:  67%|██████▋   | 2/3 [01:48<00:44, 44.64s/it] Fetching 3 files: 100%|██████████| 3/3 [01:48<00:00, 36.10s/it]
+Loading weights:   0%|          | 0/179 [00:00<?, ?it/s]Loading weights:   1%|          | 1/179 [00:02<07:36,  2.57s/it]Loading weights:   2%|▏         | 4/179 [00:06<04:12,  1.44s/it]Loading weights:   8%|▊         | 15/179 [00:06<00:46,  3.52it/s]Loading weights:  15%|█▍        | 26/179 [00:06<00:21,  7.25it/s]Loading weights:  21%|██        | 37/179 [00:06<00:11, 12.08it/s]Loading weights:  27%|██▋       | 48/179 [00:06<00:07, 18.02it/s]Loading weights:  33%|███▎      | 59/179 [00:06<00:04, 25.08it/s]Loading weights:  39%|███▉      | 70/179 [00:06<00:03, 33.08it/s]Loading weights:  45%|████▌     | 81/179 [00:06<00:02, 41.54it/s]Loading weights:  51%|█████▏    | 92/179 [00:07<00:01, 49.83it/s]Loading weights:  58%|█████▊    | 103/179 [00:07<00:01, 57.74it/s]Loading weights:  64%|██████▎   | 114/179 [00:11<00:09,  6.96it/s]Loading weights:  70%|██████▉   | 125/179 [00:14<00:08,  6.29it/s]Loading weights:  73%|███████▎  | 130/179 [00:14<00:06,  7.24it/s]Loading weights:  76%|███████▌  | 136/179 [00:19<00:13,  3.19it/s]Loading weights:  78%|███████▊  | 139/179 [00:20<00:11,  3.43it/s]Loading weights:  82%|████████▏ | 147/179 [00:25<00:13,  2.35it/s]Loading weights:  83%|████████▎ | 149/179 [00:26<00:12,  2.48it/s]Loading weights:  88%|████████▊ | 158/179 [00:28<00:07,  2.75it/s]Loading weights:  94%|█████████▍| 169/179 [00:31<00:03,  3.13it/s]Loading weights:  95%|█████████▍| 170/179 [00:32<00:02,  3.17it/s]Loading weights: 100%|██████████| 179/179 [00:32<00:00,  5.59it/s]
+{
+  "audit_decision": "PASS",
+  "checks": {
+    "all_committee_size_means": true,
+    "primary_jaccard_ci_low": true,
+    "primary_jaccard_mean": true,
+    "router_capture_rate": true
+  },
+  "mean_layer_entropy": 3.6806734704102078,
+  "mean_layer_top_k_mass": 0.2601246651727706,
+  "primary_committee_size": 32,
+  "prompt_count": 480,
+  "router_capture_rate": 1.0,
+  "router_captured_prompt_count": 480
+}
++ aws s3 cp /home/ubuntu/praxis_moe_router_audit_20260623/output_instruct/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.json s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.json
+Completed 200.7 KiB/200.7 KiB (1.6 MiB/s) with 1 file(s) remainingupload: praxis_moe_router_audit_20260623/output_instruct/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.json to s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.json
++ aws s3 cp /home/ubuntu/praxis_moe_router_audit_20260623/output_instruct/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.md s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.md
+Completed 1.1 KiB/1.1 KiB (9.4 KiB/s) with 1 file(s) remainingupload: praxis_moe_router_audit_20260623/output_instruct/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.md to s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.md
++ date -u
+Tue Jun 23 11:53:37 UTC 2026

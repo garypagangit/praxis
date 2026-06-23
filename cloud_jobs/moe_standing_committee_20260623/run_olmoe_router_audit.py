@@ -51,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--committee-sizes", default="16,32,64")
     parser.add_argument("--primary-committee-size", type=int, default=32)
     parser.add_argument("--bootstrap-samples", type=int, default=200)
+    parser.add_argument("--artifact-stem", default="MOE_STANDING_COMMITTEE_ROUTER_AUDIT_20260623")
     return parser.parse_args()
 
 
@@ -293,11 +294,11 @@ def main() -> int:
         ],
         "claim_boundary": "This gate can support a bounded OLMoE prompt-domain standing-committee claim if passed. It still does not test fine-tuning shift or causal expert intervention.",
     }
-    (outdir / "MOE_STANDING_COMMITTEE_ROUTER_AUDIT_20260623.json").write_text(
+    (outdir / f"{args.artifact_stem}.json").write_text(
         json.dumps(payload, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-    (outdir / "MOE_STANDING_COMMITTEE_ROUTER_AUDIT_20260623.md").write_text(
+    (outdir / f"{args.artifact_stem}.md").write_text(
         render_report(payload),
         encoding="utf-8",
     )

@@ -1,0 +1,32 @@
+{
+  "experiment_id": "moe-standing-committee-router-audit-olmoe-instruct-20260623",
+  "title": "OLMoE-Instruct Standing-Committee Router Audit",
+  "run_date": "2026-06-23",
+  "model_id": "allenai/OLMoE-1B-7B-0924-Instruct",
+  "prior_gate": "reports/moe_standing_committee/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_SYNTHESIS_20260623.md",
+  "aws": {
+    "profile": "praxis-build",
+    "region": "us-east-1",
+    "instance_id": "i-07178e293e8df2a60",
+    "instance_type": "g5.xlarge",
+    "s3_bucket": "praxis-garypagan-272615233626-us-east-1",
+    "s3_prefix": "cloud_jobs/moe_standing_committee_20260623/olmoe_instruct_audit"
+  },
+  "prompt_design": {
+    "base_domains": ["cyber", "code", "math", "policy", "writing"],
+    "base_prompts_per_domain": 12,
+    "style_variants": 8,
+    "total_prompts": 480,
+    "max_length": 96
+  },
+  "committee_sizes": [16, 32, 64],
+  "primary_committee_size": 32,
+  "bootstrap_samples": 200,
+  "gate_thresholds": {
+    "router_capture_rate_min": 0.95,
+    "primary_jaccard_mean_min": 0.25,
+    "primary_jaccard_ci_low_min": 0.20,
+    "all_committee_size_means_min": 0.20
+  },
+  "claim_boundary": "This is an external-validity audit on the OLMoE Instruct variant using the same frozen prompt-domain protocol. It strengthens model-family validity but still does not test another MoE architecture or fine-tuning-shift intervention."
+}
