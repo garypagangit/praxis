@@ -175,13 +175,13 @@
     <section>
       <span class="label">Project name</span>
       <h1>FalseCite-Code</h1>
-      <p class="meta">Updated 2026-06-25, 10:45 AM America/New_York. AWS GPU instance <code>i-07178e293e8df2a60</code> is stopped.</p>
+      <p class="meta">Updated 2026-06-25, 5:05 PM America/New_York. AWS GPU instance <code>i-07178e293e8df2a60</code> is stopped after the verbose160 run.</p>
       <p><strong>Thesis:</strong> Code-assistant models can be induced to trust fabricated software-artifact citations, but strict package/repository metadata evidence and an external citation-aware verifier can reduce that trust without relying on model judgment.</p>
     </section>
     <aside class="status-card">
       <span class="label">Current status</span>
-      <p><span class="badge mixed">Active bounded positive</span></p>
-      <p>The audit-mode claim passed for Qwen2.5-Coder-7B. Generation-mode evidence is promising but not yet promoted because one prompt failed the parse cap and the repair prompt over-refused.</p>
+      <p><span class="badge pass">Useful bounded positive</span></p>
+      <p>The audit-mode and generation-mode claims now both pass for Qwen2.5-Coder-7B. The useful claim is bounded to this locked software-artifact slice and this model/protocol family.</p>
     </aside>
   </header>
 
@@ -200,6 +200,11 @@
       <span class="label">Verifier remediation</span>
       <strong>0.0000</strong>
       <p>Strict-holdout fabricated acceptance after metadata evidence or the citation-aware verifier.</p>
+    </div>
+    <div class="metric">
+      <span class="label">Generation-mode pass</span>
+      <strong>0.8333</strong>
+      <p>Strict-holdout fabricated trust in the verbose160 base condition; metadata evidence and verifier reduced it to 0.0000.</p>
     </div>
   </section>
 
@@ -245,14 +250,20 @@
           <td>Parse failures dropped to 0.0000, but the model became too conservative: base strict-holdout fabricated trust 0.0000 and valid clean overblock 1.0000.</td>
           <td>The repair changed the behavior under test. It is not the right promotion gate.</td>
         </tr>
+        <tr>
+          <td>Generation-mode verbose160 prompt</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>Base strict-holdout fabricated trust 0.8333; metadata evidence and verifier both reduced it to 0.0000; strict parse failure was 0.0667.</td>
+          <td>Promote as the generation-mode usefulness gate for this bounded Praxis experiment.</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
   <h2>Next Logical Step</h2>
   <div class="next">
-    <p><strong>Run the original verbose generation prompt with a larger completion budget, likely <code>max_new_tokens = 160</code>.</strong></p>
-    <p>This directly tests whether the generation-mode failure was truncation before the required decision line, without making the model over-refuse through a stricter prompt.</p>
+    <p><strong>Package FalseCite-Code as a useful bounded Praxis result, then choose the next experiment from the portfolio queue.</strong></p>
+    <p>The immediate paper/dashboard claim is now: a code-tuned assistant can trust fabricated software citations in audit and generation modes, while strict metadata evidence and a citation-aware verifier remove fabricated trust on the locked slice.</p>
   </div>
 
   <h2>Primary Artifacts</h2>
@@ -280,6 +291,14 @@
         <tr>
           <td><code>reports/falsecite_code/FALSECITE_CODE_GENERATION_GATE_REPAIR_20260625.md</code></td>
           <td>Tight-decision repair run showing zero parse failure but over-refusal.</td>
+        </tr>
+        <tr>
+          <td><code>reports/falsecite_code/FALSECITE_CODE_GENERATION_GATE_VERBOSE160_20260625.md</code></td>
+          <td>Decisive generation-mode PASS report using the original verbose prompt with a 160-token output budget.</td>
+        </tr>
+        <tr>
+          <td><code>reports/falsecite_code/FALSECITE_CODE_USEFULNESS_DECISION_20260625.md</code></td>
+          <td>Portfolio-facing usefulness decision and next-experiment handoff.</td>
         </tr>
         <tr>
           <td><code>scripts/run_falsecite_code_generation_gate.py</code></td>
