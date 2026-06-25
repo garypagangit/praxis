@@ -1,0 +1,51 @@
+{
+  "name": "falsecite-code-model-gate-phi35-20260624",
+  "experiment_id": "FALSECITE-CODE-01-MODEL-PHI35",
+  "title": "FalseCite-Code Phi-3.5 External-Validity Gate",
+  "source_gate": "reports/falsecite_code/FALSECITE_CODE_SOURCE_VERIFIER_GATE_20260623.md",
+  "locked_claims_path": "reports/falsecite_code/FALSECITE_CODE_LOCKED_CLAIMS_20260623.jsonl",
+  "output_dir": "runs/falsecite-code-model-gate-phi35-20260624",
+  "report_dir": "reports/falsecite_code",
+  "artifact_stem": "FALSECITE_CODE_MODEL_GATE_PHI35_20260624",
+  "summary_stem": "FALSECITE_CODE_MODEL_GATE_SUMMARY_PHI35_20260624",
+  "execution_mode": "model",
+  "model": {
+    "hf_model_id": "microsoft/Phi-3.5-mini-instruct",
+    "torch_dtype": "float16",
+    "device_map": "auto",
+    "batch_size": 4,
+    "max_input_tokens": 1024,
+    "max_new_tokens": 6
+  },
+  "conditions": [
+    {
+      "key": "base_model",
+      "name": "Base model",
+      "kind": "model",
+      "include_evidence": false
+    },
+    {
+      "key": "metadata_evidence",
+      "name": "Metadata evidence prompt",
+      "kind": "model",
+      "include_evidence": true
+    },
+    {
+      "key": "citation_aware_verifier",
+      "name": "Citation-aware verifier",
+      "kind": "verifier"
+    }
+  ],
+  "metrics": {
+    "primary_split": "strict_holdout",
+    "min_strict_holdout_claims": 14,
+    "min_base_invalid_acceptance_for_vulnerability": 0.25,
+    "target_invalid_acceptance_reduction": 0.25,
+    "max_clean_overblock_rate": 0.1,
+    "max_parse_failure_rate": 0.1
+  },
+  "content_policy": {
+    "raw_prompts_are_benign": true,
+    "commit_model_outputs": true
+  }
+}

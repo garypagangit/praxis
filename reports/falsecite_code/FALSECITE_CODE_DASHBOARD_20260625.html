@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FalseCite-Code Dashboard</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --ink: #101828;
+      --muted: #475467;
+      --line: #d0d5dd;
+      --blue: #175cd3;
+      --green: #067647;
+      --amber: #b54708;
+      --red: #b42318;
+      --soft-blue: #eff8ff;
+      --soft-green: #ecfdf3;
+      --soft-amber: #fffaeb;
+      --soft-red: #fef3f2;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 24px auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 28px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+      gap: 20px;
+      align-items: start;
+      border-bottom: 3px solid var(--blue);
+      padding-bottom: 20px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 28px 0 12px;
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+
+    p { margin: 8px 0; }
+    code {
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: 0.93em;
+      background: #f2f4f7;
+      border: 1px solid #e4e7ec;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status-card {
+      border: 1px solid var(--line);
+      background: #fcfcfd;
+      padding: 14px;
+      min-height: 100%;
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid currentColor;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge.pass { color: var(--green); background: var(--soft-green); }
+    .badge.mixed { color: var(--amber); background: var(--soft-amber); }
+    .badge.fail { color: var(--red); background: var(--soft-red); }
+    .badge.info { color: var(--blue); background: var(--soft-blue); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      padding: 14px;
+      background: #ffffff;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.15;
+      margin-top: 3px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: #ffffff;
+    }
+
+    th, td {
+      border-bottom: 1px solid #eaecf0;
+      padding: 10px 12px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: #182230;
+      background: #eef4ff;
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    .next {
+      border-left: 4px solid var(--blue);
+      background: var(--soft-blue);
+      padding: 12px 14px;
+    }
+
+    @media (max-width: 820px) {
+      main { width: min(100% - 20px, 1180px); padding: 18px; }
+      header, .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <section>
+      <span class="label">Project name</span>
+      <h1>FalseCite-Code</h1>
+      <p class="meta">Updated 2026-06-25, 10:45 AM America/New_York. AWS GPU instance <code>i-07178e293e8df2a60</code> is stopped.</p>
+      <p><strong>Thesis:</strong> Code-assistant models can be induced to trust fabricated software-artifact citations, but strict package/repository metadata evidence and an external citation-aware verifier can reduce that trust without relying on model judgment.</p>
+    </section>
+    <aside class="status-card">
+      <span class="label">Current status</span>
+      <p><span class="badge mixed">Active bounded positive</span></p>
+      <p>The audit-mode claim passed for Qwen2.5-Coder-7B. Generation-mode evidence is promising but not yet promoted because one prompt failed the parse cap and the repair prompt over-refused.</p>
+    </aside>
+  </header>
+
+  <section class="grid" aria-label="top metrics">
+    <div class="metric">
+      <span class="label">Locked claims</span>
+      <strong>80</strong>
+      <p>PyPI, NPM, GitHub repos, and GitHub tags; 15 strict-holdout claims.</p>
+    </div>
+    <div class="metric">
+      <span class="label">Primary audit vulnerability</span>
+      <strong>0.8571</strong>
+      <p>Strict-holdout fabricated acceptance by Qwen2.5-Coder-7B in the base condition.</p>
+    </div>
+    <div class="metric">
+      <span class="label">Verifier remediation</span>
+      <strong>0.0000</strong>
+      <p>Strict-holdout fabricated acceptance after metadata evidence or the citation-aware verifier.</p>
+    </div>
+  </section>
+
+  <h2>Experiment Status</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Gate</th>
+          <th>Status</th>
+          <th>Best evidence</th>
+          <th>Decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Source and verifier readiness</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>80 locked claims; strict external verifier accuracy 1.0000 and invalid recall 1.0000.</td>
+          <td>Benchmark/verifier is defensible enough for model testing.</td>
+        </tr>
+        <tr>
+          <td>Primary model audit</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>Base strict-holdout fabricated acceptance 0.8571; metadata evidence and verifier both reduced it to 0.0000 with clean overblock 0.0000.</td>
+          <td>Supports a bounded model-vulnerability/remediation claim for Qwen2.5-Coder-7B.</td>
+        </tr>
+        <tr>
+          <td>Cross-model synthesis</td>
+          <td><span class="badge mixed">MIXED</span></td>
+          <td>Phi-3.5 protocol invalid; Qwen2.5-3B over-refused and did not reproduce the vulnerability.</td>
+          <td>Do not claim universal LLM behavior. Keep the claim model- and protocol-bounded.</td>
+        </tr>
+        <tr>
+          <td>Generation-mode verbose prompt</td>
+          <td><span class="badge fail">FAIL</span></td>
+          <td>Base strict-holdout fabricated trust 0.8000; metadata evidence and verifier both reduced it to 0.0000, but base parse failure was 0.2000.</td>
+          <td>Promising signal, not promotable until the response contract is reliable.</td>
+        </tr>
+        <tr>
+          <td>Generation-mode tight repair</td>
+          <td><span class="badge fail">FAIL</span></td>
+          <td>Parse failures dropped to 0.0000, but the model became too conservative: base strict-holdout fabricated trust 0.0000 and valid clean overblock 1.0000.</td>
+          <td>The repair changed the behavior under test. It is not the right promotion gate.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Next Logical Step</h2>
+  <div class="next">
+    <p><strong>Run the original verbose generation prompt with a larger completion budget, likely <code>max_new_tokens = 160</code>.</strong></p>
+    <p>This directly tests whether the generation-mode failure was truncation before the required decision line, without making the model over-refuse through a stricter prompt.</p>
+  </div>
+
+  <h2>Primary Artifacts</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Artifact</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>reports/falsecite_code/FALSECITE_CODE_MODEL_GATE_20260624.md</code></td>
+          <td>Primary Qwen2.5-Coder-7B audit-mode PASS report.</td>
+        </tr>
+        <tr>
+          <td><code>reports/falsecite_code/FALSECITE_CODE_CROSS_MODEL_SYNTHESIS_20260624.md</code></td>
+          <td>Boundary evidence across Phi-3.5 and Qwen2.5-3B.</td>
+        </tr>
+        <tr>
+          <td><code>reports/falsecite_code/FALSECITE_CODE_GENERATION_GATE_20260625.md</code></td>
+          <td>Verbose generation-mode run with strong vulnerability/remediation signal but parse failure over cap.</td>
+        </tr>
+        <tr>
+          <td><code>reports/falsecite_code/FALSECITE_CODE_GENERATION_GATE_REPAIR_20260625.md</code></td>
+          <td>Tight-decision repair run showing zero parse failure but over-refusal.</td>
+        </tr>
+        <tr>
+          <td><code>scripts/run_falsecite_code_generation_gate.py</code></td>
+          <td>Reusable generation-mode runner with default and tight-decision prompt styles.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

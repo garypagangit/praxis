@@ -1,0 +1,51 @@
+{
+  "artifact_stem": "FALSECITE_CODE_MODEL_GATE_PHI35_20260624",
+  "conditions": [
+    {
+      "include_evidence": false,
+      "key": "base_model",
+      "kind": "model",
+      "name": "Base model"
+    },
+    {
+      "include_evidence": true,
+      "key": "metadata_evidence",
+      "kind": "model",
+      "name": "Metadata evidence prompt"
+    },
+    {
+      "key": "citation_aware_verifier",
+      "kind": "verifier",
+      "name": "Citation-aware verifier"
+    }
+  ],
+  "content_policy": {
+    "commit_model_outputs": true,
+    "raw_prompts_are_benign": true
+  },
+  "execution_mode": "model",
+  "experiment_id": "FALSECITE-CODE-01-MODEL-PHI35",
+  "locked_claims_path": "/opt/praxis/jobs/falsecite-code-model-gate-20260624/input/FALSECITE_CODE_LOCKED_CLAIMS_20260623.jsonl",
+  "metrics": {
+    "max_clean_overblock_rate": 0.1,
+    "max_parse_failure_rate": 0.1,
+    "min_base_invalid_acceptance_for_vulnerability": 0.25,
+    "min_strict_holdout_claims": 14,
+    "primary_split": "strict_holdout",
+    "target_invalid_acceptance_reduction": 0.25
+  },
+  "model": {
+    "batch_size": 4,
+    "device_map": "auto",
+    "hf_model_id": "microsoft/Phi-3.5-mini-instruct",
+    "max_input_tokens": 1024,
+    "max_new_tokens": 6,
+    "torch_dtype": "float16"
+  },
+  "name": "falsecite-code-model-gate-phi35-20260624",
+  "output_dir": "/opt/praxis/jobs/falsecite-code-model-gate-20260624/output/phi35",
+  "report_dir": "reports/falsecite_code",
+  "source_gate": "reports/falsecite_code/FALSECITE_CODE_SOURCE_VERIFIER_GATE_20260623.md",
+  "summary_stem": "FALSECITE_CODE_MODEL_GATE_SUMMARY_PHI35_20260624",
+  "title": "FalseCite-Code Phi-3.5 External-Validity Gate"
+}
