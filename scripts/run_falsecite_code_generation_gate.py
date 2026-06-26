@@ -373,6 +373,7 @@ def pct(value: Any) -> str:
 
 
 def render_report(config: dict[str, Any], summary: dict[str, Any]) -> str:
+    report_date = str(summary.get("generated", utc_now())).split("T", 1)[0]
     condition_rows = []
     for condition in config["conditions"]:
         key = condition["key"]
@@ -396,7 +397,7 @@ def render_report(config: dict[str, Any], summary: dict[str, Any]) -> str:
     gate = summary["gate"]
     return f"""# FalseCite-Code Generation-Mode Gate
 
-Date: 2026-06-25
+Date: {report_date}
 
 Experiment: `{config['experiment_id']}` - {config['title']}
 

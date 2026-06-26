@@ -175,13 +175,13 @@
     <section>
       <span class="label">Project name</span>
       <h1>FalseCite-Code</h1>
-      <p class="meta">Updated 2026-06-25, 5:05 PM America/New_York. AWS GPU instance <code>i-07178e293e8df2a60</code> is stopped after the verbose160 run.</p>
+      <p class="meta">Updated 2026-06-25, 10:20 PM America/New_York. AWS GPU instance <code>i-07178e293e8df2a60</code> is stopped after the Qwen2.5-Coder-3B external-validity run.</p>
       <p><strong>Thesis:</strong> Code-assistant models can be induced to trust fabricated software-artifact citations, but strict package/repository metadata evidence and an external citation-aware verifier can reduce that trust without relying on model judgment.</p>
     </section>
     <aside class="status-card">
       <span class="label">Current status</span>
       <p><span class="badge pass">Useful bounded positive</span></p>
-      <p>The audit-mode and generation-mode claims now both pass for Qwen2.5-Coder-7B. The useful claim is bounded to this locked software-artifact slice and this model/protocol family.</p>
+      <p>The audit-mode and generation-mode claims pass for Qwen2.5-Coder-7B, and Qwen2.5-Coder-3B independently reproduces the fabricated-citation vulnerability. The verifier remediation replicates; metadata-evidence remediation is model-dependent.</p>
     </aside>
   </header>
 
@@ -205,6 +205,11 @@
       <span class="label">Generation-mode pass</span>
       <strong>0.8333</strong>
       <p>Strict-holdout fabricated trust in the verbose160 base condition; metadata evidence and verifier reduced it to 0.0000.</p>
+    </div>
+    <div class="metric">
+      <span class="label">3B external validity</span>
+      <strong>0.8571</strong>
+      <p>Strict-holdout fabricated trust reproduced on Qwen2.5-Coder-3B; verifier reduced it to 0.0000, metadata evidence did not.</p>
     </div>
   </section>
 
@@ -256,14 +261,20 @@
           <td>Base strict-holdout fabricated trust 0.8333; metadata evidence and verifier both reduced it to 0.0000; strict parse failure was 0.0667.</td>
           <td>Promote as the generation-mode usefulness gate for this bounded Praxis experiment.</td>
         </tr>
+        <tr>
+          <td>Qwen2.5-Coder-3B external-validity prompt</td>
+          <td><span class="badge mixed">BOUNDARY</span></td>
+          <td>Base strict-holdout fabricated trust 0.8571; verifier reduced it to 0.0000, but metadata evidence increased/failed remediation at 1.0000 strict fabricated trust.</td>
+          <td>External-validity evidence strengthens the vulnerability and verifier claims, but narrows the metadata-evidence remediation claim.</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
   <h2>Next Logical Step</h2>
   <div class="next">
-    <p><strong>Package FalseCite-Code as a useful bounded Praxis result, then choose the next experiment from the portfolio queue.</strong></p>
-    <p>The immediate paper/dashboard claim is now: a code-tuned assistant can trust fabricated software citations in audit and generation modes, while strict metadata evidence and a citation-aware verifier remove fabricated trust on the locked slice.</p>
+    <p><strong>Package FalseCite-Code around the robust verifier claim, then choose the next portfolio experiment.</strong></p>
+    <p>The immediate claim is now: code-tuned assistants can trust fabricated software citations in generation mode, and an external citation-aware verifier robustly removes fabricated trust across the primary 7B and external 3B code-tuned models. Metadata evidence helps the 7B model but is not robust on the 3B external-validity gate.</p>
   </div>
 
   <h2>Primary Artifacts</h2>
@@ -299,6 +310,10 @@
         <tr>
           <td><code>reports/falsecite_code/FALSECITE_CODE_USEFULNESS_DECISION_20260625.md</code></td>
           <td>Portfolio-facing usefulness decision and next-experiment handoff.</td>
+        </tr>
+        <tr>
+          <td><code>reports/falsecite_code/FALSECITE_CODE_GENERATION_GATE_QWEN25_CODER3B_20260626.md</code></td>
+          <td>External-validity boundary report: vulnerability and verifier replicate on Qwen2.5-Coder-3B, metadata evidence does not.</td>
         </tr>
         <tr>
           <td><code>scripts/run_falsecite_code_generation_gate.py</code></td>

@@ -18,14 +18,15 @@ Code-assistant models can be induced to trust fabricated software-artifact citat
 | Generation verbose96 | FAIL | Strong signal, but strict parse failure 0.2000 exceeded the cap. |
 | Generation tight repair | FAIL | Parse fixed, but the prompt caused over-refusal and removed the vulnerability under test. |
 | Generation verbose160 | PASS | Base strict-holdout fabricated trust 0.8333; metadata evidence and verifier both 0.0000; strict parse failure 0.0667. |
+| Qwen2.5-Coder-3B external validity | BOUNDARY | Base strict-holdout fabricated trust 0.8571; verifier reduced it to 0.0000, but metadata evidence failed at 1.0000 strict fabricated trust. |
 
 ## Current Claim
 
-FalseCite-Code is useful as a bounded Praxis result for `Qwen/Qwen2.5-Coder-7B-Instruct` on the locked 80-row software-artifact citation slice. The supported claim covers both audit-mode and generation-mode citation trust, plus remediation through metadata evidence and a citation-aware verifier.
+FalseCite-Code is useful as a bounded Praxis result for code-tuned assistants on the locked 80-row software-artifact citation slice. The supported claim covers audit-mode and generation-mode citation trust, plus robust remediation through a citation-aware verifier. Metadata evidence is useful for the primary 7B model but is not robust across the 3B external-validity gate.
 
 ## Boundary
 
-Do not claim a universal LLM vulnerability or broad hallucination prevention. The cross-model checks show that model behavior and prompt compatibility matter.
+Do not claim a universal LLM vulnerability, broad hallucination prevention, or universal metadata-evidence remediation. The cross-model checks show that model behavior and prompt compatibility matter.
 
 ## Next Experiment Handoff
 
