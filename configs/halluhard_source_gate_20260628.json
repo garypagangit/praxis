@@ -1,0 +1,75 @@
+{
+  "experiment_id": "PX-011",
+  "title": "HalluHard Source-Backed Verifier Audit",
+  "generated_date": "2026-06-28",
+  "github_repo": "epfml/halluhard",
+  "repo_url": "https://github.com/epfml/halluhard",
+  "arxiv_url": "https://arxiv.org/abs/2602.01031",
+  "website_url": "https://halluhard.com/",
+  "raw_base_url": "https://raw.githubusercontent.com/epfml/halluhard/main",
+  "github_api_repo_url": "https://api.github.com/repos/epfml/halluhard",
+  "github_api_tree_url": "https://api.github.com/repos/epfml/halluhard/git/trees/main?recursive=1",
+  "datasets": {
+    "research_questions": {
+      "path": "research_questions/data/research_questions_all.jsonl",
+      "required_keys": [
+        "research_question",
+        "title",
+        "abstract",
+        "doi",
+        "arxiv_id",
+        "authors",
+        "publication_year"
+      ],
+      "source_backed_role": "primary_research_lane"
+    },
+    "legal_cases": {
+      "path": "legal_cases/data/legal_cases_all.jsonl",
+      "required_keys": [
+        "case_id",
+        "question",
+        "question_category",
+        "source"
+      ],
+      "source_backed_role": "blocked_public_text_lane"
+    },
+    "medical_guidelines": {
+      "path": "medical_guidelines/data/guidelines.jsonl",
+      "required_keys": [
+        "question",
+        "guideline_text",
+        "source"
+      ],
+      "source_backed_role": "partial_public_text_lane"
+    },
+    "coding": {
+      "path": "coding/data/coding_questions.jsonl",
+      "required_keys": [
+        "prompt",
+        "prompt_template",
+        "task",
+        "language"
+      ],
+      "source_backed_role": "coding_direct_lane"
+    }
+  },
+  "thresholds": {
+    "min_research_rows": 200,
+    "min_total_seed_rows": 900,
+    "min_research_public_identifier_coverage": 0.8,
+    "min_research_title_abstract_coverage": 0.95,
+    "min_required_key_coverage": 0.95
+  },
+  "prior_guardrail_report": "runs/frontier-exp04-dialogue-feature-gate-20260620/EXP04_DIALOGUE_FEATURE_GATE_RESULT_20260620.md",
+  "prior_guardrail_failure": {
+    "status": "MIXED - RESPONSE ARTIFACT BASELINE WINS",
+    "evidence_numeric_strict_holdout_f1": 0.7215,
+    "response_only_strict_holdout_f1": 0.7835
+  },
+  "output": {
+    "run_dir": "runs/halluhard-source-gate-20260628",
+    "report_dir": "reports/halluhard_source_verifier",
+    "report_file": "HALLUHARD_SOURCE_GATE_20260628.md",
+    "summary_file": "summary.json"
+  }
+}

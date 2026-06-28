@@ -1,0 +1,253 @@
+{
+  "claim_boundary": "This gate supports only a research_questions source-backed verifier prototype over HalluHard metadata. It does not support a broad all-domain HalluHard claim, a PubMed-specific claim, or any model-response claim until a response-only baseline is run.",
+  "datasets": {
+    "coding": {
+      "keys": [
+        "language",
+        "prompt",
+        "prompt_template",
+        "task"
+      ],
+      "name": "coding",
+      "path": "coding/data/coding_questions.jsonl",
+      "required_key_coverage": {
+        "language": 1.0,
+        "prompt": 1.0,
+        "prompt_template": 1.0,
+        "task": 1.0
+      },
+      "rows": 300,
+      "sample_values": {
+        "language": "Python",
+        "prompt": "Can you help me write Python to Analyze ELF relocations statically.",
+        "prompt_template": "Can you help me write {language} to {task}.",
+        "task": "Analyze ELF relocations statically"
+      },
+      "source_backed_role": "coding_direct_lane",
+      "status": "ACCESSIBLE",
+      "url": "https://raw.githubusercontent.com/epfml/halluhard/main/coding/data/coding_questions.jsonl"
+    },
+    "legal_cases": {
+      "keys": [
+        "case_id",
+        "question",
+        "question_category",
+        "source"
+      ],
+      "name": "legal_cases",
+      "path": "legal_cases/data/legal_cases_all.jsonl",
+      "required_key_coverage": {
+        "case_id": 1.0,
+        "question": 1.0,
+        "question_category": 1.0,
+        "source": 1.0
+      },
+      "rows": 250,
+      "sample_values": {
+        "case_id": "scalr-1",
+        "question": "Does the inevitable discovery doctrine create a per se exception to the exclusionary rule for evidence seized after a Fo",
+        "question_category": "SCALR",
+        "source": "Westlaw"
+      },
+      "source_backed_role": "blocked_public_text_lane",
+      "status": "ACCESSIBLE",
+      "url": "https://raw.githubusercontent.com/epfml/halluhard/main/legal_cases/data/legal_cases_all.jsonl"
+    },
+    "medical_guidelines": {
+      "keys": [
+        "guideline_text",
+        "question",
+        "source"
+      ],
+      "name": "medical_guidelines",
+      "path": "medical_guidelines/data/guidelines.jsonl",
+      "required_key_coverage": {
+        "guideline_text": 1.0,
+        "question": 1.0,
+        "source": 1.0
+      },
+      "rows": 250,
+      "sample_values": {
+        "guideline_text": "Levator scapulae muscle # Overview The levator scapulae is situated at the back and side of the neck. # Origin and inser",
+        "question": "According to authoritative anatomical guidance, discuss how the levator scapulaes origin, insertion, actions, common ana",
+        "source": "wikidoc"
+      },
+      "source_backed_role": "partial_public_text_lane",
+      "status": "ACCESSIBLE",
+      "url": "https://raw.githubusercontent.com/epfml/halluhard/main/medical_guidelines/data/guidelines.jsonl"
+    },
+    "research_questions": {
+      "keys": [
+        "abstract",
+        "arxiv_id",
+        "authors",
+        "cited_by_count",
+        "created_date",
+        "doi",
+        "language",
+        "publication_year",
+        "research_question",
+        "title"
+      ],
+      "name": "research_questions",
+      "path": "research_questions/data/research_questions_all.jsonl",
+      "required_key_coverage": {
+        "abstract": 1.0,
+        "arxiv_id": 0.884,
+        "authors": 0.996,
+        "doi": 1.0,
+        "publication_year": 1.0,
+        "research_question": 1.0,
+        "title": 1.0
+      },
+      "rows": 250,
+      "sample_values": {
+        "abstract": "Neutron stars are not only of astrophysical interest, but are also of great interest to nuclear physicists, because thei",
+        "arxiv_id": "1912.05705v1",
+        "authors": "Bogdanov S, Y. Soong, G. Prigozhin",
+        "doi": "https://doi.org/10.3847/2041-8213/ab50c5",
+        "publication_year": "2019",
+        "research_question": "How do simultaneous measurements of a neutron stars mass and radius constrain the equation of state of dense nuclear mat",
+        "title": "PSR J0030+0451 Mass and Radius from NICER Data and Implications for the Properties of Neutron Star Matter"
+      },
+      "source_backed_role": "primary_research_lane",
+      "status": "ACCESSIBLE",
+      "url": "https://raw.githubusercontent.com/epfml/halluhard/main/research_questions/data/research_questions_all.jsonl"
+    }
+  },
+  "experiment_id": "PX-011",
+  "generated_utc": "2026-06-28T20:06:40.530708+00:00",
+  "lane_decisions": {
+    "coding": {
+      "decision": "FEASIBLE_ONLY_AS_CODING_DIRECT_LANE",
+      "language_coverage": 1.0,
+      "prompt_coverage": 1.0,
+      "reason": "Rows support coding-task response checks, but this is not the same source-backed literature verifier claim as PX-011."
+    },
+    "legal_cases": {
+      "case_id_coverage": 1.0,
+      "decision": "BLOCKED_FOR_STRICT_PUBLIC_SOURCE_VERIFIER",
+      "reason": "Rows expose case IDs, questions, categories, and source labels, but not public opinion text, public URLs, or full citations. A Westlaw-backed lane is not an open verifier without additional public legal sources.",
+      "source_coverage": 1.0
+    },
+    "medical_guidelines": {
+      "decision": "PARTIAL_NEEDS_SOURCE_URLS_OR_AUTHORITY_MAP",
+      "guideline_text_coverage": 1.0,
+      "reason": "Rows include guideline text and source labels, so local text matching is possible. Public authority verification is weak without exact guideline URLs, version IDs, or PubMed/clinical-source mappings.",
+      "source_coverage": 1.0
+    },
+    "research_questions": {
+      "decision": "PASS_FOR_SOURCE_BACKED_PROTOTYPE",
+      "public_identifier_coverage": 1.0,
+      "reason": "Rows include stable scholarly metadata, public identifiers, titles, and abstracts. This supports a deterministic metadata/source verifier prototype before any model-response claims.",
+      "title_abstract_coverage": 1.0
+    }
+  },
+  "next_registered_gate": "Build a frozen research_questions prototype that verifies generated citation claims against DOI/arXiv/title/abstract metadata, reports abstentions and verification errors, and compares against response-only and metadata-only baselines on a sealed split.",
+  "pipeline_signals": {
+    "env_keys": [
+      "ANTHROPIC_API_KEY",
+      "DEEPSEEK_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENALEX_MAILTO",
+      "OPENROUTER_API_KEY",
+      "SERPER_API_KEY"
+    ],
+    "pixi_mentions_datasets": true,
+    "pixi_mentions_openai": true,
+    "readme_mentions_coding_direct": true,
+    "readme_mentions_webscraper": true,
+    "research_strategy_claim_fields": {
+      "claimed_authors": true,
+      "claimed_content": true,
+      "claimed_title": true,
+      "claimed_url": true,
+      "claimed_year": true,
+      "full_citation": true
+    },
+    "research_strategy_judgment_fields": {
+      "abstention": true,
+      "content_grounding": true,
+      "hallucination": true,
+      "reference_grounding": true,
+      "verification_error": true
+    },
+    "web_search_mentions_html": true,
+    "web_search_mentions_pdf": true,
+    "web_search_uses_serper": true
+  },
+  "prior_exp04_guardrail": {
+    "evidence_numeric_strict_holdout_f1": 0.7215,
+    "mentions_response_artifact_failure": true,
+    "report_accessible": true,
+    "report_path": "runs/frontier-exp04-dialogue-feature-gate-20260620/EXP04_DIALOGUE_FEATURE_GATE_RESULT_20260620.md",
+    "response_only_strict_holdout_f1": 0.7835,
+    "status": "MIXED - RESPONSE ARTIFACT BASELINE WINS"
+  },
+  "repo": {
+    "arxiv_url": "https://arxiv.org/abs/2602.01031",
+    "created_at": "2026-01-18T16:33:22Z",
+    "default_branch": "main",
+    "description": " A Hard Multi-Turn Hallucination Benchmark",
+    "github_api_repo_url": "https://api.github.com/repos/epfml/halluhard",
+    "github_api_tree_url": "https://api.github.com/repos/epfml/halluhard/git/trees/main?recursive=1",
+    "pushed_at": "2026-06-22T19:37:57Z",
+    "relevant_tree_paths": [
+      ".env.example",
+      "README.md",
+      "coding/data/coding_questions.jsonl",
+      "judging_pipeline/strategies/research_questions.py",
+      "judging_pipeline/workers/web_searcher.py",
+      "legal_cases/data/legal_cases_all.jsonl",
+      "medical_guidelines/data/guidelines.jsonl",
+      "pixi.toml",
+      "research_questions/data/research_questions_all.jsonl"
+    ],
+    "repo_accessible": true,
+    "repo_error": null,
+    "repo_url": "https://github.com/epfml/halluhard",
+    "tree_accessible": true,
+    "tree_error": null,
+    "tree_path_count": 148,
+    "updated_at": "2026-06-22T19:38:02Z",
+    "website_url": "https://halluhard.com/"
+  },
+  "research_gate_checks": {
+    "data_files_accessible": true,
+    "github_repo_accessible": true,
+    "github_tree_accessible": true,
+    "pipeline_webscraper_mode_detected": true,
+    "prior_exp04_guardrail_recorded": true,
+    "research_judgment_fields_detected": true,
+    "research_public_identifier_coverage": true,
+    "research_rows": true,
+    "research_title_abstract_coverage": true,
+    "total_seed_rows": true
+  },
+  "scope_limitations": {
+    "coding_lane_not_literature_verifier": true,
+    "legal_lane_public_verifier_blocked": true,
+    "medical_lane_needs_authority_map": true,
+    "not_pubmed_specific": true,
+    "requires_response_only_baseline_before_model_claim": true
+  },
+  "sources": [
+    "https://github.com/epfml/halluhard",
+    "https://arxiv.org/abs/2602.01031",
+    "https://halluhard.com/",
+    "https://api.github.com/repos/epfml/halluhard",
+    "https://api.github.com/repos/epfml/halluhard/git/trees/main?recursive=1",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/research_questions/data/research_questions_all.jsonl",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/legal_cases/data/legal_cases_all.jsonl",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/medical_guidelines/data/guidelines.jsonl",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/coding/data/coding_questions.jsonl",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/.env.example",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/README.md",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/pixi.toml",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/judging_pipeline/strategies/research_questions.py",
+    "https://raw.githubusercontent.com/epfml/halluhard/main/judging_pipeline/workers/web_searcher.py"
+  ],
+  "status": "SOURCE GATE PASS - RESEARCH LANE ONLY",
+  "title": "HalluHard Source-Backed Verifier Audit",
+  "total_seed_rows": 1050
+}
