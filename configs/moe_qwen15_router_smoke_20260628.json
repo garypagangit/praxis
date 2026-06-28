@@ -1,0 +1,26 @@
+{
+  "experiment_id": "moe-qwen15-router-smoke-20260628",
+  "title": "Qwen1.5-MoE Router-Audit Smoke",
+  "px_id": "PX-005",
+  "run_date": "2026-06-28",
+  "model_id": "Qwen/Qwen1.5-MoE-A2.7B",
+  "aws": {
+    "profile": "praxis-build",
+    "region": "us-east-1",
+    "instance_id": "i-07178e293e8df2a60",
+    "instance_type": "g5.xlarge",
+    "s3_bucket": "praxis-garypagan-272615233626-us-east-1",
+    "s3_prefix": "cloud_jobs/moe_qwen15_router_smoke_20260628"
+  },
+  "smoke_settings": {
+    "prompts_per_domain": 1,
+    "max_length": 64,
+    "load_in_8bit": true
+  },
+  "gate_thresholds": {
+    "router_capture_rate_min": 0.95,
+    "domain_pairwise_jaccard_mean_min_for_signal": 0.20,
+    "minimum_prompt_count": 5
+  },
+  "claim_boundary": "This is a first non-OLMoE router-observability smoke on Qwen1.5-MoE. It can justify a larger frozen audit if passed, but it is not a full cross-architecture standing-committee result."
+}

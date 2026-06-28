@@ -503,9 +503,9 @@
             <td class="num">PX-005</td>
             <td class="title">MoE Standing-Committee Router Audit</td>
             <td>Idea Explorer / MoE</td>
-            <td><span class="badge positive">Bounded positive</span></td>
-            <td><a href="moe_standing_committee/README.md">Experiment README</a>: OLMoE base/instruct both PASS; <a href="moe_standing_committee/MOE_CROSS_ARCH_SOURCE_GATE_20260628.md">cross-architecture source gate</a> PASS with <code>7</code> non-OLMoE candidates; best next target <code>Qwen/Qwen1.5-MoE-A2.7B</code>.</td>
-            <td>Next actual gate is AWS/HF GPU router audit on Qwen1.5-MoE; no non-OLMoE router trace has run yet.</td>
+            <td><span class="badge positive">Cross-arch smoke passed</span></td>
+            <td><a href="moe_standing_committee/README.md">Experiment README</a>: OLMoE base/instruct both PASS; <a href="moe_standing_committee/MOE_CROSS_ARCH_SOURCE_GATE_20260628.md">source gate</a> found <code>7</code> non-OLMoE candidates; <a href="moe_standing_committee/qwen15_router_smoke_20260628/MOE_QWEN15_ROUTER_SMOKE_20260628.md">Qwen1.5-MoE smoke</a> PASS with <code>5/5</code> router capture, mean committee Jaccard <code>0.2195</code>, top-k mass <code>0.3396</code>.</td>
+            <td>Next gate is the frozen 480-prompt Qwen1.5-MoE audit with committee-size sensitivity and bootstrap confidence intervals.</td>
           </tr>
           <tr>
             <td class="num">6</td>
@@ -811,7 +811,7 @@
             <td>Idea Explorer</td>
             <td><span class="badge defer">Defer</span></td>
             <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> keeps this behind the lighter OLMoE audit.</td>
-            <td>PX-005 cross-architecture source gate is done; defer FLAME until a non-OLMoE router trace exists.</td>
+            <td>PX-005 now has a Qwen non-OLMoE router smoke; defer FLAME until the full Qwen audit confirms cross-architecture stability.</td>
           </tr>
           <tr>
             <td class="num">40</td>
