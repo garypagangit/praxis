@@ -1,0 +1,37 @@
+{
+  "experiment_id": "moe-qwen15-standing-committee-router-audit-20260628",
+  "title": "Qwen1.5-MoE Standing-Committee Router Audit",
+  "run_date": "2026-06-28",
+  "model_id": "Qwen/Qwen1.5-MoE-A2.7B",
+  "prior_gate": "reports/moe_standing_committee/qwen15_router_smoke_20260628/MOE_QWEN15_ROUTER_SMOKE_20260628.md",
+  "aws": {
+    "profile": "praxis-build",
+    "region": "us-east-1",
+    "instance_id": "i-07178e293e8df2a60",
+    "instance_type": "g5.xlarge",
+    "s3_bucket": "praxis-garypagan-272615233626-us-east-1",
+    "s3_prefix": "cloud_jobs/moe_qwen15_router_audit_20260628"
+  },
+  "prompt_design": {
+    "base_domains": ["cyber", "code", "math", "policy", "writing"],
+    "base_prompts_per_domain": 12,
+    "style_variants": 8,
+    "total_prompts": 480,
+    "max_length": 96
+  },
+  "load": {
+    "load_in_8bit": true,
+    "gpu_memory": "20GiB",
+    "cpu_memory": "12GiB"
+  },
+  "committee_sizes": [16, 32, 64],
+  "primary_committee_size": 32,
+  "bootstrap_samples": 200,
+  "gate_thresholds": {
+    "router_capture_rate_min": 0.95,
+    "primary_jaccard_mean_min": 0.25,
+    "primary_jaccard_ci_low_min": 0.20,
+    "all_committee_size_means_min": 0.20
+  },
+  "claim_boundary": "This gate can support a bounded cross-architecture standing-committee claim only if it passes under the frozen OLMoE protocol. It still does not test fine-tuning shift or causal expert intervention."
+}
