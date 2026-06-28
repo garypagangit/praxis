@@ -1,0 +1,43 @@
+diff --git a/requests/cookies.py b/requests/cookies.py
+index d61ec2da..60d85d5b 100644
+--- a/requests/cookies.py
++++ b/requests/cookies.py
+@@ -425,7 +425,7 @@ def morsel_to_cookie(morsel):
+     elif morsel['expires']:
+         time_template = '%a, %d-%b-%Y %H:%M:%S GMT'
+         expires = int(time.mktime(
+-            time.strptime(morsel['expires'], time_template)) - time.timezone)
++            time.strptime(morsel['expires'], time_template)))
+     return create_cookie(
+         comment=morsel['comment'],
+         comment_url=bool(morsel['comment']),
+diff --git a/requests/models.py b/requests/models.py
+index 9c624d3c..f3a4f6d1 100644
+--- a/requests/models.py
++++ b/requests/models.py
+@@ -81,7 +81,7 @@ class RequestEncodingMixin(object):
+         """
+ 
+         if isinstance(data, (str, bytes)):
+-            return to_native_string(data)
++            return data
+         elif hasattr(data, 'read'):
+             return data
+         elif hasattr(data, '__iter__'):
+diff --git a/requests/utils.py b/requests/utils.py
+index 132cd2b5..50df10c4 100644
+--- a/requests/utils.py
++++ b/requests/utils.py
+@@ -116,7 +116,11 @@ def get_netrc_auth(url, raise_errors=False):
+         ri = urlparse(url)
+ 
+         # Strip port numbers from netloc
+-        host = ri.netloc.split(':')[0]
++        # Convert to string if url is bytes to handle bytes URLs
++        netloc = ri.netloc
++        if isinstance(netloc, bytes):
++            netloc = netloc.decode('utf-8')
++        host = netloc.split(':')[0]
+ 
+         try:
+             _netrc = netrc(netrc_path).authenticators(host)

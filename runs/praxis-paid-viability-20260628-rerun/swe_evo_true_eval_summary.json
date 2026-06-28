@@ -1,0 +1,366 @@
+{
+  "base_returncode": 1,
+  "claim_boundary": "One released-prediction SWE-EVO execution slice. This is not a full benchmark sweep or a trained repo-state world model.",
+  "file_overlap": 3,
+  "generated_utc": "2026-06-28T21:58:49.797916+00:00",
+  "gold_patch_applied": true,
+  "gold_patch_files": [
+    "HISTORY.rst",
+    "requests/__init__.py",
+    "requests/cookies.py",
+    "requests/models.py",
+    "requests/packages/urllib3/__init__.py",
+    "requests/packages/urllib3/connection.py",
+    "requests/utils.py"
+  ],
+  "gold_returncode": 0,
+  "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931",
+  "instance_id": "psf__requests_v2.9.0_v2.9.1",
+  "model": "glm-4p5",
+  "model_patch_applied": true,
+  "model_patch_files": [
+    "requests/cookies.py",
+    "requests/models.py",
+    "requests/utils.py"
+  ],
+  "model_returncode": 0,
+  "repo": "psf/requests",
+  "results": {
+    "base_test_apply": {
+      "applied": true,
+      "apply": {
+        "cmd": [
+          "git",
+          "apply",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/test_base.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.0020532608032226562
+      },
+      "check": {
+        "cmd": [
+          "git",
+          "apply",
+          "--check",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/test_base.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.0023546218872070312
+      }
+    },
+    "checkout": {
+      "cmd": [
+        "git",
+        "checkout",
+        "5f7a3a74aab1625c2bb65f643197ee885e3da576"
+      ],
+      "returncode": 0,
+      "stderr": "Note: switching to '5f7a3a74aab1625c2bb65f643197ee885e3da576'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at 5f7a3a74 v2.9.0\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0440068244934082
+    },
+    "clone": {
+      "cmd": [
+        "git",
+        "clone",
+        "https://github.com/psf/requests.git",
+        "base"
+      ],
+      "returncode": 0,
+      "stderr": "Cloning into 'base'...\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.7776515483856201
+    },
+    "docker_pull": {
+      "cmd": [
+        "sudo",
+        "docker",
+        "pull",
+        "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Using default tag: latest\nlatest: Pulling from epoch-research/swe-bench.eval.x86_64.psf__requests-2931\nDigest: sha256:99b2aa0435b2818c2c301cdfb927ce2a348d6647d9a21a3a7942038168e6278a\nStatus: Image is up to date for ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931:latest\nghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931:latest\n",
+      "timeout": false,
+      "wall_seconds": 0.44812607765197754
+    },
+    "gold_apply": {
+      "applied": true,
+      "apply": {
+        "cmd": [
+          "git",
+          "apply",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/gold.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.002735137939453125
+      },
+      "check": {
+        "cmd": [
+          "git",
+          "apply",
+          "--check",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/gold.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.002343893051147461
+      }
+    },
+    "gold_patch_files": [
+      "HISTORY.rst",
+      "requests/__init__.py",
+      "requests/cookies.py",
+      "requests/models.py",
+      "requests/packages/urllib3/__init__.py",
+      "requests/packages/urllib3/connection.py",
+      "requests/utils.py"
+    ],
+    "gold_test_apply": {
+      "applied": true,
+      "apply": {
+        "cmd": [
+          "git",
+          "apply",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/test_gold.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.002061128616333008
+      },
+      "check": {
+        "cmd": [
+          "git",
+          "apply",
+          "--check",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/test_gold.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.0019626617431640625
+      }
+    },
+    "instance": {
+      "FAIL_TO_PASS": [
+        "test_requests.py::TestRequests::test_binary_put"
+      ],
+      "PASS_TO_PASS": [
+        "test_requests.py::TestCaseInsensitiveDict::test_contains",
+        "test_requests.py::TestCaseInsensitiveDict::test_copy",
+        "test_requests.py::TestCaseInsensitiveDict::test_delitem",
+        "test_requests.py::TestCaseInsensitiveDict::test_docstring_example",
+        "test_requests.py::TestCaseInsensitiveDict::test_equality",
+        "test_requests.py::TestCaseInsensitiveDict::test_fixes_649",
+        "test_requests.py::TestCaseInsensitiveDict::test_get",
+        "test_requests.py::TestCaseInsensitiveDict::test_getitem",
+        "test_requests.py::TestCaseInsensitiveDict::test_iter",
+        "test_requests.py::TestCaseInsensitiveDict::test_iterable_init",
+        "test_requests.py::TestCaseInsensitiveDict::test_kwargs_init",
+        "test_requests.py::TestCaseInsensitiveDict::test_len",
+        "test_requests.py::TestCaseInsensitiveDict::test_lower_items",
+        "test_requests.py::TestCaseInsensitiveDict::test_mapping_init",
+        "test_requests.py::TestCaseInsensitiveDict::test_preserve_key_case",
+        "test_requests.py::TestCaseInsensitiveDict::test_preserve_last_key_case",
+        "test_requests.py::TestCaseInsensitiveDict::test_setdefault",
+        "test_requests.py::TestCaseInsensitiveDict::test_update",
+        "test_requests.py::TestCaseInsensitiveDict::test_update_retains_unchanged",
+        "test_requests.py::TestContentEncodingDetection::test_html4_pragma",
+        "test_requests.py::TestContentEncodingDetection::test_html_charset",
+        "test_requests.py::TestContentEncodingDetection::test_none",
+        "test_requests.py::TestContentEncodingDetection::test_precedence",
+        "test_requests.py::TestContentEncodingDetection::test_xhtml_pragma",
+        "test_requests.py::TestContentEncodingDetection::test_xml",
+        "test_requests.py::TestMorselToCookieExpires::test_expires_invalid_int",
+        "test_requests.py::TestMorselToCookieExpires::test_expires_invalid_str",
+        "test_requests.py::TestMorselToCookieExpires::test_expires_none",
+        "test_requests.py::TestMorselToCookieExpires::test_expires_valid_str",
+        "test_requests.py::TestMorselToCookieMaxAge::test_max_age_invalid_str",
+        "test_requests.py::TestMorselToCookieMaxAge::test_max_age_valid_int",
+        "test_requests.py::TestRequests::test_LocationParseError",
+        "test_requests.py::TestRequests::test_basic_auth_str_is_always_native",
+        "test_requests.py::TestRequests::test_basic_building",
+        "test_requests.py::TestRequests::test_connection_error_invalid_domain",
+        "test_requests.py::TestRequests::test_connection_error_invalid_port",
+        "test_requests.py::TestRequests::test_cookie_as_dict_items",
+        "test_requests.py::TestRequests::test_cookie_as_dict_keeps_items",
+        "test_requests.py::TestRequests::test_cookie_as_dict_keeps_len",
+        "test_requests.py::TestRequests::test_cookie_as_dict_keys",
+        "test_requests.py::TestRequests::test_cookie_as_dict_values",
+        "test_requests.py::TestRequests::test_cookie_parameters",
+        "test_requests.py::TestRequests::test_entry_points",
+        "test_requests.py::TestRequests::test_get_auth_from_url",
+        "test_requests.py::TestRequests::test_get_auth_from_url_encoded_hashes",
+        "test_requests.py::TestRequests::test_get_auth_from_url_encoded_spaces",
+        "test_requests.py::TestRequests::test_get_auth_from_url_not_encoded_spaces",
+        "test_requests.py::TestRequests::test_get_auth_from_url_percent_chars",
+        "test_requests.py::TestRequests::test_http_error",
+        "test_requests.py::TestRequests::test_invalid_url",
+        "test_requests.py::TestRequests::test_links",
+        "test_requests.py::TestRequests::test_long_authinfo_in_url",
+        "test_requests.py::TestRequests::test_nonhttp_schemes_dont_check_URLs",
+        "test_requests.py::TestRequests::test_params_are_added_before_fragment",
+        "test_requests.py::TestRequests::test_params_bytes_are_encoded",
+        "test_requests.py::TestRequests::test_params_original_order_is_preserved_by_default",
+        "test_requests.py::TestRequests::test_path_is_not_double_encoded",
+        "test_requests.py::TestRequests::test_prepare_request_with_bytestring_url",
+        "test_requests.py::TestRequests::test_response_decode_unicode",
+        "test_requests.py::TestRequests::test_response_is_iterable",
+        "test_requests.py::TestRequests::test_transport_adapter_ordering",
+        "test_requests.py::TestTimeout::test_connect_timeout",
+        "test_requests.py::TestTimeout::test_total_timeout_connect",
+        "test_requests.py::UtilsTestCase::test_address_in_network",
+        "test_requests.py::UtilsTestCase::test_dotted_netmask",
+        "test_requests.py::UtilsTestCase::test_get_auth_from_url",
+        "test_requests.py::UtilsTestCase::test_get_environ_proxies",
+        "test_requests.py::UtilsTestCase::test_get_environ_proxies_ip_ranges",
+        "test_requests.py::UtilsTestCase::test_guess_filename_when_filename_is_an_int",
+        "test_requests.py::UtilsTestCase::test_guess_filename_when_int",
+        "test_requests.py::UtilsTestCase::test_guess_filename_with_file_like_obj",
+        "test_requests.py::UtilsTestCase::test_guess_filename_with_unicode_name",
+        "test_requests.py::UtilsTestCase::test_is_ipv4_address",
+        "test_requests.py::UtilsTestCase::test_is_valid_cidr",
+        "test_requests.py::UtilsTestCase::test_requote_uri_properly_requotes",
+        "test_requests.py::UtilsTestCase::test_requote_uri_with_unquoted_percents",
+        "test_requests.py::UtilsTestCase::test_select_proxies",
+        "test_requests.py::UtilsTestCase::test_super_len_correctly_calculates_len_of_partially_read_file",
+        "test_requests.py::UtilsTestCase::test_super_len_io_streams",
+        "test_requests.py::test_data_argument_accepts_tuples",
+        "test_requests.py::test_prepare_unicode_url",
+        "test_requests.py::test_prepared_request_complete_copy",
+        "test_requests.py::test_prepared_request_empty_copy",
+        "test_requests.py::test_prepared_request_no_cookies_copy",
+        "test_requests.py::test_vendor_aliases"
+      ],
+      "base_commit": "5f7a3a74aab1625c2bb65f643197ee885e3da576",
+      "bench": "swe_bench",
+      "end_version": "v2.9.1",
+      "end_version_commit": "1108058626450b863d154bb74d669754b480caa4",
+      "environment_setup_commit": "1108058626450b863d154bb74d669754b480caa4",
+      "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931",
+      "instance_id": "psf__requests_v2.9.0_v2.9.1",
+      "instance_id_swe": "psf__requests-2931",
+      "log_parser": "parse_log_pytest_options",
+      "patch": "diff --git a/HISTORY.rst b/HISTORY.rst\nindex d2bbdd91..f8c1a545 100644\n--- a/HISTORY.rst\n+++ b/HISTORY.rst\n@@ -3,6 +3,19 @@\n Release History\n ---------------\n \n+2.9.1 (2015-12-21)\n+++++++++++++++++++\n+\n+**Bugfixes**\n+\n+- Resolve regression introduced in 2.9.0 that made it impossible to send binary\n+  strings as bodies in Python 3.\n+- Fixed errors when calculating cookie expiration dates in certain locales.\n+\n+**Miscellaneous**\n+\n+- Updated bundled urllib3 to 1.13.1.\n+\n 2.9.0 (2015-12-15)\n ++++++++++++++++++\n \n@@ -34,6 +47,10 @@ Release History\n   provided at all.\n - Minor performance improvements when removing specific cookies by name.\n \n+**Miscellaneous**\n+\n+- Updated urllib3 to 1.13.\n+\n 2.8.1 (2015-10-13)\n ++++++++++++++++++\n \ndiff --git a/requests/__init__.py b/requests/__init__.py\nindex 35987f95..bd5b5b97 100644\n--- a/requests/__init__.py\n+++ b/requests/__init__.py\n@@ -42,8 +42,8 @@ is at <http://python-requests.org>.\n \"\"\"\n \n __title__ = 'requests'\n-__version__ = '2.9.0'\n-__build__ = 0x020900\n+__version__ = '2.9.1'\n+__build__ = 0x020901\n __author__ = 'Kenneth Reitz'\n __license__ = 'Apache 2.0'\n __copyright__ = 'Copyright 2015 Kenneth Reitz'\ndiff --git a/requests/cookies.py b/requests/cookies.py\nindex d61ec2da..b85fd2b6 100644\n--- a/requests/cookies.py\n+++ b/requests/cookies.py\n@@ -8,6 +8,7 @@ requests.utils imports from here, so be careful with imports.\n \n import copy\n import time\n+import calendar\n import collections\n from .compat import cookielib, urlparse, urlunparse, Morsel\n \n@@ -424,8 +425,9 @@ def morsel_to_cookie(morsel):\n             raise TypeError('max-age: %s must be integer' % morsel['max-age'])\n     elif morsel['expires']:\n         time_template = '%a, %d-%b-%Y %H:%M:%S GMT'\n-        expires = int(time.mktime(\n-            time.strptime(morsel['expires'], time_template)) - time.timezone)\n+        expires = calendar.timegm(\n+            time.strptime(morsel['expires'], time_template)\n+        )\n     return create_cookie(\n         comment=morsel['comment'],\n         comment_url=bool(morsel['comment']),\ndiff --git a/requests/models.py b/requests/models.py\nindex 9c624d3c..4bcbc548 100644\n--- a/requests/models.py\n+++ b/requests/models.py\n@@ -81,7 +81,7 @@ class RequestEncodingMixin(object):\n         \"\"\"\n \n         if isinstance(data, (str, bytes)):\n-            return to_native_string(data)\n+            return data\n         elif hasattr(data, 'read'):\n             return data\n         elif hasattr(data, '__iter__'):\n@@ -385,6 +385,9 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):\n             if isinstance(fragment, str):\n                 fragment = fragment.encode('utf-8')\n \n+        if isinstance(params, (str, bytes)):\n+            params = to_native_string(params)\n+\n         enc_params = self._encode_params(params)\n         if enc_params:\n             if query:\ndiff --git a/requests/packages/urllib3/__init__.py b/requests/packages/urllib3/__init__.py\nindex 43c88b14..e43991a9 100644\n--- a/requests/packages/urllib3/__init__.py\n+++ b/requests/packages/urllib3/__init__.py\n@@ -32,7 +32,7 @@ except ImportError:\n \n __author__ = 'Andrey Petrov (andrey.petrov@shazow.net)'\n __license__ = 'MIT'\n-__version__ = '1.13'\n+__version__ = '1.13.1'\n \n __all__ = (\n     'HTTPConnectionPool',\ndiff --git a/requests/packages/urllib3/connection.py b/requests/packages/urllib3/connection.py\nindex bb7f3e55..1e4cd417 100644\n--- a/requests/packages/urllib3/connection.py\n+++ b/requests/packages/urllib3/connection.py\n@@ -265,7 +265,16 @@ class VerifiedHTTPSConnection(HTTPSConnection):\n                     'for details.)'.format(hostname)),\n                     SubjectAltNameWarning\n                 )\n-            match_hostname(cert, self.assert_hostname or hostname)\n+\n+            # In case the hostname is an IPv6 address, strip the square\n+            # brackets from it before using it to validate. This is because\n+            # a certificate with an IPv6 address in it won't have square\n+            # brackets around that address. Sadly, match_hostname won't do this\n+            # for us: it expects the plain host part without any extra work\n+            # that might have been done to make it palatable to httplib.\n+            asserted_hostname = self.assert_hostname or hostname\n+            asserted_hostname = asserted_hostname.strip('[]')\n+            match_hostname(cert, asserted_hostname)\n \n         self.is_verified = (resolved_cert_reqs == ssl.CERT_REQUIRED or\n                             self.assert_fingerprint is not None)\ndiff --git a/requests/utils.py b/requests/utils.py\nindex 132cd2b5..c5c3fd01 100644\n--- a/requests/utils.py\n+++ b/requests/utils.py\n@@ -115,8 +115,12 @@ def get_netrc_auth(url, raise_errors=False):\n \n         ri = urlparse(url)\n \n-        # Strip port numbers from netloc\n-        host = ri.netloc.split(':')[0]\n+        # Strip port numbers from netloc. This weird `if...encode`` dance is\n+        # used for Python 3.2, which doesn't support unicode literals.\n+        splitstr = b':'\n+        if isinstance(url, str):\n+            splitstr = splitstr.decode('ascii')\n+        host = ri.netloc.split(splitstr)[0]\n \n         try:\n             _netrc = netrc(netrc_path).authenticators(host)\n",
+      "problem_statement": "2.9.1 (2015-12-21)\n------------------\n\n**Bugfixes**\n\n-   Resolve regression introduced in 2.9.0 that made it impossible to\n    send binary strings as bodies in Python 3.\n-   Fixed errors when calculating cookie expiration dates in certain\n    locales.",
+      "repo": "psf/requests",
+      "start_version": "v2.9.0",
+      "test_cmds": "pytest --continue-on-collection-errors -rA",
+      "test_patch": "diff --git a/test_requests.py b/test_requests.py\nindex 137edc08..07952418 100755\n--- a/test_requests.py\n+++ b/test_requests.py\n@@ -157,6 +157,11 @@ class TestRequests(object):\n                                    params=b'test=foo').prepare()\n         assert request.url == 'http://example.com/?test=foo'\n \n+    def test_binary_put(self):\n+        request = requests.Request('PUT', 'http://example.com',\n+                                   data=u\"\u00f6\u00f6\u00f6\".encode(\"utf-8\")).prepare()\n+        assert isinstance(request.body, bytes)\n+\n     def test_mixed_case_scheme_acceptable(self, httpbin):\n         s = requests.Session()\n         s.proxies = getproxies()\n",
+      "version": "2.9"
+    },
+    "model": "glm-4p5",
+    "model_apply": {
+      "applied": true,
+      "apply": {
+        "cmd": [
+          "git",
+          "apply",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/model.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.002292633056640625
+      },
+      "check": {
+        "cmd": [
+          "git",
+          "apply",
+          "--check",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/model.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.002021312713623047
+      }
+    },
+    "model_patch_files": [
+      "requests/cookies.py",
+      "requests/models.py",
+      "requests/utils.py"
+    ],
+    "model_test_apply": {
+      "applied": true,
+      "apply": {
+        "cmd": [
+          "git",
+          "apply",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/test_model.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.002039670944213867
+      },
+      "check": {
+        "cmd": [
+          "git",
+          "apply",
+          "--check",
+          "/opt/dlami/nvme/praxis/jobs/praxis-paid-viability-20260628-rerun2/output/swe_eval_work/test_model.patch"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.001966714859008789
+      }
+    },
+    "test_patch_files": [
+      "test_requests.py"
+    ],
+    "tests": [
+      "test_requests.py::TestRequests::test_binary_put",
+      "test_requests.py::TestCaseInsensitiveDict::test_contains",
+      "test_requests.py::TestCaseInsensitiveDict::test_copy",
+      "test_requests.py::TestCaseInsensitiveDict::test_delitem",
+      "test_requests.py::TestCaseInsensitiveDict::test_docstring_example",
+      "test_requests.py::TestCaseInsensitiveDict::test_equality",
+      "test_requests.py::TestCaseInsensitiveDict::test_fixes_649",
+      "test_requests.py::TestCaseInsensitiveDict::test_get",
+      "test_requests.py::TestCaseInsensitiveDict::test_getitem",
+      "test_requests.py::TestCaseInsensitiveDict::test_iter",
+      "test_requests.py::TestCaseInsensitiveDict::test_iterable_init"
+    ]
+  },
+  "status": "TRUE EVAL PASS",
+  "test_patch_applied": true,
+  "test_patch_files": [
+    "test_requests.py"
+  ],
+  "tests": [
+    "test_requests.py::TestRequests::test_binary_put",
+    "test_requests.py::TestCaseInsensitiveDict::test_contains",
+    "test_requests.py::TestCaseInsensitiveDict::test_copy",
+    "test_requests.py::TestCaseInsensitiveDict::test_delitem",
+    "test_requests.py::TestCaseInsensitiveDict::test_docstring_example",
+    "test_requests.py::TestCaseInsensitiveDict::test_equality",
+    "test_requests.py::TestCaseInsensitiveDict::test_fixes_649",
+    "test_requests.py::TestCaseInsensitiveDict::test_get",
+    "test_requests.py::TestCaseInsensitiveDict::test_getitem",
+    "test_requests.py::TestCaseInsensitiveDict::test_iter",
+    "test_requests.py::TestCaseInsensitiveDict::test_iterable_init"
+  ],
+  "wall_seconds": 5.792799711227417
+}

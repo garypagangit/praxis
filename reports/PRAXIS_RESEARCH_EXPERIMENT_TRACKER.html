@@ -557,9 +557,9 @@
             <td class="num">PX-011</td>
             <td class="title">HalluHard Source-Backed Verifier Audit</td>
             <td>Idea Explorer</td>
-            <td><span class="badge start">Prototype pass</span></td>
-            <td><a href="halluhard_source_verifier/HALLUHARD_SOURCE_GATE_20260628.md">Source gate</a> passes for the research lane; <a href="halluhard_source_verifier/HALLUHARD_RESEARCH_VERIFIER_PROTOTYPE_20260628.md">prototype gate</a> checks <code>1250</code> synthetic citation claims with sealed-test macro F1 <code>0.9902</code> versus majority response-only macro F1 <code>0.4435</code>.</td>
-            <td>Proceed only to sealed research-lane model responses. Do not claim PubMed-specific, all-domain, or model-response HalluHard results until the frozen verifier beats response-only baselines on generated outputs.</td>
+            <td><span class="badge hold">Model gate mixed</span></td>
+            <td><a href="halluhard_source_verifier/HALLUHARD_SOURCE_GATE_20260628.md">Source gate</a> and <a href="halluhard_source_verifier/HALLUHARD_RESEARCH_VERIFIER_PROTOTYPE_20260628.md">prototype gate</a> pass; the <a href="halluhard_source_verifier/HALLUHARD_SOURCE_CONDITIONED_RESPONSE_GATE_20260628.md">corrected source-conditioned response gate</a> runs <code>250</code> generations / <code>500</code> evaluation pairs and lands mixed: parse-valid rate <code>0.1000</code>, supported rate <code>0.1000</code>, verifier macro F1 <code>0.4357</code> versus field-presence baseline <code>0.4048</code>.</td>
+            <td>Do not publish as a positive result yet. Treat as an operational verifier/guardrail with weak live-model response quality; next tweak is stricter structured-output prompting or a stronger/RAG model before any HalluHard utility claim.</td>
           </tr>
           <tr>
             <td class="num">12</td>
@@ -755,9 +755,9 @@
             <td class="num">PX-033</td>
             <td class="title">SWE-EVO Repo-State World Model</td>
             <td>Idea Explorer</td>
-            <td><span class="badge source">Proxy gate pass</span></td>
-            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a> passes; <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a> parses <code>517</code> released SWE-agent attempts across <code>11</code> models. Mean file F1 is <code>0.2313</code>, exact file-set rate is <code>0.0174</code>, and <code>47</code>/<code>48</code> tasks have some file overlap.</td>
-            <td>Worth one true evaluation slice only; compare repo-state summaries against metadata-only predictors before any RWML-style training.</td>
+            <td><span class="badge start">True eval pass</span></td>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a> and <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a> pass; corrected <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a> applies the SWE test patch and shows base return code <code>1</code>, released <code>glm-4p5</code> patch return code <code>0</code>, gold patch return code <code>0</code>, with <code>3</code> overlapping changed files.</td>
+            <td>Continue. Next gate is a small multi-task true-eval sweep plus repo-state-summary versus metadata-only predictors before any RWML-style world-model training.</td>
           </tr>
           <tr>
             <td class="num">34</td>
@@ -937,6 +937,11 @@
             <td>Source for marking PX-011 as prototype-pass, while preserving the model-response boundary.</td>
           </tr>
           <tr>
+            <td><a href="halluhard_source_verifier/HALLUHARD_SOURCE_CONDITIONED_RESPONSE_GATE_20260628.md">PX-011 HalluHard source-conditioned response gate</a></td>
+            <td>Corrected paid AWS gate over 250 open-model source-conditioned generations and 500 supported/shifted-negative evaluation pairs.</td>
+            <td>Source for marking PX-011 as mixed rather than positive after live-model testing.</td>
+          </tr>
+          <tr>
             <td><a href="ai_supply_chain_training_provenance/AI_SUPPLY_CHAIN_MULTISTRENGTH_LORA_GATE_20260628.md">PX-009 LoRA multi-strength gate</a></td>
             <td>AWS LoRA trace gate over 18 clean/poison condition trainings and 2700 trace rows.</td>
             <td>Source for archiving PX-009 as a failed gate this cycle.</td>
@@ -955,6 +960,11 @@
             <td><a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">PX-033 SWE-EVO patch-overlap probe</a></td>
             <td>No-cost proxy analysis over released SWE-agent prediction patches.</td>
             <td>Source for treating PX-033 as worth one true evaluation slice, but not yet a positive world-model result.</td>
+          </tr>
+          <tr>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">PX-033 SWE-EVO true eval slice</a></td>
+            <td>Corrected paid AWS execution slice applying SWE test, model, and gold patches in the benchmark Docker image.</td>
+            <td>Source for moving PX-033 to true-eval-pass and authorizing a small multi-task sweep.</td>
           </tr>
           <tr>
             <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>
