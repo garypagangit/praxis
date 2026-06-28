@@ -52,3 +52,7 @@ Do not claim a universal LLM vulnerability, broad hallucination elimination, or 
 ## Recommended Next Work
 
 Package this as a short paper or portfolio chapter centered on the external citation-aware verifier claim. A second code-tuned external-validity model is worthwhile only if the goal is to expand beyond a bounded Praxis result.
+
+## Publication Draft
+
+The first paper-style draft is now tracked at `FALSECITE_CODE_PAPER_DRAFT_20260628.md`. The experiment folder landing page is `README.md`.
