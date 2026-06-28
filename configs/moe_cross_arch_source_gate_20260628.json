@@ -1,0 +1,81 @@
+{
+  "experiment_id": "moe-cross-architecture-source-gate-20260628",
+  "title": "MoE Standing-Committee Cross-Architecture Source Gate",
+  "run_date": "2026-06-28",
+  "px_id": "PX-005",
+  "praxis_track": "MoE standing-committee routing audit",
+  "primary_literature_anchor": {
+    "title": "The Illusion of Specialization: Unveiling the Domain-Invariant Standing Committee in Mixture-of-Experts Models",
+    "arxiv": "2601.03425",
+    "url": "https://arxiv.org/abs/2601.03425"
+  },
+  "hub_api_base": "https://huggingface.co",
+  "aws_profile": "praxis-build",
+  "aws_region": "us-east-1",
+  "baseline_family": "OLMoE",
+  "candidate_models": [
+    {
+      "repo_id": "allenai/OLMoE-1B-7B-0924",
+      "role": "published_baseline",
+      "expected_family": "OLMoE"
+    },
+    {
+      "repo_id": "allenai/OLMoE-1B-7B-0924-Instruct",
+      "role": "published_olmoe_family_external_validity",
+      "expected_family": "OLMoE"
+    },
+    {
+      "repo_id": "Qwen/Qwen1.5-MoE-A2.7B",
+      "role": "small_cross_architecture_candidate",
+      "expected_family": "Qwen1.5-MoE"
+    },
+    {
+      "repo_id": "Qwen/Qwen1.5-MoE-A2.7B-Chat",
+      "role": "small_cross_architecture_instruction_candidate",
+      "expected_family": "Qwen1.5-MoE"
+    },
+    {
+      "repo_id": "Qwen/Qwen3-30B-A3B",
+      "role": "large_cross_architecture_candidate",
+      "expected_family": "Qwen3-MoE"
+    },
+    {
+      "repo_id": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+      "role": "large_cross_architecture_instruction_candidate",
+      "expected_family": "Qwen3-MoE"
+    },
+    {
+      "repo_id": "deepseek-ai/DeepSeek-V2-Lite",
+      "role": "large_cross_architecture_candidate",
+      "expected_family": "DeepSeek-V2"
+    },
+    {
+      "repo_id": "deepseek-ai/DeepSeek-V2-Lite-Chat",
+      "role": "large_cross_architecture_chat_candidate",
+      "expected_family": "DeepSeek-V2"
+    },
+    {
+      "repo_id": "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct",
+      "role": "code_domain_cross_architecture_candidate",
+      "expected_family": "DeepSeek-Coder-V2"
+    },
+    {
+      "repo_id": "mistralai/Mixtral-8x7B-v0.1",
+      "role": "mixtral_cross_architecture_candidate",
+      "expected_family": "Mixtral"
+    },
+    {
+      "repo_id": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+      "role": "mixtral_instruction_candidate",
+      "expected_family": "Mixtral"
+    }
+  ],
+  "gate_thresholds": {
+    "minimum_public_config_candidates": 4,
+    "minimum_router_observable_candidates": 2,
+    "minimum_cross_arch_source_candidate_count": 1,
+    "maximum_single_gpu_smoke_estimated_weight_gb": 20.0,
+    "maximum_medium_gpu_estimated_weight_gb": 80.0
+  },
+  "claim_boundary": "This gate establishes whether a non-OLMoE cross-architecture router audit is technically defensible from public metadata. It does not claim cross-architecture standing-committee validity until router traces are collected on frozen held-out prompt domains."
+}
