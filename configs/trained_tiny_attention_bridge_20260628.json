@@ -1,0 +1,43 @@
+{
+  "experiment_id": "trained-tiny-attention-bridge-20260628",
+  "title": "Trained Tiny Attention Bridge for Synthetic Circuit Recovery",
+  "px_id": "PX-010",
+  "run_date": "2026-06-28",
+  "praxis_track": "Synthetic ground-truth circuit recovery",
+  "seeds": [11, 23, 37, 41, 53],
+  "data": {
+    "vocab_size": 16,
+    "train_tasks": 120,
+    "validation_tasks": 40,
+    "strict_holdout_tasks": 40,
+    "samples_per_task": 24,
+    "component_count": 16
+  },
+  "model": {
+    "embedding_dim": 12,
+    "epochs": 240,
+    "learning_rate": 0.035,
+    "batch_size": 256,
+    "weight_decay": 0.0001
+  },
+  "true_causal_components": [0, 1, 2, 3],
+  "component_names": {
+    "0": "learned_attention_weight_slot_0",
+    "1": "learned_attention_weight_slot_1",
+    "2": "learned_value_logit_slot_0",
+    "3": "learned_value_logit_slot_1",
+    "4": "learned_head_logit",
+    "5": "raw_attention_score_slot_0",
+    "6": "raw_attention_score_slot_1"
+  },
+  "gate_thresholds": {
+    "minimum_seeds": 5,
+    "holdout_accuracy_min": 0.90,
+    "attention_selection_accuracy_min": 0.85,
+    "patching_holdout_ap_min": 0.80,
+    "patching_precision_at_k_min": 0.75,
+    "patching_ap_delta_vs_random_min": 0.25,
+    "patching_stable_seed_fraction_min": 0.80
+  },
+  "claim_boundary": "This is a trained CPU-only single-head attention bridge with known synthetic ground truth. It is closer to transformer-style learned activations than the deterministic tiny attention gate, but it is not a natural-language transformer and does not prove natural model circuit recovery."
+}

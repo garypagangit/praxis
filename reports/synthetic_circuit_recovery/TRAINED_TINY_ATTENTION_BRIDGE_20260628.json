@@ -1,0 +1,331 @@
+{
+  "config": {
+    "claim_boundary": "This is a trained CPU-only single-head attention bridge with known synthetic ground truth. It is closer to transformer-style learned activations than the deterministic tiny attention gate, but it is not a natural-language transformer and does not prove natural model circuit recovery.",
+    "component_names": {
+      "0": "learned_attention_weight_slot_0",
+      "1": "learned_attention_weight_slot_1",
+      "2": "learned_value_logit_slot_0",
+      "3": "learned_value_logit_slot_1",
+      "4": "learned_head_logit",
+      "5": "raw_attention_score_slot_0",
+      "6": "raw_attention_score_slot_1"
+    },
+    "data": {
+      "component_count": 16,
+      "samples_per_task": 24,
+      "strict_holdout_tasks": 40,
+      "train_tasks": 120,
+      "validation_tasks": 40,
+      "vocab_size": 16
+    },
+    "experiment_id": "trained-tiny-attention-bridge-20260628",
+    "gate_thresholds": {
+      "attention_selection_accuracy_min": 0.85,
+      "holdout_accuracy_min": 0.9,
+      "minimum_seeds": 5,
+      "patching_ap_delta_vs_random_min": 0.25,
+      "patching_holdout_ap_min": 0.8,
+      "patching_precision_at_k_min": 0.75,
+      "patching_stable_seed_fraction_min": 0.8
+    },
+    "model": {
+      "batch_size": 256,
+      "embedding_dim": 12,
+      "epochs": 240,
+      "learning_rate": 0.035,
+      "weight_decay": 0.0001
+    },
+    "praxis_track": "Synthetic ground-truth circuit recovery",
+    "px_id": "PX-010",
+    "run_date": "2026-06-28",
+    "seeds": [
+      11,
+      23,
+      37,
+      41,
+      53
+    ],
+    "title": "Trained Tiny Attention Bridge for Synthetic Circuit Recovery",
+    "true_causal_components": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "seed_results": [
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "base_log_loss": 0.04125214098089639,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_top_components": [
+          2,
+          3,
+          1,
+          0
+        ],
+        "probe_average_precision": 0.5845238095238094,
+        "probe_top_components": [
+          4,
+          1,
+          0,
+          6
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.041252140980896385,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2880,
+        "validation": 960
+      },
+      "seed": 11,
+      "training_history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 121.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 240.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ]
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "base_log_loss": 0.04846748893446713,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_top_components": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.425595238095238,
+        "probe_top_components": [
+          4,
+          0,
+          1,
+          9
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.04846748893446708,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2880,
+        "validation": 960
+      },
+      "seed": 23,
+      "training_history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.9944444444444445,
+          "validation_accuracy": 0.971875
+        },
+        {
+          "epoch": 121.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 240.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ]
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "base_log_loss": 0.01880392198828278,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_top_components": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.30357142857142855,
+        "probe_top_components": [
+          4,
+          13,
+          0,
+          10
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.01880392198828278,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2880,
+        "validation": 960
+      },
+      "seed": 37,
+      "training_history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 121.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 240.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ]
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "base_log_loss": 0.01762986037537179,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_top_components": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.42078754578754574,
+        "probe_top_components": [
+          4,
+          1,
+          0,
+          6
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.017629860375371793,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2880,
+        "validation": 960
+      },
+      "seed": 41,
+      "training_history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.9920138888888889,
+          "validation_accuracy": 0.9885416666666667
+        },
+        {
+          "epoch": 121.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 240.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ]
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "base_log_loss": 0.012564902308187199,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_top_components": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.5845238095238094,
+        "probe_top_components": [
+          4,
+          0,
+          1,
+          5
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.012564902308187199,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2880,
+        "validation": 960
+      },
+      "seed": 53,
+      "training_history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.9625,
+          "validation_accuracy": 0.9614583333333333
+        },
+        {
+          "epoch": 121.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 240.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "attention_selection_accuracy": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "checks": {
+      "attention_selection_accuracy": true,
+      "holdout_accuracy": true,
+      "minimum_seeds": true,
+      "patching_delta_vs_random": true,
+      "patching_holdout_ap": true,
+      "patching_precision_at_k": true,
+      "patching_stable_seed_fraction": true
+    },
+    "decision": "PASS",
+    "holdout_accuracy": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "patching_ap_delta_vs_random": 0.5833333333333334,
+    "patching_holdout_average_precision": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "patching_holdout_precision_at_k": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "patching_stable_seed_fraction": 1.0,
+    "probe_holdout_average_precision": {
+      "mean": 0.4638003663003662,
+      "std": 0.10782517936254965
+    },
+    "random_holdout_average_precision": {
+      "mean": 0.41666666666666663,
+      "std": 0.0
+    }
+  }
+}

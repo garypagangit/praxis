@@ -2,7 +2,7 @@
 
 PX ID: PX-010
 
-Status: **BOUNDED POSITIVE - TINY ATTENTION FOLLOW-ON PASSED**
+Status: **BOUNDED POSITIVE - TRAINED TINY ATTENTION BRIDGE PASSED**
 
 ## Overview
 
@@ -10,18 +10,20 @@ This track tests whether Praxis interpretability tooling can recover known causa
 
 ## Current Result
 
-PX-010 now has two positive layers:
+PX-010 now has three positive layers:
 
 | Gate | Status | Key result |
 |---|---|---|
 | Known-circuit recovery benchmark | PASS | Patching holdout MAP `0.9688`, precision@K `0.9643`, sparse causal mean corr `0.9422`. |
 | Tiny attention circuit follow-on | PASS | Holdout accuracy `1.0000`, attention selection `1.0000`, patching AP `1.0000`, patching delta vs random `0.5833`. |
+| Trained tiny attention bridge | PASS | Learned attention/value activations; holdout accuracy `1.0000`, attention selection `1.0000`, patching AP `1.0000`, patching delta vs random `0.5833`. |
 
 ## Main Documents
 
 | Document | Purpose |
 |---|---|
 | [PX-010 status](SYNTHETIC_CIRCUIT_RECOVERY_STATUS_20260628.md) | Current summary and claim boundary. |
+| [Trained tiny attention bridge](TRAINED_TINY_ATTENTION_BRIDGE_20260628.md) | CPU-only trained attention bridge report. |
 | [Tiny attention gate](TINY_TRANSFORMER_CIRCUIT_GATE_20260628.md) | New CPU-only tiny attention follow-on report. |
 | [Known-circuit gate](../known_circuit_recovery/KNOWN_CIRCUIT_RECOVERY_GATE_20260623.md) | Original positive controlled benchmark report. |
 
@@ -29,6 +31,8 @@ PX-010 now has two positive layers:
 
 | Path | Purpose |
 |---|---|
+| [../../scripts/run_trained_tiny_attention_bridge.py](../../scripts/run_trained_tiny_attention_bridge.py) | CPU-only trained attention bridge runner. |
+| [../../configs/trained_tiny_attention_bridge_20260628.json](../../configs/trained_tiny_attention_bridge_20260628.json) | Pre-registered trained bridge config and thresholds. |
 | [../../scripts/run_tiny_transformer_circuit_gate.py](../../scripts/run_tiny_transformer_circuit_gate.py) | Tiny attention circuit follow-on runner. |
 | [../../configs/tiny_transformer_circuit_gate_20260628.json](../../configs/tiny_transformer_circuit_gate_20260628.json) | Pre-registered tiny attention config and thresholds. |
 | [../../scripts/run_known_circuit_recovery_gate.py](../../scripts/run_known_circuit_recovery_gate.py) | Original known-circuit recovery runner. |
@@ -36,10 +40,10 @@ PX-010 now has two positive layers:
 
 ## Claim Boundary
 
-Supported: the local recovery harness can recover known synthetic causal components and attention-style causal components under strict held-out synthetic tasks.
+Supported: the local recovery harness can recover known synthetic causal components, deterministic attention-style causal components, and learned attention/value components from a trained CPU-only single-head attention model under strict held-out synthetic tasks.
 
-Not supported: natural transformer circuit recovery, SAE utility on real model activations, or alignment relevance without a trained transformer or real activation corpus.
+Not supported: natural transformer circuit recovery, SAE utility on real model activations, or alignment relevance without a full trained transformer or real activation corpus.
 
 ## Next Step
 
-The next useful gate is a trained tiny transformer or real activation-corpus follow-on. Do not expand into circuit-aware reward training until that trained-model bridge exists.
+The next useful gate is a full trained transformer or real activation-corpus follow-on. Do not expand into circuit-aware reward training until that stronger bridge exists.
