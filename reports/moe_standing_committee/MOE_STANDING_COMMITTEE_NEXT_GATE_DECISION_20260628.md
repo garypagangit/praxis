@@ -4,13 +4,13 @@ Date: 2026-06-28
 
 PX ID: PX-005
 
-Status: **BOUNDED POSITIVE - OLMoE-FAMILY EXTERNAL VALIDITY PASSED; QWEN NON-OLMOE FROZEN AUDIT PASSED**
+Status: **FINAL SHORT PAPER READY - BOUNDED POSITIVE CROSS-ARCHITECTURE RESULT**
 
 ## Decision
 
 Do not rerun the same MoE audit as the next step. The external-validity gate already exists for the OLMoE family and it passed on `allenai/OLMoE-1B-7B-0924-Instruct`.
 
-The track should now be treated as a bounded positive result for OLMoE-family router behavior plus a frozen non-OLMoE cross-architecture PASS on `Qwen/Qwen1.5-MoE-A2.7B`. The Qwen audit used the same 480-prompt protocol, committee sizes, bootstrap interval reporting, and frozen pass thresholds as the OLMoE audit.
+The track should now be treated as a bounded positive result for OLMoE-family router behavior plus a frozen non-OLMoE cross-architecture PASS on `Qwen/Qwen1.5-MoE-A2.7B`. The Qwen audit used the same 480-prompt protocol, committee sizes, bootstrap interval reporting, and frozen pass thresholds as the OLMoE audit. The result is now packaged in `MOE_STANDING_COMMITTEE_SHORT_PAPER_20260628.md`.
 
 ## Evidence Summary
 
@@ -27,6 +27,7 @@ The track should now be treated as a bounded positive result for OLMoE-family ro
 
 | Artifact | Purpose |
 |---|---|
+| `MOE_STANDING_COMMITTEE_SHORT_PAPER_20260628.md` | Final bounded-positive short paper package. |
 | `MOE_STANDING_COMMITTEE_ROUTER_AUDIT_SYNTHESIS_20260623.md` | Base OLMoE router-audit synthesis. |
 | `MOE_STANDING_COMMITTEE_OLMOE_INSTRUCT_AUDIT_SYNTHESIS_20260623.md` | OLMoE-Instruct external-validity synthesis. |
 | `MOE_CROSS_ARCH_SOURCE_GATE_20260628.md` | Non-OLMoE cross-architecture source/feasibility gate. |
@@ -50,7 +51,7 @@ Do not claim universal MoE specialization, causal expert specialization, or fine
 
 ## Recommended Next Gate
 
-Move PX-005 to packaging as a publishable bounded-positive result. The next scientific gate should be chosen only if it expands the claim: a second non-OLMoE architecture, an instruction/chat variant, or a causal/domain-shift intervention.
+PX-005 is packaged as a publishable bounded-positive result. The next scientific gate should be chosen only if it expands the claim: a second non-OLMoE architecture, an instruction/chat variant, or a causal/domain-shift intervention.
 
 Best source-gated candidate:
 

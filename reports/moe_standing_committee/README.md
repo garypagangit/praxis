@@ -2,11 +2,11 @@
 
 PX ID: PX-005
 
-Status: **BOUNDED POSITIVE - OLMoE FAMILY PASSED; QWEN CROSS-ARCHITECTURE AUDIT PASSED**
+Status: **FINAL SHORT PAPER - BOUNDED POSITIVE CROSS-ARCHITECTURE RESULT**
 
 ## Overview
 
-PX-005 tests whether MoE models exhibit stable standing-committee expert routing under prompt-domain variation. The positive evidence now spans the frozen OLMoE-family audit and a frozen non-OLMoE Qwen1.5-MoE cross-architecture audit using the same 480-prompt protocol and thresholds.
+PX-005 tests whether MoE models exhibit stable standing-committee expert routing under prompt-domain variation. The positive evidence now spans the frozen OLMoE-family audit and a frozen non-OLMoE Qwen1.5-MoE cross-architecture audit using the same 480-prompt protocol and thresholds. The result is packaged as a bounded-positive short paper.
 
 ## Current Result
 
@@ -22,6 +22,7 @@ PX-005 tests whether MoE models exhibit stable standing-committee expert routing
 
 | Document | Purpose |
 |---|---|
+| [Short paper](MOE_STANDING_COMMITTEE_SHORT_PAPER_20260628.md) | Publishable bounded-positive PX-005 writeup. |
 | [Next-gate decision](MOE_STANDING_COMMITTEE_NEXT_GATE_DECISION_20260628.md) | Current decision and claim boundary. |
 | [Cross-architecture source gate](MOE_CROSS_ARCH_SOURCE_GATE_20260628.md) | Live public-metadata feasibility gate for non-OLMoE candidates. |
 | [Qwen1.5-MoE frozen audit](qwen15_router_audit_20260628/MOE_QWEN15_ROUTER_AUDIT_20260628.md) | Full non-OLMoE cross-architecture router audit. |
@@ -53,4 +54,4 @@ Not supported: universal MoE specialization, causal expert specialization, or fi
 
 ## Next Step
 
-Package PX-005 as a publishable bounded-positive result. The next scientific gate is either a second non-OLMoE replication (`Qwen/Qwen1.5-MoE-A2.7B-Chat` or `deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct`) or a causal/domain-shift intervention on the existing audited models.
+Use the short paper as the publishable bounded-positive package. The next scientific gate is either a second non-OLMoE replication (`Qwen/Qwen1.5-MoE-A2.7B-Chat` or `deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct`) or a causal/domain-shift intervention on the existing audited models.
