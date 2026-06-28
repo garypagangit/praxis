@@ -4,7 +4,7 @@ Date: 2026-06-28
 
 PX ID: PX-004
 
-Status: **WORKING POSITIVE - PACKAGING READY**
+Status: **FINAL SHORT PAPER PUBLISHED - BOUNDED POSITIVE**
 
 ## Title
 
@@ -53,6 +53,6 @@ Do not claim a universal LLM vulnerability, broad hallucination elimination, or 
 
 Package this as a short paper or portfolio chapter centered on the external citation-aware verifier claim. A second code-tuned external-validity model is worthwhile only if the goal is to expand beyond a bounded Praxis result.
 
-## Publication Draft
+## Published Short Paper
 
-The first paper-style draft is now tracked at `FALSECITE_CODE_PAPER_DRAFT_20260628.md`. The experiment folder landing page is `README.md`.
+The final short-paper artifact is now tracked at `FALSECITE_CODE_SHORT_PAPER_20260628.md`. The development draft is retained at `FALSECITE_CODE_PAPER_DRAFT_20260628.md`, and the experiment folder landing page is `README.md`.

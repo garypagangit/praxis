@@ -2,7 +2,7 @@
 
 PX ID: PX-004
 
-Status: **PUBLICATION DRAFT READY - BOUNDED POSITIVE**
+Status: **FINAL SHORT PAPER PUBLISHED - BOUNDED POSITIVE**
 
 ## Overview
 
@@ -30,7 +30,8 @@ The track is a bounded positive result. On the locked 80-claim benchmark, the pr
 
 | Document | Purpose |
 |---|---|
-| [Paper draft](FALSECITE_CODE_PAPER_DRAFT_20260628.md) | Publication-style narrative and result framing. |
+| [Final short paper](FALSECITE_CODE_SHORT_PAPER_20260628.md) | Final short-paper version of the bounded positive result. |
+| [Paper draft](FALSECITE_CODE_PAPER_DRAFT_20260628.md) | Draft retained for development history. |
 | [Publishing package](FALSECITE_CODE_PUBLISHING_PACKAGE_20260628.md) | Short packaging summary and claim boundary. |
 | [Usefulness decision](FALSECITE_CODE_USEFULNESS_DECISION_20260625.md) | Final decision on whether the experiment is useful. |
 | [Experiment dashboard](FALSECITE_CODE_DASHBOARD_20260625.html) | Per-experiment HTML status dashboard. |
@@ -65,4 +66,4 @@ Not supported: universal hallucination prevention, universal model vulnerability
 
 ## Next Step
 
-Turn the paper draft into the final short paper/chapter. A second code-tuned external-validity model is useful only if the goal is to widen the claim beyond a bounded Praxis result.
+Use the final short paper as the published portfolio artifact. A second code-tuned external-validity model is useful only if the goal is to widen the claim beyond a bounded Praxis result.
