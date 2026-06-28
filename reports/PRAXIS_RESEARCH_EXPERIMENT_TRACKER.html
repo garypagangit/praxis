@@ -1,0 +1,943 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Praxis Research Experiment Tracker</title>
+  <style>
+    :root {
+      --ink: #162033;
+      --muted: #5b6575;
+      --line: #d9dee7;
+      --bg: #f4f6f9;
+      --panel: #ffffff;
+      --green: #176b45;
+      --green-bg: #e8f5ed;
+      --blue: #1f5f99;
+      --blue-bg: #e8f2fb;
+      --amber: #8a5d00;
+      --amber-bg: #fff4d8;
+      --gray: #4f5967;
+      --gray-bg: #eef1f5;
+      --red: #9e2f2f;
+      --red-bg: #fdeaea;
+      --purple: #604494;
+      --purple-bg: #f0ebfb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1320px, calc(100% - 32px));
+      margin: 24px auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 45px rgba(20, 32, 50, 0.10);
+    }
+
+    header,
+    section {
+      padding: 28px 34px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: 0;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    a {
+      color: #174ea6;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(23, 78, 166, 0.25);
+    }
+
+    a:hover {
+      border-bottom-color: #174ea6;
+    }
+
+    code {
+      background: #f2f4f7;
+      border: 1px solid #e2e7ee;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: Consolas, "Liberation Mono", monospace;
+      font-size: .93em;
+    }
+
+    .meta {
+      color: var(--muted);
+      max-width: 980px;
+      font-size: 14px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .summary-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 120px;
+      background: #fff;
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .summary-number {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .positive {
+      color: var(--green);
+    }
+
+    .start {
+      color: var(--blue);
+    }
+
+    .defer {
+      color: var(--amber);
+    }
+
+    .hold {
+      color: var(--gray);
+    }
+
+    .kill {
+      color: var(--red);
+    }
+
+    .summary-card.positive {
+      background: var(--green-bg);
+      border-color: #b9dec9;
+    }
+
+    .summary-card.start {
+      background: var(--blue-bg);
+      border-color: #c6daef;
+    }
+
+    .summary-card.defer {
+      background: var(--amber-bg);
+      border-color: #f0d28c;
+    }
+
+    .summary-card.hold {
+      background: var(--gray-bg);
+      border-color: #ccd3dd;
+    }
+
+    .summary-card.kill {
+      background: var(--red-bg);
+      border-color: #efb7b7;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .badge.positive {
+      color: var(--green);
+      background: var(--green-bg);
+      border-color: #b9dec9;
+    }
+
+    .badge.start {
+      color: var(--blue);
+      background: var(--blue-bg);
+      border-color: #c6daef;
+    }
+
+    .badge.defer {
+      color: var(--amber);
+      background: var(--amber-bg);
+      border-color: #f0d28c;
+    }
+
+    .badge.hold {
+      color: var(--gray);
+      background: var(--gray-bg);
+      border-color: #ccd3dd;
+    }
+
+    .badge.kill {
+      color: var(--red);
+      background: var(--red-bg);
+      border-color: #efb7b7;
+    }
+
+    .badge.source {
+      color: var(--purple);
+      background: var(--purple-bg);
+      border-color: #d7c9f4;
+    }
+
+    .queue {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .queue-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+      border-top: 5px solid var(--blue);
+    }
+
+    .queue-card.done {
+      border-top-color: var(--green);
+    }
+
+    .queue-card.caution {
+      border-top-color: var(--amber);
+    }
+
+    .rank {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1180px;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      vertical-align: top;
+      border-bottom: 1px solid #e6ebf1;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: #fbfcfd;
+    }
+
+    .num {
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .title {
+      min-width: 260px;
+      font-weight: 700;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .score {
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .source-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        width: min(100% - 20px, 1320px);
+        margin: 10px auto;
+      }
+
+      header,
+      section {
+        padding: 22px 18px;
+      }
+
+      .summary-grid,
+      .queue {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      main {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        border: 0;
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Praxis Research: Experiment Tracker and Work Completed</h1>
+    <p class="meta">Updated 2026-06-28. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
+    <div class="source-links">
+      <a href="../tmp/docs/idea_explorer_20260622/AI_ML_Praxis_Idea_Explorer_extracted.md">Raw extracted idea list</a>
+      <a href="../tmp/docs/idea_explorer_20260622/idea_entries.json">Structured JSON entries</a>
+      <a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a>
+      <a href="../EXPERIMENTS.md">Praxis publication index</a>
+      <a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a>
+      <a href="falsecite_code/FALSECITE_CODE_DASHBOARD_20260625.html">FalseCite-Code dashboard</a>
+      <a href="moe_standing_committee/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_SYNTHESIS_20260623.md">MoE router audit</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Experiment Repository Convention</h2>
+    <p>Each <code>PX-###</code> row is treated as one experiment repository record. Where the experiment has runnable or reviewable artifacts, the tracker links to the relevant repository lane:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Lane</th>
+            <th>Typical paths</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Code</strong></td>
+            <td><code>scripts/</code>, <code>src/praxis/</code>, <code>cloud_jobs/</code>, <code>configs/</code></td>
+            <td>Executable scripts, runners, cloud handoffs, and frozen experiment configuration.</td>
+          </tr>
+          <tr>
+            <td><strong>Documents</strong></td>
+            <td><code>reports/</code>, <code>paper/</code>, <code>README.md</code>, <code>EXPERIMENTS.md</code></td>
+            <td>Protocols, dashboards, result syntheses, paper drafts, claim boundaries, and review notes.</td>
+          </tr>
+          <tr>
+            <td><strong>Results</strong></td>
+            <td><code>runs/</code>, report subfolders, generated JSON/CSV/HTML/PDF artifacts</td>
+            <td>Measured outputs, audits, score tables, gate decisions, figures, and machine-readable summaries.</td>
+          </tr>
+          <tr>
+            <td><strong>Evidence</strong></td>
+            <td>Linked primary reports inside each row</td>
+            <td>The minimum support needed to defend the row's status. For source-gate or future items, this may be a source decision rather than a run result.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Canonical Praxis Experiment Tracker</h2>
+    <p class="small">This is the single publishable tracker list. Stable IDs use <code>PX-###</code>. The rows are ranked by current Praxis value: packageable positives first, then evidence artifacts, gate-ready work, diagnostics/negatives, blocked tracks, and deferred idea-bank items. The repository lane identifies where the experiment lives conceptually; the evidence column links to the concrete code, documents, result reports, run artifacts, configs, or source decisions that support the row.</p>
+    <div class="summary-grid">
+      <div class="summary-card positive">
+        <div class="summary-number">5</div>
+        <strong>Working positives</strong>
+        <p class="small">Results with bounded claims worth packaging or extending carefully.</p>
+      </div>
+      <div class="summary-card start">
+        <div class="summary-number">8</div>
+        <strong>Active / source-gate</strong>
+        <p class="small">Concrete next gate exists, or source readiness is the correct next move.</p>
+      </div>
+      <div class="summary-card hold">
+        <div class="summary-number">6</div>
+        <strong>Evidence / diagnostic</strong>
+        <p class="small">Useful as support, remediation, boundary, or provisional harness.</p>
+      </div>
+      <div class="summary-card kill">
+        <div class="summary-number">12</div>
+        <strong>Negative / parked</strong>
+        <p class="small">Failed gates or should not be pushed as positive results.</p>
+      </div>
+      <div class="summary-card defer">
+        <div class="summary-number">17</div>
+        <strong>Blocked / future</strong>
+        <p class="small">Deferred, held, shelved, or idea-bank only for this cycle.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>ID</th>
+            <th>Experiment</th>
+            <th>Repository lane</th>
+            <th>Status</th>
+            <th>Objective and repository evidence</th>
+            <th>Findings, status, and next action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td class="num">PX-001</td>
+            <td class="title">Safety-Gated TTA for Streaming APT Detection</td>
+            <td>Praxis 06</td>
+            <td><span class="badge positive">Lead positive</span></td>
+            <td><a href="tta_streaming_apt/TTA_FUNCTIONING_CAPABILITY_REPORT_20260513.md">Locked replay and functioning report</a>: Macro-F1 <code>0.8658</code>, Recon F1 <code>0.5050</code>, matched confidence-reject Recon F1 <code>0.0000</code>; seven-seed hardening complete.</td>
+            <td>Package as lead paper/thesis result. No threshold changes.</td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td class="num">PX-002</td>
+            <td class="title">ATT&amp;CK TTP-Set Profile Retrieval</td>
+            <td>Praxis / CTI</td>
+            <td><span class="badge positive">Selected positive</span></td>
+            <td><a href="gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md">Profile retrieval result</a>: 5-shot top-5 overlap <code>0.960</code>, SVD <code>0.879</code>, random <code>0.028</code>, frequency prior <code>0.041</code>.</td>
+            <td>Publish as profile retrieval only. Do not claim CTI prose attribution or GNN superiority.</td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td class="num">PX-003</td>
+            <td class="title">Retrieval-Conditioned CTI Compliance</td>
+            <td>Praxis 07</td>
+            <td><span class="badge positive">Narrow positive</span></td>
+            <td><a href="relationship_evidence_cti_compliance/PRAXIS07_RESULT_SYNTHESIS_20260517.md">Result synthesis</a>: 8B vanilla <code>0.642</code>, relationship evidence <code>0.915</code>; 3B relationship evidence <code>0.887</code>.</td>
+            <td>Package with conservative mechanism language. Add pipeline figure and example row.</td>
+          </tr>
+          <tr>
+            <td class="num">4</td>
+            <td class="num">PX-004</td>
+            <td class="title">FalseCite-Code Software-Artifact Citation Poisoning</td>
+            <td>Idea Explorer / FalseCite</td>
+            <td><span class="badge positive">Working positive</span></td>
+            <td><a href="falsecite_code/FALSECITE_CODE_USEFULNESS_DECISION_20260625.md">Usefulness decision</a>: verifier reduced strict fabricated trust to <code>0.0000</code>; 3B boundary showed metadata evidence failure but verifier robustness.</td>
+            <td>Package around external citation-aware verifier claim.</td>
+          </tr>
+          <tr>
+            <td class="num">5</td>
+            <td class="num">PX-005</td>
+            <td class="title">MoE Standing-Committee Router Audit</td>
+            <td>Idea Explorer / MoE</td>
+            <td><span class="badge positive">Bounded positive</span></td>
+            <td><a href="moe_standing_committee/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_SYNTHESIS_20260623.md">Router audit</a>: OLMoE captured <code>480/480</code> prompts; committee-size 32 mean Jaccard <code>0.4656</code>.</td>
+            <td>Add external-validity model or fine-tuning/domain-shift gate before standalone manuscript.</td>
+          </tr>
+          <tr>
+            <td class="num">6</td>
+            <td class="num">PX-006</td>
+            <td class="title">OpTC Provenance Label Acquisition and Host/Day Gate</td>
+            <td>Praxis provenance</td>
+            <td><span class="badge source">Evidence artifact</span></td>
+            <td><a href="provenance_architecture/OPTC_CROSS_HOST_GATE_20260515.md">Cross-host gate</a>: <code>717</code> usable non-gray windows; pooled sanity strong, but host/day holdout fails.</td>
+            <td>Publish as label/data readiness and generalization blocker, not a detector result.</td>
+          </tr>
+          <tr>
+            <td class="num">7</td>
+            <td class="num">PX-007</td>
+            <td class="title">GWU GML APT Stage-Classification Repair</td>
+            <td>Committee remediation</td>
+            <td><span class="badge source">Diagnostic evidence</span></td>
+            <td><a href="gwu_committee_response/GML_CROSS_DATASET_REPRODUCTION_RESULT_20260518.md">Cross-dataset rerun</a> and <a href="gwu_committee_response/DAPT_SOH_GML_APPLES_TO_APPLES_RESULT_20260519.md">apples-to-apples rerun</a>: ST-GCN superiority and DE detection not supported.</td>
+            <td>Use as advisor-facing remediation and correction evidence only.</td>
+          </tr>
+          <tr>
+            <td class="num">8</td>
+            <td class="num">PX-008</td>
+            <td class="title">DAPT2020 External TTA Boundary Check</td>
+            <td>Praxis 06 appendix</td>
+            <td><span class="badge hold">Boundary evidence</span></td>
+            <td><a href="tta_streaming_apt/DAPT2020_EXTERNAL_VALIDITY_NOTE_20260512.md">DAPT note</a>: detector recipe transfers, but TTA feasibility gate is negative under DAPT.</td>
+            <td>Include as honest external-validity boundary.</td>
+          </tr>
+          <tr>
+            <td class="num">9</td>
+            <td class="num">PX-009</td>
+            <td class="title">AI Supply-Chain LoRA Training-Trace Provenance</td>
+            <td>Praxis supply-chain</td>
+            <td><span class="badge start">Gate-ready</span></td>
+            <td><a href="ai_supply_chain_training_provenance/AI_SUPPLY_CHAIN_MULTISTRENGTH_GATE_READY_20260514.md">Multi-strength gate ready</a>; first LoRA trace effects were weak: loss <code>0.0401</code>, grad-norm <code>-0.0673</code>, update-norm <code>0.0203</code>.</td>
+            <td>Run only if intentionally spending compute; promote only if 5% poison ROC-AUC/AP clears <code>&gt;=0.7000</code>.</td>
+          </tr>
+          <tr>
+            <td class="num">10</td>
+            <td class="num">PX-010</td>
+            <td class="title">Synthetic Ground-Truth Circuit Recovery Benchmark</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge start">Start candidate</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> recommends this as a cheap controlled interpretability path.</td>
+            <td>Run source/design gate for tiny known-circuit tasks before real hidden-state claims.</td>
+          </tr>
+          <tr>
+            <td class="num">11</td>
+            <td class="num">PX-011</td>
+            <td class="title">HalluHard Source-Backed Verifier Audit</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge start">Source-gate candidate</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> marks it as a possible follow-on after FalseCite, with strict response-only baselines required.</td>
+            <td>Source-gate only. Do not repeat EXP04's response-artifact failure.</td>
+          </tr>
+          <tr>
+            <td class="num">12</td>
+            <td class="num">PX-012</td>
+            <td class="title">Contrastive SSL for Provenance Graph Windows</td>
+            <td>Praxis provenance</td>
+            <td><span class="badge defer">Weak / active</span></td>
+            <td><a href="contrastive_ssl_provenance_graphs/CADETS_SSL_REPRESENTATION_PILOT_20260509.md">SSL pilot</a>: positive &gt; negative rate only <code>0.5227</code>.</td>
+            <td>Improve node features and negatives before GPU GraphCL.</td>
+          </tr>
+          <tr>
+            <td class="num">13</td>
+            <td class="num">PX-013</td>
+            <td class="title">Continuous-Time TGN for APT Provenance Streams</td>
+            <td>Praxis provenance</td>
+            <td><span class="badge defer">Weak / reframe</span></td>
+            <td><a href="continuous_time_tgn_apt_provenance/CADETS_TGN_NEXT_EVENT_PILOT_20260509.md">Next-event pilot</a>: previous-event baseline Macro F1 <code>0.6044</code> beats temporal/hash features <code>0.5972</code>.</td>
+            <td>Reframe around anomaly/window detection once labels exist.</td>
+          </tr>
+          <tr>
+            <td class="num">14</td>
+            <td class="num">PX-014</td>
+            <td class="title">Concept Drift on Provenance Detectors</td>
+            <td>Praxis provenance</td>
+            <td><span class="badge source">Architecture-ready</span></td>
+            <td><a href="concept_drift_provenance_detectors/CADETS_DRIFT_GATE_20260510.md">Drift gate</a> and full Cadets windowing show pipeline readiness, but labels remain insufficient.</td>
+            <td>Use density only for weak-proxy diagnostics until honest labels exist.</td>
+          </tr>
+          <tr>
+            <td class="num">15</td>
+            <td class="num">PX-015</td>
+            <td class="title">Frontier EXP01: TTC Transferability</td>
+            <td>Frontier batch</td>
+            <td><span class="badge hold">Provisional harness</span></td>
+            <td><a href="../runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_FULL_AWS_RESULT_20260618.md">Full AWS run</a>: <code>4</code> models, <code>160</code> rows, <code>2,560</code> scored rows; strict holdout weak.</td>
+            <td>Keep as measurement harness only unless missing gates are added.</td>
+          </tr>
+          <tr>
+            <td class="num">16</td>
+            <td class="num">PX-016</td>
+            <td class="title">Frontier EXP02: Self-Jailbreak Guardrail</td>
+            <td>Frontier batch</td>
+            <td><span class="badge hold">Mixed / parked</span></td>
+            <td><a href="frontier_ai_ml_experiments_20260618/EXP02_FULL_GUARDRAIL_SYNTHESIS_20260618.md">Guardrail synthesis</a>: early-detection signal exists, but benign false-refusal and safe-response blocking fail utility controls.</td>
+            <td>Park until over-refusal blocker is solved.</td>
+          </tr>
+          <tr>
+            <td class="num">17</td>
+            <td class="num">PX-017</td>
+            <td class="title">Frontier EXP03: VLA Instruction Diversity</td>
+            <td>Frontier batch</td>
+            <td><span class="badge kill">Stop / reframe</span></td>
+            <td><a href="../runs/frontier-exp03-libero-data-gate-20260621/EXP03_LIBERO_DATA_GATE_RESULT_20260621.md">LIBERO data gate</a>: public path lacks language columns and simulator stack.</td>
+            <td>Stop for current cycle; no instruction-diversity VLA claim.</td>
+          </tr>
+          <tr>
+            <td class="num">18</td>
+            <td class="num">PX-018</td>
+            <td class="title">Frontier EXP04: KG Hallucination Verification</td>
+            <td>Frontier batch</td>
+            <td><span class="badge kill">Failed promotion</span></td>
+            <td><a href="../runs/frontier-exp04-dialogue-feature-gate-20260620/EXP04_DIALOGUE_FEATURE_GATE_RESULT_20260620.md">External feature gate</a>: evidence+numeric F1 <code>0.7215</code> lost to response-only F1 <code>0.7835</code>.</td>
+            <td>Do not publish as positive; any follow-on must beat response artifacts.</td>
+          </tr>
+          <tr>
+            <td class="num">19</td>
+            <td class="num">PX-019</td>
+            <td class="title">Frontier EXP05: World-Model Visual Robustness</td>
+            <td>Frontier batch</td>
+            <td><span class="badge hold">Environment smoke</span></td>
+            <td><a href="../runs/frontier-exp05-crafter-rollout-gate-20260621/EXP05_CRAFTER_ROLLOUT_GATE_RESULT_20260621.md">Crafter rollout gate</a> ran perturbations, but agent was a deterministic checksum policy.</td>
+            <td>Park until a learned world-model agent and paradigm comparison exist.</td>
+          </tr>
+          <tr>
+            <td class="num">20</td>
+            <td class="num">PX-020</td>
+            <td class="title">Stage-Conditional Routing for APT Kill-Chain Classification</td>
+            <td>Praxis 04</td>
+            <td><span class="badge kill">Negative / reframe</span></td>
+            <td><a href="praxis04_full_run/PRAXIS04_FULL_RUN_REPORT.md">Full run</a>: Treatment-Stage Macro-F1 <code>0.5981</code> below Baseline-TSE <code>0.6313</code>.</td>
+            <td>Preserve as negative bottleneck evidence.</td>
+          </tr>
+          <tr>
+            <td class="num">21</td>
+            <td class="num">PX-021</td>
+            <td class="title">Stage-Conditioned Class-Imbalance Rescue</td>
+            <td>Praxis rare-class</td>
+            <td><span class="badge kill">Negative / parked</span></td>
+            <td><a href="plan02_stage_conditioned_imbalance/PLAN02_WEIGHTING_PILOT_RESULT.md">Weighting pilot</a>: rare-class gain only <code>+0.0049</code>; Benign F1 collapsed.</td>
+            <td>Park simple weighting/resampling.</td>
+          </tr>
+          <tr>
+            <td class="num">22</td>
+            <td class="num">PX-022</td>
+            <td class="title">Stage-1 Routing Recovery Policy Diagnostics</td>
+            <td>Praxis diagnostic</td>
+            <td><span class="badge hold">Diagnostic only</span></td>
+            <td><a href="../runs/stage1-routing-recovery-sweep-20260509-full/report.md">Recovery sweep</a> found some rare-stage recovery but no clean safe positive.</td>
+            <td>Keep as design evidence feeding PX-001.</td>
+          </tr>
+          <tr>
+            <td class="num">23</td>
+            <td class="num">PX-023</td>
+            <td class="title">Sparse Autoencoder Interpretability for APT Detectors</td>
+            <td>Praxis 05</td>
+            <td><span class="badge hold">Hold / negative</span></td>
+            <td><a href="praxis05_phase_a/FULL_GPU_PHASE_A_20260510.md">Full GPU Phase A</a>: MSE passed, but feature death <code>0.9119</code> and stability <code>0.2815</code> failed.</td>
+            <td>Do not proceed to Phase B; only larger-hidden-state pivot is justified.</td>
+          </tr>
+          <tr>
+            <td class="num">24</td>
+            <td class="num">PX-024</td>
+            <td class="title">Domain-Seeded SEC-LoRD / DS-LoRD Prompting</td>
+            <td>Praxis CTI</td>
+            <td><span class="badge kill">Negative method</span></td>
+            <td><a href="sec_lord_ds_lord/SEC_LORD_FAILURE_AUDIT_20260511.md">Failure audit</a>: broad seeding made strict answer behavior worse.</td>
+            <td>Stop broad seed prompting; replaced by PX-003 retrieval evidence.</td>
+          </tr>
+          <tr>
+            <td class="num">25</td>
+            <td class="num">PX-025</td>
+            <td class="title">APT Detector Watermarking and Owner Verification</td>
+            <td>Praxis detector ownership</td>
+            <td><span class="badge kill">Closed negative</span></td>
+            <td><a href="apt_detector_watermarking/WATERMARK_OWNER_HEAD_GATE_20260514.md">Owner-head gate</a>: trigger detection <code>0.5217</code> vs required <code>&gt;=0.9500</code>.</td>
+            <td>Archive current detector lineage.</td>
+          </tr>
+          <tr>
+            <td class="num">26</td>
+            <td class="num">PX-026</td>
+            <td class="title">Membership Inference Against APT Detectors</td>
+            <td>Praxis privacy</td>
+            <td><span class="badge kill">Negative / parked</span></td>
+            <td><a href="membership_inference_apt_detectors/SHADOW_PROTOCOL_20260509.md">Shadow protocol</a>: same-distribution ROC-AUC <code>0.5599</code>; temporal signal confounded by shift.</td>
+            <td>Keep as negative/control evidence.</td>
+          </tr>
+          <tr>
+            <td class="num">27</td>
+            <td class="num">PX-027</td>
+            <td class="title">GNN TTP Graph Embeddings for APT Attribution</td>
+            <td>Praxis CTI graph</td>
+            <td><span class="badge kill">GNN claim dropped</span></td>
+            <td><a href="gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_GRAPHSAGE_PILOT_20260510.md">GraphSAGE pilot</a> failed against cheap baselines; simple retrieval retained in PX-002.</td>
+            <td>Do not pitch as GNN result.</td>
+          </tr>
+          <tr>
+            <td class="num">28</td>
+            <td class="num">PX-028</td>
+            <td class="title">LLM Threat Intelligence Fusion</td>
+            <td>Praxis CTI</td>
+            <td><span class="badge hold">Blocked</span></td>
+            <td><a href="EXPERIMENT_CURRENT_DASHBOARD_20260513.md">Dashboard</a> records blocker: no dated campaign/outcome labels.</td>
+            <td>Do not model first. Build labels or drop.</td>
+          </tr>
+          <tr>
+            <td class="num">29</td>
+            <td class="num">PX-029</td>
+            <td class="title">Stage Routing on Provenance Graphs</td>
+            <td>Praxis future graph</td>
+            <td><span class="badge hold">Hold</span></td>
+            <td><a href="../EXPERIMENTS.md">Publication index</a> keeps this as a hold item after stage-prediction bottlenecks.</td>
+            <td>Reopen only after graph stage predictor clears temporal/host-shift gate.</td>
+          </tr>
+          <tr>
+            <td class="num">30</td>
+            <td class="num">PX-030</td>
+            <td class="title">Cross-Detector Adversarial Robustness</td>
+            <td>Praxis future detector</td>
+            <td><span class="badge defer">Later</span></td>
+            <td><a href="../EXPERIMENTS.md">Publication index</a> records it as later because stable detector families are missing.</td>
+            <td>Defer until honest labeled detector suite exists.</td>
+          </tr>
+          <tr>
+            <td class="num">31</td>
+            <td class="num">PX-031</td>
+            <td class="title">Causal GNN for Evasion-Resistant APT Detection</td>
+            <td>Praxis future graph</td>
+            <td><span class="badge defer">Later</span></td>
+            <td><a href="../EXPERIMENTS.md">Publication index</a> keeps this as high-ceiling follow-on.</td>
+            <td>Keep after selected positives are packaged.</td>
+          </tr>
+          <tr>
+            <td class="num">32</td>
+            <td class="num">PX-032</td>
+            <td class="title">Reverse TTP Extraction</td>
+            <td>Praxis shelved</td>
+            <td><span class="badge kill">Shelved</span></td>
+            <td><a href="../EXPERIMENTS.md">Publication index</a> records no real data source or simulator path.</td>
+            <td>Shelve until a real data source exists.</td>
+          </tr>
+          <tr>
+            <td class="num">33</td>
+            <td class="num">PX-033</td>
+            <td class="title">SWE-EVO Repo-State World Model</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge source">Gate later</span></td>
+            <td><a href="../tmp/docs/idea_explorer_20260622/AI_ML_Praxis_Idea_Explorer_extracted.md">Idea Explorer source</a> and deconfliction report mark this promising but too large for immediate RWML-style training.</td>
+            <td>Start only with source/data readiness.</td>
+          </tr>
+          <tr>
+            <td class="num">34</td>
+            <td class="num">PX-034</td>
+            <td class="title">Open Deep Research Agent for CTI Source-Conflict Evidence</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Merge / reframe</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> rejects biomedical framing as too high-risk for this cycle.</td>
+            <td>Only reframe toward CTI/source-conflict evidence using PX-003 assets.</td>
+          </tr>
+          <tr>
+            <td class="num">35</td>
+            <td class="num">PX-035</td>
+            <td class="title">Long CoT Thought-Budget Oracle</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Merge / defer</span></td>
+            <td><a href="../tmp/docs/idea_explorer_20260622/idea_entries.json">Idea entry</a> is strong on paper, but full RLVR is unnecessary for current packaging priorities.</td>
+            <td>Use only as a small budget-control add-on if reasoning work reopens.</td>
+          </tr>
+          <tr>
+            <td class="num">36</td>
+            <td class="num">PX-036</td>
+            <td class="title">RWML for Agent World Models</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconflicted</a> as too broad; possible component for PX-033 later.</td>
+            <td>Do not train now.</td>
+          </tr>
+          <tr>
+            <td class="num">37</td>
+            <td class="num">PX-037</td>
+            <td class="title">Ouro Latent Loop Exit Gating</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer</span></td>
+            <td><a href="../tmp/docs/idea_explorer_20260622/idea_entries.json">Idea entry</a> is high novelty but architecture/pretraining heavy.</td>
+            <td>Source gate only; no pretraining.</td>
+          </tr>
+          <tr>
+            <td class="num">38</td>
+            <td class="num">PX-038</td>
+            <td class="title">Circuit-Aware Reward Training for Longtail Robustness</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> notes new tooling and labels would be required.</td>
+            <td>Wait until PX-010 validates local circuit-recovery tooling.</td>
+          </tr>
+          <tr>
+            <td class="num">39</td>
+            <td class="num">PX-039</td>
+            <td class="title">FLAME-MoE Routing Transfer</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> keeps this behind the lighter OLMoE audit.</td>
+            <td>Return only after PX-005 external-validity/fine-tuning-shift plan.</td>
+          </tr>
+          <tr>
+            <td class="num">40</td>
+            <td class="num">PX-040</td>
+            <td class="title">DP-FedLoRA Chain-of-Thought Degradation</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> flags fragile CoT-quality scoring and privacy complexity.</td>
+            <td>Possible tiny epsilon/accuracy smoke only.</td>
+          </tr>
+          <tr>
+            <td class="num">41</td>
+            <td class="num">PX-041</td>
+            <td class="title">SPEED-Q Robotics VLM Quantization</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> notes VLA readiness is already blocked.</td>
+            <td>No robotics quantization claim until data/simulator gates pass.</td>
+          </tr>
+          <tr>
+            <td class="num">42</td>
+            <td class="num">PX-042</td>
+            <td class="title">TernaryCLIP Federated Hospital Compression</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer / kill</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> flags clinical, federated, and privacy burdens.</td>
+            <td>Do not pursue unless reframed away from medical/federated claims.</td>
+          </tr>
+          <tr>
+            <td class="num">43</td>
+            <td class="num">PX-043</td>
+            <td class="title">MAGRPO Multi-Agent RL Collaboration</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge defer">Defer</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> flags open-ended MARL evaluation drag.</td>
+            <td>At most, later no-training adversarial-pair prompt smoke.</td>
+          </tr>
+          <tr>
+            <td class="num">44</td>
+            <td class="num">PX-044</td>
+            <td class="title">Agentic RL Survey / Scientific Discovery Benchmark</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge hold">Hold</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> treats it as a roadmap, not an experiment.</td>
+            <td>Use only as background reading for narrower agent work.</td>
+          </tr>
+          <tr>
+            <td class="num">45</td>
+            <td class="num">PX-045</td>
+            <td class="title">SLAM-LLM Multimodal Speech/Audio Framework</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge hold">Hold</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> marks it as a thesis pivot, not a natural extension.</td>
+            <td>Hold unless intentionally pivoting to multimodal speech/audio.</td>
+          </tr>
+          <tr>
+            <td class="num">46</td>
+            <td class="num">PX-046</td>
+            <td class="title">Controllable Video Generation Benchmark</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge hold">Hold</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> flags dataset-heavy off-portfolio work.</td>
+            <td>Hold for future idea bank.</td>
+          </tr>
+          <tr>
+            <td class="num">47</td>
+            <td class="num">PX-047</td>
+            <td class="title">Generative Gaussian Splatting 3D Scene Generation</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge kill">Kill current cycle</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> flags compute-heavy off-domain work.</td>
+            <td>Do not start this cycle.</td>
+          </tr>
+          <tr>
+            <td class="num">48</td>
+            <td class="num">PX-048</td>
+            <td class="title">HuGeDiff 3D Human Generation</td>
+            <td>Idea Explorer</td>
+            <td><span class="badge kill">Kill current cycle</span></td>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> flags 3D/motion generation plus user-study burden.</td>
+            <td>Do not start this cycle.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section>
+    <h2>Source Index</h2>
+    <p>The canonical tracker above is the publishable list. These source files remain linked for auditability and historical trace-back.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Contains</th>
+            <th>Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="../EXPERIMENTS.md">Praxis publication index</a></td>
+            <td>Original 23-experiment Praxis publication index.</td>
+            <td>Historical source for core Praxis IDs, evidence artifacts, negatives, and future tracks.</td>
+          </tr>
+          <tr>
+            <td><a href="../tmp/docs/idea_explorer_20260622/AI_ML_Praxis_Idea_Explorer_extracted.md">AI/ML Idea Explorer extraction</a></td>
+            <td>Raw extracted 20-paper idea list from the Word document.</td>
+            <td>Source for Idea Explorer items, scores, paper titles, and original recommendations.</td>
+          </tr>
+          <tr>
+            <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Idea Explorer deconfliction report</a></td>
+            <td>Reviewed decisions: start, defer, kill, hold, merge, or gate later.</td>
+            <td>Source for the current actionability ranking of Idea Explorer items.</td>
+          </tr>
+          <tr>
+            <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>
+            <td>Five frontier experiments and their final current-cycle decisions.</td>
+            <td>Source for provisional, failed-promotion, stopped, and environment-smoke rows.</td>
+          </tr>
+          <tr>
+            <td><a href="EXPERIMENT_STATUS_NO_KIDDING_20260628.html">No-kidding experiment dashboard</a></td>
+            <td>Plain-English status dashboard for working, failed, and active experiments.</td>
+            <td>Companion review page for non-table status reading.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ranking Rule</h2>
+    <p>The source document's numeric composite score is preserved in the Idea Explorer table, but the priority order is not the same thing. This page ranks by current usefulness to the Praxis workstream: already-advanced positives first, then evidence artifacts, then cheap defensible start candidates, then ideas that should be merged, deferred, held, killed, or shelved.</p>
+    <p class="small">Most important practical rule: do not restart broad experiment batches. Finish packaging the working positives, then source-gate only one new item at a time.</p>
+  </section>
+</main>
+</body>
+</html>

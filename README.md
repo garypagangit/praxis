@@ -1,8 +1,14 @@
-# Praxis Starter Workspace
+# Praxis Research
+
+The publishable experiment tracker is:
+
+[Praxis Research Experiment Tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html)
+
+This dashboard is the front-door overview for completed, active, negative, blocked, and future Praxis experiments. Each tracked experiment has a stable `PX-###` ID, title, objective/evidence record, short findings/status summary, and links to supporting code, documents, results, and source artifacts.
 
 ## Experiment Portfolio
 
-The publishable experiment list is tracked in [EXPERIMENTS.md](EXPERIMENTS.md). It numbers the research portfolio from Experiment 01 to Experiment N with titles, status, evidence, claim boundaries, and source artifacts.
+The Markdown publication index is tracked in [EXPERIMENTS.md](EXPERIMENTS.md). It is kept as the source-readable portfolio index, while the HTML tracker above is the clean dashboard for GitHub review and project navigation.
 
 This repository is now set up as a small, clean starting point for an AI project that you edit locally and run on Colab compute.
 

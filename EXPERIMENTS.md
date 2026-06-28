@@ -2,6 +2,8 @@
 
 Generated: 2026-06-18
 
+Canonical dashboard: [Praxis Research Experiment Tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html).
+
 Purpose: a GitHub-readable index of the Praxis research portfolio, numbered from Experiment 01 to Experiment N with clear titles, status, evidence, claim boundaries, and source artifacts.
 
 This index intentionally publishes both positive and negative results. The rule is simple: a positive result can be pitched as a claim only when the gate was cleared; a negative result is preserved as evidence about the method, data, or evaluation bottleneck.
