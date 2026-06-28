@@ -4,7 +4,7 @@ Date: 2026-06-28
 
 PX ID: PX-010
 
-Status: **BOUNDED POSITIVE - CONTROLLED BENCHMARK PASSED**
+Status: **BOUNDED POSITIVE - CONTROLLED BENCHMARK AND TINY ATTENTION FOLLOW-ON PASSED**
 
 ## Title
 
@@ -16,7 +16,7 @@ Build a controlled interpretability benchmark where the ground-truth circuit is 
 
 ## Result
 
-PX-010 already has a positive controlled benchmark result. The known-circuit recovery gate passed across `7` seeds using task-level train, validation, and strict-holdout splits.
+PX-010 has a positive controlled benchmark result and a positive tiny attention follow-on. The known-circuit recovery gate passed across `7` seeds using task-level train, validation, and strict-holdout splits. The tiny attention circuit gate then moved one step closer to transformer-style hidden-state claims by using captured attention-style activations with known causal components.
 
 | Metric | Result |
 |---|---:|
@@ -33,13 +33,32 @@ PX-010 already has a positive controlled benchmark result. The known-circuit rec
 
 All pre-registered gate checks passed: minimum seeds, patching holdout MAP, patching precision@K, patching delta versus random, stable seed fraction, and sparse-dictionary causal mean correlation.
 
+## Tiny Attention Follow-On
+
+The follow-on gate passed on 2026-06-28.
+
+| Metric | Result |
+|---|---:|
+| Decision | PASS |
+| Seeds | `7` |
+| Holdout model accuracy | `1.0000` |
+| Attention selection accuracy | `1.0000` |
+| Patching holdout AP | `1.0000` |
+| Patching precision@K | `1.0000` |
+| Probe-only holdout AP | `0.3753` |
+| Random holdout AP | `0.4167` |
+| Patching AP delta vs random | `0.5833` |
+| Stable seed fraction | `1.0000` |
+
+This gate uses a deterministic tiny attention circuit, not PyTorch and not a trained natural-language transformer. It is useful because it verifies the recovery harness on captured attention-style activations before spending GPU time on a trained tiny transformer.
+
 ## What It Proves
 
-This proves that the local Praxis interpretability harness can recover known synthetic causal circuits under strict unseen task templates. It is a credible calibration artifact for mechanistic-interpretability work because the benchmark has a known ground truth and reports random and probe-only baselines.
+This proves that the local Praxis interpretability harness can recover known synthetic causal circuits under strict unseen task templates, and can also recover known causal components from a deterministic attention-style circuit. It is a credible calibration artifact for mechanistic-interpretability work because the benchmark has known ground truth and reports random and probe-only baselines.
 
 ## Claim Boundary
 
-This does not prove recovery of real transformer circuits, SAE utility on natural activations, or alignment relevance. A transformer follow-on remains required before using this as evidence about natural-model hidden states.
+This does not prove recovery of real transformer circuits, SAE utility on natural activations, or alignment relevance. A trained transformer or real activation-corpus follow-on remains required before using this as evidence about natural-model hidden states.
 
 ## Supporting Evidence
 
@@ -50,7 +69,11 @@ This does not prove recovery of real transformer circuits, SAE utility on natura
 | `reports/known_circuit_recovery/KNOWN_CIRCUIT_RECOVERY_PRELIM_MBDL_FAIL_20260623.md` | Preliminary failed sparse-dictionary run preserved as negative evidence. |
 | `configs/known_circuit_recovery_gate_20260623.json` | Pre-registered config and thresholds. |
 | `scripts/run_known_circuit_recovery_gate.py` | Reproducible runner. |
+| `reports/synthetic_circuit_recovery/TINY_TRANSFORMER_CIRCUIT_GATE_20260628.md` | Tiny attention follow-on report. |
+| `reports/synthetic_circuit_recovery/TINY_TRANSFORMER_CIRCUIT_GATE_20260628.json` | Machine-readable tiny attention metrics. |
+| `configs/tiny_transformer_circuit_gate_20260628.json` | Pre-registered tiny attention config and thresholds. |
+| `scripts/run_tiny_transformer_circuit_gate.py` | CPU-only tiny attention follow-on runner. |
 
 ## Recommended Next Stage
 
-Use PX-010 as a methods artifact now. The next experiment should be a tiny transformer follow-on with known synthetic tasks and captured activations, keeping the same split discipline and claim boundary.
+Use PX-010 as a methods artifact now. The next experiment should be a trained tiny transformer or real activation-corpus follow-on, keeping the same split discipline and claim boundary.

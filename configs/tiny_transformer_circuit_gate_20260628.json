@@ -1,0 +1,41 @@
+{
+  "experiment_id": "tiny-transformer-circuit-gate-20260628",
+  "title": "Tiny Attention Circuit Follow-On for Synthetic Ground-Truth Recovery",
+  "px_id": "PX-010",
+  "run_date": "2026-06-28",
+  "praxis_track": "Synthetic ground-truth circuit recovery",
+  "seeds": [11, 23, 37, 41, 53, 67, 79],
+  "data": {
+    "vocab_size": 16,
+    "train_tasks": 32,
+    "validation_tasks": 12,
+    "strict_holdout_tasks": 12,
+    "samples_per_task": 80,
+    "component_count": 16,
+    "attention_scale": 8.0,
+    "output_scale": 4.0,
+    "proxy_noise": 0.05,
+    "distractor_noise": 0.8
+  },
+  "true_causal_components": [0, 1, 2, 3],
+  "component_names": {
+    "0": "attention_weight_key_0",
+    "1": "attention_weight_key_1",
+    "2": "value_slot_0_signed",
+    "3": "value_slot_1_signed",
+    "4": "head_output_proxy",
+    "5": "query_selects_slot_0_proxy",
+    "6": "noisy_value_slot_0_proxy",
+    "7": "noisy_value_slot_1_proxy"
+  },
+  "gate_thresholds": {
+    "minimum_seeds": 7,
+    "holdout_accuracy_min": 0.95,
+    "attention_selection_accuracy_min": 0.99,
+    "patching_holdout_ap_min": 0.90,
+    "patching_precision_at_k_min": 0.90,
+    "patching_ap_delta_vs_random_min": 0.50,
+    "patching_stable_seed_fraction_min": 0.85
+  },
+  "claim_boundary": "This gate uses a deterministic tiny attention circuit with known synthetic ground truth. It can test whether the recovery harness works on captured attention-style activations, but it does not prove recovery of natural transformer circuits."
+}

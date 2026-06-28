@@ -1,0 +1,432 @@
+{
+  "config": {
+    "claim_boundary": "This gate uses a deterministic tiny attention circuit with known synthetic ground truth. It can test whether the recovery harness works on captured attention-style activations, but it does not prove recovery of natural transformer circuits.",
+    "component_names": {
+      "0": "attention_weight_key_0",
+      "1": "attention_weight_key_1",
+      "2": "value_slot_0_signed",
+      "3": "value_slot_1_signed",
+      "4": "head_output_proxy",
+      "5": "query_selects_slot_0_proxy",
+      "6": "noisy_value_slot_0_proxy",
+      "7": "noisy_value_slot_1_proxy"
+    },
+    "data": {
+      "attention_scale": 8.0,
+      "component_count": 16,
+      "distractor_noise": 0.8,
+      "output_scale": 4.0,
+      "proxy_noise": 0.05,
+      "samples_per_task": 80,
+      "strict_holdout_tasks": 12,
+      "train_tasks": 32,
+      "validation_tasks": 12,
+      "vocab_size": 16
+    },
+    "experiment_id": "tiny-transformer-circuit-gate-20260628",
+    "gate_thresholds": {
+      "attention_selection_accuracy_min": 0.99,
+      "holdout_accuracy_min": 0.95,
+      "minimum_seeds": 7,
+      "patching_ap_delta_vs_random_min": 0.5,
+      "patching_holdout_ap_min": 0.9,
+      "patching_precision_at_k_min": 0.9,
+      "patching_stable_seed_fraction_min": 0.85
+    },
+    "praxis_track": "Synthetic ground-truth circuit recovery",
+    "px_id": "PX-010",
+    "run_date": "2026-06-28",
+    "seeds": [
+      11,
+      23,
+      37,
+      41,
+      53,
+      67,
+      79
+    ],
+    "title": "Tiny Attention Circuit Follow-On for Synthetic Ground-Truth Recovery",
+    "true_causal_components": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "seed_results": [
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "baseline_log_loss": 0.018173633465884003,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_scores": [
+          0.07664802625999775,
+          0.07770586290847609,
+          0.3370820049444872,
+          0.34059151687007233,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "patching_top_components": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "probe_average_precision": 0.3894230769230769,
+        "probe_top_components": [
+          4,
+          2,
+          6,
+          3
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.018173633465884003,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2560,
+        "validation": 960
+      },
+      "seed": 11
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "baseline_log_loss": 0.01817403610788951,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_scores": [
+          0.07850934494695952,
+          0.07682714672848259,
+          0.3462567528122738,
+          0.3289940977771546,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "patching_top_components": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.3646103896103896,
+        "probe_top_components": [
+          4,
+          2,
+          6,
+          7
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.01817403610788951,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2560,
+        "validation": 960
+      },
+      "seed": 23
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "baseline_log_loss": 0.01817388511713745,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_scores": [
+          0.07850389022916153,
+          0.07639867868059017,
+          0.33694359164740245,
+          0.3388264044738337,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "patching_top_components": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.39642857142857146,
+        "probe_top_components": [
+          4,
+          3,
+          7,
+          2
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.01817388511713745,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2560,
+        "validation": 960
+      },
+      "seed": 37
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "baseline_log_loss": 0.01817418709864158,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_scores": [
+          0.07963353641981492,
+          0.07634971890793227,
+          0.34241312199454754,
+          0.3324896512794954,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "patching_top_components": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.3375,
+        "probe_top_components": [
+          4,
+          3,
+          7,
+          6
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.01817418709864158,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2560,
+        "validation": 960
+      },
+      "seed": 41
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "baseline_log_loss": 0.018172677191120923,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_scores": [
+          0.07748134991352419,
+          0.07463749274794444,
+          0.35587018748930815,
+          0.3189239360672708,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "patching_top_components": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.38484848484848483,
+        "probe_top_components": [
+          4,
+          3,
+          7,
+          2
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.018172677191120923,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2560,
+        "validation": 960
+      },
+      "seed": 53
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "baseline_log_loss": 0.01817348247513194,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_scores": [
+          0.07601620906805416,
+          0.077797224857305,
+          0.33452395388953193,
+          0.3402909078513579,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "patching_top_components": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "probe_average_precision": 0.3839285714285714,
+        "probe_top_components": [
+          4,
+          2,
+          6,
+          3
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.01817348247513194,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2560,
+        "validation": 960
+      },
+      "seed": 67
+    },
+    {
+      "attention_selection_accuracy": 1.0,
+      "component_recovery": {
+        "baseline_log_loss": 0.01817348247513194,
+        "patching_average_precision": 1.0,
+        "patching_precision_at_k": 1.0,
+        "patching_scores": [
+          0.0780119411677977,
+          0.07571559182769223,
+          0.35049839300640034,
+          0.3249745734521945,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "patching_top_components": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "probe_average_precision": 0.37023809523809526,
+        "probe_top_components": [
+          4,
+          2,
+          6,
+          3
+        ],
+        "random_average_precision": 0.41666666666666663
+      },
+      "holdout_accuracy": 1.0,
+      "holdout_log_loss": 0.01817348247513194,
+      "row_counts": {
+        "strict_holdout": 960,
+        "train": 2560,
+        "validation": 960
+      },
+      "seed": 79
+    }
+  ],
+  "summary": {
+    "attention_selection_accuracy": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "checks": {
+      "attention_selection_accuracy": true,
+      "holdout_accuracy": true,
+      "minimum_seeds": true,
+      "patching_delta_vs_random": true,
+      "patching_holdout_ap": true,
+      "patching_precision_at_k": true,
+      "patching_stable_seed_fraction": true
+    },
+    "decision": "PASS",
+    "holdout_accuracy": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "patching_ap_delta_vs_random": 0.5833333333333335,
+    "patching_holdout_average_precision": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "patching_holdout_precision_at_k": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "patching_stable_seed_fraction": 1.0,
+    "probe_holdout_average_precision": {
+      "mean": 0.3752824556395985,
+      "std": 0.01843998813005228
+    },
+    "random_holdout_average_precision": {
+      "mean": 0.4166666666666666,
+      "std": 5.551115123125783e-17
+    }
+  }
+}
