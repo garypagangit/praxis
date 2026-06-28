@@ -1,5 +1,7 @@
 # Praxis Research
 
+Praxis Research is a future-work-to-experiment program. We reviewed the 2025-2026 AI/ML paper set collected for this effort, identified potential Praxis opportunities from future-work sections and reproducibility gaps, proposed novel research experiments, and tracked the outcome of each candidate as a completed result, source gate, negative gate, blocked track, or future item.
+
 The publishable experiment tracker is:
 
 [Praxis Research Experiment Tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html)

@@ -6,6 +6,8 @@ Canonical dashboard: [Praxis Research Experiment Tracker](reports/PRAXIS_RESEARC
 
 Purpose: a GitHub-readable index of the Praxis research portfolio, numbered from Experiment 01 to Experiment N with clear titles, status, evidence, claim boundaries, and source artifacts.
 
+Research concept: review the 2025-2026 AI/ML paper set collected for this effort, identify Praxis opportunities from future-work sections and reproducibility gaps, propose novel research experiments, and publish the evidence-backed result state for each candidate.
+
 This index intentionally publishes both positive and negative results. The rule is simple: a positive result can be pitched as a claim only when the gate was cleared; a negative result is preserved as evidence about the method, data, or evaluation bottleneck.
 
 ## Publication Tiers
