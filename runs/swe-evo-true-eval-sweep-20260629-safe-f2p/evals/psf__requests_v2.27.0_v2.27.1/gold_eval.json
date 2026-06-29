@@ -1,0 +1,21 @@
+{
+  "cmd": [
+    "sudo",
+    "docker",
+    "run",
+    "--rm",
+    "-v",
+    "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/work/psf__requests_v2.27.0_v2.27.1/eval_gold:/testbed",
+    "-w",
+    "/testbed",
+    "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-6028",
+    "bash",
+    "-lc",
+    "python -m pytest -q 'tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]' 'tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]'"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "..                                                                       [100%]\n2 passed in 0.07s\n",
+  "timeout": false,
+  "wall_seconds": 0.7370920181274414
+}

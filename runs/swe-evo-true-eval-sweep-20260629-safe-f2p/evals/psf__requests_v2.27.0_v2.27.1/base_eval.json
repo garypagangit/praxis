@@ -1,0 +1,21 @@
+{
+  "cmd": [
+    "sudo",
+    "docker",
+    "run",
+    "--rm",
+    "-v",
+    "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/work/psf__requests_v2.27.0_v2.27.1/eval_base:/testbed",
+    "-w",
+    "/testbed",
+    "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-6028",
+    "bash",
+    "-lc",
+    "python -m pytest -q 'tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]' 'tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]'"
+  ],
+  "returncode": 1,
+  "stderr": "",
+  "stdout": "FF                                                                       [100%]\n=================================== FAILURES ===================================\n_ test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query] _\n\nvalue = 'http://user:pass@example.com/path?query'\nexpected = 'http://user:pass@example.com/path?query'\n\n    @pytest.mark.parametrize(\n        'value, expected', (\n            ('example.com/path', 'http://example.com/path'),\n            ('//example.com/path', 'http://example.com/path'),\n            ('example.com:80', 'http://example.com:80'),\n            (\n                'http://user:pass@example.com/path?query',\n                'http://user:pass@example.com/path?query'\n            ),\n            (\n                'http://user@example.com/path?query',\n                'http://user@example.com/path?query'\n            )\n        ))\n    def test_prepend_scheme_if_needed(value, expected):\n>       assert prepend_scheme_if_needed(value, 'http') == expected\nE       AssertionError: assert 'http://examp...om/path?query' == 'http://user:...om/path?query'\nE         - http://user:pass@example.com/path?query\nE         ?        ----------\nE         + http://example.com/path?query\n\ntests/test_utils.py:615: AssertionError\n_ test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query] _\n\nvalue = 'http://user@example.com/path?query'\nexpected = 'http://user@example.com/path?query'\n\n    @pytest.mark.parametrize(\n        'value, expected', (\n            ('example.com/path', 'http://example.com/path'),\n            ('//example.com/path', 'http://example.com/path'),\n            ('example.com:80', 'http://example.com:80'),\n            (\n                'http://user:pass@example.com/path?query',\n                'http://user:pass@example.com/path?query'\n            ),\n            (\n                'http://user@example.com/path?query',\n                'http://user@example.com/path?query'\n            )\n        ))\n    def test_prepend_scheme_if_needed(value, expected):\n>       assert prepend_scheme_if_needed(value, 'http') == expected\nE       AssertionError: assert 'http://examp...om/path?query' == 'http://user@...om/path?query'\nE         - http://user@example.com/path?query\nE         ?        -----\nE         + http://example.com/path?query\n\ntests/test_utils.py:615: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]\nFAILED tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]\n2 failed in 0.11s\n",
+  "timeout": false,
+  "wall_seconds": 0.7805051803588867
+}

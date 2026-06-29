@@ -1,0 +1,21 @@
+{
+  "cmd": [
+    "sudo",
+    "docker",
+    "run",
+    "--rm",
+    "-v",
+    "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/work/iterative__dvc_2.21.1_2.21.2/eval_gold:/testbed",
+    "-w",
+    "/testbed",
+    "xingyaoww/sweb.eval.x86_64.iterative_s_dvc-8166",
+    "bash",
+    "-lc",
+    "python -m pytest -q tests/func/api/test_params.py::test_params_show_untracked_target"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "stdout": ".                                                                        [100%]\n=============================== warnings summary ===============================\ntests/func/api/test_params.py::test_params_show_untracked_target\ntests/func/api/test_params.py::test_params_show_untracked_target\ntests/func/api/test_params.py::test_params_show_untracked_target\ntests/func/api/test_params.py::test_params_show_untracked_target\ntests/func/api/test_params.py::test_params_show_untracked_target\ntests/func/api/test_params.py::test_params_show_untracked_target\ntests/func/api/test_params.py::test_params_show_untracked_target\ntests/func/api/test_params.py::test_params_show_untracked_target\n  /testbed/dvc/dependency/param.py:83: DeprecationWarning: The dpath.util package is being deprecated. All util functions have been moved to dpath package top level.\n    ret[param] = dpath.util.get(config, param, separator=\".\")\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n1 passed, 8 warnings in 0.90s\n",
+  "timeout": false,
+  "wall_seconds": 2.3472440242767334
+}

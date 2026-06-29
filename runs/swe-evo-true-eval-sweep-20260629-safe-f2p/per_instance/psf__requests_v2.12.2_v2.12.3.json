@@ -1,0 +1,219 @@
+{
+  "base_returncode": 1,
+  "base_test_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_base.patch"
+      ],
+      "returncode": 0,
+      "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_base.patch:89: new blank line at EOF.\n+\nwarning: 1 line adds whitespace errors.\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.002085447311401367
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_base.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.002424955368041992
+    }
+  },
+  "base_timeout": false,
+  "base_wall_seconds": 1.0233368873596191,
+  "checkout": {
+    "cmd": [
+      "git",
+      "checkout",
+      "ca15d4808734c86801c8f3d80c9152c35a163dc3"
+    ],
+    "returncode": 0,
+    "stderr": "Note: switching to 'ca15d4808734c86801c8f3d80c9152c35a163dc3'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at ca15d480 v2.12.2\n",
+    "stdout": "",
+    "timeout": false,
+    "wall_seconds": 0.04181814193725586
+  },
+  "clone": {
+    "cmd": [
+      "git",
+      "clone",
+      "https://github.com/psf/requests.git",
+      "base"
+    ],
+    "returncode": 0,
+    "stderr": "Cloning into 'base'...\n",
+    "stdout": "",
+    "timeout": false,
+    "wall_seconds": 0.7197918891906738
+  },
+  "docker_pull": {
+    "cmd": [
+      "sudo",
+      "docker",
+      "pull",
+      "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Using default tag: latest\nlatest: Pulling from epoch-research/swe-bench.eval.x86_64.psf__requests-3738\nDigest: sha256:41767104d2506d564071a2ebf41e74f5c664dc155d75a90e91fa1d3d78aad534\nStatus: Image is up to date for ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738:latest\nghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738:latest\n",
+    "timeout": false,
+    "wall_seconds": 0.20818519592285156
+  },
+  "fail_to_pass_count": 4,
+  "file_overlap_count": 1,
+  "gold_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.002077341079711914
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0018820762634277344
+    }
+  },
+  "gold_patch_applied": true,
+  "gold_patch_files": [
+    "HISTORY.rst",
+    "requests/__init__.py",
+    "requests/models.py"
+  ],
+  "gold_returncode": 0,
+  "gold_test_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_gold.patch:89: new blank line at EOF.\n+\nwarning: 1 line adds whitespace errors.\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.002058267593383789
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0019118785858154297
+    }
+  },
+  "gold_timeout": false,
+  "gold_wall_seconds": 0.9088895320892334,
+  "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738",
+  "instance_id": "psf__requests_v2.12.2_v2.12.3",
+  "model": "glm-4p5",
+  "model_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/model.patch:14: trailing whitespace.\n        # `data` etc to work around exceptions from `url_parse`, which handles \n/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/model.patch:15: trailing whitespace.\n        # RFC 3986 only. However, URLs with schemes that begin with \"http\" \nwarning: 2 lines add whitespace errors.\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.001825571060180664
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.001811981201171875
+    }
+  },
+  "model_patch_applied": true,
+  "model_patch_files": [
+    "requests/models.py"
+  ],
+  "model_returncode": 0,
+  "model_test_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_model.patch:89: new blank line at EOF.\n+\nwarning: 1 line adds whitespace errors.\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.002061128616333008
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/psf__requests_v2.12.2_v2.12.3/test_model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.00194549560546875
+    }
+  },
+  "model_timeout": false,
+  "model_wall_seconds": 0.9316165447235107,
+  "pass_to_pass_count": 109,
+  "repo": "psf/requests",
+  "selected_test_count": 4,
+  "status": "PASS",
+  "test_patch_applied": true,
+  "test_patch_files": [
+    "tests/test_requests.py"
+  ],
+  "tests": [
+    "tests/test_requests.py::TestPreparingURLs::test_parameters_for_nonstandard_schemes[http+unix://%2Fvar%2Frun%2Fsocket/path-params0-http+unix://%2fvar%2frun%2fsocket/path?key=value]",
+    "tests/test_requests.py::TestPreparingURLs::test_parameters_for_nonstandard_schemes[http+unix://%2Fvar%2Frun%2Fsocket/path-params1-http+unix://%2fvar%2frun%2fsocket/path?key=value]",
+    "tests/test_requests.py::TestPreparingURLs::test_url_mutation[http+unix://%2Fvar%2Frun%2Fsocket/path-http+unix://%2fvar%2frun%2fsocket/path0]",
+    "tests/test_requests.py::TestPreparingURLs::test_url_mutation[http+unix://%2Fvar%2Frun%2Fsocket/path-http+unix://%2fvar%2frun%2fsocket/path1]"
+  ],
+  "wall_seconds": 3.923386812210083
+}

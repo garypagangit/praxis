@@ -1,0 +1,151 @@
+diff --git a/HISTORY.rst b/HISTORY.rst
+index d2bbdd91..f8c1a545 100644
+--- a/HISTORY.rst
++++ b/HISTORY.rst
+@@ -3,6 +3,19 @@
+ Release History
+ ---------------
+ 
++2.9.1 (2015-12-21)
++++++++++++++++++++
++
++**Bugfixes**
++
++- Resolve regression introduced in 2.9.0 that made it impossible to send binary
++  strings as bodies in Python 3.
++- Fixed errors when calculating cookie expiration dates in certain locales.
++
++**Miscellaneous**
++
++- Updated bundled urllib3 to 1.13.1.
++
+ 2.9.0 (2015-12-15)
+ ++++++++++++++++++
+ 
+@@ -34,6 +47,10 @@ Release History
+   provided at all.
+ - Minor performance improvements when removing specific cookies by name.
+ 
++**Miscellaneous**
++
++- Updated urllib3 to 1.13.
++
+ 2.8.1 (2015-10-13)
+ ++++++++++++++++++
+ 
+diff --git a/requests/__init__.py b/requests/__init__.py
+index 35987f95..bd5b5b97 100644
+--- a/requests/__init__.py
++++ b/requests/__init__.py
+@@ -42,8 +42,8 @@ is at <http://python-requests.org>.
+ """
+ 
+ __title__ = 'requests'
+-__version__ = '2.9.0'
+-__build__ = 0x020900
++__version__ = '2.9.1'
++__build__ = 0x020901
+ __author__ = 'Kenneth Reitz'
+ __license__ = 'Apache 2.0'
+ __copyright__ = 'Copyright 2015 Kenneth Reitz'
+diff --git a/requests/cookies.py b/requests/cookies.py
+index d61ec2da..b85fd2b6 100644
+--- a/requests/cookies.py
++++ b/requests/cookies.py
+@@ -8,6 +8,7 @@ requests.utils imports from here, so be careful with imports.
+ 
+ import copy
+ import time
++import calendar
+ import collections
+ from .compat import cookielib, urlparse, urlunparse, Morsel
+ 
+@@ -424,8 +425,9 @@ def morsel_to_cookie(morsel):
+             raise TypeError('max-age: %s must be integer' % morsel['max-age'])
+     elif morsel['expires']:
+         time_template = '%a, %d-%b-%Y %H:%M:%S GMT'
+-        expires = int(time.mktime(
+-            time.strptime(morsel['expires'], time_template)) - time.timezone)
++        expires = calendar.timegm(
++            time.strptime(morsel['expires'], time_template)
++        )
+     return create_cookie(
+         comment=morsel['comment'],
+         comment_url=bool(morsel['comment']),
+diff --git a/requests/models.py b/requests/models.py
+index 9c624d3c..4bcbc548 100644
+--- a/requests/models.py
++++ b/requests/models.py
+@@ -81,7 +81,7 @@ class RequestEncodingMixin(object):
+         """
+ 
+         if isinstance(data, (str, bytes)):
+-            return to_native_string(data)
++            return data
+         elif hasattr(data, 'read'):
+             return data
+         elif hasattr(data, '__iter__'):
+@@ -385,6 +385,9 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
+             if isinstance(fragment, str):
+                 fragment = fragment.encode('utf-8')
+ 
++        if isinstance(params, (str, bytes)):
++            params = to_native_string(params)
++
+         enc_params = self._encode_params(params)
+         if enc_params:
+             if query:
+diff --git a/requests/packages/urllib3/__init__.py b/requests/packages/urllib3/__init__.py
+index 43c88b14..e43991a9 100644
+--- a/requests/packages/urllib3/__init__.py
++++ b/requests/packages/urllib3/__init__.py
+@@ -32,7 +32,7 @@ except ImportError:
+ 
+ __author__ = 'Andrey Petrov (andrey.petrov@shazow.net)'
+ __license__ = 'MIT'
+-__version__ = '1.13'
++__version__ = '1.13.1'
+ 
+ __all__ = (
+     'HTTPConnectionPool',
+diff --git a/requests/packages/urllib3/connection.py b/requests/packages/urllib3/connection.py
+index bb7f3e55..1e4cd417 100644
+--- a/requests/packages/urllib3/connection.py
++++ b/requests/packages/urllib3/connection.py
+@@ -265,7 +265,16 @@ class VerifiedHTTPSConnection(HTTPSConnection):
+                     'for details.)'.format(hostname)),
+                     SubjectAltNameWarning
+                 )
+-            match_hostname(cert, self.assert_hostname or hostname)
++
++            # In case the hostname is an IPv6 address, strip the square
++            # brackets from it before using it to validate. This is because
++            # a certificate with an IPv6 address in it won't have square
++            # brackets around that address. Sadly, match_hostname won't do this
++            # for us: it expects the plain host part without any extra work
++            # that might have been done to make it palatable to httplib.
++            asserted_hostname = self.assert_hostname or hostname
++            asserted_hostname = asserted_hostname.strip('[]')
++            match_hostname(cert, asserted_hostname)
+ 
+         self.is_verified = (resolved_cert_reqs == ssl.CERT_REQUIRED or
+                             self.assert_fingerprint is not None)
+diff --git a/requests/utils.py b/requests/utils.py
+index 132cd2b5..c5c3fd01 100644
+--- a/requests/utils.py
++++ b/requests/utils.py
+@@ -115,8 +115,12 @@ def get_netrc_auth(url, raise_errors=False):
+ 
+         ri = urlparse(url)
+ 
+-        # Strip port numbers from netloc
+-        host = ri.netloc.split(':')[0]
++        # Strip port numbers from netloc. This weird `if...encode`` dance is
++        # used for Python 3.2, which doesn't support unicode literals.
++        splitstr = b':'
++        if isinstance(url, str):
++            splitstr = splitstr.decode('ascii')
++        host = ri.netloc.split(splitstr)[0]
+ 
+         try:
+             _netrc = netrc(netrc_path).authenticators(host)

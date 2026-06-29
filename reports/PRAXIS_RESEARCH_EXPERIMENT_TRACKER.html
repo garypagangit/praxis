@@ -755,9 +755,9 @@
             <td class="num">PX-033</td>
             <td class="title">SWE-EVO Repo-State World Model</td>
             <td>Idea Explorer</td>
-            <td><span class="badge start">True eval pass</span></td>
-            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a> and <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a> pass; corrected <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a> applies the SWE test patch and shows base return code <code>1</code>, released <code>glm-4p5</code> patch return code <code>0</code>, gold patch return code <code>0</code>, with <code>3</code> overlapping changed files.</td>
-            <td>Continue. Next gate is a small multi-task true-eval sweep plus repo-state-summary versus metadata-only predictors before any RWML-style world-model training.</td>
+            <td><span class="badge hold">Sweep mixed</span></td>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a>, and single <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a> pass. The <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">six-task F2P sweep</a> is mixed: <code>2</code>/<code>6</code> PASS, <code>3</code> MODEL_FAIL, <code>1</code> GOLD_FAIL, pass rate <code>0.3333</code>.</td>
+            <td>Continue, but do not start RWML-style training yet. Next gate is failure taxonomy plus metadata-only versus repo-state predictor analysis over the executed tasks.</td>
           </tr>
           <tr>
             <td class="num">34</td>
@@ -965,6 +965,11 @@
             <td><a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">PX-033 SWE-EVO true eval slice</a></td>
             <td>Corrected paid AWS execution slice applying SWE test, model, and gold patches in the benchmark Docker image.</td>
             <td>Source for moving PX-033 to true-eval-pass and authorizing a small multi-task sweep.</td>
+          </tr>
+          <tr>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">PX-033 SWE-EVO six-task F2P sweep</a></td>
+            <td>Paid AWS fail-to-pass-only execution sweep over six selected released <code>glm-4p5</code> predictions.</td>
+            <td>Source for moving PX-033 from single-slice pass to mixed executable-signal status.</td>
           </tr>
           <tr>
             <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>

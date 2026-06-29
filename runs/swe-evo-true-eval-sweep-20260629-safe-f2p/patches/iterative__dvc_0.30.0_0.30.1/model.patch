@@ -1,0 +1,13 @@
+diff --git a/dvc/stage.py b/dvc/stage.py
+index 29f176fa7..0e8ac2066 100644
+--- a/dvc/stage.py
++++ b/dvc/stage.py
+@@ -568,7 +568,7 @@ class Stage(object):
+         # wdir has the same md5 as a file with the default value specified.
+         # It's important for backward compatibility with pipelines that
+         # didn't have WDIR in their stage files.
+-        if d.get(self.PARAM_WDIR) == ".":
++        if d.get(self.PARAM_WDIR) == "." or d.get(self.PARAM_WDIR) == os.path.dirname(self.path):
+             del d[self.PARAM_WDIR]
+ 
+         # NOTE: excluding parameters that don't affect the state of the

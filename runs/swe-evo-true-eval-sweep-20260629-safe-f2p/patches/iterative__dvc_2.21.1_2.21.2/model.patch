@@ -1,0 +1,24 @@
+diff --git a/dvc/repo/params/show.py b/dvc/repo/params/show.py
+index 5a79f54a4..8dc0efc56 100644
+--- a/dvc/repo/params/show.py
++++ b/dvc/repo/params/show.py
+@@ -91,11 +91,14 @@ def _read_params(
+     else:
+         fs_paths += [param.fs_path for param in params]
+ 
+-    for fs_path in fs_paths:
+-        from_path = _read_fs_path(repo.fs, fs_path, onerror=onerror)
+-        if from_path:
+-            name = os.sep.join(repo.fs.path.relparts(fs_path))
+-            res[name] = from_path
++    # When stages is provided, don't process untracked targets (fs_paths)
++    # Only process fs_paths when stages is not specified
++    if not stages:
++        for fs_path in fs_paths:
++            from_path = _read_fs_path(repo.fs, fs_path, onerror=onerror)
++            if from_path:
++                name = os.sep.join(repo.fs.path.relparts(fs_path))
++                res[name] = from_path
+ 
+     return res
+ 

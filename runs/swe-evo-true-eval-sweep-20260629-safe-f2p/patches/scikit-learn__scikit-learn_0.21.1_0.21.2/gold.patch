@@ -1,0 +1,403 @@
+diff --git a/README.rst b/README.rst
+index 9714fca8d6..457da088c1 100644
+--- a/README.rst
++++ b/README.rst
+@@ -109,11 +109,10 @@ You can check the latest sources with the command::
+ 
+     git clone https://github.com/scikit-learn/scikit-learn.git
+ 
+-Setting up a development environment
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-
+-Quick tutorial on how to go about setting up your environment to
+-contribute to scikit-learn: https://github.com/scikit-learn/scikit-learn/blob/master/CONTRIBUTING.md
++Contributing
++~~~~~~~~~~~~
++To learn more about making a contribution to scikit-learn, please view the contributing document: 
++https://github.com/scikit-learn/scikit-learn/blob/master/CONTRIBUTING.md
+ 
+ Testing
+ ~~~~~~~
+diff --git a/doc/developers/maintainer.rst b/doc/developers/maintainer.rst
+index 0ea3dbb2d2..6698fc7216 100644
+--- a/doc/developers/maintainer.rst
++++ b/doc/developers/maintainer.rst
+@@ -163,3 +163,41 @@ config file, exactly the same way as the other Travis jobs. We use a ``if: type
+ 
+ The branch targeted by the Cron job and the frequency of the Cron job is set
+ via the web UI at https://www.travis-ci.org/scikit-learn/scikit-learn/settings.
++
++Experimental features
++---------------------
++
++The :mod:`sklearn.experimental` module was introduced in 0.21 and contains
++experimental features / estimators that are subject to change without
++deprecation cycle.
++
++To create an experimental module, you can just copy and modify the content of
++`enable_hist_gradient_boosting.py
++<https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/experimental/enable_hist_gradient_boosting.py>`_,
++or
++`enable_iterative_imputer.py
++<https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/experimental/enable_iterative_imputer.py>`_.
++
++Note that the public import path must be to a public subpackage (like
++``sklearn/ensemble`` or ``sklearn/impute``), not just a ``.py`` module.
++Also, the (private) experimental features that are imported must be in a
++submodule/subpackage of the public subpackage, e.g.
++``sklearn/ensemble/_hist_gradient_boosting/`` or
++``sklearn/impute/_iterative.py``. This is needed so that pickles still work
++in the future when the features aren't experimental anymore
++
++Please also write basic tests following those in
++`test_enable_hist_gradient_boosting.py
++<https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/experimental/tests/test_enable_hist_gradient_boosting.py>`_.
++
++Make sure every user-facing code you write explicitly mentions that the feature
++is experimental, and add a ``# noqa`` comment to avoid pep8-related warnings::
++
++    # To use this experimental feature, we need to explicitly ask for it:
++    from sklearn.experimental import enable_hist_gradient_boosting  # noqa
++    from sklearn.ensemble import HistGradientBoostingRegressor
++
++For the docs to render properly, please also import
++``enable_my_experimental_feature`` in ``doc/conf.py``, else sphinx won't be
++able to import the corresponding modules. Note that using ``from
++sklearn.experimental import *`` **does not work**.
+diff --git a/doc/index.rst b/doc/index.rst
+index cd6ec28607..4ae6e5405b 100644
+--- a/doc/index.rst
++++ b/doc/index.rst
+@@ -209,7 +209,7 @@
+                     </li>
+                     <li><strong>Scikit-learn from 0.21 requires Python 3.5 or greater.</strong>
+                     </li>
+-                    <li><em>May 2019.</em> scikit-learn 0.21.0 and 0.21.1 are available for download (<a href="whats_new.html#version-0-21">Changelog</a>).
++                    <li><em>May 2019.</em> scikit-learn 0.21.0 to 0.21.2 are available for download (<a href="whats_new.html#version-0-21">Changelog</a>).
+                     </li>
+                     <li><em>March 2019.</em> scikit-learn 0.20.3 is available for download (<a href="whats_new.html#version-0-20-3">Changelog</a>).
+                     </li>
+diff --git a/doc/modules/model_evaluation.rst b/doc/modules/model_evaluation.rst
+index 289a7830ff..bd6ee975db 100644
+--- a/doc/modules/model_evaluation.rst
++++ b/doc/modules/model_evaluation.rst
+@@ -218,13 +218,13 @@ the following two rules:
+ 
+ .. note:: **Using custom scorers in functions where n_jobs > 1**
+ 
+-    While defining the custom scoring function alongside the calling function 
+-    should work out of the box with the default joblib backend (loky), 
++    While defining the custom scoring function alongside the calling function
++    should work out of the box with the default joblib backend (loky),
+     importing it from another module will be a more robust approach and work
+-    independently of the joblib backend. 
++    independently of the joblib backend.
+ 
+-    For example, to use, ``n_jobs`` greater than 1 in the example below, 
+-    ``custom_scoring_function`` function is saved in a user-created module 
++    For example, to use, ``n_jobs`` greater than 1 in the example below,
++    ``custom_scoring_function`` function is saved in a user-created module
+     (``custom_scorer_module.py``) and imported::
+ 
+         >>> from custom_scorer_module import custom_scoring_function # doctest: +SKIP
+@@ -1851,23 +1851,33 @@ function::
+ R² score, the coefficient of determination
+ -------------------------------------------
+ 
+-The :func:`r2_score` function computes R², the `coefficient of
+-determination <https://en.wikipedia.org/wiki/Coefficient_of_determination>`_.
+-It provides a measure of how well future samples are likely to
+-be predicted by the model. Best possible score is 1.0 and it can be negative
++The :func:`r2_score` function computes the `coefficient of
++determination <https://en.wikipedia.org/wiki/Coefficient_of_determination>`_,
++usually denoted as R².
++
++It represents the proportion of variance (of y) that has been explained by the
++independent variables in the model. It provides an indication of goodness of
++fit and therefore a measure of how well unseen samples are likely to be
++predicted by the model, through the proportion of explained variance.
++
++As such variance is dataset dependent, R² may not be meaningfully comparable
++across different datasets. Best possible score is 1.0 and it can be negative
+ (because the model can be arbitrarily worse). A constant model that always
+ predicts the expected value of y, disregarding the input features, would get a
+-R^2 score of 0.0.
++R² score of 0.0.
+ 
+ If :math:`\hat{y}_i` is the predicted value of the :math:`i`-th sample
+-and :math:`y_i` is the corresponding true value, then the score R² estimated
+-over :math:`n_{\text{samples}}` is defined as
++and :math:`y_i` is the corresponding true value for total :math:`n` samples,
++the estimated R² is defined as:
+ 
+ .. math::
+ 
+-  R^2(y, \hat{y}) = 1 - \frac{\sum_{i=0}^{n_{\text{samples}} - 1} (y_i - \hat{y}_i)^2}{\sum_{i=0}^{n_\text{samples} - 1} (y_i - \bar{y})^2}
++  R^2(y, \hat{y}) = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
++
++where :math:`\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i` and :math:`\sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} \epsilon_i^2`.
+ 
+-where :math:`\bar{y} =  \frac{1}{n_{\text{samples}}} \sum_{i=0}^{n_{\text{samples}} - 1} y_i`.
++Note that :func:`r2_score` calculates unadjusted R² without correcting for
++bias in sample variance of y.
+ 
+ Here is a small example of usage of the :func:`r2_score` function::
+ 
+diff --git a/doc/modules/neighbors.rst b/doc/modules/neighbors.rst
+index 094eec438d..dd62836125 100644
+--- a/doc/modules/neighbors.rst
++++ b/doc/modules/neighbors.rst
+@@ -415,13 +415,11 @@ depends on a number of factors:
+   a significant fraction of the total cost.  If very few query points
+   will be required, brute force is better than a tree-based method.
+ 
+-Currently, ``algorithm = 'auto'`` selects ``'kd_tree'`` if :math:`k < N/2`
+-and the ``'effective_metric_'`` is in the ``'VALID_METRICS'`` list of
+-``'kd_tree'``. It selects ``'ball_tree'`` if :math:`k < N/2` and the
+-``'effective_metric_'`` is in the ``'VALID_METRICS'`` list of
+-``'ball_tree'``. It selects ``'brute'`` if :math:`k < N/2` and the
+-``'effective_metric_'`` is not in the ``'VALID_METRICS'`` list of
+-``'kd_tree'`` or ``'ball_tree'``. It selects ``'brute'`` if :math:`k >= N/2`.
++Currently, ``algorithm = 'auto'`` selects ``'brute'`` if :math:`k >= N/2`,
++the input data is sparse, or ``effective_metric_`` isn't in
++the ``VALID_METRICS`` list for either ``'kd_tree'`` or ``'ball_tree'``.
++Otherwise, it selects the first out of ``'kd_tree'`` and ``'ball_tree'``
++that has ``effective_metric_`` in its ``VALID_METRICS`` list.
+ This choice is based on the assumption that the number of query points is at
+ least the same order as the number of training points, and that ``leaf_size``
+ is close to its default value of ``30``.
+diff --git a/doc/whats_new/v0.21.rst b/doc/whats_new/v0.21.rst
+index d78062898a..735bf4e147 100644
+--- a/doc/whats_new/v0.21.rst
++++ b/doc/whats_new/v0.21.rst
+@@ -2,6 +2,45 @@
+ 
+ .. currentmodule:: sklearn
+ 
++.. _changes_0_21_2:
++
++Version 0.21.2
++==============
++
++**24 May 2019**
++
++Changelog
++---------
++
++:mod:`sklearn.decomposition`
++............................
++
++- |Fix| Fixed a bug in :class:`cross_decomposition.CCA` improving numerical 
++  stability when `Y` is close to zero. :pr:`13903` by `Thomas Fan`_.
++
++:mod:`sklearn.metrics`
++......................
++
++- |Fix| Fixed a bug in :func:`metrics.euclidean_distances` where a part of the
++  distance matrix was left un-instanciated for suffiently large float32
++  datasets (regression introduced in 0.21). :pr:`13910` by :user:`Jérémie du
++  Boisberranger <jeremiedbb>`.
++
++:mod:`sklearn.preprocessing`
++............................
++
++- |Fix| Fixed a bug in :class:`preprocessing.OneHotEncoder` where the new
++  `drop` parameter was not reflected in `get_feature_names`. :pr:`13894`
++  by :user:`James Myatt <jamesmyatt>`.
++
++:mod:`sklearn.utils.sparsefuncs`
++................................
++
++- |Fix| Fixed a bug where :func:`min_max_axis` would fail on 32-bit systems
++  for certain large inputs. This affects :class:`preprocessing.MaxAbsScaler`, 
++  :func:`preprocessing.normalize` and :class:`preprocessing.LabelBinarizer`.
++  :pr:`13741` by :user:`Roddy MacSween <rlms>`.
++
+ .. _changes_0_21_1:
+ 
+ Version 0.21.1
+diff --git a/sklearn/__init__.py b/sklearn/__init__.py
+index 7120648b97..244ea4dddf 100644
+--- a/sklearn/__init__.py
++++ b/sklearn/__init__.py
+@@ -45,7 +45,7 @@ warnings.filterwarnings('always', category=DeprecationWarning,
+ # Dev branch marker is: 'X.Y.dev' or 'X.Y.devN' where N is an integer.
+ # 'X.Y.dev0' is the canonical version of 'X.Y.dev'
+ #
+-__version__ = '0.21.1'
++__version__ = '0.21.2'
+ 
+ 
+ # On OSX, we can get a runtime error due to multiple OpenMP libraries loaded
+diff --git a/sklearn/cross_decomposition/pls_.py b/sklearn/cross_decomposition/pls_.py
+index 86e56f2649..4c49102448 100644
+--- a/sklearn/cross_decomposition/pls_.py
++++ b/sklearn/cross_decomposition/pls_.py
+@@ -285,6 +285,7 @@ class _PLS(BaseEstimator, TransformerMixin, RegressorMixin, MultiOutputMixin,
+         self.n_iter_ = []
+ 
+         # NIPALS algo: outer loop, over components
++        Y_eps = np.finfo(Yk.dtype).eps
+         for k in range(self.n_components):
+             if np.all(np.dot(Yk.T, Yk) < np.finfo(np.double).eps):
+                 # Yk constant
+@@ -293,6 +294,10 @@ class _PLS(BaseEstimator, TransformerMixin, RegressorMixin, MultiOutputMixin,
+             # 1) weights estimation (inner loop)
+             # -----------------------------------
+             if self.algorithm == "nipals":
++                # Replace columns that are all close to zero with zeros
++                Yk_mask = np.all(np.abs(Yk) < 10 * Y_eps, axis=0)
++                Yk[:, Yk_mask] = 0.0
++
+                 x_weights, y_weights, n_iter_ = \
+                     _nipals_twoblocks_inner_loop(
+                         X=Xk, Y=Yk, mode=self.mode, max_iter=self.max_iter,
+diff --git a/sklearn/experimental/enable_iterative_imputer.py b/sklearn/experimental/enable_iterative_imputer.py
+index 2f262141cc..99d18a289a 100644
+--- a/sklearn/experimental/enable_iterative_imputer.py
++++ b/sklearn/experimental/enable_iterative_imputer.py
+@@ -1,6 +1,6 @@
+ """Enables IterativeImputer
+ 
+-The API and results of this estimators might change without any deprecation
++The API and results of this estimator might change without any deprecation
+ cycle.
+ 
+ Importing this file dynamically sets :class:`sklearn.impute.IterativeImputer`
+diff --git a/sklearn/metrics/classification.py b/sklearn/metrics/classification.py
+index d1337bdc61..8a5c034786 100644
+--- a/sklearn/metrics/classification.py
++++ b/sklearn/metrics/classification.py
+@@ -1066,7 +1066,7 @@ def fbeta_score(y_true, y_pred, beta, labels=None, pos_label=1,
+     The F-beta score is the weighted harmonic mean of precision and recall,
+     reaching its optimal value at 1 and its worst value at 0.
+ 
+-    The `beta` parameter determines the weight of precision in the combined
++    The `beta` parameter determines the weight of recall in the combined
+     score. ``beta < 1`` lends more weight to precision, while ``beta > 1``
+     favors recall (``beta -> 0`` considers only precision, ``beta -> inf``
+     only recall).
+diff --git a/sklearn/metrics/pairwise.py b/sklearn/metrics/pairwise.py
+index 5c3b61247c..e7834c4ead 100644
+--- a/sklearn/metrics/pairwise.py
++++ b/sklearn/metrics/pairwise.py
+@@ -283,7 +283,7 @@ def euclidean_distances(X, Y=None, Y_norm_squared=None, squared=False,
+     return distances if squared else np.sqrt(distances, out=distances)
+ 
+ 
+-def _euclidean_distances_upcast(X, XX=None, Y=None, YY=None):
++def _euclidean_distances_upcast(X, XX=None, Y=None, YY=None, batch_size=None):
+     """Euclidean distances between X and Y
+ 
+     Assumes X and Y have float32 dtype.
+@@ -298,28 +298,28 @@ def _euclidean_distances_upcast(X, XX=None, Y=None, YY=None):
+ 
+     distances = np.empty((n_samples_X, n_samples_Y), dtype=np.float32)
+ 
+-    x_density = X.nnz / np.prod(X.shape) if issparse(X) else 1
+-    y_density = Y.nnz / np.prod(Y.shape) if issparse(Y) else 1
+-
+-    # Allow 10% more memory than X, Y and the distance matrix take (at least
+-    # 10MiB)
+-    maxmem = max(
+-        ((x_density * n_samples_X + y_density * n_samples_Y) * n_features
+-         + (x_density * n_samples_X * y_density * n_samples_Y)) / 10,
+-        10 * 2 ** 17)
+-
+-    # The increase amount of memory in 8-byte blocks is:
+-    # - x_density * batch_size * n_features (copy of chunk of X)
+-    # - y_density * batch_size * n_features (copy of chunk of Y)
+-    # - batch_size * batch_size (chunk of distance matrix)
+-    # Hence x² + (xd+yd)kx = M, where x=batch_size, k=n_features, M=maxmem
+-    #                                 xd=x_density and yd=y_density
+-    tmp = (x_density + y_density) * n_features
+-    batch_size = (-tmp + np.sqrt(tmp ** 2 + 4 * maxmem)) / 2
+-    batch_size = max(int(batch_size), 1)
+-
+-    x_batches = gen_batches(X.shape[0], batch_size)
+-    y_batches = gen_batches(Y.shape[0], batch_size)
++    if batch_size is None:
++        x_density = X.nnz / np.prod(X.shape) if issparse(X) else 1
++        y_density = Y.nnz / np.prod(Y.shape) if issparse(Y) else 1
++
++        # Allow 10% more memory than X, Y and the distance matrix take (at
++        # least 10MiB)
++        maxmem = max(
++            ((x_density * n_samples_X + y_density * n_samples_Y) * n_features
++             + (x_density * n_samples_X * y_density * n_samples_Y)) / 10,
++            10 * 2 ** 17)
++
++        # The increase amount of memory in 8-byte blocks is:
++        # - x_density * batch_size * n_features (copy of chunk of X)
++        # - y_density * batch_size * n_features (copy of chunk of Y)
++        # - batch_size * batch_size (chunk of distance matrix)
++        # Hence x² + (xd+yd)kx = M, where x=batch_size, k=n_features, M=maxmem
++        #                                 xd=x_density and yd=y_density
++        tmp = (x_density + y_density) * n_features
++        batch_size = (-tmp + np.sqrt(tmp ** 2 + 4 * maxmem)) / 2
++        batch_size = max(int(batch_size), 1)
++
++    x_batches = gen_batches(n_samples_X, batch_size)
+ 
+     for i, x_slice in enumerate(x_batches):
+         X_chunk = X[x_slice].astype(np.float64)
+@@ -328,6 +328,8 @@ def _euclidean_distances_upcast(X, XX=None, Y=None, YY=None):
+         else:
+             XX_chunk = XX[x_slice]
+ 
++        y_batches = gen_batches(n_samples_Y, batch_size)
++
+         for j, y_slice in enumerate(y_batches):
+             if X is Y and j < i:
+                 # when X is Y the distance matrix is symmetric so we only need
+diff --git a/sklearn/neighbors/dist_metrics.pyx b/sklearn/neighbors/dist_metrics.pyx
+index af05f2c07f..d494e112ce 100755
+--- a/sklearn/neighbors/dist_metrics.pyx
++++ b/sklearn/neighbors/dist_metrics.pyx
+@@ -120,6 +120,7 @@ cdef class DistanceMetric:
+            [ 5.19615242,  0.        ]])
+ 
+     Available Metrics
++
+     The following lists the string metric identifiers and the associated
+     distance metric classes:
+ 
+diff --git a/sklearn/preprocessing/_encoders.py b/sklearn/preprocessing/_encoders.py
+index 6d11e79079..c1acfbe799 100644
+--- a/sklearn/preprocessing/_encoders.py
++++ b/sklearn/preprocessing/_encoders.py
+@@ -367,7 +367,8 @@ class OneHotEncoder(_BaseEncoder):
+             msg = (
+                 "Passing 'n_values' is deprecated in version 0.20 and will be "
+                 "removed in 0.22. You can use the 'categories' keyword "
+-                "instead. 'n_values=n' corresponds to 'categories=[range(n)]'."
++                "instead. 'n_values=n' corresponds to "
++                "'categories=[range(n)] * n_features'."
+             )
+             warnings.warn(msg, DeprecationWarning)
+             self._legacy_mode = True
+@@ -847,6 +848,8 @@ class OneHotEncoder(_BaseEncoder):
+         for i in range(len(cats)):
+             names = [
+                 input_features[i] + '_' + str(t) for t in cats[i]]
++            if self.drop is not None:
++                names.pop(self.drop_idx_[i])
+             feature_names.extend(names)
+ 
+         return np.array(feature_names, dtype=object)
+diff --git a/sklearn/utils/sparsefuncs.py b/sklearn/utils/sparsefuncs.py
+index 918f32e6da..92b4f8dbfa 100644
+--- a/sklearn/utils/sparsefuncs.py
++++ b/sklearn/utils/sparsefuncs.py
+@@ -341,6 +341,11 @@ def inplace_swap_column(X, m, n):
+ 
+ def _minor_reduce(X, ufunc):
+     major_index = np.flatnonzero(np.diff(X.indptr))
++
++    # reduceat tries casts X.indptr to intp, which errors
++    # if it is int64 on a 32 bit system.
++    # Reinitializing prevents this where possible, see #13737
++    X = type(X)((X.data, X.indices, X.indptr), shape=X.shape)
+     value = ufunc.reduceat(X.data, X.indptr[major_index])
+     return major_index, value
+ 

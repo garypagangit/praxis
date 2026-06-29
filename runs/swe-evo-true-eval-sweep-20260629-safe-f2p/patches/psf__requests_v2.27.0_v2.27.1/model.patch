@@ -1,0 +1,37 @@
+diff --git a/requests/utils.py b/requests/utils.py
+index 1c2ae4e0..52c73862 100644
+--- a/requests/utils.py
++++ b/requests/utils.py
+@@ -963,6 +963,18 @@ def prepend_scheme_if_needed(url, new_scheme):
+ 
+     :rtype: str
+     """
++    # Check if URL contains auth but no scheme
++    # parse_url incorrectly interprets "user:pass@host:port" as scheme="user"
++    # So we need to handle this case specially
++    if '@' in url and '://' not in url:
++        # URL has auth but no scheme, parse it correctly with urlparse
++        parsed_urlparse = urlparse(new_scheme + '://' + url)
++        return parsed_urlparse.geturl()
++    
++    # Extract auth from the original URL before parsing to preserve it
++    # parse_url may drop auth component when no scheme is present
++    username, password = get_auth_from_url(url)
++    
+     parsed = parse_url(url)
+     scheme, auth, host, port, path, query, fragment = parsed
+ 
+@@ -979,6 +991,13 @@ def prepend_scheme_if_needed(url, new_scheme):
+     if path is None:
+         path = ''
+ 
++    # Manually add auth to netloc if it was present in the original URL
++    # This preserves the auth component that may be dropped by parse_url
++    if username and netloc:
++        auth_string = f"{username}:{password}@"
++        if not netloc.startswith(auth_string):
++            netloc = f"{auth_string}{netloc}"
++
+     return urlunparse((scheme, netloc, path, '', query, fragment))
+ 
+ 

@@ -1,0 +1,29 @@
+diff --git a/requests/models.py b/requests/models.py
+index cb44eddd..33ba0098 100644
+--- a/requests/models.py
++++ b/requests/models.py
+@@ -347,11 +347,19 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
+         url = url.lstrip()
+ 
+         # Don't do any URL preparation for non-HTTP schemes like `mailto`,
+-        # `data`, `http+unix` etc to work around exceptions from `url_parse`,
+-        # which handles RFC 3986 only.
+-        if ':' in url and not url.lower().startswith(('http://', 'https://')):
+-            self.url = url
+-            return
++        # `data` etc to work around exceptions from `url_parse`, which handles 
++        # RFC 3986 only. However, URLs with schemes that begin with "http" 
++        # (e.g. "http+unix", "httpunix") should be processed as HTTP-schemed URLs.
++        if ':' in url:
++            url_lower = url.lower()
++            # Extract the scheme part (before the first ':')
++            scheme_end = url_lower.find(':')
++            if scheme_end != -1:
++                scheme = url_lower[:scheme_end]
++                # Allow URL preparation if scheme begins with 'http'
++                if not (scheme.startswith('http')):
++                    self.url = url
++                    return
+ 
+         # Support for unicode domain names and paths.
+         try:

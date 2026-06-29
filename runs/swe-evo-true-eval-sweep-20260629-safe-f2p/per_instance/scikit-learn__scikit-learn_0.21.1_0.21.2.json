@@ -1,0 +1,235 @@
+{
+  "base_returncode": 4,
+  "base_test_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/test_base.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.00299835205078125
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/test_base.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0027849674224853516
+    }
+  },
+  "base_timeout": false,
+  "base_wall_seconds": 4.075769424438477,
+  "checkout": {
+    "cmd": [
+      "git",
+      "checkout",
+      "b7b4d3e2f1a65bcb6d40431d3b61ed1d563c9dab"
+    ],
+    "returncode": 0,
+    "stderr": "Note: switching to 'b7b4d3e2f1a65bcb6d40431d3b61ed1d563c9dab'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at b7b4d3e2f1 DOC Improve OPTICS doc (#13866)\n",
+    "stdout": "",
+    "timeout": false,
+    "wall_seconds": 0.31433749198913574
+  },
+  "clone": {
+    "cmd": [
+      "git",
+      "clone",
+      "https://github.com/scikit-learn/scikit-learn.git",
+      "base"
+    ],
+    "returncode": 0,
+    "stderr": "Cloning into 'base'...\n",
+    "stdout": "",
+    "timeout": false,
+    "wall_seconds": 11.148090600967407
+  },
+  "docker_pull": {
+    "cmd": [
+      "sudo",
+      "docker",
+      "pull",
+      "ghcr.io/epoch-research/swe-bench.eval.x86_64.scikit-learn__scikit-learn-13915"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Using default tag: latest\nlatest: Pulling from epoch-research/swe-bench.eval.x86_64.scikit-learn__scikit-learn-13915\n5c327673444e: Pulling fs layer\nddd45cdfc8c4: Pulling fs layer\nd781cd9d60cb: Pulling fs layer\n09b61b6fd610: Pulling fs layer\nb1b86685def8: Pulling fs layer\nf93009d70e27: Pulling fs layer\n466f0cbb5709: Pulling fs layer\nb1b86685def8: Download complete\n09b61b6fd610: Download complete\n466f0cbb5709: Download complete\nd781cd9d60cb: Download complete\n5c327673444e: Download complete\nf93009d70e27: Download complete\nf93009d70e27: Pull complete\n09b61b6fd610: Pull complete\n466f0cbb5709: Pull complete\nddd45cdfc8c4: Download complete\nb1b86685def8: Pull complete\nd781cd9d60cb: Pull complete\nddd45cdfc8c4: Pull complete\n5c327673444e: Pull complete\nDigest: sha256:58fdce6cfdde85ef0ddb577ed0c87c00bdce8e1973b5a68aac324c0112d4710f\nStatus: Downloaded newer image for ghcr.io/epoch-research/swe-bench.eval.x86_64.scikit-learn__scikit-learn-13915:latest\nghcr.io/epoch-research/swe-bench.eval.x86_64.scikit-learn__scikit-learn-13915:latest\n",
+    "timeout": false,
+    "wall_seconds": 22.446478128433228
+  },
+  "fail_to_pass_count": 1,
+  "file_overlap_count": 4,
+  "gold_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/gold.patch:16: trailing whitespace.\nTo learn more about making a contribution to scikit-learn, please view the contributing document: \n/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/gold.patch:190: trailing whitespace.\n- |Fix| Fixed a bug in :class:`cross_decomposition.CCA` improving numerical \n/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/gold.patch:212: trailing whitespace.\n  for certain large inputs. This affects :class:`preprocessing.MaxAbsScaler`, \nwarning: 3 lines add whitespace errors.\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.005028247833251953
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.003804922103881836
+    }
+  },
+  "gold_patch_applied": true,
+  "gold_patch_files": [
+    "README.rst",
+    "doc/developers/maintainer.rst",
+    "doc/index.rst",
+    "doc/modules/model_evaluation.rst",
+    "doc/modules/neighbors.rst",
+    "doc/whats_new/v0.21.rst",
+    "sklearn/__init__.py",
+    "sklearn/cross_decomposition/pls_.py",
+    "sklearn/experimental/enable_iterative_imputer.py",
+    "sklearn/metrics/classification.py",
+    "sklearn/metrics/pairwise.py",
+    "sklearn/neighbors/dist_metrics.pyx",
+    "sklearn/preprocessing/_encoders.py",
+    "sklearn/utils/sparsefuncs.py"
+  ],
+  "gold_returncode": 4,
+  "gold_test_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/test_gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0029087066650390625
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/test_gold.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0024056434631347656
+    }
+  },
+  "gold_timeout": false,
+  "gold_wall_seconds": 0.6751387119293213,
+  "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.scikit-learn__scikit-learn-13915",
+  "instance_id": "scikit-learn__scikit-learn_0.21.1_0.21.2",
+  "model": "glm-4p5",
+  "model_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/model.patch:10: trailing whitespace.\n        y_score = np.clip(y_score, -np.finfo(y_score.dtype).max, \nwarning: 1 line adds whitespace errors.\n",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.003076314926147461
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0023534297943115234
+    }
+  },
+  "model_patch_applied": true,
+  "model_patch_files": [
+    "sklearn/cross_decomposition/pls_.py",
+    "sklearn/metrics/pairwise.py",
+    "sklearn/preprocessing/_encoders.py",
+    "sklearn/utils/sparsefuncs.py"
+  ],
+  "model_returncode": 4,
+  "model_test_apply": {
+    "applied": true,
+    "apply": {
+      "cmd": [
+        "git",
+        "apply",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/test_model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0029036998748779297
+    },
+    "check": {
+      "cmd": [
+        "git",
+        "apply",
+        "--check",
+        "/opt/dlami/nvme/praxis/jobs/swe-evo-true-eval-sweep-20260629-safe-f2p/output/patches/scikit-learn__scikit-learn_0.21.1_0.21.2/test_model.patch"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "",
+      "timeout": false,
+      "wall_seconds": 0.0024111270904541016
+    }
+  },
+  "model_timeout": false,
+  "model_wall_seconds": 0.6293137073516846,
+  "pass_to_pass_count": 293,
+  "repo": "scikit-learn/scikit-learn",
+  "selected_test_count": 1,
+  "status": "GOLD_FAIL",
+  "test_patch_applied": true,
+  "test_patch_files": [
+    "sklearn/cross_decomposition/tests/test_pls.py",
+    "sklearn/decomposition/tests/test_fastica.py",
+    "sklearn/linear_model/tests/test_least_angle.py",
+    "sklearn/metrics/tests/test_pairwise.py",
+    "sklearn/preprocessing/tests/test_encoders.py",
+    "sklearn/utils/tests/test_sparsefuncs.py"
+  ],
+  "tests": [
+    "sklearn/cross_decomposition/tests/test_pls.py::test_scale_and_stability"
+  ],
+  "wall_seconds": 39.79455804824829
+}
