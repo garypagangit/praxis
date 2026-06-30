@@ -1,0 +1,300 @@
+{
+  "generated_utc": "2026-06-30T11:37:07.614686+00:00",
+  "status": "PIVOT SCAFFOLD PASS - NO POSITIVE SAE RESULT YET",
+  "magic_phase_a": {
+    "phase": "A",
+    "status": "FAIL",
+    "kill_switch_enforced": true,
+    "run_count": 5,
+    "runs": [
+      "/opt/praxis/jobs/praxis05-phase-a-full-magic-20260510/output/phase_a_full_magic/sae_seed_13",
+      "/opt/praxis/jobs/praxis05-phase-a-full-magic-20260510/output/phase_a_full_magic/sae_seed_137",
+      "/opt/praxis/jobs/praxis05-phase-a-full-magic-20260510/output/phase_a_full_magic/sae_seed_1729",
+      "/opt/praxis/jobs/praxis05-phase-a-full-magic-20260510/output/phase_a_full_magic/sae_seed_271",
+      "/opt/praxis/jobs/praxis05-phase-a-full-magic-20260510/output/phase_a_full_magic/sae_seed_42"
+    ],
+    "checks": {
+      "mse_ratio": {
+        "value": 2.2436327685321162e-05,
+        "pass": true,
+        "threshold": 0.25
+      },
+      "feature_death_rate": {
+        "value": 0.9119140625,
+        "pass": false,
+        "threshold": 0.5
+      },
+      "seed_stability": {
+        "value": 0.2815000057220459,
+        "pass": false,
+        "threshold": 0.3
+      }
+    },
+    "stability": {
+      "top_k": 100,
+      "cosine_threshold": 0.8,
+      "pairwise": [
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_137",
+          "overlap": 0.23000000417232513
+        },
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_1729",
+          "overlap": 0.3050000071525574
+        },
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_271",
+          "overlap": 0.3050000071525574
+        },
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_42",
+          "overlap": 0.24000000953674316
+        },
+        {
+          "left": "sae_seed_137",
+          "right": "sae_seed_1729",
+          "overlap": 0.26999998092651367
+        },
+        {
+          "left": "sae_seed_137",
+          "right": "sae_seed_271",
+          "overlap": 0.29500001668930054
+        },
+        {
+          "left": "sae_seed_137",
+          "right": "sae_seed_42",
+          "overlap": 0.20499999821186066
+        },
+        {
+          "left": "sae_seed_1729",
+          "right": "sae_seed_271",
+          "overlap": 0.2900000214576721
+        },
+        {
+          "left": "sae_seed_1729",
+          "right": "sae_seed_42",
+          "overlap": 0.32999998331069946
+        },
+        {
+          "left": "sae_seed_271",
+          "right": "sae_seed_42",
+          "overlap": 0.3450000286102295
+        }
+      ],
+      "mean_pairwise_overlap": 0.2815000057220459
+    },
+    "metrics": [
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 13,
+        "activation_rows": 1269862,
+        "hidden_dim": 64,
+        "n_features": 4096,
+        "k": 32,
+        "steps": 20000,
+        "reconstruction_mse": 1.291782527401509e-06,
+        "mean_baseline_mse": 0.0533975186116629,
+        "mse_ratio": 2.419180817738153e-05,
+        "feature_death_rate": 0.9111328125,
+        "elapsed_seconds": 278.6892457008362
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 137,
+        "activation_rows": 1269862,
+        "hidden_dim": 64,
+        "n_features": 4096,
+        "k": 32,
+        "steps": 20000,
+        "reconstruction_mse": 1.1567845554775104e-06,
+        "mean_baseline_mse": 0.0533975186116629,
+        "mse_ratio": 2.166363878985286e-05,
+        "feature_death_rate": 0.9140625,
+        "elapsed_seconds": 274.4686689376831
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 1729,
+        "activation_rows": 1269862,
+        "hidden_dim": 64,
+        "n_features": 4096,
+        "k": 32,
+        "steps": 20000,
+        "reconstruction_mse": 1.1980570229721081e-06,
+        "mean_baseline_mse": 0.0533975186116629,
+        "mse_ratio": 2.24365673559676e-05,
+        "feature_death_rate": 0.91015625,
+        "elapsed_seconds": 274.8202679157257
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 271,
+        "activation_rows": 1269862,
+        "hidden_dim": 64,
+        "n_features": 4096,
+        "k": 32,
+        "steps": 20000,
+        "reconstruction_mse": 1.1162256549642798e-06,
+        "mean_baseline_mse": 0.0533975186116629,
+        "mse_ratio": 2.090407352225685e-05,
+        "feature_death_rate": 0.91259765625,
+        "elapsed_seconds": 274.8581087589264
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 42,
+        "activation_rows": 1269862,
+        "hidden_dim": 64,
+        "n_features": 4096,
+        "k": 32,
+        "steps": 20000,
+        "reconstruction_mse": 1.2273713649561147e-06,
+        "mean_baseline_mse": 0.0533975186116629,
+        "mse_ratio": 2.2985550581146976e-05,
+        "feature_death_rate": 0.91162109375,
+        "elapsed_seconds": 276.15857577323914
+      }
+    ],
+    "next_step": "Do not proceed to Phase B. Write the negative-result note or run the single allowed PIDSMaker pivot."
+  },
+  "candidate_matrix": [
+    {
+      "system": "magic",
+      "node_hid_dim": 64,
+      "node_out_dim": 64,
+      "encoder_methods": "magic_gat",
+      "featurization_dim": 0,
+      "decoder_methods": "reconstruct_masked_features,predict_masked_struct",
+      "direct_output_ge_128": false,
+      "decision": "failed_predecessor",
+      "reason": "Original full Phase A already failed feature-death and stability gates on 64-d MAGIC CADETS activations."
+    },
+    {
+      "system": "orthrus",
+      "node_hid_dim": 128,
+      "node_out_dim": 64,
+      "encoder_methods": "tgn,graph_attention",
+      "featurization_dim": 128,
+      "decoder_methods": "predict_edge_type",
+      "direct_output_ge_128": false,
+      "decision": "hook_only_secondary",
+      "reason": "Configured direct output is 64-d; 128-d signal exists only inside graph-attention/TGN internals."
+    },
+    {
+      "system": "nodlink",
+      "node_hid_dim": 256,
+      "node_out_dim": 256,
+      "encoder_methods": "sum_aggregation",
+      "featurization_dim": 256,
+      "decoder_methods": "reconstruct_node_features",
+      "direct_output_ge_128": true,
+      "decision": "preferred_direct_pivot",
+      "reason": "Direct encoder output is 256-d, matching the larger-hidden-state pivot without an output bottleneck."
+    },
+    {
+      "system": "rcaid",
+      "node_hid_dim": 128,
+      "node_out_dim": 3,
+      "encoder_methods": "rcaid_gat",
+      "featurization_dim": 128,
+      "decoder_methods": "predict_node_type",
+      "direct_output_ge_128": false,
+      "decision": "reject_output_bottleneck",
+      "reason": "Configured encoder output is 3-d for node-type prediction, not a useful SAE activation target."
+    },
+    {
+      "system": "kairos",
+      "node_hid_dim": 100,
+      "node_out_dim": 100,
+      "encoder_methods": "graph_attention,tgn",
+      "featurization_dim": 16,
+      "decoder_methods": "predict_edge_type",
+      "direct_output_ge_128": false,
+      "decision": "secondary_tgn_candidate",
+      "reason": "Direct output is 100-d and depends on TGN queue-style machinery; less clean than NodLink."
+    }
+  ],
+  "nodlink_smoke": {
+    "system": "nodlink",
+    "smoke_type": "synthetic_encoder_export_plus_tiny_topk_sae",
+    "claim_boundary": "Synthetic smoke only; not evidence that PIDSMaker real detector activations are interpretable.",
+    "encoder": "pidsmaker.encoders.sum_aggregation.SumAggregation",
+    "activation_shape": [
+      512,
+      256
+    ],
+    "activation_cache": "runs\\px023-pidsmaker-pivot-gate-20260630\\nodlink_synthetic_activation_cache",
+    "sae_smoke_root": "runs\\px023-pidsmaker-pivot-gate-20260630\\nodlink_tiny_sae_smoke",
+    "manifest": {
+      "format": "praxis05_activation_cache_v1",
+      "shards": [
+        {
+          "path": "activations.pt",
+          "sha256": "0701a61c3e87994b9ad55c2879e5d425f65b086b647833d608458fb0fd226c56",
+          "rows": 512,
+          "hidden_dim": 256
+        }
+      ],
+      "metadata_rows": 512
+    },
+    "cache_validation": {
+      "valid": true,
+      "rows": 512,
+      "hidden_dim": 256,
+      "finite": true,
+      "std": 0.330702543258667,
+      "nonzero_fraction": 1.0
+    },
+    "tiny_sae_metrics": [
+      {
+        "backend": "torch_topk_smoke",
+        "research_backend": false,
+        "seed": 13,
+        "activation_rows": 512,
+        "hidden_dim": 256,
+        "n_features": 512,
+        "k": 16,
+        "steps": 40,
+        "last_train_loss": 0.03411669284105301,
+        "reconstruction_mse": 0.028149504214525223,
+        "mean_baseline_mse": 0.10737615823745728,
+        "mse_ratio": 0.2621578633151871,
+        "feature_death_rate": 0.103515625,
+        "elapsed_seconds": 0.35724472999572754
+      },
+      {
+        "backend": "torch_topk_smoke",
+        "research_backend": false,
+        "seed": 42,
+        "activation_rows": 512,
+        "hidden_dim": 256,
+        "n_features": 512,
+        "k": 16,
+        "steps": 40,
+        "last_train_loss": 0.033748164772987366,
+        "reconstruction_mse": 0.028614189475774765,
+        "mean_baseline_mse": 0.10737615823745728,
+        "mse_ratio": 0.266485502419409,
+        "feature_death_rate": 0.109375,
+        "elapsed_seconds": 0.23114442825317383
+      }
+    ],
+    "mean_tiny_sae_mse_ratio": 0.26432168286729807,
+    "mean_tiny_sae_feature_death_rate": 0.1064453125
+  },
+  "next_real_gate": "Run real NodLink activation export, then frozen Phase A SAE diagnostics. Do not relax MAGIC gates."
+}

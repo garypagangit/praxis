@@ -1,0 +1,6 @@
+system,node_hid_dim,node_out_dim,encoder_methods,featurization_dim,decoder_methods,direct_output_ge_128,decision,reason
+magic,64,64,magic_gat,0,"reconstruct_masked_features,predict_masked_struct",False,failed_predecessor,Original full Phase A already failed feature-death and stability gates on 64-d MAGIC CADETS activations.
+orthrus,128,64,"tgn,graph_attention",128,predict_edge_type,False,hook_only_secondary,Configured direct output is 64-d; 128-d signal exists only inside graph-attention/TGN internals.
+nodlink,256,256,sum_aggregation,256,reconstruct_node_features,True,preferred_direct_pivot,"Direct encoder output is 256-d, matching the larger-hidden-state pivot without an output bottleneck."
+rcaid,128,3,rcaid_gat,128,predict_node_type,False,reject_output_bottleneck,"Configured encoder output is 3-d for node-type prediction, not a useful SAE activation target."
+kairos,100,100,"graph_attention,tgn",16,predict_edge_type,False,secondary_tgn_candidate,Direct output is 100-d and depends on TGN queue-style machinery; less clean than NodLink.
