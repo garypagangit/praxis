@@ -360,7 +360,7 @@
 <main>
   <header>
     <h1>Praxis Research: Experiment Tracker and Work Completed</h1>
-    <p class="meta">Updated 2026-06-28. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
+    <p class="meta">Updated 2026-06-30. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
     <div class="source-links">
       <a href="../tmp/docs/idea_explorer_20260622/AI_ML_Praxis_Idea_Explorer_extracted.md">Raw extracted idea list</a>
       <a href="../tmp/docs/idea_explorer_20260622/idea_entries.json">Structured JSON entries</a>
@@ -755,9 +755,9 @@
             <td class="num">PX-033</td>
             <td class="title">SWE-EVO Repo-State World Model</td>
             <td>Idea Explorer</td>
-            <td><span class="badge hold">Sweep mixed</span></td>
-            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a>, and single <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a> pass. The <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">six-task F2P sweep</a> is mixed: <code>2</code>/<code>6</code> PASS, <code>3</code> MODEL_FAIL, <code>1</code> GOLD_FAIL, pass rate <code>0.3333</code>.</td>
-            <td>Continue, but do not start RWML-style training yet. Next gate is failure taxonomy plus metadata-only versus repo-state predictor analysis over the executed tasks.</td>
+            <td><span class="badge hold">Predictor gate mixed</span></td>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a>, single <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a>, and <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">six-task F2P sweep</a> all establish an executable lane. The <a href="swe_evo_repo_state_world_model/SWE_EVO_FAILURE_TAXONOMY_AND_PREDICTOR_PROBE_20260630.md">failure taxonomy and predictor probe</a> shows <code>2</code>/<code>5</code> valid model-patch labels PASS, <code>3</code>/<code>5</code> semantic incomplete-fix failures, and <code>1</code>/<code>6</code> excluded GOLD_FAIL harness/test-node case.</td>
+            <td>Continue as a measured execution-and-prediction lane only. A repo-family metadata baseline scored accuracy <code>0.8000</code> / F1 <code>0.8000</code> on the tiny valid slice, while patch/repo-state overlap did not prove predictor advantage. Next gate: add valid F2P labels or cross-model replication before any expensive RWML/world-model training claim.</td>
           </tr>
           <tr>
             <td class="num">34</td>
@@ -970,6 +970,11 @@
             <td><a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">PX-033 SWE-EVO six-task F2P sweep</a></td>
             <td>Paid AWS fail-to-pass-only execution sweep over six selected released <code>glm-4p5</code> predictions.</td>
             <td>Source for moving PX-033 from single-slice pass to mixed executable-signal status.</td>
+          </tr>
+          <tr>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_FAILURE_TAXONOMY_AND_PREDICTOR_PROBE_20260630.md">PX-033 SWE-EVO failure taxonomy and predictor probe</a></td>
+            <td>Local analysis over the six-task sweep, with raw JSON/CSV outputs under <code>runs/swe-evo-failure-predictor-probe-20260630/</code>.</td>
+            <td>Source for marking PX-033 as predictor-gate mixed: executable labels are useful, but repo-state predictor advantage is not proven yet.</td>
           </tr>
           <tr>
             <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>
