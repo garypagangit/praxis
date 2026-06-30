@@ -428,12 +428,12 @@
         <p class="small">Results with bounded claims worth packaging or extending carefully.</p>
       </div>
       <div class="summary-card start">
-        <div class="summary-number">8</div>
+        <div class="summary-number">9</div>
         <strong>Active / source-gate</strong>
         <p class="small">Concrete next gate exists, or source readiness is the correct next move.</p>
       </div>
       <div class="summary-card hold">
-        <div class="summary-number">5</div>
+        <div class="summary-number">4</div>
         <strong>Evidence / diagnostic</strong>
         <p class="small">Useful as support, remediation, boundary, or provisional harness.</p>
       </div>
@@ -755,9 +755,9 @@
             <td class="num">PX-033</td>
             <td class="title">SWE-EVO Repo-State World Model</td>
             <td>Idea Explorer</td>
-            <td><span class="badge hold">Predictor gate mixed</span></td>
-            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a>, single <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a>, and <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">six-task F2P sweep</a> all establish an executable lane. The <a href="swe_evo_repo_state_world_model/SWE_EVO_FAILURE_TAXONOMY_AND_PREDICTOR_PROBE_20260630.md">failure taxonomy and predictor probe</a> shows <code>2</code>/<code>5</code> valid model-patch labels PASS, <code>3</code>/<code>5</code> semantic incomplete-fix failures, and <code>1</code>/<code>6</code> excluded GOLD_FAIL harness/test-node case.</td>
-            <td>Continue as a measured execution-and-prediction lane only. A repo-family metadata baseline scored accuracy <code>0.8000</code> / F1 <code>0.8000</code> on the tiny valid slice, while patch/repo-state overlap did not prove predictor advantage. Next gate: add valid F2P labels or cross-model replication before any expensive RWML/world-model training claim.</td>
+            <td><span class="badge start">Next-label queue ready</span></td>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a>, single <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a>, and <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">six-task F2P sweep</a> establish an executable lane. The <a href="swe_evo_repo_state_world_model/SWE_EVO_FAILURE_TAXONOMY_AND_PREDICTOR_PROBE_20260630.md">failure taxonomy</a> gives <code>5</code> valid glm labels. The <a href="swe_evo_repo_state_world_model/SWE_EVO_NEXT_LABEL_CROSS_MODEL_GATE_20260630.md">next-label gate</a> builds a <code>10</code>-row cross-model queue after comparing released-prediction proxies against the metadata baseline.</td>
+            <td>Keep active, but do not claim a world model. Run the primary <code>gpt-4o-2024-11-20</code> five-row queue when AWS SSO is connected; only expand if executable labels beat the repo-family metadata baseline accuracy/F1 <code>0.8000</code>.</td>
           </tr>
           <tr>
             <td class="num">34</td>
@@ -980,6 +980,11 @@
             <td><a href="swe_evo_repo_state_world_model/SWE_EVO_FAILURE_TAXONOMY_AND_PREDICTOR_PROBE_20260630.md">PX-033 SWE-EVO failure taxonomy and predictor probe</a></td>
             <td>Local analysis over the six-task sweep, with raw JSON/CSV outputs under <code>runs/swe-evo-failure-predictor-probe-20260630/</code>.</td>
             <td>Source for marking PX-033 as predictor-gate mixed: executable labels are useful, but repo-state predictor advantage is not proven yet.</td>
+          </tr>
+          <tr>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_NEXT_LABEL_CROSS_MODEL_GATE_20260630.md">PX-033 SWE-EVO next-label cross-model gate</a></td>
+            <td>Local released-prediction proxy screen over the five valid glm executable labels, producing a 10-row primary/confirmation execution queue under <code>runs/px033-swe-evo-next-label-gate-20260630/</code>.</td>
+            <td>Source for keeping PX-033 active only as a measured execution lane: run cross-model labels before any RWML or repo-state world-model training.</td>
           </tr>
           <tr>
             <td><a href="relationship_evidence_cti_compliance/PX034_CTI_SOURCE_CONFLICT_GATE_20260630.md">PX-034 CTI source-conflict evidence gate</a></td>
