@@ -593,9 +593,9 @@
             <td class="num">PX-015</td>
             <td class="title">Frontier EXP01: TTC Transferability</td>
             <td>Frontier batch</td>
-            <td><span class="badge hold">Provisional harness</span></td>
-            <td><a href="../runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_FULL_AWS_RESULT_20260618.md">Full AWS run</a>: <code>4</code> models, <code>160</code> rows, <code>2,560</code> scored rows; strict holdout weak.</td>
-            <td>Keep as measurement harness only unless missing gates are added.</td>
+            <td><span class="badge hold">CI-audited harness</span></td>
+            <td><a href="../runs/frontier-exp01-ttc-transfer-full-20260618/EXP01_FULL_AWS_RESULT_20260618.md">Full AWS run</a>: <code>4</code> models, <code>160</code> rows, <code>2,560</code> scored rows. The <a href="frontier_ai_ml_experiments_20260618/PX015_TTC_CI_GATE_20260630.md">CI and missing-gates audit</a> gives the strongest model strict holdout accuracy <code>0.2250</code> with bootstrap CI <code>[0.1375, 0.3125]</code>, versus in-domain <code>0.7250</code> CI <code>[0.5750, 0.8500]</code>.</td>
+            <td>Keep as measurement harness only. Transfer retention has wide CIs and weak target-denominator artifacts; verifier best-of-N and sequential refinement remain unrun, so this is not promoted as a TTC transferability result.</td>
           </tr>
           <tr>
             <td class="num">16</td>
@@ -990,6 +990,11 @@
             <td><a href="frontier_ai_ml_experiments_20260618/PX035_THOUGHT_BUDGET_ORACLE_20260630.md">PX-035 thought-budget oracle probe</a></td>
             <td>Local budget-router analysis over the frozen EXP01 TTC K={1,2,4,8} score rows, with a PX-003 CTI evidence-budget cross-check.</td>
             <td>Source for closing PX-035 as mixed diagnostic evidence: a hindsight oracle exists, but the cheap deployable router does not justify Long-CoT/RLVR work.</td>
+          </tr>
+          <tr>
+            <td><a href="frontier_ai_ml_experiments_20260618/PX015_TTC_CI_GATE_20260630.md">PX-015 TTC CI and missing-gates audit</a></td>
+            <td>Bootstrap confidence-interval audit over frozen EXP01 selected policies and transfer-retention cells.</td>
+            <td>Source for keeping PX-015 as a CI-audited provisional harness rather than promoting it as a TTC transferability result.</td>
           </tr>
           <tr>
             <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>
