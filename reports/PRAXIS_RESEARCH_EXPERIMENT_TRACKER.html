@@ -433,12 +433,12 @@
         <p class="small">Concrete next gate exists, or source readiness is the correct next move.</p>
       </div>
       <div class="summary-card hold">
-        <div class="summary-number">7</div>
+        <div class="summary-number">6</div>
         <strong>Evidence / diagnostic</strong>
         <p class="small">Useful as support, remediation, boundary, or provisional harness.</p>
       </div>
       <div class="summary-card kill">
-        <div class="summary-number">15</div>
+        <div class="summary-number">16</div>
         <strong>Negative / parked</strong>
         <p class="small">Failed gates or should not be pushed as positive results.</p>
       </div>
@@ -602,9 +602,9 @@
             <td class="num">PX-016</td>
             <td class="title">Frontier EXP02: Self-Jailbreak Guardrail</td>
             <td>Frontier batch</td>
-            <td><span class="badge hold">Mixed / parked</span></td>
-            <td><a href="frontier_ai_ml_experiments_20260618/EXP02_FULL_GUARDRAIL_SYNTHESIS_20260618.md">Guardrail synthesis</a>: early-detection signal exists, but benign false-refusal and safe-response blocking fail utility controls.</td>
-            <td>Park until over-refusal blocker is solved.</td>
+            <td><span class="badge kill">Failed utility gate</span></td>
+            <td><a href="frontier_ai_ml_experiments_20260618/EXP02_FULL_GUARDRAIL_SYNTHESIS_20260618.md">Guardrail synthesis</a> found early-detection signal, but false-refusal and safe-response blocking failed utility controls. The <a href="frontier_ai_ml_experiments_20260618/PX016_GUARDRAIL_OPERATING_POINT_AUDIT_20260630.md">operating-point audit</a> found no stored prompt or response detector threshold with recall >= <code>0.85</code> and benign/safe block <= <code>0.05</code>.</td>
+            <td>Close for current cycle. Best near miss was Guardian full-response scoring with recall <code>0.8684</code> and safe-response block <code>0.0909</code>, still above the utility ceiling.</td>
           </tr>
           <tr>
             <td class="num">17</td>
@@ -995,6 +995,11 @@
             <td><a href="frontier_ai_ml_experiments_20260618/PX015_TTC_CI_GATE_20260630.md">PX-015 TTC CI and missing-gates audit</a></td>
             <td>Bootstrap confidence-interval audit over frozen EXP01 selected policies and transfer-retention cells.</td>
             <td>Source for keeping PX-015 as a CI-audited provisional harness rather than promoting it as a TTC transferability result.</td>
+          </tr>
+          <tr>
+            <td><a href="frontier_ai_ml_experiments_20260618/PX016_GUARDRAIL_OPERATING_POINT_AUDIT_20260630.md">PX-016 guardrail operating-point audit</a></td>
+            <td>Threshold sweep over frozen redacted EXP02 prompt and response detector scores, with raw JSON/CSV outputs under <code>runs/px016-guardrail-operating-point-audit-20260630/</code>.</td>
+            <td>Source for closing PX-016 as a failed utility gate: detection signal exists, but no threshold meets both unsafe recall and benign/safe blocking constraints.</td>
           </tr>
           <tr>
             <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>
