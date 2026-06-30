@@ -1,0 +1,57 @@
+diff --git a/requests/sessions.py b/requests/sessions.py
+index 3f59cab9..166cd046 100644
+--- a/requests/sessions.py
++++ b/requests/sessions.py
+@@ -282,7 +282,20 @@ class SessionRedirectMixin(object):
+         :rtype: dict
+         """
+         headers = prepared_request.headers
++        new_proxies = resolve_proxies(prepared_request, proxies, self.trust_env)
+         scheme = urlparse(prepared_request.url).scheme
++
++        # Ensure the auth component is preserved in the proxy URL
++        if scheme in new_proxies and new_proxies[scheme]:
++            parsed_proxy = urlparse(new_proxies[scheme])
++            if parsed_proxy.username and parsed_proxy.password:
++                auth_str = f"{parsed_proxy.username}:{parsed_proxy.password}"
++                netloc = parsed_proxy.hostname
++                if parsed_proxy.port:
++                    netloc += f":{parsed_proxy.port}"
++                new_proxies[scheme] = f"{scheme}://{netloc}"
++                # Add Proxy-Authorization header
++                headers['Proxy-Authorization'] = _basic_auth_str(parsed_proxy.username, parsed_proxy.password)
+         new_proxies = resolve_proxies(prepared_request, proxies, self.trust_env)
+ 
+         if 'Proxy-Authorization' in headers:
+diff --git a/test_rebuild_proxies.py b/test_rebuild_proxies.py
+new file mode 100644
+index 00000000..1d0f3d09
+--- /dev/null
++++ b/test_rebuild_proxies.py
+@@ -0,0 +1,25 @@
++from requests.sessions import Session
++from urllib.parse import urlparse
++
++def test_rebuild_proxies():
++    session = Session()
++
++    # Mock data for testing
++    prepared_request = type('PreparedRequest', (object,), {"url": "http://example.com", "headers": {}})()
++    proxies = {
++        'http': 'http://user:pass@127.0.0.1:8080',
++        'https': 'http://user:pass@127.0.0.1:8080',
++    }
++
++    # Call the rebuild_proxies method
++    new_proxies = session.rebuild_proxies(prepared_request, proxies)
++
++    # Check the result
++    for scheme, proxy in new_proxies.items():
++        parsed_proxy = urlparse(proxy)
++        assert parsed_proxy.username is None, f"Username should be stripped from {scheme} proxy"
++        assert parsed_proxy.password is None, f"Password should be stripped from {scheme} proxy"
++        print(f"{scheme} proxy after rebuild: {proxy}")
++
++if __name__ == "__main__":
++    test_rebuild_proxies()
+\ No newline at end of file

@@ -1,0 +1,1108 @@
+{
+  "claim_boundary": "Small SWE-EVO released-prediction true-eval sweep over selected executable tasks. When p2p_limit is 0, this is a fail-to-pass viability sweep only, not a regression-preservation benchmark. This is not a full benchmark sweep and not a trained repo-state world model.",
+  "eval_timeout": 1800,
+  "evaluated_tasks": 5,
+  "generated_utc": "2026-06-30T11:58:04.051089+00:00",
+  "instance_ids": [
+    "iterative__dvc_0.30.0_0.30.1",
+    "iterative__dvc_2.21.1_2.21.2",
+    "psf__requests_v2.12.2_v2.12.3",
+    "psf__requests_v2.27.0_v2.27.1",
+    "psf__requests_v2.9.0_v2.9.1"
+  ],
+  "model": "gpt-4o-2024-11-20",
+  "p2p_limit": 0,
+  "pass_rate": 0.2,
+  "requested_tasks": 5,
+  "results": [
+    {
+      "base_returncode": 1,
+      "base_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017304420471191406
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001974821090698242
+        }
+      },
+      "base_timeout": false,
+      "base_wall_seconds": 3.956897497177124,
+      "checkout": {
+        "cmd": [
+          "git",
+          "checkout",
+          "9175c45b1472070e02521380e4db8315d7c910c4"
+        ],
+        "returncode": 0,
+        "stderr": "Note: switching to '9175c45b1472070e02521380e4db8315d7c910c4'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at 9175c45b1 dvc: bump to 0.30.0\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.05415654182434082
+      },
+      "clone": {
+        "cmd": [
+          "git",
+          "clone",
+          "https://github.com/iterative/dvc.git",
+          "base"
+        ],
+        "returncode": 0,
+        "stderr": "Cloning into 'base'...\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 1.4867370128631592
+      },
+      "docker_pull": {
+        "cmd": [
+          "sudo",
+          "docker",
+          "pull",
+          "xingyaoww/sweb.eval.x86_64.iterative_s_dvc-1681"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Using default tag: latest\nlatest: Pulling from xingyaoww/sweb.eval.x86_64.iterative_s_dvc-1681\nDigest: sha256:47f2213bba1f71e6674cef8027d6cd7df892c480bb2a27a58391162a268eee8e\nStatus: Image is up to date for xingyaoww/sweb.eval.x86_64.iterative_s_dvc-1681:latest\ndocker.io/xingyaoww/sweb.eval.x86_64.iterative_s_dvc-1681:latest\n",
+        "timeout": false,
+        "wall_seconds": 0.2891089916229248
+      },
+      "fail_to_pass_count": 1,
+      "file_overlap_count": 0,
+      "gold_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001987934112548828
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017042160034179688
+        }
+      },
+      "gold_patch_applied": true,
+      "gold_patch_files": [
+        "dvc/__init__.py",
+        "dvc/stage.py"
+      ],
+      "gold_returncode": 0,
+      "gold_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017271041870117188
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016207695007324219
+        }
+      },
+      "gold_timeout": false,
+      "gold_wall_seconds": 1.7003710269927979,
+      "image": "xingyaoww/sweb.eval.x86_64.iterative_s_dvc-1681",
+      "instance_id": "iterative__dvc_0.30.0_0.30.1",
+      "model": "gpt-4o-2024-11-20",
+      "model_apply": {
+        "applied": false,
+        "apply": null,
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/model.patch"
+          ],
+          "returncode": 1,
+          "stderr": "error: cannot apply binary patch to 'myrepo/.dvc/state' without full index line\nerror: myrepo/.dvc/state: patch does not apply\n",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0015637874603271484
+        }
+      },
+      "model_patch_applied": false,
+      "model_patch_files": [
+        "myrepo/.dvc/config",
+        "myrepo/.dvc/lock",
+        "myrepo/.dvc/state",
+        "myrepo/.dvc/updater",
+        "myrepo/.dvc/updater.lock",
+        "myrepo/sample.txt",
+        "myrepo/sample.txt.dvc"
+      ],
+      "model_returncode": 998,
+      "model_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017457008361816406
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_0.30.0_0.30.1/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016317367553710938
+        }
+      },
+      "model_timeout": false,
+      "model_wall_seconds": 0,
+      "pass_to_pass_count": 12,
+      "repo": "iterative/dvc",
+      "selected_test_count": 1,
+      "status": "INFRA_OR_APPLY_FAIL",
+      "test_patch_applied": true,
+      "test_patch_files": [
+        "tests/test_stage.py",
+        "tests/unit/stage.py"
+      ],
+      "tests": [
+        "tests/test_stage.py::TestDefaultWorkingDirectory::test_ignored_in_checksum"
+      ],
+      "wall_seconds": 7.583488702774048
+    },
+    {
+      "base_returncode": 1,
+      "base_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017056465148925781
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0019516944885253906
+        }
+      },
+      "base_timeout": false,
+      "base_wall_seconds": 4.038452863693237,
+      "checkout": {
+        "cmd": [
+          "git",
+          "checkout",
+          "512bfc4305a7607f63514dc734663c973ed954b2"
+        ],
+        "returncode": 0,
+        "stderr": "Note: switching to '512bfc4305a7607f63514dc734663c973ed954b2'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at 512bfc430 tests: mark exp queue func tests xfail (#8186)\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.07153558731079102
+      },
+      "clone": {
+        "cmd": [
+          "git",
+          "clone",
+          "https://github.com/iterative/dvc.git",
+          "base"
+        ],
+        "returncode": 0,
+        "stderr": "Cloning into 'base'...\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 1.4413471221923828
+      },
+      "docker_pull": {
+        "cmd": [
+          "sudo",
+          "docker",
+          "pull",
+          "xingyaoww/sweb.eval.x86_64.iterative_s_dvc-8166"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Using default tag: latest\nlatest: Pulling from xingyaoww/sweb.eval.x86_64.iterative_s_dvc-8166\nDigest: sha256:1d68246b36fb3ab0b2c7cacb4c5870972bf80954fbcadf676a4683550da0f5a0\nStatus: Image is up to date for xingyaoww/sweb.eval.x86_64.iterative_s_dvc-8166:latest\ndocker.io/xingyaoww/sweb.eval.x86_64.iterative_s_dvc-8166:latest\n",
+        "timeout": false,
+        "wall_seconds": 0.2621631622314453
+      },
+      "fail_to_pass_count": 1,
+      "file_overlap_count": 0,
+      "gold_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001676797866821289
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016639232635498047
+        }
+      },
+      "gold_patch_applied": true,
+      "gold_patch_files": [
+        "dvc/repo/params/show.py"
+      ],
+      "gold_returncode": 0,
+      "gold_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001667022705078125
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016255378723144531
+        }
+      },
+      "gold_timeout": false,
+      "gold_wall_seconds": 2.337176561355591,
+      "image": "xingyaoww/sweb.eval.x86_64.iterative_s_dvc-8166",
+      "instance_id": "iterative__dvc_2.21.1_2.21.2",
+      "model": "gpt-4o-2024-11-20",
+      "model_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0018007755279541016
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0015985965728759766
+        }
+      },
+      "model_patch_applied": true,
+      "model_patch_files": [
+        "dvc/api/params.py"
+      ],
+      "model_returncode": 1,
+      "model_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016431808471679688
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/iterative__dvc_2.21.1_2.21.2/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0015919208526611328
+        }
+      },
+      "model_timeout": false,
+      "model_wall_seconds": 2.378278970718384,
+      "pass_to_pass_count": 8,
+      "repo": "iterative/dvc",
+      "selected_test_count": 1,
+      "status": "MODEL_FAIL",
+      "test_patch_applied": true,
+      "test_patch_files": [
+        "tests/func/api/test_params.py"
+      ],
+      "tests": [
+        "tests/func/api/test_params.py::test_params_show_untracked_target"
+      ],
+      "wall_seconds": 10.754427909851074
+    },
+    {
+      "base_returncode": 1,
+      "base_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_base.patch:89: new blank line at EOF.\n+\nwarning: 1 line adds whitespace errors.\n",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.002097606658935547
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0022895336151123047
+        }
+      },
+      "base_timeout": false,
+      "base_wall_seconds": 1.8491954803466797,
+      "checkout": {
+        "cmd": [
+          "git",
+          "checkout",
+          "ca15d4808734c86801c8f3d80c9152c35a163dc3"
+        ],
+        "returncode": 0,
+        "stderr": "Note: switching to 'ca15d4808734c86801c8f3d80c9152c35a163dc3'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at ca15d480 v2.12.2\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.0414578914642334
+      },
+      "clone": {
+        "cmd": [
+          "git",
+          "clone",
+          "https://github.com/psf/requests.git",
+          "base"
+        ],
+        "returncode": 0,
+        "stderr": "Cloning into 'base'...\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.7285666465759277
+      },
+      "docker_pull": {
+        "cmd": [
+          "sudo",
+          "docker",
+          "pull",
+          "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Using default tag: latest\nlatest: Pulling from epoch-research/swe-bench.eval.x86_64.psf__requests-3738\nDigest: sha256:41767104d2506d564071a2ebf41e74f5c664dc155d75a90e91fa1d3d78aad534\nStatus: Image is up to date for ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738:latest\nghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738:latest\n",
+        "timeout": false,
+        "wall_seconds": 0.22242403030395508
+      },
+      "fail_to_pass_count": 4,
+      "file_overlap_count": 1,
+      "gold_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0021097660064697266
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001924276351928711
+        }
+      },
+      "gold_patch_applied": true,
+      "gold_patch_files": [
+        "HISTORY.rst",
+        "requests/__init__.py",
+        "requests/models.py"
+      ],
+      "gold_returncode": 0,
+      "gold_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_gold.patch:89: new blank line at EOF.\n+\nwarning: 1 line adds whitespace errors.\n",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0020682811737060547
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0019154548645019531
+        }
+      },
+      "gold_timeout": false,
+      "gold_wall_seconds": 0.9222750663757324,
+      "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-3738",
+      "instance_id": "psf__requests_v2.12.2_v2.12.3",
+      "model": "gpt-4o-2024-11-20",
+      "model_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017850399017333984
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001707315444946289
+        }
+      },
+      "model_patch_applied": true,
+      "model_patch_files": [
+        "requests/models.py"
+      ],
+      "model_returncode": 0,
+      "model_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_model.patch:89: new blank line at EOF.\n+\nwarning: 1 line adds whitespace errors.\n",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.002205371856689453
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.12.2_v2.12.3/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0019459724426269531
+        }
+      },
+      "model_timeout": false,
+      "model_wall_seconds": 0.9179203510284424,
+      "pass_to_pass_count": 109,
+      "repo": "psf/requests",
+      "selected_test_count": 4,
+      "status": "PASS",
+      "test_patch_applied": true,
+      "test_patch_files": [
+        "tests/test_requests.py"
+      ],
+      "tests": [
+        "tests/test_requests.py::TestPreparingURLs::test_parameters_for_nonstandard_schemes[http+unix://%2Fvar%2Frun%2Fsocket/path-params0-http+unix://%2fvar%2frun%2fsocket/path?key=value]",
+        "tests/test_requests.py::TestPreparingURLs::test_parameters_for_nonstandard_schemes[http+unix://%2Fvar%2Frun%2Fsocket/path-params1-http+unix://%2fvar%2frun%2fsocket/path?key=value]",
+        "tests/test_requests.py::TestPreparingURLs::test_url_mutation[http+unix://%2Fvar%2Frun%2Fsocket/path-http+unix://%2fvar%2frun%2fsocket/path0]",
+        "tests/test_requests.py::TestPreparingURLs::test_url_mutation[http+unix://%2Fvar%2Frun%2Fsocket/path-http+unix://%2fvar%2frun%2fsocket/path1]"
+      ],
+      "wall_seconds": 4.769804239273071
+    },
+    {
+      "base_returncode": 1,
+      "base_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0018362998962402344
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.002112865447998047
+        }
+      },
+      "base_timeout": false,
+      "base_wall_seconds": 0.8710181713104248,
+      "checkout": {
+        "cmd": [
+          "git",
+          "checkout",
+          "0192aac24123735b3eaf9b08df46429bb770c283"
+        ],
+        "returncode": 0,
+        "stderr": "Note: switching to '0192aac24123735b3eaf9b08df46429bb770c283'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at 0192aac2 v2.27.0\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.03394508361816406
+      },
+      "clone": {
+        "cmd": [
+          "git",
+          "clone",
+          "https://github.com/psf/requests.git",
+          "base"
+        ],
+        "returncode": 0,
+        "stderr": "Cloning into 'base'...\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.7135303020477295
+      },
+      "docker_pull": {
+        "cmd": [
+          "sudo",
+          "docker",
+          "pull",
+          "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-6028"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Using default tag: latest\nlatest: Pulling from epoch-research/swe-bench.eval.x86_64.psf__requests-6028\nDigest: sha256:da4dfbc89176657dad8fc82acf81580b7433484b47cfa08204b6c47b3514705d\nStatus: Image is up to date for ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-6028:latest\nghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-6028:latest\n",
+        "timeout": false,
+        "wall_seconds": 0.2090151309967041
+      },
+      "fail_to_pass_count": 2,
+      "file_overlap_count": 0,
+      "gold_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.002206087112426758
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.00202178955078125
+        }
+      },
+      "gold_patch_applied": true,
+      "gold_patch_files": [
+        "HISTORY.md",
+        "requests/__version__.py",
+        "requests/utils.py"
+      ],
+      "gold_returncode": 0,
+      "gold_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0018148422241210938
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016624927520751953
+        }
+      },
+      "gold_timeout": false,
+      "gold_wall_seconds": 0.731541633605957,
+      "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-6028",
+      "instance_id": "psf__requests_v2.27.0_v2.27.1",
+      "model": "gpt-4o-2024-11-20",
+      "model_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017971992492675781
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016965866088867188
+        }
+      },
+      "model_patch_applied": true,
+      "model_patch_files": [
+        "requests/sessions.py",
+        "test_rebuild_proxies.py"
+      ],
+      "model_returncode": 1,
+      "model_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001760244369506836
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.27.0_v2.27.1/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016744136810302734
+        }
+      },
+      "model_timeout": false,
+      "model_wall_seconds": 0.7839944362640381,
+      "pass_to_pass_count": 185,
+      "repo": "psf/requests",
+      "selected_test_count": 2,
+      "status": "MODEL_FAIL",
+      "test_patch_applied": true,
+      "test_patch_files": [
+        "tests/test_utils.py"
+      ],
+      "tests": [
+        "tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]",
+        "tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]"
+      ],
+      "wall_seconds": 3.410332441329956
+    },
+    {
+      "base_returncode": 1,
+      "base_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0019028186798095703
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/test_base.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0020859241485595703
+        }
+      },
+      "base_timeout": false,
+      "base_wall_seconds": 0.9352340698242188,
+      "checkout": {
+        "cmd": [
+          "git",
+          "checkout",
+          "5f7a3a74aab1625c2bb65f643197ee885e3da576"
+        ],
+        "returncode": 0,
+        "stderr": "Note: switching to '5f7a3a74aab1625c2bb65f643197ee885e3da576'.\n\nYou are in 'detached HEAD' state. You can look around, make experimental\nchanges and commit them, and you can discard any commits you make in this\nstate without impacting any branches by switching back to a branch.\n\nIf you want to create a new branch to retain commits you create, you may\ndo so (now or later) by using -c with the switch command. Example:\n\n  git switch -c <new-branch-name>\n\nOr undo this operation with:\n\n  git switch -\n\nTurn off this advice by setting config variable advice.detachedHead to false\n\nHEAD is now at 5f7a3a74 v2.9.0\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.04302644729614258
+      },
+      "clone": {
+        "cmd": [
+          "git",
+          "clone",
+          "https://github.com/psf/requests.git",
+          "base"
+        ],
+        "returncode": 0,
+        "stderr": "Cloning into 'base'...\n",
+        "stdout": "",
+        "timeout": false,
+        "wall_seconds": 0.7122724056243896
+      },
+      "docker_pull": {
+        "cmd": [
+          "sudo",
+          "docker",
+          "pull",
+          "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Using default tag: latest\nlatest: Pulling from epoch-research/swe-bench.eval.x86_64.psf__requests-2931\nDigest: sha256:99b2aa0435b2818c2c301cdfb927ce2a348d6647d9a21a3a7942038168e6278a\nStatus: Image is up to date for ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931:latest\nghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931:latest\n",
+        "timeout": false,
+        "wall_seconds": 0.19904112815856934
+      },
+      "fail_to_pass_count": 1,
+      "file_overlap_count": 1,
+      "gold_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.002651691436767578
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.002151966094970703
+        }
+      },
+      "gold_patch_applied": true,
+      "gold_patch_files": [
+        "HISTORY.rst",
+        "requests/__init__.py",
+        "requests/cookies.py",
+        "requests/models.py",
+        "requests/packages/urllib3/__init__.py",
+        "requests/packages/urllib3/connection.py",
+        "requests/utils.py"
+      ],
+      "gold_returncode": 0,
+      "gold_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0018794536590576172
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/test_gold.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0018055438995361328
+        }
+      },
+      "gold_timeout": false,
+      "gold_wall_seconds": 0.814138650894165,
+      "image": "ghcr.io/epoch-research/swe-bench.eval.x86_64.psf__requests-2931",
+      "instance_id": "psf__requests_v2.9.0_v2.9.1",
+      "model": "gpt-4o-2024-11-20",
+      "model_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0017313957214355469
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.0016183853149414062
+        }
+      },
+      "model_patch_applied": true,
+      "model_patch_files": [
+        "requests/cookies.py"
+      ],
+      "model_returncode": 1,
+      "model_test_apply": {
+        "applied": true,
+        "apply": {
+          "cmd": [
+            "git",
+            "apply",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001965761184692383
+        },
+        "check": {
+          "cmd": [
+            "git",
+            "apply",
+            "--check",
+            "/opt/dlami/nvme/praxis/jobs/swe-evo-cross-model-primary-20260630/output/patches/psf__requests_v2.9.0_v2.9.1/test_model.patch"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "",
+          "timeout": false,
+          "wall_seconds": 0.001800537109375
+        }
+      },
+      "model_timeout": false,
+      "model_wall_seconds": 0.8980860710144043,
+      "pass_to_pass_count": 85,
+      "repo": "psf/requests",
+      "selected_test_count": 1,
+      "status": "MODEL_FAIL",
+      "test_patch_applied": true,
+      "test_patch_files": [
+        "test_requests.py"
+      ],
+      "tests": [
+        "test_requests.py::TestRequests::test_binary_put"
+      ],
+      "wall_seconds": 3.6757802963256836
+    }
+  ],
+  "status": "MULTI-TASK SWEEP MIXED",
+  "status_counts": {
+    "INFRA_OR_APPLY_FAIL": 1,
+    "MODEL_FAIL": 3,
+    "PASS": 1
+  },
+  "wall_seconds": 31.039677143096924
+}

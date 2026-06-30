@@ -1,0 +1,16 @@
+diff --git a/dvc/api/params.py b/dvc/api/params.py
+index 294a88efe..d56e4ebac 100644
+--- a/dvc/api/params.py
++++ b/dvc/api/params.py
+@@ -263,6 +263,11 @@ def params_show(
+         return processed[first(processed)]
+ 
+     with Repo.open(repo) as _repo:
++        # Check if targets are tracked by DVC
++        tracked_targets = {out.fs_path for out in _repo.index.outs}
++        untracked = [t for t in targets if t not in tracked_targets]
++        if untracked:
++            raise DvcException(f"Untracked targets found: {', '.join(untracked)}")
+         params = _repo.params.show(
+             revs=rev if rev is None else [rev],
+             targets=targets,

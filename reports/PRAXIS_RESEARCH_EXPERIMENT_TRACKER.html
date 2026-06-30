@@ -428,12 +428,12 @@
         <p class="small">Results with bounded claims worth packaging or extending carefully.</p>
       </div>
       <div class="summary-card start">
-        <div class="summary-number">9</div>
+        <div class="summary-number">8</div>
         <strong>Active / source-gate</strong>
         <p class="small">Concrete next gate exists, or source readiness is the correct next move.</p>
       </div>
       <div class="summary-card hold">
-        <div class="summary-number">4</div>
+        <div class="summary-number">5</div>
         <strong>Evidence / diagnostic</strong>
         <p class="small">Useful as support, remediation, boundary, or provisional harness.</p>
       </div>
@@ -755,9 +755,9 @@
             <td class="num">PX-033</td>
             <td class="title">SWE-EVO Repo-State World Model</td>
             <td>Idea Explorer</td>
-            <td><span class="badge start">Next-label queue ready</span></td>
-            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a>, single <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a>, and <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">six-task F2P sweep</a> establish an executable lane. The <a href="swe_evo_repo_state_world_model/SWE_EVO_FAILURE_TAXONOMY_AND_PREDICTOR_PROBE_20260630.md">failure taxonomy</a> gives <code>5</code> valid glm labels. The <a href="swe_evo_repo_state_world_model/SWE_EVO_NEXT_LABEL_CROSS_MODEL_GATE_20260630.md">next-label gate</a> builds a <code>10</code>-row cross-model queue after comparing released-prediction proxies against the metadata baseline.</td>
-            <td>Keep active, but do not claim a world model. Run the primary <code>gpt-4o-2024-11-20</code> five-row queue when AWS SSO is connected; only expand if executable labels beat the repo-family metadata baseline accuracy/F1 <code>0.8000</code>.</td>
+            <td><span class="badge hold">Primary queue failed</span></td>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_SOURCE_GATE_20260628.md">Source gate</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_PATCH_OVERLAP_PROBE_20260628.md">patch-overlap proxy</a>, single <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SLICE_20260628.md">true eval slice</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_TRUE_EVAL_SWEEP_20260629.md">six-task F2P sweep</a>, <a href="swe_evo_repo_state_world_model/SWE_EVO_FAILURE_TAXONOMY_AND_PREDICTOR_PROBE_20260630.md">failure taxonomy</a>, and <a href="swe_evo_repo_state_world_model/SWE_EVO_NEXT_LABEL_CROSS_MODEL_GATE_20260630.md">next-label gate</a> established an executable lane. The paid AWS <a href="swe_evo_repo_state_world_model/SWE_EVO_CROSS_MODEL_PRIMARY_QUEUE_20260630.md">cross-model primary queue</a> tested the registered five-row <code>gpt-4o-2024-11-20</code> slice.</td>
+            <td>Stop as diagnostic evidence. The primary queue passed <code>1</code>/<code>5</code> tasks, with <code>3</code> model failures and <code>1</code> apply/infra failure, below the repo-family metadata baseline accuracy/F1 <code>0.8000</code>. Do not run the DeepSeek confirmation queue and do not start RWML or repo-state world-model training.</td>
           </tr>
           <tr>
             <td class="num">34</td>
@@ -985,6 +985,11 @@
             <td><a href="swe_evo_repo_state_world_model/SWE_EVO_NEXT_LABEL_CROSS_MODEL_GATE_20260630.md">PX-033 SWE-EVO next-label cross-model gate</a></td>
             <td>Local released-prediction proxy screen over the five valid glm executable labels, producing a 10-row primary/confirmation execution queue under <code>runs/px033-swe-evo-next-label-gate-20260630/</code>.</td>
             <td>Source for keeping PX-033 active only as a measured execution lane: run cross-model labels before any RWML or repo-state world-model training.</td>
+          </tr>
+          <tr>
+            <td><a href="swe_evo_repo_state_world_model/SWE_EVO_CROSS_MODEL_PRIMARY_QUEUE_20260630.md">PX-033 SWE-EVO cross-model primary queue</a></td>
+            <td>Paid AWS execution of the registered five-row <code>gpt-4o-2024-11-20</code> primary queue, with raw JSON/CSV outputs under <code>runs/px033-swe-evo-cross-model-primary-20260630/</code>.</td>
+            <td>Source for stopping PX-033 as diagnostic evidence: the primary queue passed <code>1</code>/<code>5</code>, failed to beat the repo-family metadata baseline, and does not justify the DeepSeek confirmation queue or RWML training.</td>
           </tr>
           <tr>
             <td><a href="relationship_evidence_cti_compliance/PX034_CTI_SOURCE_CONFLICT_GATE_20260630.md">PX-034 CTI source-conflict evidence gate</a></td>

@@ -1,0 +1,67 @@
+diff --git a/tests/test_stage.py b/tests/test_stage.py
+index b1ef539ee..67266ada9 100644
+--- a/tests/test_stage.py
++++ b/tests/test_stage.py
+@@ -103,6 +103,9 @@ class TestDefaultWorkingDirectory(TestDvc):
+             outs=[self.FOO],
+         )
+ 
++        d = stage.dumpd()
++        self.assertEqual(d[stage.PARAM_WDIR], ".")
++
+         with open(stage.relpath, "r") as fobj:
+             d = yaml.safe_load(fobj)
+         self.assertEqual(d[stage.PARAM_WDIR], ".")
+@@ -111,6 +114,10 @@ class TestDefaultWorkingDirectory(TestDvc):
+         with open(stage.relpath, "w") as fobj:
+             yaml.safe_dump(d, fobj, default_flow_style=False)
+ 
++        with open(stage.relpath, "r") as fobj:
++            d = yaml.safe_load(fobj)
++        self.assertIsNone(d.get(stage.PARAM_WDIR))
++
+         with self.dvc.state:
+             stage = Stage.load(self.dvc, stage.relpath)
+             self.assertFalse(stage.changed())
+diff --git a/tests/unit/stage.py b/tests/unit/stage.py
+index add84d171..39aea09b2 100644
+--- a/tests/unit/stage.py
++++ b/tests/unit/stage.py
+@@ -14,3 +14,37 @@ class TestStageChecksum(TestCase):
+             self.assertEqual(
+                 stage._compute_md5(), "e9521a22111493406ea64a88cda63e0b"
+             )
++
++    def test_wdir_default_ignored(self):
++        stage = Stage(None, "path")
++        outs = [{"path": "a", "md5": "123456789"}]
++        deps = [{"path": "b", "md5": "987654321"}]
++        d = {
++            "md5": "123456",
++            "cmd": "mycmd",
++            "outs": outs,
++            "deps": deps,
++            "wdir": ".",
++        }
++
++        with mock.patch.object(stage, "dumpd", return_value=d):
++            self.assertEqual(
++                stage._compute_md5(), "e9521a22111493406ea64a88cda63e0b"
++            )
++
++    def test_wdir_non_default_is_not_ignored(self):
++        stage = Stage(None, "path")
++        outs = [{"path": "a", "md5": "123456789"}]
++        deps = [{"path": "b", "md5": "987654321"}]
++        d = {
++            "md5": "123456",
++            "cmd": "mycmd",
++            "outs": outs,
++            "deps": deps,
++            "wdir": "..",
++        }
++
++        with mock.patch.object(stage, "dumpd", return_value=d):
++            self.assertEqual(
++                stage._compute_md5(), "2ceba15e87f6848aa756502c1e6d24e9"
++            )
