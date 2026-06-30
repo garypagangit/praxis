@@ -428,7 +428,7 @@
         <p class="small">Results with bounded claims worth packaging or extending carefully.</p>
       </div>
       <div class="summary-card start">
-        <div class="summary-number">8</div>
+        <div class="summary-number">7</div>
         <strong>Active / source-gate</strong>
         <p class="small">Concrete next gate exists, or source readiness is the correct next move.</p>
       </div>
@@ -438,7 +438,7 @@
         <p class="small">Useful as support, remediation, boundary, or provisional harness.</p>
       </div>
       <div class="summary-card kill">
-        <div class="summary-number">16</div>
+        <div class="summary-number">17</div>
         <strong>Negative / parked</strong>
         <p class="small">Failed gates or should not be pushed as positive results.</p>
       </div>
@@ -665,9 +665,9 @@
             <td class="num">PX-023</td>
             <td class="title">Sparse Autoencoder Interpretability for APT Detectors</td>
             <td>Praxis 05</td>
-            <td><span class="badge start">Pivot scaffold pass</span></td>
-            <td><a href="praxis05_phase_a/FULL_GPU_PHASE_A_20260510.md">Full GPU Phase A</a>: MAGIC MSE passed, but feature death <code>0.9119</code> and stability <code>0.2815</code> failed. The <a href="praxis05_phase_a/PX023_PIDSMaker_PIVOT_GATE_20260630.md">PIDSMaker pivot gate</a> identifies NodLink as the only clean direct 256-d candidate and validates a synthetic <code>512 x 256</code> activation-cache plus tiny SAE smoke path.</td>
-            <td>No positive SAE result yet. Do not reopen MAGIC or proceed to Phase B; only a real NodLink activation export followed by frozen Phase A diagnostics is justified.</td>
+            <td><span class="badge kill">Pivot failed</span></td>
+            <td><a href="praxis05_phase_a/FULL_GPU_PHASE_A_20260510.md">Full GPU Phase A</a>: MAGIC MSE passed, but feature death <code>0.9119</code> and stability <code>0.2815</code> failed. The <a href="praxis05_phase_a/PX023_PIDSMaker_PIVOT_GATE_20260630.md">PIDSMaker pivot gate</a> identified NodLink as the only clean direct 256-d candidate, and the <a href="praxis05_phase_a/PX023_NODLINK_REALDATA_PROXY_GATE_20260630.md">NodLink real-data proxy gate</a> ran a SAELens five-seed pilot over <code>9,611</code> full E5 Cadets windows and <code>256</code>-d NodLink-style activations.</td>
+            <td>Close PX-023 as negative for this cycle. The real-data proxy passed SAE reconstruction MSE ratio <code>0.0260</code> and feature-death <code>0.2607</code>, but failed seed stability at <code>0.1730</code> versus required <code>0.3000</code>. The full PIDSMaker route is still missing the required Postgres/Docker runtime, so do not reopen MAGIC, do not run Phase B, and do not claim detector hidden-state SAE interpretability.</td>
           </tr>
           <tr>
             <td class="num">24</td>
@@ -1015,6 +1015,11 @@
             <td><a href="praxis05_phase_a/PX023_PIDSMaker_PIVOT_GATE_20260630.md">PX-023 PIDSMaker larger-hidden-state pivot gate</a></td>
             <td>Candidate-dimension audit over PIDSMaker configs plus a local NodLink synthetic 256-d activation-cache and tiny TopK SAE smoke under <code>runs/px023-pidsmaker-pivot-gate-20260630/</code>.</td>
             <td>Source for keeping PX-023 alive only as a NodLink real-export gate, while preserving MAGIC Phase A as a failed SAE result.</td>
+          </tr>
+          <tr>
+            <td><a href="praxis05_phase_a/PX023_NODLINK_REALDATA_PROXY_GATE_20260630.md">PX-023 NodLink real-data proxy gate</a></td>
+            <td>Local real-data proxy over the full E5 Cadets window table: trains a NodLink <code>SumAggregation</code> reconstruction encoder, exports <code>9,611 x 256</code> activations, and runs a five-seed SAELens TopK pilot under <code>runs/px023-nodlink-realdata-proxy-20260630/</code>.</td>
+            <td>Source for closing PX-023 as negative this cycle: reconstruction and feature-death pass, but seed stability fails the Phase A threshold, and the full PIDSMaker/Postgres runtime remains blocked.</td>
           </tr>
           <tr>
             <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>

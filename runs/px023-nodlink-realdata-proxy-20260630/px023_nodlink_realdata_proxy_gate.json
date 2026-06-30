@@ -1,0 +1,390 @@
+{
+  "generated_utc": "2026-06-30T12:13:14.800382+00:00",
+  "status": "REAL-DATA PROXY FAIL - CLOSE PIVOT",
+  "claim_boundary": "Real Cadets window data and NodLink-style encoder; not a full PIDSMaker/Postgres detector run.",
+  "input": {
+    "source": "runs\\full-e5cadets-window-factory-20260511\\window_features.csv",
+    "rows": 9611,
+    "feature_dim": 70,
+    "feature_columns": [
+      "rows",
+      "span_seconds",
+      "source_files",
+      "distinct_subjects",
+      "distinct_objects",
+      "distinct_execs",
+      "distinct_event_types",
+      "event__EVENT_READ",
+      "event__EVENT_WRITE",
+      "event__EVENT_CLOSE",
+      "event__EVENT_OPEN",
+      "event__EVENT_MMAP",
+      "event__EVENT_FLOWS_TO",
+      "event__EVENT_MODIFY_PROCESS",
+      "event__EVENT_FCNTL",
+      "event__EVENT_LSEEK",
+      "event__EVENT_MPROTECT",
+      "event__EVENT_UNLINK",
+      "event__EVENT_FORK",
+      "event__EVENT_EXIT",
+      "event__EVENT_EXECUTE",
+      "event__EVENT_RECVFROM",
+      "event__EVENT_SENDTO",
+      "event__EVENT_CREATE_OBJECT",
+      "event__EVENT_CHANGE_PRINCIPAL",
+      "event__EVENT_RENAME",
+      "event__EVENT_CONNECT",
+      "event__EVENT_MODIFY_FILE_ATTRIBUTES",
+      "event__EVENT_TRUNCATE",
+      "event__EVENT_ADD_OBJECT_ATTRIBUTE",
+      "event__EVENT_RECVMSG",
+      "event__EVENT_SENDMSG",
+      "event__EVENT_LOGIN",
+      "event__EVENT_ACCEPT",
+      "event__EVENT_OTHER",
+      "event__EVENT_SIGNAL",
+      "event__EVENT_LINK",
+      "event__EVENT_BIND",
+      "exec__dlogd",
+      "exec__main",
+      "exec__du",
+      "exec__cc",
+      "exec__sh",
+      "exec__UNKNOWN",
+      "exec__make",
+      "exec__sshd",
+      "exec__ssh",
+      "exec__sudo",
+      "exec__sed",
+      "exec__scp",
+      "exec__sysctl",
+      "exec__bash",
+      "exec__alpine",
+      "exec__pkg",
+      "exec__syslogd",
+      "exec__rm",
+      "exec__find",
+      "exec__python2.7",
+      "exec__tmux",
+      "exec__fortune",
+      "exec__sendmail",
+      "exec__resizewin",
+      "exec__wget",
+      "exec__ld.lld",
+      "exec__netstat",
+      "exec__pfctl",
+      "exec__cron",
+      "exec__dmesg",
+      "exec__ls",
+      "exec__mv"
+    ],
+    "label_counts": {
+      "attack_node_touch": 9609,
+      "benign_or_unlabeled": 2
+    },
+    "excluded_label_leakage_columns": [
+      "window_id",
+      "start_ns",
+      "end_ns",
+      "primary_label",
+      "labels",
+      "label_overlap_ns",
+      "malicious_node_events",
+      "malicious_node_count",
+      "node_labels"
+    ]
+  },
+  "graph": {
+    "construction": "chronological_bidirectional_with_self_loops",
+    "edge_count": 28831
+  },
+  "nodlink_proxy": {
+    "seed": 13,
+    "epochs": 300,
+    "learning_rate": 0.003,
+    "weight_decay": 1e-05,
+    "baseline_mse": 0.9998959302902222,
+    "reconstruction_mse": 0.28154221177101135,
+    "mse_ratio": 0.2815715148368421,
+    "activation_shape": [
+      9611,
+      256
+    ],
+    "activation_std": 0.4885038435459137,
+    "activation_nonzero_fraction": 1.0,
+    "elapsed_seconds": 14.855674266815186
+  },
+  "activation_cache_manifest": {
+    "format": "praxis05_activation_cache_v1",
+    "shards": [
+      {
+        "path": "activations.pt",
+        "sha256": "509952e09aea48f8e1fbbd72fca1e44ca49e476829b1ca3b0324751aaad70ec4",
+        "rows": 9611,
+        "hidden_dim": 256
+      }
+    ],
+    "metadata_rows": 9611
+  },
+  "activation_cache_validation": {
+    "valid": true,
+    "rows": 9611,
+    "hidden_dim": 256,
+    "finite": true,
+    "std": 0.4885038435459137,
+    "nonzero_fraction": 1.0
+  },
+  "sae_metrics": [
+    {
+      "backend": "saelens",
+      "sae_lens_version": "6.43.0",
+      "research_backend": true,
+      "seed": 13,
+      "activation_rows": 9611,
+      "hidden_dim": 256,
+      "n_features": 1024,
+      "k": 32,
+      "steps": 1000,
+      "reconstruction_mse": 0.005987794773100616,
+      "mean_baseline_mse": 0.23482313067815563,
+      "mse_ratio": 0.025499169335696233,
+      "feature_death_rate": 0.2412109375,
+      "elapsed_seconds": 39.08185291290283
+    },
+    {
+      "backend": "saelens",
+      "sae_lens_version": "6.43.0",
+      "research_backend": true,
+      "seed": 42,
+      "activation_rows": 9611,
+      "hidden_dim": 256,
+      "n_features": 1024,
+      "k": 32,
+      "steps": 1000,
+      "reconstruction_mse": 0.006005890324018759,
+      "mean_baseline_mse": 0.23482313067815563,
+      "mse_ratio": 0.025576229678371525,
+      "feature_death_rate": 0.25390625,
+      "elapsed_seconds": 41.790332078933716
+    },
+    {
+      "backend": "saelens",
+      "sae_lens_version": "6.43.0",
+      "research_backend": true,
+      "seed": 137,
+      "activation_rows": 9611,
+      "hidden_dim": 256,
+      "n_features": 1024,
+      "k": 32,
+      "steps": 1000,
+      "reconstruction_mse": 0.00624113935745044,
+      "mean_baseline_mse": 0.23482313067815563,
+      "mse_ratio": 0.026578043395581983,
+      "feature_death_rate": 0.2744140625,
+      "elapsed_seconds": 39.08522272109985
+    },
+    {
+      "backend": "saelens",
+      "sae_lens_version": "6.43.0",
+      "research_backend": true,
+      "seed": 271,
+      "activation_rows": 9611,
+      "hidden_dim": 256,
+      "n_features": 1024,
+      "k": 32,
+      "steps": 1000,
+      "reconstruction_mse": 0.006231405821591755,
+      "mean_baseline_mse": 0.23482313067815563,
+      "mse_ratio": 0.026536592896942542,
+      "feature_death_rate": 0.2666015625,
+      "elapsed_seconds": 37.57480573654175
+    },
+    {
+      "backend": "saelens",
+      "sae_lens_version": "6.43.0",
+      "research_backend": true,
+      "seed": 1729,
+      "activation_rows": 9611,
+      "hidden_dim": 256,
+      "n_features": 1024,
+      "k": 32,
+      "steps": 1000,
+      "reconstruction_mse": 0.006086384613796,
+      "mean_baseline_mse": 0.23482313067815563,
+      "mse_ratio": 0.02591901656459001,
+      "feature_death_rate": 0.267578125,
+      "elapsed_seconds": 44.594014167785645
+    }
+  ],
+  "sae_diagnostics": {
+    "phase": "A",
+    "status": "FAIL",
+    "kill_switch_enforced": true,
+    "run_count": 5,
+    "runs": [
+      "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\runs\\px023-nodlink-realdata-proxy-20260630\\saelens_phase_a_pilot\\sae_seed_13",
+      "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\runs\\px023-nodlink-realdata-proxy-20260630\\saelens_phase_a_pilot\\sae_seed_137",
+      "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\runs\\px023-nodlink-realdata-proxy-20260630\\saelens_phase_a_pilot\\sae_seed_1729",
+      "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\runs\\px023-nodlink-realdata-proxy-20260630\\saelens_phase_a_pilot\\sae_seed_271",
+      "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\runs\\px023-nodlink-realdata-proxy-20260630\\saelens_phase_a_pilot\\sae_seed_42"
+    ],
+    "checks": {
+      "mse_ratio": {
+        "value": 0.02602181037423646,
+        "pass": true,
+        "threshold": 0.25
+      },
+      "feature_death_rate": {
+        "value": 0.2607421875,
+        "pass": true,
+        "threshold": 0.5
+      },
+      "seed_stability": {
+        "value": 0.1730000004172325,
+        "pass": false,
+        "threshold": 0.3
+      }
+    },
+    "stability": {
+      "top_k": 100,
+      "cosine_threshold": 0.8,
+      "pairwise": [
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_137",
+          "overlap": 0.18000000715255737
+        },
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_1729",
+          "overlap": 0.19499999284744263
+        },
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_271",
+          "overlap": 0.1850000023841858
+        },
+        {
+          "left": "sae_seed_13",
+          "right": "sae_seed_42",
+          "overlap": 0.1850000023841858
+        },
+        {
+          "left": "sae_seed_137",
+          "right": "sae_seed_1729",
+          "overlap": 0.15000000596046448
+        },
+        {
+          "left": "sae_seed_137",
+          "right": "sae_seed_271",
+          "overlap": 0.18000000715255737
+        },
+        {
+          "left": "sae_seed_137",
+          "right": "sae_seed_42",
+          "overlap": 0.1599999964237213
+        },
+        {
+          "left": "sae_seed_1729",
+          "right": "sae_seed_271",
+          "overlap": 0.16499999165534973
+        },
+        {
+          "left": "sae_seed_1729",
+          "right": "sae_seed_42",
+          "overlap": 0.16499999165534973
+        },
+        {
+          "left": "sae_seed_271",
+          "right": "sae_seed_42",
+          "overlap": 0.16500000655651093
+        }
+      ],
+      "mean_pairwise_overlap": 0.1730000004172325
+    },
+    "metrics": [
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 13,
+        "activation_rows": 9611,
+        "hidden_dim": 256,
+        "n_features": 1024,
+        "k": 32,
+        "steps": 1000,
+        "reconstruction_mse": 0.005987794773100616,
+        "mean_baseline_mse": 0.23482313067815563,
+        "mse_ratio": 0.025499169335696233,
+        "feature_death_rate": 0.2412109375,
+        "elapsed_seconds": 39.08185291290283
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 137,
+        "activation_rows": 9611,
+        "hidden_dim": 256,
+        "n_features": 1024,
+        "k": 32,
+        "steps": 1000,
+        "reconstruction_mse": 0.00624113935745044,
+        "mean_baseline_mse": 0.23482313067815563,
+        "mse_ratio": 0.026578043395581983,
+        "feature_death_rate": 0.2744140625,
+        "elapsed_seconds": 39.08522272109985
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 1729,
+        "activation_rows": 9611,
+        "hidden_dim": 256,
+        "n_features": 1024,
+        "k": 32,
+        "steps": 1000,
+        "reconstruction_mse": 0.006086384613796,
+        "mean_baseline_mse": 0.23482313067815563,
+        "mse_ratio": 0.02591901656459001,
+        "feature_death_rate": 0.267578125,
+        "elapsed_seconds": 44.594014167785645
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 271,
+        "activation_rows": 9611,
+        "hidden_dim": 256,
+        "n_features": 1024,
+        "k": 32,
+        "steps": 1000,
+        "reconstruction_mse": 0.006231405821591755,
+        "mean_baseline_mse": 0.23482313067815563,
+        "mse_ratio": 0.026536592896942542,
+        "feature_death_rate": 0.2666015625,
+        "elapsed_seconds": 37.57480573654175
+      },
+      {
+        "backend": "saelens",
+        "sae_lens_version": "6.43.0",
+        "research_backend": true,
+        "seed": 42,
+        "activation_rows": 9611,
+        "hidden_dim": 256,
+        "n_features": 1024,
+        "k": 32,
+        "steps": 1000,
+        "reconstruction_mse": 0.006005890324018759,
+        "mean_baseline_mse": 0.23482313067815563,
+        "mse_ratio": 0.025576229678371525,
+        "feature_death_rate": 0.25390625,
+        "elapsed_seconds": 41.790332078933716
+      }
+    ],
+    "next_step": "Do not proceed to Phase B. Write the negative-result note or run the single allowed PIDSMaker pivot."
+  },
+  "decision": "Close PX-023 as negative for this cycle. The available real-data NodLink-style pivot fails the Phase A pilot diagnostics on seed_stability, while the full PIDSMaker runtime remains database-blocked. Do not reopen MAGIC or spend on Phase B."
+}
