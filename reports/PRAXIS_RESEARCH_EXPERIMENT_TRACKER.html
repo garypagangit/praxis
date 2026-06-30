@@ -557,9 +557,9 @@
             <td class="num">PX-011</td>
             <td class="title">HalluHard Source-Backed Verifier Audit</td>
             <td>Idea Explorer</td>
-            <td><span class="badge hold">Model gate mixed</span></td>
-            <td><a href="halluhard_source_verifier/HALLUHARD_SOURCE_GATE_20260628.md">Source gate</a> and <a href="halluhard_source_verifier/HALLUHARD_RESEARCH_VERIFIER_PROTOTYPE_20260628.md">prototype gate</a> pass; the <a href="halluhard_source_verifier/HALLUHARD_SOURCE_CONDITIONED_RESPONSE_GATE_20260628.md">corrected source-conditioned response gate</a> runs <code>250</code> generations / <code>500</code> evaluation pairs and lands mixed: parse-valid rate <code>0.1000</code>, supported rate <code>0.1000</code>, verifier macro F1 <code>0.4357</code> versus field-presence baseline <code>0.4048</code>.</td>
-            <td>Do not publish as a positive result yet. Treat as an operational verifier/guardrail with weak live-model response quality; next tweak is stricter structured-output prompting or a stronger/RAG model before any HalluHard utility claim.</td>
+            <td><span class="badge hold">Repair gate mixed</span></td>
+            <td><a href="halluhard_source_verifier/HALLUHARD_SOURCE_GATE_20260628.md">Source gate</a> and <a href="halluhard_source_verifier/HALLUHARD_RESEARCH_VERIFIER_PROTOTYPE_20260628.md">prototype gate</a> pass; the <a href="halluhard_source_verifier/HALLUHARD_SOURCE_CONDITIONED_RESPONSE_GATE_20260628.md">corrected source-conditioned response gate</a> is mixed. The <a href="halluhard_source_verifier/HALLUHARD_REPAIR_GATE_20260630.md">repair gate</a> recovers <code>192</code>/<code>250</code> supported generations from malformed JSON, improving verifier macro F1 from <code>0.4357</code> to <code>0.5652</code> versus field-presence <code>0.4613</code>.</td>
+            <td>Keep as research-lane guardrail evidence, not a broad HalluHard positive. Repair shows formatting/parser failure was a major blocker, but only <code>63</code>/<code>250</code> supported generations pass all DOI/arXiv/title/year/content verifier checks. Next live run requires constrained JSON/schema decoding or a stronger/RAG model.</td>
           </tr>
           <tr>
             <td class="num">12</td>
@@ -940,6 +940,11 @@
             <td><a href="halluhard_source_verifier/HALLUHARD_SOURCE_CONDITIONED_RESPONSE_GATE_20260628.md">PX-011 HalluHard source-conditioned response gate</a></td>
             <td>Corrected paid AWS gate over 250 open-model source-conditioned generations and 500 supported/shifted-negative evaluation pairs.</td>
             <td>Source for marking PX-011 as mixed rather than positive after live-model testing.</td>
+          </tr>
+          <tr>
+            <td><a href="halluhard_source_verifier/HALLUHARD_REPAIR_GATE_20260630.md">PX-011 HalluHard repair gate</a></td>
+            <td>Local malformed-JSON repair analysis over frozen source-conditioned model outputs, recomputing the same deterministic source verifier.</td>
+            <td>Source for upgrading PX-011 from simple model-gate mixed to repair-gate mixed: parser repair helps, but live supported-claim quality is still not publishable as a broad positive.</td>
           </tr>
           <tr>
             <td><a href="ai_supply_chain_training_provenance/AI_SUPPLY_CHAIN_MULTISTRENGTH_LORA_GATE_20260628.md">PX-009 LoRA multi-strength gate</a></td>
