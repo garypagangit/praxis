@@ -1,0 +1,164 @@
+{
+  "generated_utc": "2026-07-01T00:04:56.179883+00:00",
+  "out_dir": "runs\\px002-ttp-retrieval-defense-audit-20260630",
+  "report": "reports\\gnn_attribution_ttp_graph_embeddings\\PX002_TTP_RETRIEVAL_DEFENSE_AUDIT_20260630.md",
+  "graph": {
+    "groups": 174,
+    "techniques": 697,
+    "edges": 4546,
+    "min_degree": 10,
+    "shot": 5,
+    "seeds": [
+      13,
+      42,
+      271,
+      1729,
+      20260510
+    ]
+  },
+  "summary": [
+    {
+      "setting": "leave_query_out",
+      "method": "frequency_prior",
+      "shot": 5,
+      "top1": 0.008264462809917356,
+      "top5": 0.04132231404958678,
+      "top10": 0.08264462809917356,
+      "mrr": 0.04443911363771333,
+      "median_rank": 61.0,
+      "queries": 605
+    },
+    {
+      "setting": "leave_query_out",
+      "method": "overlap_cosine",
+      "shot": 5,
+      "top1": 0.0,
+      "top5": 0.0,
+      "top10": 0.0,
+      "mrr": 0.008266368457468372,
+      "median_rank": 134.0,
+      "queries": 605
+    },
+    {
+      "setting": "leave_query_out",
+      "method": "random_uniform",
+      "shot": 5,
+      "top1": 0.0049586776859504135,
+      "top5": 0.02809917355371901,
+      "top10": 0.05289256198347107,
+      "mrr": 0.03286599732081935,
+      "median_rank": 84.0,
+      "queries": 605
+    },
+    {
+      "setting": "leave_query_out",
+      "method": "svd32_graph_embedding",
+      "shot": 5,
+      "top1": 0.11570247933884298,
+      "top5": 0.2991735537190083,
+      "top10": 0.4132231404958678,
+      "mrr": 0.21499038309359364,
+      "median_rank": 16.0,
+      "queries": 605
+    },
+    {
+      "setting": "noisy_query",
+      "method": "frequency_prior",
+      "shot": 5,
+      "top1": 0.008264462809917356,
+      "top5": 0.04132231404958678,
+      "top10": 0.08264462809917356,
+      "mrr": 0.04443911363771333,
+      "median_rank": 61.0,
+      "queries": 605
+    },
+    {
+      "setting": "noisy_query",
+      "method": "overlap_cosine",
+      "shot": 5,
+      "top1": 0.4115702479338843,
+      "top5": 0.7884297520661157,
+      "top10": 0.9140495867768595,
+      "mrr": 0.5670756810474078,
+      "median_rank": 2.0,
+      "queries": 605
+    },
+    {
+      "setting": "noisy_query",
+      "method": "random_uniform",
+      "shot": 5,
+      "top1": 0.0049586776859504135,
+      "top5": 0.02809917355371901,
+      "top10": 0.05289256198347107,
+      "mrr": 0.03286599732081935,
+      "median_rank": 84.0,
+      "queries": 605
+    },
+    {
+      "setting": "noisy_query",
+      "method": "svd32_graph_embedding",
+      "shot": 5,
+      "top1": 0.22479338842975208,
+      "top5": 0.5768595041322314,
+      "top10": 0.7669421487603306,
+      "mrr": 0.38931923192401496,
+      "median_rank": 4.0,
+      "queries": 605
+    },
+    {
+      "setting": "standard",
+      "method": "frequency_prior",
+      "shot": 5,
+      "top1": 0.008264462809917356,
+      "top5": 0.04132231404958678,
+      "top10": 0.08264462809917356,
+      "mrr": 0.04443911363771333,
+      "median_rank": 61.0,
+      "queries": 605
+    },
+    {
+      "setting": "standard",
+      "method": "overlap_cosine",
+      "shot": 5,
+      "top1": 0.7206611570247934,
+      "top5": 0.9603305785123967,
+      "top10": 0.9917355371900827,
+      "mrr": 0.8242056280188713,
+      "median_rank": 1.0,
+      "queries": 605
+    },
+    {
+      "setting": "standard",
+      "method": "random_uniform",
+      "shot": 5,
+      "top1": 0.0049586776859504135,
+      "top5": 0.02809917355371901,
+      "top10": 0.05289256198347107,
+      "mrr": 0.03286599732081935,
+      "median_rank": 84.0,
+      "queries": 605
+    },
+    {
+      "setting": "standard",
+      "method": "svd32_graph_embedding",
+      "shot": 5,
+      "top1": 0.6231404958677685,
+      "top5": 0.8793388429752066,
+      "top10": 0.9487603305785124,
+      "mrr": 0.7317678244655784,
+      "median_rank": 1.0,
+      "queries": 605
+    }
+  ],
+  "decision": {
+    "status": "BOUNDED LOOKUP-STYLE POSITIVE ONLY",
+    "defense_ready": false,
+    "bounded_positive": true,
+    "standard_overlap_top5": 0.9603305785123967,
+    "leave_query_out_overlap_top5": 0.0,
+    "noisy_query_overlap_top5": 0.7884297520661157,
+    "leave_query_out_svd_top5": 0.2991735537190083,
+    "noisy_query_svd_top5": 0.5768595041322314,
+    "recommendation": "Keep PX-002 only as a bounded profile-lookup artifact. Do not use it as a major Praxis defense pillar because anti-tautology/noisy-query stress is too weak."
+  }
+}

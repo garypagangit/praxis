@@ -423,9 +423,9 @@
     <p class="small">This is the single publishable tracker list. Stable IDs use <code>PX-###</code>. The rows are ranked by current Praxis value: packageable positives first, then evidence artifacts, gate-ready work, diagnostics/negatives, blocked tracks, and deferred idea-bank items. The repository lane identifies where the experiment lives conceptually; the evidence column links to the concrete code, documents, result reports, run artifacts, configs, or source decisions that support the row.</p>
     <div class="summary-grid">
       <div class="summary-card positive">
-        <div class="summary-number">7</div>
+        <div class="summary-number">4</div>
         <strong>Working positives</strong>
-        <p class="small">Results with bounded claims worth packaging or extending carefully.</p>
+        <p class="small">Defense-audited positives worth packaging as true Praxis results.</p>
       </div>
       <div class="summary-card start">
         <div class="summary-number">3</div>
@@ -433,9 +433,9 @@
         <p class="small">Concrete next gate exists, or source readiness is the correct next move.</p>
       </div>
       <div class="summary-card hold">
-        <div class="summary-number">12</div>
+        <div class="summary-number">15</div>
         <strong>Evidence / diagnostic</strong>
-        <p class="small">Useful as support, remediation, boundary, or provisional harness.</p>
+        <p class="small">Useful as support, remediation, boundary, demotion evidence, or provisional harness.</p>
       </div>
       <div class="summary-card kill">
         <div class="summary-number">16</div>
@@ -467,45 +467,45 @@
             <td class="num">PX-001</td>
             <td class="title">Safety-Gated TTA for Streaming APT Detection</td>
             <td>Praxis 06</td>
-            <td><span class="badge positive">Lead positive</span></td>
-            <td><a href="tta_streaming_apt/TTA_FUNCTIONING_CAPABILITY_REPORT_20260513.md">Locked replay and functioning report</a>: Macro-F1 <code>0.8658</code>, Recon F1 <code>0.5050</code>, matched confidence-reject Recon F1 <code>0.0000</code>; seven-seed hardening complete.</td>
-            <td>Package as lead paper/thesis result. No threshold changes.</td>
+            <td><span class="badge positive">Defense-ready positive</span></td>
+            <td><a href="tta_streaming_apt/TTA_FUNCTIONING_CAPABILITY_REPORT_20260513.md">Locked replay and functioning report</a> plus <a href="../runs/tta-defense-hardening-defense-audit-20260630/PRAXIS06_TTA_DEFENSE_HARDENING_REPORT_20260513.md">fresh 7-seed defense replay</a>: locked hybrid Macro-F1 <code>0.8658</code> vs frozen <code>0.7685</code>, Recon F1 <code>0.5050</code> vs <code>0.0250</code>, DE F1 <code>0.9202</code>, changed-from-DE count <code>0</code>.</td>
+            <td>Use as lead Praxis defense result. No threshold changes.</td>
           </tr>
           <tr>
             <td class="num">2</td>
             <td class="num">PX-002</td>
             <td class="title">ATT&amp;CK TTP-Set Profile Retrieval</td>
             <td>Praxis / CTI</td>
-            <td><span class="badge positive">Selected positive</span></td>
-            <td><a href="gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md">Profile retrieval result</a>: 5-shot top-5 overlap <code>0.960</code>, SVD <code>0.879</code>, random <code>0.028</code>, frequency prior <code>0.041</code>.</td>
-            <td>Publish as profile retrieval only. Do not claim CTI prose attribution or GNN superiority.</td>
+            <td><span class="badge source">Demoted diagnostic</span></td>
+            <td><a href="gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md">Original profile retrieval</a> had 5-shot top-5 overlap <code>0.960</code>, but the <a href="gnn_attribution_ttp_graph_embeddings/PX002_TTP_RETRIEVAL_DEFENSE_AUDIT_20260630.md">defense audit</a> found leave-query-out overlap top-5 <code>0.000</code> and SVD leave-query-out top-5 <code>0.299</code>.</td>
+            <td>Keep as lookup/retrieval utility only. Do not use as a Praxis defense pillar.</td>
           </tr>
           <tr>
             <td class="num">3</td>
             <td class="num">PX-003</td>
             <td class="title">Retrieval-Conditioned CTI Compliance</td>
             <td>Praxis 07</td>
-            <td><span class="badge positive">Narrow positive</span></td>
-            <td><a href="relationship_evidence_cti_compliance/PRAXIS07_RESULT_SYNTHESIS_20260517.md">Result synthesis</a>: 8B vanilla <code>0.642</code>, relationship evidence <code>0.915</code>; 3B relationship evidence <code>0.887</code>.</td>
-            <td>Package with conservative mechanism language. Add pipeline figure and example row.</td>
+            <td><span class="badge positive">Defense-ready positive</span></td>
+            <td><a href="relationship_evidence_cti_compliance/PRAXIS07_RESULT_SYNTHESIS_20260517.md">Llama synthesis</a>, <a href="relationship_evidence_cti_compliance/PX003_QWEN25_7B_DEFENSE_REPLICATION_20260630.md">Qwen2.5-7B defense replication</a>, and <a href="relationship_evidence_cti_compliance/PX034_CTI_SOURCE_CONFLICT_GATE_20260630.md">source-conflict router</a>: Qwen vanilla <code>0.623</code>, relationship evidence <code>0.906</code>, technique-only <code>0.726</code>, random facts <code>0.462</code>, empty evidence <code>0.594</code>, broad seed <code>0.660</code>.</td>
+            <td>Package as major Praxis result with PX-034 merged in. Claim retrieval-conditioned CTI compliance, not pure relationship causality.</td>
           </tr>
           <tr>
             <td class="num">4</td>
             <td class="num">PX-004</td>
             <td class="title">FalseCite-Code Software-Artifact Citation Poisoning</td>
             <td>Idea Explorer / FalseCite</td>
-            <td><span class="badge positive">Short paper published</span></td>
-            <td><a href="falsecite_code/FALSECITE_CODE_SHORT_PAPER_20260628.md">Final short paper</a> and <a href="falsecite_code/README.md">experiment README</a> package the bounded positive result: verifier reduced strict fabricated trust to <code>0.0000</code>; generation verbose160 shows base strict trust <code>0.8333</code> to verifier <code>0.0000</code>.</td>
-            <td>Published as bounded Praxis result; add a second code-tuned model only if expanding the claim.</td>
+            <td><span class="badge positive">Bounded defense-positive</span></td>
+            <td><a href="falsecite_code/FALSECITE_CODE_SHORT_PAPER_20260628.md">Final short paper</a>, <a href="falsecite_code/README.md">experiment README</a>, and <a href="falsecite_code/defense_refresh_20260630/FALSECITE_CODE_SOURCE_VERIFIER_GATE_20260623.md">authenticated metadata freshness audit</a>: refreshed verifier accuracy <code>1.000</code>, invalid recall <code>1.000</code>, API error rate <code>0.000</code>; generation verbose160 base strict trust <code>0.8333</code> to verifier <code>0.0000</code>.</td>
+            <td>Use as practical verifier/guardrail paper. Add another code-tuned model only if expanding the model-family claim.</td>
           </tr>
           <tr>
             <td class="num">5</td>
             <td class="num">PX-005</td>
             <td class="title">MoE Standing-Committee Router Audit</td>
             <td>Idea Explorer / MoE</td>
-            <td><span class="badge positive">Short paper ready</span></td>
+            <td><span class="badge positive">Bounded positive</span></td>
             <td><a href="moe_standing_committee/MOE_STANDING_COMMITTEE_SHORT_PAPER_20260628.md">Short paper</a>: OLMoE base/instruct both PASS; <a href="moe_standing_committee/qwen15_router_audit_20260628/MOE_QWEN15_ROUTER_AUDIT_20260628.md">Qwen1.5-MoE frozen audit</a> PASS with <code>480/480</code> router capture, primary Jaccard <code>0.5826</code>, bootstrap CI <code>[0.5552, 0.6281]</code>; all frozen checks passed.</td>
-            <td>Publish as bounded-positive standing-committee router result; next scientific extension is Qwen-Chat/DeepSeek replication or causal/domain-shift intervention.</td>
+            <td>Publish as bounded-positive router-observability result. Do not claim causal expert specialization without intervention evidence.</td>
           </tr>
           <tr>
             <td class="num">6</td>
@@ -548,9 +548,9 @@
             <td class="num">PX-010</td>
             <td class="title">Synthetic Ground-Truth Circuit Recovery Benchmark</td>
             <td>Idea Explorer</td>
-            <td><span class="badge positive">Bounded positive</span></td>
-            <td><a href="synthetic_circuit_recovery/README.md">Experiment README</a>: <a href="known_circuit_recovery/KNOWN_CIRCUIT_RECOVERY_GATE_20260623.md">known-circuit gate</a>, <a href="synthetic_circuit_recovery/TINY_TRANSFORMER_CIRCUIT_GATE_20260628.md">tiny attention follow-on</a>, and <a href="synthetic_circuit_recovery/TRAINED_TINY_ATTENTION_BRIDGE_20260628.md">trained attention bridge</a> all PASS; trained bridge patching AP <code>1.0000</code>, precision@K <code>1.0000</code>.</td>
-            <td>Use as methods artifact; next gate is full trained transformer or real activation corpus before natural-hidden-state claims.</td>
+            <td><span class="badge source">Methods diagnostic</span></td>
+            <td><a href="synthetic_circuit_recovery/README.md">Experiment README</a>: the known-circuit, tiny attention, and trained tiny-attention gates pass, but the <a href="synthetic_circuit_recovery/TRAINED_MINI_TRANSFORMER_CIRCUIT_BRIDGE_20260630.md">trained mini-transformer bridge</a> fails. Holdout accuracy is <code>0.9988</code>, but attention-source patch precision@K is <code>0.7000</code> and stable seed fraction is <code>0.4000</code>.</td>
+            <td>Keep as honest methods artifact. Do not defend as natural/transformer circuit recovery until a stronger bridge or real activation-corpus gate passes.</td>
           </tr>
           <tr>
             <td class="num">11</td>
@@ -764,9 +764,9 @@
             <td class="num">PX-034</td>
             <td class="title">Open Deep Research Agent for CTI Source-Conflict Evidence</td>
             <td>Idea Explorer</td>
-            <td><span class="badge positive">Merged bounded positive</span></td>
+            <td><span class="badge source">Merged into PX-003</span></td>
             <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> rejects biomedical framing as too high-risk, but the <a href="relationship_evidence_cti_compliance/PX034_CTI_SOURCE_CONFLICT_GATE_20260630.md">CTI source-conflict gate</a> reframes PX-034 into a PX-003 router add-on. It finds <code>106</code>/<code>500</code> decisive CTI-MCQ rows, <code>179</code> high-support conflicting rows, <code>28</code> ambiguous rows, <code>37</code> weak single-source rows, and <code>150</code> unsupported rows.</td>
-            <td>Merge into PX-003 as a bounded source-conflict/router positive. The decisive slice is the same slice where relationship evidence lifted strict accuracy on Llama-3.1-8B from <code>0.642</code> to <code>0.915</code> and Llama-3.2-3B from <code>0.547</code> to <code>0.887</code>. Do not claim a broad open deep research agent.</td>
+            <td>Merge into PX-003 as a bounded source-conflict/router add-on. The decisive slice is also now cross-family validated by Qwen2.5-7B relationship evidence at <code>0.906</code> versus vanilla <code>0.623</code>. Do not count PX-034 as a separate positive or claim a broad open deep research agent.</td>
           </tr>
           <tr>
             <td class="num">35</td>
@@ -990,6 +990,21 @@
             <td><a href="swe_evo_repo_state_world_model/SWE_EVO_CROSS_MODEL_PRIMARY_QUEUE_20260630.md">PX-033 SWE-EVO cross-model primary queue</a></td>
             <td>Paid AWS execution of the registered five-row <code>gpt-4o-2024-11-20</code> primary queue, with raw JSON/CSV outputs under <code>runs/px033-swe-evo-cross-model-primary-20260630/</code>.</td>
             <td>Source for stopping PX-033 as diagnostic evidence: the primary queue passed <code>1</code>/<code>5</code>, failed to beat the repo-family metadata baseline, and does not justify the DeepSeek confirmation queue or RWML training.</td>
+          </tr>
+          <tr>
+            <td><a href="praxis_defense_positive_audit/POSITIVE_EXPERIMENTS_DEFENSE_AUDIT_20260630.md">Praxis positive experiments defense audit</a></td>
+            <td>Second-look audit of the seven prior positives, including PX-002 anti-tautology testing, PX-003 Qwen cloud replication, PX-004 metadata freshness, PX-010 mini-transformer bridge, and updated true-positive classifications.</td>
+            <td>Source for the tracker's revised count: four true positives, with PX-002 and PX-010 demoted and PX-034 merged into PX-003.</td>
+          </tr>
+          <tr>
+            <td><a href="praxis_defense_positive_audit/PRAXIS_TRUE_POSITIVE_PAPER_PACK_20260630.md">Praxis true-positive paper pack</a></td>
+            <td>Praxis-format writeups for PX-001, PX-003/PX-034, PX-004, and PX-005 with thesis, objective, method, result, claim boundary, and evidence links.</td>
+            <td>Primary paper scaffold for the surviving positive experiments.</td>
+          </tr>
+          <tr>
+            <td><a href="relationship_evidence_cti_compliance/PX003_QWEN25_7B_DEFENSE_REPLICATION_20260630.md">PX-003 Qwen2.5-7B defense replication</a></td>
+            <td>AWS g5 cross-family model gate over the locked 106-row CTI-MCQ evidence-addressable slice and all six prompt conditions.</td>
+            <td>Source for keeping PX-003/PX-034 as a true defense-ready positive.</td>
           </tr>
           <tr>
             <td><a href="relationship_evidence_cti_compliance/PX034_CTI_SOURCE_CONFLICT_GATE_20260630.md">PX-034 CTI source-conflict evidence gate</a></td>

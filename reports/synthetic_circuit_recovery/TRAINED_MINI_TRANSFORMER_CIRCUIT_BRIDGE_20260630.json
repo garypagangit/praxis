@@ -1,0 +1,302 @@
+{
+  "aggregate": {
+    "attention_target_accuracy": {
+      "mean": 0.9268055555555555,
+      "std": 0.017132382161232515
+    },
+    "checks": {
+      "attention_source_patch_ap": false,
+      "attention_source_patch_precision_at_k": false,
+      "attention_target_accuracy": true,
+      "holdout_accuracy": true,
+      "minimum_seeds": true,
+      "stable_seed_fraction": false
+    },
+    "decision": "FAIL",
+    "holdout_accuracy": {
+      "mean": 0.99875,
+      "std": 0.0008098544298396222
+    },
+    "source_patch_average_precision": {
+      "mean": 0.7999999999999998,
+      "std": 0.18708286933869708
+    },
+    "source_patch_precision_at_k": {
+      "mean": 0.7,
+      "std": 0.2449489742783178
+    },
+    "stable_seed_fraction": 0.4
+  },
+  "config": {
+    "claim_boundary": "This is a trained synthetic mini-transformer bridge with learned token/position embeddings, Q/K/V attention, residual, MLP, and strict held-out key-pair tasks. It strengthens PX-010 beyond deterministic and single-head attention bridges, but it still does not prove natural-language transformer circuit recovery.",
+    "data": {
+      "key_vocab_size": 24,
+      "samples_per_task": 18,
+      "strict_holdout_tasks": 80,
+      "train_tasks": 320,
+      "validation_tasks": 80
+    },
+    "experiment_id": "trained-mini-transformer-circuit-bridge-20260630",
+    "gate_thresholds": {
+      "attention_source_patch_ap_min": 0.8,
+      "attention_source_patch_precision_at_k_min": 1.0,
+      "attention_target_accuracy_min": 0.85,
+      "holdout_accuracy_min": 0.92,
+      "minimum_seeds": 5,
+      "stable_seed_fraction_min": 0.8
+    },
+    "model": {
+      "batch_size": 256,
+      "d_model": 48,
+      "epochs": 120,
+      "learning_rate": 0.003,
+      "mlp_hidden": 96,
+      "num_heads": 3,
+      "weight_decay": 0.01
+    },
+    "praxis_track": "Synthetic ground-truth circuit recovery",
+    "px_id": "PX-010",
+    "run_date": "2026-06-30",
+    "seeds": [
+      101,
+      202,
+      303,
+      404,
+      505
+    ],
+    "title": "Trained Mini-Transformer Circuit Bridge for Synthetic Circuit Recovery",
+    "true_attention_source_components": [
+      "attn_source_pair0",
+      "attn_source_pair1"
+    ]
+  },
+  "device": "cpu",
+  "generated_utc": "2026-07-01 00:14:06 UTC",
+  "seed_results": [
+    {
+      "component_recovery": {
+        "baseline_log_loss": 0.0039025583028213648,
+        "source_patch_average_precision": 0.5833333333333333,
+        "source_patch_precision_at_k": 0.5,
+        "source_patch_scores": {
+          "attn_source_pair0": 4.981262413203017,
+          "attn_source_pair1": 5.149502417269625,
+          "attn_source_query": 5.511259722929419
+        },
+        "source_patch_top_components": [
+          "attn_source_query",
+          "attn_source_pair1"
+        ]
+      },
+      "device": "cpu",
+      "history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.85,
+          "validation_accuracy": 0.8298611111111112
+        },
+        {
+          "epoch": 61.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 0.9972222222222222
+        },
+        {
+          "epoch": 120.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 0.9972222222222222
+        }
+      ],
+      "holdout": {
+        "accuracy": 0.9986111111111111,
+        "attention_target_accuracy": 0.9479166666666666,
+        "log_loss": 0.0039026436310428845
+      },
+      "row_counts": {
+        "strict_holdout": 1440,
+        "train": 5760,
+        "validation": 1440
+      },
+      "seed": 101
+    },
+    {
+      "component_recovery": {
+        "baseline_log_loss": 0.01457623006751211,
+        "source_patch_average_precision": 1.0,
+        "source_patch_precision_at_k": 1.0,
+        "source_patch_scores": {
+          "attn_source_pair0": 1.7857814491122899,
+          "attn_source_pair1": 1.6921556030693172,
+          "attn_source_query": 1.4341742953255414
+        },
+        "source_patch_top_components": [
+          "attn_source_pair0",
+          "attn_source_pair1"
+        ]
+      },
+      "device": "cpu",
+      "history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.7949652777777778,
+          "validation_accuracy": 0.8097222222222222
+        },
+        {
+          "epoch": 61.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 120.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ],
+      "holdout": {
+        "accuracy": 0.9972222222222222,
+        "attention_target_accuracy": 0.9159722222222222,
+        "log_loss": 0.014576341501189805
+      },
+      "row_counts": {
+        "strict_holdout": 1440,
+        "train": 5760,
+        "validation": 1440
+      },
+      "seed": 202
+    },
+    {
+      "component_recovery": {
+        "baseline_log_loss": 0.00428513115476344,
+        "source_patch_average_precision": 1.0,
+        "source_patch_precision_at_k": 1.0,
+        "source_patch_scores": {
+          "attn_source_pair0": 1.4809058159861126,
+          "attn_source_pair1": 1.7707970772126045,
+          "attn_source_query": 1.2130662770184222
+        },
+        "source_patch_top_components": [
+          "attn_source_pair1",
+          "attn_source_pair0"
+        ]
+      },
+      "device": "cpu",
+      "history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.8482638888888889,
+          "validation_accuracy": 0.8347222222222223
+        },
+        {
+          "epoch": 61.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        },
+        {
+          "epoch": 120.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ],
+      "holdout": {
+        "accuracy": 0.9993055555555556,
+        "attention_target_accuracy": 0.94375,
+        "log_loss": 0.004285214704461589
+      },
+      "row_counts": {
+        "strict_holdout": 1440,
+        "train": 5760,
+        "validation": 1440
+      },
+      "seed": 303
+    },
+    {
+      "component_recovery": {
+        "baseline_log_loss": 0.003130784470055782,
+        "source_patch_average_precision": 0.5833333333333333,
+        "source_patch_precision_at_k": 0.5,
+        "source_patch_scores": {
+          "attn_source_pair0": 3.120224980814271,
+          "attn_source_pair1": 2.8550833949974113,
+          "attn_source_query": 3.628630007478333
+        },
+        "source_patch_top_components": [
+          "attn_source_query",
+          "attn_source_pair0"
+        ]
+      },
+      "device": "cpu",
+      "history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.8210069444444444,
+          "validation_accuracy": 0.8125
+        },
+        {
+          "epoch": 61.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 0.9979166666666667
+        },
+        {
+          "epoch": 120.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 1.0
+        }
+      ],
+      "holdout": {
+        "accuracy": 0.9993055555555556,
+        "attention_target_accuracy": 0.9020833333333333,
+        "log_loss": 0.0031308702518254325
+      },
+      "row_counts": {
+        "strict_holdout": 1440,
+        "train": 5760,
+        "validation": 1440
+      },
+      "seed": 404
+    },
+    {
+      "component_recovery": {
+        "baseline_log_loss": 0.004847991270430674,
+        "source_patch_average_precision": 0.8333333333333333,
+        "source_patch_precision_at_k": 0.5,
+        "source_patch_scores": {
+          "attn_source_pair0": 2.621518780046306,
+          "attn_source_pair1": 3.0470982923657637,
+          "attn_source_query": 2.6401713940828033
+        },
+        "source_patch_top_components": [
+          "attn_source_pair1",
+          "attn_source_query"
+        ]
+      },
+      "device": "cpu",
+      "history": [
+        {
+          "epoch": 1.0,
+          "train_accuracy": 0.7670138888888889,
+          "validation_accuracy": 0.7277777777777777
+        },
+        {
+          "epoch": 61.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 0.9979166666666667
+        },
+        {
+          "epoch": 120.0,
+          "train_accuracy": 1.0,
+          "validation_accuracy": 0.9979166666666667
+        }
+      ],
+      "holdout": {
+        "accuracy": 0.9993055555555556,
+        "attention_target_accuracy": 0.9243055555555556,
+        "log_loss": 0.004848074554537646
+      },
+      "row_counts": {
+        "strict_holdout": 1440,
+        "train": 5760,
+        "validation": 1440
+      },
+      "seed": 505
+    }
+  ]
+}

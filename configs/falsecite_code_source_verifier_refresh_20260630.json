@@ -1,0 +1,73 @@
+{
+  "name": "falsecite-code-source-verifier-refresh-20260630",
+  "experiment_id": "FALSECITE-CODE-01-REFRESH",
+  "title": "FalseCite-Code: Citation Poisoning Metadata Freshness Audit",
+  "source_deconfliction": "reports/AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md",
+  "output_dir": "runs/falsecite-code-source-verifier-refresh-20260630",
+  "report_dir": "reports/falsecite_code/defense_refresh_20260630",
+  "split_seed": 20260623,
+  "splits": {
+    "train_pct": 60,
+    "validation_pct": 20,
+    "strict_holdout_pct": 20,
+    "split_key": "artifact_id"
+  },
+  "sources": {
+    "falsecite_arxiv": "https://arxiv.org/abs/2602.11167",
+    "halueval_arxiv": "https://arxiv.org/abs/2305.11747",
+    "pypi_json_api": "https://pypi.org/pypi/{package}/json",
+    "npm_registry_api": "https://registry.npmjs.org/{package}",
+    "github_repos_api": "https://api.github.com/repos/{owner}/{repo}",
+    "github_tags_api": "https://api.github.com/repos/{owner}/{repo}/tags"
+  },
+  "artifact_sources": {
+    "pypi_packages": [
+      "requests",
+      "numpy",
+      "pandas",
+      "flask",
+      "scikit-learn",
+      "pytest",
+      "fastapi",
+      "pydantic",
+      "django",
+      "beautifulsoup4"
+    ],
+    "npm_packages": [
+      "react",
+      "express",
+      "lodash",
+      "axios",
+      "vite",
+      "typescript",
+      "webpack",
+      "next",
+      "chalk",
+      "commander"
+    ],
+    "github_repositories": [
+      "psf/requests",
+      "numpy/numpy",
+      "pandas-dev/pandas",
+      "pallets/flask",
+      "scikit-learn/scikit-learn",
+      "pytest-dev/pytest",
+      "fastapi/fastapi",
+      "pydantic/pydantic",
+      "django/django",
+      "facebook/react"
+    ]
+  },
+  "metrics": {
+    "min_total_claims": 70,
+    "min_strict_holdout_claims": 14,
+    "target_verifier_accuracy": 0.95,
+    "target_invalid_recall": 0.95,
+    "max_api_error_rate": 0.05
+  },
+  "content_policy": {
+    "commit_model_outputs": true,
+    "commit_external_metadata_cache": true,
+    "raw_prompts_are_benign": true
+  }
+}
