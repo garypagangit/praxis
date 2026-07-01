@@ -557,9 +557,9 @@
             <td class="num">PX-011</td>
             <td class="title">HalluHard Source-Backed Verifier Audit</td>
             <td>Idea Explorer</td>
-            <td><span class="badge hold">Repair gate mixed</span></td>
-            <td><a href="halluhard_source_verifier/HALLUHARD_SOURCE_GATE_20260628.md">Source gate</a> and <a href="halluhard_source_verifier/HALLUHARD_RESEARCH_VERIFIER_PROTOTYPE_20260628.md">prototype gate</a> pass; the <a href="halluhard_source_verifier/HALLUHARD_SOURCE_CONDITIONED_RESPONSE_GATE_20260628.md">corrected source-conditioned response gate</a> is mixed. The <a href="halluhard_source_verifier/HALLUHARD_REPAIR_GATE_20260630.md">repair gate</a> recovers <code>192</code>/<code>250</code> supported generations from malformed JSON, improving verifier macro F1 from <code>0.4357</code> to <code>0.5652</code> versus field-presence <code>0.4613</code>.</td>
-            <td>Keep as research-lane guardrail evidence, not a broad HalluHard positive. Repair shows formatting/parser failure was a major blocker, but only <code>63</code>/<code>250</code> supported generations pass all DOI/arXiv/title/year/content verifier checks. Next live run requires constrained JSON/schema decoding or a stronger/RAG model.</td>
+            <td><span class="badge positive">Bounded positive</span></td>
+            <td><a href="halluhard_source_verifier/PX011_SOURCE_LOCKED_CONSTRAINED_GATE_20260701.md">Source-locked constrained gate</a>: Qwen2.5-7B generated <code>250</code>/<code>250</code> extraction-valid research-question claims. The verifier evaluated <code>500</code> supported/shifted-source pairs, with supported rate <code>0.8080</code>, accuracy <code>0.9040</code>, and macro F1 <code>0.9031</code> versus always-supported and field-presence baselines at <code>0.3333</code>.</td>
+            <td>Promote PX-011 as a bounded source-locked HalluHard research-lane positive. Defensible claim: retrieval/controller-locked source metadata plus extractive claim generation can support a strong hallucination verifier. Do not claim broad HalluHard coverage or freeform citation generation.</td>
           </tr>
           <tr>
             <td class="num">12</td>
@@ -667,7 +667,7 @@
             <td>Praxis 05</td>
             <td><span class="badge kill">Pivot failed</span></td>
             <td><a href="praxis05_phase_a/FULL_GPU_PHASE_A_20260510.md">Full GPU Phase A</a>: MAGIC MSE passed, but feature death <code>0.9119</code> and stability <code>0.2815</code> failed. The <a href="praxis05_phase_a/PX023_PIDSMaker_PIVOT_GATE_20260630.md">PIDSMaker pivot gate</a> identified NodLink as the only clean direct 256-d candidate, and the <a href="praxis05_phase_a/PX023_NODLINK_REALDATA_PROXY_GATE_20260630.md">NodLink real-data proxy gate</a> ran a SAELens five-seed pilot over <code>9,611</code> full E5 Cadets windows and <code>256</code>-d NodLink-style activations.</td>
-            <td>Close PX-023 as negative for this cycle. The real-data proxy passed SAE reconstruction MSE ratio <code>0.0260</code> and feature-death <code>0.2607</code>, but failed seed stability at <code>0.1730</code> versus required <code>0.3000</code>. The full PIDSMaker route is still missing the required Postgres/Docker runtime, so do not reopen MAGIC, do not run Phase B, and do not claim detector hidden-state SAE interpretability.</td>
+            <td>Close PX-023 as negative for this cycle unless the <a href="praxis05_phase_a/PX023_WORKING_PATH_20260701.md">real PIDSMaker/NodLink working path</a> is completed. The proxy passed MSE ratio <code>0.0260</code> and feature-death <code>0.2607</code>, but failed seed stability at <code>0.1730</code> versus required <code>0.3000</code>. To reopen, build Postgres/Docker PIDSMaker, export real NodLink 256-d activations, then rerun frozen full Phase A.</td>
           </tr>
           <tr>
             <td class="num">24</td>
@@ -947,6 +947,11 @@
             <td>Source for upgrading PX-011 from simple model-gate mixed to repair-gate mixed: parser repair helps, but live supported-claim quality is still not publishable as a broad positive.</td>
           </tr>
           <tr>
+            <td><a href="halluhard_source_verifier/PX011_SOURCE_LOCKED_CONSTRAINED_GATE_20260701.md">PX-011 source-locked constrained gate</a></td>
+            <td>AWS Qwen2.5-7B run over <code>250</code> HalluHard research-question cases using controller-locked DOI/arXiv/title/year metadata and model-generated extractive claim content.</td>
+            <td>Source for promoting PX-011 as a bounded positive: <code>1.0000</code> extraction-valid rate, <code>0.8080</code> supported rate, and verifier macro F1 <code>0.9031</code> over <code>500</code> supported/shifted-source evaluation pairs.</td>
+          </tr>
+          <tr>
             <td><a href="ai_supply_chain_training_provenance/AI_SUPPLY_CHAIN_MULTISTRENGTH_LORA_GATE_20260628.md">PX-009 LoRA multi-strength gate</a></td>
             <td>AWS LoRA trace gate over 18 clean/poison condition trainings and 2700 trace rows.</td>
             <td>Source for archiving PX-009 as a failed gate this cycle.</td>
@@ -1035,6 +1040,11 @@
             <td><a href="praxis05_phase_a/PX023_NODLINK_REALDATA_PROXY_GATE_20260630.md">PX-023 NodLink real-data proxy gate</a></td>
             <td>Local real-data proxy over the full E5 Cadets window table: trains a NodLink <code>SumAggregation</code> reconstruction encoder, exports <code>9,611 x 256</code> activations, and runs a five-seed SAELens TopK pilot under <code>runs/px023-nodlink-realdata-proxy-20260630/</code>.</td>
             <td>Source for closing PX-023 as negative this cycle: reconstruction and feature-death pass, but seed stability fails the Phase A threshold, and the full PIDSMaker/Postgres runtime remains blocked.</td>
+          </tr>
+          <tr>
+            <td><a href="praxis05_phase_a/PX023_WORKING_PATH_20260701.md">PX-023 working path</a></td>
+            <td>Infrastructure-first recovery plan: build real PIDSMaker with Postgres/Docker, ingest E5 Cadets graph data, export actual NodLink 256-d encoder activations, and rerun frozen full Phase A.</td>
+            <td>Source for the only credible PX-023 reopen condition; proxy or synthetic evidence is not enough for defense.</td>
           </tr>
           <tr>
             <td><a href="frontier_ai_ml_experiments_20260618/FRONTIER_FINAL_DETERMINATION_20260621.md">Frontier final determination</a></td>
