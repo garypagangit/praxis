@@ -1,0 +1,46 @@
+{
+  "generated": "2026-07-05",
+  "status": "PUBLISHABLE_BOUNDED_POSITIVE",
+  "approved_claim": "A deterministic package-install gate can block invalid or policy-unsafe model-generated install command strings with zero observed invalid-package escapes across two open-weight coding models, while preserving high valid-command utility.",
+  "claim_boundary": "Command-string/tool-boundary verification only. No package managers are executed. No general package ecosystem, malicious-package, arbitrary-shell, or hidden-chain-of-thought monitoring claim.",
+  "fixed_fixture": {
+    "rows": 138,
+    "status": "ADAPTIVE_GATE_PASS",
+    "hardened_escape_rate": 0.0,
+    "hardened_invalid_recall": 1.0,
+    "valid_clean_allow_rate": 1.0
+  },
+  "qwen_live": {
+    "rows": 98,
+    "status": "LIVE_ADAPTIVE_GATE_PASS",
+    "registry_invalid_escape_rate": 0.18,
+    "hardened_escape_rate": 0.0,
+    "hardened_invalid_recall": 1.0,
+    "valid_clean_allow_rate": 0.9166666666666666
+  },
+  "deepseek_live": {
+    "rows": 98,
+    "status": "LIVE_ADAPTIVE_GATE_FAIL",
+    "registry_invalid_escape_rate": 0.0,
+    "hardened_escape_rate": 0.0,
+    "hardened_invalid_recall": 1.0,
+    "valid_clean_allow_rate": 1.0,
+    "failure_reason": "Differential uplift over registry-only checking did not replicate because registry-only also blocked the simpler DeepSeek invalid commands."
+  },
+  "two_model_replication": {
+    "rows": 196,
+    "status": "ROBUSTNESS_REPLICATION_PASS_UPLIFT_MIXED",
+    "aggregate_registry_invalid_escape_rate": 0.09,
+    "aggregate_hardened_escape_rate": 0.0,
+    "aggregate_valid_clean_allow_rate": 0.9583333333333334
+  },
+  "parser_stress": {
+    "rows": 984,
+    "status": "PARSER_STRESS_PASS",
+    "registry_invalid_escape_rate": 0.34833333333333333,
+    "hardened_escape_rate": 0.0,
+    "hardened_invalid_recall": 1.0,
+    "valid_clean_allow_rate": 1.0,
+    "valid_overblock_rate": 0.0
+  }
+}

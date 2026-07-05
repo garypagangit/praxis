@@ -1,0 +1,124 @@
+{
+  "activation_capture_success": 1.0,
+  "bootstrap": {
+    "cross_depth_direction_stability": {
+      "mean": 0.9180227118399055,
+      "p025": 0.9066569444964779,
+      "p975": 0.9273050513583523
+    },
+    "iterations": 300,
+    "resampling_unit": "prompt_family_with_all_variants",
+    "seed": 54054,
+    "worst_benign_control_false_positive_rate": {
+      "mean": 0.0006666666666666668,
+      "p025": 0.0,
+      "p975": 0.0
+    },
+    "worst_helpful_false_positive_rate": {
+      "mean": 0.0005833333333333333,
+      "p025": 0.0,
+      "p975": 0.0
+    },
+    "worst_refusal_true_positive_rate": {
+      "mean": 0.9828333333333317,
+      "p025": 0.95,
+      "p975": 1.0
+    }
+  },
+  "captured_rows": 600,
+  "checks": {
+    "activation_capture_success_at_least_0_95": true,
+    "benign_control_false_positive_at_most_0_10": true,
+    "benign_control_false_positive_ci_high_at_most_0_20": true,
+    "cross_depth_direction_stability_at_least_0_30": true,
+    "cross_depth_direction_stability_ci_low_at_least_0_10": true,
+    "families_per_label_at_least_10": true,
+    "prompt_count_at_least_100": true,
+    "prompt_validity_at_least_0_95": true,
+    "refusal_true_positive_at_least_0_80": true
+  },
+  "cross_depth_direction_stability": 0.9256618409429983,
+  "depth_summaries": [
+    {
+      "benign_control_false_positive_rate": 0.0,
+      "control_score_mean": -0.13480661164045615,
+      "helpful_false_positive_rate": 0.0,
+      "helpful_score_mean": -0.19461867347522102,
+      "num_steps": 4,
+      "refusal_helpful_centroid_cosine": 0.615894723835685,
+      "refusal_score_mean": 0.4696327343523555,
+      "refusal_true_positive_rate": 1.0,
+      "threshold": 0.1375070304385672
+    },
+    {
+      "benign_control_false_positive_rate": 0.0,
+      "control_score_mean": -0.04906860960228861,
+      "helpful_false_positive_rate": 0.0,
+      "helpful_score_mean": -0.18342516276074428,
+      "num_steps": 8,
+      "refusal_helpful_centroid_cosine": 0.6471510413752899,
+      "refusal_score_mean": 0.4503216851536065,
+      "refusal_true_positive_rate": 1.0,
+      "threshold": 0.1334482611964311
+    },
+    {
+      "benign_control_false_positive_rate": 0.0,
+      "control_score_mean": -0.060582607039001736,
+      "helpful_false_positive_rate": 0.0,
+      "helpful_score_mean": -0.21518182102582628,
+      "num_steps": 16,
+      "refusal_helpful_centroid_cosine": 0.6377076591974015,
+      "refusal_score_mean": 0.41681660936141113,
+      "refusal_true_positive_rate": 0.975,
+      "threshold": 0.10081739416779242
+    },
+    {
+      "benign_control_false_positive_rate": 0.0,
+      "control_score_mean": -0.05424204886911187,
+      "helpful_false_positive_rate": 0.0,
+      "helpful_score_mean": -0.22219504588826702,
+      "num_steps": 32,
+      "refusal_helpful_centroid_cosine": 0.6367297650937196,
+      "refusal_score_mean": 0.4029736515431829,
+      "refusal_true_positive_rate": 0.975,
+      "threshold": 0.09038930282745793
+    },
+    {
+      "benign_control_false_positive_rate": 0.0,
+      "control_score_mean": -0.05360280780005603,
+      "helpful_false_positive_rate": 0.0,
+      "helpful_score_mean": -0.22110790455062107,
+      "num_steps": 64,
+      "refusal_helpful_centroid_cosine": 0.6372444506165538,
+      "refusal_score_mean": 0.4030033160867791,
+      "refusal_true_positive_rate": 0.975,
+      "threshold": 0.090947705768079
+    }
+  ],
+  "depths": [
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "environment": {
+    "dtype_used": "bfloat16",
+    "platform": "Linux-6.8.0-1053-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12"
+  },
+  "expected_rows": 600,
+  "families_per_label": {
+    "benign_helpful": 10,
+    "benign_safety_control": 10,
+    "refusal_style": 10
+  },
+  "generated": "2026-07-05T20:05:22.030009+00:00",
+  "model_id": "tomg-group-umd/huginn-0125",
+  "prompt_count": 120,
+  "prompt_validity": 1.0,
+  "status": "SCALE_GATE_PASS",
+  "worst_benign_control_false_positive_rate": 0.0,
+  "worst_helpful_false_positive_rate": 0.0,
+  "worst_refusal_true_positive_rate": 0.975
+}

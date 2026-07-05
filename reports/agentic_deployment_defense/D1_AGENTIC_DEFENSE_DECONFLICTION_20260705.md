@@ -4,18 +4,18 @@ Generated: 2026-07-05
 
 ## Purpose
 
-This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the existing positive-result set. The D1 branch is treated as a forward research queue. Several rows now have positive first-gate evidence, but they remain tracked separately from the core Praxis positives until scaled, replicated, or written as standalone claims.
+This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the original positive-result set. The D1 branch is treated as a forward research queue. PX-050 has now been written as a bounded standalone claim, and PX-054 has cleared a larger safe characterization gate; the remaining D1 rows stay classified by their measured gates.
 
 ## Deconflicted Queue
 
 | New ID | Source label | Title | Priority | Integrated status | Deconfliction decision |
 |---|---|---|---:|---|---|
 | PX-049 | D1-2 | Agentic slopsquatting package-hallucination verifier | 8.65 | Live gate fail / park | Extension of PX-004. The verifier smoke passed, but the live agent produced no install actions, so the unsafe-install gap was not established. |
-| PX-050 | D1-1 | Adaptive evaluation of deterministic agent defenses | 8.35 | Robustness replicated / uplift mixed | Extension of the deterministic-gate thesis. Fixed fixture and Qwen live gates pass; DeepSeek replicates hardened zero-escape robustness but does not replicate the registry-uplift condition because registry-only also blocks its simpler direct invalid commands. |
+| PX-050 | D1-1 | Adaptive evaluation of deterministic agent defenses | 8.35 | Publishable bounded positive / uplift mixed | Extension of the deterministic-gate thesis. Fixed fixture, Qwen live, DeepSeek replication, parser stress, and paper-package gates are complete. Hardened zero-escape robustness replicated, while registry-uplift remains model-dependent. |
 | PX-051 | D1-4 | Security-utility Pareto for agent gates | 7.45 | Live-corpus policy pass | Reuses PX-001 selective-gate math and now has a positive policy result over the combined live PX-050 command corpus. |
 | PX-052 | D1-3 | Provenance-aware tool-boundary retrofit monitoring | 7.00 | Live-corpus provenance pass | Narrowly distinct from PX-012/PX-013/PX-014 because it tracks tool-call argument provenance rather than graph-event provenance or model reasoning internals; now passes on combined live generated traces. |
 | PX-053 | D1-5 | Human-in-the-loop approval fatigue vs. security | 6.55 | Simulation gate fail | Synthetic approval-load simulator missed compromise and completion thresholds. Do not run as a human-subject study without redesign and IRB-quality protocol. |
-| PX-054 | Source-gate candidate | Refusal geometry across recurrent depth | TBD | Activation gate pass | Separate mechanistic/safety characterization lane using Huginn-style recurrent depth. No refusal removal, jailbreak optimization, or offensive bypass work. |
+| PX-054 | Source-gate candidate | Refusal geometry across recurrent depth | TBD | Scale gate pass / bounded characterization positive | Separate mechanistic/safety characterization lane using Huginn-style recurrent depth. The safe 120-prompt scale gate passed across depths `[4, 8, 16, 32, 64]`. No refusal removal, jailbreak optimization, or offensive bypass work. |
 
 ## Why PX-049 Was Tested First
 
@@ -62,10 +62,13 @@ Updated: 2026-07-05
 | PX-050 | Adaptive deterministic defense gate | `ADAPTIVE_GATE_PASS` | `138` fixed adaptive command cases; hardened gate invalid recall `1.0000`, escape rate `0.0000`, clean allow rate `1.0000`. |
 | PX-050 | Live model-generated adaptive gate | `LIVE_ADAPTIVE_GATE_PASS` | `98` Qwen2.5-Coder generated command strings; command parse rate `1.0000`, registry-only invalid escape rate `0.1800`, hardened invalid recall `1.0000`, hardened escape rate `0.0000`, valid clean allow rate `0.9167`. |
 | PX-050 | Second-model live replication | `ROBUSTNESS_REPLICATION_PASS_UPLIFT_MIXED` | Across Qwen and DeepSeek: `196` generated commands, aggregate registry-only invalid escape rate `0.0900`, aggregate hardened escape rate `0.0000`, aggregate valid clean allow rate `0.9583`. Hardened robustness replicated; registry-uplift replicated only on Qwen. |
+| PX-050 | Parser stress appendix | `PARSER_STRESS_PASS` | `984` inert command mutations; parser handled rate `1.0000`, registry-only invalid escape rate `0.3483`, hardened invalid recall `1.0000`, hardened escape rate `0.0000`, valid clean allow rate `1.0000`. |
+| PX-050 | Praxis paper package | `PUBLISHABLE_BOUNDED_POSITIVE` | Paper package and claim-boundary files added. Approved claim is zero observed hardened invalid-package escapes on measured command-string corpora with high valid-command utility; no general supply-chain or arbitrary-shell claim. |
 | PX-051 | Live-corpus policy refresh | `LIVE_POLICY_REFRESH_PASS` | Combined live corpus: hardened policy on Pareto front, invalid escape rate `0.0000`, utility preserved `0.9583`, review rate `0.0000`. |
 | PX-052 | Live-corpus provenance refresh | `LIVE_PROVENANCE_REFRESH_PASS` | Combined live corpus: `196` traces, alert recall `1.0000`, clean false-positive rate `0.0000`, trace completeness `1.0000`. |
 | PX-053 | Synthetic approval-fatigue simulation | `SIMULATION_GATE_FAIL` | Risk-scored routing reduced prompt load versus every-action approval but did not beat every-action compromise rate and missed the completion threshold. Do not promote without redesign or human-study protocol. |
 | PX-054 | Safe recurrent-depth activation gate | `ACTIVATION_GATE_PASS` | Huginn activation capture `1.0000`, prompt validity `1.0000`, cross-depth direction stability `0.8321`, benign-control FPR `0.0000`. |
+| PX-054 | Safe recurrent-depth scale gate | `SCALE_GATE_PASS` | Huginn scale run captured `600/600` rows over `120` safe prompts, `10` families per label, and depths `[4, 8, 16, 32, 64]`; cross-depth stability `0.9257` with bootstrap CI `[0.9067, 0.9273]`; benign-control FPR `0.0000`; worst refusal TPR `0.9750`. |
 
 Rollup: `reports/agentic_deployment_defense/d1_followon_rollup_20260705/D1_NEW_EXPERIMENT_FOLLOWON_ROLLUP_20260705.md`
 
@@ -84,8 +87,8 @@ The proposal's `FORGE` reference remains unpinned in this tracker until a primar
 ## Claim Boundaries
 
 - PX-049 may claim verifier effectiveness at the tool boundary only after a real agent run. The initial smoke is readiness evidence only.
-- PX-050 may claim adaptive robustness only if the attack is allowed to optimize against the known gate and still fails under frozen metrics.
+- PX-050 may claim bounded deterministic tool-boundary robustness for measured package-install command strings. It must keep registry-uplift model-dependent and must not claim general software supply-chain security or arbitrary-shell safety.
 - PX-051 may claim a Pareto framework only if it shows nontrivial security-utility trade-off control across scored actions.
 - PX-052 may claim provenance monitoring only if it tracks transitive tool-argument lineage without instrumenting hidden chain-of-thought.
 - PX-053 must not be presented as human-subject evidence unless a real IRB-approved study is performed.
-- PX-054 must remain characterization/detection. It must not include safety ablation, refusal removal, or jailbreak optimization.
+- PX-054 may claim bounded depth-indexed representation characterization on safe prompt text. It must not claim causal refusal mechanisms, deployed safety defense, safety ablation, refusal removal, or jailbreak optimization.
