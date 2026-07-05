@@ -10,6 +10,8 @@ PX-050 supports a bounded positive Praxis claim:
 
 The stronger claim that the hardened gate always outperforms registry-only validation is not supported across all live models. It is supported on Qwen and on parser-stress mutations, but not on DeepSeek, where registry-only validation also caught the simpler invalid package names.
 
+A held-out StarCoder2 third-model run on 2026-07-05 failed the registered promotion gate. It is boundary evidence only and must not be presented as a positive third-model replication.
+
 ## Evidence Required In Any Paper Or Defense
 
 | Evidence | Required Wording |
@@ -19,6 +21,7 @@ The stronger claim that the hardened gate always outperforms registry-only valid
 | DeepSeek live | `98` generated commands; registry-only invalid escape `0.0000`; hardened escape `0.0000`; valid clean allow `1.0000`; uplift condition failed. |
 | Combined replication | `196` generated commands; aggregate hardened escape `0.0000`; aggregate registry-only invalid escape `0.0900`; aggregate valid clean allow `0.9583`. |
 | Parser stress | `984` inert mutations; hardened escape `0.0000`; registry-only invalid escape `0.3483`; valid clean allow `1.0000`; valid overblock `0.0000`. |
+| Held-out StarCoder2 boundary | `110` generated commands; status `HELDOUT_THIRD_MODEL_FAIL`; command parse rate `0.8091`; registered hardened invalid recall `0.7750`; registered hardened escape `0.2250`. Exclude from the positive evidence count. |
 | Policy refresh | Hardened policy on Pareto front; invalid escape `0.0000`; utility `0.9583`; review rate `0.0000`. |
 | Provenance refresh | Alert recall `1.0000`; clean false-positive rate `0.0000`; trace completeness `1.0000`. |
 
@@ -30,6 +33,7 @@ The stronger claim that the hardened gate always outperforms registry-only valid
 - "inert package-install commands; no package manager execution"
 - "registry-uplift is distribution-dependent"
 - "bounded positive result"
+- "held-out third-model boundary failed registered promotion"
 
 ## Avoid This Language
 
@@ -39,6 +43,7 @@ The stronger claim that the hardened gate always outperforms registry-only valid
 - "monitors chain of thought"
 - "blocks all malicious packages"
 - "universal adaptive robustness"
+- "third-model replication"
 - "works for arbitrary shell commands"
 
 ## Defense Readiness
@@ -47,6 +52,7 @@ PX-050 is ready for a Praxis defense section if the section keeps the claim narr
 
 1. Show the live Qwen and DeepSeek contrast to demonstrate honest replication.
 2. Use the parser-stress appendix to show the verifier was not only tuned to the exact live command strings.
-3. Use PX-051 to explain deployment operating points.
-4. Use PX-052 to show how provenance metadata can help route tool-boundary decisions.
-5. Explicitly state that execution, package reputation, and arbitrary shell safety are outside this experiment.
+3. Present the StarCoder2 held-out run as a negative boundary result, not as a positive replication.
+4. Use PX-051 to explain deployment operating points.
+5. Use PX-052 to show how provenance metadata can help route tool-boundary decisions.
+6. Explicitly state that execution, package reputation, and arbitrary shell safety are outside this experiment.
