@@ -12,13 +12,13 @@ Tool-using coding agents can emit package-install command strings that appear ex
 
 The supported thesis is bounded:
 
-> A deterministic package-install gate can block invalid or policy-unsafe model-generated install command strings with zero observed invalid-package escapes across two open-weight coding models, while preserving high valid-command utility. Differential improvement over registry-only checking is model-dependent.
+> A deterministic package-install gate can block invalid or policy-unsafe model-generated install command strings with zero observed invalid-package escapes across measured live-model, parser-stress, controller/extractor, and dry-run live-agent tool-call corpora, while preserving high valid-command utility. Differential improvement over registry-only checking is model-dependent.
 
 ## Status
 
 **PUBLISHABLE_BOUNDED_POSITIVE**
 
-PX-050 has enough evidence for a bounded Praxis defense paper. It should be presented as a command-string/tool-boundary verifier result, not as a general software supply-chain security solution. The raw and strict one-line held-out StarCoder2 runs are negative boundary evidence and should not be presented as raw third-model replication. PX-050S is positive deployment-repair evidence: extract a target-matching install command under controller control, route misses to review, and apply the deterministic verifier before execution. PX-050T adds adaptive crafted raw-output stress showing that the controller/extractor repair still produced zero invalid allows under targeted string-level attacks.
+PX-050 has enough evidence for a bounded Praxis defense paper. It should be presented as a command-string/tool-boundary verifier result, not as a general software supply-chain security solution. The raw and strict one-line held-out StarCoder2 runs are negative boundary evidence and should not be presented as raw third-model replication. PX-050S is positive deployment-repair evidence: extract a target-matching install command under controller control, route misses to review, and apply the deterministic verifier before execution. PX-050T adds adaptive crafted raw-output stress showing that the controller/extractor repair still produced zero invalid allows under targeted string-level attacks. PX-050U adds dry-run live-agent-style tool-boundary evidence: a coding-agent prompt produced install actions on every row, established a raw unsafe-action baseline, and still yielded zero hardened invalid allows with no package-manager execution.
 
 ## Experiment Chain
 
@@ -33,6 +33,7 @@ PX-050 has enough evidence for a bounded Praxis defense paper. It should be pres
 | PX-050R strict repair | 440 commands | `PX050R_REPAIRED_HELDOUT_FAIL` | Strict one-line promotion failed. Extracted-command diagnostic over `437` target-bearing parsed commands had invalid target escape `0.0000` and valid target allow `1.0000`; use as implementation guidance only. |
 | PX-050S controller/extractor repair | 440 commands | `PX050S_CONTROLLER_EXTRACTOR_HELDOUT_PASS` | Fresh StarCoder2-3B/7B held-out namespace. Target recovery `0.9909` / `0.9864`; invalid allows `0`; invalid escape `0.0000`; valid allow `1.0000` on both models. Positive deployment-repair evidence. |
 | PX-050T adaptive string stress | 1,440 crafted rows | `PX050T_CONTROLLER_ADAPTIVE_STRESS_PASS` | `1,140` invalid and `300` valid crafted raw-output strings; invalid allows `0`; valid allow `1.0000`; registry-only invalid allows `300`; target recovery `0.9583`. |
+| PX-050U live-agent tool boundary | 144 dry-run tool-call rows | `PX050U_LIVE_AGENT_TOOL_BOUNDARY_PASS` | Qwen2.5-Coder-7B coding-agent harness. Install-action rate `1.0000`; raw unsafe rate `0.8906`; controller recovery `0.9514`; registry-only invalid allows `10`; hardened invalid allows `0`; valid allow `1.0000`. |
 | PX-051 operating point refresh | 196 commands | `LIVE_POLICY_REFRESH_PASS` | Hardened policy remained on the Pareto front with invalid escape `0.0000` and utility `0.9583`. |
 | PX-052 provenance refresh | 196 traces | `LIVE_PROVENANCE_REFRESH_PASS` | Alert recall `1.0000`; clean false-positive rate `0.0000`; trace completeness `1.0000`. |
 
@@ -45,7 +46,8 @@ PX-050 has enough evidence for a bounded Praxis defense paper. It should be pres
 5. The raw and strict one-line held-out StarCoder2 runs show that broader raw-output cross-model replication is not ready: those registered gates failed because of prompt-label, parse-rate, or one-line command-compliance failures.
 6. PX-050S shows a concrete implementation improvement works on a fresh held-out StarCoder2 namespace: a controller should extract a target-matching candidate install command before the deterministic verifier, rather than passing raw multi-line model text directly to execution.
 7. PX-050T shows the controller/extractor repair also holds under targeted crafted raw-output strings, including multi-command text, aliases, remote specs, shell composition, markdown wrappers, and review-fallback cases.
-8. The result supports a deployment pattern: validate tool-call arguments at the boundary using deterministic parsing, package provenance policy, and action consequence scoring before any package manager is allowed to execute.
+8. PX-050U shows the repaired boundary also holds when an open-weight coding model is prompted as a dry-run agent that emits observable install tool-call arguments.
+9. The result supports a deployment pattern: validate tool-call arguments at the boundary using deterministic parsing, package provenance policy, and action consequence scoring before any package manager is allowed to execute.
 
 ## Claim Boundary
 
@@ -55,6 +57,7 @@ PX-050 may claim:
 - The hardened gate preserved high valid-command utility on the measured valid package-install commands.
 - The gate closed registry-only gaps on Qwen and on parser-stress mutations.
 - The combined PX-050/PX-051/PX-052 chain supports deterministic tool-boundary verification as a practical agent defense pattern.
+- PX-050U adds dry-run live-agent-style tool-call evidence that the repaired controller/verifier path can still block invalid install actions when install actions are actually proposed.
 
 PX-050 must not claim:
 
@@ -66,6 +69,7 @@ PX-050 must not claim:
 - A raw-output third-model replication claim; the raw and strict one-line held-out StarCoder2 gates failed under registered thresholds.
 - A claim that PX-050S proves general StarCoder2 or all-coding-model safety. It is a controller/extractor deployment-repair result.
 - A claim that PX-050T is live-agent evidence. It is adaptive crafted command-string stress.
+- A claim that PX-050U proves package-manager execution safety or broad agent safety. It is dry-run tool-call evidence.
 - A hidden-chain-of-thought monitoring claim. The defense uses observable tool-call strings and structured provenance only.
 
 ## Publication Shape
@@ -79,7 +83,8 @@ Recommended framing:
 5. **Boundary lesson:** the raw StarCoder2 held-out runs failed third-model promotion gates, so do not claim raw-output third-model replication.
 6. **Implementation lesson:** PX-050S passed when raw multi-line model text was converted into one target-matching candidate install command by a controller/extractor before verification.
 7. **Adaptive-stress lesson:** PX-050T passed targeted crafted raw-output stress, including cases where registry-only checking would have allowed invalid commands.
-8. **Deployment lesson:** deterministic boundary checks are not a full security system, but they are a low-friction control that catches a concrete class of agentic deployment failures before execution.
+8. **Live-agent tool-boundary lesson:** PX-050U passed when the same controller/verifier was placed behind a dry-run coding-agent tool-call harness that actually produced install actions.
+9. **Deployment lesson:** deterministic boundary checks are not a full security system, but they are a low-friction control that catches a concrete class of agentic deployment failures before execution.
 
 ## Primary Evidence Links
 
@@ -92,6 +97,7 @@ Recommended framing:
 - PX-050R strict repair: `reports/agentic_deployment_defense/px050r_strict_heldout_repair_20260705/PX050R_STRICT_HELDOUT_REPAIR_SYNTHESIS_20260705.md`
 - PX-050S controller/extractor repair: `reports/agentic_deployment_defense/px050s_controller_extractor_20260705/PX050S_CONTROLLER_EXTRACTOR_HELDOUT_SYNTHESIS_20260705.md`
 - PX-050T adaptive string stress: `reports/agentic_deployment_defense/px050t_controller_adaptive_stress_20260705/PX050T_CONTROLLER_EXTRACTOR_ADAPTIVE_STRESS_20260705.md`
+- PX-050U live-agent tool-boundary gate: `reports/agentic_deployment_defense/px050u_live_agent_tool_boundary_20260705/PX050U_LIVE_AGENT_TOOL_BOUNDARY_SYNTHESIS_20260705.md`
 - PX-051 policy refresh: `reports/agentic_deployment_defense/px051_live_corpus_policy_refresh_20260705/PX051_LIVE_CORPUS_POLICY_REFRESH_20260705.md`
 - PX-052 provenance refresh: `reports/agentic_deployment_defense/px052_live_corpus_provenance_refresh_20260705/PX052_LIVE_CORPUS_PROVENANCE_REFRESH_20260705.md`
 
@@ -109,6 +115,7 @@ Recommended framing:
 | PX-050R strict repair runner | `cloud_jobs/px050r_heldout_repair_20260705/run_px050r_heldout_repair.py` | Runs the strict command-compliance repair and extracted-command diagnostic over StarCoder2-3B/7B. |
 | PX-050S controller/extractor repair runner | `cloud_jobs/px050s_controller_extractor_20260705/run_px050s_controller_extractor.py` | Runs the fresh StarCoder2 held-out namespace with controller target extraction, review fallback, and hardened verifier scoring. |
 | PX-050T adaptive string stress runner | `scripts/run_px050s_controller_adaptive_stress.py` | Generates crafted raw-output stress cases around the PX-050S controller/extractor and hardened verifier. |
+| PX-050U live-agent tool-boundary runner | `cloud_jobs/px050u_live_agent_tool_boundary_20260705/run_px050u_live_agent_tool_boundary.py` | Prompts Qwen2.5-Coder-7B as a dry-run coding agent, extracts inert install tool-call arguments, and scores raw/no-gate, registry-only, and hardened controller paths. |
 
 Re-run parser stress appendix:
 
