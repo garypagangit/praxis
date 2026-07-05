@@ -340,6 +340,16 @@ This index intentionally publishes both positive and negative results. The rule 
 
 **Primary artifacts:** `reports/EXPERIMENT_IDEA_DECISION_MATRIX_20260513.md`.
 
+## 2026-07-05 D1 Agent-Defense Follow-On Addendum
+
+**Status:** first follow-on gates completed.
+
+**Scope:** newly integrated agent-defense and recurrent-depth candidates from PX-049 through PX-054.
+
+**Result:** PX-050 adaptive deterministic defenses, PX-051 security-utility Pareto routing, PX-052 provenance-aware tool-boundary monitoring, and PX-054 refusal-geometry activation characterization cleared positive first gates. PX-049 failed its live agentic slopsquatting gate because the open-weight model produced zero install actions. PX-053 failed the synthetic approval-fatigue simulation gate and should not be promoted without redesign.
+
+**Primary artifacts:** `reports/agentic_deployment_defense/d1_followon_rollup_20260705/D1_NEW_EXPERIMENT_FOLLOWON_ROLLUP_20260705.md`, `reports/agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md`, `reports/agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md`, `reports/agentic_deployment_defense/px052_provenance_gate_20260705/PX052_PROVENANCE_TOOL_BOUNDARY_GATE_20260705.md`, `reports/agentic_deployment_defense/px053_approval_fatigue_sim_20260705/PX053_APPROVAL_FATIGUE_SIMULATION_GATE_20260705.md`.
+
 ## Source Dashboards
 
 - `reports/EXPERIMENT_CURRENT_DASHBOARD_20260513.md`
