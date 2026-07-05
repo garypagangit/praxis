@@ -375,6 +375,7 @@
       <a href="agentic_deployment_defense/px049_smoke_20260705/PX049_AGENTIC_SLOPSQUATTING_SMOKE_20260705.md">PX-049 smoke result</a>
       <a href="agentic_deployment_defense/px049_live_gate_20260705/PX049_AGENTIC_SLOPSQUATTING_LIVE_GATE_20260705.md">PX-049 live gate</a>
       <a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">PX-050 adaptive gate</a>
+      <a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">PX-050 live adaptive gate</a>
       <a href="agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md">PX-051 Pareto gate</a>
       <a href="agentic_deployment_defense/px052_provenance_gate_20260705/PX052_PROVENANCE_TOOL_BOUNDARY_GATE_20260705.md">PX-052 provenance gate</a>
       <a href="agentic_deployment_defense/px053_approval_fatigue_sim_20260705/PX053_APPROVAL_FATIGUE_SIMULATION_GATE_20260705.md">PX-053 simulation gate</a>
@@ -430,7 +431,7 @@
 
   <section>
     <h2>New D1 Agent-Defense Candidate Queue</h2>
-    <p class="small">This is the newly integrated candidate branch from the 2026-07-05 proposal, now updated with first follow-on gates. These are not counted as final Praxis positives yet. PX-050, PX-051, PX-052, and PX-054 are continue-worthy positive gates; PX-049 is parked pending harness redesign; PX-053 failed the simulation gate and should not be promoted as a human-factors result.</p>
+    <p class="small">This is the newly integrated candidate branch from the 2026-07-05 proposal, now updated with first follow-on gates. These are not counted as final Praxis positives yet. PX-050 has fixed-fixture and live model-generated adaptive passes; PX-051, PX-052, and PX-054 are continue-worthy positive gates; PX-049 is parked pending harness redesign; PX-053 failed the simulation gate and should not be promoted as a human-factors result.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -457,8 +458,8 @@
             <td class="num">PX-050</td>
             <td class="title">Adaptive Evaluation of Deterministic Agent Defenses</td>
             <td>PX-004/PX-011/PX-016 extension</td>
-            <td><span class="badge start">Adaptive gate pass</span></td>
-            <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">Adaptive gate</a>: <code>138</code> cases; hardened invalid recall <code>1.0000</code>, escape rate <code>0.0000</code>, clean allow rate <code>1.0000</code>. Positive deterministic-gate result; pair with future model-generated attacks before final publication.</td>
+            <td><span class="badge start">Live adaptive pass</span></td>
+            <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">Fixed gate</a> plus <a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">live model-generated scale-up</a>: <code>98</code> generated commands, parse rate <code>1.0000</code>, registry-only invalid escape rate <code>0.1800</code>, hardened invalid recall <code>1.0000</code>, hardened escape rate <code>0.0000</code>, valid clean allow rate <code>0.9167</code>.</td>
           </tr>
           <tr>
             <td class="num">3</td>
@@ -987,9 +988,9 @@
             <td class="num">PX-050</td>
             <td class="title">Adaptive Evaluation of Deterministic Agent Defenses</td>
             <td>D1 agent defense</td>
-            <td><span class="badge start">Adaptive gate pass</span></td>
-            <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">Adaptive deterministic defense gate</a>: <code>138</code> command cases; hardened invalid recall <code>1.0000</code>, escape rate <code>0.0000</code>, clean allow rate <code>1.0000</code>, parser handled/blocked rate <code>1.0000</code>.</td>
-            <td>Positive deterministic-gate result. Worth pursuing as an agent-defense paper lane, but final claims should add live model-generated adaptive attacks.</td>
+            <td><span class="badge start">Live adaptive pass</span></td>
+            <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">Fixed adaptive gate</a> and <a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">live model-generated adaptive gate</a>: <code>98</code> generated commands, command parse rate <code>1.0000</code>, registry-only invalid escape rate <code>0.1800</code>, hardened invalid recall <code>1.0000</code>, hardened escape rate <code>0.0000</code>, valid clean allow rate <code>0.9167</code>.</td>
+            <td>Positive deterministic-gate result strengthened by a live model-generated scale-up. Worth pursuing as the lead D1 agent-defense paper lane.</td>
           </tr>
           <tr>
             <td class="num">51</td>
@@ -1197,7 +1198,7 @@
           <tr>
             <td><a href="agentic_deployment_defense/PX049_AGENTIC_SLOPSQUATTING_VERIFIER_PREREG_20260705.md">PX-049 preregistration</a></td>
             <td>Registered thesis, live-agent gate, thresholds, and claim boundary for package hallucination at the agent tool boundary.</td>
-            <td>Source for making PX-049 the next active test candidate.</td>
+            <td>Source for the PX-049 gate that later failed under the live-agent run.</td>
           </tr>
           <tr>
             <td><a href="agentic_deployment_defense/px049_smoke_20260705/PX049_AGENTIC_SLOPSQUATTING_SMOKE_20260705.md">PX-049 registry-backed smoke</a></td>
@@ -1213,6 +1214,11 @@
             <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">PX-050 adaptive deterministic defense gate</a></td>
             <td>Frozen parser/verifier gate tested against <code>138</code> adaptive command variants.</td>
             <td>Source for PX-050 positive prototype: invalid recall <code>1.0000</code>, escape rate <code>0.0000</code>, clean allow rate <code>1.0000</code>.</td>
+          </tr>
+          <tr>
+            <td><a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">PX-050 live model-generated adaptive gate</a></td>
+            <td>Open-weight Qwen2.5-Coder generated <code>98</code> inert PyPI/NPM command strings against the frozen deterministic gate.</td>
+            <td>Source for PX-050 scale-up positive: registry-only invalid escape rate <code>0.1800</code>, hardened invalid recall <code>1.0000</code>, hardened escape rate <code>0.0000</code>, valid clean allow rate <code>0.9167</code>.</td>
           </tr>
           <tr>
             <td><a href="agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md">PX-051 security-utility Pareto gate</a></td>

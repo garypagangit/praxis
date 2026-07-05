@@ -1,0 +1,283 @@
++ date -u
+Sun Jul  5 18:46:23 UTC 2026
++ df -h
+Filesystem                      Size  Used Avail Use% Mounted on
+/dev/root                       214G  211G  2.6G  99% /
+tmpfs                           7.8G     0  7.8G   0% /dev/shm
+tmpfs                           3.1G  944K  3.1G   1% /run
+tmpfs                           5.0M     0  5.0M   0% /run/lock
+efivarfs                        128K  3.7K  120K   3% /sys/firmware/efi/efivars
+/dev/nvme0n1p15                 105M  6.1M   99M   6% /boot/efi
+/dev/mapper/vg.01-lv_ephemeral  229G  104K  217G   1% /opt/dlami/nvme
++ nvidia-smi
+Sun Jul  5 18:46:23 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A10G                    On  |   00000000:00:1E.0 Off |                    0 |
+|  0%   34C    P8             11W /  300W |       0MiB /  23028MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
++ aws s3 sync s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/px050_adaptive_live_20260705/code/ /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/
++ command -v python3
++ dpkg -s python3-venv
++ rm -rf /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705
++ python3 -m venv /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705
++ source /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /usr/bin/bash -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ unset VIRTUAL_ENV_PROMPT
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/opt/amazon/openmpi/bin:/opt/amazon/efa/bin:/usr/local/cuda-12.9/bin:/usr/local/cuda-12.9/include:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+++ PATH=/opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/bin:/opt/amazon/openmpi/bin:/opt/amazon/efa/bin:/usr/local/cuda-12.9/bin:/usr/local/cuda-12.9/include:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ PS1='(px050-live-adaptive-qwen25-coder-20260705) '
+++ export PS1
+++ VIRTUAL_ENV_PROMPT='(px050-live-adaptive-qwen25-coder-20260705) '
+++ export VIRTUAL_ENV_PROMPT
+++ '[' -n /usr/bin/bash -o -n '' ']'
+++ hash -r
++ python -m pip install --upgrade pip wheel setuptools
+Requirement already satisfied: pip in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (22.0.2)
+Collecting pip
+  Downloading pip-26.1.2-py3-none-any.whl (1.8 MB)
+Collecting wheel
+  Downloading wheel-0.47.0-py3-none-any.whl (32 kB)
+Requirement already satisfied: setuptools in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (59.6.0)
+Collecting setuptools
+  Downloading setuptools-83.0.0-py3-none-any.whl (1.0 MB)
+Collecting packaging>=24.0
+  Downloading packaging-26.2-py3-none-any.whl (100 kB)
+Installing collected packages: setuptools, pip, packaging, wheel
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 59.6.0
+    Uninstalling setuptools-59.6.0:
+      Successfully uninstalled setuptools-59.6.0
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.2
+    Uninstalling pip-22.0.2:
+      Successfully uninstalled pip-22.0.2
+Successfully installed packaging-26.2 pip-26.1.2 setuptools-83.0.0 wheel-0.47.0
++ python -m pip install torch --index-url https://download.pytorch.org/whl/cu121
+Looking in indexes: https://download.pytorch.org/whl/cu121
+Collecting torch
+  Downloading torch-2.5.1%2Bcu121-cp310-cp310-linux_x86_64.whl (780.4 MB)
+Collecting filelock (from torch)
+  Downloading filelock-3.29.0-py3-none-any.whl.metadata (2.0 kB)
+Collecting typing-extensions>=4.8.0 (from torch)
+  Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting networkx (from torch)
+  Downloading networkx-3.4.2-py3-none-any.whl.metadata (6.3 kB)
+Collecting jinja2 (from torch)
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting fsspec (from torch)
+  Downloading fsspec-2026.4.0-py3-none-any.whl.metadata (10 kB)
+Collecting nvidia-cuda-nvrtc-cu12==12.1.105 (from torch)
+  Downloading nvidia_cuda_nvrtc_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (23.7 MB)
+Collecting nvidia-cuda-runtime-cu12==12.1.105 (from torch)
+  Downloading nvidia_cuda_runtime_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (823 kB)
+Collecting nvidia-cuda-cupti-cu12==12.1.105 (from torch)
+  Downloading nvidia_cuda_cupti_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (14.1 MB)
+Collecting nvidia-cudnn-cu12==9.1.0.70 (from torch)
+  Downloading nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl (664.8 MB)
+Collecting nvidia-cublas-cu12==12.1.3.1 (from torch)
+  Downloading nvidia_cublas_cu12-12.1.3.1-py3-none-manylinux1_x86_64.whl (410.6 MB)
+Collecting nvidia-cufft-cu12==11.0.2.54 (from torch)
+  Downloading nvidia_cufft_cu12-11.0.2.54-py3-none-manylinux1_x86_64.whl (121.6 MB)
+Collecting nvidia-curand-cu12==10.3.2.106 (from torch)
+  Downloading nvidia_curand_cu12-10.3.2.106-py3-none-manylinux1_x86_64.whl (56.5 MB)
+Collecting nvidia-cusolver-cu12==11.4.5.107 (from torch)
+  Downloading nvidia_cusolver_cu12-11.4.5.107-py3-none-manylinux1_x86_64.whl (124.2 MB)
+Collecting nvidia-cusparse-cu12==12.1.0.106 (from torch)
+  Downloading nvidia_cusparse_cu12-12.1.0.106-py3-none-manylinux1_x86_64.whl (196.0 MB)
+Collecting nvidia-nccl-cu12==2.21.5 (from torch)
+  Downloading nvidia_nccl_cu12-2.21.5-py3-none-manylinux2014_x86_64.whl (188.7 MB)
+Collecting nvidia-nvtx-cu12==12.1.105 (from torch)
+  Downloading nvidia_nvtx_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (99 kB)
+Collecting triton==3.1.0 (from torch)
+  Downloading triton-3.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (209.5 MB)
+Collecting sympy==1.13.1 (from torch)
+  Downloading sympy-1.13.1-py3-none-any.whl.metadata (12 kB)
+Collecting nvidia-nvjitlink-cu12 (from nvidia-cusolver-cu12==11.4.5.107->torch)
+  Downloading nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy==1.13.1->torch)
+  Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch)
+  Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Downloading sympy-1.13.1-py3-none-any.whl (6.2 MB)
+Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Downloading filelock-3.29.0-py3-none-any.whl (39 kB)
+Downloading fsspec-2026.4.0-py3-none-any.whl (203 kB)
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
+Downloading nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (39.7 MB)
+Installing collected packages: mpmath, typing-extensions, sympy, nvidia-nvtx-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufft-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, networkx, MarkupSafe, fsspec, filelock, triton, nvidia-cusparse-cu12, nvidia-cudnn-cu12, jinja2, nvidia-cusolver-cu12, torch
+Successfully installed MarkupSafe-3.0.3 filelock-3.29.0 fsspec-2026.4.0 jinja2-3.1.6 mpmath-1.3.0 networkx-3.4.2 nvidia-cublas-cu12-12.1.3.1 nvidia-cuda-cupti-cu12-12.1.105 nvidia-cuda-nvrtc-cu12-12.1.105 nvidia-cuda-runtime-cu12-12.1.105 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.0.2.54 nvidia-curand-cu12-10.3.2.106 nvidia-cusolver-cu12-11.4.5.107 nvidia-cusparse-cu12-12.1.0.106 nvidia-nccl-cu12-2.21.5 nvidia-nvjitlink-cu12-12.9.86 nvidia-nvtx-cu12-12.1.105 sympy-1.13.1 torch-2.5.1+cu121 triton-3.1.0 typing-extensions-4.15.0
++ python -m pip install -r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt
+Collecting accelerate>=0.34.0 (from -r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading accelerate-1.14.0-py3-none-any.whl.metadata (19 kB)
+Collecting transformers>=4.45.0 (from -r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading transformers-5.13.0-py3-none-any.whl.metadata (32 kB)
+Collecting safetensors>=0.4.5 (from -r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 3))
+  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting tqdm>=4.66.0 (from -r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 4))
+  Downloading tqdm-4.68.3-py3-none-any.whl.metadata (57 kB)
+Collecting numpy>=1.17 (from accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Requirement already satisfied: packaging>=20.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (26.2)
+Collecting psutil (from accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting pyyaml (from accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Requirement already satisfied: torch>=2.0.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (2.5.1+cu121)
+Collecting huggingface_hub>=0.21.0 (from accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading huggingface_hub-1.22.0-py3-none-any.whl.metadata (14 kB)
+Collecting regex>=2025.10.22 (from transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading regex-2026.6.28-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting tokenizers<=0.23.0,>=0.22.0 (from transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Collecting typer (from transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading typer-0.26.8-py3-none-any.whl.metadata (15 kB)
+Collecting click<9.0.0,>=8.4.2 (from huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: filelock>=3.10.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (3.29.0)
+Requirement already satisfied: fsspec>=2023.5.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (2026.4.0)
+Collecting hf-xet<2.0.0,>=1.5.1 (from huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting httpx<1,>=0.23.0 (from huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: typing-extensions>=4.1.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (4.15.0)
+Collecting anyio (from httpx<1,>=0.23.0->huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading anyio-4.14.1-py3-none-any.whl.metadata (4.6 kB)
+Collecting certifi (from httpx<1,>=0.23.0->huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading certifi-2026.6.17-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx<1,>=0.23.0->huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting idna (from httpx<1,>=0.23.0->huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx<1,>=0.23.0->huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Requirement already satisfied: networkx in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (3.4.2)
+Requirement already satisfied: jinja2 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (3.1.6)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.1.105 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (12.1.105)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.1.105 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (12.1.105)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.1.105 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (12.1.105)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (9.1.0.70)
+Requirement already satisfied: nvidia-cublas-cu12==12.1.3.1 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (12.1.3.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.0.2.54 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (11.0.2.54)
+Requirement already satisfied: nvidia-curand-cu12==10.3.2.106 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (10.3.2.106)
+Requirement already satisfied: nvidia-cusolver-cu12==11.4.5.107 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (11.4.5.107)
+Requirement already satisfied: nvidia-cusparse-cu12==12.1.0.106 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (12.1.0.106)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.1.105 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (12.1.105)
+Requirement already satisfied: triton==3.1.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (3.1.0)
+Requirement already satisfied: sympy==1.13.1 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (1.13.1)
+Requirement already satisfied: nvidia-nvjitlink-cu12 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from nvidia-cusolver-cu12==11.4.5.107->torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (12.9.86)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from sympy==1.13.1->torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (1.3.0)
+Collecting exceptiongroup>=1.0.2 (from anyio->httpx<1,>=0.23.0->huggingface_hub>=0.21.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1))
+  Downloading exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)
+Requirement already satisfied: MarkupSafe>=2.0 in /opt/dlami/nvme/praxis/venvs/px050-live-adaptive-qwen25-coder-20260705/lib/python3.10/site-packages (from jinja2->torch>=2.0.0->accelerate>=0.34.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 1)) (3.0.3)
+Collecting shellingham>=1.3.0 (from typer->transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=13.8.0 (from typer->transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting annotated-doc>=0.0.2 (from typer->transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer->transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.8.0->typer->transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers>=4.45.0->-r /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/requirements.txt (line 2))
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Downloading accelerate-1.14.0-py3-none-any.whl (389 kB)
+Downloading transformers-5.13.0-py3-none-any.whl (11.5 MB)
+Downloading huggingface_hub-1.22.0-py3-none-any.whl (765 kB)
+Downloading click-8.4.2-py3-none-any.whl (119 kB)
+Downloading hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Downloading tqdm-4.68.3-py3-none-any.whl (78 kB)
+Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+Downloading regex-2026.6.28-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+Downloading anyio-4.14.1-py3-none-any.whl (124 kB)
+Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Downloading idna-3.18-py3-none-any.whl (65 kB)
+Downloading certifi-2026.6.17-py3-none-any.whl (133 kB)
+Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Downloading typer-0.26.8-py3-none-any.whl (122 kB)
+Downloading annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Installing collected packages: tqdm, shellingham, safetensors, regex, pyyaml, pygments, psutil, numpy, mdurl, idna, hf-xet, h11, exceptiongroup, click, certifi, annotated-doc, markdown-it-py, httpcore, anyio, rich, httpx, typer, huggingface_hub, tokenizers, accelerate, transformers
+Successfully installed accelerate-1.14.0 annotated-doc-0.0.4 anyio-4.14.1 certifi-2026.6.17 click-8.4.2 exceptiongroup-1.3.1 h11-0.16.0 hf-xet-1.5.1 httpcore-1.0.9 httpx-0.28.1 huggingface_hub-1.22.0 idna-3.18 markdown-it-py-4.2.0 mdurl-0.1.2 numpy-2.2.6 psutil-7.2.2 pygments-2.20.0 pyyaml-6.0.3 regex-2026.6.28 rich-15.0.0 safetensors-0.8.0 shellingham-1.5.4 tokenizers-0.22.2 tqdm-4.68.3 transformers-5.13.0 typer-0.26.8
++ '[' -z '' ']'
++ command -v aws
++ set +x
++ python /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/code/run_px050_live_adaptive_gate.py --model-id Qwen/Qwen2.5-Coder-7B-Instruct --output-dir /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/output --batch-size 4 --max-new-tokens 80 --max-input-tokens 1400
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [01:38<04:55, 98.42s/it]Fetching 4 files: 100%|██████████| 4/4 [01:38<00:00, 24.61s/it]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   0%|          | 1/339 [00:02<13:44,  2.44s/it]Loading weights:   6%|▋         | 22/339 [00:02<00:26, 11.99it/s]Loading weights:  12%|█▏        | 41/339 [00:02<00:11, 24.99it/s]Loading weights:  19%|█▊        | 63/339 [00:02<00:06, 43.04it/s]Loading weights:  24%|██▍       | 82/339 [00:02<00:04, 60.17it/s]Loading weights:  30%|██▉       | 101/339 [00:02<00:03, 76.59it/s]Loading weights:  37%|███▋      | 124/339 [00:03<00:02, 93.80it/s]Loading weights:  42%|████▏     | 141/339 [00:04<00:06, 32.46it/s]Loading weights:  45%|████▌     | 153/339 [00:05<00:09, 20.36it/s]Loading weights:  48%|████▊     | 162/339 [00:07<00:12, 14.41it/s]Loading weights:  50%|████▉     | 168/339 [00:07<00:10, 15.89it/s]Loading weights:  51%|█████▏    | 174/339 [00:08<00:13, 12.52it/s]Loading weights:  53%|█████▎    | 180/339 [00:08<00:11, 14.43it/s]Loading weights:  54%|█████▍    | 184/339 [00:09<00:14, 10.94it/s]Loading weights:  55%|█████▌    | 187/339 [00:09<00:14, 10.15it/s]Loading weights:  58%|█████▊    | 195/339 [00:10<00:12, 11.91it/s]Loading weights:  58%|█████▊    | 198/339 [00:10<00:11, 12.11it/s]Loading weights:  65%|██████▍   | 220/339 [00:10<00:04, 27.15it/s]Loading weights:  68%|██████▊   | 232/339 [00:10<00:03, 30.85it/s]Loading weights:  70%|██████▉   | 237/339 [00:11<00:03, 32.67it/s]Loading weights:  71%|███████▏  | 242/339 [00:11<00:03, 32.21it/s]Loading weights:  73%|███████▎  | 246/339 [00:12<00:07, 12.77it/s]Loading weights:  74%|███████▍  | 252/339 [00:12<00:05, 15.64it/s]Loading weights:  76%|███████▌  | 256/339 [00:13<00:06, 13.72it/s]Loading weights:  76%|███████▋  | 259/339 [00:13<00:08,  9.21it/s]Loading weights:  78%|███████▊  | 263/339 [00:13<00:06, 10.95it/s]Loading weights:  79%|███████▉  | 268/339 [00:14<00:06, 10.42it/s]Loading weights:  80%|███████▉  | 270/339 [00:14<00:07,  8.87it/s]Loading weights:  81%|████████▏ | 276/339 [00:15<00:04, 12.61it/s]Loading weights:  83%|████████▎ | 280/339 [00:15<00:05, 11.51it/s]Loading weights:  83%|████████▎ | 282/339 [00:16<00:08,  6.94it/s]Loading weights:  84%|████████▍ | 286/339 [00:16<00:05,  9.19it/s]Loading weights:  86%|████████▌ | 292/339 [00:17<00:05,  8.21it/s]Loading weights:  87%|████████▋ | 294/339 [00:17<00:06,  7.35it/s]Loading weights:  88%|████████▊ | 300/339 [00:17<00:03, 10.87it/s]Loading weights:  90%|████████▉ | 304/339 [00:18<00:03, 10.41it/s]Loading weights:  90%|█████████ | 306/339 [00:19<00:04,  6.67it/s]Loading weights:  92%|█████████▏| 312/339 [00:19<00:02, 10.11it/s]Loading weights:  93%|█████████▎| 316/339 [00:20<00:03,  7.63it/s]Loading weights:  94%|█████████▍| 318/339 [00:20<00:03,  6.92it/s]Loading weights:  96%|█████████▌| 324/339 [00:20<00:01, 10.46it/s]Loading weights:  97%|█████████▋| 328/339 [00:21<00:01,  7.74it/s]Loading weights:  97%|█████████▋| 330/339 [00:22<00:01,  7.00it/s]Loading weights:  99%|█████████▉| 336/339 [00:22<00:00, 10.57it/s]Loading weights: 100%|██████████| 339/339 [00:22<00:00, 15.21it/s]
+{
+  "checks": {
+    "command_parse_rate_at_least_0_85": true,
+    "hardened_beats_registry_escape_rate": true,
+    "hardened_escape_rate_at_most_0_02": true,
+    "hardened_invalid_recall_at_least_0_98": true,
+    "invalid_parsed_rows_at_least_40": true,
+    "minimum_model_challenges_at_least_95": true,
+    "unsafe_content_filter_rate_at_most_0_05": true,
+    "valid_clean_allow_rate_at_least_0_80": true
+  },
+  "command_parse_rate": 1.0,
+  "generated": "2026-07-05T18:50:43.444656+00:00",
+  "hardened_escape_rate": 0.0,
+  "hardened_invalid_recall": 1.0,
+  "invalid_parsed_rows": 50,
+  "invalid_rows": 50,
+  "model_id": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "parsed_rows": 98,
+  "registry_invalid_escape_rate": 0.18,
+  "rows": 98,
+  "status": "LIVE_ADAPTIVE_GATE_PASS",
+  "unsafe_content_filter_rate": 0.0,
+  "valid_clean_allow_rate": 0.9166666666666666,
+  "valid_parsed_rows": 48,
+  "valid_rows": 48
+}
++ aws s3 sync /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/output/ s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/px050_adaptive_live_20260705/output/px050-live-adaptive-qwen25-coder-20260705/
+Completed 902 Bytes/160.7 KiB (12.6 KiB/s) with 4 file(s) remainingupload: ../../../../opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/output/summary.json to s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/px050_adaptive_live_20260705/output/px050-live-adaptive-qwen25-coder-20260705/summary.json
+Completed 902 Bytes/160.7 KiB (12.6 KiB/s) with 3 file(s) remainingCompleted 23.9 KiB/160.7 KiB (194.8 KiB/s) with 3 file(s) remainingupload: ../../../../opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/output/model_generated_commands.csv to s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/px050_adaptive_live_20260705/output/px050-live-adaptive-qwen25-coder-20260705/model_generated_commands.csv
+Completed 23.9 KiB/160.7 KiB (194.8 KiB/s) with 2 file(s) remainingCompleted 25.6 KiB/160.7 KiB (206.6 KiB/s) with 2 file(s) remainingupload: ../../../../opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/output/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md to s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/px050_adaptive_live_20260705/output/px050-live-adaptive-qwen25-coder-20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md
+Completed 25.6 KiB/160.7 KiB (206.6 KiB/s) with 1 file(s) remainingCompleted 160.7 KiB/160.7 KiB (1.2 MiB/s) with 1 file(s) remaining upload: ../../../../opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/output/predictions.jsonl to s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/px050_adaptive_live_20260705/output/px050-live-adaptive-qwen25-coder-20260705/predictions.jsonl
++ aws s3 cp /opt/dlami/nvme/praxis/jobs/px050-live-adaptive-qwen25-coder-20260705/px050-live-adaptive-qwen25-coder-20260705.log s3://praxis-garypagan-272615233626-us-east-1/cloud_jobs/px050_adaptive_live_20260705/logs/px050-live-adaptive-qwen25-coder-20260705.log
