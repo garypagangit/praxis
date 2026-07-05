@@ -28,7 +28,7 @@ The strongest Praxis candidates currently tracked are:
 
 The latest PX-003/PX-034 full-bucket AWS audit found relationship-evidence prompting improved Qwen2.5-7B accuracy from `0.614` to `0.822` across 500 CTI rows. The result supports the relationship-evidence lift claim, while narrowing the router claim to source-support and conflict-risk stratification rather than a hard answerability oracle.
 
-The new D1 agent-defense branch has now been tested through first follow-on gates. `PX-050` cleared both a fixed adaptive-command gate and a live model-generated adaptive scale-up; `PX-051` and `PX-052` cleared positive prototype/framework gates; `PX-054` cleared a safe Huginn activation-characterization gate; `PX-049` failed its live agentic slopsquatting gate because the model produced zero install actions; and `PX-053` failed its synthetic approval-fatigue gate. These D1 results are tracked separately from the five core Praxis positives until scaled or replicated.
+The new D1 agent-defense branch has now been tested through first follow-on gates. `PX-050` cleared the fixed adaptive-command gate and a Qwen live model-generated scale-up, then replicated hardened zero-escape robustness on DeepSeek with mixed registry-uplift evidence; `PX-051` and `PX-052` now also pass on the combined live corpus; `PX-054` cleared a safe Huginn activation-characterization gate; `PX-049` failed its live agentic slopsquatting gate because the model produced zero install actions; and `PX-053` failed its synthetic approval-fatigue gate. These D1 results are tracked separately from the five core Praxis positives until scaled or written as standalone claims.
 
 ## Repository Layout
 

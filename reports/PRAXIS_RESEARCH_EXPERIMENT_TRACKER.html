@@ -376,6 +376,9 @@
       <a href="agentic_deployment_defense/px049_live_gate_20260705/PX049_AGENTIC_SLOPSQUATTING_LIVE_GATE_20260705.md">PX-049 live gate</a>
       <a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">PX-050 adaptive gate</a>
       <a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">PX-050 live adaptive gate</a>
+      <a href="agentic_deployment_defense/px050_second_model_replication_20260705/PX050_SECOND_MODEL_REPLICATION_20260705.md">PX-050 replication</a>
+      <a href="agentic_deployment_defense/px051_live_corpus_policy_refresh_20260705/PX051_LIVE_CORPUS_POLICY_REFRESH_20260705.md">PX-051 live refresh</a>
+      <a href="agentic_deployment_defense/px052_live_corpus_provenance_refresh_20260705/PX052_LIVE_CORPUS_PROVENANCE_REFRESH_20260705.md">PX-052 live refresh</a>
       <a href="agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md">PX-051 Pareto gate</a>
       <a href="agentic_deployment_defense/px052_provenance_gate_20260705/PX052_PROVENANCE_TOOL_BOUNDARY_GATE_20260705.md">PX-052 provenance gate</a>
       <a href="agentic_deployment_defense/px053_approval_fatigue_sim_20260705/PX053_APPROVAL_FATIGUE_SIMULATION_GATE_20260705.md">PX-053 simulation gate</a>
@@ -431,7 +434,7 @@
 
   <section>
     <h2>New D1 Agent-Defense Candidate Queue</h2>
-    <p class="small">This is the newly integrated candidate branch from the 2026-07-05 proposal, now updated with first follow-on gates. These are not counted as final Praxis positives yet. PX-050 has fixed-fixture and live model-generated adaptive passes; PX-051, PX-052, and PX-054 are continue-worthy positive gates; PX-049 is parked pending harness redesign; PX-053 failed the simulation gate and should not be promoted as a human-factors result.</p>
+    <p class="small">This is the newly integrated candidate branch from the 2026-07-05 proposal, now updated with first follow-on gates and live-corpus refreshes. These are not counted as final Praxis positives yet. PX-050 has replicated hardened zero-escape robustness across Qwen and DeepSeek, with mixed registry-uplift evidence; PX-051 and PX-052 pass on the combined live corpus; PX-054 remains a continue-worthy activation gate; PX-049 is parked pending harness redesign; PX-053 failed the simulation gate and should not be promoted as a human-factors result.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -458,24 +461,24 @@
             <td class="num">PX-050</td>
             <td class="title">Adaptive Evaluation of Deterministic Agent Defenses</td>
             <td>PX-004/PX-011/PX-016 extension</td>
-            <td><span class="badge start">Live adaptive pass</span></td>
-            <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">Fixed gate</a> plus <a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">live model-generated scale-up</a>: <code>98</code> generated commands, parse rate <code>1.0000</code>, registry-only invalid escape rate <code>0.1800</code>, hardened invalid recall <code>1.0000</code>, hardened escape rate <code>0.0000</code>, valid clean allow rate <code>0.9167</code>.</td>
+            <td><span class="badge start">Robustness replicated</span></td>
+            <td><a href="agentic_deployment_defense/px050_second_model_replication_20260705/PX050_SECOND_MODEL_REPLICATION_20260705.md">Second-model replication</a>: Qwen and DeepSeek produced <code>196</code> live generated commands; aggregate registry-only invalid escape rate <code>0.0900</code>, hardened escape rate <code>0.0000</code>, valid clean allow rate <code>0.9583</code>. Registry-uplift is mixed because DeepSeek generated easier direct invalid commands.</td>
           </tr>
           <tr>
             <td class="num">3</td>
             <td class="num">PX-051</td>
             <td class="title">Security-Utility Pareto for Agent Gates</td>
             <td>PX-001 selective-gate math</td>
-            <td><span class="badge start">Pareto gate pass</span></td>
-            <td><a href="agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md">Pareto gate</a>: risk-adaptive policy stayed on the Pareto front with security score <code>1.0000</code>, utility preserved <code>0.9160</code>, review rate <code>0.1014</code>, and high-consequence audit coverage <code>1.0000</code>.</td>
+            <td><span class="badge start">Live policy pass</span></td>
+            <td><a href="agentic_deployment_defense/px051_live_corpus_policy_refresh_20260705/PX051_LIVE_CORPUS_POLICY_REFRESH_20260705.md">Live-corpus policy refresh</a>: hardened policy stayed on the Pareto front over <code>196</code> generated commands with invalid escape rate <code>0.0000</code>, utility preserved <code>0.9583</code>, and review rate <code>0.0000</code>.</td>
           </tr>
           <tr>
             <td class="num">4</td>
             <td class="num">PX-052</td>
             <td class="title">Provenance-Aware Retrofit Monitoring at the Tool Boundary</td>
             <td>PX-012/PX-013/PX-014 narrowed</td>
-            <td><span class="badge start">Provenance gate pass</span></td>
-            <td><a href="agentic_deployment_defense/px052_provenance_gate_20260705/PX052_PROVENANCE_TOOL_BOUNDARY_GATE_20260705.md">Provenance gate</a>: <code>91</code> traces; alert recall <code>1.0000</code>, clean false-positive rate <code>0.0000</code>, complete-or-alert rate <code>1.0000</code>. Positive retrofit-monitor prototype.</td>
+            <td><span class="badge start">Live provenance pass</span></td>
+            <td><a href="agentic_deployment_defense/px052_live_corpus_provenance_refresh_20260705/PX052_LIVE_CORPUS_PROVENANCE_REFRESH_20260705.md">Live-corpus provenance refresh</a>: <code>196</code> traces; alert recall <code>1.0000</code>, clean false-positive rate <code>0.0000</code>, trace completeness <code>1.0000</code>. Positive retrofit-monitor prototype.</td>
           </tr>
           <tr>
             <td class="num">5</td>
@@ -988,26 +991,26 @@
             <td class="num">PX-050</td>
             <td class="title">Adaptive Evaluation of Deterministic Agent Defenses</td>
             <td>D1 agent defense</td>
-            <td><span class="badge start">Live adaptive pass</span></td>
-            <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">Fixed adaptive gate</a> and <a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">live model-generated adaptive gate</a>: <code>98</code> generated commands, command parse rate <code>1.0000</code>, registry-only invalid escape rate <code>0.1800</code>, hardened invalid recall <code>1.0000</code>, hardened escape rate <code>0.0000</code>, valid clean allow rate <code>0.9167</code>.</td>
-            <td>Positive deterministic-gate result strengthened by a live model-generated scale-up. Worth pursuing as the lead D1 agent-defense paper lane.</td>
+            <td><span class="badge start">Robustness replicated</span></td>
+            <td><a href="agentic_deployment_defense/px050_adaptive_gate_20260705/PX050_ADAPTIVE_DETERMINISTIC_DEFENSE_GATE_20260705.md">Fixed adaptive gate</a>, <a href="agentic_deployment_defense/px050_live_adaptive_gate_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">Qwen live gate</a>, <a href="agentic_deployment_defense/px050_live_adaptive_deepseek_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">DeepSeek live gate</a>, and <a href="agentic_deployment_defense/px050_second_model_replication_20260705/PX050_SECOND_MODEL_REPLICATION_20260705.md">replication synthesis</a>: <code>196</code> generated commands across two models; aggregate hardened escape <code>0.0000</code>, valid clean allow <code>0.9583</code>, aggregate registry-only invalid escape <code>0.0900</code>.</td>
+            <td>Bounded positive. Hardened robustness replicated across two models; the registry-uplift effect is model-dependent, so do not claim every model generates bypass-shaped strings.</td>
           </tr>
           <tr>
             <td class="num">51</td>
             <td class="num">PX-051</td>
             <td class="title">Security-Utility Pareto for Agent Gates</td>
             <td>D1 agent defense / PX-001 extension</td>
-            <td><span class="badge start">Pareto gate pass</span></td>
-            <td><a href="agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md">Security-utility Pareto gate</a>: risk-adaptive policy on the Pareto front; security score <code>1.0000</code>, utility preserved <code>0.9160</code>, review rate <code>0.1014</code>, high-consequence audit coverage <code>1.0000</code>.</td>
-            <td>Positive framework result. Best used with PX-050 as the operating-point layer for deterministic agent gates.</td>
+            <td><span class="badge start">Live policy pass</span></td>
+            <td><a href="agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md">Original Pareto gate</a> and <a href="agentic_deployment_defense/px051_live_corpus_policy_refresh_20260705/PX051_LIVE_CORPUS_POLICY_REFRESH_20260705.md">live-corpus refresh</a>: hardened policy on Pareto front; invalid escape <code>0.0000</code>, utility preserved <code>0.9583</code>, review rate <code>0.0000</code>.</td>
+            <td>Positive framework result. Best used as the operating-point layer for PX-050 deterministic agent gates.</td>
           </tr>
           <tr>
             <td class="num">52</td>
             <td class="num">PX-052</td>
             <td class="title">Provenance-Aware Retrofit Monitoring at the Tool Boundary</td>
             <td>D1 agent defense / provenance</td>
-            <td><span class="badge start">Provenance gate pass</span></td>
-            <td><a href="agentic_deployment_defense/px052_provenance_gate_20260705/PX052_PROVENANCE_TOOL_BOUNDARY_GATE_20260705.md">Provenance tool-boundary gate</a>: <code>91</code> explicit-lineage traces; alert recall <code>1.0000</code>, clean false-positive rate <code>0.0000</code>, complete-or-alert rate <code>1.0000</code>.</td>
+            <td><span class="badge start">Live provenance pass</span></td>
+            <td><a href="agentic_deployment_defense/px052_provenance_gate_20260705/PX052_PROVENANCE_TOOL_BOUNDARY_GATE_20260705.md">Original provenance gate</a> and <a href="agentic_deployment_defense/px052_live_corpus_provenance_refresh_20260705/PX052_LIVE_CORPUS_PROVENANCE_REFRESH_20260705.md">live-corpus refresh</a>: <code>196</code> traces; alert recall <code>1.0000</code>, clean false-positive rate <code>0.0000</code>, trace completeness <code>1.0000</code>.</td>
             <td>Positive retrofit-monitor prototype. Worth pursuing as a systems lane because it does not depend on hidden chain-of-thought instrumentation.</td>
           </tr>
           <tr>
@@ -1221,14 +1224,34 @@
             <td>Source for PX-050 scale-up positive: registry-only invalid escape rate <code>0.1800</code>, hardened invalid recall <code>1.0000</code>, hardened escape rate <code>0.0000</code>, valid clean allow rate <code>0.9167</code>.</td>
           </tr>
           <tr>
+            <td><a href="agentic_deployment_defense/px050_live_adaptive_deepseek_20260705/PX050_LIVE_MODEL_ADAPTIVE_GATE_20260705.md">PX-050 DeepSeek live adaptive replication</a></td>
+            <td>DeepSeek-Coder generated <code>98</code> inert PyPI/NPM command strings against the same frozen deterministic gate.</td>
+            <td>Source for the bounded replication finding: hardened escape rate <code>0.0000</code>, valid clean allow <code>1.0000</code>, but registry-only escape rate <code>0.0000</code>, so registry-uplift did not replicate on this model.</td>
+          </tr>
+          <tr>
+            <td><a href="agentic_deployment_defense/px050_second_model_replication_20260705/PX050_SECOND_MODEL_REPLICATION_20260705.md">PX-050 second-model replication synthesis</a></td>
+            <td>Combined Qwen and DeepSeek replication report over <code>196</code> generated command rows.</td>
+            <td>Source for classifying PX-050 as robustness replicated with mixed uplift evidence.</td>
+          </tr>
+          <tr>
             <td><a href="agentic_deployment_defense/px051_pareto_gate_20260705/PX051_SECURITY_UTILITY_PARETO_GATE_20260705.md">PX-051 security-utility Pareto gate</a></td>
             <td>Consequence-weighted policy comparison over the PX-050 adaptive action set.</td>
             <td>Source for PX-051 positive framework result: risk-adaptive policy on the Pareto front with utility preserved <code>0.9160</code> and high-consequence audit coverage <code>1.0000</code>.</td>
           </tr>
           <tr>
+            <td><a href="agentic_deployment_defense/px051_live_corpus_policy_refresh_20260705/PX051_LIVE_CORPUS_POLICY_REFRESH_20260705.md">PX-051 live-corpus policy refresh</a></td>
+            <td>Policy operating-point refresh over combined Qwen and DeepSeek live generated command rows.</td>
+            <td>Source for live policy pass: hardened policy on Pareto front, invalid escape <code>0.0000</code>, utility preserved <code>0.9583</code>.</td>
+          </tr>
+          <tr>
             <td><a href="agentic_deployment_defense/px052_provenance_gate_20260705/PX052_PROVENANCE_TOOL_BOUNDARY_GATE_20260705.md">PX-052 provenance-aware tool-boundary gate</a></td>
             <td>Explicit-lineage retrofit monitor over <code>91</code> clean and risky tool-argument provenance traces.</td>
             <td>Source for PX-052 positive prototype: alert recall <code>1.0000</code>, clean false-positive rate <code>0.0000</code>, complete-or-alert rate <code>1.0000</code>.</td>
+          </tr>
+          <tr>
+            <td><a href="agentic_deployment_defense/px052_live_corpus_provenance_refresh_20260705/PX052_LIVE_CORPUS_PROVENANCE_REFRESH_20260705.md">PX-052 live-corpus provenance refresh</a></td>
+            <td>Explicit-lineage refresh over <code>196</code> Qwen and DeepSeek live generated command traces.</td>
+            <td>Source for live provenance pass: alert recall <code>1.0000</code>, clean false-positive rate <code>0.0000</code>, trace completeness <code>1.0000</code>.</td>
           </tr>
           <tr>
             <td><a href="agentic_deployment_defense/px053_approval_fatigue_sim_20260705/PX053_APPROVAL_FATIGUE_SIMULATION_GATE_20260705.md">PX-053 approval-fatigue simulation gate</a></td>
