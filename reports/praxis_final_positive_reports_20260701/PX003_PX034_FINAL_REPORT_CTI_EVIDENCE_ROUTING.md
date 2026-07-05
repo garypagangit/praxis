@@ -53,9 +53,22 @@ PX-034 source-conflict buckets over 500 CTI-MCQ rows:
 | Weak single-source | `37` |
 | Unsupported | `150` |
 
+Recommendation follow-up, 2026-07-05:
+
+| Bucket | Vanilla accuracy | Relationship-evidence accuracy | Delta |
+|---|---:|---:|---:|
+| Ambiguous multi-source | `0.5357` | `0.7143` | `+0.1786` |
+| Conflicting high-support | `0.5307` | `0.8101` | `+0.2793` |
+| Decisive | `0.6226` | `0.9057` | `+0.2830` |
+| Unsupported | `0.6933` | `0.7733` | `+0.0800` |
+| Weak single-source | `0.7297` | `0.9189` | `+0.1892` |
+| Full 500-row table | `0.6140` | `0.8220` | `+0.2080` |
+
 ## What It Proves
 
-PX-003/PX-034 proves that retrieval-conditioned ATT&CK evidence improves strict CTI-MCQ compliance across Llama and Qwen model families on the locked decisive slice. PX-034 strengthens the result by identifying when evidence is decisive enough for direct answering and when the system should abstain or route to review.
+PX-003/PX-034 proves that retrieval-conditioned ATT&CK evidence improves strict CTI-MCQ compliance across Llama and Qwen model families on the locked decisive slice. The 2026-07-05 full-bucket Qwen audit also shows that relationship evidence improves performance across the full 500-row source-conflict table.
+
+PX-034 should now be framed more narrowly: it is a source-support and conflict taxonomy that identifies a high-confidence decisive evidence slice, not a hard answerability oracle. Forced-answer performance remains strong outside the decisive bucket, so abstain/review routing should be described as risk stratification rather than proof that non-decisive rows are unanswerable.
 
 ## Claim Boundary
 
@@ -63,12 +76,13 @@ Allowed claim:
 
 > Per-question ATT&CK evidence retrieval improves strict CTI answer compliance on the decisive evidence-addressable slice, and a source-conflict router can identify that slice.
 
-Do not claim pure causal relationship evidence, a general deep-research agent, or universal CTI question answering. Technique-only evidence also helps, so the mechanism must be stated conservatively as retrieval-conditioned CTI compliance.
+Do not claim pure causal relationship evidence, a general deep-research agent, universal CTI question answering, or a hard answerability router. Technique-only evidence also helps, and full-bucket forced answering remains strong in several non-decisive buckets, so the mechanism must be stated conservatively as retrieval-conditioned CTI compliance with source-support risk stratification.
 
 ## Evidence Links
 
 - `reports/relationship_evidence_cti_compliance/PX003_QWEN25_7B_DEFENSE_REPLICATION_20260630.md`
 - `reports/relationship_evidence_cti_compliance/PX034_CTI_SOURCE_CONFLICT_GATE_20260630.md`
+- `reports/relationship_evidence_cti_compliance/full_bucket_downstream_qwen_20260705/PX003_PX034_FULL_BUCKET_DOWNSTREAM_ACCURACY_AUDIT.md`
 - `reports/relationship_evidence_cti_compliance/PRAXIS07_RESULT_SYNTHESIS_20260517.md`
 - `reports/relationship_evidence_cti_compliance/qwen25_7b_defense_20260630/summary.json`
 - `cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py`
@@ -183,4 +197,3 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 ```
-

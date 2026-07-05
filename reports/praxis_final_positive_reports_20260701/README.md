@@ -21,3 +21,7 @@ Each report includes:
 - Supporting evidence links.
 - Appendix A with transportable project code.
 
+Combined plain-text exports:
+
+- `PRAXIS_FINAL_POSITIVE_REPORTS_WITH_TRACKER_EXPORT_20260702.txt` - original final-report bundle.
+- `PRAXIS_FINAL_POSITIVE_REPORTS_WITH_TRACKER_EXPORT_20260705.txt` - refreshed bundle after the PX-003/PX-034 full-bucket downstream audit and PX-005 novelty-positioning update.

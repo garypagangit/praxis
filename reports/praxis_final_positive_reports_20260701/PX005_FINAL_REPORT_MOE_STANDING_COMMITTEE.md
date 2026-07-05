@@ -12,6 +12,8 @@
 
 **Praxis thesis:** Sparse MoE routers can exhibit stable high-mass standing committees across prompt domains and style variants, challenging simple domain-specialization assumptions.
 
+**Novelty update, 2026-07-05:** This report must be positioned as a bounded confirmation/extension rather than a standalone novelty lead. Wang et al.'s 2026 ACL paper `The Illusion of Specialization: Unveiling the Domain-Invariant "Standing Committee" in Mixture-of-Experts Models` (`arXiv:2601.03425`) already introduces the Standing Committee framing and COMMITTEEAUDIT. PX-005 remains useful because it applies a frozen Praxis prompt-domain audit across OLMoE base, OLMoE-Instruct, and Qwen1.5-MoE, but it should not be defended as the first standing-committee discovery.
+
 **Objective:** Test whether high-overlap routed expert committees recur across cyber, code, math, policy, and writing prompts under deterministic style perturbations.
 
 **Research question:** Does a frozen prompt-domain audit reveal standing-committee routing across model families and architectures?
@@ -42,7 +44,7 @@ Committee-size sensitivity:
 
 ## What It Proves
 
-PX-005 proves that stable high-overlap routed expert committees appear under the frozen prompt-domain audit in OLMoE base, OLMoE-Instruct, and Qwen1.5-MoE. The Qwen result is the key cross-architecture upgrade.
+PX-005 confirms that stable high-overlap routed expert committees appear under the frozen Praxis prompt-domain audit in OLMoE base, OLMoE-Instruct, and Qwen1.5-MoE. The Qwen result is the key cross-architecture upgrade for this local audit, but the broader Standing Committee concept is already established in the 2026 literature.
 
 ## Claim Boundary
 
@@ -50,7 +52,7 @@ Allowed claim:
 
 > Under a frozen 480-prompt audit, stable standing-committee routing structure appears in the audited MoE models.
 
-Do not claim causal expert specialization, universal MoE behavior, robustness under fine-tuning/domain shift, or that committee overlap alone explains model behavior.
+Do not claim first discovery of Standing Committees, causal expert specialization, universal MoE behavior, robustness under fine-tuning/domain shift, or that committee overlap alone explains model behavior.
 
 ## Evidence Links
 
@@ -58,6 +60,7 @@ Do not claim causal expert specialization, universal MoE behavior, robustness un
 - `reports/moe_standing_committee/router_audit_20260623/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_20260623.md`
 - `reports/moe_standing_committee/router_audit_olmoe_instruct_20260623/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_OLMOE_INSTRUCT_20260623.md`
 - `reports/moe_standing_committee/qwen15_router_audit_20260628/MOE_QWEN15_ROUTER_AUDIT_20260628.md`
+- `https://arxiv.org/abs/2601.03425`
 - `cloud_jobs/moe_standing_committee_20260623/run_olmoe_router_audit.py`
 - `cloud_jobs/moe_qwen15_router_audit_20260628/run_qwen_moe_router_audit.py`
 
@@ -141,4 +144,3 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 ```
-

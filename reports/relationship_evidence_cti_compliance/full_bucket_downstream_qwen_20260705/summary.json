@@ -1,0 +1,74 @@
+{
+  "condition_summaries": [
+    {
+      "accuracy": 0.614,
+      "condition": "vanilla",
+      "condition_key": "vanilla_strict_prompt",
+      "correct": 307,
+      "elapsed_seconds": 78.70549631118774,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 0.0,
+      "mean_output_tokens": 5.112,
+      "mean_prompt_tokens": 94.986,
+      "parsed_distribution": {
+        "A": 141,
+        "B": 137,
+        "C": 167,
+        "D": 55
+      },
+      "rows": 500,
+      "seconds_per_row": 0.15741099262237548
+    },
+    {
+      "accuracy": 0.822,
+      "condition": "relationship_evidence",
+      "condition_key": "relationship_evidence_prompt",
+      "correct": 411,
+      "elapsed_seconds": 109.71343731880188,
+      "invalid": 0,
+      "invalid_rate": 0.0,
+      "mean_evidence_block_tokens": 283.712,
+      "mean_output_tokens": 4.006,
+      "mean_prompt_tokens": 410.716,
+      "parsed_distribution": {
+        "A": 113,
+        "B": 157,
+        "C": 159,
+        "D": 71
+      },
+      "rows": 500,
+      "seconds_per_row": 0.21942687463760377
+    }
+  ],
+  "decision": {
+    "accuracy_delta_relationship_minus_vanilla": 0.20799999999999996,
+    "accuracy_ok": true,
+    "invalid_ok": true,
+    "next_step": "Run technique-only, random-facts, and empty-evidence ablations before naming the Praxis mechanism.",
+    "paired_ok": true,
+    "passed": true,
+    "status": "PASS - RELATIONSHIP EVIDENCE MODEL GATE"
+  },
+  "device": "cuda",
+  "input_jsonl": "/opt/dlami/nvme/praxis/jobs/cti-full-bucket-downstream-qwen25-7b-20260705/input/full_bucket_prompts.jsonl",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "paired_summary": {
+    "both_correct": 271,
+    "both_wrong": 53,
+    "evidence_only": 140,
+    "rows": 500,
+    "vanilla_only": 36
+  },
+  "pairwise_win_matrix": {
+    "relationship_evidence": {
+      "relationship_evidence": 411,
+      "vanilla": 140
+    },
+    "vanilla": {
+      "relationship_evidence": 36,
+      "vanilla": 307
+    }
+  },
+  "rows": 500
+}
