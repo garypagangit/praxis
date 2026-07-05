@@ -360,7 +360,7 @@
 <main>
   <header>
     <h1>Praxis Research: Experiment Tracker and Work Completed</h1>
-    <p class="meta">Updated 2026-06-30. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
+    <p class="meta">Updated 2026-07-05. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
     <div class="source-links">
       <a href="../tmp/docs/idea_explorer_20260622/AI_ML_Praxis_Idea_Explorer_extracted.md">Raw extracted idea list</a>
       <a href="../tmp/docs/idea_explorer_20260622/idea_entries.json">Structured JSON entries</a>
@@ -370,6 +370,9 @@
       <a href="falsecite_code/FALSECITE_CODE_SHORT_PAPER_20260628.md">FalseCite-Code short paper</a>
       <a href="falsecite_code/FALSECITE_CODE_DASHBOARD_20260625.html">FalseCite-Code dashboard</a>
       <a href="moe_standing_committee/MOE_STANDING_COMMITTEE_ROUTER_AUDIT_SYNTHESIS_20260623.md">MoE router audit</a>
+      <a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 agent-defense deconfliction</a>
+      <a href="agentic_deployment_defense/PX049_AGENTIC_SLOPSQUATTING_VERIFIER_PREREG_20260705.md">PX-049 preregistration</a>
+      <a href="agentic_deployment_defense/px049_smoke_20260705/PX049_AGENTIC_SLOPSQUATTING_SMOKE_20260705.md">PX-049 smoke result</a>
     </div>
   </header>
 
@@ -419,18 +422,87 @@
   </section>
 
   <section>
+    <h2>New D1 Agent-Defense Candidate Queue</h2>
+    <p class="small">This is the newly integrated candidate branch from the 2026-07-05 proposal. These are not counted as positive results yet. They are deconflicted against the existing Praxis positives and ordered by immediate research value. PX-049 is the only newly authorized test lane until its live-agent gate is resolved.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>D1 rank</th>
+            <th>ID</th>
+            <th>Candidate</th>
+            <th>Deconflict anchor</th>
+            <th>Status</th>
+            <th>Next gate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td class="num">PX-049</td>
+            <td class="title">Agentic Slopsquatting Package-Hallucination Verifier</td>
+            <td>PX-004 extension</td>
+            <td><span class="badge start">Smoke-pass start</span></td>
+            <td><a href="agentic_deployment_defense/px049_smoke_20260705/PX049_AGENTIC_SLOPSQUATTING_SMOKE_20260705.md">Registry-backed smoke</a> passed: invalid recall <code>1.0000</code>, clean overblock <code>0.0000</code>, residual unsafe rate <code>0.0000</code>. Next: live open-weight code-agent run on held-out package tasks.</td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td class="num">PX-050</td>
+            <td class="title">Adaptive Evaluation of Deterministic Agent Defenses</td>
+            <td>PX-004/PX-011/PX-016 extension</td>
+            <td><span class="badge start">Queued start</span></td>
+            <td>Design adaptive attacks against frozen deterministic gates. Do not run until PX-049 live-agent measurements exist.</td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td class="num">PX-051</td>
+            <td class="title">Security-Utility Pareto for Agent Gates</td>
+            <td>PX-001 selective-gate math</td>
+            <td><span class="badge source">Companion source gate</span></td>
+            <td>Use scored actions from PX-049 or PX-050 to learn consequence-weighted operating points.</td>
+          </tr>
+          <tr>
+            <td class="num">4</td>
+            <td class="num">PX-052</td>
+            <td class="title">Provenance-Aware Retrofit Monitoring at the Tool Boundary</td>
+            <td>PX-012/PX-013/PX-014 narrowed</td>
+            <td><span class="badge source">Source-gate candidate</span></td>
+            <td>Track transitive provenance of tool-call arguments without instrumenting hidden reasoning.</td>
+          </tr>
+          <tr>
+            <td class="num">5</td>
+            <td class="num">PX-053</td>
+            <td class="title">Approval Fatigue vs. Security for Agent Tool Calls</td>
+            <td>Human-in-loop simulation only</td>
+            <td><span class="badge hold">Hold</span></td>
+            <td>Only run a synthetic approval-load simulator this cycle. Do not claim human-subject evidence without IRB review.</td>
+          </tr>
+          <tr>
+            <td class="num">6</td>
+            <td class="num">PX-054</td>
+            <td class="title">Refusal Geometry Across Recurrent Depth</td>
+            <td>PX-010/PX-005 adjacent but separate</td>
+            <td><span class="badge source">Queued source gate</span></td>
+            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">Source gate</a> only. Characterization/detection only; no refusal removal, jailbreak optimization, or safety ablation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
     <h2>Canonical Praxis Experiment Tracker</h2>
     <p class="small">This is the single publishable tracker list. Stable IDs use <code>PX-###</code>. The rows are ranked by current Praxis value: packageable positives first, then evidence artifacts, gate-ready work, diagnostics/negatives, blocked tracks, and deferred idea-bank items. The repository lane identifies where the experiment lives conceptually; the evidence column links to the concrete code, documents, result reports, run artifacts, configs, or source decisions that support the row.</p>
     <div class="summary-grid">
       <div class="summary-card positive">
-        <div class="summary-number">4</div>
+        <div class="summary-number">5</div>
         <strong>Working positives</strong>
         <p class="small">Defense-audited positives worth packaging as true Praxis results.</p>
       </div>
       <div class="summary-card start">
-        <div class="summary-number">3</div>
-        <strong>Active / source-gate</strong>
-        <p class="small">Concrete next gate exists, or source readiness is the correct next move.</p>
+        <div class="summary-number">6</div>
+        <strong>New D1 queue</strong>
+        <p class="small">Newly deconflicted agent-defense candidates, with PX-049 smoke-tested first.</p>
       </div>
       <div class="summary-card hold">
         <div class="summary-number">15</div>
@@ -894,6 +966,60 @@
             <td><a href="AI_ML_PRAXIS_IDEA_EXPLORER_DECONFLICTION_20260622.md">Deconfliction report</a> flags 3D/motion generation plus user-study burden.</td>
             <td>Do not start this cycle.</td>
           </tr>
+          <tr>
+            <td class="num">49</td>
+            <td class="num">PX-049</td>
+            <td class="title">Agentic Slopsquatting Package-Hallucination Verifier</td>
+            <td>D1 agent defense / PX-004 extension</td>
+            <td><span class="badge start">Smoke-pass start</span></td>
+            <td><a href="agentic_deployment_defense/PX049_AGENTIC_SLOPSQUATTING_VERIFIER_PREREG_20260705.md">Preregistration</a>, <a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 deconfliction</a>, and <a href="agentic_deployment_defense/px049_smoke_20260705/PX049_AGENTIC_SLOPSQUATTING_SMOKE_20260705.md">registry-backed smoke</a>: <code>8</code> package-tool actions, invalid recall <code>1.0000</code>, clean overblock <code>0.0000</code>, residual unsafe rate <code>0.0000</code>.</td>
+            <td>Run next live gate on an open-weight code/tool agent with held-out post-cutoff PyPI/NPM package tasks. Do not count as positive until a live-agent unsafe-install gap is measured and closed.</td>
+          </tr>
+          <tr>
+            <td class="num">50</td>
+            <td class="num">PX-050</td>
+            <td class="title">Adaptive Evaluation of Deterministic Agent Defenses</td>
+            <td>D1 agent defense</td>
+            <td><span class="badge start">Queued start</span></td>
+            <td><a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 deconfliction</a>: tests whether deterministic gates inspired by CaMeL/Progent-style defenses hold under adaptive attack.</td>
+            <td>Career-ceiling candidate, but harder than PX-049. Requires frozen gate definitions, adaptive attacker budget, and an open-weight agent before promotion is possible.</td>
+          </tr>
+          <tr>
+            <td class="num">51</td>
+            <td class="num">PX-051</td>
+            <td class="title">Security-Utility Pareto for Agent Gates</td>
+            <td>D1 agent defense / PX-001 extension</td>
+            <td><span class="badge source">Companion source gate</span></td>
+            <td><a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 deconfliction</a>: imports the PX-001 selective-gate idea into risk-adaptive tool-call policies.</td>
+            <td>Do not run standalone. Use scored PX-049/PX-050 action traces to identify consequence-weighted operating points.</td>
+          </tr>
+          <tr>
+            <td class="num">52</td>
+            <td class="num">PX-052</td>
+            <td class="title">Provenance-Aware Retrofit Monitoring at the Tool Boundary</td>
+            <td>D1 agent defense / provenance</td>
+            <td><span class="badge source">Source-gate candidate</span></td>
+            <td><a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 deconfliction</a>: narrows prior provenance work to transitive provenance of tool-call arguments rather than hidden chain-of-thought.</td>
+            <td>Potentially novel systems result. Start only if PX-049 action traces show useful provenance failure modes.</td>
+          </tr>
+          <tr>
+            <td class="num">53</td>
+            <td class="num">PX-053</td>
+            <td class="title">Human-in-the-Loop Approval Fatigue vs. Security</td>
+            <td>D1 agent defense / approval simulation</td>
+            <td><span class="badge hold">Hold</span></td>
+            <td><a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 deconfliction</a>: important deployment question, but real user study would require slow human-subject protocol.</td>
+            <td>Hold for this cycle except synthetic approval-load simulation. Do not claim user behavior without IRB-quality design.</td>
+          </tr>
+          <tr>
+            <td class="num">54</td>
+            <td class="num">PX-054</td>
+            <td class="title">Refusal Geometry Across Recurrent Depth</td>
+            <td>Mechanistic safety / recurrent depth</td>
+            <td><span class="badge source">Queued source gate</span></td>
+            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">Source gate</a>: Huginn/recurrent-depth activation characterization candidate with strict safety boundaries.</td>
+            <td>Queued behind PX-049 under one-at-a-time rule. Characterization only; no refusal removal, jailbreak optimization, or safety ablation.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -1055,6 +1181,26 @@
             <td><a href="EXPERIMENT_STATUS_NO_KIDDING_20260628.html">No-kidding experiment dashboard</a></td>
             <td>Plain-English status dashboard for working, failed, and active experiments.</td>
             <td>Companion review page for non-table status reading.</td>
+          </tr>
+          <tr>
+            <td><a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 agent-defense deconfliction</a></td>
+            <td>Integration and ranking of PX-049 through PX-054, including source anchors and one-at-a-time rule.</td>
+            <td>Source for adding the new agentic deployment defense branch without counting it as current positive work.</td>
+          </tr>
+          <tr>
+            <td><a href="agentic_deployment_defense/PX049_AGENTIC_SLOPSQUATTING_VERIFIER_PREREG_20260705.md">PX-049 preregistration</a></td>
+            <td>Registered thesis, live-agent gate, thresholds, and claim boundary for package hallucination at the agent tool boundary.</td>
+            <td>Source for making PX-049 the next active test candidate.</td>
+          </tr>
+          <tr>
+            <td><a href="agentic_deployment_defense/px049_smoke_20260705/PX049_AGENTIC_SLOPSQUATTING_SMOKE_20260705.md">PX-049 registry-backed smoke</a></td>
+            <td>Eight-row PyPI/NPM verifier smoke over valid and nonexistent package install actions.</td>
+            <td>Source for smoke-pass readiness: invalid recall <code>1.0000</code>, clean overblock <code>0.0000</code>, residual unsafe rate <code>0.0000</code>.</td>
+          </tr>
+          <tr>
+            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">PX-054 refusal-geometry source gate</a></td>
+            <td>Safety-bounded source gate for recurrent-depth refusal-geometry characterization.</td>
+            <td>Source for queued PX-054 status and safety boundaries.</td>
           </tr>
         </tbody>
       </table>

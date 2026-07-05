@@ -9,6 +9,7 @@ Praxis Research is a future-work-to-experiment program. The project reviews 2025
 - [Final positive report export with tracker](reports/praxis_final_positive_reports_20260701/PRAXIS_FINAL_POSITIVE_REPORTS_WITH_TRACKER_EXPORT_20260705.txt)
 - [Final positive report index](reports/praxis_final_positive_reports_20260701/README.md)
 - [Recommendation implementation audit](reports/PRAXIS_RECOMMENDATION_IMPLEMENTATION_20260705.md)
+- [D1 agent-defense deconfliction and new candidate queue](reports/agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md)
 
 The HTML tracker is the front-door overview for the research portfolio. It lists each experiment by stable `PX-###` ID with title, objective, status, short finding, and links to supporting evidence.
 
@@ -25,6 +26,8 @@ The strongest Praxis candidates currently tracked are:
 - `PX-011`: HalluHard deterministic verification gate.
 
 The latest PX-003/PX-034 full-bucket AWS audit found relationship-evidence prompting improved Qwen2.5-7B accuracy from `0.614` to `0.822` across 500 CTI rows. The result supports the relationship-evidence lift claim, while narrowing the router claim to source-support and conflict-risk stratification rather than a hard answerability oracle.
+
+The next newly integrated candidate is `PX-049`, an agentic slopsquatting verifier extension of PX-004. Its registry-backed smoke test passed and authorizes a live open-weight code-agent gate, but it is not yet counted as a positive result.
 
 ## Repository Layout
 
