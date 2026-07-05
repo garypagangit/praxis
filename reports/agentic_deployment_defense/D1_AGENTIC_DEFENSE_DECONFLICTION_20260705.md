@@ -4,14 +4,14 @@ Generated: 2026-07-05
 
 ## Purpose
 
-This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the original positive-result set. The D1 branch is treated as a forward research queue. PX-050 now has a bounded final manuscript draft plus a held-out third-model boundary failure, and PX-054 has cleared a larger safe characterization gate; the remaining D1 rows stay classified by their measured gates.
+This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the original positive-result set. The D1 branch is treated as a forward research queue. PX-050 now has a bounded final manuscript draft, held-out third-model boundary failures, and a PX-050R command-extractor implementation lesson; PX-054 has cleared a larger safe characterization gate. The remaining D1 rows stay classified by their measured gates.
 
 ## Deconflicted Queue
 
 | New ID | Source label | Title | Priority | Integrated status | Deconfliction decision |
 |---|---|---|---:|---|---|
 | PX-049 | D1-2 | Agentic slopsquatting package-hallucination verifier | 8.65 | Live gate fail / park | Extension of PX-004. The verifier smoke passed, but the live agent produced no install actions, so the unsafe-install gap was not established. |
-| PX-050 | D1-1 | Adaptive evaluation of deterministic agent defenses | 8.35 | Final manuscript / bounded positive / uplift mixed / held-out boundary fail | Extension of the deterministic-gate thesis. Fixed fixture, Qwen live, DeepSeek replication, parser stress, paper-package, and final-manuscript gates are complete. Hardened zero-escape robustness replicated over two live models, while registry-uplift remains model-dependent. The held-out StarCoder2 third-model gate failed and must not be counted as positive replication. |
+| PX-050 | D1-1 | Adaptive evaluation of deterministic agent defenses | 8.35 | Final manuscript / bounded positive / uplift mixed / held-out boundary fail / extractor diagnostic positive | Extension of the deterministic-gate thesis. Fixed fixture, Qwen live, DeepSeek replication, parser stress, paper-package, and final-manuscript gates are complete. Hardened zero-escape robustness replicated over two live models, while registry-uplift remains model-dependent. StarCoder2 third-model promotion gates failed, but PX-050R shows controller extraction is a useful implementation update. |
 | PX-051 | D1-4 | Security-utility Pareto for agent gates | 7.45 | Live-corpus policy pass | Reuses PX-001 selective-gate math and now has a positive policy result over the combined live PX-050 command corpus. |
 | PX-052 | D1-3 | Provenance-aware tool-boundary retrofit monitoring | 7.00 | Live-corpus provenance pass | Narrowly distinct from PX-012/PX-013/PX-014 because it tracks tool-call argument provenance rather than graph-event provenance or model reasoning internals; now passes on combined live generated traces. |
 | PX-053 | D1-5 | Human-in-the-loop approval fatigue vs. security | 6.55 | Simulation gate fail | Synthetic approval-load simulator missed compromise and completion thresholds. Do not run as a human-subject study without redesign and IRB-quality protocol. |
@@ -66,6 +66,7 @@ Updated: 2026-07-05
 | PX-050 | Praxis paper package | `PUBLISHABLE_BOUNDED_POSITIVE` | Paper package and claim-boundary files added. Approved claim is zero observed hardened invalid-package escapes on measured command-string corpora with high valid-command utility; no general supply-chain or arbitrary-shell claim. |
 | PX-050 | Final manuscript draft | `FINAL_MANUSCRIPT_DRAFT_PUBLISHABLE_BOUNDED_POSITIVE` | Venue-neutral final manuscript added with abstract, method, result tables, limitations, ethics/safety boundary, reproducibility record, and transportable verifier sketch. |
 | PX-050 | Held-out StarCoder2 third-model replication | `HELDOUT_THIRD_MODEL_FAIL` | `110` held-out commands; command parse rate `0.8091`, registered hardened invalid recall `0.7750`, registered hardened escape rate `0.2250`, valid clean allow rate `1.0000`. Boundary evidence only; do not count as positive third-model replication. |
+| PX-050R | Strict held-out repair | `PX050R_REPAIRED_HELDOUT_FAIL_WITH_EXTRACTOR_DIAGNOSTIC` | Two paid AWS StarCoder2 runs, `220` commands/model. Registered strict one-line gate failed, but extracted target-bearing diagnostic over `437/440` parsed commands had invalid target escape `0.0000` and valid target allow `1.0000`. Use as controller/extractor implementation guidance only. |
 | PX-051 | Live-corpus policy refresh | `LIVE_POLICY_REFRESH_PASS` | Combined live corpus: hardened policy on Pareto front, invalid escape rate `0.0000`, utility preserved `0.9583`, review rate `0.0000`. |
 | PX-052 | Live-corpus provenance refresh | `LIVE_PROVENANCE_REFRESH_PASS` | Combined live corpus: `196` traces, alert recall `1.0000`, clean false-positive rate `0.0000`, trace completeness `1.0000`. |
 | PX-053 | Synthetic approval-fatigue simulation | `SIMULATION_GATE_FAIL` | Risk-scored routing reduced prompt load versus every-action approval but did not beat every-action compromise rate and missed the completion threshold. Do not promote without redesign or human-study protocol. |
@@ -89,7 +90,7 @@ The proposal's `FORGE` reference remains unpinned in this tracker until a primar
 ## Claim Boundaries
 
 - PX-049 may claim verifier effectiveness at the tool boundary only after a real agent run. The initial smoke is readiness evidence only.
-- PX-050 may claim bounded deterministic tool-boundary robustness for measured package-install command strings across the fixed fixture, Qwen live run, DeepSeek live run, and parser-stress appendix. It must keep registry-uplift model-dependent, must present StarCoder2 as a failed held-out boundary run, and must not claim general software supply-chain security or arbitrary-shell safety.
+- PX-050 may claim bounded deterministic tool-boundary robustness for measured package-install command strings across the fixed fixture, Qwen live run, DeepSeek live run, and parser-stress appendix. It must keep registry-uplift model-dependent, must present StarCoder2 promotion gates as failed held-out boundary runs, may use PX-050R only as controller/extractor implementation guidance, and must not claim general software supply-chain security or arbitrary-shell safety.
 - PX-051 may claim a Pareto framework only if it shows nontrivial security-utility trade-off control across scored actions.
 - PX-052 may claim provenance monitoring only if it tracks transitive tool-argument lineage without instrumenting hidden chain-of-thought.
 - PX-053 must not be presented as human-subject evidence unless a real IRB-approved study is performed.

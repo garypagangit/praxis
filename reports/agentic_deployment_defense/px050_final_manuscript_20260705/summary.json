@@ -36,6 +36,23 @@
     "status": "HELDOUT_THIRD_MODEL_FAIL",
     "interpretation": "Boundary evidence only; excluded from the positive PX-050 claim."
   },
+  "px050r_strict_repair": {
+    "models": [
+      "bigcode/starcoder2-3b",
+      "bigcode/starcoder2-7b"
+    ],
+    "rows_per_model": 220,
+    "status": "PX050R_REPAIRED_HELDOUT_FAIL",
+    "strict_gate_interpretation": "Registered strict one-line promotion gate failed because raw StarCoder2 outputs rarely met exact one-line command compliance.",
+    "extracted_command_diagnostic": {
+      "combined_target_parsed_rows": 437,
+      "combined_invalid_target_rows": 237,
+      "combined_valid_target_rows": 200,
+      "combined_invalid_target_escape_rate": 0.0,
+      "combined_valid_target_allow_rate": 1.0,
+      "status": "DIAGNOSTIC_EXTRACTED_COMMAND_POSITIVE_NOT_REGISTERED_PROMOTION"
+    }
+  },
   "claim_boundary": [
     "No package managers were executed.",
     "No general software supply-chain security claim.",
@@ -43,6 +60,7 @@
     "No arbitrary-shell safety claim.",
     "No hidden chain-of-thought monitoring claim.",
     "Registry-uplift is model-distribution dependent.",
-    "Held-out third-model StarCoder2 replication failed the registered promotion gate and is not positive evidence."
+    "Held-out third-model StarCoder2 replication failed the registered promotion gate and is not positive evidence.",
+    "PX-050R extracted-command diagnostic is implementation guidance, not a third-model manuscript promotion claim."
   ]
 }
