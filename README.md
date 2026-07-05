@@ -29,6 +29,8 @@ The latest PX-003/PX-034 full-bucket AWS audit found relationship-evidence promp
 
 The next newly integrated candidate is `PX-049`, an agentic slopsquatting verifier extension of PX-004. Its registry-backed smoke test passed and authorizes a live open-weight code-agent gate, but it is not yet counted as a positive result.
 
+`PX-054`, refusal geometry across recurrent depth, has also cleared a first safe Huginn activation smoke. It is promising characterization evidence, not a final positive until the prompt set is scaled and replicated.
+
 ## Repository Layout
 
 - `reports/`: dashboards, final reports, audit reports, and downloadable exports.

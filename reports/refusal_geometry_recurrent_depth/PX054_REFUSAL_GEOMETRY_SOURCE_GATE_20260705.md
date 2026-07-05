@@ -4,9 +4,9 @@ Generated: 2026-07-05
 
 ## Status
 
-**SOURCE-GATE CANDIDATE - queued behind PX-049**
+**SOURCE GATE PASSED; ACTIVATION GATE PASSED ON SMALL SAFE SMOKE**
 
-This row captures the proposed Huginn/recurrent-depth mechanistic experiment. It is intentionally queued behind PX-049 and must not be co-gated with PX-049.
+This row captures the proposed Huginn/recurrent-depth mechanistic experiment. It began as queued behind PX-049, then was run as the first new experiment after user direction on 2026-07-05. It remains characterization only and must not be merged with offensive jailbreak or refusal-removal work.
 
 ## Framing
 
@@ -55,3 +55,23 @@ All values below are targets, not measurements.
 - No claim that a safety mechanism has been bypassed.
 
 PX-054 can only become a positive if it stays inside characterization and produces stable, reproducible, benign activation geometry evidence.
+
+## 2026-07-05 Gate Update
+
+The source gate passed, and the first AWS activation smoke also passed.
+
+Measured activation-gate highlights:
+
+- Captured rows: `60/60`
+- Activation capture success: `1.0000`
+- Prompt validity: `1.0000`
+- Cross-depth direction stability: `0.8321`
+- Worst benign-control false-positive rate: `0.0000`
+
+Evidence:
+
+- `reports/refusal_geometry_recurrent_depth/source_gate_20260705/PX054_SOURCE_GATE_RESULT_20260705.md`
+- `reports/refusal_geometry_recurrent_depth/activation_gate_20260705/PX054_REFUSAL_GEOMETRY_ACTIVATION_GATE_20260705.md`
+- `reports/refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_RESULT_SYNTHESIS_20260705.md`
+
+Status boundary: this is a promising activation-gate pass, not a final positive. A larger prompt/paraphrase/CI gate is required before PX-054 should be promoted.

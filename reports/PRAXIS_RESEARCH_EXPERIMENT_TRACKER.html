@@ -373,6 +373,7 @@
       <a href="agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md">D1 agent-defense deconfliction</a>
       <a href="agentic_deployment_defense/PX049_AGENTIC_SLOPSQUATTING_VERIFIER_PREREG_20260705.md">PX-049 preregistration</a>
       <a href="agentic_deployment_defense/px049_smoke_20260705/PX049_AGENTIC_SLOPSQUATTING_SMOKE_20260705.md">PX-049 smoke result</a>
+      <a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_RESULT_SYNTHESIS_20260705.md">PX-054 refusal-geometry result</a>
     </div>
   </header>
 
@@ -482,8 +483,8 @@
             <td class="num">PX-054</td>
             <td class="title">Refusal Geometry Across Recurrent Depth</td>
             <td>PX-010/PX-005 adjacent but separate</td>
-            <td><span class="badge source">Queued source gate</span></td>
-            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">Source gate</a> only. Characterization/detection only; no refusal removal, jailbreak optimization, or safety ablation.</td>
+            <td><span class="badge start">Activation-gate pass</span></td>
+            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_RESULT_SYNTHESIS_20260705.md">Result synthesis</a>: source gate passed and AWS Huginn activation gate passed with activation capture <code>1.0000</code>, prompt validity <code>1.0000</code>, cross-depth direction stability <code>0.8321</code>, and benign-control FPR <code>0.0000</code>. Characterization/detection only; no refusal removal, jailbreak optimization, or safety ablation.</td>
           </tr>
         </tbody>
       </table>
@@ -1016,9 +1017,9 @@
             <td class="num">PX-054</td>
             <td class="title">Refusal Geometry Across Recurrent Depth</td>
             <td>Mechanistic safety / recurrent depth</td>
-            <td><span class="badge source">Queued source gate</span></td>
-            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">Source gate</a>: Huginn/recurrent-depth activation characterization candidate with strict safety boundaries.</td>
-            <td>Queued behind PX-049 under one-at-a-time rule. Characterization only; no refusal removal, jailbreak optimization, or safety ablation.</td>
+            <td><span class="badge start">Activation-gate pass</span></td>
+            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">Source gate</a>, <a href="refusal_geometry_recurrent_depth/source_gate_20260705/PX054_SOURCE_GATE_RESULT_20260705.md">source-gate result</a>, <a href="refusal_geometry_recurrent_depth/activation_gate_20260705/PX054_REFUSAL_GEOMETRY_ACTIVATION_GATE_20260705.md">activation-gate result</a>, and <a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_RESULT_SYNTHESIS_20260705.md">synthesis</a>: Huginn latent states captured across depths <code>[4, 8, 16, 32]</code>; cross-depth direction stability <code>0.8321</code>; benign-control FPR <code>0.0000</code>.</td>
+            <td>Promising smoke/characterization result, but not a final positive. Next: scale to at least <code>100</code> safe prompts, paraphrase families, bootstrap CIs, and possibly depth <code>64</code> before promotion.</td>
           </tr>
         </tbody>
       </table>
@@ -1201,6 +1202,21 @@
             <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">PX-054 refusal-geometry source gate</a></td>
             <td>Safety-bounded source gate for recurrent-depth refusal-geometry characterization.</td>
             <td>Source for queued PX-054 status and safety boundaries.</td>
+          </tr>
+          <tr>
+            <td><a href="refusal_geometry_recurrent_depth/source_gate_20260705/PX054_SOURCE_GATE_RESULT_20260705.md">PX-054 source-gate result</a></td>
+            <td>Local source and metadata gate for Huginn-0125: public, ungated, Apache-2.0, custom code present, safetensors present, `num_steps` documented.</td>
+            <td>Source for allowing the first AWS activation-capture gate.</td>
+          </tr>
+          <tr>
+            <td><a href="refusal_geometry_recurrent_depth/activation_gate_20260705/PX054_REFUSAL_GEOMETRY_ACTIVATION_GATE_20260705.md">PX-054 activation-gate result</a></td>
+            <td>AWS g5 Huginn activation smoke over 15 safe prompts and depths <code>[4, 8, 16, 32]</code>.</td>
+            <td>Source for activation-gate pass: capture <code>1.0000</code>, stability <code>0.8321</code>, benign-control FPR <code>0.0000</code>.</td>
+          </tr>
+          <tr>
+            <td><a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_RESULT_SYNTHESIS_20260705.md">PX-054 result synthesis</a></td>
+            <td>Combined interpretation of source-gate and activation-gate outputs.</td>
+            <td>Source for classifying PX-054 as promising activation-gate pass but not final positive.</td>
           </tr>
         </tbody>
       </table>
