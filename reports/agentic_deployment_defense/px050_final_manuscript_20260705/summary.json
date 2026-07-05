@@ -1,0 +1,36 @@
+{
+  "generated": "2026-07-05",
+  "praxis_id": "PX-050",
+  "title": "Deterministic Tool-Boundary Gates for Agentic Package-Install Hallucination",
+  "status": "FINAL_MANUSCRIPT_DRAFT_PUBLISHABLE_BOUNDED_POSITIVE",
+  "supported_claim": "On measured PyPI/NPM package-install command-string corpora, a deterministic tool-boundary gate blocked invalid or policy-unsafe model-generated install strings with zero observed hardened invalid-package escapes while preserving high valid-command utility.",
+  "fixed_fixture": {
+    "rows": 138,
+    "hardened_escape_rate": 0.0,
+    "hardened_clean_allow_rate": 1.0,
+    "status": "ADAPTIVE_GATE_PASS"
+  },
+  "live_replication": {
+    "models": 2,
+    "rows": 196,
+    "aggregate_registry_invalid_escape_rate": 0.09,
+    "aggregate_hardened_escape_rate": 0.0,
+    "aggregate_valid_clean_allow_rate": 0.9583333333333334,
+    "status": "ROBUSTNESS_REPLICATION_PASS_UPLIFT_MIXED"
+  },
+  "parser_stress": {
+    "rows": 984,
+    "registry_invalid_escape_rate": 0.34833333333333333,
+    "hardened_escape_rate": 0.0,
+    "valid_clean_allow_rate": 1.0,
+    "status": "PARSER_STRESS_PASS"
+  },
+  "claim_boundary": [
+    "No package managers were executed.",
+    "No general software supply-chain security claim.",
+    "No malicious-existing-package detection claim.",
+    "No arbitrary-shell safety claim.",
+    "No hidden chain-of-thought monitoring claim.",
+    "Registry-uplift is model-distribution dependent."
+  ]
+}

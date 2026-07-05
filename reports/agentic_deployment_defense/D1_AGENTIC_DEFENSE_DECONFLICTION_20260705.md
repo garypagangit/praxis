@@ -4,14 +4,14 @@ Generated: 2026-07-05
 
 ## Purpose
 
-This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the original positive-result set. The D1 branch is treated as a forward research queue. PX-050 has now been written as a bounded standalone claim, and PX-054 has cleared a larger safe characterization gate; the remaining D1 rows stay classified by their measured gates.
+This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the original positive-result set. The D1 branch is treated as a forward research queue. PX-050 now has a bounded final manuscript draft, and PX-054 has cleared a larger safe characterization gate; the remaining D1 rows stay classified by their measured gates.
 
 ## Deconflicted Queue
 
 | New ID | Source label | Title | Priority | Integrated status | Deconfliction decision |
 |---|---|---|---:|---|---|
 | PX-049 | D1-2 | Agentic slopsquatting package-hallucination verifier | 8.65 | Live gate fail / park | Extension of PX-004. The verifier smoke passed, but the live agent produced no install actions, so the unsafe-install gap was not established. |
-| PX-050 | D1-1 | Adaptive evaluation of deterministic agent defenses | 8.35 | Publishable bounded positive / uplift mixed | Extension of the deterministic-gate thesis. Fixed fixture, Qwen live, DeepSeek replication, parser stress, and paper-package gates are complete. Hardened zero-escape robustness replicated, while registry-uplift remains model-dependent. |
+| PX-050 | D1-1 | Adaptive evaluation of deterministic agent defenses | 8.35 | Final manuscript / bounded positive / uplift mixed | Extension of the deterministic-gate thesis. Fixed fixture, Qwen live, DeepSeek replication, parser stress, paper-package, and final-manuscript gates are complete. Hardened zero-escape robustness replicated, while registry-uplift remains model-dependent. |
 | PX-051 | D1-4 | Security-utility Pareto for agent gates | 7.45 | Live-corpus policy pass | Reuses PX-001 selective-gate math and now has a positive policy result over the combined live PX-050 command corpus. |
 | PX-052 | D1-3 | Provenance-aware tool-boundary retrofit monitoring | 7.00 | Live-corpus provenance pass | Narrowly distinct from PX-012/PX-013/PX-014 because it tracks tool-call argument provenance rather than graph-event provenance or model reasoning internals; now passes on combined live generated traces. |
 | PX-053 | D1-5 | Human-in-the-loop approval fatigue vs. security | 6.55 | Simulation gate fail | Synthetic approval-load simulator missed compromise and completion thresholds. Do not run as a human-subject study without redesign and IRB-quality protocol. |
@@ -64,6 +64,7 @@ Updated: 2026-07-05
 | PX-050 | Second-model live replication | `ROBUSTNESS_REPLICATION_PASS_UPLIFT_MIXED` | Across Qwen and DeepSeek: `196` generated commands, aggregate registry-only invalid escape rate `0.0900`, aggregate hardened escape rate `0.0000`, aggregate valid clean allow rate `0.9583`. Hardened robustness replicated; registry-uplift replicated only on Qwen. |
 | PX-050 | Parser stress appendix | `PARSER_STRESS_PASS` | `984` inert command mutations; parser handled rate `1.0000`, registry-only invalid escape rate `0.3483`, hardened invalid recall `1.0000`, hardened escape rate `0.0000`, valid clean allow rate `1.0000`. |
 | PX-050 | Praxis paper package | `PUBLISHABLE_BOUNDED_POSITIVE` | Paper package and claim-boundary files added. Approved claim is zero observed hardened invalid-package escapes on measured command-string corpora with high valid-command utility; no general supply-chain or arbitrary-shell claim. |
+| PX-050 | Final manuscript draft | `FINAL_MANUSCRIPT_DRAFT_PUBLISHABLE_BOUNDED_POSITIVE` | Venue-neutral final manuscript added with abstract, method, result tables, limitations, ethics/safety boundary, reproducibility record, and transportable verifier sketch. |
 | PX-051 | Live-corpus policy refresh | `LIVE_POLICY_REFRESH_PASS` | Combined live corpus: hardened policy on Pareto front, invalid escape rate `0.0000`, utility preserved `0.9583`, review rate `0.0000`. |
 | PX-052 | Live-corpus provenance refresh | `LIVE_PROVENANCE_REFRESH_PASS` | Combined live corpus: `196` traces, alert recall `1.0000`, clean false-positive rate `0.0000`, trace completeness `1.0000`. |
 | PX-053 | Synthetic approval-fatigue simulation | `SIMULATION_GATE_FAIL` | Risk-scored routing reduced prompt load versus every-action approval but did not beat every-action compromise rate and missed the completion threshold. Do not promote without redesign or human-study protocol. |
