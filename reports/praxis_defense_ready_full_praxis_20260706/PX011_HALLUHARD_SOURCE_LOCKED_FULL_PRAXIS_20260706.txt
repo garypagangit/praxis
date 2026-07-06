@@ -1,0 +1,320 @@
+SOURCE-LOCKED HALLUHARD VERIFIER PIPELINE
+Doctor of Engineering Praxis Draft
+Praxis ID: PX-011
+Generated: 2026-07-06
+Status: Bounded source-locked positive
+
+FRONT MATTER
+
+Certification Page
+This praxis draft is prepared as a defense-ready technical document for review by an engineering praxis committee. The candidate certifies that the research claim is bounded to the evidence artifacts listed in Appendix B and Appendix C, that negative and boundary results are preserved, and that no unsupported generalization is intentionally asserted.
+
+Candidate: [Candidate Name]
+Program: Doctor of Engineering in AI/ML
+Institution: [Institution Name]
+Committee Chair: [Committee Chair]
+Committee Members: [Committee Members]
+Date: 2026-07-06
+
+Copyright Page
+Copyright (c) 2026 [Candidate Name]. All rights reserved. Repository artifacts may be reviewed under the repository license and access controls. Third-party datasets, papers, and model artifacts remain governed by their respective licenses and terms.
+
+Dedication / Acknowledgments
+This praxis is dedicated to the practical engineering discipline of building AI/ML systems that can be tested, bounded, audited, and improved without overclaiming. Acknowledgment is given to the open-source research community, dataset maintainers, model publishers, and the Praxis Research repository artifacts that make this work reviewable.
+
+Abstract of Praxis
+This praxis evaluates a source-locked retrieval/controller pipeline on the HalluHard research_questions lane. The controller copies DOI, arXiv ID, title, year, and source identity from retrieved records, leaving Qwen2.5-7B to generate only a short extractive claim phrase. The final gate generated 250/250 extraction-valid rows, evaluated 500 supported/shifted-source pairs, and achieved verifier accuracy 0.9040 and macro F1 0.9031.
+
+Keywords: HalluHard, hallucination verification, source locking, citation grounding, retrieval controller
+
+Table of Contents
+Front Matter
+Chapter 1: Introduction
+  1.1 Background
+  1.2 Research Motivation
+  1.3 Problem Statement
+  1.4 Thesis Statement
+  1.5 Research Objectives
+  1.6 Research Questions and Hypotheses
+  1.7 Scope of Research
+  1.8 Research Limitations
+  1.9 Organization of the Praxis
+Chapter 2: Literature Review
+  2.1 Overview and Review Strategy
+  2.2 Thematic Review Area 1
+  2.3 Thematic Review Area 2
+  2.4 Thematic Review Area 3
+  2.5 Thematic Review Area 4
+  2.6 Critical Analysis and Gap Synthesis
+Chapter 3: Methodology
+  3.1 Research Approach and Design
+  3.2 Graphical Methodology of Research (GMR)
+  3.3 Research Framework
+  3.4 Experiment 1
+  3.5 Experiment 2
+  3.6 Experiment 3
+  3.7 Experiment 4
+  3.8 Data Sources and Datasets
+  3.9 Evaluation Metrics and Statistical Methods
+  3.10 Validation Approach
+  3.11 Assumptions
+Chapter 4: Results and Discussion
+  4.1 Results: Experiment 1
+  4.2 Results: Experiment 2
+  4.3 Results: Experiment 3
+  4.4 Results: Experiment 4
+  4.5 Cross-Experiment Analysis
+  4.6 Hypothesis Test Outcomes
+  4.7 Discussion: Relation to Research Questions and Prior Literature
+Chapter 5: Conclusions and Future Work
+References
+Appendices
+
+List of Figures
+Figure 1. Praxis research framework and evidence flow.
+Figure 2. Graphical Methodology of Research (GMR) for the experiment suite.
+Figure 3. Claim-boundary decision flow.
+
+List of Tables
+Table 1. Acronyms and abbreviations.
+Table 2. Research questions and hypotheses.
+Table 3. Experiment design matrix.
+Table 4. Dataset and evidence artifacts.
+Table 5. Results summary and hypothesis outcomes.
+
+List of Acronyms
+Acronym | Meaning
+--------+------------------------------------------------------
+APA | American Psychological Association
+APT | Advanced Persistent Threat
+ATT&CK | Adversarial Tactics, Techniques, and Common Knowledge
+CI | Confidence Interval
+CTI | Cyber Threat Intelligence
+F1 | Harmonic mean of precision and recall
+GMR | Graphical Methodology of Research
+LLM | Large Language Model
+MCQ | Multiple-Choice Question
+MoE | Mixture of Experts
+MRR | Mean Reciprocal Rank
+RAG | Retrieval-Augmented Generation
+SVD | Singular Value Decomposition
+TTA | Test-Time Adaptation
+TTP | Tactics, Techniques, and Procedures
+
+CHAPTER 1: INTRODUCTION
+
+1.1 Background
+Source-Locked HalluHard Verifier Pipeline is part of the Praxis Research portfolio, a future-work-to-experiment program for AI/ML and cybersecurity engineering. The portfolio standard is evidence-first: a result is promoted only when it has a defined objective, a reproducible artifact trail, a measured gate, and a written claim boundary.
+
+1.2 Research Motivation
+Open-ended citation generation remains fragile; source locking converts a broad hallucination problem into a verifiable evidence-control problem.
+
+1.3 Problem Statement
+If the model invents citation metadata, a verifier must judge too much at once. PX-011 isolates the model to extractive content and keeps source identity deterministic.
+
+1.4 Thesis Statement
+A HalluHard-style hallucination guardrail can work when citation metadata are locked to retrieved evidence and the model is restricted to extractive claim generation.
+
+1.5 Research Objectives
+1. Lock citation metadata to retrieved source records.
+2. Generate only extractive claim content with Qwen2.5-7B.
+3. Evaluate supported pairs and shifted-source negatives.
+4. Compare against trivial baselines.
+
+1.6 Research Questions and Hypotheses
+RQ / Hypothesis | Statement
+----------------+--------------------------------------------------------------------------------------------------------------------------------------------------
+RQ1 / H1 | Can a controller remove the freeform citation-metadata failure mode? Hypothesis: Extraction-valid rate reaches 1.0000 under the constrained lane.
+RQ2 / H2 | Can extractive model content produce verifier-ready claims? Hypothesis: Verifier macro F1 beats always-supported and field-presence baselines.
+RQ3 / H3 | Can the verifier detect shifted-source hallucinations? Hypothesis: Shifted-source negatives are separable from supported pairs.
+RQ4 / H4 | Does the verifier beat trivial support baselines? Hypothesis: The result remains bounded to research_questions only.
+
+1.7 Scope of Research
+HalluHard research_questions lane only; Qwen2.5-7B extractive claim text; deterministic source metadata controller.
+
+1.8 Research Limitations
+Not broad HalluHard coverage, not legal/medical/coding lane success, not freeform citation generation, and not open-ended source discovery.
+
+1.9 Organization of the Praxis
+Chapter 1 introduces the problem, thesis, scope, and limitations. Chapter 2 reviews the relevant literature and identifies the gap. Chapter 3 describes the research design, GMR, framework, four experiments, data, metrics, validation, and assumptions. Chapter 4 reports results, cross-experiment analysis, and hypothesis outcomes. Chapter 5 concludes with contributions, recommendations, and future work. Appendices provide experiment code references, supplementary tables, and dataset documentation.
+
+CHAPTER 2: LITERATURE REVIEW
+
+2.1 Overview and Review Strategy
+The review strategy prioritizes peer-reviewed venues, arXiv technical reports when they are primary model or benchmark releases, official project pages, and the local Praxis evidence record. References were checked for APA-style author, year, title, venue/source, and URL completeness. APA reference check status: External bibliographic entries were checked against primary publisher, arXiv, ACL Anthology, USENIX, OpenReview, MITRE, or project pages on 2026-07-06 where available. Local Praxis evidence artifacts are cited as repository reports because they are the primary experimental record for the defended claims.
+
+2.2 Thematic Review Area 1
+Hallucination benchmarks: HalluHard motivates hard multi-turn citation-grounding tests.
+
+2.3 Thematic Review Area 2
+Source-locked retrieval: Deterministic source metadata reduces citation invention risk.
+
+2.4 Thematic Review Area 3
+Verifier design: Supported and shifted-source pairs test both content grounding and source identity.
+
+2.5 Thematic Review Area 4
+Bounded claim discipline: The result is constrained to one lane and one controller pattern.
+
+2.6 Critical Analysis and Gap Synthesis
+The Praxis gap is a constrained source-locking pattern that turns HalluHard citation checking into a repeatable verifier gate. This praxis addresses that gap by using fixed evaluation gates, explicit boundary language, negative-result preservation, and artifact links that allow an examiner or peer reviewer to trace claims back to the underlying evidence.
+
+CHAPTER 3: METHODOLOGY
+
+3.1 Research Approach and Design
+This is an applied engineering praxis using empirical AI/ML evaluation. The design is bounded, artifact-backed, and falsifiable. Each experiment is treated as a gate: it has a defined input, method, metric, pass/fail interpretation, and claim impact. The research design favors conservative claim promotion over broad narrative claims.
+
+3.2 Graphical Methodology of Research (GMR)
+Problem identification -> literature and future-work gap -> artifact/data readiness gate -> experiment design -> execution -> metric audit -> boundary audit -> defense-ready package.
+
+ASCII GMR:
+[Problem] -> [Research Gap] -> [Data/Source Gate] -> [Experiment 1]
+                                             -> [Experiment 2]
+                                             -> [Experiment 3]
+                                             -> [Experiment 4]
+        -> [Cross-Experiment Synthesis] -> [Claim Boundary] -> [Praxis Defense Package]
+
+3.3 Research Framework
+Experiment | Purpose and defended result
+-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 1 | Copy DOI, arXiv ID, title, year, and source identity from retrieved records. Result: Freeform citation metadata generation removed from the model task.
+Experiment 2 | Generate short claimed_content from abstracts. Result: 250/250 extraction-valid rows; extraction-valid rate 1.0000.
+Experiment 3 | Evaluate paired supported and shifted-source rows. Result: 500 evaluation pairs; verifier accuracy 0.9040; macro F1 0.9031.
+Experiment 4 | Compare against always-supported and field-presence baselines. Result: Both trivial baselines macro F1 0.3333; claim limited to research_questions lane.
+
+3.4 Experiment 1: Source-lock controller
+Purpose: Copy DOI, arXiv ID, title, year, and source identity from retrieved records.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Freeform citation metadata generation removed from the model task.
+3.5 Experiment 2: Extractive Qwen generation
+Purpose: Generate short claimed_content from abstracts.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: 250/250 extraction-valid rows; extraction-valid rate 1.0000.
+3.6 Experiment 3: Supported and shifted-source verification
+Purpose: Evaluate paired supported and shifted-source rows.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: 500 evaluation pairs; verifier accuracy 0.9040; macro F1 0.9031.
+3.7 Experiment 4: Baseline and boundary audit
+Purpose: Compare against always-supported and field-presence baselines.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Both trivial baselines macro F1 0.3333; claim limited to research_questions lane.
+
+3.8 Data Sources and Datasets
+- HalluHard research_questions lane
+- retrieved source records and shifted-source negative pairs
+
+3.9 Evaluation Metrics and Statistical Methods
+Extraction-valid rate, supported rate, verifier accuracy, macro F1, baseline macro F1, wall time.
+
+3.10 Validation Approach
+Supported/shifted-source paired evaluation and trivial-baseline comparison.
+
+3.11 Assumptions
+Source records are trusted inputs; extractive claim phrases can be evaluated against retrieved abstracts.
+
+CHAPTER 4: RESULTS AND DISCUSSION
+
+4.1 Results: Experiment 1 - Source-lock controller
+Freeform citation metadata generation removed from the model task.
+4.2 Results: Experiment 2 - Extractive Qwen generation
+250/250 extraction-valid rows; extraction-valid rate 1.0000.
+4.3 Results: Experiment 3 - Supported and shifted-source verification
+500 evaluation pairs; verifier accuracy 0.9040; macro F1 0.9031.
+4.4 Results: Experiment 4 - Baseline and boundary audit
+Both trivial baselines macro F1 0.3333; claim limited to research_questions lane.
+
+4.5 Cross-Experiment Analysis
+- 250/250 extraction-valid rows.
+- 202/250 supported claims passed verifier.
+- Verifier accuracy 0.9040 and macro F1 0.9031.
+
+4.6 Hypothesis Test Outcomes
+Hypothesis | Outcome framing
+-----------+-----------------------------------------------------------------------
+H1 | Extraction-valid rate reaches 1.0000 under the constrained lane.
+H2 | Verifier macro F1 beats always-supported and field-presence baselines.
+H3 | Shifted-source negatives are separable from supported pairs.
+H4 | The result remains bounded to research_questions only.
+Overall determination: Bounded source-locked positive. Hypotheses are accepted only within the stated scope and limitations.
+
+4.7 Discussion: Relation to Research Questions and Prior Literature
+The results answer the research questions within a bounded engineering frame. The work contributes by converting a literature-motivated opportunity into a measurable artifact, while preserving negative findings and boundary cases. The relation to prior literature is complementary: the praxis does not replace foundational benchmarks, model reports, or prior methods; it defines an applied gate and produces a defensible claim with reviewable evidence.
+
+CHAPTER 5: CONCLUSIONS AND FUTURE WORK
+
+5.1 Conclusions
+Source-Locked HalluHard Verifier Pipeline is defensible in the following bounded form: A HalluHard-style hallucination guardrail can work when citation metadata are locked to retrieved evidence and the model is restricted to extractive claim generation.
+
+5.2 Contributions to the Body of Knowledge and Practice
+1. A source-locking control pattern for citation verification.
+2. A shifted-source negative test for hallucination detection.
+3. A bounded positive HalluHard lane result.
+
+5.3 Recommendations for Practitioners
+1. Copy citation metadata from retrieval, never from model generation.
+2. Require shifted-source negative tests for citation verifiers.
+3. Treat unsupported or non-extractive claims as review cases.
+
+5.4 Future Research
+1. Extend to legal, medical, and coding lanes only after separate gates.
+2. Add stronger semantic entailment checks for paraphrased claims.
+3. Evaluate multi-turn persistence of source-locking controls.
+
+REFERENCES
+
+Fan, D., Delsad, S., Flammarion, N., & Andriushchenko, M. (2026). HalluHard: A hard multi-turn hallucination benchmark. arXiv. https://arxiv.org/abs/2602.01031
+
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Kuttler, H., Lewis, M., Yih, W., Rocktaschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33. https://arxiv.org/abs/2005.11401
+
+Qwen Team. (2025). Qwen2.5 technical report. arXiv. https://arxiv.org/abs/2412.15115
+
+Mao, N., Kaushik, V., Shivkumar, S., Sharafoleslami, P., Zhu, K., & Dev, S. (2025). Visualizing and benchmarking LLM factual hallucination tendencies via internal state analysis and clustering. Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics: Student Research Workshop, 289-298. https://aclanthology.org/2025.ijcnlp-srw.24/
+
+Praxis Research. (2026). Praxis research experiment tracker [Repository report]. reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html
+
+APPENDICES
+
+Appendix A: Experiment Code
+A.1 cloud_jobs/halluhard_constrained_20260701/run_halluhard_constrained_gate.py
+Description: Cloud gate for source-locked generation and verification.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.2 reports/halluhard_source_verifier/halluhard_constrained_qwen25_7b_20260701_r2/halluhard_constrained_rows.csv
+Description: Row-level generated and verifier-scored records.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.3 reports/halluhard_source_verifier/halluhard_constrained_qwen25_7b_20260701_r2/summary.json
+Description: Machine-readable metrics summary.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.4 reports/praxis_final_positive_reports_20260701/PX011_FINAL_REPORT_HALLUHARD_SOURCE_LOCKED.md
+Description: Portable verifier code appendix.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+
+Appendix B: Full Results Tables and Supplementary Figures
+Primary result summary:
+Experiment | Result
+-------------+----------------------------------------------------------------------------------
+Experiment 1 | Freeform citation metadata generation removed from the model task.
+Experiment 2 | 250/250 extraction-valid rows; extraction-valid rate 1.0000.
+Experiment 3 | 500 evaluation pairs; verifier accuracy 0.9040; macro F1 0.9031.
+Experiment 4 | Both trivial baselines macro F1 0.3333; claim limited to research_questions lane.
+
+Evidence artifacts:
+Artifact | Repository path
+-----------+-------------------------------------------------------------------------------------------
+Artifact 1 | reports/halluhard_source_verifier/PX011_SOURCE_LOCKED_CONSTRAINED_GATE_20260701.md
+Artifact 2 | reports/halluhard_source_verifier/halluhard_constrained_qwen25_7b_20260701_r2/summary.json
+Artifact 3 | cloud_jobs/halluhard_constrained_20260701/run_halluhard_constrained_gate.py
+
+Supplementary figures to produce for final submission:
+- Figure B1. End-to-end evidence flow for PX-011.
+- Figure B2. Per-experiment metric comparison.
+- Figure B3. Claim-boundary and failure-mode diagram.
+
+Appendix C: Dataset Documentation
+Dataset and artifact scope:
+- HalluHard research_questions lane
+- retrieved source records and shifted-source negative pairs
+
+Data governance and reproducibility notes:
+- Use the repository paths listed in Appendix B as the primary experimental record.
+- Preserve raw outputs, summaries, and claim-boundary reports together.
+- Do not expand claims beyond the dataset and boundary stated in Sections 1.7 and 1.8.
+- For peer review, provide the exact commit SHA and environment notes used for reruns.

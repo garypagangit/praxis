@@ -30,3 +30,7 @@ Combined plain-text exports:
 Additional package export:
 
 - `../gnn_attribution_ttp_graph_embeddings/px002_final_defense_package_export_20260706/PX002_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.txt` - PX-002 bounded lookup-style package export.
+
+Full praxis text drafts:
+
+- `../praxis_defense_ready_full_praxis_20260706/README.txt` - Doctor of Engineering praxis-format text drafts for each defense-ready or bounded-support positive result.

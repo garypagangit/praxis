@@ -1,0 +1,318 @@
+FEW-SHOT ATT&CK GROUP-PROFILE RETRIEVAL FROM OBSERVED TTP SETS
+Doctor of Engineering Praxis Draft
+Praxis ID: PX-002
+Generated: 2026-07-06
+Status: Package-ready bounded lookup-style positive; supporting result only
+
+FRONT MATTER
+
+Certification Page
+This praxis draft is prepared as a defense-ready technical document for review by an engineering praxis committee. The candidate certifies that the research claim is bounded to the evidence artifacts listed in Appendix B and Appendix C, that negative and boundary results are preserved, and that no unsupported generalization is intentionally asserted.
+
+Candidate: [Candidate Name]
+Program: Doctor of Engineering in AI/ML
+Institution: [Institution Name]
+Committee Chair: [Committee Chair]
+Committee Members: [Committee Members]
+Date: 2026-07-06
+
+Copyright Page
+Copyright (c) 2026 [Candidate Name]. All rights reserved. Repository artifacts may be reviewed under the repository license and access controls. Third-party datasets, papers, and model artifacts remain governed by their respective licenses and terms.
+
+Dedication / Acknowledgments
+This praxis is dedicated to the practical engineering discipline of building AI/ML systems that can be tested, bounded, audited, and improved without overclaiming. Acknowledgment is given to the open-source research community, dataset maintainers, model publishers, and the Praxis Research repository artifacts that make this work reviewable.
+
+Abstract of Praxis
+This praxis evaluates whether partial observed ATT&CK TTP sets can retrieve likely group profiles. Under the standard five-shot lookup protocol, overlap cosine reached top-5 accuracy 0.960 and SVD reached 0.879, compared with random 0.028 and frequency prior 0.041. A defense audit demotes the result from defense-pillar status because leave-query-out overlap collapses to 0.000 and SVD weakens to 0.299.
+
+Keywords: ATT&CK, TTP retrieval, analyst triage, GraphSAGE, profile lookup
+
+Table of Contents
+Front Matter
+Chapter 1: Introduction
+  1.1 Background
+  1.2 Research Motivation
+  1.3 Problem Statement
+  1.4 Thesis Statement
+  1.5 Research Objectives
+  1.6 Research Questions and Hypotheses
+  1.7 Scope of Research
+  1.8 Research Limitations
+  1.9 Organization of the Praxis
+Chapter 2: Literature Review
+  2.1 Overview and Review Strategy
+  2.2 Thematic Review Area 1
+  2.3 Thematic Review Area 2
+  2.4 Thematic Review Area 3
+  2.5 Thematic Review Area 4
+  2.6 Critical Analysis and Gap Synthesis
+Chapter 3: Methodology
+  3.1 Research Approach and Design
+  3.2 Graphical Methodology of Research (GMR)
+  3.3 Research Framework
+  3.4 Experiment 1
+  3.5 Experiment 2
+  3.6 Experiment 3
+  3.7 Experiment 4
+  3.8 Data Sources and Datasets
+  3.9 Evaluation Metrics and Statistical Methods
+  3.10 Validation Approach
+  3.11 Assumptions
+Chapter 4: Results and Discussion
+  4.1 Results: Experiment 1
+  4.2 Results: Experiment 2
+  4.3 Results: Experiment 3
+  4.4 Results: Experiment 4
+  4.5 Cross-Experiment Analysis
+  4.6 Hypothesis Test Outcomes
+  4.7 Discussion: Relation to Research Questions and Prior Literature
+Chapter 5: Conclusions and Future Work
+References
+Appendices
+
+List of Figures
+Figure 1. Praxis research framework and evidence flow.
+Figure 2. Graphical Methodology of Research (GMR) for the experiment suite.
+Figure 3. Claim-boundary decision flow.
+
+List of Tables
+Table 1. Acronyms and abbreviations.
+Table 2. Research questions and hypotheses.
+Table 3. Experiment design matrix.
+Table 4. Dataset and evidence artifacts.
+Table 5. Results summary and hypothesis outcomes.
+
+List of Acronyms
+Acronym | Meaning
+--------+------------------------------------------------------
+APA | American Psychological Association
+APT | Advanced Persistent Threat
+ATT&CK | Adversarial Tactics, Techniques, and Common Knowledge
+CI | Confidence Interval
+CTI | Cyber Threat Intelligence
+F1 | Harmonic mean of precision and recall
+GMR | Graphical Methodology of Research
+LLM | Large Language Model
+MCQ | Multiple-Choice Question
+MoE | Mixture of Experts
+MRR | Mean Reciprocal Rank
+RAG | Retrieval-Augmented Generation
+SVD | Singular Value Decomposition
+TTA | Test-Time Adaptation
+TTP | Tactics, Techniques, and Procedures
+
+CHAPTER 1: INTRODUCTION
+
+1.1 Background
+Few-Shot ATT&CK Group-Profile Retrieval from Observed TTP Sets is part of the Praxis Research portfolio, a future-work-to-experiment program for AI/ML and cybersecurity engineering. The portfolio standard is evidence-first: a result is promoted only when it has a defined objective, a reproducible artifact trail, a measured gate, and a written claim boundary.
+
+1.2 Research Motivation
+Analysts often begin with partial TTP observations and need bounded candidate shortlists rather than premature actor attribution.
+
+1.3 Problem Statement
+Group profiles overlap and curated ATT&CK data can make lookup appear stronger than it would be under hidden-edge or report-level attribution conditions.
+
+1.4 Thesis Statement
+Small observed ATT&CK technique sets can retrieve likely group profiles under a known-profile lookup protocol, supporting analyst triage without claiming actor authorship or robust attribution.
+
+1.5 Research Objectives
+1. Formalize few-shot ATT&CK group-profile retrieval.
+2. Benchmark overlap and SVD against random and frequency floors.
+3. Retain GraphSAGE as a negative learned-embedding boundary.
+4. Audit anti-tautology and noisy-query stress before promotion.
+
+1.6 Research Questions and Hypotheses
+RQ / Hypothesis | Statement
+----------------+---------------------------------------------------------------------------------------------------------------------------------------------------
+RQ1 / H1 | Can five observed ATT&CK techniques retrieve the correct group profile? Hypothesis: Standard five-shot overlap and SVD top-5 accuracy exceed 0.80.
+RQ2 / H2 | Do simple baselines exceed random and frequency floors? Hypothesis: Random and frequency floors remain far below overlap/SVD.
+RQ3 / H3 | Does GraphSAGE improve the retrieval result? Hypothesis: GraphSAGE does not clear promotion unless it beats SVD.
+RQ4 / H4 | Does the result survive defense-style stress tests? Hypothesis: Leave-query-out stress determines whether the result can be a defense pillar.
+
+1.7 Scope of Research
+MITRE ATT&CK group-technique profile matrix, 174 groups, 697 techniques, 4546 edges, 121 eligible groups.
+
+1.8 Research Limitations
+Not CTI prose attribution, not actor authorship, not a robust defense mechanism, and not a GraphSAGE win.
+
+1.9 Organization of the Praxis
+Chapter 1 introduces the problem, thesis, scope, and limitations. Chapter 2 reviews the relevant literature and identifies the gap. Chapter 3 describes the research design, GMR, framework, four experiments, data, metrics, validation, and assumptions. Chapter 4 reports results, cross-experiment analysis, and hypothesis outcomes. Chapter 5 concludes with contributions, recommendations, and future work. Appendices provide experiment code references, supplementary tables, and dataset documentation.
+
+CHAPTER 2: LITERATURE REVIEW
+
+2.1 Overview and Review Strategy
+The review strategy prioritizes peer-reviewed venues, arXiv technical reports when they are primary model or benchmark releases, official project pages, and the local Praxis evidence record. References were checked for APA-style author, year, title, venue/source, and URL completeness. APA reference check status: External bibliographic entries were checked against primary publisher, arXiv, ACL Anthology, USENIX, OpenReview, MITRE, or project pages on 2026-07-06 where available. Local Praxis evidence artifacts are cited as repository reports because they are the primary experimental record for the defended claims.
+
+2.2 Thematic Review Area 1
+ATT&CK as a curated adversary behavior graph: ATT&CK provides a practical group-technique structure for profile retrieval.
+
+2.3 Thematic Review Area 2
+Few-shot retrieval and analyst triage: Top-k retrieval can narrow attention without producing final attribution.
+
+2.4 Thematic Review Area 3
+Graph embeddings versus simple baselines: GraphSAGE must beat overlap/SVD before a graph-neural claim is credible.
+
+2.5 Thematic Review Area 4
+Anti-tautology stress testing: Leave-query-out stress separates lookup utility from stronger generalization claims.
+
+2.6 Critical Analysis and Gap Synthesis
+Prior profile or attribution work often risks overclaiming; the Praxis gap is a bounded retrieval protocol with explicit demotion boundaries. This praxis addresses that gap by using fixed evaluation gates, explicit boundary language, negative-result preservation, and artifact links that allow an examiner or peer reviewer to trace claims back to the underlying evidence.
+
+CHAPTER 3: METHODOLOGY
+
+3.1 Research Approach and Design
+This is an applied engineering praxis using empirical AI/ML evaluation. The design is bounded, artifact-backed, and falsifiable. Each experiment is treated as a gate: it has a defined input, method, metric, pass/fail interpretation, and claim impact. The research design favors conservative claim promotion over broad narrative claims.
+
+3.2 Graphical Methodology of Research (GMR)
+Problem identification -> literature and future-work gap -> artifact/data readiness gate -> experiment design -> execution -> metric audit -> boundary audit -> defense-ready package.
+
+ASCII GMR:
+[Problem] -> [Research Gap] -> [Data/Source Gate] -> [Experiment 1]
+                                             -> [Experiment 2]
+                                             -> [Experiment 3]
+                                             -> [Experiment 4]
+        -> [Cross-Experiment Synthesis] -> [Claim Boundary] -> [Praxis Defense Package]
+
+3.3 Research Framework
+Experiment | Purpose and defended result
+-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 1 | Sample five techniques from each eligible group and rank candidates. Result: Overlap top-5 0.960; SVD top-5 0.879; median rank 1.0.
+Experiment 2 | Compare against random/frequency floors and degree buckets. Result: Random top-5 0.028; frequency top-5 0.041; overlap/SVD remain above floors across buckets.
+Experiment 3 | Test whether learned graph embeddings beat simple baselines. Result: GraphSAGE known-profile top-5 0.060 versus SVD 0.926 and overlap 0.985.
+Experiment 4 | Run noisy-query and leave-query-out tests. Result: Noisy overlap 0.788; noisy SVD 0.577; leave-query-out overlap 0.000; leave-query-out SVD 0.299.
+
+3.4 Experiment 1: Standard five-shot profile lookup
+Purpose: Sample five techniques from each eligible group and rank candidates.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Overlap top-5 0.960; SVD top-5 0.879; median rank 1.0.
+3.5 Experiment 2: Floor and degree-bucket checks
+Purpose: Compare against random/frequency floors and degree buckets.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Random top-5 0.028; frequency top-5 0.041; overlap/SVD remain above floors across buckets.
+3.6 Experiment 3: GraphSAGE negative gate
+Purpose: Test whether learned graph embeddings beat simple baselines.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: GraphSAGE known-profile top-5 0.060 versus SVD 0.926 and overlap 0.985.
+3.7 Experiment 4: Defense audit stress
+Purpose: Run noisy-query and leave-query-out tests.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Noisy overlap 0.788; noisy SVD 0.577; leave-query-out overlap 0.000; leave-query-out SVD 0.299.
+
+3.8 Data Sources and Datasets
+- MITRE ATT&CK Enterprise STIX group-technique relationships.
+
+3.9 Evaluation Metrics and Statistical Methods
+Top-1, Top-5, Top-10, MRR, median rank, degree-bucket top-5, noisy-query and leave-query-out stress metrics.
+
+3.10 Validation Approach
+Fresh rerun on 2026-07-06 reproduced closeout status and bounded lookup-only defense-audit status.
+
+3.11 Assumptions
+Known-profile lookup is useful for triage, but not sufficient for attribution claims.
+
+CHAPTER 4: RESULTS AND DISCUSSION
+
+4.1 Results: Experiment 1 - Standard five-shot profile lookup
+Overlap top-5 0.960; SVD top-5 0.879; median rank 1.0.
+4.2 Results: Experiment 2 - Floor and degree-bucket checks
+Random top-5 0.028; frequency top-5 0.041; overlap/SVD remain above floors across buckets.
+4.3 Results: Experiment 3 - GraphSAGE negative gate
+GraphSAGE known-profile top-5 0.060 versus SVD 0.926 and overlap 0.985.
+4.4 Results: Experiment 4 - Defense audit stress
+Noisy overlap 0.788; noisy SVD 0.577; leave-query-out overlap 0.000; leave-query-out SVD 0.299.
+
+4.5 Cross-Experiment Analysis
+- Standard five-shot lookup is strong.
+- GraphSAGE is negative and must not be pitched as positive.
+- Defense audit demotes the work to bounded lookup utility.
+
+4.6 Hypothesis Test Outcomes
+Hypothesis | Outcome framing
+-----------+------------------------------------------------------------------------------
+H1 | Standard five-shot overlap and SVD top-5 accuracy exceed 0.80.
+H2 | Random and frequency floors remain far below overlap/SVD.
+H3 | GraphSAGE does not clear promotion unless it beats SVD.
+H4 | Leave-query-out stress determines whether the result can be a defense pillar.
+Overall determination: Package-ready bounded lookup-style positive; supporting result only. Hypotheses are accepted only within the stated scope and limitations.
+
+4.7 Discussion: Relation to Research Questions and Prior Literature
+The results answer the research questions within a bounded engineering frame. The work contributes by converting a literature-motivated opportunity into a measurable artifact, while preserving negative findings and boundary cases. The relation to prior literature is complementary: the praxis does not replace foundational benchmarks, model reports, or prior methods; it defines an applied gate and produces a defensible claim with reviewable evidence.
+
+CHAPTER 5: CONCLUSIONS AND FUTURE WORK
+
+5.1 Conclusions
+Few-Shot ATT&CK Group-Profile Retrieval from Observed TTP Sets is defensible in the following bounded form: Small observed ATT&CK technique sets can retrieve likely group profiles under a known-profile lookup protocol, supporting analyst triage without claiming actor authorship or robust attribution.
+
+5.2 Contributions to the Body of Knowledge and Practice
+1. A formal ATT&CK TTP-set lookup protocol.
+2. A clear boundary between profile retrieval and attribution.
+3. A model of honest demotion when stress tests fail.
+
+5.3 Recommendations for Practitioners
+1. Use as a candidate shortlist, never as final attribution.
+2. Display overlap evidence and uncertainty to analysts.
+3. Require independent report, infrastructure, or malware evidence before attribution.
+
+5.4 Future Research
+1. Add temporal ATT&CK release drift splits.
+2. Test report-extracted TTP noise rather than sampled profile TTPs.
+3. Add metadata/text hybrid retrieval only with labeled report evidence.
+
+REFERENCES
+
+Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., & Thomas, C. B. (2020). MITRE ATT&CK: Design and philosophy. The MITRE Corporation. https://www.mitre.org/news-insights/publication/mitre-attck-design-and-philosophy
+
+Hamilton, W. L., Ying, R., & Leskovec, J. (2017). Inductive representation learning on large graphs. Advances in Neural Information Processing Systems, 30. https://papers.nips.cc/paper/6703-inductive-representation-learning-on-large-graphs
+
+Alam, M. T., Bhusal, D., Nguyen, L., & Rastogi, N. (2024). CTIBench: A benchmark for evaluating LLMs in cyber threat intelligence. arXiv. https://arxiv.org/abs/2406.07599
+
+Praxis Research. (2026). Praxis research experiment tracker [Repository report]. reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html
+
+APPENDICES
+
+Appendix A: Experiment Code
+A.1 scripts/run_attack_ttp_retrieval_closeout.py
+Description: Standard retrieval and closeout analysis.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.2 scripts/run_attack_ttp_graph_embedding_baseline.py
+Description: Shared ATT&CK matrix loader and rank metrics.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.3 scripts/run_attack_ttp_graphsage_pilot.py
+Description: Failed GraphSAGE pilot retained as negative boundary evidence.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.4 scripts/audit_px002_ttp_retrieval_defense.py
+Description: Noisy-query and leave-query-out defense audit.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+
+Appendix B: Full Results Tables and Supplementary Figures
+Primary result summary:
+Experiment | Result
+-------------+------------------------------------------------------------------------------------------------
+Experiment 1 | Overlap top-5 0.960; SVD top-5 0.879; median rank 1.0.
+Experiment 2 | Random top-5 0.028; frequency top-5 0.041; overlap/SVD remain above floors across buckets.
+Experiment 3 | GraphSAGE known-profile top-5 0.060 versus SVD 0.926 and overlap 0.985.
+Experiment 4 | Noisy overlap 0.788; noisy SVD 0.577; leave-query-out overlap 0.000; leave-query-out SVD 0.299.
+
+Evidence artifacts:
+Artifact | Repository path
+-----------+----------------------------------------------------------------------------------------------------------------------------------------
+Artifact 1 | reports/gnn_attribution_ttp_graph_embeddings/px002_final_defense_package_export_20260706/PX002_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md
+Artifact 2 | reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_CLOSEOUT_20260514.md
+Artifact 3 | reports/gnn_attribution_ttp_graph_embeddings/PX002_TTP_RETRIEVAL_DEFENSE_AUDIT_20260630.md
+Artifact 4 | scripts/run_attack_ttp_retrieval_closeout.py
+Artifact 5 | scripts/audit_px002_ttp_retrieval_defense.py
+
+Supplementary figures to produce for final submission:
+- Figure B1. End-to-end evidence flow for PX-002.
+- Figure B2. Per-experiment metric comparison.
+- Figure B3. Claim-boundary and failure-mode diagram.
+
+Appendix C: Dataset Documentation
+Dataset and artifact scope:
+- MITRE ATT&CK Enterprise STIX group-technique relationships.
+
+Data governance and reproducibility notes:
+- Use the repository paths listed in Appendix B as the primary experimental record.
+- Preserve raw outputs, summaries, and claim-boundary reports together.
+- Do not expand claims beyond the dataset and boundary stated in Sections 1.7 and 1.8.
+- For peer review, provide the exact commit SHA and environment notes used for reruns.

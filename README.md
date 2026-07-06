@@ -8,6 +8,7 @@ Praxis Research is a future-work-to-experiment program. The project reviews 2025
 - [Praxis Research Experiment Tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html)
 - [Final positive report export with tracker](reports/praxis_final_positive_reports_20260701/PRAXIS_FINAL_POSITIVE_REPORTS_WITH_TRACKER_EXPORT_20260705.txt)
 - [Final positive report index](reports/praxis_final_positive_reports_20260701/README.md)
+- [Defense-ready full praxis text drafts](reports/praxis_defense_ready_full_praxis_20260706/README.txt)
 - [PX-002 final bounded lookup package](reports/gnn_attribution_ttp_graph_embeddings/px002_final_defense_package_export_20260706/PX002_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md)
 - [Recommendation implementation audit](reports/PRAXIS_RECOMMENDATION_IMPLEMENTATION_20260705.md)
 - [D1 agent-defense deconfliction and new candidate queue](reports/agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md)

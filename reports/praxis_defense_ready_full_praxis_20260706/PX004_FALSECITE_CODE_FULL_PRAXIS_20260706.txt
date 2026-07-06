@@ -1,0 +1,320 @@
+FALSECITE-CODE EXTERNAL VERIFICATION FOR SOFTWARE-ARTIFACT CITATION POISONING
+Doctor of Engineering Praxis Draft
+Praxis ID: PX-004
+Generated: 2026-07-06
+Status: Bounded defense-ready positive
+
+FRONT MATTER
+
+Certification Page
+This praxis draft is prepared as a defense-ready technical document for review by an engineering praxis committee. The candidate certifies that the research claim is bounded to the evidence artifacts listed in Appendix B and Appendix C, that negative and boundary results are preserved, and that no unsupported generalization is intentionally asserted.
+
+Candidate: [Candidate Name]
+Program: Doctor of Engineering in AI/ML
+Institution: [Institution Name]
+Committee Chair: [Committee Chair]
+Committee Members: [Committee Members]
+Date: 2026-07-06
+
+Copyright Page
+Copyright (c) 2026 [Candidate Name]. All rights reserved. Repository artifacts may be reviewed under the repository license and access controls. Third-party datasets, papers, and model artifacts remain governed by their respective licenses and terms.
+
+Dedication / Acknowledgments
+This praxis is dedicated to the practical engineering discipline of building AI/ML systems that can be tested, bounded, audited, and improved without overclaiming. Acknowledgment is given to the open-source research community, dataset maintainers, model publishers, and the Praxis Research repository artifacts that make this work reviewable.
+
+Abstract of Praxis
+This praxis builds and evaluates a balanced software-artifact citation benchmark spanning PyPI versions, NPM versions, GitHub repositories, and GitHub tags. A strict external verifier reaches 1.0000 accuracy and invalid recall on 80 locked claims. In audit and generation modes, model-only outputs trust fabricated citations at high rates, while metadata evidence and verifier guards reduce strict fabricated trust to 0.0000 under the tested conditions.
+
+Keywords: citation hallucination, software artifacts, PyPI, NPM, GitHub, verifier
+
+Table of Contents
+Front Matter
+Chapter 1: Introduction
+  1.1 Background
+  1.2 Research Motivation
+  1.3 Problem Statement
+  1.4 Thesis Statement
+  1.5 Research Objectives
+  1.6 Research Questions and Hypotheses
+  1.7 Scope of Research
+  1.8 Research Limitations
+  1.9 Organization of the Praxis
+Chapter 2: Literature Review
+  2.1 Overview and Review Strategy
+  2.2 Thematic Review Area 1
+  2.3 Thematic Review Area 2
+  2.4 Thematic Review Area 3
+  2.5 Thematic Review Area 4
+  2.6 Critical Analysis and Gap Synthesis
+Chapter 3: Methodology
+  3.1 Research Approach and Design
+  3.2 Graphical Methodology of Research (GMR)
+  3.3 Research Framework
+  3.4 Experiment 1
+  3.5 Experiment 2
+  3.6 Experiment 3
+  3.7 Experiment 4
+  3.8 Data Sources and Datasets
+  3.9 Evaluation Metrics and Statistical Methods
+  3.10 Validation Approach
+  3.11 Assumptions
+Chapter 4: Results and Discussion
+  4.1 Results: Experiment 1
+  4.2 Results: Experiment 2
+  4.3 Results: Experiment 3
+  4.4 Results: Experiment 4
+  4.5 Cross-Experiment Analysis
+  4.6 Hypothesis Test Outcomes
+  4.7 Discussion: Relation to Research Questions and Prior Literature
+Chapter 5: Conclusions and Future Work
+References
+Appendices
+
+List of Figures
+Figure 1. Praxis research framework and evidence flow.
+Figure 2. Graphical Methodology of Research (GMR) for the experiment suite.
+Figure 3. Claim-boundary decision flow.
+
+List of Tables
+Table 1. Acronyms and abbreviations.
+Table 2. Research questions and hypotheses.
+Table 3. Experiment design matrix.
+Table 4. Dataset and evidence artifacts.
+Table 5. Results summary and hypothesis outcomes.
+
+List of Acronyms
+Acronym | Meaning
+--------+------------------------------------------------------
+APA | American Psychological Association
+APT | Advanced Persistent Threat
+ATT&CK | Adversarial Tactics, Techniques, and Common Knowledge
+CI | Confidence Interval
+CTI | Cyber Threat Intelligence
+F1 | Harmonic mean of precision and recall
+GMR | Graphical Methodology of Research
+LLM | Large Language Model
+MCQ | Multiple-Choice Question
+MoE | Mixture of Experts
+MRR | Mean Reciprocal Rank
+RAG | Retrieval-Augmented Generation
+SVD | Singular Value Decomposition
+TTA | Test-Time Adaptation
+TTP | Tactics, Techniques, and Procedures
+
+CHAPTER 1: INTRODUCTION
+
+1.1 Background
+FalseCite-Code External Verification for Software-Artifact Citation Poisoning is part of the Praxis Research portfolio, a future-work-to-experiment program for AI/ML and cybersecurity engineering. The portfolio standard is evidence-first: a result is promoted only when it has a defined objective, a reproducible artifact trail, a measured gate, and a written claim boundary.
+
+1.2 Research Motivation
+Software-artifact citations are operationally sensitive because trusting a fabricated version, repository, or tag can mislead code maintenance and dependency decisions.
+
+1.3 Problem Statement
+Language-model plausibility is not enough to determine whether a software artifact exists or whether a cited version/tag is real.
+
+1.4 Thesis Statement
+Code assistants can be induced to trust fabricated software-artifact citations, but external metadata verification can suppress this failure mode on a locked benchmark.
+
+1.5 Research Objectives
+1. Construct a balanced valid/fabricated artifact-citation benchmark.
+2. Measure model trust in fabricated citations.
+3. Evaluate deterministic external metadata verification.
+4. Audit freshness and strict-holdout behavior.
+
+1.6 Research Questions and Hypotheses
+RQ / Hypothesis | Statement
+----------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RQ1 / H1 | Do code models accept fabricated software-artifact citations? Hypothesis: Base model trust in fabricated citations is non-zero and operationally meaningful.
+RQ2 / H2 | Can metadata evidence suppress fabricated trust? Hypothesis: External metadata verification reaches 1.0000 invalid recall on the locked benchmark.
+RQ3 / H3 | Does a citation-aware verifier outperform trust-all and regex floors? Hypothesis: Verifier-guarded answers reduce fabricated trust to zero in tested prompt settings.
+RQ4 / H4 | Does the verifier remain stable under freshness audit? Hypothesis: API freshness audit does not introduce verifier errors.
+
+1.7 Scope of Research
+80 locked software-artifact claims across PyPI, NPM, GitHub repositories, and GitHub tags.
+
+1.8 Research Limitations
+Not universal hallucination prevention, not general package-install safety, and not a claim across all code assistants.
+
+1.9 Organization of the Praxis
+Chapter 1 introduces the problem, thesis, scope, and limitations. Chapter 2 reviews the relevant literature and identifies the gap. Chapter 3 describes the research design, GMR, framework, four experiments, data, metrics, validation, and assumptions. Chapter 4 reports results, cross-experiment analysis, and hypothesis outcomes. Chapter 5 concludes with contributions, recommendations, and future work. Appendices provide experiment code references, supplementary tables, and dataset documentation.
+
+CHAPTER 2: LITERATURE REVIEW
+
+2.1 Overview and Review Strategy
+The review strategy prioritizes peer-reviewed venues, arXiv technical reports when they are primary model or benchmark releases, official project pages, and the local Praxis evidence record. References were checked for APA-style author, year, title, venue/source, and URL completeness. APA reference check status: External bibliographic entries were checked against primary publisher, arXiv, ACL Anthology, USENIX, OpenReview, MITRE, or project pages on 2026-07-06 where available. Local Praxis evidence artifacts are cited as repository reports because they are the primary experimental record for the defended claims.
+
+2.2 Thematic Review Area 1
+Citation hallucination: False citations can induce downstream trust and unsupported claims.
+
+2.3 Thematic Review Area 2
+Software supply-chain metadata: Package/version/tag existence is externally checkable and should not be delegated to model plausibility.
+
+2.4 Thematic Review Area 3
+Verifier-controller separation: Deterministic checks separate factual validation from language generation.
+
+2.5 Thematic Review Area 4
+Benchmark lock and freshness: Artifact-ID keyed splits and API refreshes support defensible evaluation.
+
+2.6 Critical Analysis and Gap Synthesis
+Prior hallucination benchmarks focus on textual truthfulness; the Praxis gap is externally verifiable software-artifact citation trust. This praxis addresses that gap by using fixed evaluation gates, explicit boundary language, negative-result preservation, and artifact links that allow an examiner or peer reviewer to trace claims back to the underlying evidence.
+
+CHAPTER 3: METHODOLOGY
+
+3.1 Research Approach and Design
+This is an applied engineering praxis using empirical AI/ML evaluation. The design is bounded, artifact-backed, and falsifiable. Each experiment is treated as a gate: it has a defined input, method, metric, pass/fail interpretation, and claim impact. The research design favors conservative claim promotion over broad narrative claims.
+
+3.2 Graphical Methodology of Research (GMR)
+Problem identification -> literature and future-work gap -> artifact/data readiness gate -> experiment design -> execution -> metric audit -> boundary audit -> defense-ready package.
+
+ASCII GMR:
+[Problem] -> [Research Gap] -> [Data/Source Gate] -> [Experiment 1]
+                                             -> [Experiment 2]
+                                             -> [Experiment 3]
+                                             -> [Experiment 4]
+        -> [Cross-Experiment Synthesis] -> [Claim Boundary] -> [Praxis Defense Package]
+
+3.3 Research Framework
+Experiment | Purpose and defended result
+-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 1 | Run strict verifier, trust-all, and regex baselines over locked claims. Result: Strict verifier accuracy 1.0000 and invalid recall 1.0000; baselines invalid recall 0.0000.
+Experiment 2 | Measure base model, metadata prompt, and verifier on audit answers. Result: Base strict fabricated accepted 0.8571; metadata/verifier strict fabricated accepted 0.0000.
+Experiment 3 | Measure suggested citation versus metadata answer and verifier guard. Result: Suggested strict fabricated trusted 0.8333; verifier guard 0.0000.
+Experiment 4 | Recheck external metadata APIs and strict holdout. Result: 80 claims, 15 strict-holdout claims, API error rate 0.0000, verifier accuracy 1.0000.
+
+3.4 Experiment 1: Source/verifier gate
+Purpose: Run strict verifier, trust-all, and regex baselines over locked claims.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Strict verifier accuracy 1.0000 and invalid recall 1.0000; baselines invalid recall 0.0000.
+3.5 Experiment 2: Audit-mode model gate
+Purpose: Measure base model, metadata prompt, and verifier on audit answers.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Base strict fabricated accepted 0.8571; metadata/verifier strict fabricated accepted 0.0000.
+3.6 Experiment 3: Generation-mode model gate
+Purpose: Measure suggested citation versus metadata answer and verifier guard.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: Suggested strict fabricated trusted 0.8333; verifier guard 0.0000.
+3.7 Experiment 4: Defense freshness refresh
+Purpose: Recheck external metadata APIs and strict holdout.
+Design: The experiment is executed as a gated artifact in the Praxis repository, with fixed inputs, locked metrics, and a claim boundary recorded before promotion.
+Expected defense role: 80 claims, 15 strict-holdout claims, API error rate 0.0000, verifier accuracy 1.0000.
+
+3.8 Data Sources and Datasets
+- FalseCite-Code locked claims JSONL
+- PyPI, NPM, and GitHub metadata APIs
+
+3.9 Evaluation Metrics and Statistical Methods
+Accuracy, invalid recall, fabricated accepted/trusted rate, strict fabricated accepted/trusted rate, API error rate.
+
+3.10 Validation Approach
+Locked claims, artifact-keyed splits, strict holdout, metadata freshness refresh.
+
+3.11 Assumptions
+Public metadata APIs are authoritative for the artifact-existence checks modeled here.
+
+CHAPTER 4: RESULTS AND DISCUSSION
+
+4.1 Results: Experiment 1 - Source/verifier gate
+Strict verifier accuracy 1.0000 and invalid recall 1.0000; baselines invalid recall 0.0000.
+4.2 Results: Experiment 2 - Audit-mode model gate
+Base strict fabricated accepted 0.8571; metadata/verifier strict fabricated accepted 0.0000.
+4.3 Results: Experiment 3 - Generation-mode model gate
+Suggested strict fabricated trusted 0.8333; verifier guard 0.0000.
+4.4 Results: Experiment 4 - Defense freshness refresh
+80 claims, 15 strict-holdout claims, API error rate 0.0000, verifier accuracy 1.0000.
+
+4.5 Cross-Experiment Analysis
+- Base model accepted fabricated citations under tested prompts.
+- Metadata evidence and verifier guards reduced fabricated trust to zero.
+- The verifier passed the freshness audit with zero API errors.
+
+4.6 Hypothesis Test Outcomes
+Hypothesis | Outcome framing
+-----------+--------------------------------------------------------------------------------------
+H1 | Base model trust in fabricated citations is non-zero and operationally meaningful.
+H2 | External metadata verification reaches 1.0000 invalid recall on the locked benchmark.
+H3 | Verifier-guarded answers reduce fabricated trust to zero in tested prompt settings.
+H4 | API freshness audit does not introduce verifier errors.
+Overall determination: Bounded defense-ready positive. Hypotheses are accepted only within the stated scope and limitations.
+
+4.7 Discussion: Relation to Research Questions and Prior Literature
+The results answer the research questions within a bounded engineering frame. The work contributes by converting a literature-motivated opportunity into a measurable artifact, while preserving negative findings and boundary cases. The relation to prior literature is complementary: the praxis does not replace foundational benchmarks, model reports, or prior methods; it defines an applied gate and produces a defensible claim with reviewable evidence.
+
+CHAPTER 5: CONCLUSIONS AND FUTURE WORK
+
+5.1 Conclusions
+FalseCite-Code External Verification for Software-Artifact Citation Poisoning is defensible in the following bounded form: Code assistants can be induced to trust fabricated software-artifact citations, but external metadata verification can suppress this failure mode on a locked benchmark.
+
+5.2 Contributions to the Body of Knowledge and Practice
+1. A locked software-artifact citation benchmark.
+2. A deterministic metadata verification pattern.
+3. Evidence that external verification can close a concrete hallucination risk.
+
+5.3 Recommendations for Practitioners
+1. Never accept model-generated package/version/tag citations without metadata checks.
+2. Bind artifact claims to external registries before use in engineering workflows.
+3. Keep API error handling explicit; route unknown states to review.
+
+5.4 Future Research
+1. Expand to more ecosystems and package managers.
+2. Add cross-model family replication.
+3. Test integration into coding-agent pull request review workflows.
+
+REFERENCES
+
+Mao, N., Kaushik, V., Shivkumar, S., Sharafoleslami, P., Zhu, K., & Dev, S. (2025). Visualizing and benchmarking LLM factual hallucination tendencies via internal state analysis and clustering. Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics: Student Research Workshop, 289-298. https://aclanthology.org/2025.ijcnlp-srw.24/
+
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Kuttler, H., Lewis, M., Yih, W., Rocktaschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33. https://arxiv.org/abs/2005.11401
+
+Qwen Team. (2025). Qwen2.5 technical report. arXiv. https://arxiv.org/abs/2412.15115
+
+Praxis Research. (2026). Praxis research experiment tracker [Repository report]. reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html
+
+APPENDICES
+
+Appendix A: Experiment Code
+A.1 scripts/run_falsecite_code_gate.py
+Description: Builds and scores the source/verifier gate.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.2 scripts/run_falsecite_code_model_gate.py
+Description: Runs audit-mode model trust evaluation.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.3 scripts/run_falsecite_code_generation_gate.py
+Description: Runs generation-mode citation trust evaluation.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+A.4 reports/praxis_final_positive_reports_20260701/PX004_FINAL_REPORT_FALSECITE_CODE.md
+Description: Portable verifier code appendix.
+Defense use: This artifact is the cited implementation or portable audit reference for the corresponding experiment. Reviewers should inspect the repository path, rerun where dependencies are available, and compare outputs to the reported result tables.
+
+Appendix B: Full Results Tables and Supplementary Figures
+Primary result summary:
+Experiment | Result
+-------------+---------------------------------------------------------------------------------------------
+Experiment 1 | Strict verifier accuracy 1.0000 and invalid recall 1.0000; baselines invalid recall 0.0000.
+Experiment 2 | Base strict fabricated accepted 0.8571; metadata/verifier strict fabricated accepted 0.0000.
+Experiment 3 | Suggested strict fabricated trusted 0.8333; verifier guard 0.0000.
+Experiment 4 | 80 claims, 15 strict-holdout claims, API error rate 0.0000, verifier accuracy 1.0000.
+
+Evidence artifacts:
+Artifact | Repository path
+-----------+------------------------------------------------------------------------------------------------
+Artifact 1 | reports/falsecite_code/FALSECITE_CODE_SHORT_PAPER_20260628.md
+Artifact 2 | reports/falsecite_code/defense_refresh_20260630/FALSECITE_CODE_SOURCE_VERIFIER_GATE_20260623.md
+Artifact 3 | reports/falsecite_code/FALSECITE_CODE_MODEL_GATE_20260624.md
+Artifact 4 | reports/falsecite_code/FALSECITE_CODE_GENERATION_GATE_VERBOSE160_20260625.md
+Artifact 5 | scripts/run_falsecite_code_gate.py
+
+Supplementary figures to produce for final submission:
+- Figure B1. End-to-end evidence flow for PX-004.
+- Figure B2. Per-experiment metric comparison.
+- Figure B3. Claim-boundary and failure-mode diagram.
+
+Appendix C: Dataset Documentation
+Dataset and artifact scope:
+- FalseCite-Code locked claims JSONL
+- PyPI, NPM, and GitHub metadata APIs
+
+Data governance and reproducibility notes:
+- Use the repository paths listed in Appendix B as the primary experimental record.
+- Preserve raw outputs, summaries, and claim-boundary reports together.
+- Do not expand claims beyond the dataset and boundary stated in Sections 1.7 and 1.8.
+- For peer review, provide the exact commit SHA and environment notes used for reruns.
