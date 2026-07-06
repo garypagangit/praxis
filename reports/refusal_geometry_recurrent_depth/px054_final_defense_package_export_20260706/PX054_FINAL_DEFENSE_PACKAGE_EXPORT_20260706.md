@@ -1,0 +1,78 @@
+# PX-054 Final Defense Package Export
+
+Generated: 2026-07-06
+
+Praxis ID: `PX-054`
+
+Status: **DEFENSE_PACKAGE_READY - BOUNDED POSITIVE CHARACTERIZATION**
+
+## Thesis
+
+Huginn-0125, a recurrent-depth language model, exposes depth-indexed latent states whose refusal-style direction can be measured and remains stable across recurrent depth on a safe paraphrase-family prompt suite.
+
+## Final Determination
+
+PX-054 is defense-ready as a bounded positive characterization paper.
+
+Supported claim:
+
+> On a safe paraphrase-family prompt set, Huginn-0125 exposes depth-indexed latent states whose refusal-style direction is measurable and stable across recurrent depth.
+
+This is a mechanistic characterization result, not a deployed safety defense.
+
+## Current Evidence State
+
+| Layer | Status | Main result |
+|---|---|---|
+| Source gate | `SOURCE_GATE_PASS` | Huginn-0125 is public, ungated, Apache-2.0, Transformers-compatible, recurrent-depth configured, and documents `num_steps`. |
+| Activation smoke gate | `ACTIVATION_GATE_PASS` | `60/60` latent rows captured across depths `[4, 8, 16, 32]`; cross-depth stability `0.8321`; benign-control FPR `0.0000`. |
+| Scale gate | `SCALE_GATE_PASS` | `600/600` latent rows captured across `120` safe prompts and depths `[4, 8, 16, 32, 64]`; cross-depth stability `0.9257`; CI `[0.9067, 0.9273]`; benign-control FPR `0.0000`; worst refusal TPR `0.9750`. |
+| Result synthesis | `BOUNDED_POSITIVE_CHARACTERIZATION` | PX-054 is positive within the safe, observational, no-intervention boundary. |
+
+## What This Proves
+
+1. Huginn-0125 exposes usable latent states across recurrent depths.
+2. A refusal-style versus benign-helpful latent direction is measurable on the safe prompt suite.
+3. That direction remains stable across recurrent depths up to `num_steps=64`.
+4. The registered threshold does not over-flag benign-helpful or benign safety-control prompts in the scale corpus.
+5. Family-level bootstrap intervals support the stability result.
+
+## What This Does Not Prove
+
+- It does not prove a causal refusal mechanism.
+- It does not prove a deployed safety defense.
+- It does not detect jailbreaks.
+- It does not remove refusals or alter model behavior.
+- It does not evaluate real harmful-request behavior.
+- It does not transfer the result to other models without replication.
+
+## Read-First Links
+
+- Final manuscript: `reports/refusal_geometry_recurrent_depth/px054_final_manuscript_20260706/PX054_FINAL_MANUSCRIPT_20260706.md`
+- Paper package: `reports/refusal_geometry_recurrent_depth/px054_paper_package_20260706/PX054_PRAXIS_PAPER_PACKAGE_20260706.md`
+- Claim boundary: `reports/refusal_geometry_recurrent_depth/px054_paper_package_20260706/PX054_CLAIM_BOUNDARY_20260706.md`
+- Result synthesis: `reports/refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_RESULT_SYNTHESIS_20260705.md`
+- Scale gate: `reports/refusal_geometry_recurrent_depth/scale_gate_20260705/PX054_REFUSAL_GEOMETRY_SCALE_GATE_20260705.md`
+
+## Result Artifacts
+
+| Artifact | Purpose |
+|---|---|
+| `reports/refusal_geometry_recurrent_depth/scale_gate_20260705/summary.json` | Machine-readable scale-gate metrics. |
+| `reports/refusal_geometry_recurrent_depth/scale_gate_20260705/activation_rows.csv` | Row-level scale activation metadata. |
+| `reports/refusal_geometry_recurrent_depth/scale_gate_20260705/vectors_reduced.json` | Reduced latent vectors used for metric review. |
+| `reports/refusal_geometry_recurrent_depth/activation_gate_20260705/summary.json` | Machine-readable smoke-gate metrics. |
+| `reports/refusal_geometry_recurrent_depth/source_gate_20260705/summary.json` | Machine-readable source-gate metadata. |
+
+## Appendix A: Supporting Code
+
+| Component | Path | Description |
+|---|---|---|
+| Source gate runner | `scripts/run_px054_refusal_geometry_source_gate.py` | Checks model metadata, license, recurrent-depth configuration, and safe gate readiness. |
+| Activation smoke runner | `cloud_jobs/px054_refusal_geometry_20260705/run_px054_refusal_geometry_activation_gate.py` | Captures smoke latent states across safe prompts and recurrent depths. |
+| Scale gate runner | `cloud_jobs/px054_refusal_geometry_scale_20260705/run_px054_refusal_geometry_scale_gate.py` | Captures scale latent states, computes direction stability, bootstraps by prompt family, and writes report artifacts. |
+| Scale AWS wrapper | `cloud_jobs/px054_refusal_geometry_scale_20260705/run_on_instance.sh` | Runs the scale gate on AWS and syncs outputs. |
+
+## Defense Use
+
+Use PX-054 as a second Praxis positive after PX-050. Lead with the stable depth-indexed representation result, keep the claim observational, and state next work as held-out safe prompts plus a second recurrent-depth checkpoint.

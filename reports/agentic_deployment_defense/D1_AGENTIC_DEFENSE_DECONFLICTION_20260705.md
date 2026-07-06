@@ -4,7 +4,7 @@ Generated: 2026-07-05
 
 ## Purpose
 
-This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the original positive-result set. The D1 branch is treated as a forward research queue. PX-050 now has a bounded final manuscript draft, final defense package export, held-out raw/strict StarCoder2 boundary failures, a passed PX-050S controller/extractor repair, a passed PX-050T adaptive string stress suite, passed PX-050U/PX-050V dry-run live-agent tool-boundary gates, and a final two-model live-agent determination. PX-051V and PX-052V now refresh the supporting policy and provenance layers on the full 288-row live-agent tool-call corpus. PX-054 has cleared a larger safe characterization gate. The remaining D1 rows stay classified by their measured gates.
+This report integrates the new D1 agent-defense proposals into the Praxis tracker without diluting the original positive-result set. The D1 branch is treated as a forward research queue. PX-050 now has a bounded final manuscript draft, final defense package export, held-out raw/strict StarCoder2 boundary failures, a passed PX-050S controller/extractor repair, a passed PX-050T adaptive string stress suite, passed PX-050U/PX-050V dry-run live-agent tool-boundary gates, and a final two-model live-agent determination. PX-051V and PX-052V now refresh the supporting policy and provenance layers on the full 288-row live-agent tool-call corpus. PX-054 has a final manuscript and defense package for the larger safe characterization gate. The remaining D1 rows stay classified by their measured gates.
 
 ## Deconflicted Queue
 
@@ -15,7 +15,7 @@ This report integrates the new D1 agent-defense proposals into the Praxis tracke
 | PX-051 | D1-4 | Security-utility Pareto for agent gates | 7.45 | PX-051V live-agent policy pass | Reuses PX-001 selective-gate math and now has a positive policy result over the combined 288-row PX-050U/PX-050V live-agent tool-call corpus. |
 | PX-052 | D1-3 | Provenance-aware tool-boundary retrofit monitoring | 7.00 | PX-052V live-agent provenance pass | Narrowly distinct from PX-012/PX-013/PX-014 because it tracks tool-call argument provenance rather than graph-event provenance or model reasoning internals; now passes on the combined 288-row live-agent tool-call trace corpus. |
 | PX-053 | D1-5 | Human-in-the-loop approval fatigue vs. security | 6.55 | Simulation gate fail | Synthetic approval-load simulator missed compromise and completion thresholds. Do not run as a human-subject study without redesign and IRB-quality protocol. |
-| PX-054 | Source-gate candidate | Refusal geometry across recurrent depth | TBD | Scale gate pass / bounded characterization positive | Separate mechanistic/safety characterization lane using Huginn-style recurrent depth. The safe 120-prompt scale gate passed across depths `[4, 8, 16, 32, 64]`. No refusal removal, jailbreak optimization, or offensive bypass work. |
+| PX-054 | Source-gate candidate | Refusal geometry across recurrent depth | TBD | Final package / bounded characterization positive | Separate mechanistic/safety characterization lane using Huginn-style recurrent depth. The safe 120-prompt scale gate passed across depths `[4, 8, 16, 32, 64]`, and the final manuscript, claim boundary, and defense export are complete. No refusal removal, jailbreak optimization, or offensive bypass work. |
 
 ## Why PX-049 Was Tested First
 
@@ -77,6 +77,7 @@ Updated: 2026-07-05
 | PX-053 | Synthetic approval-fatigue simulation | `SIMULATION_GATE_FAIL` | Risk-scored routing reduced prompt load versus every-action approval but did not beat every-action compromise rate and missed the completion threshold. Do not promote without redesign or human-study protocol. |
 | PX-054 | Safe recurrent-depth activation gate | `ACTIVATION_GATE_PASS` | Huginn activation capture `1.0000`, prompt validity `1.0000`, cross-depth direction stability `0.8321`, benign-control FPR `0.0000`. |
 | PX-054 | Safe recurrent-depth scale gate | `SCALE_GATE_PASS` | Huginn scale run captured `600/600` rows over `120` safe prompts, `10` families per label, and depths `[4, 8, 16, 32, 64]`; cross-depth stability `0.9257` with bootstrap CI `[0.9067, 0.9273]`; benign-control FPR `0.0000`; worst refusal TPR `0.9750`. |
+| PX-054 | Final manuscript and defense package | `DEFENSE_PACKAGE_READY_BOUNDED_POSITIVE_CHARACTERIZATION` | Final manuscript, paper package, claim boundary, defense export, text export, and summary JSON added. Approved claim: on a safe paraphrase-family prompt set, Huginn-0125 exposes depth-indexed latent states whose refusal-style direction is measurable and stable across recurrent depth. |
 
 Rollup: `reports/agentic_deployment_defense/d1_followon_rollup_20260705/D1_NEW_EXPERIMENT_FOLLOWON_ROLLUP_20260705.md`
 
@@ -99,4 +100,4 @@ The proposal's `FORGE` reference remains unpinned in this tracker until a primar
 - PX-051 may claim a Pareto framework only if it shows nontrivial security-utility trade-off control across scored actions. PX-051V supports this as a deployment layer for PX-050 on the 288-row live-agent tool-call corpus, with review fallback counted as a non-allow state.
 - PX-052 may claim provenance monitoring only if it tracks transitive tool-argument lineage without instrumenting hidden chain-of-thought. PX-052V supports this on observable challenge, model output, tool-call JSON, controller extraction, and hardened-gate fields only.
 - PX-053 must not be presented as human-subject evidence unless a real IRB-approved study is performed.
-- PX-054 may claim bounded depth-indexed representation characterization on safe prompt text. It must not claim causal refusal mechanisms, deployed safety defense, safety ablation, refusal removal, or jailbreak optimization.
+- PX-054 may claim bounded depth-indexed representation characterization on safe prompt text. It must not claim causal refusal mechanisms, deployed safety defense, safety ablation, refusal removal, jailbreak detection, adversarial robustness, or transfer to other models without replication.
