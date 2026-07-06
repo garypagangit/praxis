@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Praxis Recon</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">PR</div>
+          <div>
+            <h1>Praxis Recon</h1>
+            <p>Research-to-experiment command center</p>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Views">
+          <button class="nav-item is-active" data-view="dashboard" type="button">
+            <span class="nav-icon" aria-hidden="true">01</span>
+            Dashboard
+          </button>
+          <button class="nav-item" data-view="topics" type="button">
+            <span class="nav-icon" aria-hidden="true">02</span>
+            Topics
+          </button>
+          <button class="nav-item" data-view="papers" type="button">
+            <span class="nav-icon" aria-hidden="true">03</span>
+            Papers
+          </button>
+          <button class="nav-item" data-view="ideas" type="button">
+            <span class="nav-icon" aria-hidden="true">04</span>
+            Ideas
+          </button>
+          <button class="nav-item" data-view="experiments" type="button">
+            <span class="nav-icon" aria-hidden="true">05</span>
+            Experiments
+          </button>
+          <button class="nav-item" data-view="packages" type="button">
+            <span class="nav-icon" aria-hidden="true">06</span>
+            Packages
+          </button>
+        </nav>
+
+        <section class="side-panel">
+          <h2>Budget</h2>
+          <div class="budget-meter" aria-label="Monthly budget used">
+            <div id="budgetFill"></div>
+          </div>
+          <div class="side-row">
+            <span id="budgetUsed">$0</span>
+            <span id="budgetTotal">$0 cap</span>
+          </div>
+        </section>
+
+        <section class="side-panel">
+          <h2>Human Gates</h2>
+          <div id="gateList" class="gate-list"></div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Praxis Engine v0.1 console</p>
+            <h2 id="viewTitle">Dashboard</h2>
+          </div>
+          <div class="topbar-actions">
+            <label class="search-box">
+              <span aria-hidden="true">/</span>
+              <input id="searchInput" type="search" placeholder="Search papers, ideas, runs">
+            </label>
+            <button id="exportStateButton" class="tool-button" type="button" title="Export state JSON">Export</button>
+            <button id="resetButton" class="tool-button danger" type="button" title="Reset demo state">Reset</button>
+          </div>
+        </header>
+
+        <section id="dashboardView" class="view is-visible" aria-labelledby="viewTitle">
+          <div class="metrics-grid" id="metricsGrid"></div>
+
+          <div class="split-grid">
+            <section class="panel wide-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Pipeline Board</h3>
+                  <p>State machine view</p>
+                </div>
+                <select id="stageFilter" class="select-control" aria-label="Stage filter">
+                  <option value="all">All states</option>
+                  <option value="needs_me">Needs me</option>
+                  <option value="positive">Positive results</option>
+                  <option value="blocked">Blocked or negative</option>
+                </select>
+              </div>
+              <div id="pipelineBoard" class="pipeline-board"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Activity</h3>
+                  <p>Latest events</p>
+                </div>
+              </div>
+              <div id="eventFeed" class="event-feed"></div>
+            </section>
+          </div>
+        </section>
+
+        <section id="topicsView" class="view" aria-labelledby="viewTitle">
+          <div class="split-grid topic-layout">
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Topic Manager</h3>
+                  <p>Query specs</p>
+                </div>
+              </div>
+              <form id="topicForm" class="topic-form">
+                <label>
+                  Topic
+                  <input id="topicName" required placeholder="AI agent safety">
+                </label>
+                <label>
+                  Daily cap
+                  <input id="topicCap" type="number" min="1" max="500" value="40">
+                </label>
+                <label class="check-line">
+                  <input id="topicPeer" type="checkbox" checked>
+                  Peer reviewed only
+                </label>
+                <label class="check-line">
+                  <input id="topicPreprints" type="checkbox">
+                  Include preprints
+                </label>
+                <button class="primary-button" type="submit">Add Topic</button>
+              </form>
+            </section>
+            <section class="panel wide-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Active Topics</h3>
+                  <p>Discovery schedule</p>
+                </div>
+              </div>
+              <div id="topicsTable" class="data-table"></div>
+            </section>
+          </div>
+        </section>
+
+        <section id="papersView" class="view" aria-labelledby="viewTitle">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Paper Feed</h3>
+                <p>Discovery and review queue</p>
+              </div>
+              <button id="discoverButton" class="primary-button" type="button">Discover Papers</button>
+            </div>
+            <div id="paperList" class="record-list"></div>
+          </div>
+        </section>
+
+        <section id="ideasView" class="view" aria-labelledby="viewTitle">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Praxis Idea Board</h3>
+                <p>Feasibility, impact, defensibility</p>
+              </div>
+              <button id="redTeamButton" class="tool-button" type="button">Red-Team Scores</button>
+            </div>
+            <div id="ideaBoard" class="idea-grid"></div>
+          </div>
+        </section>
+
+        <section id="experimentsView" class="view" aria-labelledby="viewTitle">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Experiment Console</h3>
+                <p>Plans, runs, evaluation</p>
+              </div>
+              <button id="queueButton" class="primary-button" type="button">Queue Selected</button>
+            </div>
+            <div id="experimentList" class="record-list"></div>
+          </div>
+        </section>
+
+        <section id="packagesView" class="view" aria-labelledby="viewTitle">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Publish Queue</h3>
+                <p>Defense-ready packages</p>
+              </div>
+              <button id="generatePackageButton" class="primary-button" type="button">Package Positives</button>
+            </div>
+            <div id="packageList" class="package-grid"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="emptyTemplate">
+      <div class="empty-state">
+        <strong>No matching records</strong>
+        <span>Adjust filters or add a topic.</span>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
