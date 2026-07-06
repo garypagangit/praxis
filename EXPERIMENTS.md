@@ -34,17 +34,17 @@ This index intentionally publishes both positive and negative results. The rule 
 
 ## Experiment 02 - ATT&CK TTP-Set Profile Retrieval for Few-Shot APT Attribution
 
-**Status:** selected narrow positive.
+**Status:** packaged bounded lookup-style positive; not a defense pillar.
 
 **Title to use:** Few-Shot APT Group Profile Retrieval from ATT&CK TTP Sets.
 
 **Core claim:** small observed ATT&CK technique sets can retrieve likely group profiles under a formal TTP-set retrieval protocol.
 
-**Best evidence:** five-shot top-5 overlap `0.960`, SVD `0.879`, random `0.028`, frequency prior `0.041`; median rank `1.0`; degree-bucket analysis complete.
+**Best evidence:** five-shot top-5 overlap `0.960`, SVD `0.879`, random `0.028`, frequency prior `0.041`; median rank `1.0`; degree-bucket analysis complete. The later defense audit keeps noisy-query retrieval useful but demotes the claim because leave-query-out overlap top-5 is `0.000` and SVD top-5 is `0.299`.
 
-**Decision:** publish as profile retrieval, not CTI prose attribution and not a GNN claim.
+**Decision:** publish as bounded profile retrieval for analyst triage, not CTI prose attribution, actor authorship, a GNN claim, or a major defense pillar.
 
-**Primary artifacts:** `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md`, `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_CLOSEOUT_20260514.md`, `paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md`.
+**Primary artifacts:** `reports/gnn_attribution_ttp_graph_embeddings/px002_final_defense_package_export_20260706/PX002_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md`, `reports/gnn_attribution_ttp_graph_embeddings/px002_final_manuscript_20260706/PX002_FINAL_MANUSCRIPT_20260706.md`, `reports/gnn_attribution_ttp_graph_embeddings/px002_paper_package_20260706/PX002_CLAIM_BOUNDARY_20260706.md`, `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_PROFILE_RETRIEVAL_RESULT_20260514.md`, `reports/gnn_attribution_ttp_graph_embeddings/ATTACK_TTP_RETRIEVAL_CLOSEOUT_20260514.md`, `reports/gnn_attribution_ttp_graph_embeddings/PX002_TTP_RETRIEVAL_DEFENSE_AUDIT_20260630.md`, `paper/attack_ttp_retrieval/ATTACK_TTP_PROFILE_RETRIEVAL_PAPER_OUTLINE_20260514.md`.
 
 ## Experiment 03 - Retrieval-Conditioned CTI Compliance with Relationship Evidence
 

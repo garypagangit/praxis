@@ -1,0 +1,28 @@
+{
+  "praxis_id": "PX-002",
+  "title": "Few-Shot ATT&CK Group-Profile Retrieval from Observed TTP Sets",
+  "generated": "2026-07-06",
+  "status": "PACKAGE_READY_BOUNDED_LOOKUP_STYLE_POSITIVE_ONLY",
+  "claim": "Five observed ATT&CK techniques sampled from known group profiles can retrieve the correct group profile with high top-5 accuracy under a standard profile-lookup protocol.",
+  "standard_five_shot": {
+    "queries": 605,
+    "overlap_top5": 0.96,
+    "svd_top5": 0.879,
+    "random_top5": 0.028,
+    "frequency_prior_top5": 0.041,
+    "median_rank_overlap": 1.0,
+    "median_rank_svd": 1.0
+  },
+  "defense_audit": {
+    "noisy_query_overlap_top5": 0.788,
+    "noisy_query_svd_top5": 0.577,
+    "leave_query_out_overlap_top5": 0.0,
+    "leave_query_out_svd_top5": 0.299
+  },
+  "boundary": "Use as analyst-triage profile lookup only; do not claim actor attribution, CTI prose attribution, GNN superiority, or defense-pillar readiness.",
+  "verification": {
+    "rerun_date": "2026-07-06",
+    "closeout_status": "closed_out_bounded_positive",
+    "defense_audit_status": "BOUNDED LOOKUP-STYLE POSITIVE ONLY"
+  }
+}

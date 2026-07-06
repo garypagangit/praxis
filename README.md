@@ -8,6 +8,7 @@ Praxis Research is a future-work-to-experiment program. The project reviews 2025
 - [Praxis Research Experiment Tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html)
 - [Final positive report export with tracker](reports/praxis_final_positive_reports_20260701/PRAXIS_FINAL_POSITIVE_REPORTS_WITH_TRACKER_EXPORT_20260705.txt)
 - [Final positive report index](reports/praxis_final_positive_reports_20260701/README.md)
+- [PX-002 final bounded lookup package](reports/gnn_attribution_ttp_graph_embeddings/px002_final_defense_package_export_20260706/PX002_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md)
 - [Recommendation implementation audit](reports/PRAXIS_RECOMMENDATION_IMPLEMENTATION_20260705.md)
 - [D1 agent-defense deconfliction and new candidate queue](reports/agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md)
 - [D1 new experiment follow-on rollup](reports/agentic_deployment_defense/d1_followon_rollup_20260705/D1_NEW_EXPERIMENT_FOLLOWON_ROLLUP_20260705.md)
@@ -33,10 +34,13 @@ Public viewers can read, clone, and download the repository. Write access remain
 The strongest Praxis candidates currently tracked are:
 
 - `PX-001`: DAPT graph/ML routing experiments.
+- `PX-002`: ATT&CK TTP-set profile retrieval, packaged as a bounded lookup-style positive and not as a defense pillar.
 - `PX-003/PX-034`: CTI relationship-evidence prompting and source-support risk stratification.
 - `PX-004`: Hallucination-resistant source-locked QA.
 - `PX-005`: MoE standing-committee/router observability, now positioned as a bounded confirmation/extension result.
 - `PX-011`: HalluHard deterministic verification gate.
+
+`PX-002` is now packaged as a bounded CTI lookup result: five observed ATT&CK techniques retrieve the correct group profile with overlap top-5 `0.960` and SVD top-5 `0.879` under the standard known-profile protocol, compared with random `0.028` and frequency prior `0.041`. The defense audit blocks a stronger defense-pillar claim because leave-query-out stress produced overlap top-5 `0.000` and SVD top-5 `0.299`; use the result only as analyst-triage profile retrieval.
 
 The latest PX-003/PX-034 full-bucket AWS audit found relationship-evidence prompting improved Qwen2.5-7B accuracy from `0.614` to `0.822` across 500 CTI rows. The result supports the relationship-evidence lift claim, while narrowing the router claim to source-support and conflict-risk stratification rather than a hard answerability oracle.
 
