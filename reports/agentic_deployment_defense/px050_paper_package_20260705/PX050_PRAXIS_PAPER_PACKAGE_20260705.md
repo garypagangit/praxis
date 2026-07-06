@@ -36,8 +36,8 @@ PX-050 has enough evidence for a bounded Praxis defense paper and should be prom
 | PX-050U live-agent tool boundary | 144 dry-run tool-call rows | `PX050U_LIVE_AGENT_TOOL_BOUNDARY_PASS` | Qwen2.5-Coder-7B coding-agent harness. Install-action rate `1.0000`; raw unsafe rate `0.8906`; controller recovery `0.9514`; registry-only invalid allows `10`; hardened invalid allows `0`; valid allow `1.0000`. |
 | PX-050V second-model live-agent tool boundary | 144 dry-run tool-call rows | `PX050V_SECOND_MODEL_LIVE_AGENT_TOOL_BOUNDARY_PASS` | DeepSeek-Coder-6.7B coding-agent harness. Install-action rate `1.0000`; raw unsafe rate `1.0000`; controller recovery `1.0000`; registry-only invalid allows `10`; hardened invalid allows `0`; valid allow `1.0000`. |
 | PX-050U/V final determination | 288 combined rows | `TWO_MODEL_DRY_RUN_LIVE_AGENT_TOOL_BOUNDARY_POSITIVE` | Combined raw unsafe rate `0.9453`; controller recovery `0.9757`; registry-only invalid allows `20`; hardened invalid allows `0`; valid allow `1.0000`. |
-| PX-051 operating point refresh | 196 commands | `LIVE_POLICY_REFRESH_PASS` | Hardened policy remained on the Pareto front with invalid escape `0.0000` and utility `0.9583`. |
-| PX-052 provenance refresh | 196 traces | `LIVE_PROVENANCE_REFRESH_PASS` | Alert recall `1.0000`; clean false-positive rate `0.0000`; trace completeness `1.0000`. |
+| PX-051V live-agent operating point refresh | 288 tool-call rows | `PX051V_LIVE_AGENT_POLICY_REFRESH_PASS` | Hardened policy remained on the Pareto front with invalid escape `0.0000`, utility `1.0000`, review rate `0.0243`, and registry-only invalid escape `0.1563`. |
+| PX-052V live-agent provenance refresh | 288 traces | `PX052V_LIVE_AGENT_PROVENANCE_REFRESH_PASS` | Alert recall `1.0000`; clean false-positive rate `0.0000`; trace completeness `1.0000`. |
 
 ## What The Result Proves
 
@@ -102,8 +102,9 @@ Recommended framing:
 - PX-050U live-agent tool-boundary gate: `reports/agentic_deployment_defense/px050u_live_agent_tool_boundary_20260705/PX050U_LIVE_AGENT_TOOL_BOUNDARY_SYNTHESIS_20260705.md`
 - PX-050V second-model live-agent tool-boundary gate: `reports/agentic_deployment_defense/px050v_second_model_live_agent_tool_boundary_20260705/PX050V_SECOND_MODEL_LIVE_AGENT_TOOL_BOUNDARY_SYNTHESIS_20260705.md`
 - PX-050 two-model final determination: `reports/agentic_deployment_defense/px050_live_agent_two_model_determination_20260705/PX050_LIVE_AGENT_TWO_MODEL_FINAL_DETERMINATION_20260705.md`
-- PX-051 policy refresh: `reports/agentic_deployment_defense/px051_live_corpus_policy_refresh_20260705/PX051_LIVE_CORPUS_POLICY_REFRESH_20260705.md`
-- PX-052 provenance refresh: `reports/agentic_deployment_defense/px052_live_corpus_provenance_refresh_20260705/PX052_LIVE_CORPUS_PROVENANCE_REFRESH_20260705.md`
+- PX-050 final defense package export: `reports/agentic_deployment_defense/px050_final_defense_package_export_20260705/PX050_FINAL_DEFENSE_PACKAGE_EXPORT_20260705.md`
+- PX-051V live-agent policy refresh: `reports/agentic_deployment_defense/px051v_live_agent_policy_refresh_20260705/PX051V_LIVE_AGENT_POLICY_REFRESH_20260705.md`
+- PX-052V live-agent provenance refresh: `reports/agentic_deployment_defense/px052v_live_agent_provenance_refresh_20260705/PX052V_LIVE_AGENT_PROVENANCE_REFRESH_20260705.md`
 
 ## Appendix A: Reproducibility Code Map
 
@@ -113,7 +114,7 @@ Recommended framing:
 | Live model gate runner | `cloud_jobs/px050_adaptive_live_20260705/run_px050_live_adaptive_gate.py` | Generates inert package-install command strings from an open-weight coding model and evaluates the frozen verifier. |
 | AWS live gate wrapper | `cloud_jobs/px050_adaptive_live_20260705/run_on_instance.sh` | Runs the live gate on the GPU instance and syncs artifacts to S3. |
 | Replication synthesis | `scripts/synthesize_px050_second_model_replication.py` | Combines Qwen and DeepSeek live outputs into the two-model replication claim. |
-| PX-051/PX-052 live refresh | `scripts/run_d1_live_corpus_refresh.py` | Recomputes security-utility policy points and provenance-monitoring metrics on the combined live corpus. |
+| PX-051V/PX-052V live-agent refresh | `scripts/run_d1_live_agent_corpus_refresh.py` | Recomputes security-utility policy points and provenance-monitoring metrics on the combined PX-050U/PX-050V live-agent tool-call corpus. |
 | Parser stress appendix | `scripts/run_px050_parser_stress_appendix.py` | Mutates live command strings into inert parser stress cases and evaluates hardened robustness. |
 | Held-out third-model runner | `cloud_jobs/px050_heldout_replication_20260705/run_px050_heldout_replication.py` | Runs the frozen verifier against held-out package prompts for StarCoder2 and records the negative boundary result. |
 | PX-050R strict repair runner | `cloud_jobs/px050r_heldout_repair_20260705/run_px050r_heldout_repair.py` | Runs the strict command-compliance repair and extracted-command diagnostic over StarCoder2-3B/7B. |
@@ -128,10 +129,10 @@ Re-run parser stress appendix:
 python scripts\run_px050_parser_stress_appendix.py
 ```
 
-Re-run PX-051/PX-052 refresh:
+Re-run PX-051V/PX-052V refresh:
 
 ```powershell
-python scripts\run_d1_live_corpus_refresh.py
+python scripts\run_d1_live_agent_corpus_refresh.py
 ```
 
 The cloud live model runners require AWS credentials, the `praxis-build` profile, and the configured GPU instance.

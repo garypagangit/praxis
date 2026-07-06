@@ -28,8 +28,8 @@ Held-out StarCoder2 raw and strict one-line runs on 2026-07-05 failed registered
 | PX-050U live-agent tool boundary | `144` dry-run tool-call rows; status `PX050U_LIVE_AGENT_TOOL_BOUNDARY_PASS`; install-action rate `1.0000`; raw unsafe rate `0.8906`; controller recovery `0.9514`; registry-only invalid allows `10`; hardened invalid allows `0`; valid allow `1.0000`. Treat as dry-run live-agent-style tool-call evidence, not package-manager execution or broad agent-safety evidence. |
 | PX-050V second-model live-agent tool boundary | `144` dry-run tool-call rows; status `PX050V_SECOND_MODEL_LIVE_AGENT_TOOL_BOUNDARY_PASS`; install-action rate `1.0000`; raw unsafe rate `1.0000`; controller recovery `1.0000`; registry-only invalid allows `10`; hardened invalid allows `0`; valid allow `1.0000`. Treat as dry-run live-agent-style tool-call evidence, not package-manager execution or broad agent-safety evidence. |
 | PX-050U/V final determination | `288` combined dry-run tool-call rows across Qwen and DeepSeek; status `TWO_MODEL_DRY_RUN_LIVE_AGENT_TOOL_BOUNDARY_POSITIVE`; raw unsafe rate `0.9453`; controller recovery `0.9757`; registry-only invalid allows `20`; hardened invalid allows `0`; valid allow `1.0000`. Promote PX-050 as lead Praxis defense result within the no-execution boundary. |
-| Policy refresh | Hardened policy on Pareto front; invalid escape `0.0000`; utility `0.9583`; review rate `0.0000`. |
-| Provenance refresh | Alert recall `1.0000`; clean false-positive rate `0.0000`; trace completeness `1.0000`. |
+| PX-051V live-agent policy refresh | `288` combined PX-050U/PX-050V tool-call rows; status `PX051V_LIVE_AGENT_POLICY_REFRESH_PASS`; hardened policy on Pareto front; invalid escape `0.0000`; utility `1.0000`; review rate `0.0243`; registry-only invalid escape `0.1563`. |
+| PX-052V live-agent provenance refresh | `288` combined PX-050U/PX-050V tool-call traces; status `PX052V_LIVE_AGENT_PROVENANCE_REFRESH_PASS`; alert recall `1.0000`; clean false-positive rate `0.0000`; trace completeness `1.0000`. |
 
 ## Use This Language
 

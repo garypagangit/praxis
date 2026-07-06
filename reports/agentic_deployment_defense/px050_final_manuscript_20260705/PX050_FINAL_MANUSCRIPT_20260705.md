@@ -324,12 +324,12 @@ The two-model dry-run live-agent result is positive. It resolves the earlier PX-
 
 ### 4.13 Deployment Layers: Policy And Provenance
 
-PX-051 and PX-052 are supporting deployment layers for PX-050.
+PX-051V and PX-052V are supporting deployment layers for PX-050.
 
 | Supporting gate | Rows | Status | Key result |
 |---|---:|---|---|
-| PX-051 security-utility policy refresh | `196` | `LIVE_POLICY_REFRESH_PASS` | Hardened policy stayed on the Pareto front with invalid escape `0.0000`, utility `0.9583`, and review rate `0.0000`. |
-| PX-052 provenance refresh | `196` | `LIVE_PROVENANCE_REFRESH_PASS` | Alert recall `1.0000`, clean false-positive rate `0.0000`, trace completeness `1.0000`. |
+| PX-051V live-agent security-utility policy refresh | `288` | `PX051V_LIVE_AGENT_POLICY_REFRESH_PASS` | Hardened policy stayed on the Pareto front with invalid escape `0.0000`, utility `1.0000`, review rate `0.0243`, and registry-only invalid escape `0.1563`. |
+| PX-052V live-agent provenance refresh | `288` | `PX052V_LIVE_AGENT_PROVENANCE_REFRESH_PASS` | Alert recall `1.0000`, clean false-positive rate `0.0000`, trace completeness `1.0000`. |
 
 These results should not be overclaimed as separate general solutions. Their best use is as deployment context: PX-050 can be placed inside a consequence-aware policy and provenance-recording tool boundary.
 
@@ -347,7 +347,7 @@ The claim is positive because it holds across:
 - `440` fresh StarCoder2 controller/extractor repair commands,
 - `1,440` crafted controller/extractor adaptive stress rows,
 - `288` dry-run live-agent tool-call rows across two model families,
-- policy and provenance refreshes over the combined live corpus.
+- policy and provenance refreshes over the combined 288-row live-agent tool-call corpus.
 
 The raw and strict one-line held-out StarCoder2 runs are excluded from any raw third-model replication claim because they failed registered promotion gates. PX-050S is included only as controller/extractor deployment-repair evidence, PX-050T is included only as crafted command-string stress evidence, and PX-050U/PX-050V are included only as dry-run live-agent-style tool-call evidence. The claim is bounded because execution, package reputation, malicious existing packages, arbitrary shell safety, private registry behavior, broad live-agent safety, and cross-model prompt-compliance failures are outside the positive claim.
 
@@ -391,9 +391,10 @@ All commands are inert and evaluated as strings. The experiment does not install
 | `reports/agentic_deployment_defense/px050u_live_agent_tool_boundary_20260705/PX050U_LIVE_AGENT_TOOL_BOUNDARY_SYNTHESIS_20260705.md` | PX-050U dry-run live-agent tool-boundary gate; passed with install actions present and zero hardened invalid allows. |
 | `reports/agentic_deployment_defense/px050v_second_model_live_agent_tool_boundary_20260705/PX050V_SECOND_MODEL_LIVE_AGENT_TOOL_BOUNDARY_SYNTHESIS_20260705.md` | PX-050V second-model dry-run live-agent tool-boundary gate; passed with install actions present and zero hardened invalid allows. |
 | `reports/agentic_deployment_defense/px050_live_agent_two_model_determination_20260705/PX050_LIVE_AGENT_TWO_MODEL_FINAL_DETERMINATION_20260705.md` | Final two-model live-agent tool-call determination for PX-050. |
+| `reports/agentic_deployment_defense/px050_final_defense_package_export_20260705/PX050_FINAL_DEFENSE_PACKAGE_EXPORT_20260705.md` | Final defense package export with current PX-050/PX-051V/PX-052V status. |
 | `reports/agentic_deployment_defense/px050_paper_package_20260705/PX050_CLAIM_BOUNDARY_20260705.md` | Claim-boundary checklist. |
-| `reports/agentic_deployment_defense/px051_live_corpus_policy_refresh_20260705/PX051_LIVE_CORPUS_POLICY_REFRESH_20260705.md` | Security-utility operating-point refresh. |
-| `reports/agentic_deployment_defense/px052_live_corpus_provenance_refresh_20260705/PX052_LIVE_CORPUS_PROVENANCE_REFRESH_20260705.md` | Provenance-monitoring refresh. |
+| `reports/agentic_deployment_defense/px051v_live_agent_policy_refresh_20260705/PX051V_LIVE_AGENT_POLICY_REFRESH_20260705.md` | Current 288-row live-agent security-utility operating-point refresh. |
+| `reports/agentic_deployment_defense/px052v_live_agent_provenance_refresh_20260705/PX052V_LIVE_AGENT_PROVENANCE_REFRESH_20260705.md` | Current 288-row live-agent provenance-monitoring refresh. |
 | `cloud_jobs/px050_adaptive_live_20260705/run_px050_live_adaptive_gate.py` | Live model command-generation and gate runner. |
 | `cloud_jobs/px050_heldout_replication_20260705/run_px050_heldout_replication.py` | Held-out third-model replication runner. |
 | `cloud_jobs/px050r_heldout_repair_20260705/run_px050r_heldout_repair.py` | Strict held-out repair runner for StarCoder2-3B/7B. |
@@ -402,7 +403,7 @@ All commands are inert and evaluated as strings. The experiment does not install
 | `cloud_jobs/px050v_second_model_live_agent_tool_boundary_20260705/run_px050v_second_model_live_agent_tool_boundary.py` | Second-model dry-run live-agent tool-call runner for DeepSeek-Coder-6.7B. |
 | `scripts/run_px050_parser_stress_appendix.py` | Parser-stress mutation and evaluation runner. |
 | `scripts/run_px050s_controller_adaptive_stress.py` | PX-050T crafted controller/extractor adaptive stress runner. |
-| `scripts/run_d1_live_corpus_refresh.py` | PX-051/PX-052 live corpus refresh runner. |
+| `scripts/run_d1_live_agent_corpus_refresh.py` | PX-051V/PX-052V live-agent corpus refresh runner over PX-050U/PX-050V tool-call rows. |
 
 ## 10. Conclusion
 
