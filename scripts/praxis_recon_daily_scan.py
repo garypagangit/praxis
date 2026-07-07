@@ -350,7 +350,7 @@ def markdown_report(findings: list[dict[str, Any]], errors: list[str], args: arg
 
 def write_reports(report_dir: Path, report: str) -> tuple[Path, Path]:
     report_dir.mkdir(parents=True, exist_ok=True)
-    stamp = dt.datetime.now().astimezone().strftime("%Y%m%d")
+    stamp = dt.datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
     dated = report_dir / f"PRAXIS_RECON_DAILY_SCAN_{stamp}.md"
     latest = report_dir / "PRAXIS_RECON_DAILY_SCAN_latest.md"
     dated.write_text(report + "\n", encoding="utf-8")
