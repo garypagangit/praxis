@@ -55,7 +55,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/praxis-recon/seen_works.json reports/praxis_recon_daily/
+          git add -f data/praxis-recon/seen_works.json
+          git add reports/praxis_recon_daily/
           if git diff --cached --quiet; then
             echo "No scan changes to commit."
           else
