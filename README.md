@@ -7,6 +7,7 @@ Praxis Research is a future-work-to-experiment program. The project reviews 2025
 - Public dashboard URL: https://garypagangit.github.io/praxis/
 - [Praxis Research Experiment Tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html)
 - [Praxis Recon app](apps/praxis-recon/index.html)
+- [Praxis Recon latest daily literature scan](reports/praxis_recon_daily/PRAXIS_RECON_DAILY_SCAN_latest.md)
 - [Final positive report export with tracker](reports/praxis_final_positive_reports_20260701/PRAXIS_FINAL_POSITIVE_REPORTS_WITH_TRACKER_EXPORT_20260705.txt)
 - [Final positive report index](reports/praxis_final_positive_reports_20260701/README.md)
 - [Defense-ready full praxis text drafts](reports/praxis_defense_ready_full_praxis_20260706/README.txt)
@@ -52,6 +53,7 @@ The new D1 agent-defense branch has now been tested through follow-on gates. `PX
 
 - `reports/`: dashboards, final reports, audit reports, and downloadable exports.
 - `apps/praxis-recon/`: static Praxis Recon app for paper-to-experiment triage and packaging workflow.
+- `.github/workflows/praxis-recon-daily.yml`: scheduled literature scan that opens GitHub Issues when new papers are flagged.
 - `cloud_jobs/`: AWS experiment job packages and run wrappers.
 - `scripts/`: local analysis, export, and experiment helper scripts.
 - `src/praxis/`: reusable Praxis package code.

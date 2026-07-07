@@ -1,0 +1,108 @@
+name: Praxis Recon daily literature scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: "Publication-date lookback window"
+        required: false
+        default: "2"
+      max_per_topic:
+        description: "Maximum OpenAlex records to inspect per topic"
+        required: false
+        default: "15"
+      min_score:
+        description: "Minimum Praxis opportunity score to flag"
+        required: false
+        default: "4"
+  schedule:
+    - cron: "0 11 * * *"
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run daily scan
+        id: scan
+        env:
+          PRAXIS_RECON_MAILTO: ${{ secrets.PRAXIS_RECON_MAILTO }}
+          LOOKBACK_DAYS: ${{ github.event.inputs.lookback_days || '2' }}
+          MAX_PER_TOPIC: ${{ github.event.inputs.max_per_topic || '15' }}
+          MIN_SCORE: ${{ github.event.inputs.min_score || '4' }}
+        run: |
+          python scripts/praxis_recon_daily_scan.py \
+            --lookback-days "$LOOKBACK_DAYS" \
+            --max-per-topic "$MAX_PER_TOPIC" \
+            --min-score "$MIN_SCORE"
+
+      - name: Commit daily scan state and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/praxis-recon/seen_works.json reports/praxis_recon_daily/
+          if git diff --cached --quiet; then
+            echo "No scan changes to commit."
+          else
+            git commit -m "Update Praxis Recon daily literature scan"
+            git push
+          fi
+
+      - name: Open alert issue for new works
+        if: steps.scan.outputs.new_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT_PATH: ${{ steps.scan.outputs.report_path }}
+          NEW_COUNT: ${{ steps.scan.outputs.new_count }}
+        run: |
+          gh label create praxis-recon --color 0E8F87 --description "Praxis Recon automation" || true
+          gh label create new-papers --color D97706 --description "New literature scan findings" || true
+          gh issue create \
+            --title "Praxis Recon: ${NEW_COUNT} new works flagged" \
+            --label praxis-recon \
+            --label new-papers \
+            --body-file "$REPORT_PATH"
+
+      - name: Optional Slack alert
+        if: steps.scan.outputs.new_count != '0' && env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          REPORT_PATH: ${{ steps.scan.outputs.report_path }}
+          NEW_COUNT: ${{ steps.scan.outputs.new_count }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          server = os.environ.get("GITHUB_SERVER_URL", "https://github.com")
+          ref = os.environ.get("GITHUB_REF_NAME", "praxis-research")
+          report = os.environ["REPORT_PATH"]
+          count = os.environ["NEW_COUNT"]
+          url = f"{server}/{repo}/blob/{ref}/{report}"
+          payload = {
+              "text": f"Praxis Recon flagged {count} new works. Report: {url}",
+          }
+          request = urllib.request.Request(
+              os.environ["SLACK_WEBHOOK_URL"],
+              data=json.dumps(payload).encode("utf-8"),
+              headers={"Content-Type": "application/json"},
+          )
+          urllib.request.urlopen(request, timeout=15).read()
+          PY
