@@ -14,7 +14,7 @@ on:
       min_score:
         description: "Minimum Praxis opportunity score to flag"
         required: false
-        default: "4"
+        default: "2"
   schedule:
     - cron: "0 11 * * *"
 
@@ -44,7 +44,7 @@ jobs:
           PRAXIS_RECON_MAILTO: ${{ secrets.PRAXIS_RECON_MAILTO }}
           LOOKBACK_DAYS: ${{ github.event.inputs.lookback_days || '2' }}
           MAX_PER_TOPIC: ${{ github.event.inputs.max_per_topic || '15' }}
-          MIN_SCORE: ${{ github.event.inputs.min_score || '4' }}
+          MIN_SCORE: ${{ github.event.inputs.min_score || '2' }}
         run: |
           python scripts/praxis_recon_daily_scan.py \
             --lookback-days "$LOOKBACK_DAYS" \

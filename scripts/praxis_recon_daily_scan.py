@@ -59,7 +59,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report-dir", default="reports/praxis_recon_daily", help="Directory for daily Markdown reports.")
     parser.add_argument("--lookback-days", type=int, default=2, help="Publication-date lookback window.")
     parser.add_argument("--max-per-topic", type=int, default=15, help="Maximum API results to inspect per topic.")
-    parser.add_argument("--min-score", type=int, default=4, help="Minimum opportunity score to flag.")
+    parser.add_argument("--min-score", type=int, default=2, help="Minimum opportunity score to flag.")
     parser.add_argument("--dry-run", action="store_true", help="Write reports but do not update seen-state.")
     return parser.parse_args()
 
