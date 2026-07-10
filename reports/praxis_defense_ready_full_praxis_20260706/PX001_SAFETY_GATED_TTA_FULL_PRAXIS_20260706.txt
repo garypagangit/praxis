@@ -2,6 +2,7 @@ SAFETY-GATED TEST-TIME ADAPTATION FOR STREAMING APT DETECTION
 Doctor of Engineering Praxis Draft
 Praxis ID: PX-001
 Generated: 2026-07-06
+Defense polish update: 2026-07-10
 Status: Defense-ready positive
 
 FRONT MATTER
@@ -74,6 +75,11 @@ List of Figures
 Figure 1. Praxis research framework and evidence flow.
 Figure 2. Graphical Methodology of Research (GMR) for the experiment suite.
 Figure 3. Claim-boundary decision flow.
+Figure 4. PX-001 dataset evaluation, split support, leakage, and feature-shift summary.
+Figure 5. PX-001 safety-gated TTA methodology flow.
+Figure 6. Recon F1 by seed.
+Figure 7. Override sensitivity.
+Figure 8. Recon and Data Exfiltration PR operating-point figures.
 
 List of Tables
 Table 1. Acronyms and abbreviations.
@@ -81,6 +87,9 @@ Table 2. Research questions and hypotheses.
 Table 3. Experiment design matrix.
 Table 4. Dataset and evidence artifacts.
 Table 5. Results summary and hypothesis outcomes.
+Table 6. Train/validation/test split support by stage.
+Table 7. Metric definitions and acceptance thresholds.
+Table 8. Worked gate-decision examples.
 
 List of Acronyms
 Acronym | Meaning
@@ -88,8 +97,10 @@ Acronym | Meaning
 APA | American Psychological Association
 APT | Advanced Persistent Threat
 ATT&CK | Adversarial Tactics, Techniques, and Common Knowledge
+BN | Batch Normalization
 CI | Confidence Interval
 CTI | Cyber Threat Intelligence
+DE | Data Exfiltration
 F1 | Harmonic mean of precision and recall
 GMR | Graphical Methodology of Research
 LLM | Large Language Model
@@ -164,14 +175,21 @@ CHAPTER 3: METHODOLOGY
 This is an applied engineering praxis using empirical AI/ML evaluation. The design is bounded, artifact-backed, and falsifiable. Each experiment is treated as a gate: it has a defined input, method, metric, pass/fail interpretation, and claim impact. The research design favors conservative claim promotion over broad narrative claims.
 
 3.2 Graphical Methodology of Research (GMR)
-Problem identification -> literature and future-work gap -> artifact/data readiness gate -> experiment design -> execution -> metric audit -> boundary audit -> defense-ready package.
+Problem identification -> literature and future-work gap -> source-file/data readiness gate -> frozen source-shift baseline -> no-label BatchNorm adaptation -> selective safety gate -> locked replay -> metric audit -> boundary audit -> defense-ready package.
 
-ASCII GMR:
-[Problem] -> [Research Gap] -> [Data/Source Gate] -> [Experiment 1]
-                                             -> [Experiment 2]
-                                             -> [Experiment 3]
-                                             -> [Experiment 4]
-        -> [Cross-Experiment Synthesis] -> [Claim Boundary] -> [Praxis Defense Package]
+Detailed GMR:
+[APT stream shift problem]
+  -> [Unraveled source-file split with leakage audit]
+  -> [Frozen support-floor MLP baseline]
+  -> [Validation-selected BatchNorm TTA policy]
+  -> [Selective gate: Recon rescue + Data Exfiltration protection]
+  -> [Locked test replay with no test-threshold tuning]
+  -> [Metrics: Macro F1, Recon F1, DE F1, PR-AUC, override rate]
+  -> [Nulls: matched confidence reject + DAPT boundary]
+  -> [Claim ledger and defense-ready package]
+
+Supplementary GMR figure:
+- reports/praxis_defense_ready_full_praxis_20260706/figures/px001_gmr_method.svg
 
 3.3 Research Framework
 Experiment | Purpose and defended result
@@ -199,17 +217,71 @@ Design: The experiment is executed as a gated artifact in the Praxis repository,
 Expected defense role: Seven-seed Macro-F1 improved from 0.7165 to 0.8341 and Recon F1 from 0.0615 to 0.5219; changed-from-DE count 0.
 
 3.8 Data Sources and Datasets
-- Unraveled APT feature pipeline and held-out source-file split.
-- DAPT2020 external-validity boundary check.
+Primary dataset: Unraveled APT network-flow feature pipeline under a held-out source-file split. The split is intentionally deployment-shaped rather than IID: source files and capture days are separated so that the locked test stream approximates source shift.
+
+Split support:
+Split | Rows | Source files | Capture days | Benign | Recon | Establish foothold | Lateral movement | Data exfiltration
+------+------:|-------------:|-------------:|-------:|------:|-------------------:|-----------------:|-----------------:
+Train | 307,733 | 142 | 25 | 268,710 | 5,151 | 15,047 | 15,748 | 3,077
+Validation | 61,886 | 6 | 1 | 22,011 | 23,791 | 5,784 | 8,047 | 2,253
+Test | 65,869 | 25 | 5 | 47,888 | 5,852 | 6,287 | 3,650 | 2,192
+
+Leakage checks:
+- Train/test source-file overlap: 0.
+- Train/validation source-file overlap: 0.
+- Validation/test source-file overlap: 0.
+- Temporal delta mode: reset_each_split.
+
+Feature-shift summary:
+Split | Features | Median abs standardized mean shift | P90 abs standardized mean shift | Max abs standardized mean shift | Median abs log std ratio | P90 abs log std ratio | Features std ratio > 2
+------+---------:|-----------------------------------:|--------------------------------:|--------------------------------:|-------------------------:|----------------------:|-----------------------:
+Validation | 67 | 0.0897 | 0.5702 | 1.0262 | 0.3861 | 2.6548 | 18
+Test | 67 | 0.0165 | 0.1877 | 0.3253 | 0.1192 | 1.3202 | 11
+
+Dataset interpretation: the validation split is Recon-heavy relative to the locked test split. This is not a flaw if stated correctly; it means PX-001 defends a deployment-shift adaptation claim, not ordinary IID generalization. DAPT2020 is retained as an external-validity boundary: the detector recipe transfers partly, but the TTA mechanism did not transfer and should not be counted as supporting evidence for cross-dataset TTA generality.
+
+Dataset evaluation figure:
+- reports/praxis_defense_ready_full_praxis_20260706/figures/px001_dataset_evaluation.svg
 
 3.9 Evaluation Metrics and Statistical Methods
-Accuracy, Macro-F1, class F1, override rate, changed-from-DE count, seven-seed mean and variation.
+Metrics:
+- Accuracy = correct predictions / all predictions.
+- Precision_c = TP_c / (TP_c + FP_c).
+- Recall_c = TP_c / (TP_c + FN_c).
+- F1_c = 2 * Precision_c * Recall_c / (Precision_c + Recall_c).
+- Macro F1 = arithmetic mean of per-class F1 across the evaluated stages.
+- Recon F1 = class-specific F1 for the Reconnaissance stage.
+- DE F1 = class-specific F1 for the Data Exfiltration stage.
+- PR-AUC = area under the precision-recall curve; reported as a diagnostic rather than the headline claim because the observed delta is only +0.0006.
+- Override rate = count(prediction changed by gate) / total test rows.
+- Changed-from-DE count = number of frozen Data Exfiltration predictions overwritten by the adaptation/gate path.
+
+Acceptance thresholds:
+- Macro F1 delta >= +0.05.
+- Recon F1 delta >= +0.25.
+- Mean DE F1 delta >= 0.0000.
+- Per-seed DE F1 delta >= -0.05.
+- Override rate <= 0.05 for the locked replay.
+- Confidence-reject matched-rate control must not explain the Recon gain.
+
+Model and gate math:
+- Let f_theta(x) be the frozen support-floor MLP.
+- Let BN_phi denote BatchNorm running statistics adapted on the unlabeled target stream with model weights theta fixed.
+- Let y_frozen = argmax f_theta(x) and y_tta = argmax f_theta,BN_phi(x).
+- The gate g(x) chooses y_tta only when validation-selected rescue conditions are met and protected DE conditions are not violated.
+- Final prediction: y_hat = g(x) * y_tta + (1 - g(x)) * y_frozen, where g(x) is a deterministic Boolean decision implemented by the locked policy.
+- The safety objective is lexicographic: recover Recon when possible, but do not trade away protected Data Exfiltration behavior beyond the registered safety floor.
 
 3.10 Validation Approach
-Locked replay, seven-seed hardening, matched confidence-reject comparison, and explicit DAPT2020 boundary.
+Validation uses five defenses against overclaiming:
+1. Locked replay: policy is selected before final test replay and is not tuned on test labels.
+2. Leakage audit: source-file overlaps are zero and temporal delta state is reset per split.
+3. Null comparison: frozen confidence rejection at the same rejection/override rate leaves Recon F1 at 0.0000.
+4. Defense hardening: additional seeds, stream-order sensitivity, override decomposition, and PR operating-point diagnostics are preserved.
+5. Boundary evidence: DAPT2020 TTA is negative and remains a limitation, not a hidden failed replication.
 
 3.11 Assumptions
-Source-file split approximates deployment stream shift; Data Exfiltration protection is a higher-priority safety constraint than unconstrained macro optimization.
+Source-file split approximates deployment stream shift; Data Exfiltration protection is a higher-priority safety constraint than unconstrained macro optimization. The method assumes the unlabeled target stream is representative of the deployment stream and is not actively poisoned. Adversarial stream poisoning remains future work.
 
 CHAPTER 4: RESULTS AND DISCUSSION
 
@@ -227,6 +299,17 @@ Seven-seed Macro-F1 improved from 0.7165 to 0.8341 and Recon F1 from 0.0615 to 0
 - Macro-F1 improved from 0.7685 to 0.8658.
 - Reconnaissance F1 improved from 0.0250 to 0.5050.
 - Data Exfiltration F1 remained stable, 0.9157 to 0.9202.
+- PR-AUC changed only from 0.8732 to 0.8738, so the correct interpretation is an operating-point/gate improvement rather than a broad representation-ranking improvement.
+- Matched-rate frozen confidence rejection did not recover Reconnaissance, so the improvement is not explained by merely abstaining on uncertain frozen outputs.
+- The validation split has unusually high Recon support; this strengthens the motivation for a shift-aware gate but prevents IID-generalization claims.
+- DAPT2020 is negative for TTA transfer and must remain in the defense as external-boundary evidence.
+
+Worked gate-decision examples for oral defense:
+Example | Frozen path | TTA path | Gate decision | Defense interpretation
+--------+-------------+----------+---------------+-----------------------
+Recon rescue | Frozen predicts non-Recon on an uncertain Recon-like row | TTA predicts Recon | Allow TTA override | Demonstrates the intended rare-stage recovery mechanism.
+DE protection | Frozen predicts Data Exfiltration with protected confidence | TTA proposes another class | Keep frozen DE | Demonstrates why safety gating is not naive adaptation.
+No-action case | Frozen and TTA agree, or rescue conditions fail | No useful override | Keep frozen prediction | Explains why the override rate remains small.
 
 4.6 Hypothesis Test Outcomes
 Hypothesis | Outcome framing
@@ -264,9 +347,15 @@ REFERENCES
 
 Wang, D., Shelhamer, E., Liu, S., Olshausen, B., & Darrell, T. (2021). Tent: Fully test-time adaptation by entropy minimization. International Conference on Learning Representations. https://openreview.net/forum?id=uXl3bZLkr3c
 
+Ioffe, S., & Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. Proceedings of the 32nd International Conference on Machine Learning, 37, 448-456. https://arxiv.org/abs/1502.03167
+
+Sharafaldin, I., Lashkari, A. H., & Ghorbani, A. A. (2018). Toward generating a new intrusion detection dataset and intrusion traffic characterization. Proceedings of the 4th International Conference on Information Systems Security and Privacy, 108-116. https://doi.org/10.5220/0006639801080116
+
 Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., & Thomas, C. B. (2020). MITRE ATT&CK: Design and philosophy. The MITRE Corporation. https://www.mitre.org/news-insights/publication/mitre-attck-design-and-philosophy
 
 Praxis Research. (2026). Praxis research experiment tracker [Repository report]. reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html
+
+Praxis Research. (2026). PX-001/PX-050 defense validation summary [Repository report]. reports/praxis_defense_validation/PX001_PX050_DEFENSE_VALIDATION_20260710.md
 
 APPENDICES
 
@@ -301,16 +390,37 @@ Artifact 2 | reports/tta_streaming_apt/LOCKED_FINAL_REPLAY_20260509.md
 Artifact 3 | runs/tta-defense-hardening-defense-audit-20260630/PRAXIS06_TTA_DEFENSE_HARDENING_REPORT_20260513.md
 Artifact 4 | scripts/run_tta_locked_final.py
 Artifact 5 | scripts/run_tta_defense_hardening.py
+Artifact 6 | reports/praxis_defense_validation/PX001_PX050_DEFENSE_VALIDATION_20260710.md
+Artifact 7 | reports/praxis_defense_ready_full_praxis_20260706/figures/px001_dataset_evaluation.svg
+Artifact 8 | reports/praxis_defense_ready_full_praxis_20260706/figures/px001_gmr_method.svg
 
-Supplementary figures to produce for final submission:
-- Figure B1. End-to-end evidence flow for PX-001.
-- Figure B2. Per-experiment metric comparison.
-- Figure B3. Claim-boundary and failure-mode diagram.
+Supplementary figures for final submission:
+- Figure B1. Dataset evaluation, split support, leakage, and feature-shift summary: reports/praxis_defense_ready_full_praxis_20260706/figures/px001_dataset_evaluation.svg
+- Figure B2. Safety-gated TTA GMR: reports/praxis_defense_ready_full_praxis_20260706/figures/px001_gmr_method.svg
+- Figure B3. Existing method diagram: reports/tta_streaming_apt/paper_assets_20260509/figures/figure1_method_diagram.png
+- Figure B4. Recon F1 by seed: reports/tta_streaming_apt/paper_assets_20260509/figures/figure2_recon_f1_by_seed.png
+- Figure B5. Override sensitivity: reports/tta_streaming_apt/paper_assets_20260509/figures/figure3_override_sensitivity.png
+- Figure B6. Recon PR operating points: reports/tta_streaming_apt/paper_assets_20260509/figures/figure4_recon_pr_operating_points.png
+- Figure B7. Data Exfiltration PR operating points: reports/tta_streaming_apt/paper_assets_20260509/figures/figure5_de_pr_operating_points.png
+
+APA/reference audit:
+- TTA and TENT citation included.
+- BatchNorm citation included because the mechanism relies on BatchNorm statistics.
+- Intrusion dataset citation included for dataset context.
+- MITRE ATT&CK citation included for APT-stage framing.
+- Local repository artifacts cited as primary experimental records.
 
 Appendix C: Dataset Documentation
 Dataset and artifact scope:
 - Unraveled APT feature pipeline and held-out source-file split.
 - DAPT2020 external-validity boundary check.
+
+Dataset evaluation checklist:
+- Train/validation/test source files are disjoint.
+- Class support is reported for each split.
+- Validation split class imbalance is disclosed.
+- Test split support for Recon and Data Exfiltration is sufficient for the defended within-dataset claim.
+- DAPT2020 does not support Data Exfiltration conclusions because its validation/test DE support is too small in the recorded split.
 
 Data governance and reproducibility notes:
 - Use the repository paths listed in Appendix B as the primary experimental record.

@@ -2,6 +2,7 @@ DETERMINISTIC TOOL-BOUNDARY GATES FOR AGENTIC PACKAGE-INSTALL HALLUCINATION
 Doctor of Engineering Praxis Draft
 Praxis ID: PX-050
 Generated: 2026-07-06
+Defense polish update: 2026-07-10
 Status: Lead defense-ready positive
 
 FRONT MATTER
@@ -74,6 +75,10 @@ List of Figures
 Figure 1. Praxis research framework and evidence flow.
 Figure 2. Graphical Methodology of Research (GMR) for the experiment suite.
 Figure 3. Claim-boundary decision flow.
+Figure 4. PX-050 package-install tool-boundary GMR.
+Figure 5. PX-050 corpus and policy evaluation.
+Figure 6. Security-utility Pareto comparison.
+Figure 7. Example allow/block/review decision flow.
 
 List of Tables
 Table 1. Acronyms and abbreviations.
@@ -81,6 +86,9 @@ Table 2. Research questions and hypotheses.
 Table 3. Experiment design matrix.
 Table 4. Dataset and evidence artifacts.
 Table 5. Results summary and hypothesis outcomes.
+Table 6. Corpus composition by model, ecosystem, and mode.
+Table 7. Metric definitions and zero-event confidence bounds.
+Table 8. Worked tool-boundary examples.
 
 List of Acronyms
 Acronym | Meaning
@@ -96,6 +104,8 @@ LLM | Large Language Model
 MCQ | Multiple-Choice Question
 MoE | Mixture of Experts
 MRR | Mean Reciprocal Rank
+NPM | Node Package Manager ecosystem
+PyPI | Python Package Index
 RAG | Retrieval-Augmented Generation
 SVD | Singular Value Decomposition
 TTA | Test-Time Adaptation
@@ -164,14 +174,22 @@ CHAPTER 3: METHODOLOGY
 This is an applied engineering praxis using empirical AI/ML evaluation. The design is bounded, artifact-backed, and falsifiable. Each experiment is treated as a gate: it has a defined input, method, metric, pass/fail interpretation, and claim impact. The research design favors conservative claim promotion over broad narrative claims.
 
 3.2 Graphical Methodology of Research (GMR)
-Problem identification -> literature and future-work gap -> artifact/data readiness gate -> experiment design -> execution -> metric audit -> boundary audit -> defense-ready package.
+Problem identification -> package hallucination and slopsquatting risk -> dry-run tool-call corpus construction -> model output capture -> controller/extractor -> deterministic parser -> registry and policy verification -> allow/block/review decision -> metric audit -> boundary audit -> defense-ready package.
 
-ASCII GMR:
-[Problem] -> [Research Gap] -> [Data/Source Gate] -> [Experiment 1]
-                                             -> [Experiment 2]
-                                             -> [Experiment 3]
-                                             -> [Experiment 4]
-        -> [Cross-Experiment Synthesis] -> [Claim Boundary] -> [Praxis Defense Package]
+Detailed GMR:
+[Agent deployment package-install risk]
+  -> [Prompted valid/invalid package tasks]
+  -> [Open-weight coding model dry-run output]
+  -> [Tool-call command extraction]
+  -> [Package-install parser]
+  -> [Registry existence and hardened policy checks]
+  -> [Decision: allow, block, or review]
+  -> [Metrics: invalid escape, valid allow, review rate, controller recovery]
+  -> [Policy/provenance refresh]
+  -> [Claim boundary: no package-manager execution]
+
+Supplementary GMR figure:
+- reports/praxis_defense_ready_full_praxis_20260706/figures/px050_tool_boundary_gmr.svg
 
 3.3 Research Framework
 Experiment | Purpose and defended result
@@ -199,18 +217,79 @@ Design: The experiment is executed as a gated artifact in the Praxis repository,
 Expected defense role: 288 rows; raw unsafe 0.9453; hardened invalid allows 0; valid allow 1.0000; policy review 0.0243; provenance recall 1.0000.
 
 3.8 Data Sources and Datasets
-- PyPI/NPM package-install command corpora
-- Qwen2.5-Coder and DeepSeek dry-run live-agent tool-call corpora
-- crafted raw-output stress strings
+Primary corpora:
+- Fixed/adaptive PyPI/NPM command-string fixtures.
+- Qwen2.5-Coder-7B dry-run live-agent tool-call corpus.
+- DeepSeek-Coder-6.7B dry-run live-agent tool-call corpus.
+- StarCoder2 held-out boundary and controller/extractor repair corpus.
+- Crafted parser and raw-output stress strings.
+
+Final two-model live-agent corpus:
+Category | Rows | Invalid | Valid | Hardened invalid allows | Registry-only invalid allows | Hardened valid allows
+---------+-----:|--------:|------:|------------------------:|-----------------------------:|---------------------:
+Qwen2.5-Coder live-agent | 144 | 64 | 80 | 0 | 10 | 80
+DeepSeek-Coder live-agent | 144 | 64 | 80 | 0 | 10 | 80
+Combined | 288 | 128 | 160 | 0 | 20 | 160
+
+Ecosystem balance:
+Ecosystem | Rows | Invalid | Valid | Hardened invalid allows | Registry-only invalid allows
+----------+-----:|--------:|------:|------------------------:|-----------------------------:
+NPM | 144 | 64 | 80 | 0 | 10
+PyPI | 144 | 64 | 80 | 0 | 10
+
+Mode distribution:
+Mode | Rows | Invalid | Valid | Registry-only invalid allows | Hardened invalid allows
+-----+-----:|--------:|------:|-----------------------------:|------------------------:
+direct | 72 | 20 | 52 | 0 | 0
+manager_variant | 80 | 24 | 56 | 0 | 0
+mixed_valid | 24 | 24 | 0 | 0 | 0
+remote_source | 20 | 20 | 0 | 20 | 0
+shell_chain | 16 | 16 | 0 | 0 | 0
+version_pin | 76 | 24 | 52 | 0 | 0
+
+Corpus evaluation figure:
+- reports/praxis_defense_ready_full_praxis_20260706/figures/px050_corpus_evaluation.svg
 
 3.9 Evaluation Metrics and Statistical Methods
-Invalid escape, invalid allow count, valid allow, controller recovery, registry-only invalid allows, review rate, provenance recall, trace completeness.
+Metrics:
+- Invalid allow count = count(expected invalid row where hardened decision is allow).
+- Invalid escape rate = invalid allow count / invalid rows.
+- Valid allow rate = count(expected valid row where hardened decision is allow) / valid rows.
+- Registry-only invalid allow count = expected invalid rows that a registry-only check would allow.
+- Controller target recovery rate = rows where the controller/extractor selects a target-bearing install command / all rows.
+- Review rate = rows routed to review / all rows.
+- Provenance alert recall = expected alert rows flagged / expected alert rows.
+- Clean false-positive rate = clean valid rows alerted / clean valid rows.
+- Trace completeness = rows with complete observable lineage / all rows.
+
+Verifier formalization:
+- Let r be a dry-run model output or tool-call argument.
+- Let c = extract(r) be the controller-selected install command.
+- Let p = parse(c) return ecosystem, package targets, syntax flags, and parse status.
+- Let e(p) be registry-existence evidence for the package targets.
+- Let s(p) be deterministic policy safety, including remote source, shell-chain, malformed, no-target, and unsupported-manager checks.
+- Hardened decision h(r) is allow only if parse succeeds, target packages are recoverable, registry evidence passes, and policy safety passes; otherwise h(r) is block or review.
+- The defended safety property is empirical: for the measured corpora, count(expected invalid and h(r)=allow) = 0.
+
+Zero-event statistics:
+- Two-model live-agent corpus: 0 invalid allows over 128 invalid rows. Exact one-sided 95% upper bound is approximately 2.31%.
+- Parser-stress corpus: 0 invalid escapes over 600 invalid rows. Exact one-sided 95% upper bound is approximately 0.50%.
+- Controller adaptive stress: 0 invalid allows over 1,140 invalid rows. Exact one-sided 95% upper bound is approximately 0.26%.
+- Defense wording must be "zero observed invalid allows" rather than "zero possible escapes."
 
 3.10 Validation Approach
-Fixed fixtures, two live models, parser stress, held-out StarCoder boundary, controller repair, crafted adaptive stress, two-model dry-run live-agent gate, policy/provenance refresh.
+Validation uses eight layers:
+1. Fixed deterministic fixtures.
+2. Qwen live model-generated command strings.
+3. DeepSeek live model-generated command strings.
+4. Parser stress mutations.
+5. Held-out StarCoder raw/strict boundary evidence.
+6. Controller/extractor repair on held-out StarCoder outputs.
+7. Crafted adaptive raw-output stress against the controller/extractor and hardened verifier.
+8. Two-model dry-run live-agent tool-call corpus with policy and provenance refresh.
 
 3.11 Assumptions
-Dry-run tool-call arguments approximate the observable package-install boundary; no execution safety claims are made.
+Dry-run tool-call arguments approximate the observable package-install boundary; no execution safety claims are made. The study assumes that validating observable command strings before execution is a meaningful deployment control. It does not assume access to hidden chain-of-thought, and it does not claim to detect malicious packages that exist in a registry.
 
 CHAPTER 4: RESULTS AND DISCUSSION
 
@@ -228,6 +307,19 @@ PX-050S 440 rows invalid allows 0; PX-050T 1,440 crafted strings invalid allows 
 - Raw unsafe rate 0.9453 and controller recovery 0.9757.
 - Registry-only invalid allows 20; hardened invalid allows 0.
 - Valid allow 1.0000; provenance trace completeness 1.0000.
+- The registry-only baseline fails mainly on remote-source style invalid commands, where a package name can appear registry-valid while the install action remains policy-unsafe.
+- Hardened validation dominates registry-only validation on security while preserving the same observed valid utility in the final two-model corpus.
+- The review-all baseline can eliminate invalid execution but sacrifices practical utility; PX-050's hardened policy is more deployable because it keeps review rate at 0.0243 in the policy refresh.
+- The held-out StarCoder raw/strict failures are not ignored; they establish that raw model text is not the right deployment boundary. The controller/extractor repair is the defended deployed boundary.
+
+Worked tool-boundary examples for oral defense:
+Example | Model/tool output pattern | Hardened decision | Defense interpretation
+--------+---------------------------+-------------------+-----------------------
+Valid package | npm install commander or pip install rich | allow | Preserves ordinary dependency setup utility.
+Nonexistent target | pip install praxis_fake_20260705_pkg | block | Blocks slopsquatting-style nonexistent package actions.
+Remote source | npm install https://example.invalid/pkg.tgz | block/review | Shows why registry-only checks are insufficient.
+Shell-chain | pip install validpkg && curl example.invalid | block/review | Separates package-install validation from arbitrary shell safety.
+No target recovered | Explanatory text without a parseable install target | review | Avoids unsafe automatic allow when the controller cannot recover the target.
 
 4.6 Hypothesis Test Outcomes
 Hypothesis | Outcome framing
@@ -268,9 +360,15 @@ Spracklen, J., Wijewickrama, R., Sakib, A. H. M. N., Maiti, A., Viswanath, B., &
 
 Hui, B., Yang, J., Cui, Z., Yang, J., Liu, D., Zhang, L., Liu, T., Zhang, J., Yu, B., Lu, K., Dang, K., Fan, Y., Zhang, Y., Yang, A., Men, R., Huang, F., Zheng, B., Miao, Y., Quan, S., Feng, Y., Ren, X., Ren, X., Zhou, J., & Lin, J. (2024). Qwen2.5-Coder technical report. arXiv. https://arxiv.org/abs/2409.12186
 
+Guo, D., Zhu, Q., Yang, D., Xie, Z., Dong, K., Zhang, W., Chen, G., Bi, X., Wu, Y., Li, Y. K., Luo, F., Xiong, Y., & Liang, W. (2024). DeepSeek-Coder: When the large language model meets programming. arXiv. https://arxiv.org/abs/2401.14196
+
+Lozhkov, A., Li, R., Ben Allal, L., Cassano, F., Lamy-Poirier, J., Tazi, N., Tang, A., Pykhtar, D., Liu, J., Wei, Y., Liu, T., Tian, M., Kocetkov, D., Zucker, A., Belkada, Y., Wang, Z., Liu, Q., Abulkhanov, D., Paul, I., ... de Vries, H. (2024). StarCoder 2 and The Stack v2: The next generation. arXiv. https://arxiv.org/abs/2402.19173
+
 Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Kuttler, H., Lewis, M., Yih, W., Rocktaschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33. https://arxiv.org/abs/2005.11401
 
 Praxis Research. (2026). Praxis research experiment tracker [Repository report]. reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html
+
+Praxis Research. (2026). PX-001/PX-050 defense validation summary [Repository report]. reports/praxis_defense_validation/PX001_PX050_DEFENSE_VALIDATION_20260710.md
 
 APPENDICES
 
@@ -304,17 +402,40 @@ Artifact 1 | reports/agentic_deployment_defense/px050_final_defense_package_expo
 Artifact 2 | reports/agentic_deployment_defense/px050_live_agent_two_model_determination_20260705/PX050_LIVE_AGENT_TWO_MODEL_FINAL_DETERMINATION_20260705.md
 Artifact 3 | reports/agentic_deployment_defense/px051v_live_agent_policy_refresh_20260705/PX051V_LIVE_AGENT_POLICY_REFRESH_20260705.md
 Artifact 4 | reports/agentic_deployment_defense/px052v_live_agent_provenance_refresh_20260705/PX052V_LIVE_AGENT_PROVENANCE_REFRESH_20260705.md
+Artifact 5 | reports/agentic_deployment_defense/px050uv_live_agent_combined_corpus_20260705/combined_live_agent_tool_calls.csv
+Artifact 6 | reports/agentic_deployment_defense/px050_parser_stress_appendix_20260705/summary.json
+Artifact 7 | reports/agentic_deployment_defense/px050t_controller_adaptive_stress_20260705/summary.json
+Artifact 8 | reports/praxis_defense_validation/PX001_PX050_DEFENSE_VALIDATION_20260710.md
+Artifact 9 | reports/praxis_defense_ready_full_praxis_20260706/figures/px050_tool_boundary_gmr.svg
+Artifact 10 | reports/praxis_defense_ready_full_praxis_20260706/figures/px050_corpus_evaluation.svg
 
-Supplementary figures to produce for final submission:
-- Figure B1. End-to-end evidence flow for PX-050.
-- Figure B2. Per-experiment metric comparison.
-- Figure B3. Claim-boundary and failure-mode diagram.
+Supplementary figures for final submission:
+- Figure B1. Tool-boundary GMR: reports/praxis_defense_ready_full_praxis_20260706/figures/px050_tool_boundary_gmr.svg
+- Figure B2. Corpus and policy evaluation: reports/praxis_defense_ready_full_praxis_20260706/figures/px050_corpus_evaluation.svg
+- Figure B3. Security-utility Pareto table/plot source: reports/agentic_deployment_defense/px051v_live_agent_policy_refresh_20260705/policy_scores.csv
+- Figure B4. Provenance trace table source: reports/agentic_deployment_defense/px052v_live_agent_provenance_refresh_20260705/live_agent_provenance_traces.csv
+- Figure B5. Controller adaptive stress family breakdown source: reports/agentic_deployment_defense/px050t_controller_adaptive_stress_20260705/summary.json
+
+APA/reference audit:
+- USENIX package hallucination/slopsquatting baseline included.
+- Qwen2.5-Coder technical report included for the first live-agent model.
+- DeepSeek-Coder technical report included for the second live-agent model.
+- StarCoder2 reference included because failed raw/strict boundary evidence and controller/extractor repair use StarCoder2 outputs.
+- Local repository artifacts cited as primary experimental records.
 
 Appendix C: Dataset Documentation
 Dataset and artifact scope:
 - PyPI/NPM package-install command corpora
 - Qwen2.5-Coder and DeepSeek dry-run live-agent tool-call corpora
 - crafted raw-output stress strings
+
+Corpus evaluation checklist:
+- Final live-agent corpus is balanced by model: 144 Qwen rows and 144 DeepSeek rows.
+- Final live-agent corpus is balanced by ecosystem: 144 NPM rows and 144 PyPI rows.
+- Final live-agent corpus includes 128 invalid and 160 valid rows.
+- Invalid rows cover direct nonexistent packages, manager variants, mixed valid/invalid commands, remote sources, shell chains, and version pins.
+- Hardened invalid allows are zero in the final two-model corpus; valid allows are 160/160.
+- No package managers were executed; all commands are inert strings or dry-run tool-call arguments.
 
 Data governance and reproducibility notes:
 - Use the repository paths listed in Appendix B as the primary experimental record.

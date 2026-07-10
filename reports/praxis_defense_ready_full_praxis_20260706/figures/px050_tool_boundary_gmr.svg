@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="460" viewBox="0 0 1120 460" role="img" aria-labelledby="title desc">
+  <title id="title">PX-050 Tool-Boundary GMR</title>
+  <desc id="desc">GMR for package-install tool-boundary verification of dry-run live-agent tool calls.</desc>
+  <rect width="1120" height="460" fill="#ffffff"/>
+  <text x="40" y="44" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">PX-050 GMR: Package-Install Tool Boundary</text>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#111827">
+    <defs>
+      <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L9,3 z" fill="#374151"/>
+      </marker>
+    </defs>
+    <g fill="#ecfdf5" stroke="#059669" stroke-width="1.5">
+      <rect x="35" y="95" width="125" height="70" rx="6"/>
+      <rect x="205" y="95" width="125" height="70" rx="6"/>
+      <rect x="375" y="95" width="125" height="70" rx="6"/>
+      <rect x="545" y="95" width="125" height="70" rx="6"/>
+      <rect x="715" y="95" width="125" height="70" rx="6"/>
+      <rect x="885" y="95" width="160" height="70" rx="6"/>
+    </g>
+    <text x="60" y="122">Task prompt</text>
+    <text x="52" y="145">valid/invalid target</text>
+    <text x="230" y="122">Model output</text>
+    <text x="224" y="145">dry-run JSON/text</text>
+    <text x="395" y="122">Controller</text>
+    <text x="392" y="145">extract command</text>
+    <text x="573" y="122">Parser</text>
+    <text x="562" y="145">package tokens</text>
+    <text x="735" y="122">Verifier</text>
+    <text x="728" y="145">policy + registry</text>
+    <text x="922" y="122">Decision</text>
+    <text x="907" y="145">allow / block / review</text>
+    <g stroke="#374151" stroke-width="1.4" marker-end="url(#arrow)">
+      <line x1="160" y1="130" x2="200" y2="130"/>
+      <line x1="330" y1="130" x2="370" y2="130"/>
+      <line x1="500" y1="130" x2="540" y2="130"/>
+      <line x1="670" y1="130" x2="710" y2="130"/>
+      <line x1="840" y1="130" x2="880" y2="130"/>
+    </g>
+    <rect x="115" y="250" width="890" height="128" fill="#f9fafb" stroke="#d1d5db"/>
+    <text x="145" y="280" font-weight="700">Boundary assumptions</text>
+    <text x="145" y="308">Observable PyPI/NPM install command strings and tool-call arguments only; no package managers executed.</text>
+    <text x="145" y="334">Invalid escape = expected invalid row allowed by hardened verifier.</text>
+    <text x="145" y="360">Utility = expected valid row allowed by hardened verifier; review fallback is counted separately.</text>
+  </g>
+</svg>

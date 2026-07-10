@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">PX-001 Dataset Evaluation</title>
+  <desc id="desc">Train, validation, and test split support for the Unraveled APT feature pipeline, with source-file leakage checks and feature-shift summary.</desc>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="40" y="46" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">PX-001 Dataset Evaluation</text>
+  <text x="40" y="76" font-family="Arial, sans-serif" font-size="14" fill="#374151">Unraveled APT feature pipeline, held-out source-file split, no train/validation/test source-file overlap.</text>
+
+  <g font-family="Arial, sans-serif">
+    <text x="60" y="125" font-size="16" font-weight="700" fill="#111827">Rows by split</text>
+    <line x1="60" y1="360" x2="500" y2="360" stroke="#9ca3af" stroke-width="1"/>
+    <line x1="60" y1="155" x2="60" y2="360" stroke="#9ca3af" stroke-width="1"/>
+    <rect x="105" y="170" width="70" height="190" fill="#2563eb"/>
+    <rect x="245" y="322" width="70" height="38" fill="#10b981"/>
+    <rect x="385" y="319" width="70" height="41" fill="#f59e0b"/>
+    <text x="92" y="385" font-size="13" fill="#111827">Train</text>
+    <text x="232" y="385" font-size="13" fill="#111827">Validation</text>
+    <text x="380" y="385" font-size="13" fill="#111827">Test</text>
+    <text x="90" y="160" font-size="13" fill="#111827">307,733</text>
+    <text x="236" y="312" font-size="13" fill="#111827">61,886</text>
+    <text x="379" y="309" font-size="13" fill="#111827">65,869</text>
+
+    <text x="560" y="125" font-size="16" font-weight="700" fill="#111827">Class support in locked test split</text>
+    <rect x="560" y="160" width="250" height="26" fill="#e5e7eb"/>
+    <rect x="560" y="160" width="182" height="26" fill="#64748b"/>
+    <rect x="742" y="160" width="22" height="26" fill="#2563eb"/>
+    <rect x="764" y="160" width="24" height="26" fill="#10b981"/>
+    <rect x="788" y="160" width="14" height="26" fill="#a855f7"/>
+    <rect x="802" y="160" width="8" height="26" fill="#ef4444"/>
+    <text x="560" y="205" font-size="13" fill="#111827">Benign 47,888 | Recon 5,852 | Foothold 6,287 | Lateral 3,650 | DE 2,192</text>
+
+    <text x="560" y="255" font-size="16" font-weight="700" fill="#111827">Leakage and shift checks</text>
+    <rect x="560" y="278" width="320" height="132" fill="#f9fafb" stroke="#d1d5db"/>
+    <text x="580" y="305" font-size="13" fill="#111827">Source-file overlap train/test: 0</text>
+    <text x="580" y="330" font-size="13" fill="#111827">Source-file overlap train/val: 0</text>
+    <text x="580" y="355" font-size="13" fill="#111827">Source-file overlap val/test: 0</text>
+    <text x="580" y="380" font-size="13" fill="#111827">Temporal delta mode: reset_each_split</text>
+    <text x="580" y="405" font-size="13" fill="#111827">Test median mean shift: 0.0165</text>
+
+    <text x="60" y="455" font-size="14" font-weight="700" fill="#111827">Defense interpretation</text>
+    <text x="60" y="482" font-size="13" fill="#374151">The validation split is Recon-heavy, so the defended claim is deployment-shift adaptation under a locked source-file split, not IID generality.</text>
+    <text x="60" y="506" font-size="13" fill="#374151">The protected class is Data Exfiltration; the operating-point claim is stronger than the PR-AUC/ranking claim.</text>
+  </g>
+</svg>

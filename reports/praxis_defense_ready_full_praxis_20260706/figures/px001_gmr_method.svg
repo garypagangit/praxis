@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="420" viewBox="0 0 1100 420" role="img" aria-labelledby="title desc">
+  <title id="title">PX-001 Graphical Methodology of Research</title>
+  <desc id="desc">GMR for safety-gated BatchNorm test-time adaptation under held-out APT source-file shift.</desc>
+  <rect width="1100" height="420" fill="#ffffff"/>
+  <text x="40" y="44" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">PX-001 GMR: Safety-Gated TTA</text>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#111827">
+    <defs>
+      <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L9,3 z" fill="#374151"/>
+      </marker>
+    </defs>
+    <g fill="#eff6ff" stroke="#2563eb" stroke-width="1.5">
+      <rect x="35" y="95" width="140" height="64" rx="6"/>
+      <rect x="220" y="95" width="140" height="64" rx="6"/>
+      <rect x="405" y="95" width="140" height="64" rx="6"/>
+      <rect x="590" y="95" width="140" height="64" rx="6"/>
+      <rect x="775" y="95" width="140" height="64" rx="6"/>
+      <rect x="950" y="95" width="115" height="64" rx="6"/>
+    </g>
+    <text x="57" y="121">Train source files</text>
+    <text x="60" y="143">Frozen MLP</text>
+    <text x="245" y="121">Held-out val</text>
+    <text x="244" y="143">Gate selection</text>
+    <text x="424" y="121">Unlabeled stream</text>
+    <text x="426" y="143">BN adaptation</text>
+    <text x="613" y="121">Selective gate</text>
+    <text x="611" y="143">Recon rescue / DE keep</text>
+    <text x="795" y="121">Locked replay</text>
+    <text x="796" y="143">No test tuning</text>
+    <text x="972" y="121">Claim</text>
+    <text x="963" y="143">Boundary audit</text>
+    <g stroke="#374151" stroke-width="1.4" marker-end="url(#arrow)">
+      <line x1="175" y1="127" x2="215" y2="127"/>
+      <line x1="360" y1="127" x2="400" y2="127"/>
+      <line x1="545" y1="127" x2="585" y2="127"/>
+      <line x1="730" y1="127" x2="770" y2="127"/>
+      <line x1="915" y1="127" x2="945" y2="127"/>
+    </g>
+    <rect x="170" y="240" width="760" height="96" fill="#f9fafb" stroke="#d1d5db"/>
+    <text x="195" y="270" font-weight="700">Metrics gate</text>
+    <text x="195" y="298">Macro F1 delta &gt;= 0.05 | Recon F1 delta &gt;= 0.25 | DE mean delta &gt;= 0 | Override &lt;= 0.05</text>
+    <text x="195" y="322">Null: matched-rate frozen confidence rejection must not explain Recon recovery.</text>
+  </g>
+</svg>
