@@ -1,0 +1,235 @@
+{
+  "generated": "2026-07-10",
+  "validation_style": "praxis_defense_design_audit_with_null_and_boundary_checks",
+  "experiments": [
+    {
+      "praxis_id": "PX-001",
+      "title": "Safety-Gated Test-Time Adaptation for Streaming APT Detection",
+      "status": "DEFENSE_READY_BOUNDED_POSITIVE",
+      "claim_boundary": [
+        "Applies to the tested Unraveled APT feature pipeline and held-out source-file split.",
+        "Supports safety-gated BatchNorm TTA under the locked selective gate.",
+        "Does not support universal APT detection, universal DAPT transfer, or adversarial stream poisoning claims."
+      ],
+      "metrics": {
+        "frozen_macro_f1": 0.7684600248658944,
+        "locked_macro_f1": 0.8658441580924348,
+        "macro_f1_delta": 0.09738413322654038,
+        "frozen_recon_f1": 0.02504381097568847,
+        "locked_recon_f1": 0.5050246710168486,
+        "recon_f1_delta": 0.4799808600411601,
+        "frozen_de_f1": 0.9156598900980653,
+        "locked_de_f1": 0.9201536848492582,
+        "de_f1_delta": 0.004493794751192937,
+        "locked_override_rate": 0.046977080771430126,
+        "confidence_reject_recon_f1": 0.0,
+        "per_seed_count": 3,
+        "per_seed_min_de_delta": -0.016259975685935
+      },
+      "checks": [
+        {
+          "name": "all_required_px001_artifacts_present",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "missing=[]"
+        },
+        {
+          "name": "macro_f1_delta_meets_gate",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "delta=0.097384 threshold=0.05"
+        },
+        {
+          "name": "recon_f1_delta_meets_gate",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "delta=0.479981 threshold=0.25"
+        },
+        {
+          "name": "de_f1_delta_nonnegative_mean",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "delta=0.004494 threshold=0.0"
+        },
+        {
+          "name": "override_rate_within_gate",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "rate=0.046977 threshold=0.05"
+        },
+        {
+          "name": "confidence_reject_null_does_not_explain_recon",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "reject_recon_f1=0.000000"
+        },
+        {
+          "name": "confidence_reject_rate_matches_override_rate",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "reject_rate=0.046977 override_rate=0.046977"
+        },
+        {
+          "name": "source_file_overlap_zero",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "overlap_sum=0"
+        },
+        {
+          "name": "cloud_audit_all_checks_pass",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "status=PASS checks={'locked_policy_recon_guarded': True, 'locked_method_bn_adapt': True, 'de_delta_limit_0_05': True, 'macro_delta_ge_0_05': True, 'recon_delta_ge_0_25': True, 'mean_de_delta_nonnegative': True, 'per_seed_de_delta_ge_minus_0_05': True, 'override_rate_le_0_05': True, 'confidence_reject_recon_zero': True, 'source_overlap_zero': True, 'group_overlap_zero': True, 'temporal_delta_reset_each_split': True}"
+        },
+        {
+          "name": "per_seed_macro_positive",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "min_macro_delta=0.095096"
+        },
+        {
+          "name": "per_seed_recon_substantive",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "min_recon_delta=0.437195"
+        },
+        {
+          "name": "per_seed_de_safety_floor",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "min_de_delta=-0.016260"
+        }
+      ],
+      "paths": {
+        "main_table": "reports/tta_streaming_apt/paper_assets_20260509/tables/table1_main_result.csv",
+        "per_seed_table": "reports/tta_streaming_apt/paper_assets_20260509/tables/table2_per_seed_locked_result.csv",
+        "leakage_table": "reports/tta_streaming_apt/paper_assets_20260509/tables/table4_leakage_checks.csv",
+        "confidence_reject_table": "reports/tta_streaming_apt/paper_assets_20260509/tables/table5_confidence_reject_summary.csv",
+        "cloud_audit": "reports/tta_streaming_apt/cloud_paper_hardening_20260513/tta_cloud_paper_audit_summary.json",
+        "final_report": "reports/tta_streaming_apt/PRAXIS06_PAPER_READY_FINAL_REPORT_20260513.md"
+      }
+    },
+    {
+      "praxis_id": "PX-050",
+      "title": "Package-Install Tool-Boundary Verification for Agentic Deployment",
+      "status": "DEFENSE_READY_BOUNDED_POSITIVE",
+      "claim_boundary": [
+        "Applies to observable PyPI/NPM package-install command strings and dry-run tool-call arguments.",
+        "Supports deterministic tool-boundary validation before package execution.",
+        "Does not support malicious-existing-package detection, post-install runtime safety, arbitrary shell safety, or broad agent-safety claims."
+      ],
+      "metrics": {
+        "combined_rows": 288,
+        "invalid_rows": 128,
+        "valid_rows": 160,
+        "raw_no_gate_unsafe_rate": 0.9453125,
+        "registry_invalid_allow_count": 20,
+        "hardened_invalid_allow_count": 0,
+        "valid_allow_rate": 1.0,
+        "controller_target_recovery_rate": 0.9756944444444444,
+        "parser_stress_invalid_rows": 600,
+        "controller_adaptive_invalid_rows": 1140,
+        "zero_event_upper_95_two_model_invalid_rows": 0.023132405251746757,
+        "zero_event_upper_95_parser_invalid_rows": 0.004980443380361299,
+        "zero_event_upper_95_controller_adaptive_invalid_rows": 0.002624385590865974
+      },
+      "checks": [
+        {
+          "name": "all_required_px050_artifacts_present",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "missing=[]"
+        },
+        {
+          "name": "two_model_summary_positive",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "status=TWO_MODEL_DRY_RUN_LIVE_AGENT_TOOL_BOUNDARY_POSITIVE"
+        },
+        {
+          "name": "combined_rows_match_summary",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "csv_rows=288 summary_rows=288"
+        },
+        {
+          "name": "combined_invalid_valid_counts_match",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "csv_invalid=128 csv_valid=160 summary_invalid=128 summary_valid=160"
+        },
+        {
+          "name": "raw_no_gate_baseline_is_unsafe",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "raw_unsafe_rate=0.945312"
+        },
+        {
+          "name": "registry_only_baseline_has_escapes",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "registry_invalid_allow_count=20"
+        },
+        {
+          "name": "hardened_zero_invalid_allows_two_model",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "summary=0 csv=0"
+        },
+        {
+          "name": "hardened_preserves_valid_tool_calls",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "summary_valid_allow=1.000000 csv_valid_allows=160/160"
+        },
+        {
+          "name": "controller_target_recovery_high",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "recovery=0.975694"
+        },
+        {
+          "name": "parser_stress_passes",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "status=PARSER_STRESS_PASS invalid_rows=600 escape=0.0"
+        },
+        {
+          "name": "controller_adaptive_stress_passes",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "status=PX050T_CONTROLLER_ADAPTIVE_STRESS_PASS invalid_allowed=0 valid_allow=1.0"
+        },
+        {
+          "name": "heldout_controller_repair_passes",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "status=PX050S_CONTROLLER_EXTRACTOR_HELDOUT_PASS"
+        },
+        {
+          "name": "policy_refresh_pareto_positive",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "status=PX051V_LIVE_AGENT_POLICY_REFRESH_PASS hardened={'block_rate': 0.4201388888888889, 'invalid_escape_rate': 0.0, 'invalid_rows': 128, 'policy': 'hardened', 'review_rate': 0.024305555555555556, 'rows': 288, 'security_score': 1.0, 'utility_preserved': 1.0, 'valid_rows': 160}"
+        },
+        {
+          "name": "provenance_refresh_positive",
+          "passed": true,
+          "severity": "critical",
+          "evidence": "status=PX052V_LIVE_AGENT_PROVENANCE_REFRESH_PASS recall=1.0 fpr=0.0"
+        }
+      ],
+      "paths": {
+        "two_model_summary": "reports/agentic_deployment_defense/px050_live_agent_two_model_determination_20260705/summary.json",
+        "combined_corpus": "reports/agentic_deployment_defense/px050uv_live_agent_combined_corpus_20260705/combined_live_agent_tool_calls.csv",
+        "parser_stress_summary": "reports/agentic_deployment_defense/px050_parser_stress_appendix_20260705/summary.json",
+        "controller_stress_summary": "reports/agentic_deployment_defense/px050t_controller_adaptive_stress_20260705/summary.json",
+        "heldout_controller_summary": "reports/agentic_deployment_defense/px050s_controller_extractor_20260705/summary.json",
+        "policy_refresh_summary": "reports/agentic_deployment_defense/px051v_live_agent_policy_refresh_20260705/summary.json",
+        "provenance_refresh_summary": "reports/agentic_deployment_defense/px052v_live_agent_provenance_refresh_20260705/summary.json",
+        "final_package": "reports/agentic_deployment_defense/px050_final_defense_package_export_20260705/PX050_FINAL_DEFENSE_PACKAGE_EXPORT_20260705.md"
+      }
+    }
+  ],
+  "overall_status": "PASS"
+}
