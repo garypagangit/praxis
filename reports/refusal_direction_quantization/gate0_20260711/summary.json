@@ -1,0 +1,32 @@
+{
+  "generated": "2026-07-11 America/New_York",
+  "praxis_id": "PX-055",
+  "title": "Refusal-Direction Geometry Under Post-Training Quantization",
+  "gate": "Gate 0",
+  "status": "GATE0A_RESCOPE_PROCEED_GATE0B_LOCAL_PREFLIGHT_BLOCKED_CLOUD_HOOK_READY",
+  "positive_result": false,
+  "measured_model_result": false,
+  "novelty_decision": "Broad first-of-kind claim blocked by compressed-model refusal-direction overlap; narrower extension remains viable.",
+  "surviving_components": [
+    "leave-one-family-out replication",
+    "cross-precision transfer diagnostics",
+    "rank-spreading and principal-angle analysis",
+    "calibration-set sensitivity for GPTQ/AWQ",
+    "bounded restoration probe"
+  ],
+  "local_preflight": {
+    "torch": false,
+    "transformers": false,
+    "bitsandbytes": false,
+    "cuda": false,
+    "decision": "local Windows environment cannot execute quantized hook gate"
+  },
+  "next_step": "Run cloud GPU hook-feasibility smoke for fp16,int8,nf4 on Qwen/Qwen2.5-7B-Instruct.",
+  "artifacts": [
+    "reports/refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md",
+    "reports/refusal_direction_quantization/hook_preflight_20260711/PX055_LOCAL_HOOK_PREFLIGHT_20260711.md",
+    "reports/refusal_direction_quantization/hook_preflight_20260711/local_preflight_summary.json",
+    "scripts/run_px055_quantization_hook_gate.py",
+    "cloud_jobs/px055_quantization_hook_gate_20260711/"
+  ]
+}

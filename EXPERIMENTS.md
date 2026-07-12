@@ -352,15 +352,15 @@ This index intentionally publishes both positive and negative results. The rule 
 
 ## 2026-07-11 PX-055 Mechanistic Safety Addendum
 
-**Status:** source-gate candidate / deconflict required.
+**Status:** Gate 0A rescope/proceed; Gate 0B local preflight blocked; cloud hook smoke ready.
 
 **Scope:** PX-055 adds "Refusal-Direction Geometry Under Post-Training Quantization" as a new precision-axis extension of the PX-054 refusal-geometry lane.
 
-**Current determination:** add the experiment to the tracker, but do not count it as a positive or run-ready result yet. A source-gate search found direct overlap with compressed-model refusal-direction work, especially Chhabra and Khalili's refusal-direction analysis of quantized and pruned models. The original broad gap claim is therefore not publish-safe without rescope.
+**Current determination:** add the experiment to the tracker, but do not count it as a positive or measured result yet. A source-gate search found direct overlap with compressed-model refusal-direction work, especially Chhabra and Khalili's refusal-direction analysis of quantized and pruned models. The original broad gap claim is therefore not publish-safe without rescope. Gate 0A preserves a narrower extension path; Gate 0B local preflight found no Torch, Transformers, bitsandbytes, or CUDA in this Windows session, so execution must move to the prepared cloud GPU hook smoke.
 
 **Surviving angle:** PX-055 remains viable only if Gate 0 confirms a narrower contribution: cross-family leave-one-family-out replication, cross-precision transfer diagnostics, rank-spreading/principal-angle analysis, calibration-set sensitivity for GPTQ/AWQ, or a bounded restoration probe. The safety boundary forbids publishing abliterated checkpoints, harmful prompt inventories, jailbreak optimization loops, or turnkey refusal-removal tooling.
 
-**Primary artifacts:** `reports/refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md`, `configs/px055_refusal_direction_quantization_source_gate_20260711.json`.
+**Primary artifacts:** `reports/refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md`, `reports/refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md`, `reports/refusal_direction_quantization/hook_preflight_20260711/PX055_LOCAL_HOOK_PREFLIGHT_20260711.md`, `scripts/run_px055_quantization_hook_gate.py`, `cloud_jobs/px055_quantization_hook_gate_20260711/`, `configs/px055_refusal_direction_quantization_source_gate_20260711.json`.
 
 ## Source Dashboards
 

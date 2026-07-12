@@ -2,7 +2,7 @@
   "experiment_id": "px055-refusal-direction-quantization-source-gate-20260711",
   "praxis_id": "PX-055",
   "title": "Refusal-Direction Geometry Under Post-Training Quantization",
-  "status": "source_gate_candidate_deconflict_required",
+  "status": "gate0a_rescope_proceed_gate0b_local_preflight_blocked_cloud_hook_ready",
   "created": "2026-07-11",
   "report": "reports/refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md",
   "prior_related_praxis_ids": ["PX-054"],
@@ -70,5 +70,11 @@
     }
   ],
   "measured_result": null,
-  "notes": "No measured PX-055 result yet. Treat all thresholds as preregistered targets until a source gate and GPU hook smoke produce logged artifacts."
+  "gate0_update": {
+    "report": "reports/refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md",
+    "summary": "reports/refusal_direction_quantization/gate0_20260711/summary.json",
+    "local_preflight": "reports/refusal_direction_quantization/hook_preflight_20260711/PX055_LOCAL_HOOK_PREFLIGHT_20260711.md",
+    "decision": "Proceed only to cloud GPU hook-feasibility smoke; no model result yet."
+  },
+  "notes": "No measured PX-055 model result yet. Gate 0A corrected the novelty claim and preserved a narrowed extension path; Gate 0B local preflight is blocked by missing Torch/Transformers/bitsandbytes/CUDA, so the next step is the prepared cloud hook smoke."
 }
