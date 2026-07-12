@@ -134,6 +134,21 @@ const seedState = {
       overview: "Safe prompt activations show stable depth-indexed refusal-style direction in Huginn-0125.",
     },
     {
+      id: "wi_px055",
+      title: "Refusal-direction geometry under quantization",
+      topic: "Mechanistic safety",
+      state: "PLAN_READY",
+      kind: "experiment",
+      venue: "Source-gate candidate",
+      source: "Post-training quantization refusal-direction protocol",
+      priority: "Deconflict first",
+      abstractOnly: false,
+      defensibility: 3,
+      cost: 0,
+      updatedAt: "2026-07-11 09:00",
+      overview: "Precision-axis extension of PX-054; source gate must clear compressed-model refusal-direction overlap before GPU work.",
+    },
+    {
       id: "wi_px003",
       title: "ATT&CK relationship evidence for CTI compliance",
       topic: "Cyber ML and CTI",
@@ -229,6 +244,17 @@ const seedState = {
       abstractOnly: false,
     },
     {
+      id: "paper_005",
+      title: "Towards Understanding and Improving Refusal in Compressed Models via Mechanistic Interpretability",
+      topic: "Mechanistic safety",
+      source: "arXiv",
+      published: "2025",
+      state: "REVIEWED",
+      evidenceStrength: "strong",
+      novelty: "Direct overlap for PX-055; forces the quantization experiment to be an extension rather than a first-of-kind direction claim.",
+      abstractOnly: false,
+    },
+    {
       id: "paper_004",
       title: "The Illusion of Specialization in Mixture-of-Experts Models",
       topic: "Mechanistic safety",
@@ -278,6 +304,18 @@ const seedState = {
       risks: ["Must avoid causal safety claims without intervention tests."],
     },
     {
+      id: "idea_005",
+      paperId: "paper_005",
+      title: "Refusal-direction geometry under post-training quantization",
+      oneLiner: "Test whether quantization preserves, rotates, attenuates, or spreads refusal-style directions across model families.",
+      feasibility: 3,
+      impact: 4,
+      defensibility: 3,
+      type: "computational",
+      status: "ready",
+      risks: ["Existing compressed-model refusal-direction work overlaps; Gate 0 must prove a narrower extension before GPU spend."],
+    },
+    {
       id: "idea_004",
       paperId: "paper_004",
       title: "Standing-committee transfer audit",
@@ -316,6 +354,18 @@ const seedState = {
       artifacts: ["PX054_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md", "activation_rows.csv"],
     },
     {
+      id: "exp_px055",
+      ideaId: "idea_005",
+      title: "Refusal-Direction Geometry Under Post-Training Quantization",
+      status: "plan_ready",
+      positiveResult: null,
+      primaryMetric: "FP16/quantized direction stability",
+      value: "source gate pending",
+      successCriteria: "Literature deconfliction leaves a publishable extension and one-model FP16/int8/NF4 hook capture works.",
+      proof: "Pending source-gate clearance; no measured PX-055 result yet.",
+      artifacts: ["PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md", "px055_refusal_direction_quantization_source_gate_20260711.json"],
+    },
+    {
       id: "exp_agent_adaptive",
       ideaId: "idea_002",
       title: "Adaptive Evaluation of Deterministic Agent Gates",
@@ -350,6 +400,13 @@ const seedState = {
   ],
   events: [
     {
+      id: "evt_px055_added",
+      type: "source_gate",
+      title: "PX-055 quantization geometry added",
+      body: "Added as a deconflicted source-gate candidate; overlap must clear before GPU work.",
+      time: "09:00",
+    },
+    {
       id: "evt_001",
       type: "package_ready",
       title: "PX-050 package is defense ready",
@@ -374,6 +431,7 @@ const seedState = {
 };
 
 let appState = loadState();
+ensureSeedState(appState);
 let currentView = "dashboard";
 let selectedIdeaIds = new Set();
 let query = "";
@@ -388,6 +446,25 @@ function loadState() {
   } catch {
     return structuredClone(seedState);
   }
+}
+
+function mergeById(target, seeded) {
+  seeded.forEach((entry) => {
+    if (!target.some((item) => item.id === entry.id)) {
+      target.push(structuredClone(entry));
+    }
+  });
+}
+
+function ensureSeedState(state) {
+  mergeById(state.topics, seedState.topics);
+  mergeById(state.workItems, seedState.workItems);
+  mergeById(state.papers, seedState.papers);
+  mergeById(state.ideas, seedState.ideas);
+  mergeById(state.experiments, seedState.experiments);
+  mergeById(state.packages, seedState.packages);
+  mergeById(state.events, seedState.events);
+  saveState();
 }
 
 function saveState() {

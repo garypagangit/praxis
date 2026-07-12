@@ -1,0 +1,74 @@
+{
+  "experiment_id": "px055-refusal-direction-quantization-source-gate-20260711",
+  "praxis_id": "PX-055",
+  "title": "Refusal-Direction Geometry Under Post-Training Quantization",
+  "status": "source_gate_candidate_deconflict_required",
+  "created": "2026-07-11",
+  "report": "reports/refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md",
+  "prior_related_praxis_ids": ["PX-054"],
+  "primary_question": "Does post-training quantization preserve, rotate, attenuate, or spread refusal-style representation geometry across model families?",
+  "safety_boundary": {
+    "framing": "detection_and_defense_mechanistic_characterization",
+    "disallowed_outputs": [
+      "abliterated checkpoints",
+      "harmful prompt inventories",
+      "jailbreak optimization artifacts",
+      "turnkey refusal-removal tooling"
+    ],
+    "publishable_outputs": [
+      "hook feasibility report",
+      "aggregate direction stability tables",
+      "principal-angle and participation-ratio diagnostics",
+      "calibration sensitivity summary",
+      "claim-boundary note"
+    ]
+  },
+  "deconfliction": {
+    "initial_gap_claim_status": "not_publish_safe_without_rescope",
+    "blocking_overlap": [
+      "Chhabra and Khalili 2025, Towards Understanding and Improving Refusal in Compressed Models via Mechanistic Interpretability",
+      "Alignment-Aware Quantization for LLM Safety",
+      "quality-versus-safety quantization work showing behavioral safety degradation under some quantization settings"
+    ],
+    "surviving_candidate_deltas": [
+      "leave-one-family-out replication across Llama, Qwen, and Gemma",
+      "cross-precision transfer diagnostic",
+      "rank-spreading and principal-angle analysis",
+      "calibration-set sensitivity for GPTQ/AWQ",
+      "bounded refusal-restoration probe"
+    ]
+  },
+  "models": [
+    "Llama-3.1-8B-Instruct",
+    "Qwen2.5-7B-Instruct",
+    "Gemma-2-9B-it"
+  ],
+  "quantization_conditions": [
+    "FP16 baseline",
+    "bitsandbytes int8",
+    "bitsandbytes NF4",
+    "GPTQ 4-bit",
+    "AWQ 4-bit"
+  ],
+  "gates": [
+    {
+      "name": "Gate 0 - novelty and hook feasibility",
+      "pass_condition": "surviving novelty component remains and one-model FP16/NF4 hook capture runs end-to-end on one GPU",
+      "fail_condition": "existing literature subsumes surviving novelty or quantized hooks require custom CUDA/kernel work"
+    },
+    {
+      "name": "Gate 1 - direction measurement",
+      "pass_condition": "E1 measured across scoped models and quantization methods with branch selected"
+    },
+    {
+      "name": "Gate 2 - cross-precision transfer diagnostic",
+      "pass_condition": "aggregate cross-precision transfer reaches at least 90 percent of same-precision transfer if H1 branch is claimed"
+    },
+    {
+      "name": "Gate 3 - thesis selection",
+      "pass_condition": "select precision-invariant, drift-mediated, rank-spreading, restoration, bounded null, or superseded thesis"
+    }
+  ],
+  "measured_result": null,
+  "notes": "No measured PX-055 result yet. Treat all thresholds as preregistered targets until a source gate and GPU hook smoke produce logged artifacts."
+}

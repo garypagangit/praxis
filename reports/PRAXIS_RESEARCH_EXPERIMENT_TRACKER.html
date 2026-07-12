@@ -360,7 +360,7 @@
 <main>
   <header>
     <h1>Praxis Research: Experiment Tracker and Work Completed</h1>
-    <p class="meta">Updated 2026-07-05. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
+    <p class="meta">Updated 2026-07-11. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
     <div class="source-links">
       <a href="../tmp/docs/idea_explorer_20260622/AI_ML_Praxis_Idea_Explorer_extracted.md">Raw extracted idea list</a>
       <a href="../tmp/docs/idea_explorer_20260622/idea_entries.json">Structured JSON entries</a>
@@ -398,6 +398,7 @@
       <a href="refusal_geometry_recurrent_depth/scale_gate_20260705/PX054_REFUSAL_GEOMETRY_SCALE_GATE_20260705.md">PX-054 scale gate</a>
       <a href="refusal_geometry_recurrent_depth/px054_final_manuscript_20260706/PX054_FINAL_MANUSCRIPT_20260706.md">PX-054 final manuscript</a>
       <a href="refusal_geometry_recurrent_depth/px054_final_defense_package_export_20260706/PX054_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md">PX-054 final defense export</a>
+      <a href="refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md">PX-055 quantization preregistration</a>
     </div>
   </header>
 
@@ -516,6 +517,35 @@
   </section>
 
   <section>
+    <h2>New Mechanistic Safety Candidate</h2>
+    <p class="small">PX-055 was added on 2026-07-11 as a source-gate candidate, not as a measured positive. It extends the PX-054 refusal-geometry lane from recurrent depth to numerical precision. The submitted first-of-kind gap claim was deconflicted against existing compressed-model refusal-direction work, so the publishable angle must be narrower: cross-family replication, cross-precision transfer, rank-spreading diagnostics, calibration-set sensitivity, or a bounded restoration probe.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>ID</th>
+            <th>Candidate</th>
+            <th>Deconflict anchor</th>
+            <th>Status</th>
+            <th>Next gate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td class="num">PX-055</td>
+            <td class="title">Refusal-Direction Geometry Under Post-Training Quantization</td>
+            <td>PX-054 adjacent; compressed-model refusal-direction overlap must be cleared</td>
+            <td><span class="badge source">Source gate</span></td>
+            <td><a href="refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md">Preregistration</a> and <code>configs/px055_refusal_direction_quantization_source_gate_20260711.json</code>. Gate 0 must confirm the remaining novelty, then run one-model FP16/int8/NF4 hook feasibility before any GPTQ/AWQ or multi-family GPU spend. No measured result yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
     <h2>Canonical Praxis Experiment Tracker</h2>
     <p class="small">This is the single publishable tracker list. Stable IDs use <code>PX-###</code>. The rows are ranked by current Praxis value: packageable positives first, then evidence artifacts, gate-ready work, diagnostics/negatives, blocked tracks, and deferred idea-bank items. The repository lane identifies where the experiment lives conceptually; the evidence column links to the concrete code, documents, result reports, run artifacts, configs, or source decisions that support the row.</p>
     <div class="summary-grid">
@@ -540,7 +570,7 @@
         <p class="small">Failed gates or should not be pushed as positive results.</p>
       </div>
       <div class="summary-card defer">
-        <div class="summary-number">10</div>
+        <div class="summary-number">11</div>
         <strong>Blocked / future</strong>
         <p class="small">Deferred, held, shelved, or idea-bank only for this cycle.</p>
       </div>
@@ -1045,6 +1075,15 @@
             <td><a href="refusal_geometry_recurrent_depth/px054_final_defense_package_export_20260706/PX054_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md">Final defense export</a>, <a href="refusal_geometry_recurrent_depth/px054_final_manuscript_20260706/PX054_FINAL_MANUSCRIPT_20260706.md">final manuscript</a>, <a href="refusal_geometry_recurrent_depth/px054_paper_package_20260706/PX054_PRAXIS_PAPER_PACKAGE_20260706.md">paper package</a>, <a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_SOURCE_GATE_20260705.md">source gate</a>, <a href="refusal_geometry_recurrent_depth/source_gate_20260705/PX054_SOURCE_GATE_RESULT_20260705.md">source-gate result</a>, <a href="refusal_geometry_recurrent_depth/activation_gate_20260705/PX054_REFUSAL_GEOMETRY_ACTIVATION_GATE_20260705.md">activation-gate result</a>, <a href="refusal_geometry_recurrent_depth/scale_gate_20260705/PX054_REFUSAL_GEOMETRY_SCALE_GATE_20260705.md">scale-gate result</a>, and <a href="refusal_geometry_recurrent_depth/PX054_REFUSAL_GEOMETRY_RESULT_SYNTHESIS_20260705.md">synthesis</a>: Huginn latent states captured across depths <code>[4, 8, 16, 32, 64]</code>; scale cross-depth stability <code>0.9257</code> with 95% bootstrap CI <code>[0.9067, 0.9273]</code>; benign-control FPR <code>0.0000</code>; worst refusal TPR <code>0.9750</code>.</td>
             <td>Defense-ready bounded positive characterization result. Do not claim causal refusal mechanisms, deployed safety defense, refusal removal, jailbreak detection, adversarial robustness, or transfer to other models without replication.</td>
           </tr>
+          <tr>
+            <td class="num">55</td>
+            <td class="num">PX-055</td>
+            <td class="title">Refusal-Direction Geometry Under Post-Training Quantization</td>
+            <td>Mechanistic safety / quantization</td>
+            <td><span class="badge source">Source gate</span></td>
+            <td><a href="refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md">Preregistration</a> and <code>configs/px055_refusal_direction_quantization_source_gate_20260711.json</code>. No measured result yet. Gate 0 must clear the literature overlap, then prove FP16/int8/NF4 hook capture on one model before larger GPU work.</td>
+            <td>Promising but deconflicted candidate. The original broad novelty claim is not publish-safe; proceed only if cross-family replication, cross-precision transfer, rank-spreading, calibration sensitivity, or restoration diagnostics survive source-gate clearance.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -1371,6 +1410,11 @@
             <td><a href="refusal_geometry_recurrent_depth/px054_final_defense_package_export_20260706/PX054_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md">PX-054 final defense package export</a></td>
             <td>Single read-first defense package with current PX-054 status, result summary, evidence links, and code map.</td>
             <td>Downloadable defense handoff for the recurrent-depth refusal-geometry result.</td>
+          </tr>
+          <tr>
+            <td><a href="refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md">PX-055 refusal-direction quantization preregistration</a></td>
+            <td>Source-gate protocol for measuring refusal-direction geometry under post-training quantization, with corrected deconfliction against compressed-model refusal-direction literature.</td>
+            <td>Source for adding PX-055 as a queued mechanistic-safety candidate; not a measured result or positive claim.</td>
           </tr>
         </tbody>
       </table>
