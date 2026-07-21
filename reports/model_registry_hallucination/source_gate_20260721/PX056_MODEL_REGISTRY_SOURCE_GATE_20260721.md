@@ -1,6 +1,6 @@
 # PX-056 Model Registry Hallucination Source Gate
 
-Generated: 2026-07-21 17:08:02 UTC
+Generated: 2026-07-21 22:19:46 UTC
 
 Praxis ID: `PX-056`
 
@@ -24,7 +24,7 @@ Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
 | HF existing dataset direct API | PASS |
 | HF search endpoint available | PASS |
 | HF missing identifiers absent from search | PASS |
-| HF token present for gated/private disambiguation | FAIL |
+| HF token present for gated/private disambiguation | PASS |
 | NGC search API ready without additional credentials | FAIL |
 | Cosmos arXiv anchor reachable | PASS |
 
@@ -38,9 +38,9 @@ Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
 | `hf_existing_dataset_direct` | `squad` | `200` | PASS |  |
 | `hf_known_search` | `google-bert/bert-base-uncased` | `200` | PASS | exact_match=True; sample=['google-bert/bert-base-uncased', 'helenai/google-bert-bert-base-uncased-ov', 'BogdanTurbal/google-bert-bert-base-uncased-d_1_e_4_t_u_r_0-d_3_e_4_t_u_r_0-v3', 'BogdanTurbal/google-bert-bert-base-uncased-d_0_e_4_t_u_r_0-d_1_e_4_t_u_r_0-v3', 'BogdanTurbal/google-bert-bert-base-uncased-d_2_e_4_t_u_r_0-d_3_e_4_t_u_r_0-v3'] |
 | `hf_known_search` | `Qwen/Qwen2.5-Coder-7B-Instruct` | `200` | PASS | exact_match=True; sample=['Qwen/Qwen2.5-Coder-7B-Instruct-GGUF', 'Qwen/Qwen2.5-Coder-7B-Instruct', 'RichardErkhov/Qwen_-_Qwen2.5-Coder-7B-Instruct-gguf', 'Qwen/Qwen2.5-Coder-7B-Instruct-GPTQ-Int4', 'Qwen/Qwen2.5-Coder-7B-Instruct-GPTQ-Int8'] |
-| `hf_missing_model_direct` | `google-bert/praxis-no-such-model-20260721` | `401` | FAIL | Invalid username or password. |
+| `hf_missing_model_direct` | `google-bert/praxis-no-such-model-20260721` | `404` | FAIL | Repository not found |
 | `hf_missing_search` | `google-bert/praxis-no-such-model-20260721` | `200` | PASS | exact_match=False; sample=[] |
-| `hf_missing_dataset_direct` | `stanfordnlp/praxis-no-such-dataset-20260721` | `401` | FAIL | Invalid username or password. |
+| `hf_missing_dataset_direct` | `stanfordnlp/praxis-no-such-dataset-20260721` | `404` | FAIL | Repository not found |
 | `hf_missing_search` | `stanfordnlp/praxis-no-such-dataset-20260721` | `200` | PASS | exact_match=False; sample=[] |
 | `ngc_search_api` | `cosmos` | `401` | FAIL | Not Authenticated |
 | `ngc_catalog_home` | `catalog home` | `200` | PASS |  |

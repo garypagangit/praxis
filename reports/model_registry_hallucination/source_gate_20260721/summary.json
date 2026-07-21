@@ -2,7 +2,7 @@
   "checks": [
     {
       "category": "hf_existing_model_direct",
-      "elapsed_s": 0.381,
+      "elapsed_s": 0.159,
       "json_size": 26,
       "json_type": "dict",
       "ok": true,
@@ -12,7 +12,7 @@
     },
     {
       "category": "hf_existing_model_direct",
-      "elapsed_s": 0.226,
+      "elapsed_s": 0.114,
       "json_size": 25,
       "json_type": "dict",
       "ok": true,
@@ -22,7 +22,7 @@
     },
     {
       "category": "hf_existing_dataset_direct",
-      "elapsed_s": 0.184,
+      "elapsed_s": 0.139,
       "json_size": 17,
       "json_type": "dict",
       "ok": true,
@@ -32,7 +32,7 @@
     },
     {
       "category": "hf_existing_dataset_direct",
-      "elapsed_s": 0.327,
+      "elapsed_s": 0.262,
       "json_size": 17,
       "json_type": "dict",
       "ok": true,
@@ -72,12 +72,12 @@
     },
     {
       "category": "hf_missing_model_direct",
-      "elapsed_s": 0.245,
-      "error": "HTTP Error 401: Unauthorized",
-      "error_message": "Invalid username or password.",
+      "elapsed_s": 0.143,
+      "error": "HTTP Error 404: Not Found",
+      "error_message": "Repository not found",
       "ok": false,
       "repo_id": "google-bert/praxis-no-such-model-20260721",
-      "status_code": 401,
+      "status_code": 404,
       "url": "https://huggingface.co/api/models/google-bert/praxis-no-such-model-20260721"
     },
     {
@@ -91,12 +91,12 @@
     },
     {
       "category": "hf_missing_dataset_direct",
-      "elapsed_s": 0.27,
-      "error": "HTTP Error 401: Unauthorized",
-      "error_message": "Invalid username or password.",
+      "elapsed_s": 0.165,
+      "error": "HTTP Error 404: Not Found",
+      "error_message": "Repository not found",
       "ok": false,
       "repo_id": "stanfordnlp/praxis-no-such-dataset-20260721",
-      "status_code": 401,
+      "status_code": 404,
       "url": "https://huggingface.co/api/datasets/stanfordnlp/praxis-no-such-dataset-20260721"
     },
     {
@@ -110,7 +110,7 @@
     },
     {
       "category": "ngc_search_api",
-      "elapsed_s": 0.5,
+      "elapsed_s": 0.368,
       "error": "HTTP Error 401: Unauthorized",
       "error_message": "Not Authenticated",
       "ok": false,
@@ -120,7 +120,7 @@
     },
     {
       "category": "ngc_catalog_home",
-      "elapsed_s": 0.757,
+      "elapsed_s": 0.781,
       "json_size": null,
       "json_type": null,
       "ok": true,
@@ -130,7 +130,7 @@
     },
     {
       "category": "cosmos_arxiv_anchor",
-      "elapsed_s": 0.195,
+      "elapsed_s": 0.176,
       "json_size": null,
       "json_type": null,
       "ok": true,
@@ -141,18 +141,18 @@
   ],
   "claim_boundary": "Gate 0 verifies registry/API feasibility only. PX-056 is not a positive result until model-output data clear H1-H4 under the preregistered protocol. The NGC arm is conditional on a stable public or authenticated existence-check path.",
   "experiment_id": "px056-model-registry-hallucination-source-gate-20260721",
-  "generated": "2026-07-21T17:08:02.353722+00:00",
+  "generated": "2026-07-21T22:19:46.598861+00:00",
   "praxis_id": "PX-056",
   "summary": {
     "cosmos_anchor_reachable": true,
     "decision": "PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL",
-    "hf_auth_required_for_private_gated_disambiguation": true,
+    "hf_auth_required_for_private_gated_disambiguation": false,
     "hf_core_ready": true,
     "hf_existing_dataset_200_count": 2,
     "hf_existing_model_200_count": 2,
     "hf_missing_search_absent": true,
     "hf_search_ready": true,
-    "hf_token_present": false,
+    "hf_token_present": true,
     "ngc_api_ready": false,
     "ngc_conditional_drop_if_unresolved": true,
     "ngc_key_present": false
