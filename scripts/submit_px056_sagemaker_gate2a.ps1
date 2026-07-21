@@ -80,9 +80,14 @@ $Request = @{
 }
 
 $RequestPath = Join-Path $TempDir "create-training-job.json"
-$Request | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $RequestPath -Encoding UTF8
+$RequestJson = $Request | ConvertTo-Json -Depth 10
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+[System.IO.File]::WriteAllText($RequestPath, $RequestJson, $Utf8NoBom)
 
 aws sagemaker create-training-job --cli-input-json file://$RequestPath --profile $Profile --region $Region | Out-Null
+if ($LASTEXITCODE -ne 0) {
+  throw "aws sagemaker create-training-job failed with exit code $LASTEXITCODE"
+}
 
 [pscustomobject]@{
   job_name = $JobName
