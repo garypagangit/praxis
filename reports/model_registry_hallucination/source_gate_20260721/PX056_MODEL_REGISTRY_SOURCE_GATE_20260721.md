@@ -1,10 +1,10 @@
 # PX-056 Model Registry Hallucination Source Gate
 
-Generated: 2026-07-21 22:22:53 UTC
+Generated: 2026-07-21 22:49:00 UTC
 
 Praxis ID: `PX-056`
 
-Status: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**
+Status: **PX056_SOURCE_GATE_PASS_HF_AND_NGC_READY**
 
 ## Purpose
 
@@ -16,7 +16,7 @@ PX-056 extends the PX-004/PX-050 deterministic-verifier lane from package/citati
 
 ## Gate Decision
 
-Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
+Decision: **PX056_SOURCE_GATE_PASS_HF_AND_NGC_READY**.
 
 | Check | Result |
 |---|---:|
@@ -25,7 +25,7 @@ Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
 | HF search endpoint available | PASS |
 | HF missing identifiers absent from search | PASS |
 | HF token present for gated/private disambiguation | PASS |
-| NGC search API ready with configured credential path | FAIL |
+| NGC search API ready with configured credential path | PASS |
 | Cosmos arXiv anchor reachable | PASS |
 
 ## API Probe Table
@@ -42,7 +42,7 @@ Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
 | `hf_missing_search` | `google-bert/praxis-no-such-model-20260721` | `200` | PASS | exact_match=False; sample=[] |
 | `hf_missing_dataset_direct` | `stanfordnlp/praxis-no-such-dataset-20260721` | `404` | FAIL | Repository not found |
 | `hf_missing_search` | `stanfordnlp/praxis-no-such-dataset-20260721` | `200` | PASS | exact_match=False; sample=[] |
-| `ngc_search_api` | `cosmos` | `401` | FAIL | Not Authenticated |
+| `ngc_search_api` | `cosmos` | `200` | PASS |  |
 | `ngc_catalog_home` | `catalog home` | `200` | PASS |  |
 | `cosmos_arxiv_anchor` | `arxiv:2606.02800` | `200` | PASS |  |
 
@@ -50,7 +50,7 @@ Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
 
 Hugging Face Hub is feasible as the primary PX-056 registry because known public model and dataset API checks resolve and the search endpoints are available for exact-match absence checks. This run found an HF token in the environment, so Hugging Face existence checks can distinguish known-missing repositories from ambiguous unauthenticated failures. Final scoring must still keep 401/403 gated/private states separate from nonexistent identifiers.
 
-NGC remains conditional. No NGC key was detected and the public NGC search probe did not return an unauthenticated 200 in this environment. Per Contingency C4, the model-registry arm can proceed as HF-only unless a stable public or authenticated NGC existence-check API is pinned before data collection.
+NGC is feasible for PX-056 because the NGC search probe returned 200 with the configured credential path.
 
 ## Next Gate
 
@@ -65,5 +65,5 @@ Gate 0 verifies registry/API feasibility only. PX-056 is not a positive result u
 - Hugging Face model API: https://huggingface.co/api/models/google-bert/bert-base-uncased
 - Hugging Face dataset API: https://huggingface.co/api/datasets/stanfordnlp/imdb
 - Hugging Face model search API: https://huggingface.co/api/models?search=bert-base-uncased&limit=20
-- NVIDIA NGC API probe: https://api.ngc.nvidia.com/v2/search/resources?query=cosmos
+- NVIDIA NGC API probe: https://api.ngc.nvidia.com/v2/resources?search=cosmos
 - Cosmos paper anchor: https://arxiv.org/abs/2606.02800

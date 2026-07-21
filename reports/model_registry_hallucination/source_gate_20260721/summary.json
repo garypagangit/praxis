@@ -2,7 +2,7 @@
   "checks": [
     {
       "category": "hf_existing_model_direct",
-      "elapsed_s": 0.142,
+      "elapsed_s": 0.188,
       "json_size": 26,
       "json_type": "dict",
       "ok": true,
@@ -12,7 +12,7 @@
     },
     {
       "category": "hf_existing_model_direct",
-      "elapsed_s": 0.138,
+      "elapsed_s": 0.123,
       "json_size": 25,
       "json_type": "dict",
       "ok": true,
@@ -22,7 +22,7 @@
     },
     {
       "category": "hf_existing_dataset_direct",
-      "elapsed_s": 0.135,
+      "elapsed_s": 0.16,
       "json_size": 17,
       "json_type": "dict",
       "ok": true,
@@ -32,7 +32,7 @@
     },
     {
       "category": "hf_existing_dataset_direct",
-      "elapsed_s": 0.283,
+      "elapsed_s": 0.264,
       "json_size": 17,
       "json_type": "dict",
       "ok": true,
@@ -72,7 +72,7 @@
     },
     {
       "category": "hf_missing_model_direct",
-      "elapsed_s": 0.112,
+      "elapsed_s": 0.136,
       "error": "HTTP Error 404: Not Found",
       "error_message": "Repository not found",
       "ok": false,
@@ -91,7 +91,7 @@
     },
     {
       "category": "hf_missing_dataset_direct",
-      "elapsed_s": 0.128,
+      "elapsed_s": 0.13,
       "error": "HTTP Error 404: Not Found",
       "error_message": "Repository not found",
       "ok": false,
@@ -109,20 +109,20 @@
       "status_code": 200
     },
     {
-      "auth_attempted": false,
-      "auth_method": "none",
+      "auth_attempted": true,
+      "auth_method": "bearer_env",
       "category": "ngc_search_api",
-      "elapsed_s": 0.318,
-      "error": "HTTP Error 401: Unauthorized",
-      "error_message": "Not Authenticated",
-      "ok": false,
-      "status_code": 401,
+      "elapsed_s": 0.427,
+      "json_size": 3,
+      "json_type": "dict",
+      "ok": true,
+      "status_code": 200,
       "target": "cosmos",
-      "url": "https://api.ngc.nvidia.com/v2/search/resources?query=cosmos"
+      "url": "https://api.ngc.nvidia.com/v2/resources?search=cosmos"
     },
     {
       "category": "ngc_catalog_home",
-      "elapsed_s": 0.75,
+      "elapsed_s": 0.76,
       "json_size": null,
       "json_type": null,
       "ok": true,
@@ -132,7 +132,7 @@
     },
     {
       "category": "cosmos_arxiv_anchor",
-      "elapsed_s": 0.251,
+      "elapsed_s": 0.166,
       "json_size": null,
       "json_type": null,
       "ok": true,
@@ -143,11 +143,11 @@
   ],
   "claim_boundary": "Gate 0 verifies registry/API feasibility only. PX-056 is not a positive result until model-output data clear H1-H4 under the preregistered protocol. The NGC arm is conditional on a stable public or authenticated existence-check path.",
   "experiment_id": "px056-model-registry-hallucination-source-gate-20260721",
-  "generated": "2026-07-21T22:22:53.598590+00:00",
+  "generated": "2026-07-21T22:49:00.070276+00:00",
   "praxis_id": "PX-056",
   "summary": {
     "cosmos_anchor_reachable": true,
-    "decision": "PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL",
+    "decision": "PX056_SOURCE_GATE_PASS_HF_AND_NGC_READY",
     "hf_auth_required_for_private_gated_disambiguation": false,
     "hf_core_ready": true,
     "hf_existing_dataset_200_count": 2,
@@ -155,9 +155,9 @@
     "hf_missing_search_absent": true,
     "hf_search_ready": true,
     "hf_token_present": true,
-    "ngc_api_ready": false,
-    "ngc_conditional_drop_if_unresolved": true,
-    "ngc_key_present": false
+    "ngc_api_ready": true,
+    "ngc_conditional_drop_if_unresolved": false,
+    "ngc_key_present": true
   },
   "title": "Identifier Hallucination in Physical-AI Model Registries"
 }

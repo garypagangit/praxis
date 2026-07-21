@@ -267,7 +267,7 @@ def render_report(cfg: dict[str, Any], summary: dict[str, Any], checks: list[dic
             "- Hugging Face model API: https://huggingface.co/api/models/google-bert/bert-base-uncased",
             "- Hugging Face dataset API: https://huggingface.co/api/datasets/stanfordnlp/imdb",
             "- Hugging Face model search API: https://huggingface.co/api/models?search=bert-base-uncased&limit=20",
-            "- NVIDIA NGC API probe: https://api.ngc.nvidia.com/v2/search/resources?query=cosmos",
+            "- NVIDIA NGC API probe: https://api.ngc.nvidia.com/v2/resources?search=cosmos",
             "- Cosmos paper anchor: https://arxiv.org/abs/2606.02800",
             "",
         ]
