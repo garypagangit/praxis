@@ -1,0 +1,293 @@
+{
+  "experiment_id": "px056-model-registry-extractor-pilot-20260721",
+  "praxis_id": "PX-056",
+  "title": "Identifier Hallucination in Physical-AI Model Registries",
+  "created": "2026-07-21",
+  "status": "extractor_verifier_pilot",
+  "parent_praxis_ids": [
+    "PX-004",
+    "PX-050"
+  ],
+  "output_dir": "reports/model_registry_hallucination/extractor_pilot_20260721",
+  "sources": {
+    "huggingface_model_api": "https://huggingface.co/api/models/{repo_id}",
+    "huggingface_dataset_api": "https://huggingface.co/api/datasets/{repo_id}",
+    "huggingface_model_search": "https://huggingface.co/api/models?search={query}&limit=20",
+    "huggingface_dataset_search": "https://huggingface.co/api/datasets?search={query}&limit=20",
+    "ngc_model_search": "https://api.ngc.nvidia.com/v2/search/catalog/resources/MODEL?q={query_json}"
+  },
+  "thresholds": {
+    "fixture_extraction_precision_min": 1.0,
+    "fixture_extraction_recall_min": 1.0,
+    "null_extraction_false_positive_max": 0,
+    "known_existing_invalid_block_max": 0,
+    "known_missing_escape_max": 0,
+    "ambiguous_verification_max": 0
+  },
+  "fixtures": [
+    {
+      "id": "hf_from_pretrained_model_existing",
+      "group": "hf_model_existing",
+      "text": "from transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"google-bert/bert-base-uncased\")",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "google-bert/bert-base-uncased",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_tokenizer_from_pretrained_model_existing",
+      "group": "hf_model_existing",
+      "text": "tokenizer = AutoTokenizer.from_pretrained('Qwen/Qwen2.5-Coder-7B-Instruct')",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "Qwen/Qwen2.5-Coder-7B-Instruct",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_snapshot_download_model_existing",
+      "group": "hf_model_existing",
+      "text": "snapshot_download(repo_id=\"google-bert/bert-base-uncased\", revision=\"main\")",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "google-bert/bert-base-uncased",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_hub_download_model_missing",
+      "group": "hf_model_missing",
+      "text": "hf_hub_download(repo_id=\"google-bert/praxis-no-such-model-20260721\", filename=\"config.json\")",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "google-bert/praxis-no-such-model-20260721",
+          "expected_status": "nonexistent"
+        }
+      ]
+    },
+    {
+      "id": "hf_load_dataset_existing",
+      "group": "hf_dataset_existing",
+      "text": "train = load_dataset(\"stanfordnlp/imdb\", split=\"train\")",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "dataset",
+          "identifier": "stanfordnlp/imdb",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_datasets_load_dataset_missing",
+      "group": "hf_dataset_missing",
+      "text": "dataset = datasets.load_dataset('stanfordnlp/praxis-no-such-dataset-20260721')",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "dataset",
+          "identifier": "stanfordnlp/praxis-no-such-dataset-20260721",
+          "expected_status": "nonexistent"
+        }
+      ]
+    },
+    {
+      "id": "yaml_model_id_existing",
+      "group": "config_field_existing",
+      "text": "policy:\n  model_id: google-bert/bert-base-uncased\n  max_steps: 8",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "google-bert/bert-base-uncased",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "json_dataset_name_existing",
+      "group": "config_field_existing",
+      "text": "{\"dataset_name\": \"squad\", \"split\": \"validation\"}",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "dataset",
+          "identifier": "squad",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_cli_model_existing",
+      "group": "hf_cli_existing",
+      "text": "hf download google-bert/bert-base-uncased --include config.json",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "google-bert/bert-base-uncased",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_cli_dataset_existing",
+      "group": "hf_cli_existing",
+      "text": "huggingface-cli download --repo-type dataset stanfordnlp/imdb",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "dataset",
+          "identifier": "stanfordnlp/imdb",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_snapshot_dataset_existing",
+      "group": "hf_dataset_existing",
+      "text": "snapshot_download(repo_id=\"stanfordnlp/imdb\", repo_type=\"dataset\")",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "dataset",
+          "identifier": "stanfordnlp/imdb",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "hf_hub_download_model_existing",
+      "group": "hf_model_existing",
+      "text": "weights = hf_hub_download(repo_id='Qwen/Qwen2.5-Coder-7B-Instruct', filename='config.json')",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "Qwen/Qwen2.5-Coder-7B-Instruct",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "json_pretrained_model_name_existing",
+      "group": "config_field_existing",
+      "text": "{\"pretrained_model_name_or_path\": \"google-bert/bert-base-uncased\"}",
+      "expected": [
+        {
+          "registry": "hf",
+          "kind": "model",
+          "identifier": "google-bert/bert-base-uncased",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "ngc_uri_model_existing",
+      "group": "ngc_model_existing",
+      "text": "detector = \"ngc://models/nvidia/tao/peoplenet\"",
+      "expected": [
+        {
+          "registry": "ngc",
+          "kind": "model",
+          "identifier": "nvidia/tao/peoplenet",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "ngc_cli_model_existing",
+      "group": "ngc_model_existing",
+      "text": "ngc registry model download-version nvidia/cosmos/cosmos-1.0-guardrail:1.0",
+      "expected": [
+        {
+          "registry": "ngc",
+          "kind": "model",
+          "identifier": "nvidia/cosmos/cosmos-1.0-guardrail",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "ngc_config_model_existing",
+      "group": "ngc_model_existing",
+      "text": "ngc_model: nvidia/tao/peoplenet_transformer_v2",
+      "expected": [
+        {
+          "registry": "ngc",
+          "kind": "model",
+          "identifier": "nvidia/tao/peoplenet_transformer_v2",
+          "expected_status": "exists"
+        }
+      ]
+    },
+    {
+      "id": "ngc_config_model_missing",
+      "group": "ngc_model_missing",
+      "text": "ngc_resource: nvidia/cosmos/praxis-no-such-model-20260721",
+      "expected": [
+        {
+          "registry": "ngc",
+          "kind": "model",
+          "identifier": "nvidia/cosmos/praxis-no-such-model-20260721",
+          "expected_status": "nonexistent"
+        }
+      ]
+    },
+    {
+      "id": "local_checkpoint_exclusion",
+      "group": "null_control",
+      "text": "model = AutoModel.from_pretrained(\"./checkpoints/latest\")",
+      "expected": []
+    },
+    {
+      "id": "local_config_field_exclusion",
+      "group": "null_control",
+      "text": "model_id: C:\\\\models\\\\local-policy",
+      "expected": []
+    },
+    {
+      "id": "package_manager_null_control",
+      "group": "null_control",
+      "text": "pip install requests\nnpm install @types/node\nimport pandas as pd",
+      "expected": []
+    },
+    {
+      "id": "plain_prose_null_control",
+      "group": "null_control",
+      "text": "Use a robot policy model and a validation dataset, but do not name a registry artifact.",
+      "expected": []
+    },
+    {
+      "id": "bare_identifier_null_control",
+      "group": "null_control",
+      "text": "The documentation discusses google-bert/bert-base-uncased as background context, not as a load instruction.",
+      "expected": []
+    },
+    {
+      "id": "malformed_hf_identifier_exclusion",
+      "group": "null_control",
+      "text": "model = AutoModel.from_pretrained(\"not/a/valid/too-deep\")",
+      "expected": []
+    },
+    {
+      "id": "environment_variable_null_control",
+      "group": "null_control",
+      "text": "HF_HOME=/tmp/hf-cache\nTRANSFORMERS_OFFLINE=1",
+      "expected": []
+    }
+  ],
+  "claim_boundary": "Gate 1 verifies deterministic extraction and registry scoring on controlled fixtures only. It is not a model-output hallucination-rate result and must not be used to support H1-H3."
+}

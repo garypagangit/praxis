@@ -402,6 +402,7 @@
       <a href="refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md">PX-055 Gate 0 clearance</a>
       <a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">PX-056 model registry preregistration</a>
       <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">PX-056 source gate</a>
+      <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">PX-056 Gate 1 pilot</a>
     </div>
   </header>
 
@@ -550,7 +551,7 @@
 
   <section>
     <h2>New Model Registry Candidate</h2>
-    <p class="small">PX-056 was added on 2026-07-21 as a source-gated extension of the PX-004/PX-050 deterministic-verification thesis. It moves from package-manager identifiers to Hugging Face model/dataset identifiers and conditional NVIDIA NGC catalog resources used in physical-AI and robotics code. Gate 0 found Hugging Face feasible as the primary registry: known public model and dataset APIs returned <code>200</code>, HF search supported exact-match absence checks, and the Cosmos arXiv anchor was reachable. This environment did not have an HF token, so final scoring must use tokened verification or a deterministic review state for <code>401</code>/<code>403</code> responses. NGC public search returned unauthenticated <code>401</code>, so NGC remains conditional under Contingency C4.</p>
+    <p class="small">PX-056 was added on 2026-07-21 as a source-gated extension of the PX-004/PX-050 deterministic-verification thesis. It moves from package-manager identifiers to Hugging Face model/dataset identifiers and NVIDIA NGC catalog resources used in physical-AI and robotics code. Gate 0 now passes HF+NGC readiness: Hugging Face authenticated checks distinguish known-real identifiers from known-missing <code>404</code> cases, and the NGC catalog search path returns exact resource-ID evidence. Gate 1 then passed the controlled extractor/verifier pilot on <code>24</code> fixtures with <code>17/17</code> expected captures, extraction precision <code>1.0000</code>, extraction recall <code>1.0000</code>, null-control false positives <code>0</code>, known-existing invalid blocks <code>0</code>, known-missing escapes <code>0</code>, and ambiguous verifications <code>0</code>. This is harness readiness, not a measured LLM hallucination-rate result.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -569,8 +570,8 @@
             <td class="num">PX-056</td>
             <td class="title">Identifier Hallucination in Physical-AI Model Registries</td>
             <td>PX-004/PX-050 registry-verifier extension</td>
-            <td><span class="badge source">HF source gate proceed</span></td>
-            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">source gate</a>, and <code>configs/px056_model_registry_hallucination_source_gate_20260721.json</code>. Next: build the deterministic extractor/null-control pilot for <code>from_pretrained</code>, <code>snapshot_download</code>, <code>hf_hub_download</code>, <code>datasets.load_dataset</code>, config repo fields, and HF CLI strings. Do not run the full 200-prompt LLM gate until HF tokened scoring is configured and frozen.</td>
+            <td><span class="badge source">Gate 1 harness ready</span></td>
+            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">Gate 1 extractor/verifier pilot</a>, <code>configs/px056_model_registry_hallucination_source_gate_20260721.json</code>, and <code>configs/px056_model_registry_extractor_pilot_20260721.json</code>. Next: freeze the extractor/verifier and run the full model-output collection across code-capable LLMs, physical-AI prompts, matched package-baseline prompts, and null controls.</td>
           </tr>
         </tbody>
       </table>
@@ -1121,9 +1122,9 @@
             <td class="num">PX-056</td>
             <td class="title">Identifier Hallucination in Physical-AI Model Registries</td>
             <td>Agentic deployment defense / model supply chain</td>
-            <td><span class="badge source">HF source gate proceed</span></td>
-            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <code>reports/model_registry_hallucination/source_gate_20260721/summary.json</code>, <code>configs/px056_model_registry_hallucination_source_gate_20260721.json</code>, and <code>scripts/run_px056_model_registry_source_gate.py</code>. No LLM output has been collected yet.</td>
-            <td>Proceed to an HF-primary extractor/null-control pilot. Gate 0 passed HF feasibility and marked NGC conditional: HF known public model/dataset APIs resolved, HF missing IDs were absent from search, no HF token was present for private/gated disambiguation, and NGC public search returned unauthenticated <code>401</code>. Do not claim positive hallucination or verifier results until H1-H4 clear.</td>
+            <td><span class="badge source">Gate 1 harness ready</span></td>
+            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">Gate 1 extractor/verifier pilot</a>, <code>reports/model_registry_hallucination/extractor_pilot_20260721/summary.json</code>, <code>reports/model_registry_hallucination/extractor_pilot_20260721/verification_cache.json</code>, <code>configs/px056_model_registry_extractor_pilot_20260721.json</code>, and <code>scripts/run_px056_model_registry_extractor_pilot.py</code>. No LLM output has been collected yet.</td>
+            <td>Proceed to full model-output collection. Gate 0 passed HF+NGC source readiness, and Gate 1 passed the controlled extractor/verifier pilot with precision <code>1.0000</code>, recall <code>1.0000</code>, null-control false positives <code>0</code>, known-existing invalid blocks <code>0</code>, known-missing escapes <code>0</code>, ambiguous verifications <code>0</code>, and verification mismatches <code>0</code>. Do not claim positive hallucination-rate results until H1-H4 clear.</td>
           </tr>
         </tbody>
       </table>
@@ -1469,8 +1470,13 @@
           </tr>
           <tr>
             <td><a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">PX-056 Gate 0 source gate</a></td>
-            <td>API feasibility check for Hugging Face Hub model/dataset verification, conditional NGC catalog verification, and the Cosmos source anchor.</td>
-            <td>Current status source for PX-056: proceed HF-primary, require HF tokened scoring for 401/403 disambiguation, keep NGC conditional.</td>
+            <td>API feasibility check for Hugging Face Hub model/dataset verification, NGC catalog verification, and the Cosmos source anchor.</td>
+            <td>Current status source for PX-056 source access: HF+NGC source readiness passed after authenticated HF scoring and the corrected NGC catalog search path.</td>
+          </tr>
+          <tr>
+            <td><a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">PX-056 Gate 1 extractor/verifier pilot</a></td>
+            <td>Controlled-fixture validation for deterministic extraction of HF and NGC identifiers from model-loading calls, dataset-loading calls, CLI strings, YAML fields, JSON fields, and null controls.</td>
+            <td>Current harness status source for PX-056: Gate 1 passed with extraction precision <code>1.0000</code>, recall <code>1.0000</code>, null-control false positives <code>0</code>, and known-missing escapes <code>0</code>. It is not a measured LLM hallucination-rate result.</td>
           </tr>
         </tbody>
       </table>
