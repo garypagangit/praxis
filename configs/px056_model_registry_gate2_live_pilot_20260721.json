@@ -1,0 +1,48 @@
+{
+  "experiment_id": "px056-model-registry-gate2-live-pilot-20260721",
+  "praxis_id": "PX-056",
+  "title": "Identifier Hallucination in Physical-AI Model Registries",
+  "created": "2026-07-21",
+  "status": "gate2a_live_model_output_pilot_ready",
+  "prior_gates": [
+    "PX056_SOURCE_GATE_PASS_HF_AND_NGC_READY",
+    "PX056_GATE1_PASS_EXTRACTOR_VERIFIER_READY"
+  ],
+  "cloud_job_script": "cloud_jobs/px056_model_output_gate_20260721/run_px056_gate2_model_output.py",
+  "planned_mode": "pilot",
+  "planned_models": [
+    "Qwen/Qwen2.5-Coder-7B-Instruct",
+    "deepseek-ai/deepseek-coder-6.7b-instruct",
+    "bigcode/starcoder2-7b"
+  ],
+  "generation_parameters": {
+    "generations_per_prompt": 3,
+    "temperature": 0.7,
+    "top_p": 0.95,
+    "max_input_tokens": 1400,
+    "max_new_tokens": 384,
+    "seed": 56021
+  },
+  "prompt_plan": {
+    "pilot_physical_ai_registry_prompts": 18,
+    "pilot_package_baseline_prompts": 18,
+    "pilot_null_control_prompts": 6,
+    "pilot_expected_outputs_per_model": 126,
+    "pilot_expected_outputs_total": 378,
+    "full_physical_ai_registry_prompts": 100,
+    "full_package_baseline_prompts": 100,
+    "full_null_control_prompts": 20,
+    "full_generations_per_prompt": 10,
+    "full_expected_outputs_total": 6600
+  },
+  "registries_scored": [
+    "Hugging Face Hub models",
+    "Hugging Face Hub datasets",
+    "NVIDIA NGC catalog model resources",
+    "PyPI packages",
+    "NPM packages"
+  ],
+  "private_raw_evidence_target": "s3://praxis-garypagan-272615233626-us-east-1/experiments/model-registry-hallucination/gate2a-live-pilot-20260721/",
+  "public_artifact_policy": "Commit sanitized reports and metrics only. Do not publish raw model outputs or unsanitized nonexistent identifiers in the public GitHub tracker.",
+  "claim_boundary": "Gate 2A is a live model-output pilot. It may support feasibility and preliminary directional evidence, but it is not the final preregistered H1-H4 determination."
+}
