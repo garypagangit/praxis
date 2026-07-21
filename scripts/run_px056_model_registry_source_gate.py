@@ -31,10 +31,16 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def request_json_or_status(url: str, token: str | None = None) -> dict[str, Any]:
+def request_json_or_status(
+    url: str,
+    token: str | None = None,
+    extra_headers: dict[str, str] | None = None,
+) -> dict[str, Any]:
     headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     if token and "huggingface.co" in url:
         headers["Authorization"] = f"Bearer {token}"
+    if extra_headers:
+        headers.update(extra_headers)
     request = urllib.request.Request(url, headers=headers)
     started = time.time()
     try:
@@ -168,6 +174,29 @@ def bool_cell(value: bool) -> str:
 
 def render_report(cfg: dict[str, Any], summary: dict[str, Any], checks: list[dict[str, Any]]) -> str:
     now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    hf_interpretation = (
+        "This run found an HF token in the environment, so Hugging Face existence checks can distinguish "
+        "known-missing repositories from ambiguous unauthenticated failures. Final scoring must still keep "
+        "401/403 gated/private states separate from nonexistent identifiers."
+        if summary["hf_token_present"]
+        else "This run did not find an HF token in the environment, so final scoring must use tokened "
+        "verification or a review state for 401/403 responses; unauthenticated 401/403 must not be treated "
+        "as proof of existence or nonexistence."
+    )
+    ngc_interpretation = (
+        "NGC is feasible for PX-056 because the NGC search probe returned 200 with the configured credential path."
+        if summary["ngc_api_ready"]
+        else (
+            "NGC remains conditional. An NGC key was detected, but the NGC search probe did not return 200. "
+            "The key may lack NGC Catalog/Public API Endpoints access, the account may not have the required "
+            "org service enabled, or this endpoint may not be stable enough for registered scoring."
+            if summary["ngc_key_present"]
+            else "NGC remains conditional. No NGC key was detected and the public NGC search probe did not "
+            "return an unauthenticated 200 in this environment. Per Contingency C4, the model-registry arm "
+            "can proceed as HF-only unless a stable public or authenticated NGC existence-check API is pinned "
+            "before data collection."
+        )
+    )
     lines = [
         "# PX-056 Model Registry Hallucination Source Gate",
         "",
@@ -196,7 +225,7 @@ def render_report(cfg: dict[str, Any], summary: dict[str, Any], checks: list[dic
         f"| HF search endpoint available | {bool_cell(summary['hf_search_ready'])} |",
         f"| HF missing identifiers absent from search | {bool_cell(summary['hf_missing_search_absent'])} |",
         f"| HF token present for gated/private disambiguation | {bool_cell(summary['hf_token_present'])} |",
-        f"| NGC search API ready without additional credentials | {bool_cell(summary['ngc_api_ready'])} |",
+        f"| NGC search API ready with configured credential path | {bool_cell(summary['ngc_api_ready'])} |",
         f"| Cosmos arXiv anchor reachable | {bool_cell(summary['cosmos_anchor_reachable'])} |",
         "",
         "## API Probe Table",
@@ -220,9 +249,10 @@ def render_report(cfg: dict[str, Any], summary: dict[str, Any], checks: list[dic
             "",
             "## Interpretation",
             "",
-            "Hugging Face Hub is feasible as the primary PX-056 registry because known public model and dataset API checks resolve and the search endpoints are available for exact-match absence checks. This run did not find an HF token in the environment, so final scoring must use tokened verification or a review state for 401/403 responses; unauthenticated 401/403 must not be treated as proof of existence or nonexistence.",
+            "Hugging Face Hub is feasible as the primary PX-056 registry because known public model and dataset API checks resolve and the search endpoints are available for exact-match absence checks. "
+            + hf_interpretation,
             "",
-            "NGC remains conditional. The public NGC search probe did not return an unauthenticated 200 in this environment. Per Contingency C4, the model-registry arm can proceed as HF-only unless a stable public or authenticated NGC existence-check API is pinned before data collection.",
+            ngc_interpretation,
             "",
             "## Next Gate",
             "",
@@ -255,6 +285,8 @@ def main() -> int:
     args = parser.parse_args()
     cfg = load_json(args.config)
     token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGINGFACE_HUB_TOKEN")
+    ngc_token = os.environ.get("NGC_API_KEY") or os.environ.get("NGC_CLI_API_KEY")
+    ngc_headers = {"Authorization": f"Bearer {ngc_token}"} if ngc_token else None
     output_dir = Path(cfg["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -290,8 +322,16 @@ def main() -> int:
         checks.append({"category": "hf_missing_search", **hf_search_exact(cfg, "dataset", repo_id, token)})
         time.sleep(0.2)
 
-    ngc_result = request_json_or_status(cfg["sources"]["ngc_search_api"])
-    checks.append({"category": "ngc_search_api", "target": "cosmos", **ngc_result})
+    ngc_result = request_json_or_status(cfg["sources"]["ngc_search_api"], extra_headers=ngc_headers)
+    checks.append(
+        {
+            "category": "ngc_search_api",
+            "target": "cosmos",
+            "auth_attempted": bool(ngc_token),
+            "auth_method": "bearer_env" if ngc_token else "none",
+            **ngc_result,
+        }
+    )
     time.sleep(0.2)
 
     ngc_home_result = request_json_or_status(cfg["sources"]["ngc_catalog_home"])

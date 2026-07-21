@@ -1,6 +1,6 @@
 # PX-056 Model Registry Hallucination Source Gate
 
-Generated: 2026-07-21 22:19:46 UTC
+Generated: 2026-07-21 22:22:53 UTC
 
 Praxis ID: `PX-056`
 
@@ -25,7 +25,7 @@ Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
 | HF search endpoint available | PASS |
 | HF missing identifiers absent from search | PASS |
 | HF token present for gated/private disambiguation | PASS |
-| NGC search API ready without additional credentials | FAIL |
+| NGC search API ready with configured credential path | FAIL |
 | Cosmos arXiv anchor reachable | PASS |
 
 ## API Probe Table
@@ -48,9 +48,9 @@ Decision: **PX056_SOURCE_GATE_PROCEED_HF_PRIMARY_NGC_CONDITIONAL**.
 
 ## Interpretation
 
-Hugging Face Hub is feasible as the primary PX-056 registry because known public model and dataset API checks resolve and the search endpoints are available for exact-match absence checks. This run did not find an HF token in the environment, so final scoring must use tokened verification or a review state for 401/403 responses; unauthenticated 401/403 must not be treated as proof of existence or nonexistence.
+Hugging Face Hub is feasible as the primary PX-056 registry because known public model and dataset API checks resolve and the search endpoints are available for exact-match absence checks. This run found an HF token in the environment, so Hugging Face existence checks can distinguish known-missing repositories from ambiguous unauthenticated failures. Final scoring must still keep 401/403 gated/private states separate from nonexistent identifiers.
 
-NGC remains conditional. The public NGC search probe did not return an unauthenticated 200 in this environment. Per Contingency C4, the model-registry arm can proceed as HF-only unless a stable public or authenticated NGC existence-check API is pinned before data collection.
+NGC remains conditional. No NGC key was detected and the public NGC search probe did not return an unauthenticated 200 in this environment. Per Contingency C4, the model-registry arm can proceed as HF-only unless a stable public or authenticated NGC existence-check API is pinned before data collection.
 
 ## Next Gate
 
