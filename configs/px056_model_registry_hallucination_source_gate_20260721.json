@@ -1,0 +1,58 @@
+{
+  "experiment_id": "px056-model-registry-hallucination-source-gate-20260721",
+  "praxis_id": "PX-056",
+  "title": "Identifier Hallucination in Physical-AI Model Registries",
+  "created": "2026-07-21",
+  "status": "source_gate_candidate",
+  "parent_praxis_ids": [
+    "PX-004",
+    "PX-050"
+  ],
+  "run_date": "2026-07-21",
+  "output_dir": "reports/model_registry_hallucination/source_gate_20260721",
+  "report_dir": "reports/model_registry_hallucination/source_gate_20260721",
+  "sources": {
+    "huggingface_model_api": "https://huggingface.co/api/models/{repo_id}",
+    "huggingface_dataset_api": "https://huggingface.co/api/datasets/{repo_id}",
+    "huggingface_model_search": "https://huggingface.co/api/models?search={query}&limit=20",
+    "huggingface_dataset_search": "https://huggingface.co/api/datasets?search={query}&limit=20",
+    "ngc_search_api": "https://api.ngc.nvidia.com/v2/search/resources?query=cosmos",
+    "ngc_catalog_home": "https://catalog.ngc.nvidia.com/",
+    "cosmos_arxiv_anchor": "https://arxiv.org/abs/2606.02800"
+  },
+  "known_existing": {
+    "hf_models": [
+      "google-bert/bert-base-uncased",
+      "Qwen/Qwen2.5-Coder-7B-Instruct"
+    ],
+    "hf_datasets": [
+      "stanfordnlp/imdb",
+      "squad"
+    ]
+  },
+  "known_missing": {
+    "hf_models": [
+      "google-bert/praxis-no-such-model-20260721"
+    ],
+    "hf_datasets": [
+      "stanfordnlp/praxis-no-such-dataset-20260721"
+    ]
+  },
+  "source_gate_thresholds": {
+    "minimum_hf_existing_model_200": 1,
+    "minimum_hf_existing_dataset_200": 1,
+    "require_hf_search_endpoint": true,
+    "ngc_required_for_px056": false,
+    "require_no_model_output_collection": true
+  },
+  "planned_model_gate": {
+    "minimum_code_llms": 3,
+    "generations_per_prompt": 10,
+    "physical_ai_prompt_count": 100,
+    "package_baseline_prompt_count": 100,
+    "null_extraction_prompt_count": 20,
+    "verified_existing_identifier_minimum": 500
+  },
+  "claim_boundary": "Gate 0 verifies registry/API feasibility only. PX-056 is not a positive result until model-output data clear H1-H4 under the preregistered protocol. The NGC arm is conditional on a stable public or authenticated existence-check path."
+}
+

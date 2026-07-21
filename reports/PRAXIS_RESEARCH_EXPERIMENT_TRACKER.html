@@ -360,7 +360,7 @@
 <main>
   <header>
     <h1>Praxis Research: Experiment Tracker and Work Completed</h1>
-    <p class="meta">Updated 2026-07-11. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
+    <p class="meta">Updated 2026-07-21. This is the Git-publishable Praxis Research experiment tracker: one canonical list of completed, active, negative, blocked, and future experiments. Each row acts as the experiment's repository record, with a stable ID, title, objective, status, summary findings, and links to supporting code, documents, results, and evidence where available.</p>
     <div class="source-links">
       <a href="../tmp/docs/idea_explorer_20260622/AI_ML_Praxis_Idea_Explorer_extracted.md">Raw extracted idea list</a>
       <a href="../tmp/docs/idea_explorer_20260622/idea_entries.json">Structured JSON entries</a>
@@ -400,6 +400,8 @@
       <a href="refusal_geometry_recurrent_depth/px054_final_defense_package_export_20260706/PX054_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md">PX-054 final defense export</a>
       <a href="refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md">PX-055 quantization preregistration</a>
       <a href="refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md">PX-055 Gate 0 clearance</a>
+      <a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">PX-056 model registry preregistration</a>
+      <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">PX-056 source gate</a>
     </div>
   </header>
 
@@ -547,6 +549,35 @@
   </section>
 
   <section>
+    <h2>New Model Registry Candidate</h2>
+    <p class="small">PX-056 was added on 2026-07-21 as a source-gated extension of the PX-004/PX-050 deterministic-verification thesis. It moves from package-manager identifiers to Hugging Face model/dataset identifiers and conditional NVIDIA NGC catalog resources used in physical-AI and robotics code. Gate 0 found Hugging Face feasible as the primary registry: known public model and dataset APIs returned <code>200</code>, HF search supported exact-match absence checks, and the Cosmos arXiv anchor was reachable. This environment did not have an HF token, so final scoring must use tokened verification or a deterministic review state for <code>401</code>/<code>403</code> responses. NGC public search returned unauthenticated <code>401</code>, so NGC remains conditional under Contingency C4.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>ID</th>
+            <th>Candidate</th>
+            <th>Deconflict anchor</th>
+            <th>Status</th>
+            <th>Next gate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td class="num">PX-056</td>
+            <td class="title">Identifier Hallucination in Physical-AI Model Registries</td>
+            <td>PX-004/PX-050 registry-verifier extension</td>
+            <td><span class="badge source">HF source gate proceed</span></td>
+            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">source gate</a>, and <code>configs/px056_model_registry_hallucination_source_gate_20260721.json</code>. Next: build the deterministic extractor/null-control pilot for <code>from_pretrained</code>, <code>snapshot_download</code>, <code>hf_hub_download</code>, <code>datasets.load_dataset</code>, config repo fields, and HF CLI strings. Do not run the full 200-prompt LLM gate until HF tokened scoring is configured and frozen.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
     <h2>Canonical Praxis Experiment Tracker</h2>
     <p class="small">This is the single publishable tracker list. Stable IDs use <code>PX-###</code>. The rows are ranked by current Praxis value: packageable positives first, then evidence artifacts, gate-ready work, diagnostics/negatives, blocked tracks, and deferred idea-bank items. The repository lane identifies where the experiment lives conceptually; the evidence column links to the concrete code, documents, result reports, run artifacts, configs, or source decisions that support the row.</p>
     <div class="summary-grid">
@@ -571,7 +602,7 @@
         <p class="small">Failed gates or should not be pushed as positive results.</p>
       </div>
       <div class="summary-card defer">
-        <div class="summary-number">11</div>
+        <div class="summary-number">12</div>
         <strong>Blocked / future</strong>
         <p class="small">Deferred, held, shelved, or idea-bank only for this cycle.</p>
       </div>
@@ -1085,6 +1116,15 @@
             <td><a href="refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md">Preregistration</a>, <a href="refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md">Gate 0 clearance</a>, <a href="refusal_direction_quantization/hook_preflight_20260711/PX055_LOCAL_HOOK_PREFLIGHT_20260711.md">local preflight</a>, <code>configs/px055_refusal_direction_quantization_source_gate_20260711.json</code>, and <code>scripts/run_px055_quantization_hook_gate.py</code>. No measured model result yet. Cloud GPU hook smoke is the next gate.</td>
             <td>Promising but deconflicted candidate. The original broad novelty claim is not publish-safe; Gate 0A preserves a narrowed extension path, and Gate 0B requires a CUDA GPU run before E1-E4 measurement.</td>
           </tr>
+          <tr>
+            <td class="num">56</td>
+            <td class="num">PX-056</td>
+            <td class="title">Identifier Hallucination in Physical-AI Model Registries</td>
+            <td>Agentic deployment defense / model supply chain</td>
+            <td><span class="badge source">HF source gate proceed</span></td>
+            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <code>reports/model_registry_hallucination/source_gate_20260721/summary.json</code>, <code>configs/px056_model_registry_hallucination_source_gate_20260721.json</code>, and <code>scripts/run_px056_model_registry_source_gate.py</code>. No LLM output has been collected yet.</td>
+            <td>Proceed to an HF-primary extractor/null-control pilot. Gate 0 passed HF feasibility and marked NGC conditional: HF known public model/dataset APIs resolved, HF missing IDs were absent from search, no HF token was present for private/gated disambiguation, and NGC public search returned unauthenticated <code>401</code>. Do not claim positive hallucination or verifier results until H1-H4 clear.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -1421,6 +1461,16 @@
             <td><a href="refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md">PX-055 Gate 0 source clearance</a></td>
             <td>Gate 0A literature deconfliction and Gate 0B local preflight. It records rescope/proceed, local environment blocker, and cloud hook-smoke readiness.</td>
             <td>Current status source for PX-055: cloud GPU hook feasibility is ready, but no quantized model result exists yet.</td>
+          </tr>
+          <tr>
+            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">PX-056 model registry hallucination preregistration</a></td>
+            <td>Pre-registered hypotheses, prompt/control design, extraction rules, analysis plan, contingency rules, and ethics boundary for model/dataset registry identifier hallucination.</td>
+            <td>Source for adding PX-056 as a registry-verifier extension of PX-004/PX-050; not a measured result or positive claim.</td>
+          </tr>
+          <tr>
+            <td><a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">PX-056 Gate 0 source gate</a></td>
+            <td>API feasibility check for Hugging Face Hub model/dataset verification, conditional NGC catalog verification, and the Cosmos source anchor.</td>
+            <td>Current status source for PX-056: proceed HF-primary, require HF tokened scoring for 401/403 disambiguation, keep NGC conditional.</td>
           </tr>
         </tbody>
       </table>

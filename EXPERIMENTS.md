@@ -362,6 +362,18 @@ This index intentionally publishes both positive and negative results. The rule 
 
 **Primary artifacts:** `reports/refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md`, `reports/refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md`, `reports/refusal_direction_quantization/hook_preflight_20260711/PX055_LOCAL_HOOK_PREFLIGHT_20260711.md`, `scripts/run_px055_quantization_hook_gate.py`, `cloud_jobs/px055_quantization_hook_gate_20260711/`, `configs/px055_refusal_direction_quantization_source_gate_20260711.json`.
 
+## 2026-07-21 PX-056 Model Registry Hallucination Addendum
+
+**Status:** pre-registered source-gate candidate; Gate 0 proceeds on Hugging Face primary with NGC conditional.
+
+**Scope:** PX-056 extends the PX-004/PX-050 deterministic-verification thesis from package/citation identifiers to model and dataset registry identifiers in physical-AI, robotics, and model-loading code. The primary registry is Hugging Face Hub models/datasets. NVIDIA NGC remains conditional until a stable public or authenticated existence-check API is pinned.
+
+**Current determination:** add the experiment to the tracker, but do not count it as a positive or measured hallucination result yet. Gate 0 verified that Hugging Face public model and dataset API checks resolve known existing identifiers, the HF search endpoint supports exact-match absence checks, and the Cosmos arXiv anchor is reachable. Gate 0 also found that this environment has no HF token, so 401/403 responses must remain unresolved until tokened verification or deterministic review policy is configured. NGC public search returned 401 unauthenticated, so the NGC sub-arm is conditional under Contingency C4.
+
+**Next gate:** build the PX-056 pilot harness with deterministic extraction for `from_pretrained`, `snapshot_download`, `hf_hub_download`, `datasets.load_dataset`, YAML/JSON repo fields, and HF CLI strings. Run a small extractor/null-control pilot before the full 200-prompt LLM study. Do not run the full model-output gate until HF tokened scoring is configured and frozen.
+
+**Primary artifacts:** `reports/model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md`, `reports/model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md`, `reports/model_registry_hallucination/source_gate_20260721/summary.json`, `scripts/run_px056_model_registry_source_gate.py`, `configs/px056_model_registry_hallucination_source_gate_20260721.json`.
+
 ## Source Dashboards
 
 - `reports/EXPERIMENT_CURRENT_DASHBOARD_20260513.md`
