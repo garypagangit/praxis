@@ -3,7 +3,7 @@
   "praxis_id": "PX-056",
   "title": "Identifier Hallucination in Physical-AI Model Registries",
   "created": "2026-07-21",
-  "status": "gate2a_live_model_output_pilot_ready",
+  "status": "gate2a_live_model_output_pilot_complete_positive_directional",
   "prior_gates": [
     "PX056_SOURCE_GATE_PASS_HF_AND_NGC_READY",
     "PX056_GATE1_PASS_EXTRACTOR_VERIFIER_READY"
@@ -15,6 +15,30 @@
     "deepseek-ai/deepseek-coder-6.7b-instruct",
     "bigcode/starcoder2-7b"
   ],
+  "completed_run": {
+    "sagemaker_job_name": "px056-gate2a-live-pilot-20260721-202454",
+    "completed_at": "2026-07-22T01:57:46Z",
+    "mode": "pilot",
+    "outputs": 378,
+    "generation_errors": 0,
+    "identifier_extractions": 1282,
+    "unique_identifiers": 362,
+    "physical_registry_verified_denominator": 33,
+    "physical_registry_nonexistent": 2,
+    "physical_registry_nonexistent_rate": 0.06060606060606061,
+    "package_verified_denominator": 1016,
+    "package_nonexistent": 206,
+    "package_nonexistent_rate": 0.20275590551181102,
+    "deterministic_gate_blocks": 232,
+    "known_missing_escapes": 0,
+    "ambiguous_verifications": 116,
+    "null_control_extractions": 5,
+    "pilot_h1_directional_nonzero": true,
+    "pilot_h4_gate_zero_escape": true,
+    "public_report": "reports/model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_LIVE_MODEL_OUTPUT_PILOT.md",
+    "public_determination": "reports/model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_DETERMINATION_20260721.md",
+    "private_raw_s3_uri": "s3://praxis-garypagan-272615233626-us-east-1/experiments/model-registry-hallucination/gate2a-live-pilot-20260721/results/px056-gate2a-live-pilot-20260721-202454/"
+  },
   "generation_parameters": {
     "generations_per_prompt": 3,
     "temperature": 0.7,

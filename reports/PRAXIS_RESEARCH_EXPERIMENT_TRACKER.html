@@ -403,6 +403,7 @@
       <a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">PX-056 model registry preregistration</a>
       <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">PX-056 source gate</a>
       <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">PX-056 Gate 1 pilot</a>
+      <a href="model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_LIVE_MODEL_OUTPUT_PILOT.md">PX-056 Gate 2A live pilot</a>
     </div>
   </header>
 
@@ -550,8 +551,8 @@
   </section>
 
   <section>
-    <h2>New Model Registry Candidate</h2>
-    <p class="small">PX-056 was added on 2026-07-21 as a source-gated extension of the PX-004/PX-050 deterministic-verification thesis. It moves from package-manager identifiers to Hugging Face model/dataset identifiers and NVIDIA NGC catalog resources used in physical-AI and robotics code. Gate 0 now passes HF+NGC readiness: Hugging Face authenticated checks distinguish known-real identifiers from known-missing <code>404</code> cases, and the NGC catalog search path returns exact resource-ID evidence. Gate 1 then passed the controlled extractor/verifier pilot on <code>24</code> fixtures with <code>17/17</code> expected captures, extraction precision <code>1.0000</code>, extraction recall <code>1.0000</code>, null-control false positives <code>0</code>, known-existing invalid blocks <code>0</code>, known-missing escapes <code>0</code>, and ambiguous verifications <code>0</code>. This is harness readiness, not a measured LLM hallucination-rate result.</p>
+    <h2>Model Registry Live Pilot</h2>
+    <p class="small">PX-056 was added on 2026-07-21 as a source-gated extension of the PX-004/PX-050 deterministic-verification thesis. It moves from package-manager identifiers to Hugging Face model/dataset identifiers and NVIDIA NGC catalog resources used in physical-AI and robotics code. Gate 0 passes HF+NGC readiness. Gate 1 passed the controlled extractor/verifier pilot on <code>24</code> fixtures with extraction precision <code>1.0000</code>, recall <code>1.0000</code>, null-control false positives <code>0</code>, and known-missing escapes <code>0</code>. Gate 2A then completed a real AWS SageMaker live-output pilot across <code>3</code> open code models, <code>378</code> outputs, and <code>1,282</code> extracted identifiers. The pilot found physical-registry nonexistent identifiers in <code>2/33</code> verified model-registry rows (<code>6.06%</code>), package nonexistent identifiers in <code>206/1,016</code> verified package rows (<code>20.28%</code>), deterministic gate blocks <code>232</code>, known-missing escapes <code>0</code>, ambiguous verifications <code>116</code>, and null-control extraction events <code>5</code>. This is a positive live-output pilot and feasibility result; the full H1-H4 study is still required before defense-ready promotion.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -570,8 +571,8 @@
             <td class="num">PX-056</td>
             <td class="title">Identifier Hallucination in Physical-AI Model Registries</td>
             <td>PX-004/PX-050 registry-verifier extension</td>
-            <td><span class="badge source">Gate 1 harness ready</span></td>
-            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">Gate 1 extractor/verifier pilot</a>, <code>configs/px056_model_registry_hallucination_source_gate_20260721.json</code>, and <code>configs/px056_model_registry_extractor_pilot_20260721.json</code>. Next: freeze the extractor/verifier and run the full model-output collection across code-capable LLMs, physical-AI prompts, matched package-baseline prompts, and null controls.</td>
+            <td><span class="badge positive">Gate 2A pilot positive</span></td>
+            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">Gate 1 extractor/verifier pilot</a>, <a href="model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_LIVE_MODEL_OUTPUT_PILOT.md">Gate 2A live-output pilot</a>, <a href="model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_DETERMINATION_20260721.md">Gate 2A determination</a>, <code>summary.json</code>, and <code>scored_identifiers_sanitized.csv</code>. Next: run the full H1-H4 prompt set, reduce ambiguous verifications, and audit null-control extraction events.</td>
           </tr>
         </tbody>
       </table>
@@ -1122,9 +1123,9 @@
             <td class="num">PX-056</td>
             <td class="title">Identifier Hallucination in Physical-AI Model Registries</td>
             <td>Agentic deployment defense / model supply chain</td>
-            <td><span class="badge source">Gate 1 harness ready</span></td>
-            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">Gate 1 extractor/verifier pilot</a>, <code>reports/model_registry_hallucination/extractor_pilot_20260721/summary.json</code>, <code>reports/model_registry_hallucination/extractor_pilot_20260721/verification_cache.json</code>, <code>configs/px056_model_registry_extractor_pilot_20260721.json</code>, and <code>scripts/run_px056_model_registry_extractor_pilot.py</code>. No LLM output has been collected yet.</td>
-            <td>Proceed to full model-output collection. Gate 0 passed HF+NGC source readiness, and Gate 1 passed the controlled extractor/verifier pilot with precision <code>1.0000</code>, recall <code>1.0000</code>, null-control false positives <code>0</code>, known-existing invalid blocks <code>0</code>, known-missing escapes <code>0</code>, ambiguous verifications <code>0</code>, and verification mismatches <code>0</code>. Do not claim positive hallucination-rate results until H1-H4 clear.</td>
+            <td><span class="badge positive">Gate 2A pilot positive</span></td>
+            <td><a href="model_registry_hallucination/PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md">Preregistration</a>, <a href="model_registry_hallucination/source_gate_20260721/PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md">Gate 0 source gate</a>, <a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">Gate 1 extractor/verifier pilot</a>, <a href="model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_LIVE_MODEL_OUTPUT_PILOT.md">Gate 2A live-output pilot</a>, <a href="model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_DETERMINATION_20260721.md">Gate 2A determination</a>, <code>reports/model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/summary.json</code>, <code>reports/model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/scored_identifiers_sanitized.csv</code>, <code>configs/px056_model_registry_gate2_live_pilot_20260721.json</code>, <code>cloud_jobs/px056_model_output_gate_20260721/run_px056_gate2_model_output.py</code>, and <code>scripts/submit_px056_sagemaker_gate2a.ps1</code>. Raw generations remain private in S3.</td>
+            <td>Continue to full H1-H4 study. Gate 2A completed with <code>378</code> real outputs, <code>1,282</code> extracted identifiers, generation errors <code>0</code>, physical-registry nonexistent rate <code>6.06%</code>, package nonexistent rate <code>20.28%</code>, deterministic gate blocks <code>232</code>, and known-missing escapes <code>0</code>. The pilot is positive for feasibility and directional signal, but defense-ready promotion requires ambiguous-verification handling, null-control audit, and full prompt-set confidence intervals.</td>
           </tr>
         </tbody>
       </table>
@@ -1477,6 +1478,11 @@
             <td><a href="model_registry_hallucination/extractor_pilot_20260721/PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md">PX-056 Gate 1 extractor/verifier pilot</a></td>
             <td>Controlled-fixture validation for deterministic extraction of HF and NGC identifiers from model-loading calls, dataset-loading calls, CLI strings, YAML fields, JSON fields, and null controls.</td>
             <td>Current harness status source for PX-056: Gate 1 passed with extraction precision <code>1.0000</code>, recall <code>1.0000</code>, null-control false positives <code>0</code>, and known-missing escapes <code>0</code>. It is not a measured LLM hallucination-rate result.</td>
+          </tr>
+          <tr>
+            <td><a href="model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_LIVE_MODEL_OUTPUT_PILOT.md">PX-056 Gate 2A live-output pilot</a></td>
+            <td>Real AWS SageMaker pilot over Qwen2.5-Coder-7B, DeepSeek-Coder-6.7B, and StarCoder2-7B with public-safe aggregate reporting and sanitized identifier rows.</td>
+            <td>Current live-output source for PX-056: <code>378</code> outputs, <code>1,282</code> extracted identifiers, generation errors <code>0</code>, physical-registry nonexistent rate <code>6.06%</code>, package nonexistent rate <code>20.28%</code>, deterministic gate blocks <code>232</code>, and known-missing escapes <code>0</code>. Positive pilot; full H1-H4 study still pending.</td>
           </tr>
         </tbody>
       </table>

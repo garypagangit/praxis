@@ -3,7 +3,8 @@ param(
   [string]$JobName,
   [string]$Profile = "praxis-build",
   [string]$Region = "us-east-1",
-  [string]$Bucket = "praxis-garypagan-272615233626-us-east-1"
+  [string]$Bucket = "praxis-garypagan-272615233626-us-east-1",
+  [switch]$IncludeRaw
 )
 
 $ErrorActionPreference = "Stop"
@@ -13,9 +14,24 @@ $Remote = "s3://$Bucket/experiments/model-registry-hallucination/gate2a-live-pil
 $Local = Join-Path $Root "reports\model_registry_hallucination\gate2a_live_pilot_20260721\$JobName"
 
 New-Item -ItemType Directory -Path $Local -Force | Out-Null
-aws s3 sync $Remote $Local --profile $Profile --region $Region --no-progress
-if ($LASTEXITCODE -ne 0) {
-  throw "aws s3 sync failed with exit code $LASTEXITCODE"
+if ($IncludeRaw) {
+  aws s3 sync $Remote $Local --profile $Profile --region $Region --no-progress
+  if ($LASTEXITCODE -ne 0) {
+    throw "aws s3 sync failed with exit code $LASTEXITCODE"
+  }
+} else {
+  $PublicArtifacts = @(
+    "PX056_GATE2A_LIVE_MODEL_OUTPUT_PILOT.md",
+    "summary.json",
+    "scored_identifiers_sanitized.csv",
+    "prompt_set.json"
+  )
+  foreach ($Artifact in $PublicArtifacts) {
+    aws s3 cp "$Remote$Artifact" (Join-Path $Local $Artifact) --profile $Profile --region $Region --no-progress
+    if ($LASTEXITCODE -ne 0) {
+      throw "aws s3 cp failed for $Artifact with exit code $LASTEXITCODE"
+    }
+  }
 }
 
 $SummaryPath = Join-Path $Local "summary.json"
@@ -33,4 +49,5 @@ if (-not (Test-Path $ReportPath)) {
   local_dir = $Local
   summary = $SummaryPath
   report = $ReportPath
+  include_raw = [bool]$IncludeRaw
 } | ConvertTo-Json -Depth 4

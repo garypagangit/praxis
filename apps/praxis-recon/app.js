@@ -1,4 +1,4 @@
-const STORAGE_KEY = "praxisReconState.v1";
+const STORAGE_KEY = "praxisReconState.v2";
 
 const stageGroups = [
   {
@@ -407,13 +407,13 @@ const seedState = {
       id: "exp_px056",
       ideaId: "idea_006",
       title: "Identifier Hallucination in Physical-AI Model Registries",
-      status: "gate1_harness_ready",
+      status: "gate2a_pilot_positive",
       positiveResult: null,
       primaryMetric: "model-registry hallucination rate",
-      value: "Gate 1 pass; LLM rate not measured",
+      value: "6.06% physical registry; 20.28% package baseline",
       successCriteria: "H1-H4 clear after full prompt run: hallucination rate, package comparator, PRE/POST churn effect, and gate FPR <= 2%.",
-      proof: "Gate 0 passed HF+NGC source readiness. Gate 1 passed 24 controlled fixtures with 17/17 expected captures, extraction precision 1.0000, recall 1.0000, null-control false positives 0, known-existing invalid blocks 0, known-missing escapes 0, ambiguous verifications 0, and verification mismatches 0. No LLM output has been collected yet.",
-      artifacts: ["PX056_MODEL_REGISTRY_HALLUCINATION_PREREG_20260721.md", "PX056_MODEL_REGISTRY_SOURCE_GATE_20260721.md", "PX056_MODEL_REGISTRY_EXTRACTOR_VERIFIER_PILOT_20260721.md", "run_px056_model_registry_extractor_pilot.py"],
+      proof: "Gate 2A completed on AWS SageMaker with 3 open code models, 378 real outputs, 1,282 extracted identifiers, generation errors 0, physical-registry nonexistent identifiers 2/33 (6.06%), package nonexistent identifiers 206/1,016 (20.28%), deterministic gate blocks 232, known-missing escapes 0, ambiguous verifications 116, and null-control extraction events 5. Positive live-output pilot, but full H1-H4 study is still pending.",
+      artifacts: ["PX056_GATE2A_LIVE_MODEL_OUTPUT_PILOT.md", "PX056_GATE2A_DETERMINATION_20260721.md", "summary.json", "scored_identifiers_sanitized.csv", "run_px056_gate2_model_output.py"],
     },
     {
       id: "exp_agent_adaptive",
@@ -469,6 +469,13 @@ const seedState = {
       title: "PX-056 Gate 1 passed",
       body: "Extractor/verifier pilot passed on 24 fixtures: precision 1.0000, recall 1.0000, null-control false positives 0, known-missing escapes 0.",
       time: "18:56",
+    },
+    {
+      id: "evt_px056_gate2a",
+      type: "result",
+      title: "PX-056 Gate 2A completed",
+      body: "Live SageMaker pilot completed: 378 outputs, 1,282 extracted identifiers, physical-registry nonexistent rate 6.06%, package nonexistent rate 20.28%, deterministic gate blocks 232, known-missing escapes 0.",
+      time: "21:57",
     },
     {
       id: "evt_px055_added",
