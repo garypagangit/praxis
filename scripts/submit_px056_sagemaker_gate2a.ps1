@@ -23,6 +23,7 @@ $ResultUri = "s3://$Bucket/$Prefix/results/$JobName/"
 $OutputUri = "s3://$Bucket/$Prefix/sagemaker-output/"
 $TempDir = Join-Path $env:TEMP $JobName
 $TarPath = Join-Path $TempDir "source.tar.gz"
+$RunCommand = "set -euo pipefail; mkdir -p /opt/ml/code; cp /opt/ml/input/data/code/source.tar.gz /tmp/source.tar.gz; tar -xzf /tmp/source.tar.gz -C /opt/ml/code; cd /opt/ml/code; python -m pip install --no-cache-dir --upgrade pip; python -m pip install --no-cache-dir -r requirements.txt; python run_px056_gate2_model_output.py --generations-per-prompt $GenerationsPerPrompt --max-input-tokens 1400 --max-new-tokens 384 --mode $Mode --outdir /opt/ml/output/data/px056_gate2_model_output --s3-uri $ResultUri"
 
 if (Test-Path $TempDir) {
   Remove-Item -LiteralPath $TempDir -Recurse -Force
@@ -44,7 +45,22 @@ $Request = @{
   AlgorithmSpecification = @{
     TrainingImage = $ImageUri
     TrainingInputMode = "File"
+    ContainerEntrypoint = @("bash", "-lc")
+    ContainerArguments = @($RunCommand)
   }
+  InputDataConfig = @(
+    @{
+      ChannelName = "code"
+      DataSource = @{
+        S3DataSource = @{
+          S3DataType = "S3Prefix"
+          S3Uri = $SourceUri
+          S3DataDistributionType = "FullyReplicated"
+        }
+      }
+      InputMode = "File"
+    }
+  )
   OutputDataConfig = @{
     S3OutputPath = $OutputUri
   }
@@ -57,12 +73,9 @@ $Request = @{
     MaxRuntimeInSeconds = $MaxRuntimeSeconds
   }
   Environment = @{
-    SAGEMAKER_PROGRAM = "run_px056_gate2_model_output.py"
-    SAGEMAKER_SUBMIT_DIRECTORY = $SourceUri
     SAGEMAKER_REGION = $Region
     PX056_S3_URI = $ResultUri
     TOKENIZERS_PARALLELISM = "false"
-    HF_HUB_ENABLE_HF_TRANSFER = "1"
   }
   HyperParameters = @{
     mode = $Mode
