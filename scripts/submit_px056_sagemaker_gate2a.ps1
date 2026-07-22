@@ -23,7 +23,7 @@ $ResultUri = "s3://$Bucket/$Prefix/results/$JobName/"
 $OutputUri = "s3://$Bucket/$Prefix/sagemaker-output/"
 $TempDir = Join-Path $env:TEMP $JobName
 $TarPath = Join-Path $TempDir "source.tar.gz"
-$RunCommand = "set -euo pipefail; mkdir -p /opt/ml/code; cp /opt/ml/input/data/code/source.tar.gz /tmp/source.tar.gz; tar -xzf /tmp/source.tar.gz -C /opt/ml/code; cd /opt/ml/code; python -m pip install --no-cache-dir --upgrade pip; python -m pip install --no-cache-dir -r requirements.txt; python run_px056_gate2_model_output.py --generations-per-prompt $GenerationsPerPrompt --max-input-tokens 1400 --max-new-tokens 384 --mode $Mode --outdir /opt/ml/output/data/px056_gate2_model_output --s3-uri $ResultUri"
+$RunCommand = "mkdir -p /opt/ml/code&&tar -xzf /opt/ml/input/data/code/source.tar.gz -C /opt/ml/code&&sed -i 's/\r$//' /opt/ml/code/launch_px056_gate2a.sh&&bash /opt/ml/code/launch_px056_gate2a.sh"
 
 if (Test-Path $TempDir) {
   Remove-Item -LiteralPath $TempDir -Recurse -Force
@@ -32,7 +32,7 @@ New-Item -ItemType Directory -Path $TempDir | Out-Null
 
 Push-Location $JobSource
 try {
-  tar -czf $TarPath run_px056_gate2_model_output.py requirements.txt
+  tar -czf $TarPath run_px056_gate2_model_output.py requirements.txt launch_px056_gate2a.sh
 } finally {
   Pop-Location
 }
@@ -75,6 +75,10 @@ $Request = @{
   Environment = @{
     SAGEMAKER_REGION = $Region
     PX056_S3_URI = $ResultUri
+    PX056_MODE = $Mode
+    PX056_GENERATIONS_PER_PROMPT = [string]$GenerationsPerPrompt
+    PX056_MAX_INPUT_TOKENS = "1400"
+    PX056_MAX_NEW_TOKENS = "384"
     TOKENIZERS_PARALLELISM = "false"
   }
   HyperParameters = @{
