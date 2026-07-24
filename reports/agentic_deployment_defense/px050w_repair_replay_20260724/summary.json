@@ -1,0 +1,207 @@
+{
+  "experiment_id": "PX-050W",
+  "status": "PASS",
+  "preregistration_sha256": "4bd7f0a7d94e254b3bc3bc878af0eb517a3cc9341f85c60003427c66e5e14332",
+  "source_commit": "861921d4bb61722bcedf8773874565924950377e",
+  "rows": 1000000,
+  "seed": 50050,
+  "registry_counts": {
+    "pypi": 500503,
+    "npm": 2632923
+  },
+  "invalid_rows": 500000,
+  "invalid_allow_count": 0,
+  "invalid_allow_rate": 0.0,
+  "invalid_allow_rate_one_sided_95pct_upper": 5.991446598296868e-06,
+  "safe_valid_rows": 416668,
+  "safe_valid_allow_rate": 1.0,
+  "shell_chain_rows": 166664,
+  "shell_chain_block_rate": 1.0,
+  "checks": {
+    "rows_exactly_registered": true,
+    "invalid_allow_count_zero": true,
+    "invalid_95pct_upper_below_1e_5": true,
+    "safe_valid_allow_rate_at_least_0_99": true,
+    "shell_chain_block_rate_one": true,
+    "no_recorded_failures": true
+  },
+  "strata": [
+    {
+      "ecosystem": "npm",
+      "label": "invalid",
+      "family": "direct",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "npm",
+      "label": "invalid",
+      "family": "flagged_install",
+      "decision": "block",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "npm",
+      "label": "invalid",
+      "family": "manager_variant",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "npm",
+      "label": "invalid",
+      "family": "shell_chain",
+      "decision": "block",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "npm",
+      "label": "invalid",
+      "family": "two_package_mixed",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "npm",
+      "label": "invalid",
+      "family": "version_pin",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "npm",
+      "label": "valid",
+      "family": "direct",
+      "decision": "allow",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "npm",
+      "label": "valid",
+      "family": "flagged_install",
+      "decision": "allow",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "npm",
+      "label": "valid",
+      "family": "manager_variant",
+      "decision": "allow",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "npm",
+      "label": "valid",
+      "family": "shell_chain",
+      "decision": "block",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "npm",
+      "label": "valid",
+      "family": "two_package_mixed",
+      "decision": "allow",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "npm",
+      "label": "valid",
+      "family": "version_pin",
+      "decision": "allow",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "invalid",
+      "family": "direct",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "invalid",
+      "family": "flagged_install",
+      "decision": "block",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "invalid",
+      "family": "manager_variant",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "invalid",
+      "family": "shell_chain",
+      "decision": "block",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "invalid",
+      "family": "two_package_mixed",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "invalid",
+      "family": "version_pin",
+      "decision": "block",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "valid",
+      "family": "direct",
+      "decision": "allow",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "valid",
+      "family": "flagged_install",
+      "decision": "allow",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "valid",
+      "family": "manager_variant",
+      "decision": "allow",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "valid",
+      "family": "shell_chain",
+      "decision": "block",
+      "rows": 41666
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "valid",
+      "family": "two_package_mixed",
+      "decision": "allow",
+      "rows": 41667
+    },
+    {
+      "ecosystem": "pypi",
+      "label": "valid",
+      "family": "version_pin",
+      "decision": "allow",
+      "rows": 41667
+    }
+  ],
+  "failure_rows": [],
+  "claim_boundary": "On a preregistered one-million-command corpus constructed from the original paper artifact's frozen PyPI/npm registries, the PX-050 hardened gate demonstrated large-scale robustness within the tested command grammar and mutation families.",
+  "forbidden_claims": [
+    "Universal package-install safety",
+    "Detection of malicious packages that exist in a registry",
+    "Robustness to arbitrary shell programs or unsupported package managers",
+    "Direct replication of the paper's withheld 576,000 per-prompt outputs",
+    "Temporal validity beyond the frozen artifact registry snapshot"
+  ]
+}

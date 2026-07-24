@@ -1,0 +1,52 @@
+{
+  "experiment_id": "PX-057",
+  "stage": "gate2_full",
+  "status": "INVALID_INCOMPLETE",
+  "valid": false,
+  "gate_pass": false,
+  "completeness_checks": {
+    "experiment_id_matches": true,
+    "model_id_matches": true,
+    "dataset_sha256_matches_config": true,
+    "summary_sample_size_matches": true,
+    "summary_rounds_matches": true,
+    "selected_row_count": true,
+    "selected_ids_unique": true,
+    "trace_count": true,
+    "trace_ids_match_selected": true,
+    "trace_steps_complete": true,
+    "raw_generation_count": true,
+    "raw_generation_pairs_unique": true,
+    "raw_generation_pairs_complete": true,
+    "self_reported_gate_checks_complete": false
+  },
+  "gate_checks": {},
+  "metrics": {
+    "n_traces": 50,
+    "fixed_long_accuracy": 0.68,
+    "answer_stability_accuracy": 0.94,
+    "adaptive_accuracy": 0.94,
+    "adaptive_accuracy_delta": 0.2599999999999999,
+    "mean_compute_saving": 0.5964051547432065,
+    "mean_compute_saving_ci95": [
+      0.5489206791719018,
+      0.6381586458024519
+    ],
+    "overthinking_events": 14,
+    "overthinking_prevented": 13,
+    "overthinking_prevention_rate": 0.9285714285714286,
+    "overthinking_prevention_ci95": [
+      0.7857142857142857,
+      1.0
+    ],
+    "early_stop_harms": 0,
+    "early_stop_harm_rate": 0.0
+  },
+  "file_sha256": {
+    "summary.json": "c1c895d2e1076f7d61f6b7196d256c8a2b50bf4977c29ed9876df49851a0c596",
+    "selected_rows.json": "e50fd886efe8ca120b4cfd682e631ec3d8cb80c6689dd008fa310cfeb8f41042",
+    "reasoning_traces.jsonl": "10cb6c1fb80e9b1d92d14d1296ed7a14ef8db0dba134da25111ec6dabe39cc08",
+    "raw_generations.jsonl": "1f47203bae2563ab17238ae224996ff95ab2d4d4531b2e77a0aaa396e26247b5"
+  },
+  "claim_boundary": "Gate 1 validates model capability, multi-round trace collection, answer scoring, and the presence of observable correct-to-wrong events. It is not the full H1-H4 experiment. Passing supports this frozen GSM8K/Qwen setting only; H4 cross-model and cross-domain transfer remains untested."
+}

@@ -1,0 +1,28 @@
+{
+  "experiment_id": "px062-skill-hallucination-gate2-20260724",
+  "px_id": "PX-062",
+  "seed": 6202,
+  "registry_inventory": "reports/coding_agent_skill_provenance/gate1_public_corpus_20260724/source_inventory.jsonl",
+  "clean_registry_corpus": "openai_skills",
+  "tasks_per_condition": 100,
+  "conditions": [
+    "open_ended",
+    "registry_constrained",
+    "post_generation_verification"
+  ],
+  "required_model_count": 2,
+  "models": [
+    "Qwen/Qwen2.5-7B-Instruct",
+    "mistralai/Mistral-7B-Instruct-v0.3"
+  ],
+  "max_new_tokens": 32,
+  "do_sample": false,
+  "gates": {
+    "verified_nonexistent_attempt_rate_max": 0.01,
+    "known_skill_accuracy_drop_max": 0.05,
+    "trace_completeness_min": 0.99
+  },
+  "benchmark_dir": "data/px062/hallucination_benchmark",
+  "output_dir": "reports/coding_agent_skill_provenance/gate2_skill_hallucination_20260724",
+  "claim_boundary": "The benchmark measures registry-name invention and correction against a frozen OpenAI skills snapshot. It does not measure general factual hallucination, semantic skill poisoning, or production agent compromise."
+}

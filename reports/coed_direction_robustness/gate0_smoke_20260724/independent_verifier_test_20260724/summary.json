@@ -1,0 +1,69 @@
+{
+  "experiment_id": "PX-060",
+  "status": "INVALID_INCOMPLETE",
+  "valid": false,
+  "completeness_checks": {
+    "experiment_id_matches": true,
+    "not_smoke": false,
+    "complete_unique_condition_matrix": false,
+    "repository_commit_matches": true,
+    "dataset_sha256_matches": true,
+    "learned_theta_values_finite": true,
+    "mse_values_finite": true
+  },
+  "repository_commit": "5e88be92c22754f022add14ba3b8c5a5e22603c5",
+  "dataset_sha256": "a0f793805b1fc66c6d71f48902b81ee3c80fb118d9ca86fc899a30d03cc5a0bd",
+  "metrics": {
+    "clean_mean_learned_mse": 0.12389787286520004,
+    "clean_mean_fixed_mse": 0.12388649582862854,
+    "clean_mean_learned_improvement": -9.183435608058906e-05,
+    "clean_mean_theta_spearman": 0.0511771150479007,
+    "perturbations": {
+      "reverse": {
+        "mean_test_mse": null,
+        "mean_theta_spearman": null,
+        "mean_relative_mse_degradation": null,
+        "per_seed_relative_mse_degradation": []
+      },
+      "delete": {
+        "mean_test_mse": null,
+        "mean_theta_spearman": null,
+        "mean_relative_mse_degradation": null,
+        "per_seed_relative_mse_degradation": []
+      }
+    }
+  },
+  "checks": {
+    "clean_mse_improvement": false,
+    "clean_direction_recovery": false,
+    "reverse_direction_recovery": false,
+    "delete_direction_recovery": false,
+    "reverse_mse_robustness": false,
+    "delete_mse_robustness": false
+  },
+  "claim_boundary": "Gate 1 tests predictive robustness and recovery of known synthetic directions under frozen edge reversal/deletion. It does not establish causal interpretation on real graphs.",
+  "rows": [
+    {
+      "seed": 11,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": true,
+      "test_mse": 0.12389787286520004,
+      "best_epoch": 8,
+      "theta_spearman": 0.0511771150479007,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 11,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": false,
+      "test_mse": 0.12388649582862854,
+      "best_epoch": 8,
+      "theta_spearman": null,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    }
+  ]
+}

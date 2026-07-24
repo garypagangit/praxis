@@ -1,0 +1,31 @@
+{
+  "experiment_id": "PX-061",
+  "stage": "gate1b_privatized_adaptive_sensitivity_development",
+  "dataset": "sklearn_digits",
+  "clients": 20,
+  "clients_per_round": 10,
+  "dirichlet_alpha": 0.3,
+  "rounds": 30,
+  "local_learning_rate": 0.2,
+  "seeds": [11, 23, 37],
+  "level_bound_decay": 0.25,
+  "privacy": {
+    "total_zcdp_rho": 1.0,
+    "delta": 1e-5,
+    "adjacency": "replace-one participating clipped client update",
+    "accounting": "conservative composition without subsampling amplification"
+  },
+  "adaptive": {
+    "rho_fraction": 0.1,
+    "interval_rounds": 5,
+    "released_mean_multiplier": 1.5,
+    "floor_fraction": 0.05
+  },
+  "arms": [
+    "nonprivate",
+    "equal_wavelet",
+    "unequal_wavelet",
+    "adaptive_unequal_wavelet"
+  ],
+  "boundary": "Developmental public-data gate. The adaptive norm vector is Gaussian-privatized and charged 10% of total rho. Confirmation remains Fashion-MNIST."
+}

@@ -1,0 +1,42 @@
+{
+  "experiment_id": "PX-058",
+  "stage": "gate2_confirmatory",
+  "dataset": {
+    "kind": "cicids2017_confirmatory",
+    "data_dir": "data/cic-ids-2017/MachineLearningCVE",
+    "holdout_patterns": [
+      "Thursday-WorkingHours-Morning-WebAttacks",
+      "Thursday-WorkingHours-Afternoon-Infilteration",
+      "Friday-WorkingHours-Morning",
+      "Friday-WorkingHours-Afternoon-PortScan",
+      "Friday-WorkingHours-Afternoon-DDos"
+    ],
+    "rows_per_file": 30000,
+    "chunksize": 200000,
+    "reference_fraction": 0.2,
+    "binary_labels": true
+  },
+  "model": {
+    "kind": "random_forest",
+    "seeds": [11, 23, 37, 51, 73],
+    "n_estimators": 300,
+    "max_depth": 18,
+    "n_jobs": -1,
+    "accuracy_match_tolerance": 0.02,
+    "run_label_shuffle_control": true
+  },
+  "explanations": {
+    "methods": ["permutation", "tree_shap", "lime"],
+    "permutation_scoring": "neg_log_loss",
+    "top_k": 10,
+    "n_repeats": 8,
+    "max_explanation_rows": 3000,
+    "lime_rows": 100,
+    "lime_num_samples": 2500
+  },
+  "gates": {
+    "minimum_mean_stability": 0.5,
+    "minimum_drift_failure_spearman": 0.4
+  },
+  "output_dir": "reports/xai_explanation_drift_intrusion/cicids2017_gate2_confirmatory_corrected_20260724"
+}

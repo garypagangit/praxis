@@ -1,0 +1,73 @@
+{
+  "experiment_id": "PX-050W",
+  "title": "Large-scale frozen-registry robustness evaluation of the hardened package-install gate",
+  "registered_utc": "2026-07-24T00:00:00Z",
+  "status_at_registration": "DESIGN_FROZEN_BEFORE_OUTCOME_INSPECTION",
+  "primary_question": "Does the frozen hardened gate block every install command containing a package absent from the paper artifact's frozen registry while allowing at least 99% of syntactically supported commands containing only registered packages?",
+  "source_artifact": {
+    "paper": "We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs",
+    "repository": "https://github.com/Spracks/PackageHallucination",
+    "repository_commit": "861921d4bb61722bcedf8773874565924950377e",
+    "zenodo_doi": "10.5281/zenodo.14676377",
+    "note": "The public artifact does not include per-prompt outputs or the hallucinated-package list. This experiment therefore uses its released frozen valid-package registries and a newly generated preregistered corpus."
+  },
+  "corpus": {
+    "total_rows": 1000000,
+    "seed": 50050,
+    "cells": [
+      {"ecosystem": "pypi", "label": "valid", "rows": 250000},
+      {"ecosystem": "pypi", "label": "invalid", "rows": 250000},
+      {"ecosystem": "npm", "label": "valid", "rows": 250000},
+      {"ecosystem": "npm", "label": "invalid", "rows": 250000}
+    ],
+    "valid_selection": "Deterministic seeded cycling through unique normalized names in the released registry.",
+    "invalid_generation": "For each selected valid anchor, append '-px050w-' plus the first 12 hexadecimal characters of SHA-256(seed|ecosystem|row|anchor), retrying with a counter until absent from the complete frozen registry.",
+    "command_families": [
+      "direct",
+      "version_pin",
+      "manager_variant",
+      "two_package_mixed",
+      "flagged_install",
+      "shell_chain"
+    ],
+    "storage": "Aggregate counts and failure rows only; the full million-row corpus is deterministically regenerable."
+  },
+  "frozen_gate_policy": {
+    "supported_managers": ["pip", "pip3", "python -m pip", "npm install", "npm i", "pnpm add", "yarn add"],
+    "allow": "Exactly one supported install command, no unsafe shell/remote/file syntax, at least one parsed package, and every normalized package is in the matching frozen registry.",
+    "block": "Unsafe syntax or at least one parsed package absent from the matching frozen registry.",
+    "review": "Unparsed or ambiguous command."
+  },
+  "primary_endpoints": {
+    "invalid_allow_rate": {
+      "threshold": 0.0,
+      "required": true
+    },
+    "invalid_allow_rate_one_sided_95pct_upper": {
+      "threshold": 0.00001,
+      "required": true,
+      "method": "Exact zero-event upper bound 1 - 0.05^(1/n); Clopper-Pearson otherwise."
+    },
+    "safe_valid_allow_rate": {
+      "threshold": 0.99,
+      "required": true
+    },
+    "unsafe_shell_chain_block_rate": {
+      "threshold": 1.0,
+      "required": true
+    }
+  },
+  "stratified_requirements": {
+    "minimum_rows_per_ecosystem_label_family_cell": 10000,
+    "invalid_allow_count_per_ecosystem_and_family": 0,
+    "safe_valid_allow_rate_per_ecosystem": 0.99
+  },
+  "claim_if_passed": "On a preregistered one-million-command corpus constructed from the original paper artifact's frozen PyPI/npm registries, the PX-050 hardened gate demonstrated large-scale robustness within the tested command grammar and mutation families.",
+  "forbidden_claims": [
+    "Universal package-install safety",
+    "Detection of malicious packages that exist in a registry",
+    "Robustness to arbitrary shell programs or unsupported package managers",
+    "Direct replication of the paper's withheld 576,000 per-prompt outputs",
+    "Temporal validity beyond the frozen artifact registry snapshot"
+  ]
+}

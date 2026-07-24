@@ -1,0 +1,227 @@
+{
+  "experiment_id": "PX-058",
+  "stage": "gate2_confirmatory_corrected",
+  "status": "FAIL_METHOD_CONSENSUS",
+  "valid": true,
+  "H1_method_consensus": true,
+  "H2_method_consensus": false,
+  "accuracy_matched_seeds": [
+    11,
+    23,
+    37,
+    51,
+    73
+  ],
+  "completeness_checks": {
+    "archive_size_matches_historical_release": true,
+    "archive_sha256_matches_pinned_mirror": true,
+    "eight_csv_files": true,
+    "all_seed_method_references": true,
+    "all_seed_method_holdouts": true,
+    "at_least_two_accuracy_matched_seeds": true,
+    "deterministic_replay": true,
+    "label_shuffle_control_present": true
+  },
+  "method_checks": {
+    "permutation": {
+      "five_independent_holdouts": true,
+      "accuracy_subset_matches_summary": true,
+      "H1_seed_stability": true,
+      "H2_drift_warning": false
+    },
+    "tree_shap": {
+      "five_independent_holdouts": true,
+      "accuracy_subset_matches_summary": true,
+      "H1_seed_stability": true,
+      "H2_drift_warning": false
+    },
+    "lime": {
+      "five_independent_holdouts": true,
+      "accuracy_subset_matches_summary": true,
+      "H1_seed_stability": true,
+      "H2_drift_warning": false
+    }
+  },
+  "method_metrics": {
+    "permutation": {
+      "mean_top_k_seed_stability": 0.890909090909091,
+      "mean_rank_seed_stability": 0.9836431652479292,
+      "drift_failure_spearman": 0.3,
+      "confidence_drift_failure_spearman": -0.49999999999999994,
+      "feature_drift_failure_spearman": -0.49999999999999994,
+      "n_independent_holdouts": 5,
+      "accuracy_matched_seeds": [
+        11,
+        23,
+        37,
+        51,
+        73
+      ],
+      "holdout_aggregates": [
+        {
+          "domain": "Thursday-WorkingHours-Morning-WebAttacks",
+          "balanced_error": 0.4903023983315954,
+          "explanation_drift": 0.792483660130719,
+          "confidence_drift": 0.18588894685741836,
+          "feature_mean_drift": 0.13083599230450602,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Thursday-WorkingHours-Afternoon-Infilteration",
+          "balanced_error": 0.5000200033338891,
+          "explanation_drift": 0.6642857142857144,
+          "confidence_drift": 0.18540318103462128,
+          "feature_mean_drift": 0.1823050351928649,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Morning",
+          "balanced_error": 0.5000171332625158,
+          "explanation_drift": 0.8218954248366013,
+          "confidence_drift": 0.18769613449572434,
+          "feature_mean_drift": 0.12706000510048354,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Afternoon-PortScan",
+          "balanced_error": 0.49969173859432797,
+          "explanation_drift": 0.8978328173374612,
+          "confidence_drift": 0.18114841855839522,
+          "feature_mean_drift": 0.30552194417729783,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Afternoon-DDos",
+          "balanced_error": 0.0019088669950739102,
+          "explanation_drift": 0.2233766233766233,
+          "confidence_drift": 0.24585169021051917,
+          "feature_mean_drift": 0.4050684295081501,
+          "seed_repetitions": 5
+        }
+      ]
+    },
+    "tree_shap": {
+      "mean_top_k_seed_stability": 0.8212121212121213,
+      "mean_rank_seed_stability": 0.9755391838760163,
+      "drift_failure_spearman": -0.6708203932499368,
+      "confidence_drift_failure_spearman": -0.49999999999999994,
+      "feature_drift_failure_spearman": -0.49999999999999994,
+      "n_independent_holdouts": 5,
+      "accuracy_matched_seeds": [
+        11,
+        23,
+        37,
+        51,
+        73
+      ],
+      "holdout_aggregates": [
+        {
+          "domain": "Thursday-WorkingHours-Morning-WebAttacks",
+          "balanced_error": 0.4903023983315954,
+          "explanation_drift": 0.036363636363636355,
+          "confidence_drift": 0.18588894685741836,
+          "feature_mean_drift": 0.13083599230450602,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Thursday-WorkingHours-Afternoon-Infilteration",
+          "balanced_error": 0.5000200033338891,
+          "explanation_drift": 0.036363636363636355,
+          "confidence_drift": 0.18540318103462128,
+          "feature_mean_drift": 0.1823050351928649,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Morning",
+          "balanced_error": 0.5000171332625158,
+          "explanation_drift": 0.036363636363636355,
+          "confidence_drift": 0.18769613449572434,
+          "feature_mean_drift": 0.12706000510048354,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Afternoon-PortScan",
+          "balanced_error": 0.49969173859432797,
+          "explanation_drift": 0.14545454545454542,
+          "confidence_drift": 0.18114841855839522,
+          "feature_mean_drift": 0.30552194417729783,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Afternoon-DDos",
+          "balanced_error": 0.0019088669950739102,
+          "explanation_drift": 0.45787545787545786,
+          "confidence_drift": 0.24585169021051917,
+          "feature_mean_drift": 0.4050684295081501,
+          "seed_repetitions": 5
+        }
+      ]
+    },
+    "lime": {
+      "mean_top_k_seed_stability": 0.6941724941724943,
+      "mean_rank_seed_stability": 0.7359277779898462,
+      "drift_failure_spearman": -0.7071067811865475,
+      "confidence_drift_failure_spearman": -0.49999999999999994,
+      "feature_drift_failure_spearman": -0.49999999999999994,
+      "n_independent_holdouts": 5,
+      "accuracy_matched_seeds": [
+        11,
+        23,
+        37,
+        51,
+        73
+      ],
+      "holdout_aggregates": [
+        {
+          "domain": "Thursday-WorkingHours-Morning-WebAttacks",
+          "balanced_error": 0.4903023983315954,
+          "explanation_drift": 0.036363636363636355,
+          "confidence_drift": 0.18588894685741836,
+          "feature_mean_drift": 0.13083599230450602,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Thursday-WorkingHours-Afternoon-Infilteration",
+          "balanced_error": 0.5000200033338891,
+          "explanation_drift": 0.036363636363636355,
+          "confidence_drift": 0.18540318103462128,
+          "feature_mean_drift": 0.1823050351928649,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Morning",
+          "balanced_error": 0.5000171332625158,
+          "explanation_drift": 0.036363636363636355,
+          "confidence_drift": 0.18769613449572434,
+          "feature_mean_drift": 0.12706000510048354,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Afternoon-PortScan",
+          "balanced_error": 0.49969173859432797,
+          "explanation_drift": 0.036363636363636355,
+          "confidence_drift": 0.18114841855839522,
+          "feature_mean_drift": 0.30552194417729783,
+          "seed_repetitions": 5
+        },
+        {
+          "domain": "Friday-WorkingHours-Afternoon-DDos",
+          "balanced_error": 0.0019088669950739102,
+          "explanation_drift": 0.2363636363636364,
+          "confidence_drift": 0.24585169021051917,
+          "feature_mean_drift": 0.4050684295081501,
+          "seed_repetitions": 5
+        }
+      ]
+    }
+  },
+  "dataset_provenance": {
+    "distribution": "mirror-pinned-commit-byte-size-and-sha256-verified",
+    "publisher_page": "https://www.unb.ca/cic/datasets/ids-2017.html",
+    "retrieval_url": "https://huggingface.co/datasets/bencorn/CICIDS2017/resolve/c5637a4d7582337ef60cfb20b77227fbfe687ed6/csvs/MachineLearningCSV.zip",
+    "archive_size_bytes": 235102953,
+    "archive_sha256": "c3f26274b36c837ccf28ffd2dbf4582941c30b3ee70a635c6e5b2f87c4727928",
+    "archive_md5": "4f83860afbf29cac8163854095bf6cf7"
+  },
+  "claim_boundary": "H1 concerns top-k global-feature stability among accuracy-matched random-forest seeds. H2 concerns association across five CICIDS2017 holdouts after aggregating repeated seeds. Neither establishes causal explanation correctness, human usefulness, transportability, or H3 incremental warning."
+}

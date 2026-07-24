@@ -1,0 +1,34 @@
+{
+  "experiment_id": "PX-060",
+  "stage": "gate1_capability",
+  "source": {
+    "paper": "https://arxiv.org/abs/2410.14109",
+    "repository": "https://github.com/hormoz-lab/coed-gnn",
+    "commit": "5e88be92c22754f022add14ba3b8c5a5e22603c5"
+  },
+  "dataset": "triangular_lattice_graph/random_feature_on_gradient_vector_field.pkl",
+  "dataset_sha256": "a0f793805b1fc66c6d71f48902b81ee3c80fb118d9ca86fc899a30d03cc5a0bd",
+  "seeds": [11, 23, 37],
+  "perturbations": [
+    {"kind": "clean", "fraction": 0.0},
+    {"kind": "reverse", "fraction": 0.1},
+    {"kind": "delete", "fraction": 0.1}
+  ],
+  "training": {
+    "max_train_graphs": 128,
+    "hidden_channels": 32,
+    "num_layers": 3,
+    "batch_size": 16,
+    "max_epochs": 150,
+    "patience": 15,
+    "learning_rate": 0.001,
+    "theta_learning_rate": 0.003
+  },
+  "primary_gates": {
+    "clean_learned_mse_improvement_over_fixed_min": 0.1,
+    "clean_theta_spearman_min": 0.4,
+    "perturbed_theta_spearman_min": 0.3,
+    "perturbed_relative_mse_degradation_max": 0.3
+  },
+  "claim_boundary": "Gate 1 tests predictive robustness and recovery of known synthetic directions under frozen edge reversal/deletion. It does not establish causal interpretation on real graphs."
+}

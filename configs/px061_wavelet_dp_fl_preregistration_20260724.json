@@ -1,0 +1,45 @@
+{
+  "experiment_id": "PX-061",
+  "title": "Privacy-matched unequal Haar noise and adaptive clipping under non-IID federated learning",
+  "registered_utc": "2026-07-24T16:30:00Z",
+  "anchor": "https://arxiv.org/abs/2503.21154",
+  "primary_hypothesis": "Under identical user-level privacy accounting, sensitivity-aware unequal Haar coefficient noise plus privatized adaptive clipping improves non-IID test accuracy over the anchor paper's weighted-wavelet static-clipping mechanism.",
+  "dataset": {
+    "name": "Fashion-MNIST",
+    "clients": 50,
+    "partition": "Dirichlet label skew",
+    "dirichlet_alpha": 0.3,
+    "seeds": [11, 23, 37, 51, 73]
+  },
+  "training": {
+    "rounds": 100,
+    "clients_per_round": 10,
+    "local_epochs": 1
+  },
+  "privacy": {
+    "adjacency": "replace-one participating client update",
+    "delta": 1e-5,
+    "target_epsilons": [2, 4, 8],
+    "accountant": "RDP converted to epsilon at registered delta",
+    "require_identical_realized_epsilon_within": 0.01
+  },
+  "arms": [
+    "flat_gaussian_static_clip",
+    "anchor_weighted_haar_static_clip",
+    "unequal_haar_static_clip",
+    "unequal_haar_privatized_adaptive_clip"
+  ],
+  "primary_gate": {
+    "mean_accuracy_gain_over_anchor_min_percentage_points": 2.0,
+    "seeds_improved_min": 4,
+    "privacy_accounting_mismatch_max": 0.01
+  },
+  "secondary_endpoints": [
+    "worst-client accuracy",
+    "10th-percentile client accuracy",
+    "convergence rounds",
+    "clipping rate",
+    "communication and transform overhead"
+  ],
+  "claim_boundary": "No privacy-utility claim is permitted unless all arms pass the matched-accountant audit. Gate 0 mechanism simulations are not empirical FL evidence."
+}
