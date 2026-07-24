@@ -1,0 +1,253 @@
+{
+  "experiment_id": "PX-060",
+  "status": "FAIL",
+  "valid": true,
+  "completeness_checks": {
+    "experiment_id_matches": true,
+    "not_smoke": true,
+    "complete_unique_condition_matrix": true,
+    "repository_commit_matches": true,
+    "dataset_sha256_matches": true,
+    "learned_theta_values_finite": true,
+    "mse_values_finite": true
+  },
+  "repository_commit": "5e88be92c22754f022add14ba3b8c5a5e22603c5",
+  "dataset_sha256": "a0f793805b1fc66c6d71f48902b81ee3c80fb118d9ca86fc899a30d03cc5a0bd",
+  "metrics": {
+    "clean_mean_learned_mse": 0.006898851133882999,
+    "clean_mean_fixed_mse": 0.01176884522040685,
+    "clean_mean_learned_improvement": 0.4140346909537114,
+    "clean_mean_theta_spearman": 0.32663876364719896,
+    "perturbations": {
+      "reverse": {
+        "mean_test_mse": 0.006898624822497368,
+        "mean_theta_spearman": 0.3266815740560587,
+        "mean_relative_mse_degradation": -2.9122259110314286e-05,
+        "per_seed_relative_mse_degradation": [
+          -0.00015939041242093673,
+          6.770272861399348e-05,
+          4.320906476000396e-06
+        ]
+      },
+      "delete": {
+        "mean_test_mse": 0.016781882072488468,
+        "mean_theta_spearman": 0.2627791639371046,
+        "mean_relative_mse_degradation": 1.434366411079983,
+        "per_seed_relative_mse_degradation": [
+          1.3710815619315693,
+          1.4728010697724085,
+          1.4592166015359707
+        ]
+      }
+    }
+  },
+  "checks": {
+    "clean_mse_improvement": true,
+    "clean_direction_recovery": false,
+    "reverse_direction_recovery": true,
+    "delete_direction_recovery": false,
+    "reverse_mse_robustness": true,
+    "delete_mse_robustness": false
+  },
+  "claim_boundary": "Gate 1 tests predictive robustness and recovery of known synthetic directions under frozen edge reversal/deletion. It does not establish causal interpretation on real graphs.",
+  "rows": [
+    {
+      "seed": 11,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": true,
+      "test_mse": 0.0072950199246406555,
+      "best_epoch": 149,
+      "theta_spearman": -0.979665563752521,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 11,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": false,
+      "test_mse": 0.012049265205860138,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 23,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": true,
+      "test_mse": 0.006719833705574274,
+      "best_epoch": 150,
+      "theta_spearman": 0.9785000211438446,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 23,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": false,
+      "test_mse": 0.011619101278483868,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 37,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": true,
+      "test_mse": 0.006681699771434069,
+      "best_epoch": 150,
+      "theta_spearman": 0.9810818335502732,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 37,
+      "perturbation": "clean",
+      "fraction": 0.0,
+      "learn_theta": false,
+      "test_mse": 0.011638169176876545,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 11,
+      "perturbation": "reverse",
+      "fraction": 0.1,
+      "learn_theta": true,
+      "test_mse": 0.007293857168406248,
+      "best_epoch": 150,
+      "theta_spearman": -0.9797313750407037,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 11,
+      "perturbation": "reverse",
+      "fraction": 0.1,
+      "learn_theta": false,
+      "test_mse": 0.012049337849020958,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 23,
+      "perturbation": "reverse",
+      "fraction": 0.1,
+      "learn_theta": true,
+      "test_mse": 0.006720288656651974,
+      "best_epoch": 150,
+      "theta_spearman": 0.9785921373928878,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 23,
+      "perturbation": "reverse",
+      "fraction": 0.1,
+      "learn_theta": false,
+      "test_mse": 0.01161921489983797,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 37,
+      "perturbation": "reverse",
+      "fraction": 0.1,
+      "learn_theta": true,
+      "test_mse": 0.006681728642433882,
+      "best_epoch": 150,
+      "theta_spearman": 0.981183959815992,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 37,
+      "perturbation": "reverse",
+      "fraction": 0.1,
+      "learn_theta": false,
+      "test_mse": 0.011640182696282864,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1262,
+      "retained_original_edges": 1262
+    },
+    {
+      "seed": 11,
+      "perturbation": "delete",
+      "fraction": 0.1,
+      "learn_theta": true,
+      "test_mse": 0.017297087237238884,
+      "best_epoch": 150,
+      "theta_spearman": -0.7969639417902441,
+      "edges": 1136,
+      "retained_original_edges": 1136
+    },
+    {
+      "seed": 11,
+      "perturbation": "delete",
+      "fraction": 0.1,
+      "learn_theta": false,
+      "test_mse": 0.022006915882229805,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1136,
+      "retained_original_edges": 1136
+    },
+    {
+      "seed": 23,
+      "perturbation": "delete",
+      "fraction": 0.1,
+      "learn_theta": true,
+      "test_mse": 0.016616811975836754,
+      "best_epoch": 150,
+      "theta_spearman": 0.7783297666503163,
+      "edges": 1136,
+      "retained_original_edges": 1136
+    },
+    {
+      "seed": 23,
+      "perturbation": "delete",
+      "fraction": 0.1,
+      "learn_theta": false,
+      "test_mse": 0.021321577951312065,
+      "best_epoch": 149,
+      "theta_spearman": null,
+      "edges": 1136,
+      "retained_original_edges": 1136
+    },
+    {
+      "seed": 37,
+      "perturbation": "delete",
+      "fraction": 0.1,
+      "learn_theta": true,
+      "test_mse": 0.016431747004389763,
+      "best_epoch": 150,
+      "theta_spearman": 0.8069716669512416,
+      "edges": 1136,
+      "retained_original_edges": 1136
+    },
+    {
+      "seed": 37,
+      "perturbation": "delete",
+      "fraction": 0.1,
+      "learn_theta": false,
+      "test_mse": 0.02162216417491436,
+      "best_epoch": 150,
+      "theta_spearman": null,
+      "edges": 1136,
+      "retained_original_edges": 1136
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "experiment_id": "PX-058",
+  "stage": "developmental_pilot",
+  "dataset": {
+    "kind": "cicids2018_dev",
+    "data_dir": "data/cic-ids-2018",
+    "holdout_patterns": ["28-02-2018", "01-03-2018"],
+    "rows_per_file": 12000,
+    "chunksize": 200000,
+    "reference_fraction": 0.2,
+    "binary_labels": true
+  },
+  "model": {
+    "kind": "random_forest",
+    "seeds": [11, 23, 37, 51, 73],
+    "n_estimators": 160,
+    "max_depth": 16,
+    "n_jobs": 1,
+    "run_label_shuffle_control": true
+  },
+  "explanations": {
+    "methods": ["permutation", "tree_shap", "lime"],
+    "permutation_scoring": "neg_log_loss",
+    "top_k": 10,
+    "n_repeats": 5,
+    "max_explanation_rows": 2000,
+    "lime_rows": 50,
+    "lime_num_samples": 1500
+  },
+  "gates": {
+    "minimum_mean_stability": 0.5,
+    "minimum_drift_failure_spearman": 0.4
+  },
+  "output_dir": "reports/xai_explanation_drift_intrusion/cicids2018_developmental_pilot_20260724"
+}

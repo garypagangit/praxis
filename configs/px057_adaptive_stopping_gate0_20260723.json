@@ -1,0 +1,19 @@
+{
+  "experiment_id": "px057-adaptive-stopping-gate0-20260723",
+  "px_id": "PX-057",
+  "input_jsonl": "tests/fixtures/px057_reasoning_traces.jsonl",
+  "output_dir": "reports/adaptive_stopping_overthinking/gate0_20260723",
+  "policy": {
+    "min_step": 2,
+    "patience": 2,
+    "confidence_threshold": 0.8
+  },
+  "gates": {
+    "accuracy_delta_min": -0.01,
+    "mean_compute_saving_min": 0.2,
+    "overthinking_prevention_min": 0.25,
+    "early_stop_harm_rate_max": 0.02
+  },
+  "fixture_only": true,
+  "claim_boundary": "Gate 0 validates the harness only. It is not evidence that adaptive stopping works on model-generated reasoning traces."
+}

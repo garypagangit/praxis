@@ -1,0 +1,61 @@
+{
+  "experiment_id": "PX-057",
+  "stage": "gate2_full",
+  "status": "PASS",
+  "valid": true,
+  "gate_pass": true,
+  "completeness_checks": {
+    "experiment_id_matches": true,
+    "model_id_matches": true,
+    "dataset_sha256_matches_config": true,
+    "summary_sample_size_matches": true,
+    "summary_rounds_matches": true,
+    "selected_row_count": true,
+    "selected_ids_unique": true,
+    "trace_count": true,
+    "trace_ids_match_selected": true,
+    "trace_steps_complete": true,
+    "raw_generation_count": true,
+    "raw_generation_pairs_unique": true,
+    "raw_generation_pairs_complete": true,
+    "self_reported_gate_checks_complete": true
+  },
+  "gate_checks": {
+    "H1_accuracy": true,
+    "H1_compute": true,
+    "H2_prevention": true,
+    "H3_harm": true
+  },
+  "metrics": {
+    "n_traces": 200,
+    "fixed_long_accuracy": 0.615,
+    "fixed_short_step": 2,
+    "fixed_short_accuracy": 0.88,
+    "answer_stability_accuracy": 0.91,
+    "uncertainty_only_accuracy": 0.88,
+    "adaptive_accuracy": 0.91,
+    "oracle_best_step_accuracy": 0.95,
+    "adaptive_accuracy_delta": 0.29500000000000004,
+    "mean_compute_saving": 0.6648172662987101,
+    "mean_compute_saving_ci95": [
+      0.6366822623702453,
+      0.6907920543291328
+    ],
+    "overthinking_events": 67,
+    "overthinking_prevented": 60,
+    "overthinking_prevention_rate": 0.8955223880597015,
+    "overthinking_prevention_ci95": [
+      0.8208955223880597,
+      0.9552238805970149
+    ],
+    "early_stop_harms": 1,
+    "early_stop_harm_rate": 0.005
+  },
+  "file_sha256": {
+    "summary.json": "e5c347eebf98c6fd0361562172eb4522b0f40bbb67a4a20804f739daecfefe1a",
+    "selected_rows.json": "6203c728f838fda9b932f69c83f7c90eb2e04c65045b24071d5347d4aaa6fc7e",
+    "reasoning_traces.jsonl": "d1221cab111650111e2cb8aa0b03a6b3c99b2bc0738c222cd078ab8935ad9b8c",
+    "raw_generations.jsonl": "5f63edfe41c1b4cd47d3678eba133ae0c139164743265d49cfea70a546088646"
+  },
+  "claim_boundary": "Gate 2 adjudicates PX-057 H1-H3 on a frozen 200-item GSM8K sample using fixed-short, fixed-long, answer-stability, uncertainty-only, adaptive, and descriptive oracle arms. H4 transfer remains pending. Passing supports this frozen GSM8K/Qwen setting only; H4 cross-model and cross-domain transfer remains untested."
+}

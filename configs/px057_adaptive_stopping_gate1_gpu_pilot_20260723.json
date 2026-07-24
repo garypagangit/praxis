@@ -1,0 +1,22 @@
+{
+  "experiment_id": "px057-adaptive-stopping-gate1-gpu-pilot-20260723",
+  "px_id": "PX-057",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "model_type": "causal",
+  "device_map": "auto",
+  "local_files_only": false,
+  "dataset_url": "https://raw.githubusercontent.com/openai/grade-school-math/master/grade_school_math/data/test.jsonl",
+  "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "sample_size": 50,
+  "sample_seed": 57,
+  "rounds": 6,
+  "max_new_tokens": 256,
+  "output_dir": "reports/adaptive_stopping_overthinking/gate1_gpu_pilot_20260723",
+  "trace_jsonl": "reports/adaptive_stopping_overthinking/gate1_gpu_pilot_20260723/reasoning_traces.jsonl",
+  "evaluation_config": {
+    "min_step": 2,
+    "patience": 2,
+    "confidence_threshold": 0.05
+  },
+  "claim_boundary": "Gate 1 validates model capability, multi-round trace collection, answer scoring, and the presence of observable correct-to-wrong events. It is not the full H1-H4 experiment."
+}

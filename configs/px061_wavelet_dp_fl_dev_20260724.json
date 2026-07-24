@@ -1,0 +1,19 @@
+{
+  "experiment_id": "PX-061",
+  "stage": "gate1_public_data_development",
+  "dataset": "sklearn_digits",
+  "clients": 20,
+  "clients_per_round": 10,
+  "dirichlet_alpha": 0.3,
+  "rounds": 30,
+  "local_learning_rate": 0.2,
+  "seeds": [11, 23, 37],
+  "privacy": {
+    "total_zcdp_rho": 1.0,
+    "delta": 1e-5,
+    "adjacency": "replace-one participating clipped client update",
+    "accounting": "conservative composition without subsampling amplification"
+  },
+  "arms": ["nonprivate", "equal_wavelet", "unequal_wavelet"],
+  "boundary": "Developmental public-data gate only. Confirmation remains the preregistered Fashion-MNIST experiment."
+}

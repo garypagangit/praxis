@@ -1,0 +1,36 @@
+{
+  "experiment_id": "PX-061",
+  "stage": "gate1c_three_band_single_release_repair",
+  "dataset": "sklearn_digits",
+  "clients": 20,
+  "clients_per_round": 10,
+  "dirichlet_alpha": 0.3,
+  "rounds": 30,
+  "local_learning_rate": 0.2,
+  "seeds": [11, 23, 37, 51, 73],
+  "coefficient_bands": 3,
+  "level_bound_decay": 0.25,
+  "privacy": {
+    "total_zcdp_rho": 1.0,
+    "delta": 1e-5,
+    "adjacency": "replace-one participating clipped client update",
+    "accounting": "conservative composition without subsampling amplification"
+  },
+  "adaptive": {
+    "rho_fraction": 0.1,
+    "interval_rounds": 999,
+    "released_mean_multiplier": 1.5,
+    "floor_fraction": 0.05
+  },
+  "arms": [
+    "nonprivate",
+    "equal_wavelet",
+    "unequal_wavelet",
+    "adaptive_unequal_wavelet"
+  ],
+  "development_gate": {
+    "adaptive_gain_over_equal_percentage_points_min": 2.0,
+    "adaptive_seeds_improved_min": 4
+  },
+  "boundary": "Developmental repair registered after the eleven-level adaptive mechanism failed. Three public coefficient bands and one private warm-up release are used; no Fashion-MNIST confirmation claim is permitted."
+}

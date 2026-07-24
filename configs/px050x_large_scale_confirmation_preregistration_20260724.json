@@ -1,0 +1,39 @@
+{
+  "experiment_id": "PX-050X",
+  "title": "Independent large-scale confirmation of the repaired PX-050 package-install gate",
+  "registered_utc": "2026-07-24T00:01:00Z",
+  "status_at_registration": "DESIGN_FROZEN_BEFORE_CONFIRMATION_OUTCOME_INSPECTION",
+  "relationship_to_px050w": "PX-050W was a one-million-row discovery run. It had zero invalid allows but failed its exact-decision check on eight npm names beginning with two hyphens. The parser was repaired to distinguish its two generated valueless flags from registry package names, and this confirmation uses a fresh seed.",
+  "primary_question": "On an independently seeded one-million-command corpus, does the repaired frozen gate block every invalid or unsafe command and allow every supported safe-valid command?",
+  "source_artifact": {
+    "paper": "We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs",
+    "repository": "https://github.com/Spracks/PackageHallucination",
+    "repository_commit": "861921d4bb61722bcedf8773874565924950377e",
+    "zenodo_doi": "10.5281/zenodo.14676377"
+  },
+  "corpus": {
+    "total_rows": 1000000,
+    "seed": 50051,
+    "cells": [
+      {"ecosystem": "pypi", "label": "valid", "rows": 250000},
+      {"ecosystem": "pypi", "label": "invalid", "rows": 250000},
+      {"ecosystem": "npm", "label": "valid", "rows": 250000},
+      {"ecosystem": "npm", "label": "invalid", "rows": 250000}
+    ],
+    "generation": "Identical frozen generator and six command families used by PX-050W, with seed 50051 instead of 50050."
+  },
+  "primary_endpoints": {
+    "invalid_allow_count": 0,
+    "invalid_or_unsafe_exact_block_rate": 1.0,
+    "safe_valid_allow_rate": 1.0,
+    "invalid_allow_rate_one_sided_95pct_upper": 0.00001
+  },
+  "claim_if_passed": "Across a failed discovery run and an independently seeded confirmatory run totaling two million commands, the repaired PX-050 gate demonstrated large-scale robustness within the frozen PyPI/npm registries, supported command grammar, and preregistered mutation families.",
+  "forbidden_claims": [
+    "Universal package-install safety",
+    "Detection of malicious packages that exist in a registry",
+    "Robustness to arbitrary shell programs or unsupported package managers",
+    "Direct replication of the paper's withheld 576,000 per-prompt outputs",
+    "Temporal validity beyond the frozen artifact registry snapshot"
+  ]
+}
