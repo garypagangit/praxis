@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import subprocess
+import sys
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -15,6 +16,8 @@ from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 DEFAULT_CONFIG = ROOT / "configs/px057_h4_ltt_transfer_20260725.json"
 ENTRY = "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py"
 
@@ -121,6 +124,16 @@ def main() -> None:
         )
     environment = description["Environment"]
     current_head = output(["git", "rev-parse", "HEAD"])
+    capture_commit = environment["PX057_H4_GIT_COMMIT"]
+    if (
+        subprocess.run(
+            ["git", "merge-base", "--is-ancestor", capture_commit, current_head],
+            cwd=ROOT,
+            check=False,
+        ).returncode
+        != 0
+    ):
+        raise ValueError("cloud capture commit is not an ancestor of current HEAD")
     prefix = aws_config["s3_prefix"].strip("/")
     expected_result_uri = (
         f"s3://{aws_config['bucket']}/{prefix}/phase-a-runtime/{args.job_name}"
@@ -145,7 +158,7 @@ def main() -> None:
         "TOKENIZERS_PARALLELISM": "false",
         "PX057_H4_REPOSITORY_URL": aws_config["repository_url"],
         "PX057_H4_BRANCH": aws_config["branch"],
-        "PX057_H4_GIT_COMMIT": current_head,
+        "PX057_H4_GIT_COMMIT": capture_commit,
         "PX057_CONTAINER_IMAGE_DIGEST": aws_config[
             "container_image_digest"
         ],
@@ -219,6 +232,8 @@ def main() -> None:
         if (
             runtime.get("status") != "PASS"
             or runtime.get("scientific_data_generated") is not False
+            or runtime.get("config_sha256")
+            != hashlib.sha256(args.config.read_bytes()).hexdigest()
             or evidence.get("status") != "PASS"
             or evidence.get("scientific_data_generated") is not False
             or evidence.get("git_commit") != environment["PX057_H4_GIT_COMMIT"]
