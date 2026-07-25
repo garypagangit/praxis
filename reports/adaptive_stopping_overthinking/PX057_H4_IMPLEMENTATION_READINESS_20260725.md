@@ -56,6 +56,10 @@ The planned implementation consists of:
 | `scripts/run_px057_ltt_calibration.py` | Per-cell calibration, fixed-sequence certification, selection, and lock-manifest creation |
 | `scripts/run_px057_h4_holdout_gate.py` | Three-lock verification and one-time held-out point gates |
 | `scripts/freeze_px057_h4_phase_a.py` | GPU/runtime capture and the pushed pre-data Phase A freeze determination |
+| `scripts/submit_px057_h4_phase_a.py` | Digest-pinned SageMaker Phase A submission from an exact pushed Git commit |
+| `scripts/fetch_px057_h4_phase_a.py` | Version-specific runtime retrieval and cloud-job evidence binding |
+| `cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py` | Full-Git-clone runtime capture with least-privilege secret retrieval |
+| `cloud_jobs/px057_h4_phase_a_20260725/sagemaker_role_policy.json` | H4-prefix S3 and exact-secret least-privilege execution-role policy |
 | `scripts/prepare_px057_h4_manual_audit.py` | Gold-free blinded audit-packet export and committed-judgment join |
 | `scripts/adjudicate_px057_h4.py` | Independent source/split/gold/policy/statistical/gate replay plus replicated canonical Git-lock and manual-audit schema checks |
 | `tests/test_px057_h4_common.py` | Policy-order, exact-risk, sensitivity, and held-out count-gate tests |
@@ -71,7 +75,7 @@ committed before scientific collection.
 The implementation branch completed the following non-scientific checks before
 publication:
 
-- all seven H4 scripts pass Python bytecode compilation;
+- all ten H4 scripts/entry points pass Python bytecode compilation;
 - the two JSON configs parse successfully;
 - 39 focused PX-057 tests pass;
 - an independent integer-combination implementation matches the primary exact
@@ -142,17 +146,21 @@ implementation commit. Use this sequence:
 
 1. Commit and push the protocol, config, prompt file, requirements, code,
    tests, and explicit split manifests.
-2. In the intended GPU container, set `PX057_CONTAINER_IMAGE_DIGEST` to the
-   operator-verified expected image digest and run
-   `freeze_px057_h4_phase_a.py --capture-runtime
-   --container-image-digest sha256:<digest>`. This loads both pinned models
-   only on a synthetic non-benchmark prompt.
-3. Commit and push `runtime_environment.json`.
-4. Run `freeze_px057_h4_phase_a.py --freeze`. It verifies the pushed base
+2. Apply the checked-in least-privilege SageMaker role policy, require bucket
+   versioning, and run `submit_px057_h4_phase_a.py`. The submitter resolves the
+   frozen ECR tag, requires the expected digest, requires a clean pushed branch,
+   and launches the image by digest. The job clones that exact commit, reads the
+   gated-model token from Secrets Manager without logging it, and invokes
+   `freeze_px057_h4_phase_a.py --capture-runtime` on synthetic prompts only.
+3. After the job completes, run `fetch_px057_h4_phase_a.py --job-name <name>`.
+   It downloads the exact S3 object versions, verifies their hashes, and writes
+   `runtime_environment.json` plus `phase_a_cloud_job.json`.
+4. Commit and push both retrieved Phase A evidence files.
+5. Run `freeze_px057_h4_phase_a.py --freeze`. It verifies the pushed base
    commit, all protected hashes, the empty scientific-output state, and the
    focused PX-057 test suite.
-5. Commit and push `phase_a_freeze.json`.
-6. Only then may the calibration collector run. It rechecks the Phase A
+6. Commit and push `phase_a_freeze.json`.
+7. Only then may the calibration collector run. It rechecks the Phase A
    hashes, remote commit, container digest, package versions, CUDA runtime,
    GPU identities, model revisions, dtype, and tokenizer chat-template hash.
 

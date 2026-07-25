@@ -1,0 +1,50 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PX057H4BucketInformation",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:GetBucketVersioning",
+        "s3:ListBucketMultipartUploads"
+      ],
+      "Resource": "arn:aws:s3:::praxis-garypagan-272615233626-us-east-1"
+    },
+    {
+      "Sid": "PX057H4ListPrefix",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:ListBucketVersions"
+      ],
+      "Resource": "arn:aws:s3:::praxis-garypagan-272615233626-us-east-1",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "experiments/px057-adaptive-stopping/h4-certified-risk-20260725",
+            "experiments/px057-adaptive-stopping/h4-certified-risk-20260725/*"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "PX057H4ObjectAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion",
+        "s3:PutObject",
+        "s3:AbortMultipartUpload",
+        "s3:ListMultipartUploadParts"
+      ],
+      "Resource": "arn:aws:s3:::praxis-garypagan-272615233626-us-east-1/experiments/px057-adaptive-stopping/h4-certified-risk-20260725/*"
+    },
+    {
+      "Sid": "PX057H4ReadHuggingFaceToken",
+      "Effect": "Allow",
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "arn:aws:secretsmanager:us-east-1:272615233626:secret:praxis/huggingface/token-AsBt3Y"
+    }
+  ]
+}

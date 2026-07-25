@@ -49,6 +49,8 @@ def validate_static_config(config_path: Path, config: dict[str, Any]) -> None:
 
 def config_schema_checks(config: dict[str, Any]) -> dict[str, bool]:
     risk = config["risk_control"]
+    phase = config["phase_a"]
+    aws_config = phase["aws"]
     grid = {
         (int(min_step), int(patience), float(threshold))
         for min_step in risk["policy_grid"]["min_step"]
@@ -121,6 +123,22 @@ def config_schema_checks(config: dict[str, Any]) -> dict[str, bool]:
                 }
             )
             == 1
+        ),
+        "phase_a_cloud_identity_frozen": (
+            aws_config["profile"] == "praxis-build"
+            and aws_config["region"] == "us-east-1"
+            and aws_config["instance_type"] == "ml.g5.2xlarge"
+            and int(aws_config["volume_size_gb"]) == 200
+            and re.fullmatch(
+                r"sha256:[0-9a-f]{64}",
+                str(aws_config["container_image_digest"]),
+            )
+            is not None
+            and aws_config["container_image_pinned_uri"].endswith(
+                "@" + aws_config["container_image_digest"]
+            )
+            and phase["cloud_job_manifest"]
+            in set(phase["protected_paths"])
         ),
     }
 
@@ -275,6 +293,10 @@ def freeze_phase_a(
     runtime_path = repo_path(phase["runtime_manifest"])
     committed_file_info(ROOT, runtime_path)
     runtime = read_json(runtime_path)
+    cloud_job_path = repo_path(phase["cloud_job_manifest"])
+    committed_file_info(ROOT, cloud_job_path)
+    cloud_job = read_json(cloud_job_path)
+    aws_config = phase["aws"]
     if (
         runtime.get("status") != "PASS"
         or runtime.get("scientific_data_generated") is not False
@@ -288,6 +310,69 @@ def freeze_phase_a(
         or not runtime.get("cuda_devices")
     ):
         raise ValueError("runtime manifest does not satisfy the frozen config")
+    versioned_objects = (
+        cloud_job.get("source_artifact", {}),
+        cloud_job.get("runtime_object", {}),
+        cloud_job.get("cloud_evidence_object", {}),
+        cloud_job.get("model_artifact", {}),
+    )
+    cloud_prefix = aws_config["s3_prefix"].strip("/")
+    expected_result_uri = (
+        f"s3://{aws_config['bucket']}/{cloud_prefix}/phase-a-runtime/"
+        f"{cloud_job.get('job_name', '')}"
+    )
+    expected_source_uri = (
+        f"s3://{aws_config['bucket']}/{cloud_prefix}/code/"
+        f"{cloud_job.get('job_name', '')}/source.tar.gz"
+    )
+    expected_output_uri = (
+        f"s3://{aws_config['bucket']}/{cloud_prefix}/sagemaker-output"
+    )
+    if (
+        cloud_job.get("status") != "PASS"
+        or cloud_job.get("scientific_data_generated") is not False
+        or cloud_job.get("job_status") != "Completed"
+        or cloud_job.get("git_commit") != runtime.get("capture_base_commit")
+        or cloud_job.get("role_arn") != aws_config["role_arn"]
+        or cloud_job.get("repository_url") != aws_config["repository_url"]
+        or cloud_job.get("branch") != aws_config["branch"]
+        or cloud_job.get("huggingface_secret_id")
+        != aws_config["huggingface_secret_id"]
+        or cloud_job.get("runtime_result_uri") != expected_result_uri
+        or cloud_job.get("output_s3_path") != expected_output_uri
+        or int(cloud_job.get("max_runtime_seconds", -1))
+        != int(aws_config["max_runtime_seconds"])
+        or cloud_job.get("network_isolation") is not False
+        or cloud_job.get("entrypoint_sha256")
+        != sha256_file(
+            repo_path(
+                "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py"
+            )
+        )
+        or cloud_job.get("container_image_digest")
+        != aws_config["container_image_digest"]
+        or cloud_job.get("container_image_pinned_uri")
+        != aws_config["container_image_pinned_uri"]
+        or cloud_job.get("resource_config", {}).get("InstanceType")
+        != aws_config["instance_type"]
+        or int(cloud_job.get("resource_config", {}).get("InstanceCount", -1))
+        != 1
+        or int(
+            cloud_job.get("resource_config", {}).get("VolumeSizeInGB", -1)
+        )
+        != int(aws_config["volume_size_gb"])
+        or cloud_job.get("runtime_object", {}).get("sha256")
+        != sha256_file(runtime_path)
+        or cloud_job.get("source_artifact", {}).get("uri")
+        != expected_source_uri
+        or any(not item.get("version_id") for item in versioned_objects)
+        or any(not item.get("sha256") for item in versioned_objects)
+        or any(
+            item.get("server_side_encryption") not in {"AES256", "aws:kms"}
+            for item in versioned_objects
+        )
+    ):
+        raise ValueError("Phase A cloud-job evidence does not satisfy the freeze")
     for model_key, model_config in config["models"].items():
         smoke = runtime["model_smokes"][model_key]
         if (
