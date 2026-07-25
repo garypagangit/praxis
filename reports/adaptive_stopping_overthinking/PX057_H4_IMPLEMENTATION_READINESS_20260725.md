@@ -1,6 +1,6 @@
 # PX-057 H4 Implementation Readiness
 
-**Protocol:** PX-057 H4 Revision 2.1
+**Protocol:** PX-057 H4 Revision 2.2
 **Date:** July 25, 2026
 **Current decision:** `NO-GO — PRE-DATA LOCKS NOT YET COMMITTED`
 
@@ -60,11 +60,15 @@ The planned implementation consists of:
 | `scripts/fetch_px057_h4_phase_a.py` | Version-specific runtime retrieval and cloud-job evidence binding |
 | `cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py` | Full-Git-clone runtime capture with least-privilege secret retrieval |
 | `cloud_jobs/px057_h4_phase_a_20260725/sagemaker_role_policy.json` | H4-prefix S3 and exact-secret least-privilege execution-role policy |
+| `scripts/submit_px057_h4_calibration.py` | Quota-aware, first-attempt-only calibration launch registration and exact-version source bootstrap |
+| `scripts/fetch_px057_h4_calibration.py` | Registered-job-only, version-specific calibration retrieval and byte verification |
+| `cloud_jobs/px057_h4_calibration_20260725/sagemaker_entry.py` | One-cell calibration collection through the frozen scientific collector |
 | `scripts/prepare_px057_h4_manual_audit.py` | Gold-free blinded audit-packet export and committed-judgment join |
 | `scripts/adjudicate_px057_h4.py` | Independent source/split/gold/policy/statistical/gate replay plus replicated canonical Git-lock and manual-audit schema checks |
 | `tests/test_px057_h4_common.py` | Policy-order, exact-risk, sensitivity, and held-out count-gate tests |
 | `tests/test_px057_h4_trace_collection.py` | Split, prompt, and extraction tests |
 | `tests/test_px057_h4_integrity.py` | Gold recomputation, blinded-audit, Git-lock, and independent-tail tests |
+| `tests/test_px057_h4_calibration_cloud.py` | Source-before-execution, digest, cell identity, and manifest-path transport tests |
 
 Names may not be silently changed after the freeze. If a final implementation
 uses a different path, the preregistration and config must be amended and
@@ -75,9 +79,9 @@ committed before scientific collection.
 The implementation branch completed the following non-scientific checks before
 publication:
 
-- all ten H4 scripts/entry points pass Python bytecode compilation;
+- all registered H4 scripts/entry points pass Python bytecode compilation;
 - the two JSON configs parse successfully;
-- 39 focused PX-057 tests pass;
+- 44 focused PX-057 tests pass;
 - an independent integer-combination implementation matches the primary exact
   hypergeometric tails;
 - both upstream source byte hashes and row counts reproduce;
@@ -95,7 +99,7 @@ Every row must be evidenced in one external freeze manifest.
 
 | Check | Required evidence | Draft status |
 |---|---|---|
-| Revision 2.1 preregistration | Exact file SHA-256 and Git commit | PENDING |
+| Revision 2.2 preregistration | Exact file SHA-256 and Git commit | PENDING |
 | Configuration | Committed, clean file; schema validation PASS | PENDING |
 | Model identities | Exact Qwen/Llama model and tokenizer revisions in config | PENDING |
 | Model access | Synthetic-only load/generation smoke; no benchmark prompt | PENDING |
@@ -118,6 +122,9 @@ Every row must be evidenced in one external freeze manifest.
 | Code quality | Syntax checks, targeted tests, and independent review PASS | PENDING |
 | Freeze manifest | External byte hashes; no self-hashing JSON claim | PENDING |
 | Repository lock | All above committed and clean; remote commit SHA recorded | PENDING |
+| Calibration transport | Submitter, fetcher, entry, LF rule, and tests included in the protected set | PENDING |
+| Source bootstrap | Exact S3 VersionId and SHA-256 pass before extraction or Python execution | PENDING |
+| First-attempt rule | One immutable launch-manifest path per cell; retry under this experiment ID forbidden | PENDING |
 
 ### Phase A hard-stop tests
 
@@ -154,12 +161,12 @@ implementation commit. Use this sequence:
    `freeze_px057_h4_phase_a.py --capture-runtime` on synthetic prompts only.
 3. After the job completes, run `fetch_px057_h4_phase_a.py --job-name <name>`.
    It downloads the exact S3 object versions, verifies their hashes, and writes
-   `runtime_environment.json` plus `phase_a_cloud_job.json`.
+   `runtime_environment_v2.json` plus `phase_a_cloud_job_v2.json`.
 4. Commit and push both retrieved Phase A evidence files.
 5. Run `freeze_px057_h4_phase_a.py --freeze`. It verifies the pushed base
    commit, all protected hashes, the empty scientific-output state, and the
    focused PX-057 test suite.
-6. Commit and push `phase_a_freeze.json`.
+6. Commit and push `phase_a_freeze_v2.json`.
 7. Only then may the calibration collector run. It rechecks the Phase A
    hashes, remote commit, container digest, package versions, CUDA runtime,
    GPU identities, model revisions, dtype, and tokenizer chat-template hash.
@@ -180,12 +187,15 @@ Calibration is one global phase across all cells.
 | C2 calibration completeness | 500 unique traces × 8 rounds = 4,000 generations | NOT STARTED |
 | C3 calibration completeness | 500 unique traces × 8 rounds = 4,000 generations | NOT STARTED |
 | Total calibration completeness | 1,500 traces; 12,000 generations | NOT STARTED |
+| C1 sole launch registration | ARN/request/source identity committed and pushed before fetch | NOT STARTED |
+| C2 sole launch registration | Same; no second attempt under this experiment ID | NOT STARTED |
+| C3 sole launch registration | Same | NOT STARTED |
 | C1 determination | All 30 policies, exact p-values, reached flags, selected policy or empty prefix | NOT STARTED |
 | C2 determination | Same required fields | NOT STARTED |
 | C3 determination | Same required fields | NOT STARTED |
 | Fixed-sequence verification | No ordering value derived from calibration metrics | NOT STARTED |
 | Independent recalculation | Exact match for p-values, prefix, and tie-break selection | NOT STARTED |
-| C1 lock manifest | Inputs, outputs, environment, config, code, split, hashes | NOT STARTED |
+| C1 lock manifest | Inputs, outputs, launch, cloud manifest, environment, config, code, split, hashes | NOT STARTED |
 | C2 lock manifest | Same | NOT STARTED |
 | C3 lock manifest | Same | NOT STARTED |
 | Global commit | All three determinations and locks committed together or referenced by one global lock commit | NOT STARTED |
@@ -198,10 +208,10 @@ negative H4a outcome; held-out generation for that cell is skipped. No other
 cell's held-out result may influence calibration, code, or policy selection.
 
 The current branch verifies that every calibration lock commit is present on a
-remote Git ref before holdout generation. S3 version lookup is not automated;
-when AWS/S3 is used, the cloud-immutability row must remain `NOT STARTED` until
-an external retrieval manifest is captured and checked. This limitation must
-be carried into the final report.
+remote Git ref before holdout generation. Revision 2.2 also requires each
+determination and lock to bind the committed pre-result launch registration
+and the exact-version cloud retrieval manifest. Missing, dirty, unpushed, or
+hash-mismatched transport evidence blocks holdout generation.
 
 ## 6. Phase C — held-out execution and audit
 
@@ -271,7 +281,7 @@ Cost approval does not relax any scientific lock.
 
 The final evidence package must include, at minimum:
 
-- Revision 2.1 preregistration and readiness record;
+- Revision 2.2 preregistration and readiness record;
 - frozen config and exact environment manifest;
 - source and model identity manifest;
 - prompt files and hashes;

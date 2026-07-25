@@ -1,14 +1,14 @@
 {
   "experiment_id": "px057-h4-ltt-certified-transfer-20260725",
   "px_id": "PX-057",
-  "protocol_revision": "2.1-predata-correction",
+  "protocol_revision": "2.2-predata-cloud-transport",
   "protocol_status": "PRE_DATA_FROZEN",
   "phase_a": {
     "requirements_path": "requirements-px057-h4.txt",
     "requirements_sha256": "5aa1adf7ce4187838a9f2867c9e6919bb5b06e11f90d70194ab48fc09984d163",
-    "runtime_manifest": "manifests/px057_h4_20260725/runtime_environment.json",
-    "freeze_determination": "manifests/px057_h4_20260725/phase_a_freeze.json",
-    "cloud_job_manifest": "manifests/px057_h4_20260725/phase_a_cloud_job.json",
+    "runtime_manifest": "manifests/px057_h4_20260725/runtime_environment_v2.json",
+    "freeze_determination": "manifests/px057_h4_20260725/phase_a_freeze_v2.json",
+    "cloud_job_manifest": "manifests/px057_h4_20260725/phase_a_cloud_job_v2.json",
     "aws": {
       "profile": "praxis-build",
       "region": "us-east-1",
@@ -59,15 +59,27 @@
       "scripts/freeze_px057_h4_phase_a.py",
       "scripts/submit_px057_h4_phase_a.py",
       "scripts/fetch_px057_h4_phase_a.py",
+      "scripts/submit_px057_h4_calibration.py",
+      "scripts/fetch_px057_h4_calibration.py",
       "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py",
       "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_role_policy.json",
-      "manifests/px057_h4_20260725/phase_a_cloud_job.json",
+      "cloud_jobs/px057_h4_calibration_20260725/.gitattributes",
+      "cloud_jobs/px057_h4_calibration_20260725/sagemaker_entry.py",
+      "manifests/px057_h4_20260725/phase_a_cloud_job_v2.json",
       "scripts/run_px057_trace_collection.py",
       "scripts/run_px057_adaptive_stopping_gate.py",
       "tests/test_px057_h4_common.py",
       "tests/test_px057_h4_trace_collection.py",
-      "tests/test_px057_h4_integrity.py"
+      "tests/test_px057_h4_integrity.py",
+      "tests/test_px057_h4_calibration_cloud.py"
     ]
+  },
+  "calibration_transport": {
+    "max_runtime_seconds": 86400,
+    "sagemaker_quota_code": "L-2D6DEB3C",
+    "first_attempt_only": true,
+    "source_bootstrap": "explicit_s3_version_and_sha256_before_extraction",
+    "registration_rule": "Each cell's sole launch ARN must be written, committed, and pushed before its cloud result may be fetched or evaluated."
   },
   "models": {
     "gate2_model": {
@@ -187,6 +199,8 @@
       "eligible_population_size": 1119,
       "calibration_manifest": "manifests/px057_h4_20260725/gsm8k_calibration.jsonl",
       "holdout_manifest": "manifests/px057_h4_20260725/gsm8k_holdout.jsonl",
+      "calibration_launch_manifest": "manifests/px057_h4_20260725/calibration_launches/cell1_llama31_gsm8k.json",
+      "calibration_cloud_manifest": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell1_llama31_gsm8k.json",
       "output_dirs": {
         "calibration": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/calibration",
         "holdout": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/holdout"
@@ -204,6 +218,8 @@
       "eligible_population_size": 1172,
       "calibration_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
       "holdout_manifest": "manifests/px057_h4_20260725/arc_challenge_holdout.jsonl",
+      "calibration_launch_manifest": "manifests/px057_h4_20260725/calibration_launches/cell2_qwen25_arc.json",
+      "calibration_cloud_manifest": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell2_qwen25_arc.json",
       "output_dirs": {
         "calibration": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/calibration",
         "holdout": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/holdout"
@@ -221,6 +237,8 @@
       "eligible_population_size": 1172,
       "calibration_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
       "holdout_manifest": "manifests/px057_h4_20260725/arc_challenge_holdout.jsonl",
+      "calibration_launch_manifest": "manifests/px057_h4_20260725/calibration_launches/cell3_llama31_arc.json",
+      "calibration_cloud_manifest": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell3_llama31_arc.json",
       "output_dirs": {
         "calibration": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/calibration",
         "holdout": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/holdout"

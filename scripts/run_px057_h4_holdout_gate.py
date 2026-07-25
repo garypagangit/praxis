@@ -99,6 +99,14 @@ def verify_all_locks(
             raise ValueError(f"{lock_path}: H4a outcome mismatch")
         if determination["calibration"]["selected_policy"] != lock["selected_policy"]:
             raise ValueError(f"{lock_path}: selected policy mismatch")
+        transport = determination["input_artifacts"].get("calibration_transport", {})
+        if (
+            transport.get("launch_registration", {}).get("path")
+            != str(cell["calibration_launch_manifest"])
+            or transport.get("cloud_job_manifest", {}).get("path")
+            != str(cell["calibration_cloud_manifest"])
+        ):
+            raise ValueError(f"{lock_path}: calibration transport path mismatch")
         expected_protected_paths = {
             config_path.relative_to(ROOT).as_posix(),
             str(config["generation"]["prompt_template_path"]),
@@ -107,6 +115,8 @@ def verify_all_locks(
             str(config["phase_a"]["freeze_determination"]),
             str(config["split_design"]["freeze_manifest"]),
             str(cell["calibration_manifest"]),
+            str(cell["calibration_launch_manifest"]),
+            str(cell["calibration_cloud_manifest"]),
             str(cell["ltt_determination"]),
             *[
                 str(metadata["path"])

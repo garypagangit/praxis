@@ -68,7 +68,7 @@ def config_schema_checks(config: dict[str, Any]) -> dict[str, bool]:
     return {
         "experiment_identity": (
             config["px_id"] == "PX-057"
-            and config["protocol_revision"] == "2.1-predata-correction"
+            and config["protocol_revision"] == "2.2-predata-cloud-transport"
         ),
         "three_unique_cells": (
             len(cells) == 3
@@ -139,6 +139,29 @@ def config_schema_checks(config: dict[str, Any]) -> dict[str, bool]:
             )
             and phase["cloud_job_manifest"]
             in set(phase["protected_paths"])
+        ),
+        "calibration_transport_frozen": (
+            int(config["calibration_transport"]["max_runtime_seconds"])
+            == 86400
+            and config["calibration_transport"]["sagemaker_quota_code"]
+            == "L-2D6DEB3C"
+            and config["calibration_transport"]["first_attempt_only"] is True
+            and config["calibration_transport"]["source_bootstrap"]
+            == "explicit_s3_version_and_sha256_before_extraction"
+            and len(
+                {
+                    str(cell["calibration_launch_manifest"])
+                    for cell in cells
+                }
+            )
+            == 3
+            and len(
+                {
+                    str(cell["calibration_cloud_manifest"])
+                    for cell in cells
+                }
+            )
+            == 3
         ),
     }
 
@@ -403,6 +426,8 @@ def freeze_phase_a(
         for cell in config["cells"]
         for value in (
             *cell["output_dirs"].values(),
+            cell["calibration_launch_manifest"],
+            cell["calibration_cloud_manifest"],
             cell["ltt_determination"],
             cell["ltt_lock_manifest"],
             cell["manual_audit_blinded"],
@@ -429,6 +454,7 @@ def freeze_phase_a(
         "tests/test_px057_h4_integrity.py",
         "tests/test_px057_adaptive_stopping.py",
         "tests/test_px057_trace_collection.py",
+        "tests/test_px057_h4_calibration_cloud.py",
         "-q",
     ]
     test_result = subprocess.run(

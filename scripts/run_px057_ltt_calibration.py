@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -36,6 +37,88 @@ def get_cell(config: dict[str, Any], cell_id: str) -> dict[str, Any]:
     if cell is None:
         raise ValueError(f"unknown cell: {cell_id}")
     return cell
+
+
+def committed_and_pushed(path: Path) -> dict[str, Any]:
+    committed = committed_file_info(ROOT, path)
+    remote_refs = [
+        value.strip()
+        for value in subprocess.check_output(
+            [
+                "git",
+                "branch",
+                "-r",
+                "--contains",
+                committed["last_change_commit"],
+            ],
+            cwd=ROOT,
+            text=True,
+        ).splitlines()
+        if value.strip()
+    ]
+    if not remote_refs:
+        raise ValueError(f"{path}: artifact has not been pushed")
+    return {**committed, "remote_refs": remote_refs}
+
+
+def verify_calibration_transport(
+    config: dict[str, Any],
+    cell: dict[str, Any],
+    collection_bundle: dict[str, Any],
+) -> dict[str, Any]:
+    launch_path = repo_path(cell["calibration_launch_manifest"])
+    cloud_path = repo_path(cell["calibration_cloud_manifest"])
+    launch_commit = committed_and_pushed(launch_path)
+    cloud_commit = committed_and_pushed(cloud_path)
+    launch = read_json(launch_path)
+    cloud = read_json(cloud_path)
+    if (
+        launch.get("experiment_id") != config["experiment_id"]
+        or launch.get("stage") != "H4_calibration_launch_registration"
+        or launch.get("status") != "REGISTERED_PRE_RESULT"
+        or launch.get("scientific_result_observed") is not False
+        or launch.get("cell_id") != cell["cell_id"]
+        or cloud.get("experiment_id") != config["experiment_id"]
+        or cloud.get("stage") != "H4_calibration_cloud_job_manifest"
+        or cloud.get("status") != "PASS"
+        or cloud.get("scientific_data_generated") is not True
+        or cloud.get("split") != "calibration"
+        or cloud.get("cell_id") != cell["cell_id"]
+        or cloud.get("job_name") != launch.get("job_name")
+        or cloud.get("job_arn") != launch.get("training_job_arn")
+        or cloud.get("git_commit") != launch.get("git_commit")
+        or cloud.get("source_artifact", {}).get("version_id")
+        != launch.get("code_version_id")
+        or cloud.get("source_artifact", {}).get("sha256")
+        != launch.get("code_sha256")
+        or cloud.get("launch_registration", {}).get("path")
+        != launch_path.relative_to(ROOT).as_posix()
+        or cloud.get("launch_registration", {}).get("sha256")
+        != sha256_file(launch_path)
+        or not cloud.get("cloud_evidence_object", {}).get("version_id")
+        or not cloud.get("model_artifact", {}).get("version_id")
+    ):
+        raise ValueError("calibration transport provenance is incomplete or inconsistent")
+    cloud_files = cloud.get("collection_objects", {})
+    bundle_files = collection_bundle["files"]
+    if set(cloud_files) != set(bundle_files) or any(
+        cloud_files[name].get("sha256") != bundle_files[name]["sha256"]
+        or not cloud_files[name].get("version_id")
+        for name in bundle_files
+    ):
+        raise ValueError("calibration cloud objects differ from the verified bundle")
+    return {
+        "launch_registration": {
+            "path": launch_path.relative_to(ROOT).as_posix(),
+            "sha256": sha256_file(launch_path),
+            "commit": launch_commit,
+        },
+        "cloud_job_manifest": {
+            "path": cloud_path.relative_to(ROOT).as_posix(),
+            "sha256": sha256_file(cloud_path),
+            "commit": cloud_commit,
+        },
+    }
 
 
 def run_calibration(
@@ -95,6 +178,9 @@ def run_calibration(
         expected_prompt_id=config["generation"]["prompt_template_id"],
         expected_prompt_sha256=config["generation"]["prompt_template_sha256"],
     )
+    calibration_transport = verify_calibration_transport(
+        config, cell, collection_bundle
+    )
     traces, split_rows = load_scored_traces(
         trace_path, split_path, expected_rounds=rounds
     )
@@ -143,6 +229,7 @@ def run_calibration(
                 "rows": len(traces),
             },
             "collection_bundle": collection_bundle,
+            "calibration_transport": calibration_transport,
         },
         "code_evidence": code_evidence,
         "phase_a_evidence": phase_a_evidence,
@@ -221,6 +308,13 @@ def write_lock(
         if metadata["sha256"] != sha256_file(artifact_path):
             raise ValueError(f"{artifact_path}: determination bundle hash mismatch")
         committed_file_info(ROOT, artifact_path)
+    for metadata in artifacts["calibration_transport"].values():
+        artifact_path = repo_path(metadata["path"])
+        if metadata["sha256"] != sha256_file(artifact_path):
+            raise ValueError(
+                f"{artifact_path}: determination transport hash mismatch"
+            )
+        committed_file_info(ROOT, artifact_path)
     traces, _ = load_scored_traces(
         trace_path,
         split_path,
@@ -249,6 +343,12 @@ def write_lock(
             config["split_design"]["freeze_manifest"]
         ),
         "calibration_split": split_path,
+        "calibration_launch": repo_path(
+            artifacts["calibration_transport"]["launch_registration"]["path"]
+        ),
+        "calibration_cloud_job": repo_path(
+            artifacts["calibration_transport"]["cloud_job_manifest"]["path"]
+        ),
         "determination": determination_path,
         **{
             f"collection/{name}": repo_path(metadata["path"])
