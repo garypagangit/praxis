@@ -127,7 +127,7 @@ def main() -> None:
     source_sha256 = required_env("PX057_H4_SOURCE_SHA256")
     cell_id = required_env("PX057_H4_CELL_ID")
 
-    staged_archive = Path("/tmp/px057-h4-source.tar.gz")
+    staged_archive = Path("/tmp/s")
     if not staged_archive.is_file() or sha256_file(staged_archive) != source_sha256:
         raise ValueError("staged source archive differs from the submitted SHA-256")
 
@@ -151,6 +151,7 @@ def main() -> None:
         or transport["first_attempt_only"] is not True
         or transport["job_name_scheme"]
         != "px057-h4-cal-{c1|c2|c3}-r2-20260725"
+        or int(transport["container_argument_max_chars"]) != 256
         or transport["source_bootstrap"]
         != "explicit_s3_version_and_sha256_before_extraction"
     ):

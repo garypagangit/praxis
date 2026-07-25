@@ -21,20 +21,15 @@ ENTRY = "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py"
 
 
 def source_launch_command() -> str:
-    archive = "/tmp/px057-h4-phase-a-source.tar.gz"
-    return (
-        "set -euo pipefail && "
-        "mkdir -p /opt/ml/code && "
-        "aws s3api get-object "
-        "--bucket \"$PX057_H4_SOURCE_BUCKET\" "
-        "--key \"$PX057_H4_SOURCE_KEY\" "
-        "--version-id \"$PX057_H4_SOURCE_VERSION_ID\" "
-        f"--region \"$AWS_REGION\" {archive} >/dev/null && "
-        f"printf '%s  %s\\n' \"$PX057_H4_SOURCE_SHA256\" {archive} "
-        "| sha256sum -c - && "
-        f"tar -xzf {archive} -C /opt/ml/code && "
+    command = (
+        "a=/tmp/s;mkdir -p /opt/ml/code&&aws s3api get-object "
+        "--bucket \"$B\" --key \"$K\" --version-id \"$V\" $a>/dev/null&&"
+        "echo \"$H  $a\"|sha256sum -c -&&tar xzf $a -C /opt/ml/code&&"
         f"python /opt/ml/code/{ENTRY}"
     )
+    if len(command) > 256:
+        raise ValueError("Phase A bootstrap exceeds SageMaker's 256-char limit")
+    return command
 
 
 def command_output(command: list[str]) -> str:
@@ -111,6 +106,7 @@ def training_request(
         },
         "Environment": {
             "AWS_REGION": aws_config["region"],
+            "AWS_DEFAULT_REGION": aws_config["region"],
             "HF_HOME": "/opt/ml/input/data/huggingface",
             "TOKENIZERS_PARALLELISM": "false",
             "PX057_H4_REPOSITORY_URL": aws_config["repository_url"],
@@ -126,6 +122,8 @@ def training_request(
             "PX057_H4_SOURCE_KEY": code_uri.split(
                 f"s3://{aws_config['bucket']}/", 1
             )[1],
+            "B": aws_config["bucket"],
+            "K": code_uri.split(f"s3://{aws_config['bucket']}/", 1)[1],
         },
         "EnableNetworkIsolation": False,
         "Tags": [
@@ -263,6 +261,8 @@ def main() -> None:
             {
                 "PX057_H4_SOURCE_VERSION_ID": code_head["VersionId"],
                 "PX057_H4_SOURCE_SHA256": archive_sha256,
+                "V": code_head["VersionId"],
+                "H": archive_sha256,
             }
         )
         request_path = temp_path / "create-training-job.json"

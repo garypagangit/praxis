@@ -152,6 +152,7 @@ def main() -> None:
     ]
     expected_environment = {
         "AWS_REGION": region,
+        "AWS_DEFAULT_REGION": region,
         "HF_HOME": "/opt/ml/input/data/huggingface",
         "TOKENIZERS_PARALLELISM": "false",
         "PX057_H4_REPOSITORY_URL": aws_config["repository_url"],
@@ -169,6 +170,10 @@ def main() -> None:
         "PX057_H4_SOURCE_SHA256": environment.get("PX057_H4_SOURCE_SHA256"),
         "PX057_H4_SOURCE_BUCKET": aws_config["bucket"],
         "PX057_H4_SOURCE_KEY": f"{prefix}/code/{args.job_name}/source.tar.gz",
+        "B": aws_config["bucket"],
+        "K": f"{prefix}/code/{args.job_name}/source.tar.gz",
+        "V": environment.get("PX057_H4_SOURCE_VERSION_ID"),
+        "H": environment.get("PX057_H4_SOURCE_SHA256"),
     }
     algorithm = description["AlgorithmSpecification"]
     resource = description["ResourceConfig"]

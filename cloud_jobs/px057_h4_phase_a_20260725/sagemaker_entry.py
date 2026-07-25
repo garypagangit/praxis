@@ -158,7 +158,7 @@ def main() -> None:
     source_version_id = required_env("PX057_H4_SOURCE_VERSION_ID")
     source_sha256 = required_env("PX057_H4_SOURCE_SHA256")
 
-    staged_archive = Path("/tmp/px057-h4-phase-a-source.tar.gz")
+    staged_archive = Path("/tmp/s")
     if not staged_archive.is_file() or sha256_file(staged_archive) != source_sha256:
         raise ValueError("staged Phase A source differs from the submitted SHA-256")
 

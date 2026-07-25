@@ -121,6 +121,7 @@ def expected_environment(
     )
     return {
         "AWS_REGION": aws_config["region"],
+        "AWS_DEFAULT_REGION": aws_config["region"],
         "HF_HOME": "/opt/ml/input/data/huggingface",
         "TOKENIZERS_PARALLELISM": "false",
         "PX057_H4_REPOSITORY_URL": aws_config["repository_url"],
@@ -136,6 +137,10 @@ def expected_environment(
         "PX057_H4_SOURCE_KEY": (
             f"{prefix}/code/{job_name}/source.tar.gz"
         ),
+        "B": aws_config["bucket"],
+        "K": f"{prefix}/code/{job_name}/source.tar.gz",
+        "V": None,
+        "H": None,
         "PX057_H4_CELL_ID": cell_id,
     }
 
@@ -174,6 +179,8 @@ def verify_job_request(
         "PX057_H4_SOURCE_VERSION_ID"
     )
     expected_env["PX057_H4_SOURCE_SHA256"] = environment.get("PX057_H4_SOURCE_SHA256")
+    expected_env["V"] = environment.get("PX057_H4_SOURCE_VERSION_ID")
+    expected_env["H"] = environment.get("PX057_H4_SOURCE_SHA256")
     algorithm = description["AlgorithmSpecification"]
     resource = description["ResourceConfig"]
     source_data = description["InputDataConfig"][0]["DataSource"]["S3DataSource"]

@@ -43,6 +43,7 @@ def test_calibration_transport_is_part_of_the_predata_protocol() -> None:
     assert transport["job_name_scheme"] == (
         "px057-h4-cal-{c1|c2|c3}-r2-20260725"
     )
+    assert transport["container_argument_max_chars"] == 256
     assert transport["max_runtime_seconds"] == CALIBRATION_MAX_RUNTIME_SECONDS
     assert transport["sagemaker_quota_code"] == SAGEMAKER_G5_2XL_QUOTA_CODE
     assert transport["source_bootstrap"] == (
@@ -59,18 +60,19 @@ def test_calibration_transport_is_part_of_the_predata_protocol() -> None:
 
 def test_source_is_version_and_hash_checked_before_extraction() -> None:
     launch = source_launch_command()
-    assert launch.startswith("set -euo pipefail")
+    assert len(launch) <= 256
     version_check = launch.index("--version-id")
     hash_check = launch.index("sha256sum -c -")
-    extraction = launch.index("tar -xzf")
+    extraction = launch.index("tar xzf")
     execution = launch.index(f"python /opt/ml/code/{ENTRY}")
     assert version_check < hash_check < extraction < execution
 
 
 def test_phase_a_v2_uses_configured_runtime_and_authenticated_source() -> None:
     launch = phase_a_source_launch_command()
+    assert len(launch) <= 256
     assert launch.index("--version-id") < launch.index("sha256sum -c -")
-    assert launch.index("sha256sum -c -") < launch.index("tar -xzf")
+    assert launch.index("sha256sum -c -") < launch.index("tar xzf")
     entry = (
         ROOT / "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py"
     ).read_text(encoding="utf-8")
@@ -109,6 +111,10 @@ def test_training_request_is_cell_specific_and_digest_pinned() -> None:
     assert environment["PX057_H4_SOURCE_KEY"] == code_key
     assert environment["PX057_H4_SOURCE_VERSION_ID"] == "version-1"
     assert environment["PX057_H4_SOURCE_SHA256"] == "a" * 64
+    assert environment["B"] == aws_config["bucket"]
+    assert environment["K"] == code_key
+    assert environment["V"] == "version-1"
+    assert environment["H"] == "a" * 64
     assert environment["PX057_H4_RESULT_S3_URI"].endswith(
         f"/calibration/{cell_id}/{job_name}"
     )

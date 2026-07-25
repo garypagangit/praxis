@@ -57,6 +57,7 @@ def verify_transport_config(config: dict[str, Any]) -> None:
         or transport["first_attempt_only"] is not True
         or transport["job_name_scheme"]
         != "px057-h4-cal-{c1|c2|c3}-r2-20260725"
+        or int(transport["container_argument_max_chars"]) != 256
         or transport["source_bootstrap"]
         != "explicit_s3_version_and_sha256_before_extraction"
     ):
@@ -241,20 +242,15 @@ def calibration_job_name(cell_id: str) -> str:
 
 
 def source_launch_command() -> str:
-    archive = "/tmp/px057-h4-source.tar.gz"
-    return (
-        "set -euo pipefail && "
-        "mkdir -p /opt/ml/code && "
-        "aws s3api get-object "
-        "--bucket \"$PX057_H4_SOURCE_BUCKET\" "
-        "--key \"$PX057_H4_SOURCE_KEY\" "
-        "--version-id \"$PX057_H4_SOURCE_VERSION_ID\" "
-        f"--region \"$AWS_REGION\" {archive} >/dev/null && "
-        f"printf '%s  %s\\n' \"$PX057_H4_SOURCE_SHA256\" {archive} "
-        "| sha256sum -c - && "
-        f"tar -xzf {archive} -C /opt/ml/code && "
+    command = (
+        "a=/tmp/s;mkdir -p /opt/ml/code&&aws s3api get-object "
+        "--bucket \"$B\" --key \"$K\" --version-id \"$V\" $a>/dev/null&&"
+        "echo \"$H  $a\"|sha256sum -c -&&tar xzf $a -C /opt/ml/code&&"
         f"python /opt/ml/code/{ENTRY}"
     )
+    if len(command) > 256:
+        raise ValueError("calibration bootstrap exceeds SageMaker's 256-char limit")
+    return command
 
 
 def training_request(
@@ -308,6 +304,7 @@ def training_request(
         },
         "Environment": {
             "AWS_REGION": aws_config["region"],
+            "AWS_DEFAULT_REGION": aws_config["region"],
             "HF_HOME": "/opt/ml/input/data/huggingface",
             "TOKENIZERS_PARALLELISM": "false",
             "PX057_H4_REPOSITORY_URL": aws_config["repository_url"],
@@ -321,6 +318,10 @@ def training_request(
             "PX057_H4_SOURCE_SHA256": code_sha256,
             "PX057_H4_SOURCE_BUCKET": aws_config["bucket"],
             "PX057_H4_SOURCE_KEY": code_uri.split(f"s3://{aws_config['bucket']}/", 1)[1],
+            "B": aws_config["bucket"],
+            "K": code_uri.split(f"s3://{aws_config['bucket']}/", 1)[1],
+            "V": code_version_id,
+            "H": code_sha256,
             "PX057_H4_CELL_ID": cell_id,
         },
         "EnableNetworkIsolation": False,

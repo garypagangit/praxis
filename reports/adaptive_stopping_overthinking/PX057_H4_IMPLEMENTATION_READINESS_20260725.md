@@ -123,7 +123,7 @@ Every row must be evidenced in one external freeze manifest.
 | Freeze manifest | External byte hashes; no self-hashing JSON claim | PENDING |
 | Repository lock | All above committed and clean; remote commit SHA recorded | PENDING |
 | Calibration transport | Submitter, fetcher, entry, LF rule, and tests included in the protected set | PENDING |
-| Source bootstrap | Exact S3 VersionId and SHA-256 pass before extraction or Python execution | PENDING |
+| Source bootstrap | Exact S3 VersionId and SHA-256 pass before extraction or Python execution; container command `<=256` characters | PENDING |
 | First-attempt rule | One deterministic, non-reusable SageMaker job name and immutable launch-manifest path per cell | PENDING |
 
 ### Phase A hard-stop tests
