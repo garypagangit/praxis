@@ -146,6 +146,8 @@ def config_schema_checks(config: dict[str, Any]) -> dict[str, bool]:
             and config["calibration_transport"]["sagemaker_quota_code"]
             == "L-2D6DEB3C"
             and config["calibration_transport"]["first_attempt_only"] is True
+            and config["calibration_transport"]["job_name_scheme"]
+            == "px057-h4-cal-{c1|c2|c3}-r2-20260725"
             and config["calibration_transport"]["source_bootstrap"]
             == "explicit_s3_version_and_sha256_before_extraction"
             and len(

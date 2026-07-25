@@ -2,14 +2,22 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
 
 import scripts.run_px057_ltt_calibration as calibration_module
+from cloud_jobs.px057_h4_calibration_20260725.sagemaker_entry import (
+    clone_exact_branch_history,
+)
 from scripts.run_px057_ltt_calibration import verify_calibration_transport
+from scripts.submit_px057_h4_phase_a import (
+    source_launch_command as phase_a_source_launch_command,
+)
 from scripts.submit_px057_h4_calibration import (
     CALIBRATION_MAX_RUNTIME_SECONDS,
+    calibration_job_name,
     ENTRY,
     PHASE_A_ENTRY,
     SAGEMAKER_G5_2XL_QUOTA_CODE,
@@ -32,6 +40,9 @@ def test_calibration_transport_is_part_of_the_predata_protocol() -> None:
     protected = set(config["phase_a"]["protected_paths"])
     assert config["protocol_revision"] == "2.2-predata-cloud-transport"
     assert transport["first_attempt_only"] is True
+    assert transport["job_name_scheme"] == (
+        "px057-h4-cal-{c1|c2|c3}-r2-20260725"
+    )
     assert transport["max_runtime_seconds"] == CALIBRATION_MAX_RUNTIME_SECONDS
     assert transport["sagemaker_quota_code"] == SAGEMAKER_G5_2XL_QUOTA_CODE
     assert transport["source_bootstrap"] == (
@@ -54,6 +65,19 @@ def test_source_is_version_and_hash_checked_before_extraction() -> None:
     extraction = launch.index("tar -xzf")
     execution = launch.index(f"python /opt/ml/code/{ENTRY}")
     assert version_check < hash_check < extraction < execution
+
+
+def test_phase_a_v2_uses_configured_runtime_and_authenticated_source() -> None:
+    launch = phase_a_source_launch_command()
+    assert launch.index("--version-id") < launch.index("sha256sum -c -")
+    assert launch.index("sha256sum -c -") < launch.index("tar -xzf")
+    entry = (
+        ROOT / "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py"
+    ).read_text(encoding="utf-8")
+    assert 'runtime_path = repo / config["phase_a"]["runtime_manifest"]' in entry
+    assert load_config()["phase_a"]["runtime_manifest"].endswith(
+        "runtime_environment_v2.json"
+    )
 
 
 def test_training_request_is_cell_specific_and_digest_pinned() -> None:
@@ -97,6 +121,74 @@ def test_each_cell_has_unique_launch_and_cloud_manifests() -> None:
     assert len(launch_paths) == len(cells) == 3
     assert len(cloud_paths) == 3
     assert launch_paths.isdisjoint(cloud_paths)
+
+
+def test_each_cell_has_one_deterministic_atomic_job_name() -> None:
+    cells = [cell["cell_id"] for cell in load_config()["cells"]]
+    names = [calibration_job_name(cell_id) for cell_id in cells]
+    assert names == [
+        "px057-h4-cal-c1-r2-20260725",
+        "px057-h4-cal-c2-r2-20260725",
+        "px057-h4-cal-c3-r2-20260725",
+    ]
+    assert len(set(names)) == 3
+
+
+def test_cloud_clone_allows_only_a_descendant_launch_registration(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "source"
+    target = tmp_path / "target"
+    subprocess.run(["git", "init", "-q", "-b", "experiment", str(source)], check=True)
+    tracked = source / "tracked.txt"
+    tracked.write_text("frozen\n", encoding="utf-8")
+    subprocess.run(["git", "add", "tracked.txt"], cwd=source, check=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=PX057 Test",
+            "-c",
+            "user.email=px057@example.invalid",
+            "commit",
+            "-q",
+            "-m",
+            "frozen",
+        ],
+        cwd=source,
+        check=True,
+    )
+    expected = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=source, text=True
+    ).strip()
+    tracked.write_text("frozen\nlaunch registered\n", encoding="utf-8")
+    subprocess.run(["git", "add", "tracked.txt"], cwd=source, check=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=PX057 Test",
+            "-c",
+            "user.email=px057@example.invalid",
+            "commit",
+            "-q",
+            "-m",
+            "launch registration",
+        ],
+        cwd=source,
+        check=True,
+    )
+    branch_head = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=source, text=True
+    ).strip()
+    observed = clone_exact_branch_history(
+        str(source), "experiment", expected, target
+    )
+    checked_out = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=target, text=True
+    ).strip()
+    assert observed == branch_head
+    assert checked_out == expected
 
 
 def test_calibration_transport_binds_launch_cloud_and_bundle(

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import io
 import json
 import subprocess
 import tarfile
@@ -17,6 +18,23 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "configs/px057_h4_ltt_transfer_20260725.json"
 ENTRY = "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py"
+
+
+def source_launch_command() -> str:
+    archive = "/tmp/px057-h4-phase-a-source.tar.gz"
+    return (
+        "set -euo pipefail && "
+        "mkdir -p /opt/ml/code && "
+        "aws s3api get-object "
+        "--bucket \"$PX057_H4_SOURCE_BUCKET\" "
+        "--key \"$PX057_H4_SOURCE_KEY\" "
+        "--version-id \"$PX057_H4_SOURCE_VERSION_ID\" "
+        f"--region \"$AWS_REGION\" {archive} >/dev/null && "
+        f"printf '%s  %s\\n' \"$PX057_H4_SOURCE_SHA256\" {archive} "
+        "| sha256sum -c - && "
+        f"tar -xzf {archive} -C /opt/ml/code && "
+        f"python /opt/ml/code/{ENTRY}"
+    )
 
 
 def command_output(command: list[str]) -> str:
@@ -55,11 +73,7 @@ def training_request(
     result_uri = (
         f"s3://{aws_config['bucket']}/{prefix}/phase-a-runtime/{job_name}"
     )
-    launch = (
-        "mkdir -p /opt/ml/code && "
-        "tar -xzf /opt/ml/input/data/code/source.tar.gz -C /opt/ml/code && "
-        f"python /opt/ml/code/{ENTRY}"
-    )
+    launch = source_launch_command()
     return {
         "TrainingJobName": job_name,
         "RoleArn": aws_config["role_arn"],
@@ -108,6 +122,10 @@ def training_request(
             "PX057_H4_HF_SECRET_ID": aws_config["huggingface_secret_id"],
             "PX057_H4_RESULT_S3_URI": result_uri,
             "PX057_H4_JOB_NAME": job_name,
+            "PX057_H4_SOURCE_BUCKET": aws_config["bucket"],
+            "PX057_H4_SOURCE_KEY": code_uri.split(
+                f"s3://{aws_config['bucket']}/", 1
+            )[1],
         },
         "EnableNetworkIsolation": False,
         "Tags": [
@@ -197,7 +215,14 @@ def main() -> None:
         temp_path = Path(temp)
         archive = temp_path / "source.tar.gz"
         with tarfile.open(archive, "w:gz") as handle:
-            handle.add(ROOT / ENTRY, arcname=ENTRY)
+            body = subprocess.check_output(
+                ["git", "show", f"HEAD:{ENTRY}"], cwd=ROOT
+            )
+            metadata = tarfile.TarInfo(ENTRY)
+            metadata.size = len(body)
+            metadata.mode = 0o644
+            metadata.mtime = 0
+            handle.addfile(metadata, io.BytesIO(body))
         archive_sha256 = hashlib.sha256(archive.read_bytes()).hexdigest()
         subprocess.run(
             [

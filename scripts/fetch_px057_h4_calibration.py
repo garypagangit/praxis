@@ -229,6 +229,7 @@ def verify_launch_registration(
     config: dict[str, Any],
     cell: dict[str, Any],
     description: dict[str, Any],
+    code_uri: str,
 ) -> dict[str, Any]:
     path = ROOT / cell["calibration_launch_manifest"]
     committed = committed_file_info(ROOT, path)
@@ -255,7 +256,7 @@ def verify_launch_registration(
         config,
         job_name=description["TrainingJobName"],
         cell_id=cell["cell_id"],
-        code_uri=launch.get("code_uri", ""),
+        code_uri=code_uri,
         code_version_id=environment["PX057_H4_SOURCE_VERSION_ID"],
         code_sha256=environment["PX057_H4_SOURCE_SHA256"],
         git_commit=environment["PX057_H4_GIT_COMMIT"],
@@ -276,6 +277,7 @@ def verify_launch_registration(
         or launch.get("git_commit") != environment["PX057_H4_GIT_COMMIT"]
         or launch.get("container_image")
         != config["phase_a"]["aws"]["container_image_pinned_uri"]
+        or launch.get("code_uri") != code_uri
         or launch.get("code_version_id")
         != environment["PX057_H4_SOURCE_VERSION_ID"]
         or launch.get("code_sha256") != environment["PX057_H4_SOURCE_SHA256"]
@@ -358,7 +360,9 @@ def main() -> None:
     capture_commit, code_uri, output_uri = verify_job_request(
         description, config, job_name=args.job_name, cell_id=cell_id
     )
-    launch_registration = verify_launch_registration(config, cell, description)
+    launch_registration = verify_launch_registration(
+        config, cell, description, code_uri
+    )
 
     tags_response = aws_json(
         profile,
@@ -429,6 +433,35 @@ def main() -> None:
             expected_entry_sha256=current_entry_sha,
             expected_phase_a_sha256=current_phase_a_sha,
         )
+        observed_branch_head = str(evidence.get("observed_remote_branch_head", ""))
+        if (
+            len(observed_branch_head) != 40
+            or subprocess.run(
+                [
+                    "git",
+                    "merge-base",
+                    "--is-ancestor",
+                    capture_commit,
+                    observed_branch_head,
+                ],
+                cwd=ROOT,
+                check=False,
+            ).returncode
+            != 0
+            or subprocess.run(
+                [
+                    "git",
+                    "merge-base",
+                    "--is-ancestor",
+                    observed_branch_head,
+                    "HEAD",
+                ],
+                cwd=ROOT,
+                check=False,
+            ).returncode
+            != 0
+        ):
+            raise ValueError("cloud-observed branch head has invalid ancestry")
         if (
             evidence.get("experiment_id") != config["experiment_id"]
             or evidence.get("stage") != "PX057_H4_calibration_cloud_collection"
@@ -550,6 +583,7 @@ def main() -> None:
             "training_end_time": description["TrainingEndTime"],
             "billable_seconds": description.get("BillableTimeInSeconds"),
             "git_commit": capture_commit,
+            "observed_remote_branch_head": observed_branch_head,
             "role_arn": description["RoleArn"],
             "repository_url": environment["PX057_H4_REPOSITORY_URL"],
             "branch": environment["PX057_H4_BRANCH"],

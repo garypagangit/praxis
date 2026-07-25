@@ -158,6 +158,10 @@ def main() -> None:
     source_version_id = required_env("PX057_H4_SOURCE_VERSION_ID")
     source_sha256 = required_env("PX057_H4_SOURCE_SHA256")
 
+    staged_archive = Path("/tmp/px057-h4-phase-a-source.tar.gz")
+    if not staged_archive.is_file() or sha256_file(staged_archive) != source_sha256:
+        raise ValueError("staged Phase A source differs from the submitted SHA-256")
+
     repo = Path("/opt/ml/code/px057_h4_repo")
     clone_exact_commit(repository_url, branch, expected_commit, repo)
     committed_entry = (
@@ -187,7 +191,12 @@ def main() -> None:
         ],
         cwd=repo,
     )
-    runtime_path = repo / "manifests/px057_h4_20260725/runtime_environment.json"
+    config = json.loads(
+        (repo / "configs/px057_h4_ltt_transfer_20260725.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    runtime_path = repo / config["phase_a"]["runtime_manifest"]
     runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
     if runtime.get("status") != "PASS" or runtime.get("scientific_data_generated") is not False:
         raise ValueError("Phase A runtime capture did not produce a valid pre-data PASS")

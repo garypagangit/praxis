@@ -81,7 +81,7 @@ publication:
 
 - all registered H4 scripts/entry points pass Python bytecode compilation;
 - the two JSON configs parse successfully;
-- 44 focused PX-057 tests pass;
+- 47 focused PX-057 tests pass;
 - an independent integer-combination implementation matches the primary exact
   hypergeometric tails;
 - both upstream source byte hashes and row counts reproduce;
@@ -124,7 +124,7 @@ Every row must be evidenced in one external freeze manifest.
 | Repository lock | All above committed and clean; remote commit SHA recorded | PENDING |
 | Calibration transport | Submitter, fetcher, entry, LF rule, and tests included in the protected set | PENDING |
 | Source bootstrap | Exact S3 VersionId and SHA-256 pass before extraction or Python execution | PENDING |
-| First-attempt rule | One immutable launch-manifest path per cell; retry under this experiment ID forbidden | PENDING |
+| First-attempt rule | One deterministic, non-reusable SageMaker job name and immutable launch-manifest path per cell | PENDING |
 
 ### Phase A hard-stop tests
 
@@ -200,6 +200,8 @@ Calibration is one global phase across all cells.
 | C3 lock manifest | Same | NOT STARTED |
 | Global commit | All three determinations and locks committed together or referenced by one global lock commit | NOT STARTED |
 | Cloud immutability | S3 version IDs plus downloaded-byte SHA-256 values recorded | NOT STARTED |
+| Collection chronology | All four collection files per cell committed and pushed before LTT evaluation | NOT STARTED |
+| Lock-time replay | Transport links and collection commit evidence recompute exactly before each lock is written | NOT STARTED |
 | Clean-worktree verification | No protected file differs from the lock commit | NOT STARTED |
 
 The holdout runner must verify all three committed lock manifests before loading

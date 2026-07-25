@@ -18,6 +18,8 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+from scripts.submit_px057_h4_phase_a import source_launch_command
+
 DEFAULT_CONFIG = ROOT / "configs/px057_h4_ltt_transfer_20260725.json"
 ENTRY = "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py"
 
@@ -144,11 +146,7 @@ def main() -> None:
     expected_output_uri = (
         f"s3://{aws_config['bucket']}/{prefix}/sagemaker-output"
     )
-    expected_launch = (
-        "mkdir -p /opt/ml/code && "
-        "tar -xzf /opt/ml/input/data/code/source.tar.gz -C /opt/ml/code && "
-        f"python /opt/ml/code/{ENTRY}"
-    )
+    expected_launch = source_launch_command()
     source_data = description["InputDataConfig"][0]["DataSource"][
         "S3DataSource"
     ]
@@ -169,6 +167,8 @@ def main() -> None:
             "PX057_H4_SOURCE_VERSION_ID"
         ),
         "PX057_H4_SOURCE_SHA256": environment.get("PX057_H4_SOURCE_SHA256"),
+        "PX057_H4_SOURCE_BUCKET": aws_config["bucket"],
+        "PX057_H4_SOURCE_KEY": f"{prefix}/code/{args.job_name}/source.tar.gz",
     }
     algorithm = description["AlgorithmSpecification"]
     resource = description["ResourceConfig"]

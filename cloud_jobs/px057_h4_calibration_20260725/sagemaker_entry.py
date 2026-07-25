@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import shutil
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -42,7 +43,7 @@ COLLECTION_FILES = (
 
 def clone_exact_branch_history(
     repository_url: str, branch: str, expected_commit: str, target: Path
-) -> None:
+) -> str:
     """Fetch the full branch so the frozen collector can prove ancestor commits."""
 
     if target.exists():
@@ -61,13 +62,19 @@ def clone_exact_branch_history(
         cwd=target,
     )
     observed = output(["git", "rev-parse", f"refs/remotes/origin/{branch}"], cwd=target)
-    if observed != expected_commit:
+    if subprocess.run(
+        ["git", "merge-base", "--is-ancestor", expected_commit, observed],
+        cwd=target,
+        check=False,
+    ).returncode != 0:
         raise ValueError(
-            f"remote branch moved: expected {expected_commit}, observed {observed}"
+            f"submitted commit is not an ancestor of remote branch: "
+            f"expected {expected_commit}, observed {observed}"
         )
     run(["git", "checkout", "-q", "--detach", expected_commit], cwd=target)
     if output(["git", "status", "--porcelain"], cwd=target):
         raise ValueError("fresh calibration clone is unexpectedly dirty")
+    return observed
 
 
 def put_file(
@@ -126,7 +133,9 @@ def main() -> None:
 
     started = datetime.now(timezone.utc).isoformat()
     repo = Path("/opt/ml/code/px057_h4_repo")
-    clone_exact_branch_history(repository_url, branch, expected_commit, repo)
+    observed_branch_head = clone_exact_branch_history(
+        repository_url, branch, expected_commit, repo
+    )
     committed_entry = repo / ENTRY
     committed_phase_a_entry = repo / PHASE_A_ENTRY
     if sha256_file(Path(__file__).resolve()) != sha256_file(committed_entry):
@@ -140,6 +149,8 @@ def main() -> None:
         int(transport["max_runtime_seconds"]) != 86400
         or transport["sagemaker_quota_code"] != "L-2D6DEB3C"
         or transport["first_attempt_only"] is not True
+        or transport["job_name_scheme"]
+        != "px057-h4-cal-{c1|c2|c3}-r2-20260725"
         or transport["source_bootstrap"]
         != "explicit_s3_version_and_sha256_before_extraction"
     ):
@@ -214,6 +225,7 @@ def main() -> None:
         "repository_url": repository_url,
         "branch": branch,
         "git_commit": expected_commit,
+        "observed_remote_branch_head": observed_branch_head,
         "container_image_digest": container_digest,
         "entrypoint_sha256": sha256_file(committed_entry),
         "phase_a_helper_sha256": sha256_file(committed_phase_a_entry),

@@ -58,7 +58,12 @@ def committed_and_pushed(path: Path) -> dict[str, Any]:
     ]
     if not remote_refs:
         raise ValueError(f"{path}: artifact has not been pushed")
-    return {**committed, "remote_refs": remote_refs}
+    return {
+        "path": committed["path"],
+        "sha256": committed["sha256"],
+        "last_change_commit": committed["last_change_commit"],
+        "pushed_remote_ref_verified": True,
+    }
 
 
 def verify_calibration_transport(
@@ -181,6 +186,10 @@ def run_calibration(
     calibration_transport = verify_calibration_transport(
         config, cell, collection_bundle
     )
+    collection_commits = {
+        name: committed_and_pushed(repo_path(metadata["path"]))
+        for name, metadata in collection_bundle["files"].items()
+    }
     traces, split_rows = load_scored_traces(
         trace_path, split_path, expected_rounds=rounds
     )
@@ -229,6 +238,7 @@ def run_calibration(
                 "rows": len(traces),
             },
             "collection_bundle": collection_bundle,
+            "collection_commits": collection_commits,
             "calibration_transport": calibration_transport,
         },
         "code_evidence": code_evidence,
@@ -315,6 +325,31 @@ def write_lock(
                 f"{artifact_path}: determination transport hash mismatch"
             )
         committed_file_info(ROOT, artifact_path)
+    reverified_bundle = verify_collection_bundle(
+        trace_path.parent,
+        split_path,
+        repo_root=ROOT,
+        expected_cell_id=cell_id,
+        expected_split="calibration",
+        expected_n=int(config["split_design"]["calibration_n"]),
+        expected_rounds=int(config["generation"]["rounds"]),
+        expected_model=config["models"][cell["model_key"]],
+        expected_prompt_id=config["generation"]["prompt_template_id"],
+        expected_prompt_sha256=config["generation"]["prompt_template_sha256"],
+    )
+    if reverified_bundle != artifacts["collection_bundle"]:
+        raise ValueError("calibration collection bundle does not recompute exactly")
+    reverified_commits = {
+        name: committed_and_pushed(repo_path(metadata["path"]))
+        for name, metadata in reverified_bundle["files"].items()
+    }
+    if reverified_commits != artifacts["collection_commits"]:
+        raise ValueError("calibration collection commit evidence changed")
+    reverified_transport = verify_calibration_transport(
+        config, cell, reverified_bundle
+    )
+    if reverified_transport != artifacts["calibration_transport"]:
+        raise ValueError("calibration transport does not recompute exactly")
     traces, _ = load_scored_traces(
         trace_path,
         split_path,

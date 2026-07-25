@@ -55,6 +55,8 @@ def verify_transport_config(config: dict[str, Any]) -> None:
         or transport["sagemaker_quota_code"]
         != SAGEMAKER_G5_2XL_QUOTA_CODE
         or transport["first_attempt_only"] is not True
+        or transport["job_name_scheme"]
+        != "px057-h4-cal-{c1|c2|c3}-r2-20260725"
         or transport["source_bootstrap"]
         != "explicit_s3_version_and_sha256_before_extraction"
     ):
@@ -210,7 +212,7 @@ def verify_first_attempt(
 ) -> None:
     if launch_manifest.exists():
         raise FileExistsError(f"calibration launch is already registered: {launch_manifest}")
-    name_prefix = f"px057-h4-cal-{CELL_JOB_CODES[cell_id]}-"
+    job_name = calibration_job_name(cell_id)
     listing = json.loads(
         aws(
             profile,
@@ -218,18 +220,24 @@ def verify_first_attempt(
             "sagemaker",
             "list-training-jobs",
             "--name-contains",
-            name_prefix,
+            job_name,
             "--output",
             "json",
         )
     )
     prior = [
-        row["TrainingJobName"] for row in listing.get("TrainingJobSummaries", [])
+        row["TrainingJobName"]
+        for row in listing.get("TrainingJobSummaries", [])
+        if row["TrainingJobName"] == job_name
     ]
     if prior:
         raise ValueError(
             f"{cell_id}: a calibration attempt already exists and rerun is forbidden: {prior}"
         )
+
+
+def calibration_job_name(cell_id: str) -> str:
+    return f"px057-h4-cal-{CELL_JOB_CODES[cell_id]}-r2-20260725"
 
 
 def source_launch_command() -> str:
@@ -467,7 +475,6 @@ def main() -> None:
             launch_manifest=ROOT / cells_by_id[cell_id]["calibration_launch_manifest"],
         )
     capacity = preflight_capacity(config, profile, region, len(cells))
-    stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%d-%H%M%S-%f")
     prefix = aws_config["s3_prefix"].strip("/")
 
     with tempfile.TemporaryDirectory(prefix="px057-h4-calibration-") as temp:
@@ -478,7 +485,7 @@ def main() -> None:
         requests: list[dict[str, Any]] = []
         launch_records: list[dict[str, Any]] = []
         for cell_id in cells:
-            job_name = f"px057-h4-cal-{CELL_JOB_CODES[cell_id]}-{stamp}"
+            job_name = calibration_job_name(cell_id)
             code_key = f"{prefix}/code/{job_name}/source.tar.gz"
             code_uri = f"s3://{aws_config['bucket']}/{code_key}"
             if args.dry_run:
