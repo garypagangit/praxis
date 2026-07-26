@@ -1,9 +1,9 @@
 # PX-063 Protocol 1.5 Result Audit
 
-**Audit date:** 2026-07-26  
-**Audited run:** `deterministic_gate_20260726_v15`  
-**Scientific determination:** **NOT_EVALUABLE**  
-**Audit conclusion:** **SCIENTIFIC AND ARITHMETIC PASS; REPORTING CORRECTION REQUIRED**
+- **Audit date:** 2026-07-26
+- **Audited run:** `deterministic_gate_20260726_v15`
+- **Scientific determination:** **NOT_EVALUABLE**
+- **Audit conclusion:** **SCIENTIFIC AND ARITHMETIC PASS; REPORTING CORRECTION REQUIRED**
 
 ## Outcome
 
