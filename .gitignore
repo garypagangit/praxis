@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
+.venv-px063/
 .venv-broken-*/
 venv/
 .env
@@ -17,7 +18,14 @@ outputs/
 runs/
 results/
 tmp/
-external/
+external/*
+!external/rh-bench
+# PX-063 pre-v1.4 development artifacts contain linked per-row gold metadata.
+reports/reward_hack_trace/source_gate_20260726/
+reports/reward_hack_trace/llm_baseline_retrospective_20260726/
+reports/reward_hack_trace/llm_baseline_dry_run_20260726/
+reports/reward_hack_trace/fixture_gate_20260726_attempt*/
+reports/reward_hack_trace/fixture_gate_20260726*prelock*/
 *.ckpt
 *.pt
 *.pth
