@@ -123,7 +123,10 @@ def main() -> int:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=REPO_ROOT / "reports" / "reward_hack_trace" / "fixture_gate_20260726",
+        default=REPO_ROOT
+        / "reports"
+        / "reward_hack_trace"
+        / "fixture_gate_20260726_v15",
     )
     args = parser.parse_args()
 
@@ -223,7 +226,7 @@ def main() -> int:
     output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=False)
     manifest = {
-        "schema_version": "px063_fixture_conformance_v1_4",
+        "schema_version": "px063_fixture_conformance_v1_5",
         "classification": (
             "prelock_development_only"
             if args.prelock_development
@@ -319,7 +322,7 @@ def main() -> int:
             "",
         ]
     )
-    (output_dir / "PX063_FIXTURE_GATE_20260726.md").write_text(
+    (output_dir / "PX063_FIXTURE_GATE_20260726_V15.md").write_text(
         report, encoding="utf-8", newline="\n"
     )
     print(f"PX-063 synthetic fixture gate: {status}")

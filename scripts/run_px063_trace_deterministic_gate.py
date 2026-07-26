@@ -123,6 +123,7 @@ _SOURCE_EXPECTATION_FIELDS = {
     "source_row_indices_unique",
     "canonical_row_hashes_unique",
     "manifest_complete",
+    "pinned_parquet_sha256",
 }
 _GATE0_FIELDS = {
     "status",
@@ -468,9 +469,14 @@ def _preflight() -> dict[str, Any]:
         REPO_ROOT
         / "reports"
         / "reward_hack_trace"
-        / "source_gate_20260726_v14"
+        / "source_gate_20260726_v15"
     )
-    fixture_dir = REPO_ROOT / "reports" / "reward_hack_trace" / "fixture_gate_20260726"
+    fixture_dir = (
+        REPO_ROOT
+        / "reports"
+        / "reward_hack_trace"
+        / "fixture_gate_20260726_v15"
+    )
     source_summary_path = source_dir / "source_integrity_summary.json"
     source_manifest_path = source_dir / "source_manifest.json"
     source_row_hashes_path = source_dir / "trace_row_hashes.jsonl"
@@ -750,7 +756,7 @@ def _preflight() -> dict[str, Any]:
         "source_summary_schema_current": isinstance(source_summary, dict)
         and set(source_summary) == _SOURCE_SUMMARY_FIELDS
         and source_summary.get("schema_version")
-        == "px063_source_integrity_summary_v1_4",
+        == "px063_source_integrity_summary_v1_5",
         "source_summary_duplicate_fields_safe": source_duplicate_summaries_safe,
         "source_summary_failure_counts_zero": all(
             source_summary.get(field) == 0
@@ -783,7 +789,7 @@ def _preflight() -> dict[str, Any]:
         "source_manifest_schema_exact": isinstance(source_manifest, dict)
         and set(source_manifest) == _SOURCE_MANIFEST_FIELDS
         and source_manifest.get("schema_version")
-        == "px063_safe_source_manifest_v1_4",
+        == "px063_safe_source_manifest_v1_5",
         "source_provenance_schema_exact": isinstance(recorded_provenance, dict)
         and set(recorded_provenance) == _SOURCE_PROVENANCE_FIELDS,
         "source_provenance_frozen_values_exact": (
@@ -861,7 +867,7 @@ def _preflight() -> dict[str, Any]:
         "fixture_manifest_schema_exact": isinstance(fixture_manifest, dict)
         and set(fixture_manifest) == _FIXTURE_MANIFEST_FIELDS
         and fixture_manifest.get("schema_version")
-        == "px063_fixture_conformance_v1_4",
+        == "px063_fixture_conformance_v1_5",
         "fixture_is_postlock_conformance": fixture_manifest.get("classification")
         == "postlock_regression_conformance",
         "fixture_git_state_was_clean_and_pushed": fixture_manifest.get(
@@ -977,11 +983,11 @@ def _preflight() -> dict[str, Any]:
         "source_manifest": source_manifest_path,
         "source_row_hashes": source_row_hashes_path,
         "source_environment_lock": environment_lock_path,
-        "source_report": source_dir / "PX063_RHBENCH_SOURCE_GATE_20260726_V14.md",
+        "source_report": source_dir / "PX063_RHBENCH_SOURCE_GATE_20260726_V15.md",
         "fixture_summary": fixture_summary_path,
         "fixture_manifest": fixture_manifest_path,
         "fixture_results": fixture_results_path,
-        "fixture_report": fixture_dir / "PX063_FIXTURE_GATE_20260726.md",
+        "fixture_report": fixture_dir / "PX063_FIXTURE_GATE_20260726_V15.md",
         "rule_manifest": rule_path,
         "taxonomy_manifest": taxonomy_path,
         "preregistration": prereg_path,
@@ -1177,6 +1183,7 @@ def _render_report(metrics: dict[str, Any], determination: dict[str, Any], seal:
             "",
             "## Provenance and claim boundary",
             "",
+            f"- Protocol version: `{seal['protocol_version']}`",
             f"- Git commit: `{seal['git_commit']}`",
             f"- Pinned `rh-bench` Git commit: `{seal['rhbench_git_commit']}`",
             f"- Pinned `rh-bench` Git URL: `{seal['rhbench_git_url']}`",
@@ -1223,7 +1230,10 @@ def main() -> int:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=REPO_ROOT / "reports" / "reward_hack_trace" / "deterministic_gate_20260726",
+        default=REPO_ROOT
+        / "reports"
+        / "reward_hack_trace"
+        / "deterministic_gate_20260726_v15",
     )
     args = parser.parse_args()
 
@@ -1260,6 +1270,7 @@ def main() -> int:
     reservation = {
         "schema_version": "px063_scientific_run_reservation_v1",
         "status": "RESERVED_BEFORE_SOURCE_LOAD",
+        "protocol_version": "1.5",
         "reserved_at_utc": started,
         "git_commit": git_commit,
         "git_branch": branch,
@@ -1317,7 +1328,8 @@ def main() -> int:
         raise SystemExit("Written decision file differs from canonical decision bytes")
 
     seal = {
-        "schema_version": "px063_decision_seal_v1_4",
+        "schema_version": "px063_decision_seal_v1_5",
+        "protocol_version": "1.5",
         "started_at_utc": started,
         "completed_at_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": git_commit,
@@ -1392,7 +1404,7 @@ def main() -> int:
         canonical_output_hash_agreement=canonical_output_hash_agreement,
     )
     _write_json(output_dir / "determination.json", determination)
-    (output_dir / "PX063_DETERMINISTIC_GATE_20260726.md").write_text(
+    (output_dir / "PX063_DETERMINISTIC_GATE_20260726_V15.md").write_text(
         _render_report(metrics, determination, seal), encoding="utf-8", newline="\n"
     )
     print(json.dumps(determination, sort_keys=True))

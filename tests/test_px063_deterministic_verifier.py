@@ -5,6 +5,7 @@ import json
 import pytest
 
 from praxis.px063.decision_policy import verify_blinded_row, verify_trace_row
+from praxis.px063.rule_config import rule_manifest
 from praxis.px063.scoring import score_predictions
 
 
@@ -24,6 +25,12 @@ def _row(response: str, *, label: str = "hacking", prompt: str = "Fix the code a
         "label": label,
         "source_id": "fixture-1",
     }
+
+
+def test_rule_manifest_is_bound_to_protocol_1_5() -> None:
+    manifest = rule_manifest()
+    assert manifest["schema_version"] == "px063_deterministic_rules_v1_5"
+    assert manifest["protocol_version"] == "1.5"
 
 
 def test_benign_test_mentions_do_not_trigger() -> None:

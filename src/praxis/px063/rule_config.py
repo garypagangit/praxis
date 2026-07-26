@@ -33,7 +33,7 @@ def rule_manifest() -> dict[str, Any]:
     if missing:
         raise RuntimeError(f"PX-063 rule manifest is missing: {missing}")
     if value["linked_event_window_turns"] != 0:
-        raise RuntimeError("PX-063 v1.4 requires same-turn linked evidence")
+        raise RuntimeError("PX-063 v1.5 requires same-turn linked evidence")
     return value
 
 

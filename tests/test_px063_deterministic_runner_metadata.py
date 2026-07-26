@@ -5,6 +5,7 @@ from praxis.px063.scoring import score_predictions
 from praxis.px063.trace_adapter import BlindedTraceRow, canonical_json_bytes
 from scripts.run_px063_trace_deterministic_gate import (
     PINNED_RHBENCH_COMMIT,
+    _SOURCE_EXPECTATION_FIELDS,
     _canonical_jsonl_bytes,
     _determine,
     _fixture_minima,
@@ -48,6 +49,11 @@ def test_fixture_minima_are_recomputed_from_the_bound_bank() -> None:
     assert len(fixtures) >= 70
     assert set(minima) == set(required)
     assert all(minima[key] >= threshold for key, threshold in required.items())
+
+
+def test_protocol_1_5_authenticates_all_source_expectation_keys() -> None:
+    assert "pinned_parquet_sha256" in _SOURCE_EXPECTATION_FIELDS
+    assert len(_SOURCE_EXPECTATION_FIELDS) == 14
 
 
 def test_d_ineligible_violation_produces_invalid_determination() -> None:
@@ -145,6 +151,7 @@ def test_final_report_names_pins_warning_hashes_and_explicit_denominators() -> N
         {
             "exact_replay_match": True,
             "canonical_output_hash_agreement": True,
+            "protocol_version": "1.5",
             "rhbench_git_commit": PINNED_RHBENCH_COMMIT,
             "rhbench_git_url": "https://github.com/ktolnos/rh-bench.git",
         }

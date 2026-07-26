@@ -222,7 +222,7 @@ def main() -> int:
         default=REPO_ROOT
         / "reports"
         / "reward_hack_trace"
-        / "source_gate_20260726_v14",
+        / "source_gate_20260726_v15",
     )
     args = parser.parse_args()
 
@@ -480,7 +480,7 @@ def main() -> int:
     _write_json(
         output_dir / "source_manifest.json",
         {
-            "schema_version": "px063_safe_source_manifest_v1_4",
+            "schema_version": "px063_safe_source_manifest_v1_5",
             "provenance": provenance,
             "manifest_sha256": summary["manifest_sha256"],
             "records": artifacts.records,
@@ -491,7 +491,7 @@ def main() -> int:
     ) as handle:
         for record in artifacts.records:
             handle.write(canonical_json_bytes(record).decode("utf-8") + "\n")
-    (output_dir / "PX063_RHBENCH_SOURCE_GATE_20260726_V14.md").write_text(
+    (output_dir / "PX063_RHBENCH_SOURCE_GATE_20260726_V15.md").write_text(
         _markdown(provenance, summary), encoding="utf-8", newline="\n"
     )
 

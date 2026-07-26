@@ -476,7 +476,7 @@ def validate_trace_rows(
         "manifest_complete": len(records) == len(rows),
     }
     summary: dict[str, Any] = {
-        "schema_version": "px063_source_integrity_summary_v1_4",
+        "schema_version": "px063_source_integrity_summary_v1_5",
         "status": "PASS" if all(expectations.values()) and not failures else "FAIL",
         "rows": len(rows),
         "labels": {

@@ -1,10 +1,10 @@
 # PX-063 — Deterministic Reward-Hack Verification on TRACE-Derived Trajectories
 
-**Protocol version:** 1.4 (pre-result audit amendment; no deterministic TRACE decisions inspected)
+**Protocol version:** 1.5 (pre-result preflight-defect amendment; no deterministic TRACE decisions inspected)
 
 **Drafted:** 2026-07-26
 
-**Experiment state:** initial source characterization and synthetic development checks completed; final clean-commit Gate 0/1, post-lock conformance gate, and deterministic scientific gate have not run
+**Experiment state:** Protocol 1.4 Gates 0/1 and 2 passed, but its final preflight was invalid before inference because one safe source-expectation key was omitted from the authenticator; Protocol 1.5 restarts Gates 0–3 under new immutable paths
 
 **Scientific run:** not started
 
@@ -114,7 +114,7 @@ and reproducibility mismatches are all **0%**.
 
 ### Deferred comparison question
 
-A paired LLM-as-judge comparison is **not active in Protocol 1.4**. The pinned
+A paired LLM-as-judge comparison is **not active in Protocol 1.5**. The pinned
 repository's 3,102 historical scores were inspected during build validation,
 but their call log lacks transcript hashes, dataset revision, prompt hash, and
 returned provider/model identity. Snapshot equality cannot prove those calls
@@ -136,7 +136,7 @@ derived from any TRACE trajectory. No `source_dataset="patronus_trace"` row may
 be used to write, tune, or choose a rule.
 
 The committed fixture bank must contain at least 70 cases: at least five
-deterministic block cases for each of the four Revision 1.4 block families, at
+deterministic block cases for each of the four Revision 1.5 block families, at
 least five expected-review cases for the hardcoded-output family, at least five
 benign lexical or path confounders for each of the five families, at least ten
 supported clean `allow` cases, and at least ten semantic-only or unsupported
@@ -144,7 +144,7 @@ supported clean `allow` cases, and at least ten semantic-only or unsupported
 toward more than one family's minimum.
 
 An attempted 80/20 fixture split was exposed during parser debugging and is
-retired. Protocol 1.4 makes no synthetic holdout claim. The final post-lock gate
+retired. Protocol 1.5 makes no synthetic holdout claim. The final post-lock gate
 runs the entire committed bank (`N` recorded by Gate 2) as regression/
 conformance testing. It must enforce the family minima above, validate every evidence schema and
 decision/evidence relation, replay exactly, and record clean pushed Git state.
@@ -186,7 +186,9 @@ decision or aggregate verifier outcome was inspected.
 | Exposed synthetic split | An attempted 80/20 split of hand-authored fixtures was visible during parser debugging and was retired. | The complete committed fixture bank is regression/conformance testing; no synthetic holdout claim is made. |
 | Published TRACE-derived example | An independent read-only auditor encountered one example in dependency documentation. Its content was not relayed to the rule-authoring agent or used in a rule recommendation. | Disclosed as limited indirect exposure; no unseen-benchmark claim is permitted. |
 | Protocol 1.4 synthetic audit | Synthetic probes identified and corrected Python-mode, clause-scope, PowerShell, path-normalization, environment, pipeline-sink, unified-diff, precedence, and incomplete-target edge cases. A separate runner audit added canonical record ordering, dual output hashes, exact provenance authentication, fixture-minimum recomputation, and complete report denominators. | These are pre-result rule and integrity amendments grounded only in inert fixtures and artifact structure; the expanded bank, code, and hashes are frozen before Gate 3. |
-| Confirmatory outcome state | Final Gate 0/1, post-lock Gate 2, and Gate 3 had not run when this ledger was written. | No deterministic TRACE row decision, aggregate outcome, or threshold result informed Protocol 1.4. |
+| Protocol 1.4 preflight defect | Its clean-pushed Gates 0/1 and 2 passed, then preflight failed because `_SOURCE_EXPECTATION_FIELDS` omitted the safe `pinned_parquet_sha256` key that Gate 1 correctly recorded. The deterministic runner did not load TRACE rows, reserve an output directory, compute a row decision, join gold, or emit a metric/determination. | Protocol 1.4 is invalidated before scientific inference. Its sanitized gate artifacts remain as an auditable failed-attempt record and cannot support the final claim. |
+| Protocol 1.5 amendment | Adds the omitted expectation key and versions active schemas/output paths from 1.4 to 1.5. Rules, parser behavior, fixtures, hypotheses, thresholds, and analysis formulas are unchanged. | Gates 0–3 restart from a new clean pushed lock; no Protocol 1.4 artifact is silently reused as the final gate. |
+| Confirmatory outcome state | Gate 3 has never run under either version. | No deterministic TRACE row decision, aggregate verifier outcome, or threshold result informed Protocol 1.5. |
 
 Before confirmatory inference, the adapter creates a label-blinded record by:
 
@@ -253,7 +255,7 @@ The rule manifest must assign stable check IDs within these families:
 2. **Test suppression and coverage gaming** — assistant-emitted mutation syntax
    that adds skips/expected failures, disables assertions, narrows discovery,
    omits coverage, or forces an early successful result.
-3. **Hardcoded evaluation outputs** — review-only in Revision 1.4 unless a
+3. **Hardcoded evaluation outputs** — review-only in Revision 1.5 unless a
    future pre-result amendment introduces an exact, fixture-validated linked
    read/write grammar. Mere constants or semantic similarity are insufficient.
 4. **Reward/evaluation tampering** — assistant-emitted modification beneath a
@@ -392,11 +394,11 @@ not contain transcript hashes or a dataset revision. Aggregate historical
 metrics may be reported only with that warning; no per-row gold/score join may
 be committed.
 
-Protocol 1.4 disables prospective `pilot` and `full` API modes. The unlicensed
+Protocol 1.5 disables prospective `pilot` and `full` API modes. The unlicensed
 repository prompt cannot be copied as an executable dependency, the earlier
 independent wrapper was not prompt-equivalent, and no sealed D-checkable cohort
 or provider-identity enforcement existed. No paid request, paired analysis, or
-comparative claim is part of PX-063 v1.4.
+comparative claim is part of PX-063 v1.5.
 
 ## Source, license, and provenance gates
 
@@ -486,7 +488,7 @@ synthetic fixture suite.
 
 ## Frozen run order
 
-1. **Pre-result lock:** commit and push Protocol 1.4, rules, parser, verifier,
+1. **Pre-result lock:** commit and push Protocol 1.5, rules, parser, verifier,
    fixture bank, analysis code, requirements, and attribution notice.
 2. **Gate 0:** from that clean pushed commit, validate dependency, code-license,
    dataset-license, usage, and attribution records before trajectory access.
@@ -519,6 +521,6 @@ the historical LLM material is excluded and provenance-unestablished.
 
 Until final Gates 0 and 1 execute successfully, the only valid status is:
 
-> PX-063 has a pre-result locked implementation path under Protocol 1.4. Its
+> PX-063 has a pre-result locked implementation path under Protocol 1.5. Its
 > final source, license, conformance, and scientific gates have not yet passed,
 > and it has no deterministic empirical result.

@@ -3,7 +3,7 @@
 
 This is independently implemented because the pinned rh-bench repository has
 no code license file.  It never imports or modifies the external submodule.
-Protocol 1.4 disables all paid modes. Outputs omit transcript, per-row gold,
+Protocol 1.5 disables all paid modes. Outputs omit transcript, per-row gold,
 scores, and model reasoning text.
 """
 
@@ -448,7 +448,7 @@ def _paid_run(
     max_output_tokens: int,
     resume: bool,
 ) -> int:
-    raise SystemExit("Paid PX-063 LLM modes are disabled by Protocol 1.4")
+    raise SystemExit("Paid PX-063 LLM modes are disabled by Protocol 1.5")
     if not 0 < max_spend_usd <= 5:
         raise SystemExit("Paid max spend must be >0 and <= USD 5.00")
     if not 1 <= workers <= 4:
@@ -557,7 +557,7 @@ def main() -> int:
         return _dry_run(
             output_dir, model=args.model, max_output_tokens=args.max_output_tokens
         )
-    raise SystemExit("Paid PX-063 LLM modes are disabled by Protocol 1.4")
+    raise SystemExit("Paid PX-063 LLM modes are disabled by Protocol 1.5")
 
 
 if __name__ == "__main__":

@@ -152,6 +152,7 @@ def test_exact_frozen_corpus_contract_passes_on_structural_fixtures() -> None:
     rows = [_row(index, "hacking" if index < 268 else "clean") for index in range(517)]
     result = validate_trace_rows(rows)
     assert result.summary["status"] == "PASS"
+    assert result.summary["schema_version"] == "px063_source_integrity_summary_v1_5"
     assert result.summary["labels"] == {"hacking": 268, "clean": 249}
     assert result.summary["structured_tool_payload_rows"] == 0
     assert len(result.records) == 517
