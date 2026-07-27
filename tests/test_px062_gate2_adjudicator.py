@@ -3,6 +3,7 @@ from copy import deepcopy
 from scripts.adjudicate_px062_skill_hallucination import (
     adjudicate,
     completeness_at_least,
+    one_sided_mcnemar,
     rate_at_most,
     utility_loss_at_most,
 )
@@ -14,6 +15,10 @@ CONDITIONS = [
     "registry_constrained",
     "post_generation_verification",
 ]
+
+
+def test_zero_discordance_mcnemar_stays_in_holm_family():
+    assert one_sided_mcnemar(0, 0) == 1.0
 
 
 def fixture_config():
@@ -303,3 +308,74 @@ def test_within_trace_mcnemar_supports_strong_bounded_positive():
         assert paired["post_verification_nonexistent"] == 0
         assert paired["paired_risk_difference"] < 0
         assert paired["holm_adjusted_p"] <= 0.05
+
+
+def test_zero_discordance_model_remains_in_two_model_holm_family():
+    task_count = 10
+    tasks = []
+    for index in range(task_count):
+        tasks.extend(
+            [
+                {
+                    "task_id": f"known-{index}",
+                    "task_type": "known_skill",
+                    "expected_skill": "alpha",
+                },
+                {
+                    "task_id": f"unavailable-{index}",
+                    "task_type": "unavailable_capability",
+                    "expected_skill": None,
+                },
+                {
+                    "task_id": f"near-{index}",
+                    "task_type": "near_miss_name",
+                    "expected_skill": "alpha",
+                },
+            ]
+        )
+    config = fixture_config()
+    config.update(
+        {
+            "expected_tasks": len(tasks),
+            "expected_task_type_counts": {
+                "known_skill": task_count,
+                "unavailable_capability": task_count,
+                "near_miss_name": task_count,
+            },
+            "expected_outputs": len(tasks) * len(MODELS) * len(CONDITIONS),
+            "minimum_initial_nonexistent_events_per_model": task_count,
+        }
+    )
+    outputs = []
+    for model in MODELS:
+        for condition in CONDITIONS:
+            for index in range(task_count):
+                outputs.append(row(model, condition, f"known-{index}", "alpha", "alpha"))
+                outputs.append(
+                    row(model, condition, f"unavailable-{index}", "NONE", "NONE")
+                )
+                initial = f"alpha-pro-{index}"
+                corrected = model == "model-a" and condition == "post_generation_verification"
+                outputs.append(
+                    row(
+                        model,
+                        condition,
+                        f"near-{index}",
+                        initial,
+                        "alpha" if corrected else initial,
+                    )
+                )
+    summary = fixture_summary()
+    summary["tasks"] = config["expected_tasks"]
+    summary["outputs"] = config["expected_outputs"]
+    summary["expected_outputs"] = config["expected_outputs"]
+
+    result = adjudicate(config, tasks, {"names": ["alpha"]}, outputs, summary)
+
+    assert result["determination"] == "FAIL"
+    assert result["efficacy_determination"] == "NOT_SUPPORTED"
+    assert result["result_classification"] == "FAIL"
+    assert result["paired_tests"]["model-a"]["mcnemar_one_sided_p"] == 1 / 1024
+    assert result["paired_tests"]["model-a"]["holm_adjusted_p"] == 2 / 1024
+    assert result["paired_tests"]["model-b"]["mcnemar_one_sided_p"] == 1.0
+    assert result["paired_tests"]["model-b"]["holm_adjusted_p"] == 1.0

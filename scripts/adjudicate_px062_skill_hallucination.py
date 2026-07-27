@@ -90,10 +90,13 @@ def completeness_at_least(complete: int, expected: int, minimum: float) -> bool:
     return expected > 0 and complete / expected >= minimum
 
 
-def one_sided_mcnemar(improvements: int, regressions: int) -> float | None:
+def one_sided_mcnemar(improvements: int, regressions: int) -> float:
     discordant = improvements + regressions
     if discordant == 0:
-        return None
+        # With no discordant pairs there is no evidence of directional
+        # improvement.  Treat the exact one-sided test as p=1 so this model
+        # remains in the predeclared cross-model Holm family.
+        return 1.0
     return sum(
         math.comb(discordant, count) for count in range(improvements, discordant + 1)
     ) / (2**discordant)
