@@ -2,6 +2,16 @@
 
 Date: 2026-07-24
 
+> **Final status, 2026-07-27:** Gate 2.1 completed with full evidence integrity
+> and a registered **FAIL / cross-model no-go**. Qwen produced a bounded
+> model-specific positive, but Mistral failed the primary nonexistent-name rate
+> gate, so mitigation efficacy is not supported across models. This dated
+> status supersedes the live-run language below without changing the historical
+> Gate 0 or Gate 1 determinations. See
+> [PX062_FINAL_DETERMINATION_20260727.md](PX062_FINAL_DETERMINATION_20260727.md)
+> and
+> [PX062_FINAL_DASHBOARD_20260727.html](PX062_FINAL_DASHBOARD_20260727.html).
+
 > **Gate 2.1 status update, 2026-07-26:** The first Gate 2 cloud job failed at
 > S3 source retrieval before user code or model inference. It produced no
 > scientific result. The task hash stated below is a stale pre-run value and is

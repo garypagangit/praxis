@@ -386,6 +386,18 @@ This index intentionally publishes both positive and negative results. The rule 
 
 **Primary artifacts:** `reports/EXPERIMENT_CURRENT_DASHBOARD_20260724.html`, `configs/new_praxis_experiment_registry_20260723.json`, `reports/new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md`, `reports/adaptive_stopping_overthinking/PX057_FINAL_DETERMINATION_20260724.md`, `reports/xai_explanation_drift_intrusion/PX058_FINAL_DETERMINATION_20260724.md`, `reports/uncertainty_adaptive_speculative_decoding/PX059_SOURCE_GATE_20260724.md`, `reports/coed_direction_robustness/PX060_FINAL_DETERMINATION_20260724.md`, `reports/wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md`, and `reports/coding_agent_skill_provenance/PX062_CURRENT_DETERMINATION_20260724.md`.
 
+## 2026-07-27 PX-062 Final Determination Addendum
+
+**Experiment:** Provenance and Existence Gate for Coding-Agent Skills.
+
+**Status:** final **FAIL / cross-model no-go**, with evidence integrity **PASS**. Gate 1 remains a valid provenance-only negative: the full gate admitted all 1,070 authentic signed poisoned skills while rejecting all tampered and nonexistent objects. Gate 2.1 then completed the registered two-model, three-condition, 300-task experiment with all 1,800 expected unique rows valid and 100% trace completeness.
+
+**Current determination:** the deterministic post-generation existence check produced a bounded model-specific positive for Qwen but did not transfer to Mistral. Qwen reduced the nonexistent recommendation/attempt proxy from 147/300 (49.00%) to 2/300 (0.67%), correcting 145/147 initial events; Mistral remained at 297/300 (99.00%) before and after verification, with 0/297 corrections. The Mistral proxy reflects failure of the frozen exact-first-line recovery grammar, not necessarily 297 invented identifiers: a post-adjudication format diagnostic—not a new gate—found 109 rejected first lines containing a complete registered name embedded in longer text. Both models passed the frozen known-skill utility and trace-completeness gates, but Mistral failed the required <=1% primary safety gate. Because every H1-H3 gate and paired reduction were required for both models, the overall determination is FAIL and efficacy is NOT SUPPORTED across models. A disclosed Holm edge case does not alter that result: treating Mistral's zero-discordance null p-value conventionally as 1.0 gives adjusted p-values of 4.484155085839415e-44 for Qwen and 1.0 for Mistral.
+
+**Experiment fitness and boundary:** this was the correct experiment for the narrow preregistered questions: Gate 1 tested provenance against authentic released poisoning artifacts, and Gate 2.1 tested decontextualized nonexistent-name recovery across two model families. It was not a skill-execution or production-agent safety test. No skill was loaded; recovery omitted original-task context; semantic poisoning, correct replacement selection, runtime compromise, and natural prevalence remain outside scope. Close the tested mechanism rather than retuning it against observed results; a structured or context-preserving replacement requires a new preregistration and held-out data.
+
+**Primary artifacts:** `reports/coding_agent_skill_provenance/PX062_FINAL_DETERMINATION_20260727.md`, `reports/coding_agent_skill_provenance/PX062_FINAL_DASHBOARD_20260727.html`, `reports/coding_agent_skill_provenance/gate2_skill_hallucination_v1_1_20260726/adjudication.json`, and `reports/coding_agent_skill_provenance/gate2_skill_hallucination_v1_1_20260726/completion_fetch_receipt.json`. The adjudication is fixed at commit `2c58379b370c5f588a567910cae1a3f622f452a0`.
+
 ## Source Dashboards
 
 - `reports/EXPERIMENT_CURRENT_DASHBOARD_20260513.md`

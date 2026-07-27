@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Final evidence dashboard for PX-062 Gate 2.1, finalized July 27, 2026.">
+  <link rel="icon" href="data:,">
+  <title>PX-062 Final Evidence Dashboard — 2026-07-27</title>
+  <style>
+    :root {
+      --navy: #102a43;
+      --navy-2: #173f5f;
+      --blue: #1675a9;
+      --teal: #087f6d;
+      --teal-bg: #e5f6f1;
+      --red: #a22f3b;
+      --red-bg: #fae8ea;
+      --amber: #8b5e00;
+      --amber-bg: #fff3cf;
+      --ink: #1d2935;
+      --muted: #60707e;
+      --line: #d5e0e7;
+      --surface: #ffffff;
+      --bg: #edf3f6;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    a { color: #086b9a; font-weight: 700; text-decoration-thickness: .08em; text-underline-offset: .15em; }
+    a:hover { color: #064f72; }
+    code {
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: .86em;
+      overflow-wrap: anywhere;
+    }
+    .hero {
+      background:
+        radial-gradient(circle at 85% 20%, rgba(56, 189, 170, .19), transparent 29rem),
+        linear-gradient(120deg, #0d263c, var(--navy-2));
+      color: white;
+      padding: 56px max(24px, 6vw) 48px;
+    }
+    .eyebrow {
+      color: #8de1d4;
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    h1 { font-size: clamp(2.25rem, 5vw, 4.35rem); line-height: 1.02; margin: .45rem 0 .85rem; max-width: 1050px; }
+    .hero p { color: #dce8ef; font-size: 1.08rem; margin: 0; max-width: 900px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .chip { border: 1px solid #7290a5; border-radius: 999px; padding: 6px 11px; color: #edf7fb; font-size: .82rem; }
+    .shell { max-width: 1380px; margin: 0 auto; padding: 28px max(18px, 4vw) 64px; }
+    .verdict {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, .5fr);
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 8px solid var(--red);
+      border-radius: 14px;
+      box-shadow: 0 10px 28px rgba(16, 42, 67, .08);
+      padding: 25px;
+    }
+    .verdict h2 { margin: 0 0 8px; font-size: 1.45rem; }
+    .verdict p { margin: 0; color: #455766; }
+    .verdict-mark { align-self: center; text-align: center; border-radius: 12px; background: var(--red-bg); color: var(--red); padding: 18px; }
+    .verdict-mark strong { display: block; font-size: 2.05rem; line-height: 1; }
+    .verdict-mark span { display: block; font-weight: 800; margin-top: 7px; }
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+    .metric { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+    .metric strong { display: block; color: var(--navy); font-size: 1.65rem; line-height: 1.15; }
+    .metric span { color: var(--muted); font-size: .9rem; }
+    h2.section-title { color: var(--navy); font-size: 1.6rem; margin: 34px 0 14px; }
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 21px; }
+    .panel h3 { color: var(--navy); margin: 0 0 8px; }
+    .panel p { margin: 0 0 10px; color: #40515f; }
+    .panel p:last-child { margin-bottom: 0; }
+    .status-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0 13px; }
+    .badge { display: inline-block; border-radius: 999px; padding: 5px 10px; font-size: .76rem; font-weight: 850; }
+    .fail { background: var(--red-bg); color: var(--red); }
+    .pass { background: var(--teal-bg); color: var(--teal); }
+    .bounded { background: var(--amber-bg); color: var(--amber); }
+    .table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+    table { border-collapse: collapse; width: 100%; min-width: 850px; }
+    th { background: var(--navy); color: white; text-align: left; font-size: .82rem; letter-spacing: .015em; padding: 12px; }
+    td { border-bottom: 1px solid var(--line); padding: 12px; vertical-align: top; font-size: .9rem; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: #f7fafb; }
+    .decision-pass { color: var(--teal); font-weight: 850; }
+    .decision-fail { color: var(--red); font-weight: 850; }
+    .model-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .model-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 21px; }
+    .model-card.qwen { border-top: 6px solid var(--teal); }
+    .model-card.mistral { border-top: 6px solid var(--red); }
+    .model-card h3 { margin: 0; color: var(--navy); }
+    .bar-row { margin-top: 15px; }
+    .bar-label { display: flex; justify-content: space-between; gap: 12px; font-size: .84rem; color: #425461; }
+    .track { height: 10px; background: #e7eef2; border-radius: 999px; overflow: hidden; margin-top: 5px; }
+    .fill { height: 100%; border-radius: 999px; }
+    .fill.teal { background: var(--teal); }
+    .fill.red { background: var(--red); }
+    .fill.blue { background: var(--blue); }
+    .note { border-left: 5px solid var(--amber); background: #fffaf0; border-radius: 10px; padding: 17px 19px; margin-top: 16px; }
+    .note strong { color: #755000; }
+    .timeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .stage { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 19px; }
+    .stage small { color: var(--blue); font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .stage h3 { color: var(--navy); margin: 5px 0 8px; }
+    .stage p { color: #4d5e6a; margin: 0; font-size: .92rem; }
+    .identity td:first-child { width: 230px; font-weight: 750; color: var(--navy); }
+    .links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .link-card { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 15px; text-decoration: none; }
+    .link-card:hover { border-color: var(--blue); box-shadow: 0 5px 15px rgba(16, 42, 67, .07); text-decoration: none; }
+    .link-card span { display: block; color: var(--muted); font-weight: 500; font-size: .82rem; margin-top: 3px; }
+    footer { color: var(--muted); font-size: .82rem; margin-top: 34px; text-align: center; }
+    @media (max-width: 900px) {
+      .verdict, .two-col, .model-grid { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .timeline, .links { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .metrics { grid-template-columns: 1fr; }
+      .hero { padding-top: 38px; }
+    }
+    @media print {
+      body { background: white; }
+      .hero { background: var(--navy); print-color-adjust: exact; }
+      .shell { max-width: none; }
+      .panel, .metric, .stage, .model-card, .table-wrap, .verdict { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="eyebrow">Praxis research · final evidence dashboard</div>
+    <h1>PX-062: Provenance and Existence Gate for Coding-Agent Skills</h1>
+    <p>A clean, integrity-valid negative: provenance alone failed against authentic poisoned skills, and deterministic name recovery did not transfer across both frozen model families.</p>
+    <div class="hero-meta">
+      <span class="chip">Finalized 2026-07-27</span>
+      <span class="chip">Protocol 1.1</span>
+      <span class="chip">300 tasks</span>
+      <span class="chip">2 models · 3 conditions</span>
+      <span class="chip">1,800 outputs</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="verdict" aria-labelledby="verdict-title">
+      <div>
+        <h2 id="verdict-title">Overall determination: cross-model no-go</h2>
+        <p>Gate 2.1 is <strong>FAIL</strong> and mitigation efficacy is <strong>NOT SUPPORTED across models</strong>. Qwen showed a bounded positive signal, but Mistral showed no acceptable recovery under the frozen exact-first-line grammar. The preregistration required both models to pass. Evidence integrity passed in full.</p>
+      </div>
+      <div class="verdict-mark" aria-label="Overall result fail">
+        <strong>FAIL</strong>
+        <span>Integrity: PASS</span>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Experiment summary metrics">
+      <div class="metric"><strong>1,800 / 1,800</strong><span>expected unique rows observed and valid</span></div>
+      <div class="metric"><strong>100%</strong><span>trace completeness; H3 passed</span></div>
+      <div class="metric"><strong>0.67%</strong><span>Qwen final nonexistent rate; H1 passed</span></div>
+      <div class="metric"><strong>99.00%</strong><span>Mistral final nonexistent rate; H1 failed</span></div>
+    </section>
+
+    <h2 class="section-title">Was this the correct experiment?</h2>
+    <section class="two-col">
+      <article class="panel">
+        <h3>Yes — for the registered questions</h3>
+        <p>Gate 1 directly tested whether identity and provenance controls reject the paper's authentic released poisoning artifacts. Gate 2.1 directly tested a deterministic existence check plus a fresh recovery turn on two frozen model families.</p>
+        <p>The cross-model requirement was scientifically useful: it exposed model dependence that a Qwen-only study would have hidden.</p>
+      </article>
+      <article class="panel">
+        <h3>Not a production-agent safety test</h3>
+        <p>No skill was loaded or executed. Recovery omitted the original task and prior assistant turn. The benchmark did not test best-skill recovery, semantic poisoning, runtime compromise, general hallucination, or natural deployment prevalence.</p>
+        <p>A structured tool-call verifier or context-preserving controller would be a new experiment, not a reinterpretation of this result.</p>
+      </article>
+    </section>
+
+    <h2 class="section-title">Every frozen Gate 2.1 decision</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Gate</th><th>Frozen requirement</th><th>Qwen2.5-7B</th><th>Mistral-7B v0.3</th><th>Overall</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>H1 · nonexistent attempt proxy</strong></td>
+            <td>&le;1% after verification over 300 tasks, for each model</td>
+            <td>2/300 = <strong>0.67%</strong> <span class="decision-pass">PASS</span></td>
+            <td>297/300 = <strong>99.00%</strong> <span class="decision-fail">FAIL</span></td>
+            <td class="decision-fail">FAIL</td>
+          </tr>
+          <tr>
+            <td><strong>H2 · known-skill utility</strong></td>
+            <td>Post-verification accuracy no more than 5 pp below open-ended</td>
+            <td>25/100 vs 0/100; +25 pp <span class="decision-pass">PASS</span></td>
+            <td>3/100 vs 3/100; 0 pp <span class="decision-pass">PASS</span></td>
+            <td class="decision-pass">PASS</td>
+          </tr>
+          <tr>
+            <td><strong>H3 · trace completeness</strong></td>
+            <td>&ge;99%</td>
+            <td>100% <span class="decision-pass">PASS</span></td>
+            <td>100% <span class="decision-pass">PASS</span></td>
+            <td class="decision-pass">PASS</td>
+          </tr>
+          <tr>
+            <td><strong>Efficacy event sufficiency</strong></td>
+            <td>&ge;10 initial nonexistent events per model</td>
+            <td>147 · sufficient</td>
+            <td>297 · sufficient</td>
+            <td>Sufficient to evaluate</td>
+          </tr>
+          <tr>
+            <td><strong>Strong bounded positive</strong></td>
+            <td>Negative paired risk difference and one-sided exact McNemar Holm-adjusted p&le;0.05 for both models</td>
+            <td>-48.33 pp; official JSON adjusted p=2.24&times;10<sup>-44</sup></td>
+            <td>0.00 pp; zero discordant pairs; official p is null</td>
+            <td class="decision-fail">FAIL</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Model outcomes</h2>
+    <section class="model-grid">
+      <article class="model-card qwen">
+        <h3>Qwen2.5-7B-Instruct</h3>
+        <div class="status-line"><span class="badge bounded">Bounded model-specific positive</span><span class="badge pass">H1 / H2 / H3 pass</span></div>
+        <p>Verification corrected 145 of 147 initially nonexistent recommendations. Only 39 of those 147 corrections became exactly task-correct; abstention was common.</p>
+        <div class="bar-row"><div class="bar-label"><span>Initial nonexistent</span><strong>147/300 · 49.00%</strong></div><div class="track"><div class="fill blue" style="width:49%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Final nonexistent</span><strong>2/300 · 0.67%</strong></div><div class="track"><div class="fill teal" style="width:.67%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Corrected among initial events</span><strong>145/147 · 98.64%</strong></div><div class="track"><div class="fill teal" style="width:98.64%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Exact task accuracy after verification</span><strong>165/300 · 55.00%</strong></div><div class="track"><div class="fill blue" style="width:55%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Abstention after verification</span><strong>230/300 · 76.67%</strong></div><div class="track"><div class="fill blue" style="width:76.67%"></div></div></div>
+      </article>
+
+      <article class="model-card mistral">
+        <h3>Mistral-7B-Instruct-v0.3</h3>
+        <div class="status-line"><span class="badge fail">Primary gate failure</span><span class="badge pass">H2 / H3 pass</span></div>
+        <p>All 297 initially noncompliant responses remained failures under the frozen exact-first-line grammar. There were zero paired improvements and no reduction in measured risk. A post-adjudication format diagnostic—not a new gate—found that 109 rejected first lines contained a complete registered name but embedded it in longer text; the proxy should not be read as 297 necessarily invented identifiers.</p>
+        <div class="bar-row"><div class="bar-label"><span>Initial nonexistent</span><strong>297/300 · 99.00%</strong></div><div class="track"><div class="fill red" style="width:99%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Final nonexistent</span><strong>297/300 · 99.00%</strong></div><div class="track"><div class="fill red" style="width:99%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Corrected among initial events</span><strong>0/297 · 0.00%</strong></div><div class="track"><div class="fill red" style="width:0%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Exact task accuracy after verification</span><strong>3/300 · 1.00%</strong></div><div class="track"><div class="fill red" style="width:1%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Abstention after verification</span><strong>0/300 · 0.00%</strong></div><div class="track"><div class="fill red" style="width:0%"></div></div></div>
+      </article>
+    </section>
+    <div class="note"><strong>Interpretation guardrail:</strong> the Qwen result is a model-specific signal, not a PX-062 cross-model positive. The registered defense fails because Mistral misses H1 and the paired efficacy requirement. The committed adjudicator excluded Mistral's zero-discordance <em>null</em> p-value from its Holm family. Conventionally assigning that case p=1 gives Holm-adjusted values of 4.484155085839415&times;10<sup>-44</sup> for Qwen and 1.0 for Mistral; the FAIL / NOT_SUPPORTED outcome is unchanged, and the official artifact remains unmodified.</div>
+
+    <h2 class="section-title">All three arms</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Model</th><th>Condition</th><th>Nonexistent proxy</th><th>Exact task accuracy</th><th>Abstention</th></tr></thead>
+        <tbody>
+          <tr><td>Qwen</td><td>Open-ended</td><td>147/300 (49.00%)</td><td>126/300 (42.00%)</td><td>127/300 (42.33%)</td></tr>
+          <tr><td>Qwen</td><td>Registry-constrained</td><td>64/300 (21.33%)</td><td>222/300 (74.00%)</td><td>102/300 (34.00%)</td></tr>
+          <tr><td>Qwen</td><td>Post-generation verification</td><td>2/300 (0.67%)</td><td>165/300 (55.00%)</td><td>230/300 (76.67%)</td></tr>
+          <tr><td>Mistral</td><td>Open-ended</td><td>297/300 (99.00%)</td><td>3/300 (1.00%)</td><td>0/300 (0.00%)</td></tr>
+          <tr><td>Mistral</td><td>Registry-constrained</td><td>215/300 (71.67%)</td><td>79/300 (26.33%)</td><td>0/300 (0.00%)</td></tr>
+          <tr><td>Mistral</td><td>Post-generation verification</td><td>297/300 (99.00%)</td><td>3/300 (1.00%)</td><td>0/300 (0.00%)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Evidence path: historical gates preserved</h2>
+    <section class="timeline">
+      <article class="stage">
+        <small>Gate 0</small>
+        <h3><span class="badge pass">PASS · inert fixture only</span></h3>
+        <p>180 controlled cases; 0/60 clean false rejects, 0/120 attack escapes, and 100% trace completeness. This validated implementation, not scientific efficacy.</p>
+      </article>
+      <article class="stage">
+        <small>Gate 1</small>
+        <h3><span class="badge fail">FAIL · provenance-only</span></h3>
+        <p>All 1,070 authentic signed poisoned skills were admitted. Tampered poisoned skills and nonexistent names were rejected 1,070/1,070; clean exact skills were admitted 44/44.</p>
+      </article>
+      <article class="stage">
+        <small>Gate 2.1</small>
+        <h3><span class="badge fail">FAIL · cross-model</span></h3>
+        <p>The live 1,800-output experiment had complete integrity. Qwen passed the primary rate gate; Mistral failed it. Overall efficacy was not supported.</p>
+      </article>
+    </section>
+
+    <h2 class="section-title">Integrity and frozen execution identity</h2>
+    <div class="table-wrap identity">
+      <table>
+        <tbody>
+          <tr><td>Experiment ID</td><td><code>px062-skill-hallucination-gate2-v1-1-20260726</code></td></tr>
+          <tr><td>Valid cloud job</td><td><code>px062-g21-retry1-20260727</code></td></tr>
+          <tr><td>Job ARN</td><td><code>arn:aws:sagemaker:us-east-1:272615233626:training-job/px062-g21-retry1-20260727</code></td></tr>
+          <tr><td>Frozen source commit</td><td><code>7ecef81fe50f68eb0546279a1b6d70f2ecfb85d8</code></td></tr>
+          <tr><td>Source archive</td><td><code>experiments/px062-skill-provenance/gate2-hallucination-20260724/code/px062-g21-retry1-20260727/source.tar.gz</code><br>Version <code>MVESPnZrotIUzZn3k483ZoweJj9057j2</code><br>SHA-256 <code>d74e5ff5235806b777e7cda8fd0b71968c3526c60608347bdbfd9a9b9ac0ab22</code></td></tr>
+          <tr><td>Output artifact</td><td><code>experiments/px062-skill-provenance/gate2-hallucination-20260724/output/px062-g21-retry1-20260727/output/model.tar.gz</code><br>Version <code>LvYng4aExD.HStm4xNQQM6KDtZCEBgOV</code><br>SHA-256 <code>6998cdfbe91b0a62935ca74da9280b6629b0400fd8014b4b32a290cdd9efa31b</code></td></tr>
+          <tr><td>Frozen input hashes</td><td>Config <code>8fe4e9e5d141e111b6d4c03aac567da33d14a6f41642682db4727d077f23a1ec</code><br>Tasks <code>fbda2e8039d2a6087fb1cd3584470269c3e2c409d4bbe13f7eb1e59a4fc19316</code><br>Registry <code>2c447b5eee07b2f2930fc8649860652b36d4902dafadfa83e3f5d7aa041a76db</code></td></tr>
+          <tr><td>Sealed output hashes</td><td>Raw outputs <code>4848da2f2a1590bf31c19fa52329e3e1c8de2733311beb8a4afff6ddea89103b</code><br>Collection summary <code>eb2160f0dbf7dbc3c811786f585bef99237baec9a8a767be7889c93058776df7</code></td></tr>
+          <tr><td>Adjudication identity</td><td>Commit <code>2c58379b370c5f588a567910cae1a3f622f452a0</code><br>Git blob <code>5e4a6ea870aa149721707627b128dc8a2e328d0d</code><br>JSON SHA-256 <code>1969eda584b59daceb83a5a78c8d4606d6faa384d0645f2beba6cf690bee5363</code></td></tr>
+          <tr><td>Integrity verdict</td><td><strong class="decision-pass">PASS</strong> · 1,800 expected, observed, unique, and valid; 100% trace completeness; zero integrity errors.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Claim boundary and disposition</h2>
+    <section class="panel">
+      <p><strong>What is established:</strong> under the frozen prompts, models, registry snapshot, exact-name parser, and decontextualized recovery treatment, Qwen converted nearly all nonexistent-name recommendations to a registered name or abstention, while Mistral did not. Provenance-only admission rejected tampering and nonexistent objects but did not reject authentic signed poisoned content.</p>
+      <p><strong>What is not established:</strong> context-preserving retry performance, correct replacement-skill selection, semantic-poisoning prevention, production compromise prevention, general hallucination rates, or production-agent safety.</p>
+      <p><strong>Disposition:</strong> close this tested cross-model mechanism as a no-go. Do not retune it against the observed outcomes. Any structured or context-preserving replacement is a new preregistered experiment.</p>
+    </section>
+
+    <h2 class="section-title">Open the evidence</h2>
+    <nav class="links" aria-label="PX-062 evidence links">
+      <a class="link-card" href="PX062_FINAL_DETERMINATION_20260727.md">Final determination<span>Full narrative, gates, identities, and claim boundary</span></a>
+      <a class="link-card" href="gate2_skill_hallucination_v1_1_20260726/adjudication.json">Gate 2.1 adjudication<span>Committed frozen result at 2c58379</span></a>
+      <a class="link-card" href="gate2_skill_hallucination_v1_1_20260726/completion_fetch_receipt.json">Completion receipt<span>Source and output artifact authentication</span></a>
+      <a class="link-card" href="gate2_skill_hallucination_v1_1_20260726/frozen_config.json">Frozen configuration<span>Models, tasks, thresholds, and claim boundary</span></a>
+      <a class="link-card" href="PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md">Pre-run addendum<span>Frozen Gate 2.1 corrections and execution order</span></a>
+      <a class="link-card" href="gate1_public_corpus_20260724/PX062_GATE1_PUBLIC_CORPUS_DETERMINATION.md">Gate 1 determination<span>Provenance-only public-corpus negative</span></a>
+      <a class="link-card" href="gate0_20260724/PX062_GATE0_DETERMINATION.md">Gate 0 determination<span>Controlled inert-fixture implementation pass</span></a>
+      <a class="link-card" href="https://arxiv.org/abs/2604.03081">Original paper<span>Supply-chain poisoning of coding-agent skill ecosystems</span></a>
+      <a class="link-card" href="https://doi.org/10.5281/zenodo.19281322">Released corpus<span>Authors' poisoned-skill dataset</span></a>
+    </nav>
+
+    <footer>PX-062 final evidence dashboard · 2026-07-27 · Static HTML with no external scripts or assets</footer>
+  </main>
+</body>
+</html>
