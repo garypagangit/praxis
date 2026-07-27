@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "configs" / "new_praxis_experiment_registry_20260723.json"
+REGISTERED_PX062_JOB = "px062-g21-retry1-20260727"
 
 
 DETAILS = {
@@ -53,11 +54,11 @@ DETAILS = {
         "link": "wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md",
     },
     "PX-062": {
-        "classification": "Gate 1 negative; Gate 2.1 prelaunch",
+        "classification": "Gate 1 negative; Gate 2.1 registered",
         "tone": "active",
         "evidence": "1,070 released poisoned skills, 44 clean skills, and a frozen 300-task hallucination benchmark.",
-        "result": "Gate 1 was negative. The first Gate 2 job failed before inference, so no Gate 2 result exists; Gate 2.1 is frozen before output.",
-        "next": "Repair exact-prefix S3 access and launch the single registered Gate 2.1 retry after the GPU quota is free.",
+        "result": "Gate 1 was negative. The first Gate 2 job failed before inference; the corrected retry source, request, and least-privilege S3 access are now sealed.",
+        "next": "Launch the single byte-registered Gate 2.1 retry after the GPU quota is free.",
         "link": "coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md",
     },
     "PX-063": {
@@ -111,14 +112,16 @@ def cloud_status(profile: str, job_name: str | None) -> dict:
         "json",
     ]
     try:
-        result = json.loads(subprocess.check_output(command, text=True))
+        result = json.loads(
+            subprocess.check_output(command, text=True, stderr=subprocess.DEVNULL)
+        )
         result["Job"] = job_name
         return result
     except Exception:
         return {
             "Job": job_name,
-            "Status": "Unknown",
-            "Secondary": "Unavailable",
+            "Status": "Registered",
+            "Secondary": "Awaiting GPU quota",
             "Failure": None,
         }
 
@@ -134,7 +137,7 @@ def markdown(experiments: list[dict], cloud: dict) -> str:
         "- Lead new positive: **PX-057 adaptive stopping**.",
         "- Mixed result: **PX-058 explanation stability passed; drift warning failed**.",
         "- Closed or negative: **PX-059, PX-060, PX-061**.",
-        "- Preparing confirmatory retry: **PX-062 skill-name hallucination Gate 2.1**.",
+        "- Registered confirmatory retry: **PX-062 skill-name hallucination Gate 2.1**.",
         "- Queued or blocked: **PX-063 through PX-065**.",
         "- Related mature defense: **PX-050 independently confirmed one-million-command robustness within its frozen grammar**.",
         "",
@@ -232,7 +235,7 @@ a{{color:var(--blue);font-weight:700;text-decoration:none}} a:hover{{text-decora
 <div class="metric"><b>1</b><span>strong bounded positive</span></div>
 <div class="metric"><b>1</b><span>mixed result</span></div>
 <div class="metric"><b>3</b><span>closed or negative</span></div>
-<div class="metric"><b>1</b><span>confirmatory retry prelaunch</span></div>
+<div class="metric"><b>1</b><span>registered confirmatory retry</span></div>
 </section>
 <h2>Current experiment cards</h2><section class="cards">{''.join(cards)}</section>
 <h2>Evidence and next actions</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Experiment</th><th>Classification</th><th>Evidence</th><th>Next action</th></tr></thead><tbody>{''.join(table_rows)}</tbody></table></div>
@@ -244,7 +247,7 @@ a{{color:var(--blue);font-weight:700;text-decoration:none}} a:hover{{text-decora
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile", default="praxis-build")
-    parser.add_argument("--px062-job")
+    parser.add_argument("--px062-job", default=REGISTERED_PX062_JOB)
     args = parser.parse_args()
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     experiments = [

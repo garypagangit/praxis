@@ -1,0 +1,71 @@
+{
+  "experiment_id": "px062-skill-hallucination-gate2-v1-1-20260726",
+  "protocol_version": "1.1",
+  "registered_at_utc": "2026-07-27T03:58:10Z",
+  "branch": "agent/px062-gate2-retry",
+  "source_commit": "7ecef81fe50f68eb0546279a1b6d70f2ecfb85d8",
+  "region": "us-east-1",
+  "job_name": "px062-g21-retry1-20260727",
+  "request_file": "manifests/px062_gate2_20260727/retry_request.json",
+  "request_sha256": "4969e6915acae09e178744ac91e46533ee8e42cfbd8f89bfe28d1786522955bf",
+  "retry_policy": {
+    "allowed_training_job_creations": 1,
+    "launch_condition": "The account's single ml.g5.2xlarge training slot is free.",
+    "threshold_or_parser_changes_after_launch": 0
+  },
+  "previous_infrastructure_aborted_job": {
+    "job_name": "px062-skill-hallucination-2026-07-24-22-21-01",
+    "status": "Failed",
+    "scientific_outputs": 0,
+    "failure_stage": "S3 HeadObject before source extraction or user entry point"
+  },
+  "source_bundle": {
+    "bucket": "praxis-garypagan-272615233626-us-east-1",
+    "key": "experiments/px062-skill-provenance/gate2-hallucination-20260724/code/px062-g21-retry1-20260727/source.tar.gz",
+    "version_id": "MVESPnZrotIUzZn3k483ZoweJj9057j2",
+    "etag": "92c4e8fc56fb448010a239982f6c0b5f",
+    "sha256": "d74e5ff5235806b777e7cda8fd0b71968c3526c60608347bdbfd9a9b9ac0ab22",
+    "checksum_sha256_base64": "105f9SNYBrd3582o/Qtxlow1JsYGCDR72/2am5rAqyI=",
+    "bytes": 15822,
+    "server_side_encryption": "AES256",
+    "uploaded_at_utc": "2026-07-27T03:57:52Z",
+    "deterministic_second_build_sha256": "d74e5ff5235806b777e7cda8fd0b71968c3526c60608347bdbfd9a9b9ac0ab22",
+    "download_verification_sha256": "d74e5ff5235806b777e7cda8fd0b71968c3526c60608347bdbfd9a9b9ac0ab22",
+    "base_aborted_bundle_sha256": "afe0fd3a90e605766f1da555ac7b320c44187b50689c3379829a9b121534d3fb",
+    "tasks_sha256": "fbda2e8039d2a6087fb1cd3584470269c3e2c409d4bbe13f7eb1e59a4fc19316",
+    "registry_sha256": "2c447b5eee07b2f2930fc8649860652b36d4902dafadfa83e3f5d7aa041a76db",
+    "config_sha256": "8fe4e9e5d141e111b6d4c03aac567da33d14a6f41642682db4727d077f23a1ec",
+    "collector_sha256": "0e47aaf7fcb912f3d864abae44bc877e75f7f983441fbe0da3b8702cdb43eb65",
+    "near_miss_parser_conformance": {
+      "expected": 100,
+      "collector_preserved_nonexistent": 100,
+      "adjudicator_preserved_nonexistent": 100
+    }
+  },
+  "iam_repair": {
+    "role_arn": "arn:aws:iam::272615233626:role/service-role/AmazonSageMaker-ExecutionRole-20260416T191047",
+    "inline_policy_name": "PraxisPX062S3Access",
+    "policy_file": "configs/aws_px062_sagemaker_s3_policy_20260726.json",
+    "policy_sha256": "3cf8ccda6bb5986c5bbc2edfc45ff375e7a7f4379869ee37a410967061f63511",
+    "intended_source_get": "allowed",
+    "intended_output_put": "allowed",
+    "output_delete": "implicitDeny",
+    "unrelated_experiment_get": "implicitDeny"
+  },
+  "frozen_collection": {
+    "tasks": 300,
+    "conditions": 3,
+    "models": 2,
+    "expected_outputs": 1800,
+    "decoding": "greedy",
+    "max_new_tokens": 32,
+    "instance_type": "ml.g5.2xlarge",
+    "max_runtime_seconds": 43200,
+    "container_image_digest": "sha256:01d8dfbde8f6e47a20e5b1e4033e105976663f2641084921b8769ee6998ef807"
+  },
+  "state_at_registration": {
+    "registered_job_name_exists": false,
+    "gate2_model_outputs_observed": false,
+    "quota_holding_job": "px057-h4-cal-c3-r2-20260725"
+  }
+}

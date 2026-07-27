@@ -11,12 +11,8 @@ from pathlib import Path
 from typing import Any
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
+def sha256_normalized_text(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def aws(profile: str, region: str, *arguments: str) -> Any:
@@ -36,7 +32,7 @@ def aws(profile: str, region: str, *arguments: str) -> Any:
 def validate_registration(root: Path, registration: dict[str, Any], profile: str) -> dict:
     region = registration["region"]
     request_path = root / registration["request_file"]
-    observed_request_hash = sha256_file(request_path)
+    observed_request_hash = sha256_normalized_text(request_path)
     if observed_request_hash != registration["request_sha256"]:
         raise ValueError(
             f"request SHA-256 {observed_request_hash} != "

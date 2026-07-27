@@ -1,0 +1,31 @@
+{
+  "TrainingJobName": "px062-g21-retry1-20260727",
+  "AlgorithmSpecification": {
+    "TrainingImage": "763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training@sha256:01d8dfbde8f6e47a20e5b1e4033e105976663f2641084921b8769ee6998ef807",
+    "TrainingInputMode": "File"
+  },
+  "RoleArn": "arn:aws:iam::272615233626:role/service-role/AmazonSageMaker-ExecutionRole-20260416T191047",
+  "OutputDataConfig": {
+    "S3OutputPath": "s3://praxis-garypagan-272615233626-us-east-1/experiments/px062-skill-provenance/gate2-hallucination-20260724/output"
+  },
+  "ResourceConfig": {
+    "InstanceType": "ml.g5.2xlarge",
+    "InstanceCount": 1,
+    "VolumeSizeInGB": 150
+  },
+  "StoppingCondition": {
+    "MaxRuntimeInSeconds": 43200
+  },
+  "HyperParameters": {
+    "sagemaker_program": "cloud_jobs/px062_skill_hallucination_20260724/sagemaker_entry.py",
+    "sagemaker_submit_directory": "s3://praxis-garypagan-272615233626-us-east-1/experiments/px062-skill-provenance/gate2-hallucination-20260724/code/px062-g21-retry1-20260727/source.tar.gz",
+    "sagemaker_container_log_level": "20",
+    "sagemaker_region": "us-east-1"
+  },
+  "Environment": {
+    "PX062_CONFIG": "configs/px062_skill_hallucination_gate2_v1_1_20260726.json",
+    "HF_HOME": "/opt/ml/input/data/huggingface",
+    "TOKENIZERS_PARALLELISM": "false"
+  },
+  "EnableNetworkIsolation": false
+}
