@@ -1,0 +1,54 @@
+{
+  "experiment_id": "px057-h4-ltt-certified-transfer-20260725",
+  "px_id": "PX-057",
+  "stage": "H4_post_adjudication_terminal_absence_check",
+  "status": "PASS",
+  "scientific_data_generated": false,
+  "scientific_result_computed": false,
+  "checked_at_utc": "2026-07-27T08:19:46.181197Z",
+  "verified_at_head": "cb26144a569b173c7486b6094fcff585ba44d2e0",
+  "aws": {
+    "account": "272615233626",
+    "profile": "praxis-build",
+    "region": "us-east-1",
+    "bucket": "praxis-garypagan-272615233626-us-east-1"
+  },
+  "verifier": {
+    "path": "scripts/submit_px057_h4_holdout.py",
+    "sha256": "153975ca1fb0f11260073be0218f0f1253a258e37ecb2f19076d0b334370c78e",
+    "function": "verify_first_attempt",
+    "method": "For each frozen cell, require absent local launch/cloud/output/audit/determination evidence, no exact SageMaker job name, and no S3 object versions or delete markers under the registered source, result, and model prefixes."
+  },
+  "cells": {
+    "cell1_llama31_gsm8k": {
+      "job_name": "px057-h4-hold-c1-r1-20260727",
+      "sagemaker_job_absent": true,
+      "local_downstream_evidence_absent": true,
+      "s3_source_versions_and_delete_markers_absent": true,
+      "s3_result_versions_and_delete_markers_absent": true,
+      "s3_model_versions_and_delete_markers_absent": true
+    },
+    "cell2_qwen25_arc": {
+      "job_name": "px057-h4-hold-c2-r1-20260727",
+      "sagemaker_job_absent": true,
+      "local_downstream_evidence_absent": true,
+      "s3_source_versions_and_delete_markers_absent": true,
+      "s3_result_versions_and_delete_markers_absent": true,
+      "s3_model_versions_and_delete_markers_absent": true
+    },
+    "cell3_llama31_arc": {
+      "job_name": "px057-h4-hold-c3-r1-20260727",
+      "sagemaker_job_absent": true,
+      "local_downstream_evidence_absent": true,
+      "s3_source_versions_and_delete_markers_absent": true,
+      "s3_result_versions_and_delete_markers_absent": true,
+      "s3_model_versions_and_delete_markers_absent": true
+    }
+  },
+  "final_adjudication": {
+    "path": "reports/adaptive_stopping_overthinking/h4_20260725/final_adjudication.json",
+    "sha256": "39c48510b08d65ae2b76561e89b4e6a693917d00eb62eb63428dab15a939312d",
+    "status": "VALID_NEGATIVE"
+  },
+  "claim_boundary": "This administrative check records absence of unauthorized held-out transport and local downstream evidence after the valid-negative adjudication. It is not a scientific gate or a held-out result."
+}

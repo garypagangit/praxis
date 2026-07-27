@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="PX-057 H4 final evidence dashboard: valid-negative three-cell per-cell certification matrix.">
+<title>PX-057 H4 Final Evidence Dashboard</title>
+<style>
+:root{--navy:#102f46;--blue:#176b91;--teal:#087f72;--red:#aa3d48;--amber:#a96d06;--ink:#1f2a31;--muted:#60717b;--line:#d8e2e7;--bg:#edf3f6;--paper:#fff;--soft-red:#f9e7e9;--soft-teal:#e2f3ef;--soft-amber:#fff2d7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.52 Inter,Segoe UI,Arial,sans-serif}
+a{color:var(--blue);font-weight:700;text-decoration:none}a:hover,a:focus{text-decoration:underline}
+header{background:linear-gradient(125deg,#0c283d 0%,#164d6a 58%,#116e73 100%);color:#fff;padding:46px max(24px,6vw) 38px}
+.eyebrow{font-size:.78rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#8fe2d7}.hero{max-width:1180px;margin:auto}
+h1{font-size:clamp(2.15rem,5vw,4.15rem);line-height:1.02;margin:.42rem 0 .8rem;max-width:920px}header p{max-width:950px;color:#dcecf2;font-size:1.08rem;margin:.3rem 0 1.2rem}
+.status{display:inline-flex;align-items:center;gap:.55rem;background:#fff;color:var(--red);font-weight:900;border-radius:999px;padding:.55rem .9rem}.dot{width:.62rem;height:.62rem;border-radius:50%;background:var(--red)}
+nav{margin-top:1.35rem;display:flex;gap:.65rem;flex-wrap:wrap}nav a{color:#fff;border:1px solid #ffffff55;border-radius:8px;padding:.48rem .72rem;background:#ffffff0d}
+main{max-width:1280px;margin:auto;padding:28px max(20px,4vw) 64px}.callout{background:var(--paper);border-left:7px solid var(--red);border-radius:10px;padding:20px 22px;box-shadow:0 5px 18px #18324a12}.callout h2{margin:0 0 .35rem}.callout p{margin:.3rem 0}
+.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin:22px 0}.metric{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:17px}.metric b{display:block;font-size:1.75rem;line-height:1;color:var(--navy);margin-bottom:.35rem}.metric span{color:var(--muted);font-size:.89rem}
+section{margin-top:30px}h2{color:var(--navy);font-size:1.55rem;margin:0 0 13px}h3{color:var(--navy)}.table-wrap{overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;min-width:960px}th{background:var(--navy);color:#fff;text-align:left;padding:11px 12px;font-size:.84rem}td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:.9rem}tr:last-child td{border-bottom:0}.fail{color:var(--red);font-weight:900}.good{color:var(--teal);font-weight:800}.num{font-variant-numeric:tabular-nums}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px}.panel.negative{border-top:5px solid var(--red)}.panel.positive{border-top:5px solid var(--teal)}.panel.warning{border-top:5px solid var(--amber)}
+.panel ul{padding-left:1.2rem;margin-bottom:0}.panel li{margin:.42rem 0}.timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.step{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:14px}.step b{color:var(--navy);display:block}.step small{color:var(--muted)}.step.stop{background:var(--soft-red);border-color:#e5b8bd}.step.done{background:var(--soft-teal);border-color:#b9ddd5}
+.diagnostic{background:var(--soft-amber);border:1px solid #efd59e;border-radius:10px;padding:19px}.links{display:flex;gap:.65rem;flex-wrap:wrap}.button{display:inline-block;border-radius:8px;padding:.58rem .8rem;background:var(--navy);color:#fff}.button.secondary{background:#fff;color:var(--blue);border:1px solid var(--line)}
+.foot{color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padding-top:18px;margin-top:34px}code{overflow-wrap:anywhere}caption{text-align:left;font-weight:800;color:var(--navy);padding:10px 12px;background:#f5f8fa}
+@media(max-width:980px){.metrics{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(3,1fr)}.split{grid-template-columns:1fr}}
+@media(max-width:560px){header{padding-top:32px}.metrics,.timeline{grid-template-columns:1fr}.metric b{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<header>
+<div class="hero">
+<div class="eyebrow">Praxis research · PX-057 · three-cell certification matrix</div>
+<h1>Average utility improved. The safety certificate failed.</h1>
+<p>Three frozen calibration cells saved 42–51% of generated tokens and improved aggregate accuracy, but per-question early-stop harm remained 5.6–8.0%. The registered risk gate correctly closed the experiment before holdout.</p>
+<span class="status"><span class="dot"></span>VALID NEGATIVE</span>
+<nav aria-label="Dashboard sections"><a href="#results">Results</a><a href="#diagnosis">Diagnosis</a><a href="#integrity">Integrity</a><a href="#claims">Claims</a><a href="#evidence">Evidence</a></nav>
+</div>
+</header>
+<main>
+<div class="callout"><h2>Final decision</h2><p><strong>Zero of three separately calibrated cells produced a certified prefix.</strong> All terminal locks contain a null selected policy. H4a failed; H4b–H4d and manual audit were correctly not run. The earlier 200-item Gate 2 discovery remains a bounded positive, but H4 provides no three-cell family certificate.</p></div>
+
+<div class="metrics" aria-label="Experiment summary">
+<div class="metric"><b>0 / 3</b><span>cells with a selected policy</span></div>
+<div class="metric"><b>1,500</b><span>protected calibration traces</span></div>
+<div class="metric"><b>12,000</b><span>model generations</span></div>
+<div class="metric"><b>0</b><span>authorized holdout jobs</span></div>
+<div class="metric"><b>VALID</b><span>independent evidence package</span></div>
+</div>
+
+<section id="results">
+<h2>Registered H4a results</h2>
+<div class="table-wrap"><table>
+<caption>First reached policy and registered H4a decision by cell</caption>
+<thead><tr><th scope="col">Cell</th><th scope="col">Model / corpus</th><th scope="col">First policy</th><th scope="col">Harm</th><th scope="col">Compute saved</th><th scope="col">Accuracy change</th><th scope="col">Primary p-value</th><th scope="col">Decision</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>Llama-3.1-8B / GSM8K</td><td><code>m4-k2-tau0p20</code></td><td class="num">40/500 (8.0%)</td><td class="num">42.45%</td><td class="num good">+3.0 points</td><td class="num">0.9999999999996976</td><td class="fail">No prefix</td></tr>
+<tr><td>C2</td><td>Qwen2.5-7B / ARC</td><td><code>m4-k2-tau0p20</code></td><td class="num">35/500 (7.0%)</td><td class="num">50.85%</td><td class="num good">+3.4 points</td><td class="num">0.9999999999991549</td><td class="fail">No prefix</td></tr>
+<tr><td>C3</td><td>Llama-3.1-8B / ARC</td><td><code>m4-k2-tau0p20</code></td><td class="num">28/500 (5.6%)</td><td class="num">43.30%</td><td class="num good">+6.2 points</td><td class="num">0.9999999999991549</td><td class="fail">No prefix</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<div class="split">
+<article class="panel positive"><h2>What remained promising</h2><ul><li>Policy-1 stopped accuracy rose in all three cells.</li><li>Mean generated-token saving exceeded the 20% utility target in every cell.</li><li>The first policy prevented 46–71% of observed overthinking events.</li><li>Gate 2 remains a valid bounded discovery result.</li></ul></article>
+<article class="panel negative"><h2>Why certification stopped</h2><ul><li>The harm ceiling was 2%; observed rates were 5.6–8.0%.</li><li>Certification required <code>p ≤ 1/60</code>; each p-value was effectively 1.</li><li>Fixed-sequence testing must stop at the first failure.</li><li>No policy could be selected, so holdout generation was prohibited.</li></ul></article>
+</div>
+</section>
+
+<section id="diagnosis">
+<h2>Exploratory failure diagnosis</h2>
+<div class="diagnostic"><strong>These are post-result diagnostics, not new confirmatory gates.</strong> Every confidence value exceeded 0.20, making all five confidence thresholds behaviorally identical. Blank extracted answers were frequent and almost always occurred at the 256-token cap; two blanks could satisfy the frozen stability rule.</div>
+<div class="table-wrap" style="margin-top:13px"><table>
+<caption>Post-result confidence and extraction diagnostics</caption>
+<thead><tr><th scope="col">Cell</th><th scope="col">Minimum confidence</th><th scope="col">Confidence ≤ 0.20</th><th scope="col">Blank extracted rounds</th><th scope="col">Blanks at token cap</th><th scope="col">Harms with blank selected answer</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td class="num">0.585984</td><td>0/4,000</td><td>1,875/4,000 (46.88%)</td><td>1,874/1,875</td><td>33/40 (82.5%)</td></tr>
+<tr><td>C2</td><td class="num">0.491244</td><td>0/4,000</td><td>605/4,000 (15.13%)</td><td>587/605</td><td>22/35 (62.9%)</td></tr>
+<tr><td>C3</td><td class="num">0.487014</td><td>0/4,000</td><td>1,956/4,000 (48.90%)</td><td>1,955/1,956</td><td>26/28 (92.9%)</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="integrity">
+<h2>Protected execution timeline</h2>
+<div class="timeline" aria-label="Evidence chronology">
+<div class="step done"><b>1 · Freeze</b><small>Science, environment, prompts, splits</small></div>
+<div class="step done"><b>2 · Calibrate</b><small>3 cells · 12,000 generations</small></div>
+<div class="step done"><b>3 · Protect</b><small>Exact S3 versions and hashes pushed</small></div>
+<div class="step done"><b>4 · Determine</b><small>Three fixed-sequence LTT results</small></div>
+<div class="step stop"><b>5 · Lock null</b><small>0/3 policies; holdout closed</small></div>
+<div class="step done"><b>6 · Adjudicate</b><small>Independent VALID_NEGATIVE</small></div>
+</div>
+<p>The final adjudicator independently rederived source splits, rescored traces, recomputed risk tests, verified every pushed lock, and confirmed no local downstream evidence. A separate read-only transport check confirmed that the deterministic SageMaker job names and S3 prefixes remain unused.</p>
+</section>
+
+<section id="claims">
+<div class="split">
+<article class="panel positive"><h2>Supported</h2><ul><li>The registered H4 sequence produced no certified prefix in all three cells.</li><li>Average utility gains coexisted with excessive per-item harm.</li><li>The harm-aware gate prevented an unsafe promotion.</li><li>Confidence scaling and blank extraction are concrete redesign targets.</li></ul></article>
+<article class="panel warning"><h2>Not supported</h2><ul><li>No 2% risk certificate or held-out transfer result.</li><li>No production, universal, or large-scale robustness claim.</li><li>No conclusion that every grid policy fails.</li><li>No conclusion that adaptive stopping cannot work in general.</li></ul></article>
+</div>
+</section>
+
+<section id="evidence">
+<h2>Open the evidence</h2>
+<div class="links">
+<a class="button" href="PX057_H4_FINAL_DETERMINATION_20260727.md">Full final report</a>
+<a class="button secondary" href="h4_20260725/final_adjudication.json">Independent adjudication</a>
+<a class="button secondary" href="h4_20260725/terminal_absence_check_20260727.json">Terminal absence check</a>
+<a class="button secondary" href="PX057_H4_LTT_PREREG_20260725.md">Frozen preregistration</a>
+<a class="button secondary" href="PX057_FINAL_DETERMINATION_20260724.md">Original Gate 2 result</a>
+</div>
+<h3>Literature basis</h3>
+<p><a href="https://aclanthology.org/2026.findings-acl.1199/">When More Thinking Hurts</a> · <a href="https://arxiv.org/abs/2110.01052">Learn then Test</a> · <a href="https://arxiv.org/abs/2602.03814">Conformal Thinking</a></p>
+</section>
+
+<p class="foot">Updated July 27, 2026. Classification: bounded Gate 2 discovery positive; H4 certification valid negative. Final adjudication SHA-256: <code>39c48510b08d65ae2b76561e89b4e6a693917d00eb62eb63428dab15a939312d</code>.</p>
+</main>
+</body>
+</html>

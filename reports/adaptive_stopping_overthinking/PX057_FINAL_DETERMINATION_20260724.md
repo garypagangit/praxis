@@ -67,3 +67,14 @@ open model and one non-math reasoning corpus, retaining the fixed-short,
 fixed-long, answer-stability, uncertainty-only, adaptive, and oracle arms. The
 current Gate 2 result should remain unchanged and serve as the discovery
 experiment.
+
+## Post-audit H4 update - 2026-07-27
+
+The registered cross-model and cross-domain H4 certification matrix is now
+complete. Its independent adjudication is `VALID_NEGATIVE`: all three
+calibration cells produced an empty certified prefix, so no held-out generation
+was authorized. This does not change the bounded Gate 2 discovery result above;
+it closes the stronger certification and transfer claim.
+
+See the [PX-057 H4 final determination](PX057_H4_FINAL_DETERMINATION_20260727.md)
+and [H4 evidence dashboard](PX057_H4_RESULT_DASHBOARD_20260727.html).
