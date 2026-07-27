@@ -208,6 +208,60 @@ def test_committed_entry_mismatch_fails_before_dependency_secret_or_runner(
     assert calls == []
 
 
+def test_secret_identity_mismatch_fails_before_dependency_or_model_access(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    archive = tmp_path / "source.tar.gz"
+    archive.write_bytes(b"staged archive")
+    repo = tmp_path / "repo"
+    copy_preflight_repo(repo)
+    config = json.loads((repo / cloud.CONFIG).read_text(encoding="utf-8"))
+    environment = valid_environment(archive)
+    environment.update(
+        {
+            "PX057_H5_DEV_REPOSITORY_URL": config["repository"]["url"],
+            "PX057_H5_DEV_BRANCH": config["repository"]["branch"],
+            "PX057_H5_DEV_CONTAINER_IMAGE_DIGEST": config["aws"][
+                "container_image"
+            ].rsplit("@", 1)[1],
+            "PX057_H5_DEV_CONFIG_SHA256": cloud.sha256_file(repo / cloud.CONFIG),
+            "PX057_H5_DEV_HF_SECRET_ID": "wrong/secret",
+        }
+    )
+    calls: list[str] = []
+    monkeypatch.setattr(
+        cloud,
+        "clone_exact_pushed_commit",
+        lambda *_args, **_kwargs: environment["PX057_H5_DEV_GIT_COMMIT"],
+    )
+    monkeypatch.setattr(
+        cloud,
+        "install_locked_h4_dependencies",
+        lambda *_args, **_kwargs: calls.append("install"),
+    )
+    monkeypatch.setattr(
+        cloud,
+        "read_huggingface_token",
+        lambda *_args, **_kwargs: calls.append("secret"),
+    )
+    monkeypatch.setattr(
+        cloud,
+        "run_development_pilot",
+        lambda *_args, **_kwargs: calls.append("runner"),
+    )
+
+    with pytest.raises(ValueError, match="credential/region"):
+        cloud.execute(
+            environment,
+            staged_archive=archive,
+            staged_entry=repo / cloud.ENTRY,
+            repo_dir=repo,
+            model_dir=tmp_path / "model",
+        )
+
+    assert calls == []
+
+
 def test_clone_accepts_a_submitted_commit_behind_the_pushed_branch_head(
     tmp_path: Path,
 ) -> None:
@@ -289,7 +343,7 @@ def test_locked_h4_dependency_parser_requires_exact_versions() -> None:
     assert all("==" in package for package in packages)
 
 
-def test_collection_bundle_is_exactly_200_by_8_and_h4_sourced(tmp_path: Path) -> None:
+def test_collection_bundle_is_exactly_500_by_8_and_h4_sourced(tmp_path: Path) -> None:
     output_dir = tmp_path / "output"
     _selected, source_by_id = make_bundle(output_dir)
 

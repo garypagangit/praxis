@@ -572,6 +572,13 @@ def execute(
         expected_config_sha256=env["PX057_H5_DEV_CONFIG_SHA256"],
         container_image_digest=env["PX057_H5_DEV_CONTAINER_IMAGE_DIGEST"],
     )
+    configured_aws = preflight.config.get("aws", {})
+    if (
+        configured_aws.get("huggingface_secret_id")
+        != env["PX057_H5_DEV_HF_SECRET_ID"]
+        or configured_aws.get("region") != env["PX057_H5_DEV_AWS_REGION"]
+    ):
+        raise ValueError("cloud credential/region environment differs from config")
 
     # No dependency, credential, tokenizer, or model access occurs above here.
     install_locked_h4_dependencies(repo_dir)
