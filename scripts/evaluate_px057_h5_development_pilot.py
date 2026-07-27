@@ -23,11 +23,6 @@ from scripts.px057_h5_mechanism import (
 
 
 DEFAULT_CONFIG = ROOT / "configs/px057_h5_development_pilot_20260727.json"
-POLICY_SEQUENCE = tuple(
-    (min_step, patience)
-    for min_step in (6, 5, 4)
-    for patience in (4, 3, 2)
-)
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -161,10 +156,12 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
     expected_rounds = int(config["generation"]["rounds"])
     if len(traces) != expected_n or len(raw) != expected_n * expected_rounds:
         raise ValueError("development collection cardinality mismatch")
-    policies = [
-        evaluate_policy(traces, min_step=min_step, patience=patience)
-        for min_step, patience in POLICY_SEQUENCE
-    ]
+    primary_spec = config["primary_development_policy"]
+    primary = evaluate_policy(
+        traces,
+        min_step=int(primary_spec["min_step"]),
+        patience=int(primary_spec["patience"]),
+    )
     valid_rounds = sum(bool(row.get("response_schema", {}).get("valid")) for row in raw)
     capped_rounds = sum(
         int(row["generated_tokens"]) >= int(config["generation"]["max_new_tokens"])
@@ -179,13 +176,6 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
     completion_tokens = sum(int(row.get("generated_tokens", 0)) for row in raw)
     wall_seconds = sum(float(row.get("wall_seconds", 0.0)) for row in raw)
     gpu_seconds = sum(float(row.get("gpu_seconds") or 0.0) for row in raw)
-    primary_spec = config["primary_development_policy"]
-    primary = next(
-        policy
-        for policy in policies
-        if policy["policy"]["min_step"] == int(primary_spec["min_step"])
-        and policy["policy"]["patience"] == int(primary_spec["patience"])
-    )
     primary_by_id = {row["question_id"]: row for row in primary["rows"]}
     sentinels = []
     for sentinel in config["mechanism_sentinels"]:
@@ -262,16 +252,8 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
             "checks": gate_checks,
             "thresholds": gate_config,
         },
-        "fixed_sequence": [
-            {key: value for key, value in policy.items() if key != "rows"}
-            for policy in policies
-        ],
-        "policy_rows": {
-            f"m{policy['policy']['min_step']}_k{policy['policy']['patience']}": policy[
-                "rows"
-            ]
-            for policy in policies
-        },
+        "evaluated_candidate_count": 1,
+        "primary_policy_rows": primary["rows"],
     }
     output_path = output_dir / "development_evaluation.json"
     if output_path.exists():

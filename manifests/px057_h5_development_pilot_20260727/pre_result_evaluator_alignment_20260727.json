@@ -1,0 +1,21 @@
+{
+  "schema_version": "px057-h5-development-pre-result-amendment/v1",
+  "experiment_id": "px057-h5-development-pilot-bounded-chat-20260727",
+  "status": "PRE_RESULT_PROTOCOL_ALIGNMENT",
+  "confirmatory_evidence": false,
+  "recorded_at_utc": "2026-07-27T14:27:47.4348070Z",
+  "job_name": "px057-h5-dev-c1-ccchat-n500-r1-20260727",
+  "generation_commit": "4d14537047f2741c2170bbf67ae67fd7739c6064",
+  "aws_state_when_recorded": {
+    "training_job_status": "InProgress",
+    "secondary_status": "Pending",
+    "training_start_time": null,
+    "training_end_time": null,
+    "model_artifact_uri": null
+  },
+  "scientific_outputs_seen": false,
+  "change": "Remove evaluation of eight undeclared diagnostic stopping policies. The evaluator now computes only the single preregistered m4-k2-valid-v1 candidate and applies the already frozen one-look gates.",
+  "reason": "The protocol defines one sole candidate and forbids threshold or policy tuning. Evaluating a nine-policy grid was broader than the written protocol even though only m4-k2 drove the gate.",
+  "generation_impact": "NONE. The immutable SageMaker generation commit, prompts, model, source IDs, eight-round traces, and launch request are unchanged.",
+  "claim_boundary": "This is an outcome-exposed development pilot and is not H5 calibration, holdout, certification, or confirmatory evidence."
+}
