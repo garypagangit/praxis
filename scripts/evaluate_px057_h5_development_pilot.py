@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -20,14 +21,27 @@ from scripts.px057_h5_mechanism import (
     fixed_long_decision,
     select_stability_stop,
 )
+from scripts.px057_h5_development_contract import (
+    require_c1,
+    validate_frozen_development_config,
+)
+from scripts.fetch_px057_h5_development_pilot import (
+    FILES as CLOUD_FILES,
+    download_verified_remote_bundle,
+    validate_launch_manifest,
+    verify_local_execution_tree,
+)
+from scripts.px057_h5_development_integrity import (
+    read_jsonl_strict,
+    strict_json_bytes,
+)
 
 
 DEFAULT_CONFIG = ROOT / "configs/px057_h5_development_pilot_20260727.json"
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
-    with path.open("r", encoding="utf-8") as handle:
-        return [json.loads(line) for line in handle if line.strip()]
+    return read_jsonl_strict(path)
 
 
 def sha256_file(path: Path) -> str:
@@ -38,19 +52,108 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def trace_steps(trace: dict[str, Any]) -> list[StoppingStep]:
-    return [
-        StoppingStep(
-            round_index=int(step["step"]),
-            answer=str(step["answer"]),
-            answer_valid=bool(step["answer"]),
-            confidence=float(step["confidence"]),
-            cumulative_tokens=int(step["tokens"]),
-            token_cap_reached=bool(step.get("token_cap_reached", False)),
-            repetition_detected=bool(step.get("repetition_detected", False)),
+def verify_evaluation_inputs(
+    config: dict[str, Any],
+    *,
+    cell: dict[str, Any],
+    output_dir: Path,
+    profile: str,
+) -> dict[str, Any]:
+    """Re-fetch, verify, and parse the exact remote bytes used for metrics."""
+
+    expected_files = {*CLOUD_FILES, "fetch_receipt.json"}
+    if not output_dir.is_dir():
+        raise ValueError("development output directory is missing")
+    observed = {path.name for path in output_dir.iterdir()}
+    if observed != expected_files or any(
+        not (output_dir / name).is_file() for name in expected_files
+    ):
+        raise ValueError(
+            "evaluation input directory differs from the six-file contract"
         )
-        for step in trace["steps"]
-    ]
+    launch_path = (
+        ROOT
+        / "manifests/px057_h5_development_pilot_20260727/launches"
+        / f"{cell['cell_id']}_r2.json"
+    )
+    launch_bytes = launch_path.read_bytes()
+    launch = strict_json_bytes(launch_bytes, source=str(launch_path))
+    validate_launch_manifest(config, cell=cell, launch=launch)
+    local_execution_code = verify_local_execution_tree(launch)
+    receipt_path = output_dir / "fetch_receipt.json"
+    receipt_bytes = receipt_path.read_bytes()
+    receipt = strict_json_bytes(receipt_bytes, source=str(receipt_path))
+    with tempfile.TemporaryDirectory(
+        prefix="px057-h5-evaluation-remote-"
+    ) as temp:
+        downloaded = download_verified_remote_bundle(
+            config,
+            cell=cell,
+            launch=launch,
+            destination=Path(temp) / "registered-artifact",
+            profile=profile,
+            region=config["aws"]["region"],
+            receipt=receipt,
+        )
+        bundle = downloaded["bundle"]
+        bundle_verification = downloaded["verification"]
+        traces = read_jsonl_strict(bundle / "reasoning_traces.jsonl")
+        raw = read_jsonl_strict(bundle / "raw_generations.jsonl")
+        for name, record in bundle_verification["files"].items():
+            path = bundle / name
+            if (
+                sha256_file(path) != record["sha256"]
+                or path.stat().st_size != record["bytes"]
+            ):
+                raise ValueError("remote bundle changed between replay and parsing")
+        local_records = {
+            name: {
+                "sha256": sha256_file(output_dir / name),
+                "bytes": (output_dir / name).stat().st_size,
+            }
+            for name in CLOUD_FILES
+        }
+        if local_records != bundle_verification["files"]:
+            raise ValueError("installed cloud files differ from registered artifact")
+        receipt_verification = downloaded["receipt_verification"]
+    return {
+        "status": "PASS",
+        "traces": traces,
+        "raw": raw,
+        "local_execution_code": local_execution_code,
+        "launch_manifest": {
+            "path": str(launch_path.relative_to(ROOT)).replace("\\", "/"),
+            "sha256": hashlib.sha256(launch_bytes).hexdigest(),
+            "job_name": launch["job_name"],
+            "git_commit": launch["git_commit"],
+            "request_sha256": launch["request_sha256"],
+        },
+        "fetch_receipt": {
+            "path": str(receipt_path.relative_to(ROOT)).replace("\\", "/"),
+            "sha256": hashlib.sha256(receipt_bytes).hexdigest(),
+            **receipt_verification,
+        },
+        "bundle": bundle_verification,
+    }
+
+
+def trace_steps(trace: dict[str, Any]) -> list[StoppingStep]:
+    result: list[StoppingStep] = []
+    for step in trace["steps"]:
+        if not isinstance(step.get("response_schema_valid"), bool):
+            raise ValueError("trace step lacks explicit response_schema_valid")
+        result.append(
+            StoppingStep(
+                round_index=int(step["step"]),
+                answer=str(step["answer"]),
+                answer_valid=bool(step["response_schema_valid"]),
+                confidence=float(step["confidence"]),
+                cumulative_tokens=int(step["tokens"]),
+                token_cap_reached=bool(step.get("token_cap_reached", False)),
+                repetition_detected=bool(step.get("repetition_detected", False)),
+            )
+        )
+    return result
 
 
 def evaluate_policy(
@@ -60,13 +163,12 @@ def evaluate_policy(
     for trace in traces:
         steps = trace_steps(trace)
         gold = str(trace["gold_answer"])
-        fixed = fixed_long_decision(steps, fallback_to_latest_valid=False)
+        fixed = fixed_long_decision(steps)
         adaptive = select_stability_stop(
             steps,
             min_step=min_step,
             patience=patience,
             confidence_threshold=None,
-            fallback_to_latest_valid=False,
         )
         fixed_correct = fixed.answer_valid and fixed.answer == gold
         adaptive_correct = adaptive.answer_valid and adaptive.answer == gold
@@ -76,10 +178,6 @@ def evaluate_policy(
             if max_tokens <= 0
             else 1.0 - adaptive.charged_tokens / max_tokens
         )
-        earlier_correct = any(
-            step.answer_valid and step.answer == gold for step in steps[:-1]
-        )
-        overthinking = earlier_correct and not fixed_correct
         item_rows.append(
             {
                 "question_id": trace["question_id"],
@@ -93,9 +191,8 @@ def evaluate_policy(
                 "adaptive_step": adaptive.compute_round,
                 "adaptive_correct": adaptive_correct,
                 "stability_triggered": adaptive.stability_triggered,
+                "stopped_early": adaptive.stopped_early,
                 "early_stop_harm": fixed_correct and not adaptive_correct,
-                "overthinking_event": overthinking,
-                "overthinking_prevented": overthinking and adaptive_correct,
                 "compute_saving": saving,
             }
         )
@@ -105,8 +202,13 @@ def evaluate_policy(
     harms = sum(bool(row["early_stop_harm"]) for row in item_rows)
     fixed_correct_n = sum(bool(row["fixed_long_correct"]) for row in item_rows)
     adaptive_correct_n = sum(bool(row["adaptive_correct"]) for row in item_rows)
-    overthinking_n = sum(bool(row["overthinking_event"]) for row in item_rows)
-    prevented_n = sum(bool(row["overthinking_prevented"]) for row in item_rows)
+    stop_round_distribution = {
+        str(round_index): sum(
+            int(row["adaptive_step"]) == round_index for row in item_rows
+        )
+        for round_index in range(1, 9)
+    }
+    early_stop_n = sum(bool(row["stopped_early"]) for row in item_rows)
     return {
         "policy": {
             "min_step": min_step,
@@ -119,16 +221,15 @@ def evaluate_policy(
         "fixed_long_accuracy": fixed_correct_n / n,
         "adaptive_correct": adaptive_correct_n,
         "adaptive_accuracy": adaptive_correct_n / n,
+        "accuracy_delta_count": adaptive_correct_n - fixed_correct_n,
         "adaptive_accuracy_delta": (adaptive_correct_n - fixed_correct_n) / n,
         "early_stop_harms": harms,
         "early_stop_harm_rate": harms / n,
         "mean_compute_saving": sum(row["compute_saving"] for row in item_rows) / n,
         "stability_stops": sum(bool(row["stability_triggered"]) for row in item_rows),
-        "overthinking_events": overthinking_n,
-        "overthinking_prevented": prevented_n,
-        "overthinking_prevention_rate": (
-            None if overthinking_n == 0 else prevented_n / overthinking_n
-        ),
+        "early_stop_count": early_stop_n,
+        "early_stop_rate": early_stop_n / n,
+        "stop_round_distribution": stop_round_distribution,
         "development_target": {
             "harm_at_most_4_of_500": harms <= 4 and n == 500,
             "accuracy_loss_at_most_5_items": (
@@ -143,15 +244,24 @@ def evaluate_policy(
     }
 
 
-def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
+def evaluate_cell(
+    config: dict[str, Any], *, cell_id: str, profile: str | None = None
+) -> dict[str, Any]:
+    validate_frozen_development_config(config)
+    require_c1(cell_id)
     matches = [cell for cell in config["cells"] if cell["cell_id"] == cell_id]
     if len(matches) != 1:
         raise ValueError(f"unknown or duplicate cell: {cell_id}")
-    output_dir = ROOT / matches[0]["output_dir"]
-    trace_path = output_dir / "reasoning_traces.jsonl"
-    raw_path = output_dir / "raw_generations.jsonl"
-    traces = read_jsonl(trace_path)
-    raw = read_jsonl(raw_path)
+    cell = matches[0]
+    output_dir = ROOT / cell["output_dir"]
+    input_verification = verify_evaluation_inputs(
+        config,
+        cell=cell,
+        output_dir=output_dir,
+        profile=profile or config["aws"]["profile"],
+    )
+    traces = input_verification.pop("traces")
+    raw = input_verification.pop("raw")
     expected_n = int(config["generation"]["pilot_n"])
     expected_rounds = int(config["generation"]["rounds"])
     if len(traces) != expected_n or len(raw) != expected_n * expected_rounds:
@@ -162,6 +272,7 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
         min_step=int(primary_spec["min_step"]),
         patience=int(primary_spec["patience"]),
     )
+    primary["policy"]["policy_id"] = str(primary_spec["policy_id"])
     valid_rounds = sum(bool(row.get("response_schema", {}).get("valid")) for row in raw)
     capped_rounds = sum(
         int(row["generated_tokens"]) >= int(config["generation"]["max_new_tokens"])
@@ -211,9 +322,9 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
         "mean_compute_saving": primary["mean_compute_saving"]
         >= float(gate_config["mean_compute_saving_min"]),
         "adaptive_minus_fixed_correct": (
-            primary["adaptive_correct"] - primary["fixed_long_correct"]
-        )
-        >= int(gate_config["adaptive_minus_fixed_correct_min"]),
+            primary["accuracy_delta_count"]
+            >= int(gate_config["adaptive_minus_fixed_correct_min"])
+        ),
         "strict_valid_round_rate": valid_rate
         >= float(gate_config["strict_valid_round_rate_min"]),
         "fixed_long_correct": primary["fixed_long_correct"]
@@ -228,13 +339,26 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
     }
     result = {
         "experiment_id": config["experiment_id"],
+        "attempt_id": config["attempt_id"],
+        "protocol_id": config["protocol_id"],
+        "frozen_cell_id": config["frozen_cell_id"],
+        "policy_id": primary_spec["policy_id"],
         "stage": "H5_DEVELOPMENT_PILOT_EVALUATION",
         "confirmatory_evidence": False,
         "claim_boundary": config["claim_boundary"],
         "cell_id": cell_id,
         "input": {
-            "reasoning_traces_sha256": sha256_file(trace_path),
-            "raw_generations_sha256": sha256_file(raw_path),
+            "integrity_status": input_verification["status"],
+            "local_execution_code": input_verification[
+                "local_execution_code"
+            ],
+            "launch_manifest": input_verification["launch_manifest"],
+            "fetch_receipt": input_verification["fetch_receipt"],
+            "bundle_verification": input_verification["bundle"],
+            "reasoning_traces_sha256": input_verification["bundle"]["files"]
+            ["reasoning_traces.jsonl"]["sha256"],
+            "raw_generations_sha256": input_verification["bundle"]["files"]
+            ["raw_generations.jsonl"]["sha256"],
             "traces": len(traces),
             "generations": len(raw),
         },
@@ -265,9 +389,9 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
         "primary_policy_rows": primary["rows"],
     }
     output_path = output_dir / "development_evaluation.json"
-    if output_path.exists():
-        raise FileExistsError(f"development evaluation is immutable: {output_path}")
-    output_path.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    with output_path.open("x", encoding="utf-8", newline="\n") as handle:
+        json.dump(result, handle, indent=2)
+        handle.write("\n")
     return result
 
 
@@ -275,10 +399,17 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--cell", required=True)
+    parser.add_argument("--profile")
     args = parser.parse_args()
     config_path = args.config if args.config.is_absolute() else ROOT / args.config
-    config = json.loads(config_path.read_text(encoding="utf-8"))
-    print(json.dumps(evaluate_cell(config, cell_id=args.cell), indent=2))
+    if config_path.resolve() != DEFAULT_CONFIG.resolve():
+        raise ValueError("evaluation requires the committed default development config")
+    config = strict_json_bytes(config_path.read_bytes(), source=str(config_path))
+    print(
+        json.dumps(
+            evaluate_cell(config, cell_id=args.cell, profile=args.profile), indent=2
+        )
+    )
 
 
 if __name__ == "__main__":

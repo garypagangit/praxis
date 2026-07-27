@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import subprocess
+import sys
 import tarfile
 import tempfile
 from pathlib import Path
@@ -16,6 +17,18 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.px057_h5_development_contract import (
+    ATTEMPT_ID,
+    FROZEN_CELL_ID,
+    JOB_NAME,
+    POLICY_ID,
+    PROTOCOL_ID,
+    require_c1,
+    validate_frozen_development_config,
+)
 DEFAULT_CONFIG = ROOT / "configs/px057_h5_development_pilot_20260727.json"
 COMMITTED_ENTRY = (
     "cloud_jobs/px057_h5_development_pilot_20260727/sagemaker_entry.py"
@@ -155,7 +168,8 @@ def preflight(config: dict[str, Any], *, profile: str, region: str) -> dict[str,
 
 
 def job_name(cell: dict[str, Any]) -> str:
-    return f"px057-h5-dev-{cell['job_code']}-ccchat-n500-r1-20260727"
+    require_c1(str(cell["cell_id"]))
+    return JOB_NAME
 
 
 def ensure_first_attempt(
@@ -228,7 +242,10 @@ def upload_source(
             "json",
         )
     )
-    if not head.get("VersionId"):
+    if (
+        not head.get("VersionId")
+        or str(head["VersionId"]).casefold() == "null"
+    ):
         raise ValueError("source upload returned no S3 VersionId")
     if head.get("ServerSideEncryption") != "AES256":
         raise ValueError("source upload did not confirm AES256")
@@ -299,6 +316,10 @@ def training_request(
             "PX057_H5_DEV_AWS_REGION": aws_config["region"],
             "PX057_H5_DEV_JOB_NAME": name,
             "PX057_H5_DEV_CELL_ID": cell["cell_id"],
+            "PX057_H5_DEV_ATTEMPT_ID": ATTEMPT_ID,
+            "PX057_H5_DEV_PROTOCOL_ID": PROTOCOL_ID,
+            "PX057_H5_DEV_FROZEN_CELL_ID": FROZEN_CELL_ID,
+            "PX057_H5_DEV_POLICY_ID": POLICY_ID,
             "PX057_H5_DEV_SOURCE_ARCHIVE_SHA256": source_sha256,
             "PX057_H5_DEV_SOURCE_VERSION_ID": source_version,
             "PX057_H5_DEV_CONFIG_SHA256": hashlib.sha256(
@@ -315,6 +336,8 @@ def training_request(
             {"Key": "PraxisId", "Value": "PX-057"},
             {"Key": "Gate", "Value": "H5-Development-Pilot"},
             {"Key": "Cell", "Value": cell["cell_id"]},
+            {"Key": "Attempt", "Value": ATTEMPT_ID},
+            {"Key": "Policy", "Value": POLICY_ID},
             {"Key": "Confirmatory", "Value": "false"},
             {"Key": "GitCommit", "Value": commit[:40]},
         ],
@@ -333,6 +356,8 @@ def main() -> None:
     if config_path.resolve() != DEFAULT_CONFIG.resolve():
         raise ValueError("development-pilot submission requires the committed default config")
     config = json.loads(config_path.read_text(encoding="utf-8"))
+    validate_frozen_development_config(config)
+    require_c1(args.cell)
     if config.get("status") != "DEVELOPMENT_ONLY_NOT_CONFIRMATORY":
         raise ValueError("refusing to submit without the development-only boundary")
     matching = [cell for cell in config["cells"] if cell["cell_id"] == args.cell]
@@ -348,7 +373,7 @@ def main() -> None:
     launch_path = (
         ROOT
         / "manifests/px057_h5_development_pilot_20260727/launches"
-        / f"{cell['cell_id']}.json"
+        / f"{cell['cell_id']}_r2.json"
     )
     ensure_first_attempt(
         profile=profile, region=region, name=name, launch_path=launch_path
@@ -423,6 +448,10 @@ def main() -> None:
         "confirmatory_evidence": False,
         "claim_boundary": config["claim_boundary"],
         "cell_id": cell["cell_id"],
+        "attempt_id": config["attempt_id"],
+        "protocol_id": config["protocol_id"],
+        "frozen_cell_id": config["frozen_cell_id"],
+        "policy_id": config["primary_development_policy"]["policy_id"],
         "job_name": name,
         "training_job_arn": response["TrainingJobArn"],
         "git_commit": commit,

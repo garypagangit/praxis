@@ -2,6 +2,7 @@
 
 **Protocol date:** 2026-07-27
 **Protocol identifier:** `px057-h5-c1-development-native-chat-v1`
+**Implementation attempt:** `r2` (`2-exact-schema-c1-only-provenance`)
 **Cell:** C1 — `meta-llama/Llama-3.1-8B-Instruct` / GSM8K
 **Status:** **OUTCOME-EXPOSED DEVELOPMENT ONLY — NOT CONFIRMATORY**
 
@@ -11,6 +12,15 @@ H4 outcomes are already exposed. The pilot may determine whether the proposed
 mechanism is frozen for a later H5 experiment, but its observations may not be
 used as H5 calibration, holdout, certification, replication, or confirmatory
 evidence.
+
+Implementation attempt `r1` was stopped while SageMaker was still `Pending`:
+it had no training start time, no model artifact, and no scientific output.
+An independent AI code audit found that its validator accepted response forms
+broader than the exact schema and that retrieval provenance needed hardening.
+Attempt `r1` is permanently invalidated. Attempt `r2` is a new, C1-only
+implementation and job identity; the scientific hypothesis, 500 exposed IDs,
+prompts, `m4-k2-valid-v1` policy, sentinels, and one-look thresholds are
+unchanged.
 
 No H4 holdout question may be generated, inspected through a new model call,
 or otherwise consumed by this pilot. The H4 holdout remains untouched and
@@ -158,6 +168,9 @@ only if all of the following hold:
    EOS or EOT before the complete sentinel makes the response invalid.
 2. Apart from surrounding whitespace, the entire response contains exactly
    three lines in this order: `Check: ...`, `Final answer: ...`, and `<END>`.
+   The three literal prefixes/sentinel are case-sensitive; internal blank
+   lines, alternate spacing, alternate capitalization, and trailing answer
+   text are invalid.
 3. The check contains between 1 and 40 whitespace-delimited words and contains
    no final-answer marker.
 4. The response contains exactly one case-insensitive `Final answer` marker.
@@ -275,10 +288,13 @@ committed and hash-bound:
 - an authentic independent code-review PASS recorded before fresh generation.
 
 For the subsequent H5 C1 experiment, rank the 619 eligible IDs by ascending
-`SHA256("5751:<question_id>")`, with question ID as the collision tie-break.
-Assign the first 435 to H5 calibration, the next 150 to H5 holdout, and leave
-34 unused. Calibration generation and determination must finish and lock
-before any H5 holdout generation.
+`SHA256("5751:<question_id>")`, with question ID as the collision tie-break,
+and assign the first 435 to H5 calibration. Rank the remaining 184 IDs by
+ascending `SHA256("5752:<question_id>")`; assign the first 150 to H5 holdout.
+Rank the final 34 unused IDs by `SHA256("5753:<question_id>")` to freeze their
+order. The corresponding ARC residual uses the same three-stage seeds, with
+489 calibration, 150 holdout, and 33 unused IDs. Calibration generation and
+determination must finish and lock before any H5 holdout generation.
 
 At `N=619`, the least-favorable finite-population null boundary above a 2%
 harm rate is 13 harmful questions. With an H5 calibration sample of 435,
@@ -298,3 +314,44 @@ It does not support a claim of less than 2% population harm, at least 20%
 population compute saving, cross-domain transfer, cross-model transfer,
 replication, deployment readiness, or H5 success. Those claims require the
 separate fresh, preregistered H5 experiment.
+
+## 12. Transport, artifact, and evaluation integrity
+
+The r2 job may run only from a clean, pushed commit on the registered branch.
+The launch record binds the complete SageMaker request, full Git commit,
+digest-pinned container, exact source-archive SHA-256, and versioned S3 source
+object. The cloud entry point downloads that exact source-object version,
+checks out the registered commit, verifies the exact frozen config before
+dependency, credential, tokenizer, or model access, and re-hashes the entry
+point, config, runner, mechanism, contract, integrity verifier, and dependency
+lock after collection.
+
+Before a model artifact is written, the integrity verifier must reconstruct
+the SHA-5758 ordering of all 500 pinned H4 source rows and replay the exact
+ordered 500-by-8 ID/round product. It must also replay every prompt transition,
+answer extraction, response-schema result, invalid-prior reset, cumulative
+generated-token count, trace/raw correspondence, collection summary, and file
+hash. Cloud evidence is accepted only when it matches caller-derived job,
+commit, image, versioned source, and code metadata.
+
+Retrieval is restricted to a completed registered training job. The fetcher
+reconstructs the submitted AWS request, verifies the live job configuration
+and tags, downloads the exact versioned source object and the versioned model
+artifact, checks their byte length and SHA-256, safely extracts exactly the
+five-file scientific bundle, and repeats the full integrity replay. It then
+writes an immutable fetch receipt binding the launch, AWS request, source
+version, artifact version, artifact SHA-256, cloud evidence, and all installed
+file hashes.
+
+The one-look evaluator must begin with exactly those five cloud files plus the
+fetch receipt. It independently rechecks the completed AWS job, exact request
+and tags, bucket versioning, sole non-null artifact version, artifact time
+window, and S3 object metadata; then it downloads that explicit version again.
+Every local code/config file used for request reconstruction, integrity replay,
+or evaluation must byte-match the registered launch commit (apart from CRLF
+normalization).
+It repeats the full bundle verification, validates the receipt against the
+remote objects and committed launch, and computes outcomes from the same
+private remote snapshot it verified. It never computes from the mutable local
+installation. A missing, additional, changed, duplicated-key, malformed,
+multiply-versioned, or unbound input produces no scientific result.

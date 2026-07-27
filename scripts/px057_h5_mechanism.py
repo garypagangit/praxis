@@ -6,14 +6,14 @@ H5 separates answer validity from transport diagnostics:
 * Every ``Final answer`` marker is parsed.  The answer for a generation is the
   last marker, scanning backwards, that contains a valid numeric value or an
   in-vocabulary choice label.
-* Token-cap and repeated-answer flags are deterministic evidence fields.  They
-  do not, by themselves, invalidate an otherwise valid answer.
+* Token-cap and repeated-answer flags are deterministic evidence fields.
+  Scientific stopping validity is supplied separately by the exact response
+  schema and always rejects a token-capped generation.
 * A stability window qualifies only when every answer in it is explicitly
   valid and nonempty.
-* When stability never qualifies, the fixed-long decision charges the final
-  round's cumulative compute.  If requested, an invalid final round may use
-  the latest earlier valid answer without pretending that its earlier compute
-  was the fixed-long cost.
+* When stability never qualifies, the fixed-long decision is round 8 itself
+  and charges the final round's cumulative compute.  There is no earlier-round
+  fallback in H5.
 
 The module deliberately has no model, dataset, gold-label, filesystem, or H4
 dependencies so that the scientific rule can be tested and independently
@@ -83,9 +83,8 @@ class ExtractionResult:
 class StoppingStep:
     """One round as seen by the H5 stopping rule.
 
-    ``token_cap_reached`` and ``repetition_detected`` are retained for audit
-    and subgroup reporting.  The selector intentionally does not treat either
-    flag as invalidity; validity is represented only by ``answer_valid``.
+    ``token_cap_reached`` and ``repetition_detected`` are retained for audit.
+    A token-capped step cannot be marked valid.
     """
 
     round_index: int
@@ -105,6 +104,10 @@ class StoppingStep:
             raise ValueError("confidence must be finite and within [0, 1]")
         if self.answer_valid and not normalize_stability_answer(self.answer):
             raise ValueError("a valid answer must be nonempty after normalization")
+        if self.answer_valid and self.token_cap_reached:
+            raise ValueError("a token-capped answer cannot be scientifically valid")
+        if not self.answer_valid and self.answer:
+            raise ValueError("an invalid stopping step must carry an empty answer")
 
 
 @dataclass(frozen=True)
@@ -220,9 +223,10 @@ def extract_last_valid_answer(
     marker breaks a run.  The token-cap flag is true when the observed number
     of generated tokens is greater than or equal to the configured cap.
 
-    Neither flag changes ``valid``.  For example, a capped response ending in
-    ``Final answer: B`` remains a valid response and may participate in a
-    stability window.
+    Neither diagnostic changes candidate-parsing ``valid``.  A capped response
+    ending in ``Final answer: B`` may therefore expose candidate ``B`` for
+    audit, but :func:`stopping_step_from_extraction` always rejects it from the
+    scientific stability window.
     """
 
     if answer_type not in {"numeric", "choice"}:
@@ -285,13 +289,24 @@ def stopping_step_from_extraction(
     extraction: ExtractionResult,
     confidence: float,
     cumulative_tokens: int,
+    response_schema_valid: bool,
 ) -> StoppingStep:
-    """Create a selector step without allowing diagnostics to alter validity."""
+    """Create a selector step from exact schema validity.
+
+    Parsing a candidate is not sufficient.  H5 scientific validity also
+    requires an exact completed response and completion before the token cap.
+    """
+
+    scientifically_valid = bool(
+        extraction.valid
+        and response_schema_valid
+        and not extraction.token_cap_reached
+    )
 
     return StoppingStep(
         round_index=round_index,
-        answer=extraction.answer,
-        answer_valid=extraction.valid,
+        answer=extraction.answer if scientifically_valid else "",
+        answer_valid=scientifically_valid,
         confidence=confidence,
         cumulative_tokens=cumulative_tokens,
         token_cap_reached=extraction.token_cap_reached,
@@ -340,36 +355,24 @@ def stability_window_qualifies(
 
 def fixed_long_decision(
     steps: Sequence[StoppingStep],
-    *,
-    fallback_to_latest_valid: bool = True,
 ) -> FixedLongDecision:
-    """Choose the fixed-long answer while always charging final-round compute."""
+    """Use the final round itself and always charge final-round compute."""
 
     frozen = _validate_steps(steps)
     compute_step = frozen[-1]
-    answer_step: StoppingStep | None
-    if compute_step.answer_valid and normalize_stability_answer(compute_step.answer):
-        answer_step = compute_step
-    elif fallback_to_latest_valid:
-        answer_step = next(
-            (
-                step
-                for step in reversed(frozen[:-1])
-                if step.answer_valid and normalize_stability_answer(step.answer)
-            ),
-            None,
-        )
-    else:
-        answer_step = None
+    answer_step = (
+        compute_step
+        if compute_step.answer_valid
+        and normalize_stability_answer(compute_step.answer)
+        else None
+    )
     return FixedLongDecision(
         answer="" if answer_step is None else answer_step.answer,
         answer_valid=answer_step is not None,
         answer_round=None if answer_step is None else answer_step.round_index,
         compute_round=compute_step.round_index,
         charged_tokens=compute_step.cumulative_tokens,
-        used_latest_valid_fallback=(
-            answer_step is not None and answer_step is not compute_step
-        ),
+        used_latest_valid_fallback=False,
     )
 
 
@@ -379,7 +382,6 @@ def select_stability_stop(
     min_step: int,
     patience: int,
     confidence_threshold: float | None,
-    fallback_to_latest_valid: bool = True,
 ) -> StopDecision:
     """Apply the validity-gated H5 stopping policy to a complete trace.
 
@@ -418,10 +420,7 @@ def select_stability_stop(
                 used_latest_valid_fallback=False,
             )
 
-    fixed_long = fixed_long_decision(
-        frozen,
-        fallback_to_latest_valid=fallback_to_latest_valid,
-    )
+    fixed_long = fixed_long_decision(frozen)
     return StopDecision(
         answer=fixed_long.answer,
         answer_valid=fixed_long.answer_valid,

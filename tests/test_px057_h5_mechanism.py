@@ -132,7 +132,7 @@ def test_an_invalid_marker_breaks_a_repetition_run() -> None:
     assert result.repetition_detected is False
 
 
-def test_valid_capped_answers_remain_eligible_for_stability() -> None:
+def test_capped_answers_are_invalid_even_when_the_candidate_parses() -> None:
     extraction = extract_last_valid_answer(
         "Final answer: B.",
         answer_type="choice",
@@ -146,6 +146,7 @@ def test_valid_capped_answers_remain_eligible_for_stability() -> None:
             extraction=extraction,
             confidence=0.9,
             cumulative_tokens=round_index * 256,
+            response_schema_valid=True,
         )
         for round_index in range(1, 4)
     ]
@@ -158,21 +159,40 @@ def test_valid_capped_answers_remain_eligible_for_stability() -> None:
     )
 
     assert all(item.token_cap_reached for item in steps)
-    assert decision.stability_triggered is True
-    assert decision.stopped_early is True
-    assert decision.answer == "B"
-    assert decision.compute_round == 2
-    assert decision.charged_tokens == 512
+    assert all(not item.answer_valid and item.answer == "" for item in steps)
+    assert decision.stability_triggered is False
+    assert decision.stopped_early is False
+    assert decision.answer == ""
+    assert decision.compute_round == 3
+    assert decision.charged_tokens == 768
+
+
+def test_malformed_schema_invalidates_a_non_capped_parsed_candidate() -> None:
+    extraction = extract_last_valid_answer(
+        "Final answer: B. trailing text",
+        answer_type="choice",
+        allowed_labels=["A", "B", "C", "D"],
+        generated_tokens=10,
+        max_new_tokens=256,
+    )
+
+    item = stopping_step_from_extraction(
+        round_index=1,
+        extraction=extraction,
+        confidence=0.9,
+        cumulative_tokens=10,
+        response_schema_valid=False,
+    )
+
+    assert extraction.valid is True
+    assert item.answer_valid is False
+    assert item.answer == ""
 
 
 def test_blank_or_explicitly_invalid_answers_never_form_a_stable_window() -> None:
     blank_window = [
         step(1, "", valid=False),
         step(2, "", valid=False),
-    ]
-    invalid_nonempty_window = [
-        step(1, "E", valid=False),
-        step(2, "E", valid=False),
     ]
 
     assert (
@@ -182,13 +202,8 @@ def test_blank_or_explicitly_invalid_answers_never_form_a_stable_window() -> Non
         )
         is False
     )
-    assert (
-        stability_window_qualifies(
-            invalid_nonempty_window,
-            confidence_threshold=None,
-        )
-        is False
-    )
+    with pytest.raises(ValueError, match="invalid stopping step"):
+        step(1, "E", valid=False)
 
 
 def test_stability_requires_matching_valid_answers_and_confidence() -> None:
@@ -212,7 +227,7 @@ def test_stability_requires_matching_valid_answers_and_confidence() -> None:
     )
 
 
-def test_fixed_long_fallback_uses_latest_valid_answer_but_full_compute() -> None:
+def test_fixed_long_never_falls_back_to_an_earlier_valid_answer() -> None:
     steps = [
         step(1, "A", tokens=10),
         step(2, "B", tokens=20),
@@ -220,30 +235,24 @@ def test_fixed_long_fallback_uses_latest_valid_answer_but_full_compute() -> None
         step(4, "", valid=False, tokens=40, capped=True),
     ]
 
-    decision = fixed_long_decision(
-        steps,
-        fallback_to_latest_valid=True,
-    )
+    decision = fixed_long_decision(steps)
 
-    assert decision.answer == "B"
-    assert decision.answer_valid is True
-    assert decision.answer_round == 2
+    assert decision.answer == ""
+    assert decision.answer_valid is False
+    assert decision.answer_round is None
     assert decision.compute_round == 4
     assert decision.charged_tokens == 40
-    assert decision.used_latest_valid_fallback is True
+    assert decision.used_latest_valid_fallback is False
 
 
-def test_fixed_long_fallback_is_optional_and_never_reduces_compute_charge() -> None:
+def test_invalid_final_round_is_incorrect_and_charges_full_compute() -> None:
     steps = [
         step(1, "A", tokens=10),
         step(2, "", valid=False, tokens=20),
         step(3, "", valid=False, tokens=30),
     ]
 
-    decision = fixed_long_decision(
-        steps,
-        fallback_to_latest_valid=False,
-    )
+    decision = fixed_long_decision(steps)
 
     assert decision.answer == ""
     assert decision.answer_valid is False
@@ -253,7 +262,7 @@ def test_fixed_long_fallback_is_optional_and_never_reduces_compute_charge() -> N
     assert decision.used_latest_valid_fallback is False
 
 
-def test_no_qualifying_window_delegates_to_full_compute_fallback() -> None:
+def test_no_qualifying_window_delegates_to_round8_without_fallback() -> None:
     steps = [
         step(1, "A", tokens=10),
         step(2, "B", tokens=20),
@@ -266,16 +275,15 @@ def test_no_qualifying_window_delegates_to_full_compute_fallback() -> None:
         min_step=2,
         patience=2,
         confidence_threshold=None,
-        fallback_to_latest_valid=True,
     )
 
     assert decision.stability_triggered is False
     assert decision.stopped_early is False
-    assert decision.answer == "B"
-    assert decision.answer_round == 2
+    assert decision.answer == ""
+    assert decision.answer_round is None
     assert decision.compute_round == 4
     assert decision.charged_tokens == 40
-    assert decision.used_latest_valid_fallback is True
+    assert decision.used_latest_valid_fallback is False
 
 
 def test_invalid_arguments_and_nonconsecutive_traces_fail_closed() -> None:

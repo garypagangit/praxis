@@ -14,6 +14,7 @@ of performing a second scientific-result upload itself.
 from __future__ import annotations
 
 import base64
+import copy
 import hashlib
 import json
 import os
@@ -31,6 +32,8 @@ ENTRY = "cloud_jobs/px057_h5_development_pilot_20260727/sagemaker_entry.py"
 CONFIG = "configs/px057_h5_development_pilot_20260727.json"
 RUNNER = "scripts/run_px057_h5_development_pilot.py"
 MECHANISM = "scripts/px057_h5_mechanism.py"
+CONTRACT = "scripts/px057_h5_development_contract.py"
+INTEGRITY = "scripts/px057_h5_development_integrity.py"
 H4_REQUIREMENTS = "requirements-px057-h4.txt"
 H4_REQUIREMENTS_SHA256 = (
     "5aa1adf7ce4187838a9f2867c9e6919bb5b06e11f90d70194ab48fc09984d163"
@@ -55,16 +58,6 @@ H4_CALIBRATION_SOURCES = {
         "sha256": "a48ef2c73edc6eec80428358feee3f38e1c5182dac441ca39c339fb9b54f00ef",
         "rows": 500,
     },
-    "cell2_qwen25_arc": {
-        "path": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
-        "sha256": "90402e3c87598ef754583915508adea852362690b0da203f88ff8e9acd1a6224",
-        "rows": 500,
-    },
-    "cell3_llama31_arc": {
-        "path": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
-        "sha256": "90402e3c87598ef754583915508adea852362690b0da203f88ff8e9acd1a6224",
-        "rows": 500,
-    },
 }
 
 REQUIRED_ENVIRONMENT = (
@@ -79,6 +72,10 @@ REQUIRED_ENVIRONMENT = (
     "PX057_H5_DEV_SOURCE_ARCHIVE_SHA256",
     "PX057_H5_DEV_CONFIG_SHA256",
     "PX057_H5_DEV_CELL_ID",
+    "PX057_H5_DEV_ATTEMPT_ID",
+    "PX057_H5_DEV_PROTOCOL_ID",
+    "PX057_H5_DEV_FROZEN_CELL_ID",
+    "PX057_H5_DEV_POLICY_ID",
 )
 
 
@@ -94,6 +91,8 @@ class Preflight:
     config_sha256: str
     runner_sha256: str
     mechanism_sha256: str
+    contract_sha256: str
+    integrity_sha256: str
     requirements_sha256: str
 
 
@@ -160,6 +159,8 @@ def required_environment(environment: Mapping[str, str]) -> dict[str, str]:
     ):
         if re.fullmatch(r"[0-9a-f]{64}", values[name]) is None:
             raise ValueError(f"{name} must be a lowercase SHA-256")
+    if values["PX057_H5_DEV_SOURCE_VERSION_ID"].casefold() == "null":
+        raise ValueError("PX057_H5_DEV_SOURCE_VERSION_ID must be a real version")
     if (
         re.fullmatch(
             r"sha256:[0-9a-f]{64}",
@@ -256,6 +257,8 @@ def validate_pre_model_contract(
         "config": _inside(repo, CONFIG),
         "runner": _inside(repo, RUNNER),
         "mechanism": _inside(repo, MECHANISM),
+        "contract": _inside(repo, CONTRACT),
+        "integrity": _inside(repo, INTEGRITY),
         "requirements": _inside(repo, H4_REQUIREMENTS),
     }
     missing = [name for name, path in required_paths.items() if not path.is_file()]
@@ -275,8 +278,11 @@ def validate_pre_model_contract(
     config = read_json_strict(required_paths["config"])
     if (
         config.get("experiment_id")
-        != "px057-h5-development-pilot-bounded-chat-20260727"
+        != "px057-h5-development-pilot-bounded-chat-r2-20260727"
         or config.get("px_id") != "PX-057"
+        or config.get("attempt_id") != "r2"
+        or config.get("protocol_revision")
+        != "2-exact-schema-c1-only-provenance"
         or config.get("status") != "DEVELOPMENT_ONLY_NOT_CONFIRMATORY"
     ):
         raise ValueError("development-only experiment identity is invalid")
@@ -296,7 +302,14 @@ def validate_pre_model_contract(
         raise ValueError("container image digest differs from development config")
 
     cells = [cell for cell in config.get("cells", []) if cell.get("cell_id") == cell_id]
-    if len(cells) != 1 or cell_id not in H4_CALIBRATION_SOURCES:
+    if (
+        len(config.get("cells", [])) != 1
+        or len(config.get("models", {})) != 1
+        or set(config.get("models", {})) != {"llama31"}
+        or len(cells) != 1
+        or cell_id != "cell1_llama31_gsm8k"
+        or cell_id not in H4_CALIBRATION_SOURCES
+    ):
         raise ValueError(f"unknown or duplicate development cell: {cell_id}")
     cell = cells[0]
     expected_source = H4_CALIBRATION_SOURCES[cell_id]
@@ -330,6 +343,8 @@ def validate_pre_model_contract(
         config_sha256=config_sha256,
         runner_sha256=sha256_file(required_paths["runner"]),
         mechanism_sha256=sha256_file(required_paths["mechanism"]),
+        contract_sha256=sha256_file(required_paths["contract"]),
+        integrity_sha256=sha256_file(required_paths["integrity"]),
         requirements_sha256=requirements_sha256,
     )
 
@@ -416,6 +431,36 @@ def run_development_pilot(repo: Path, *, cell_id: str) -> None:
     )
 
 
+def verify_post_collection_code(
+    repo: Path,
+    preflight: Preflight,
+) -> dict[str, str]:
+    """Re-hash every pinned code/config input after the model runner exits."""
+
+    expected = {
+        "entrypoint_sha256": preflight.committed_entry_sha256,
+        "config_sha256": preflight.config_sha256,
+        "runner_sha256": preflight.runner_sha256,
+        "mechanism_sha256": preflight.mechanism_sha256,
+        "contract_sha256": preflight.contract_sha256,
+        "integrity_sha256": preflight.integrity_sha256,
+        "h4_requirements_sha256": preflight.requirements_sha256,
+    }
+    observed = {
+        "entrypoint_sha256": sha256_file(_inside(repo, ENTRY)),
+        "config_sha256": sha256_file(_inside(repo, CONFIG)),
+        "runner_sha256": sha256_file(_inside(repo, RUNNER)),
+        "mechanism_sha256": sha256_file(_inside(repo, MECHANISM)),
+        "contract_sha256": sha256_file(_inside(repo, CONTRACT)),
+        "integrity_sha256": sha256_file(_inside(repo, INTEGRITY)),
+        "h4_requirements_sha256": sha256_file(_inside(repo, H4_REQUIREMENTS)),
+    }
+    if observed != expected:
+        changed = sorted(name for name in expected if observed[name] != expected[name])
+        raise ValueError(f"post-collection pinned code/config changed: {changed}")
+    return observed
+
+
 def _unique_ids(rows: Sequence[dict[str, Any]], *, label: str) -> list[str]:
     ids = [str(row.get("question_id", "")) for row in rows]
     if "" in ids or len(set(ids)) != len(ids):
@@ -485,6 +530,11 @@ def verify_collection_bundle(
         summary.get("stage") != "H5_DEVELOPMENT_PILOT_COLLECTION"
         or summary.get("status") != "PASS"
         or summary.get("confirmatory_evidence") is not False
+        or summary.get("attempt_id") != "r2"
+        or summary.get("protocol_id")
+        != "px057-h5-c1-development-native-chat-v1"
+        or summary.get("frozen_cell_id") != "C1-H4DEV-NATIVECHAT-V1"
+        or summary.get("policy_id") != "m4-k2-valid-v1"
         or summary.get("cell_id") != cell_id
         or source_record.get("path") != source_path
         or source_record.get("sha256") != source_sha256
@@ -572,6 +622,29 @@ def execute(
         expected_config_sha256=env["PX057_H5_DEV_CONFIG_SHA256"],
         container_image_digest=env["PX057_H5_DEV_CONTAINER_IMAGE_DIGEST"],
     )
+    if str(repo_dir) not in sys.path:
+        sys.path.insert(0, str(repo_dir))
+    from scripts.px057_h5_development_contract import (
+        ATTEMPT_ID,
+        FROZEN_CELL_ID,
+        JOB_NAME,
+        POLICY_ID,
+        PROTOCOL_ID,
+        require_c1,
+        validate_frozen_development_config,
+    )
+
+    validate_frozen_development_config(preflight.config)
+    require_c1(env["PX057_H5_DEV_CELL_ID"])
+    if env["PX057_H5_DEV_JOB_NAME"] != JOB_NAME:
+        raise ValueError("cloud job name differs from the frozen r2 contract")
+    if (
+        env["PX057_H5_DEV_ATTEMPT_ID"] != ATTEMPT_ID
+        or env["PX057_H5_DEV_PROTOCOL_ID"] != PROTOCOL_ID
+        or env["PX057_H5_DEV_FROZEN_CELL_ID"] != FROZEN_CELL_ID
+        or env["PX057_H5_DEV_POLICY_ID"] != POLICY_ID
+    ):
+        raise ValueError("cloud protocol/policy identity differs from r2 contract")
     configured_aws = preflight.config.get("aws", {})
     if (
         configured_aws.get("huggingface_secret_id")
@@ -597,16 +670,39 @@ def execute(
         cell_id=env["PX057_H5_DEV_CELL_ID"],
     )
 
-    verification = verify_collection_bundle(
-        preflight.output_dir,
-        cell_id=env["PX057_H5_DEV_CELL_ID"],
-        source_path=str(preflight.cell["source_manifest"]),
-        source_sha256=sha256_file(preflight.source_path),
-        source_by_id=preflight.source_by_id,
+    code_evidence = verify_post_collection_code(repo_dir, preflight)
+    from scripts.px057_h5_development_integrity import (
+        verify_cloud_evidence,
+        verify_scientific_collection,
     )
+
+    verification = verify_scientific_collection(
+        preflight.output_dir,
+        config=preflight.config,
+        source_manifest_bytes=preflight.source_path.read_bytes(),
+        expected_source_sha256=str(preflight.cell["source_manifest_sha256"]),
+    )
+    expected_cloud_metadata = {
+        "job_name": env["PX057_H5_DEV_JOB_NAME"],
+        "git_commit": env["PX057_H5_DEV_GIT_COMMIT"],
+        "repository_url": env["PX057_H5_DEV_REPOSITORY_URL"],
+        "branch": env["PX057_H5_DEV_BRANCH"],
+        "container_image_digest": env[
+            "PX057_H5_DEV_CONTAINER_IMAGE_DIGEST"
+        ],
+        "source_archive": {
+            "version_id": env["PX057_H5_DEV_SOURCE_VERSION_ID"],
+            "sha256": expected_archive_sha256,
+        },
+        "code": dict(code_evidence),
+    }
     evidence = {
         "experiment_id": preflight.config["experiment_id"],
         "px_id": "PX-057",
+        "attempt_id": preflight.config["attempt_id"],
+        "protocol_id": preflight.config["protocol_id"],
+        "frozen_cell_id": preflight.config["frozen_cell_id"],
+        "policy_id": preflight.config["primary_development_policy"]["policy_id"],
         "stage": "PX057_H5_DEVELOPMENT_PILOT_CLOUD_COLLECTION",
         "status": "PASS",
         "confirmatory_evidence": False,
@@ -623,24 +719,24 @@ def execute(
             "version_id": env["PX057_H5_DEV_SOURCE_VERSION_ID"],
             "sha256": expected_archive_sha256,
         },
-        "code": {
-            "entrypoint_sha256": preflight.committed_entry_sha256,
-            "config_sha256": preflight.config_sha256,
-            "runner_sha256": preflight.runner_sha256,
-            "mechanism_sha256": preflight.mechanism_sha256,
-            "h4_requirements_sha256": preflight.requirements_sha256,
-        },
+        "code": dict(code_evidence),
         "h4_calibration_source": {
             "path": preflight.cell["source_manifest"],
             "sha256": sha256_file(preflight.source_path),
             "rows": len(preflight.source_rows),
             "outcome_exposed": True,
         },
-        "collection_verification": verification,
-        "collection_files": verification["files"],
+        "collection_verification": copy.deepcopy(verification),
+        "collection_files": copy.deepcopy(verification["files"]),
         "started_at_utc": started,
         "completed_at_utc": datetime.now(timezone.utc).isoformat(),
     }
+    verify_cloud_evidence(
+        evidence,
+        config=preflight.config,
+        collection_verification=verification,
+        expected_metadata=expected_cloud_metadata,
+    )
     write_model_bundle(
         preflight.output_dir,
         model_dir,

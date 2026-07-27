@@ -24,6 +24,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.px057_h5_mechanism import extract_last_valid_answer
+from scripts.px057_h5_development_contract import (
+    require_c1,
+    validate_frozen_development_config,
+)
 from scripts.run_px057_h4_trace_collection import load_backend, runtime_metadata
 
 
@@ -127,12 +131,21 @@ def generate_chat_one(
     mean_logprob = float(finite.mean().item()) if len(finite) else -100.0
     confidence = float(math.exp(max(-20.0, min(0.0, mean_logprob))))
     generated_tokens = int(len(generated))
-    if re.search(r"<END>", response, flags=re.IGNORECASE):
+    ended_with_literal_end = bool(
+        generated_tokens >= len(stop_ids)
+        and generated[-len(stop_ids) :].tolist() == stop_ids
+    )
+    last_generated_id = None if generated_tokens == 0 else int(generated[-1])
+    if ended_with_literal_end and generated_tokens < max_new_tokens:
         termination_reason = "literal_end_marker"
+    elif ended_with_literal_end:
+        termination_reason = "literal_end_marker_at_token_cap"
+    elif last_generated_id in terminators:
+        termination_reason = "native_eos_or_eot"
     elif generated_tokens >= max_new_tokens:
         termination_reason = "token_cap"
     else:
-        termination_reason = "native_eos_or_eot"
+        termination_reason = "unexpected_no_registered_terminator"
     return (
         response,
         confidence,
@@ -146,36 +159,48 @@ def validate_bounded_response(
     response: str,
     *,
     extraction: Any,
+    answer_type: str,
+    allowed_labels: tuple[str, ...] | list[str] = (),
+    termination_reason: str,
 ) -> dict[str, Any]:
-    """Validate natural completion of the development response contract."""
+    """Validate the exact, case-sensitive three-line response contract."""
 
-    stripped = response.strip()
-    schema_lines = [line.strip() for line in stripped.splitlines() if line.strip()]
+    stripped = response.strip(" \t\r\n")
+    schema_lines = stripped.splitlines()
+    exact_line_count = len(schema_lines) == 3
+    check_line = schema_lines[0] if exact_line_count else ""
+    answer_line = schema_lines[1] if exact_line_count else ""
+    end_line = schema_lines[2] if exact_line_count else ""
+    check_prefix = check_line.startswith("Check: ")
+    check_body = check_line[len("Check: ") :] if check_prefix else ""
+    check_word_count = len(check_body.split())
+    bounded_check = bool(check_body) and 1 <= check_word_count <= 40
+
+    if answer_type == "numeric":
+        answer_match = re.fullmatch(
+            r"Final answer: ([-+]?(?:\d[\d,]*\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)",
+            answer_line,
+        )
+        exact_answer_line = answer_match is not None
+    elif answer_type == "choice":
+        answer_match = re.fullmatch(r"Final answer: ([A-Za-z0-9]+)", answer_line)
+        allowed = {str(label).strip().upper() for label in allowed_labels}
+        exact_answer_line = bool(
+            answer_match and answer_match.group(1).upper() in allowed
+        )
+    else:
+        raise ValueError(f"unsupported answer_type: {answer_type}")
+
+    exact_end_line = end_line == "<END>"
     exact_three_lines = bool(
-        len(schema_lines) == 3
-        and re.fullmatch(r"Check\s*:.+", schema_lines[0], flags=re.IGNORECASE)
-        and re.match(r"Final\s+answer\s*(?:is|:|=)", schema_lines[1], flags=re.IGNORECASE)
-        and re.fullmatch(r"<END>", schema_lines[2], flags=re.IGNORECASE)
+        exact_line_count
+        and check_prefix
+        and bounded_check
+        and exact_answer_line
+        and exact_end_line
     )
-    end_matches = list(re.finditer(r"<END>", response, flags=re.IGNORECASE))
-    check_prefix = bool(re.match(r"\s*Check\s*:", response, flags=re.IGNORECASE))
+    end_matches = list(re.finditer(re.escape("<END>"), response))
     marker_count = extraction.marker_count
-    first_marker_start = (
-        None if not extraction.candidates else extraction.candidates[0].marker_start
-    )
-    check_body = (
-        ""
-        if first_marker_start is None
-        else re.sub(
-            r"^\s*Check\s*:\s*",
-            "",
-            response[:first_marker_start],
-            count=1,
-            flags=re.IGNORECASE,
-        ).strip()
-    )
-    check_word_count = len(re.findall(r"\b[\w'-]+\b", check_body))
-    bounded_check = 1 <= check_word_count <= 40
     end_after_answer = bool(
         extraction.selected_marker_ordinal is not None
         and end_matches
@@ -188,6 +213,7 @@ def validate_bounded_response(
     valid = bool(
         extraction.valid
         and not extraction.token_cap_reached
+        and termination_reason == "literal_end_marker"
         and check_prefix
         and bounded_check
         and exact_three_lines
@@ -201,7 +227,12 @@ def validate_bounded_response(
         "valid": valid,
         "check_prefix": check_prefix,
         "completed_before_token_cap": not extraction.token_cap_reached,
+        "termination_reason": termination_reason,
+        "terminated_by_exact_end_marker": termination_reason == "literal_end_marker",
+        "exact_line_count": exact_line_count,
         "exact_three_lines": exact_three_lines,
+        "exact_answer_line": exact_answer_line,
+        "exact_end_line": exact_end_line,
         "check_word_count": check_word_count,
         "bounded_check": bounded_check,
         "final_answer_marker_count": marker_count,
@@ -268,6 +299,8 @@ def build_prompt(
 
 
 def collect(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
+    validate_frozen_development_config(config)
+    require_c1(cell_id)
     if config.get("status") != "DEVELOPMENT_ONLY_NOT_CONFIRMATORY":
         raise ValueError("development pilot status boundary is missing")
     cells = [cell for cell in config["cells"] if cell["cell_id"] == cell_id]
@@ -340,7 +373,13 @@ def collect(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
                 generated_tokens=generated_tokens,
                 max_new_tokens=max_new_tokens,
             )
-            schema = validate_bounded_response(response, extraction=extraction)
+            schema = validate_bounded_response(
+                response,
+                extraction=extraction,
+                answer_type=str(row["answer_type"]),
+                allowed_labels=allowed,
+                termination_reason=termination_reason,
+            )
             answer = extraction.answer if schema["valid"] else ""
             previous_answer = answer
             cumulative_tokens += generated_tokens
@@ -394,6 +433,10 @@ def collect(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
     summary = {
         "experiment_id": config["experiment_id"],
         "px_id": config["px_id"],
+        "attempt_id": config["attempt_id"],
+        "protocol_id": config["protocol_id"],
+        "frozen_cell_id": config["frozen_cell_id"],
+        "policy_id": config["primary_development_policy"]["policy_id"],
         "stage": "H5_DEVELOPMENT_PILOT_COLLECTION",
         "status": "PASS",
         "confirmatory_evidence": False,

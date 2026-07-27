@@ -1,6 +1,10 @@
 {
-  "experiment_id": "px057-h5-development-pilot-bounded-chat-20260727",
+  "experiment_id": "px057-h5-development-pilot-bounded-chat-r2-20260727",
   "px_id": "PX-057",
+  "attempt_id": "r2",
+  "protocol_revision": "2-exact-schema-c1-only-provenance",
+  "protocol_id": "px057-h5-c1-development-native-chat-v1",
+  "frozen_cell_id": "C1-H4DEV-NATIVECHAT-V1",
   "status": "DEVELOPMENT_ONLY_NOT_CONFIRMATORY",
   "claim_boundary": "All questions were generated in H4 and are outcome-exposed. Results may select and fix an H5 mechanism, but may not be counted as H5 calibration, holdout, certification, or confirmatory evidence.",
   "repository": {
@@ -12,7 +16,7 @@
     "region": "us-east-1",
     "role_arn": "arn:aws:iam::272615233626:role/service-role/AmazonSageMaker-ExecutionRole-20260416T191047",
     "bucket": "praxis-garypagan-272615233626-us-east-1",
-    "s3_prefix": "experiments/px057-adaptive-stopping/h5-development-pilot-20260727",
+    "s3_prefix": "experiments/px057-adaptive-stopping/h5-development-pilot-r2-20260727",
     "instance_type": "ml.g5.2xlarge",
     "volume_size_gb": 200,
     "max_runtime_seconds": 43200,
@@ -27,10 +31,25 @@
     "sample_seed": 5758,
     "decoding": "greedy",
     "native_chat_template": true,
+    "terminators": ["native_eos", "native_eot_if_present", "<END>"],
     "response_protocol": "bounded_check_then_answer_then_end",
-    "previous_context": "latest_valid_answer_only"
+    "previous_context": "preceding_round_strict_valid_answer_else_NO_VALID_PRIOR_ANSWER"
+  },
+  "strict_response_schema": {
+    "physical_lines_after_outer_whitespace_trim": 3,
+    "line_1_prefix": "Check: ",
+    "line_1_whitespace_delimited_words_min": 1,
+    "line_1_whitespace_delimited_words_max": 40,
+    "line_2_prefix": "Final answer: ",
+    "line_2_numeric_full_match_required": true,
+    "case_sensitive_literals": true,
+    "exact_final_answer_marker_count": 1,
+    "line_3_exact": "<END>",
+    "completion_before_token_cap_required": true,
+    "invalid_round_resets_context": true
   },
   "primary_development_policy": {
+    "policy_id": "m4-k2-valid-v1",
     "min_step": 4,
     "patience": 2,
     "confidence_threshold": null,
@@ -63,12 +82,6 @@
     "reconsideration_template": "Re-solve the problem from scratch. The prior answer below may be wrong; do not use it as a premise. Return exactly these lines and nothing else:\n{answer_instruction}\nDo not write \"Final answer\" anywhere else.\n\nProblem:\n{problem}\n\nUntrusted prior answer: {previous_answer}\nAudit round: {round_index}"
   },
   "models": {
-    "qwen25": {
-      "model_id": "Qwen/Qwen2.5-7B-Instruct",
-      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
-      "device_map": "auto",
-      "local_files_only": false
-    },
     "llama31": {
       "model_id": "meta-llama/Llama-3.1-8B-Instruct",
       "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
@@ -79,24 +92,12 @@
   "cells": [
     {
       "cell_id": "cell1_llama31_gsm8k",
+      "frozen_cell_id": "C1-H4DEV-NATIVECHAT-V1",
       "job_code": "c1",
       "model_key": "llama31",
       "source_manifest": "manifests/px057_h4_20260725/gsm8k_calibration.jsonl",
+      "source_manifest_sha256": "a48ef2c73edc6eec80428358feee3f38e1c5182dac441ca39c339fb9b54f00ef",
       "output_dir": "reports/adaptive_stopping_overthinking/h5_development_pilot_20260727/cell1_llama31_gsm8k"
-    },
-    {
-      "cell_id": "cell2_qwen25_arc",
-      "job_code": "c2",
-      "model_key": "qwen25",
-      "source_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
-      "output_dir": "reports/adaptive_stopping_overthinking/h5_development_pilot_20260727/cell2_qwen25_arc"
-    },
-    {
-      "cell_id": "cell3_llama31_arc",
-      "job_code": "c3",
-      "model_key": "llama31",
-      "source_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
-      "output_dir": "reports/adaptive_stopping_overthinking/h5_development_pilot_20260727/cell3_llama31_arc"
     }
   ]
 }
