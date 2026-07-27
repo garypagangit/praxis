@@ -177,11 +177,20 @@ def evaluate_cell(config: dict[str, Any], *, cell_id: str) -> dict[str, Any]:
     wall_seconds = sum(float(row.get("wall_seconds", 0.0)) for row in raw)
     gpu_seconds = sum(float(row.get("gpu_seconds") or 0.0) for row in raw)
     primary_by_id = {row["question_id"]: row for row in primary["rows"]}
+    trace_gold_by_id = {
+        str(trace["question_id"]): str(trace["gold_answer"]) for trace in traces
+    }
     sentinels = []
     for sentinel in config["mechanism_sentinels"]:
         row = primary_by_id.get(sentinel["question_id"])
         if row is None:
             raise ValueError(f"mechanism sentinel missing: {sentinel['question_id']}")
+        if trace_gold_by_id.get(sentinel["question_id"]) != str(
+            sentinel["gold_answer"]
+        ):
+            raise ValueError(
+                f"mechanism sentinel gold mismatch: {sentinel['question_id']}"
+            )
         sentinels.append(
             {
                 "question_id": sentinel["question_id"],
