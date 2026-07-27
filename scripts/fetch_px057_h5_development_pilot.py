@@ -866,7 +866,6 @@ def _download_s3_version(
             profile,
             "--region",
             region,
-            "--only-show-errors",
         ],
         cwd=ROOT,
         check=True,

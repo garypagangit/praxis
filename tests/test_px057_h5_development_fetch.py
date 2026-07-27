@@ -550,3 +550,44 @@ def test_fetch_receipt_rejects_null_artifact_version(tmp_path) -> None:
             launch=launch,
             bundle_verification=verification,
         )
+
+
+def test_versioned_download_uses_portable_s3api_arguments(
+    tmp_path, monkeypatch
+) -> None:
+    observed = {}
+
+    def fake_run(command, **kwargs):
+        observed["command"] = command
+        observed["kwargs"] = kwargs
+
+    monkeypatch.setattr(fetch.subprocess, "run", fake_run)
+    destination = tmp_path / "source.tar.gz"
+
+    fetch._download_s3_version(
+        bucket="bucket",
+        key="frozen/source.tar.gz",
+        version_id="version-1",
+        destination=destination,
+        profile="praxis-build",
+        region="us-east-1",
+    )
+
+    assert observed["command"] == [
+        "aws",
+        "s3api",
+        "get-object",
+        "--bucket",
+        "bucket",
+        "--key",
+        "frozen/source.tar.gz",
+        "--version-id",
+        "version-1",
+        str(destination),
+        "--profile",
+        "praxis-build",
+        "--region",
+        "us-east-1",
+    ]
+    assert "--only-show-errors" not in observed["command"]
+    assert observed["kwargs"] == {"cwd": fetch.ROOT, "check": True}
