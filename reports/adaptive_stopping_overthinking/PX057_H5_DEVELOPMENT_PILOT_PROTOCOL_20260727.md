@@ -1,8 +1,8 @@
 # PX-057 H5 Development Pilot Protocol
 
-**Protocol date:** 2026-07-27  
-**Protocol identifier:** `px057-h5-c1-development-native-chat-v1`  
-**Cell:** C1 — `meta-llama/Llama-3.1-8B-Instruct` / GSM8K  
+**Protocol date:** 2026-07-27
+**Protocol identifier:** `px057-h5-c1-development-native-chat-v1`
+**Cell:** C1 — `meta-llama/Llama-3.1-8B-Instruct` / GSM8K
 **Status:** **OUTCOME-EXPOSED DEVELOPMENT ONLY — NOT CONFIRMATORY**
 
 This protocol defines one bounded mechanism-development run on all 500 C1

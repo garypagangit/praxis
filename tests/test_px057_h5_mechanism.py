@@ -294,4 +294,3 @@ def test_invalid_arguments_and_nonconsecutive_traces_fail_closed() -> None:
             patience=2,
             confidence_threshold=None,
         )
-
