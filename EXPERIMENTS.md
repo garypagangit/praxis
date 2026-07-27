@@ -386,6 +386,16 @@ This index intentionally publishes both positive and negative results. The rule 
 
 **Primary artifacts:** `reports/EXPERIMENT_CURRENT_DASHBOARD_20260724.html`, `configs/new_praxis_experiment_registry_20260723.json`, `reports/new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md`, `reports/adaptive_stopping_overthinking/PX057_FINAL_DETERMINATION_20260724.md`, `reports/xai_explanation_drift_intrusion/PX058_FINAL_DETERMINATION_20260724.md`, `reports/uncertainty_adaptive_speculative_decoding/PX059_SOURCE_GATE_20260724.md`, `reports/coed_direction_robustness/PX060_FINAL_DETERMINATION_20260724.md`, `reports/wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md`, and `reports/coding_agent_skill_provenance/PX062_CURRENT_DETERMINATION_20260724.md`.
 
+## 2026-07-27 PX-057 H5 Development-Pilot Addendum
+
+**Status:** `FAIL - H5 NO-GO` for the frozen `m4-k2-valid-v1` mechanism. This is an outcome-exposed H4 development result, not H5 calibration, holdout, certification, or confirmatory evidence.
+
+**Current determination:** the one-look r2 pilot completed with integrity PASS on 500 H4 C1 GSM8K questions and 4,000 generations. Early-stop harm (`4/500`), adaptive-minus-fixed correct count (`+13`), and fixed-long correct count (`165/500`) passed their selection gates. Mean generated-token saving (`17.7281%` versus `25%` required), strict-valid response rate (`2,292/4,000 = 57.3%` versus `95%` required), and the bound sentinel gate (`2/7` valid and correct at both selected and round-8 answers versus all seven required) failed. Under the frozen rule, the mechanism is not eligible for fresh H5 execution. No threshold, policy, prompt, parser, or sentinel tuning may be made from this pilot; any replacement requires a newly versioned development protocol.
+
+**Portfolio boundary:** the earlier 200-question Gate 2 discovery result remains a bounded positive. H4 remains protocol-invalid with descriptive negative calibration evidence. The r2 development pilot tested a repair only on outcome-exposed H4 questions and failed its mechanism-selection gate; H5 itself was not run.
+
+**Primary artifacts:** `reports/adaptive_stopping_overthinking/PX057_H5_DEVELOPMENT_PILOT_DETERMINATION_20260727.md`, `reports/adaptive_stopping_overthinking/PX057_H5_DEVELOPMENT_PILOT_DASHBOARD_20260727.html`, and `reports/adaptive_stopping_overthinking/h5_development_pilot_20260727/cell1_llama31_gsm8k/development_evaluation.json`.
+
 ## Source Dashboards
 
 - `reports/EXPERIMENT_CURRENT_DASHBOARD_20260513.md`

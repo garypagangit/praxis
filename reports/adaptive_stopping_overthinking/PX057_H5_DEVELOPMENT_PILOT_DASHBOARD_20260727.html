@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="PX-057 r2 development-pilot determination: mechanism-selection FAIL and H5 NO-GO.">
+<title>PX-057 r2 Development Pilot - H5 NO-GO</title>
+<style>
+:root{--navy:#112f46;--blue:#176f97;--teal:#087d70;--red:#a83b47;--amber:#9a6500;--ink:#202b32;--muted:#61727c;--line:#d7e1e6;--bg:#edf3f6;--paper:#fff;--soft-red:#f9e8ea;--soft-green:#e5f3ef;--soft-amber:#fff3da}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,Segoe UI,Arial,sans-serif}a{color:var(--blue);font-weight:700;text-decoration:none}a:hover,a:focus{text-decoration:underline}
+header{background:linear-gradient(125deg,#0d293d,#194f6d 65%,#765227);color:#fff;padding:42px max(22px,6vw) 35px}.hero{max-width:1160px;margin:auto}.kicker{color:#9de0d7;font-size:.78rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3.9rem);line-height:1.04;margin:.38rem 0 .7rem}header p{max-width:950px;color:#e1ecf1;margin:.25rem 0 1.15rem}.badge{display:inline-block;border-radius:999px;padding:.55rem .9rem;background:#fff;color:var(--red);font-weight:900}
+main{max-width:1240px;margin:auto;padding:26px max(18px,4vw) 54px}.decision{background:var(--paper);border-left:7px solid var(--red);border-radius:10px;padding:19px 21px;box-shadow:0 5px 18px #18324a12}.decision h2{margin:0 0 .35rem}.decision p{margin:.25rem 0}
+.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:20px 0}.metric{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px}.metric b{display:block;color:var(--navy);font-size:1.7rem;line-height:1.05}.metric span{display:block;color:var(--muted);font-size:.87rem;margin-top:.35rem}
+section{margin-top:27px}h2{color:var(--navy);font-size:1.5rem;margin:0 0 12px}.table-wrap{overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:760px}th{background:var(--navy);color:#fff;text-align:left;padding:10px 11px;font-size:.84rem}td{padding:10px 11px;border-bottom:1px solid var(--line);font-size:.9rem}tr:last-child td{border-bottom:0}.pass{color:var(--teal);font-weight:900}.fail{color:var(--red);font-weight:900}.num{font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px}.panel.passbox{border-top:5px solid var(--teal)}.panel.failbox{border-top:5px solid var(--red)}.panel.warnbox{border-top:5px solid var(--amber);background:var(--soft-amber)}.panel ul{padding-left:1.15rem;margin-bottom:0}.panel li{margin:.35rem 0}.wide{grid-column:1/-1}
+.links{display:flex;gap:.6rem;flex-wrap:wrap}.button{display:inline-block;background:var(--navy);color:#fff;border-radius:8px;padding:.55rem .75rem}.button.secondary{background:#fff;color:var(--blue);border:1px solid var(--line)}.foot{color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);margin-top:30px;padding-top:16px}code{overflow-wrap:anywhere}
+@media(max-width:900px){.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.wide{grid-column:auto}}@media(max-width:520px){.metrics{grid-template-columns:1fr}header{padding-top:31px}}
+</style>
+</head>
+<body>
+<header><div class="hero">
+<div class="kicker">Praxis research · PX-057 · one-look r2 development pilot</div>
+<h1>The repair did not clear its advancement gate.</h1>
+<p>The exact native-chat, validity-gated stopping mechanism passed harm, accuracy-delta, and fixed-long-accuracy requirements. It failed compute saving, strict response validity, and bound-sentinel preservation.</p>
+<span class="badge">FAIL · H5 NO-GO</span>
+</div></header>
+<main>
+<div class="decision"><h2>Frozen decision</h2><p><strong>Do not launch fresh H5 generation with <code>m4-k2-valid-v1</code>.</strong> This complete 500-question, 4,000-generation pilot passed integrity verification but failed three of six conjunctive gates. No r2 tuning is permitted; another repair requires a new development-protocol revision.</p><p>This is outcome-exposed H4 development evidence. H5 itself was not run.</p></div>
+
+<div class="metrics" aria-label="Pilot summary">
+<div class="metric"><b>500</b><span>exposed H4 C1 questions</span></div>
+<div class="metric"><b>4,000</b><span>frozen generations</span></div>
+<div class="metric"><b>3 / 6</b><span>selection gates passed</span></div>
+<div class="metric"><b>+13</b><span>adaptive correct-count delta</span></div>
+<div class="metric"><b>17.73%</b><span>mean token saving; 25% required</span></div>
+</div>
+
+<section id="gates"><h2>Preregistered one-look gates</h2><div class="table-wrap"><table>
+<thead><tr><th>Gate</th><th>Required</th><th>Observed</th><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Early-stop harms</td><td>≤ 4/500</td><td class="num">4/500 (0.8%)</td><td class="pass">PASS</td></tr>
+<tr><td>Mean generated-token saving</td><td>≥ 25%</td><td class="num">17.7281%</td><td class="fail">FAIL</td></tr>
+<tr><td>Adaptive minus fixed-long correct</td><td>≥ −5</td><td class="num">+13</td><td class="pass">PASS</td></tr>
+<tr><td>Strict-valid responses</td><td>≥ 3,800/4,000 (95%)</td><td class="num">2,292/4,000 (57.3%)</td><td class="fail">FAIL</td></tr>
+<tr><td>Fixed-long correct</td><td>≥ 141/500</td><td class="num">165/500 (33.0%)</td><td class="pass">PASS</td></tr>
+<tr><td>Bound sentinels</td><td>All 7 valid and correct at selected and round 8</td><td class="num">2/7 met full condition</td><td class="fail">FAIL</td></tr>
+</tbody></table></div></section>
+
+<section><div class="grid">
+<article class="panel passbox"><h2>What worked</h2><ul><li>Adaptive accuracy was 35.6% versus 33.0% fixed-long.</li><li>The policy added 13 correct answers.</li><li>Early-stop harm was exactly at the 4-of-500 ceiling.</li><li>Collection, cloud, request, source, code, and bundle integrity passed.</li></ul></article>
+<article class="panel failbox"><h2>What rejected the mechanism</h2><ul><li>Mean saving missed the threshold by 7.27 percentage points.</li><li>1,708 of 4,000 rounds were malformed under the exact schema.</li><li>Four sentinels had no valid answer; one was valid but wrong.</li><li>All gates were required; favorable averages cannot override failures.</li></ul></article>
+<article class="panel warnbox wide"><h2>Claim boundary</h2><p>The pilot may support only a development decision about this exact mechanism on exposed H4 C1 data. It is not H5 calibration, holdout, certification, confirmation, cross-model transfer, cross-domain transfer, deployment evidence, or large-scale robustness. It does not show that adaptive stopping generally fails.</p></article>
+</div></section>
+
+<section id="diagnostics"><h2>Key diagnostics</h2><div class="table-wrap"><table>
+<thead><tr><th>Fixed-long accuracy</th><th>Adaptive accuracy</th><th>Early stops</th><th>Malformed</th><th>Token capped</th><th>Completion tokens</th><th>GPU time</th></tr></thead>
+<tbody><tr><td>33.0%</td><td>35.6%</td><td>199/500 (39.8%)</td><td>1,708/4,000 (42.7%)</td><td>336/4,000 (8.4%)</td><td>201,045</td><td>8,106.639 s</td></tr></tbody>
+</table></div></section>
+
+<section id="sentinels"><h2>Bound sentinel outcomes</h2><div class="table-wrap"><table>
+<thead><tr><th>ID</th><th>Gold</th><th>Round 8</th><th>Adaptive</th><th>Full condition</th></tr></thead>
+<tbody>
+<tr><td><code>gsm8k-test-1129</code></td><td>8</td><td>Invalid</td><td>Invalid</td><td class="fail">FAIL</td></tr>
+<tr><td><code>gsm8k-test-504</code></td><td>2</td><td>Invalid</td><td>Invalid</td><td class="fail">FAIL</td></tr>
+<tr><td><code>gsm8k-test-323</code></td><td>75</td><td>75 · correct</td><td>75 · correct</td><td class="pass">PASS</td></tr>
+<tr><td><code>gsm8k-test-591</code></td><td>220</td><td>Invalid</td><td>Invalid</td><td class="fail">FAIL</td></tr>
+<tr><td><code>gsm8k-test-458</code></td><td>35</td><td>35 · correct</td><td>35 · correct</td><td class="pass">PASS</td></tr>
+<tr><td><code>gsm8k-test-361</code></td><td>20</td><td>27 · wrong</td><td>27 · wrong</td><td class="fail">FAIL</td></tr>
+<tr><td><code>gsm8k-test-1249</code></td><td>56</td><td>Invalid</td><td>Invalid</td><td class="fail">FAIL</td></tr>
+</tbody></table></div></section>
+
+<section id="evidence"><h2>Open the bound evidence</h2><div class="links">
+<a class="button" href="PX057_H5_DEVELOPMENT_PILOT_DETERMINATION_20260727.md">Full determination</a>
+<a class="button secondary" href="h5_development_pilot_20260727/cell1_llama31_gsm8k/development_evaluation.json">One-look evaluation</a>
+<a class="button secondary" href="PX057_H5_DEVELOPMENT_PILOT_PROTOCOL_20260727.md">Frozen protocol</a>
+<a class="button secondary" href="../../manifests/px057_h5_development_pilot_20260727/launches/cell1_llama31_gsm8k_r2.json">Launch record</a>
+<a class="button secondary" href="h5_development_pilot_20260727/cell1_llama31_gsm8k/fetch_receipt.json">Fetch receipt</a>
+</div></section>
+
+<p class="foot">Updated July 27, 2026. Evaluation SHA-256: <code>6dcf9a3122249ddb5e09369ad906f0fc4866d5adf754397fb45709357398551b</code>. Generation commit: <code>06e45709d77743fad8bce6ff0dcf1f7cdb54807a</code>.</p>
+</main>
+</body>
+</html>
