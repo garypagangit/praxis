@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="PX-057 H4 final evidence dashboard: valid-negative three-cell per-cell certification matrix.">
+<meta name="description" content="PX-057 H4 final evidence dashboard: protocol-invalid experiment with reproducible descriptive calibration results.">
 <title>PX-057 H4 Final Evidence Dashboard</title>
 <style>
 :root{--navy:#102f46;--blue:#176b91;--teal:#087f72;--red:#aa3d48;--amber:#a96d06;--ink:#1f2a31;--muted:#60717b;--line:#d8e2e7;--bg:#edf3f6;--paper:#fff;--soft-red:#f9e7e9;--soft-teal:#e2f3ef;--soft-amber:#fff2d7}
@@ -18,7 +18,7 @@ main{max-width:1280px;margin:auto;padding:28px max(20px,4vw) 64px}.callout{backg
 .metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin:22px 0}.metric{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:17px}.metric b{display:block;font-size:1.75rem;line-height:1;color:var(--navy);margin-bottom:.35rem}.metric span{color:var(--muted);font-size:.89rem}
 section{margin-top:30px}h2{color:var(--navy);font-size:1.55rem;margin:0 0 13px}h3{color:var(--navy)}.table-wrap{overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
 table{width:100%;border-collapse:collapse;min-width:960px}th{background:var(--navy);color:#fff;text-align:left;padding:11px 12px;font-size:.84rem}td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:.9rem}tr:last-child td{border-bottom:0}.fail{color:var(--red);font-weight:900}.good{color:var(--teal);font-weight:800}.num{font-variant-numeric:tabular-nums}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px}.panel.negative{border-top:5px solid var(--red)}.panel.positive{border-top:5px solid var(--teal)}.panel.warning{border-top:5px solid var(--amber)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px}.panel.negative{border-top:5px solid var(--red)}.panel.positive{border-top:5px solid var(--teal)}.panel.warning{border-top:5px solid var(--amber)}.panel.full{grid-column:1/-1}
 .panel ul{padding-left:1.2rem;margin-bottom:0}.panel li{margin:.42rem 0}.timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.step{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:14px}.step b{color:var(--navy);display:block}.step small{color:var(--muted)}.step.stop{background:var(--soft-red);border-color:#e5b8bd}.step.done{background:var(--soft-teal);border-color:#b9ddd5}
 .diagnostic{background:var(--soft-amber);border:1px solid #efd59e;border-radius:10px;padding:19px}.links{display:flex;gap:.65rem;flex-wrap:wrap}.button{display:inline-block;border-radius:8px;padding:.58rem .8rem;background:var(--navy);color:#fff}.button.secondary{background:#fff;color:var(--blue);border:1px solid var(--line)}
 .foot{color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padding-top:18px;margin-top:34px}code{overflow-wrap:anywhere}caption{text-align:left;font-weight:800;color:var(--navy);padding:10px 12px;background:#f5f8fa}
@@ -30,25 +30,25 @@ table{width:100%;border-collapse:collapse;min-width:960px}th{background:var(--na
 <header>
 <div class="hero">
 <div class="eyebrow">Praxis research · PX-057 · three-cell certification matrix</div>
-<h1>Average utility improved. The safety certificate failed.</h1>
-<p>Three frozen calibration cells saved 42–51% of generated tokens and improved aggregate accuracy, but per-question early-stop harm remained 5.6–8.0%. The registered risk gate correctly closed the experiment before holdout.</p>
-<span class="status"><span class="dot"></span>VALID NEGATIVE</span>
+<h1>The calibration signal was negative. The pre-data gate was incomplete.</h1>
+<p>Three frozen calibration cells saved 42–51% of generated tokens but showed 5.6–8.0% early-stop harm. A completion audit then found that the mandatory independent code-review PASS was never bound before generation, so H4 is descriptive—not a protocol-valid confirmatory result.</p>
+<span class="status"><span class="dot"></span>PROTOCOL INVALID</span>
 <nav aria-label="Dashboard sections"><a href="#results">Results</a><a href="#diagnosis">Diagnosis</a><a href="#integrity">Integrity</a><a href="#claims">Claims</a><a href="#evidence">Evidence</a></nav>
 </div>
 </header>
 <main>
-<div class="callout"><h2>Final decision</h2><p><strong>Zero of three separately calibrated cells produced a certified prefix.</strong> All terminal locks contain a null selected policy. H4a failed; H4b–H4d and manual audit were correctly not run. The earlier 200-item Gate 2 discovery remains a bounded positive, but H4 provides no three-cell family certificate.</p></div>
+<div class="callout"><h2>Final decision</h2><p><strong>H4 is protocol-invalid and its calibration outcome is descriptive.</strong> Zero of three cells produced a prefix under the registered calculation, so holdouts and manual audits were correctly not run. Separately, the Phase A freeze omitted the required pre-data independent-review evidence; that gate cannot be repaired after outcomes. The earlier 200-item Gate 2 discovery remains a bounded positive.</p></div>
 
 <div class="metrics" aria-label="Experiment summary">
 <div class="metric"><b>0 / 3</b><span>cells with a selected policy</span></div>
 <div class="metric"><b>1,500</b><span>protected calibration traces</span></div>
 <div class="metric"><b>12,000</b><span>model generations</span></div>
 <div class="metric"><b>0</b><span>authorized holdout jobs</span></div>
-<div class="metric"><b>VALID</b><span>independent evidence package</span></div>
+<div class="metric"><b>INVALID</b><span>confirmatory protocol status</span></div>
 </div>
 
 <section id="results">
-<h2>Registered H4a results</h2>
+<h2>Descriptive registered H4a calculations</h2>
 <div class="table-wrap"><table>
 <caption>First reached policy and registered H4a decision by cell</caption>
 <thead><tr><th scope="col">Cell</th><th scope="col">Model / corpus</th><th scope="col">First policy</th><th scope="col">Harm</th><th scope="col">Compute saved</th><th scope="col">Accuracy change</th><th scope="col">Primary p-value</th><th scope="col">Decision</th></tr></thead>
@@ -62,7 +62,8 @@ table{width:100%;border-collapse:collapse;min-width:960px}th{background:var(--na
 <section>
 <div class="split">
 <article class="panel positive"><h2>What remained promising</h2><ul><li>Policy-1 stopped accuracy rose in all three cells.</li><li>Mean generated-token saving exceeded the 20% utility target in every cell.</li><li>The first policy prevented 46–71% of observed overthinking events.</li><li>Gate 2 remains a valid bounded discovery result.</li></ul></article>
-<article class="panel negative"><h2>Why certification stopped</h2><ul><li>The harm ceiling was 2%; observed rates were 5.6–8.0%.</li><li>Certification required <code>p ≤ 1/60</code>; each p-value was effectively 1.</li><li>Fixed-sequence testing must stop at the first failure.</li><li>No policy could be selected, so holdout generation was prohibited.</li></ul></article>
+<article class="panel negative"><h2>Why the registered calculation stopped</h2><ul><li>The harm ceiling was 2%; observed rates were 5.6–8.0%.</li><li>The registered rule required <code>p ≤ 1/60</code>; each p-value was effectively 1.</li><li>Fixed-sequence testing stops at the first failure.</li><li>No policy was selected, so holdout generation remained prohibited.</li></ul></article>
+<article class="panel warning full"><h2>Why protocol validity failed</h2><ul><li>Revision 2.2 required an independent code-review PASS before calibration.</li><li>The Phase A freeze and empty sign-off table contain no review evidence.</li><li>The freezer and registered adjudicator did not enforce that requirement.</li><li>A review performed now would be retrospective and cannot repair H4.</li></ul></article>
 </div>
 </section>
 
@@ -82,20 +83,20 @@ table{width:100%;border-collapse:collapse;min-width:960px}th{background:var(--na
 <section id="integrity">
 <h2>Protected execution timeline</h2>
 <div class="timeline" aria-label="Evidence chronology">
-<div class="step done"><b>1 · Freeze</b><small>Science, environment, prompts, splits</small></div>
+<div class="step stop"><b>1 · Freeze gap</b><small>Independent-review evidence missing</small></div>
 <div class="step done"><b>2 · Calibrate</b><small>3 cells · 12,000 generations</small></div>
 <div class="step done"><b>3 · Protect</b><small>Exact S3 versions and hashes pushed</small></div>
 <div class="step done"><b>4 · Determine</b><small>Three fixed-sequence LTT results</small></div>
 <div class="step stop"><b>5 · Lock null</b><small>0/3 policies; holdout closed</small></div>
-<div class="step done"><b>6 · Adjudicate</b><small>Independent VALID_NEGATIVE</small></div>
+<div class="step stop"><b>6 · Audit</b><small>Coverage gap → PROTOCOL_INVALID</small></div>
 </div>
-<p>The final adjudicator independently rederived source splits, rescored traces, recomputed risk tests, verified every pushed lock, and confirmed no local downstream evidence. A separate read-only transport check confirmed that the deterministic SageMaker job names and S3 prefixes remain unused.</p>
+<p>The registered adjudicator independently rederived source splits, scores, policies, and risk tests, while reusing canonical Git-lock/provenance validators. Its replay is internally consistent, but it omitted the readiness code-review gate. The completion audit supplies the controlling protocol status. A separate read-only transport check confirmed that deterministic holdout job names and S3 prefixes remain unused.</p>
 </section>
 
 <section id="claims">
 <div class="split">
-<article class="panel positive"><h2>Supported</h2><ul><li>The registered H4 sequence produced no certified prefix in all three cells.</li><li>Average utility gains coexisted with excessive per-item harm.</li><li>The harm-aware gate prevented an unsafe promotion.</li><li>Confidence scaling and blank extraction are concrete redesign targets.</li></ul></article>
-<article class="panel warning"><h2>Not supported</h2><ul><li>No 2% risk certificate or held-out transfer result.</li><li>No production, universal, or large-scale robustness claim.</li><li>No conclusion that every grid policy fails.</li><li>No conclusion that adaptive stopping cannot work in general.</li></ul></article>
+<article class="panel positive"><h2>Supported descriptively</h2><ul><li>The registered calculation produced no prefix in all three collected calibration cells.</li><li>Average utility gains coexisted with 5.6–8.0% per-item harm.</li><li>The implemented gate closed every cell before holdout.</li><li>Confidence scaling and blank extraction are concrete redesign targets.</li></ul></article>
+<article class="panel warning"><h2>Not supported</h2><ul><li>No protocol-valid H4 negative or completed confirmatory experiment.</li><li>No 2% risk certificate or held-out transfer result.</li><li>No production, universal, or large-scale robustness claim.</li><li>No conclusion that every grid policy fails or that adaptive stopping cannot work.</li></ul></article>
 </div>
 </section>
 
@@ -103,7 +104,8 @@ table{width:100%;border-collapse:collapse;min-width:960px}th{background:var(--na
 <h2>Open the evidence</h2>
 <div class="links">
 <a class="button" href="PX057_H4_FINAL_DETERMINATION_20260727.md">Full final report</a>
-<a class="button secondary" href="h4_20260725/final_adjudication.json">Independent adjudication</a>
+<a class="button secondary" href="h4_20260725/completion_audit_20260727.json">Controlling completion audit</a>
+<a class="button secondary" href="h4_20260725/final_adjudication.json">Registered adjudication</a>
 <a class="button secondary" href="h4_20260725/terminal_absence_check_20260727.json">Terminal absence check</a>
 <a class="button secondary" href="PX057_H4_LTT_PREREG_20260725.md">Frozen preregistration</a>
 <a class="button secondary" href="PX057_FINAL_DETERMINATION_20260724.md">Original Gate 2 result</a>
@@ -112,7 +114,7 @@ table{width:100%;border-collapse:collapse;min-width:960px}th{background:var(--na
 <p><a href="https://aclanthology.org/2026.findings-acl.1199/">When More Thinking Hurts</a> · <a href="https://arxiv.org/abs/2110.01052">Learn then Test</a> · <a href="https://arxiv.org/abs/2602.03814">Conformal Thinking</a></p>
 </section>
 
-<p class="foot">Updated July 27, 2026. Classification: bounded Gate 2 discovery positive; H4 certification valid negative. Final adjudication SHA-256: <code>39c48510b08d65ae2b76561e89b4e6a693917d00eb62eb63428dab15a939312d</code>.</p>
+<p class="foot">Updated July 27, 2026. Classification: bounded Gate 2 discovery positive; H4 protocol-invalid with descriptive negative calibration evidence. Completion-audit SHA-256: <code>ead9eabeee4f3e71b87acf047c6254dcc3f3232460077b6bcfc9e35499c9e5b4</code>.</p>
 </main>
 </body>
 </html>

@@ -1,0 +1,115 @@
+{
+  "experiment_id": "px057-h4-ltt-certified-transfer-20260725",
+  "px_id": "PX-057",
+  "stage": "H4_post_outcome_protocol_completion_audit",
+  "audited_at_utc": "2026-07-27T08:38:07.9694950Z",
+  "status": "PROTOCOL_INVALID",
+  "confirmatory_status": "NOT_ESTABLISHED",
+  "descriptive_calibration_outcome": "NEGATIVE_AT_H4A",
+  "scope": "Strict requirement-by-requirement audit of H4 Revision 2.2 after the registered adjudicator returned VALID_NEGATIVE.",
+  "repository_state": {
+    "branch": "agent/px057-h4-certified-transfer",
+    "audited_head": "a3e05570f5a60c9dfbad10dbef7f3f916cb1e951",
+    "audited_remote_head": "a3e05570f5a60c9dfbad10dbef7f3f916cb1e951",
+    "draft_pull_request": 13,
+    "pull_request_created_at_utc": "2026-07-25T16:57:30Z",
+    "pull_request_review_count_at_audit": 0
+  },
+  "binding_requirements": {
+    "preregistration": {
+      "path": "reports/adaptive_stopping_overthinking/PX057_H4_LTT_PREREG_20260725.md",
+      "sha256": "fac79216e7a44fc4e424928fb7da8d96d19c49ec7c0509d8389b81fc6389e1d5",
+      "requirement": "The protocol becomes executable only after every pre-data lock in the implementation-readiness record is present, hashed, and committed."
+    },
+    "readiness_record": {
+      "path": "reports/adaptive_stopping_overthinking/PX057_H4_IMPLEMENTATION_READINESS_20260725.md",
+      "sha256": "8994afa3b7b4a15bc1dde0ccc9ce6bd6528de5fd6b8e04d010d8147ae24da4d4",
+      "requirements": [
+        "Every Phase A row must be evidenced in one external freeze manifest.",
+        "Code quality requires syntax checks, targeted tests, and independent review PASS.",
+        "The go/no-go sign-off requires an evidence path/hash and PASS for Independent code review before calibration authorization."
+      ]
+    }
+  },
+  "failed_gate": {
+    "gate": "pre_data_independent_code_review",
+    "required": true,
+    "satisfied": false,
+    "phase_a_freeze_path": "manifests/px057_h4_20260725/phase_a_freeze_v2.json",
+    "phase_a_freeze_sha256": "e54e6aa573e42f4415d9a03bc129e25a96ba71d555ed631586364eca6aeaceff",
+    "phase_a_freeze_commit": "e67627580076c53d4be2ed4ee2d7fae56a7181af",
+    "phase_a_freeze_base_commit": "ee7e37b932a0d0cd249e4ded65b635d024c45446",
+    "phase_a_freeze_has_review_evidence_field": false,
+    "phase_a_protected_set_has_px057_h4_review_artifact": false,
+    "machine_signoff_review_row_populated": false,
+    "px057_h4_review_artifact_present_at_freeze_base": false,
+    "github_pull_request_reviews_before_calibration": 0,
+    "phase_a_freezer_enforces_review_gate": false,
+    "phase_a_freezer_path": "scripts/freeze_px057_h4_phase_a.py",
+    "phase_a_freezer_sha256": "99da70c3abdeace16f3b1021a722c93fc68dfdc1c4925651d00e4a028b84c4f6",
+    "finding": "No authoritative committed evidence proves that the mandatory independent code review passed before calibration began."
+  },
+  "coverage_gap": {
+    "registered_adjudication_path": "reports/adaptive_stopping_overthinking/h4_20260725/final_adjudication.json",
+    "registered_adjudication_sha256": "39c48510b08d65ae2b76561e89b4e6a693917d00eb62eb63428dab15a939312d",
+    "registered_adjudication_status": "VALID_NEGATIVE",
+    "registered_adjudication_replay_matches": true,
+    "registered_adjudicator_enforces_independent_code_review_gate": false,
+    "interpretation": "The registered adjudicator correctly reproduces the scientific data and the gates it implements, but its valid flag is insufficient because the mandatory pre-data review gate is outside its coverage."
+  },
+  "requirements_that_passed": {
+    "frozen_protocol_config_sources_models_prompts_runtime_and_splits": true,
+    "three_registered_calibration_launches": true,
+    "three_completed_calibration_jobs": true,
+    "calibration_traces": 1500,
+    "calibration_generations": 12000,
+    "immutable_version_bound_calibration_objects_reverified": 21,
+    "collection_evidence_committed_and_pushed_before_ltt": true,
+    "holdout_transport_freeze_mechanically_validates": true,
+    "three_ltt_determinations_recompute": true,
+    "three_terminal_locks_validate": true,
+    "cells_with_certified_prefix": 0,
+    "cells_with_selected_policy": 0,
+    "holdout_jobs_authorized": 0,
+    "holdout_jobs_observed": 0,
+    "holdout_s3_prefixes_with_history": 0,
+    "manual_audits_required": 0,
+    "h4e": "INCONCLUSIVE"
+  },
+  "descriptive_results": {
+    "cell1_llama31_gsm8k": {
+      "first_policy_harms": 40,
+      "calibration_n": 500,
+      "harm_rate": 0.08,
+      "mean_token_saving": 0.4245192871191518
+    },
+    "cell2_qwen25_arc": {
+      "first_policy_harms": 35,
+      "calibration_n": 500,
+      "harm_rate": 0.07,
+      "mean_token_saving": 0.5085437430783155
+    },
+    "cell3_llama31_arc": {
+      "first_policy_harms": 28,
+      "calibration_n": 500,
+      "harm_rate": 0.056,
+      "mean_token_saving": 0.4329750085520901
+    }
+  },
+  "holdout_disposition": {
+    "status": "CORRECTLY_NOT_RUN",
+    "reason": "All three H4a prefixes were empty. The missing pre-data review evidence supplies an additional global prohibition; it does not authorize a post-outcome repair or holdout run.",
+    "terminal_absence_path": "reports/adaptive_stopping_overthinking/h4_20260725/terminal_absence_check_20260727.json",
+    "terminal_absence_sha256": "40f14821723efc4c43c7f683c58f25574e0fcf774931c28b6cdeafbdf3598b45"
+  },
+  "audit_limitations": {
+    "outcome_noninspection": "The transport freeze records an outcome-blind process and proves outcome artifacts were absent. Human noninspection of already-fetched calibration payload bytes is an operator assertion, not independently observable from Git.",
+    "terminal_cloud_absence": "The terminal absence JSON records verifier identity and boolean results but not raw signed AWS responses or request IDs. The live read-only replay corroborates it operationally; it is not an independently provenance-bound cloud receipt."
+  },
+  "repairability": {
+    "within_h4": false,
+    "reason": "The review evidence had to be present, hashed, committed, and bound before scientific generation. Creating it after outcomes would be retrospective gate repair.",
+    "permitted_next_step": "Close H4 as protocol-invalid and descriptive. A confirmatory rerun requires a new experiment identifier, a corrected machine-enforced Phase A checklist, an authentic pre-data independent review artifact, and fresh calibration and holdout splits."
+  },
+  "claim_boundary": "The calibration observations and provenance-bound artifacts may be reported descriptively. H4 Revision 2.2 may not be called a protocol-valid negative, a certificate result, or a completed confirmatory experiment."
+}
