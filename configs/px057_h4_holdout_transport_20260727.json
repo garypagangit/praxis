@@ -1,0 +1,243 @@
+{
+  "transport_id": "px057-h4-holdout-cloud-transport-20260727",
+  "experiment_id": "px057-h4-ltt-certified-transfer-20260725",
+  "stage": "H4_holdout_transport_pre_outcome_freeze",
+  "status": "FREEZE_PENDING",
+  "freeze_schema_version": "px057-h4-holdout-transport-freeze-v1",
+  "frozen_science": {
+    "config_path": "configs/px057_h4_ltt_transfer_20260725.json",
+    "config_sha256": "0df81f0bb86d60869424ba12156ccc306ce3df280d6cecd25857f98785d03317",
+    "phase_a_freeze_path": "manifests/px057_h4_20260725/phase_a_freeze_v2.json",
+    "phase_a_freeze_sha256": "e54e6aa573e42f4415d9a03bc129e25a96ba71d555ed631586364eca6aeaceff",
+    "collector_path": "scripts/run_px057_h4_trace_collection.py",
+    "collector_sha256": "e2472bc913114ab23e1ff2c70dc13d72a3b70c305c294951e4aada6045d9c64a",
+    "common_path": "scripts/px057_h4_common.py",
+    "common_sha256": "5e931441fada32e9e94a5eb6167597bc8def825796566190aab03257034df60f",
+    "holdout_gate_path": "scripts/run_px057_h4_holdout_gate.py",
+    "holdout_gate_sha256": "dbd85331717e4b99f485aa8a604d9fa15782a7670e726a19cc4c08845bc7ec70",
+    "requirements_path": "requirements-px057-h4.txt",
+    "requirements_sha256": "5aa1adf7ce4187838a9f2867c9e6919bb5b06e11f90d70194ab48fc09984d163",
+    "calibration_evidence_commit": "e27aafaa46967c85cb7f88517ef374e4ae8a3d73"
+  },
+  "repository": {
+    "url": "https://github.com/garypagangit/praxis.git",
+    "branch": "agent/px057-h4-certified-transfer"
+  },
+  "aws": {
+    "profile": "praxis-build",
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::272615233626:role/service-role/AmazonSageMaker-ExecutionRole-20260416T191047",
+    "bucket": "praxis-garypagan-272615233626-us-east-1",
+    "s3_prefix": "experiments/px057-adaptive-stopping/h4-certified-risk-20260725",
+    "instance_type": "ml.g5.2xlarge",
+    "volume_size_gb": 200,
+    "max_runtime_seconds": 86400,
+    "retry_strategy_omitted": true,
+    "enable_managed_spot_training": false,
+    "container_image_pinned_uri": "763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training@sha256:01d8dfbde8f6e47a20e5b1e4033e105976663f2641084921b8769ee6998ef807",
+    "container_digest": "sha256:01d8dfbde8f6e47a20e5b1e4033e105976663f2641084921b8769ee6998ef807",
+    "huggingface_secret_id": "praxis/huggingface/token",
+    "quota_code": "L-2D6DEB3C"
+  },
+  "source": {
+    "entrypoint": "cloud_jobs/px057_h4_holdout_20260727/sagemaker_entry.py",
+    "calibration_entrypoint": "cloud_jobs/px057_h4_calibration_20260725/sagemaker_entry.py",
+    "phase_a_entrypoint": "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py",
+    "freeze_manifest": "manifests/px057_h4_20260725/holdout_transport_freeze.json",
+    "bootstrap": "explicit_s3_version_and_sha256_before_extraction",
+    "submitter": "scripts/submit_px057_h4_holdout.py",
+    "fetcher": "scripts/fetch_px057_h4_holdout.py",
+    "freeze_script": "scripts/freeze_px057_h4_holdout_transport.py",
+    "amendment": "reports/adaptive_stopping_overthinking/PX057_H4_HOLDOUT_TRANSPORT_AMENDMENT_20260727.md",
+    "archive_members": [
+      "cloud_jobs/px057_h4_holdout_20260727/.gitattributes",
+      "cloud_jobs/px057_h4_holdout_20260727/sagemaker_entry.py",
+      "cloud_jobs/px057_h4_calibration_20260725/sagemaker_entry.py",
+      "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py",
+      "configs/px057_h4_holdout_transport_20260727.json",
+      "configs/px057_h4_ltt_transfer_20260725.json",
+      "configs/px057_h4_prompt_templates_20260725.json",
+      "requirements-px057-h4.txt",
+      "scripts/run_px057_h4_trace_collection.py",
+      "scripts/px057_h4_common.py",
+      "scripts/run_px057_h4_holdout_gate.py"
+    ],
+    "required_transport_files": [
+      "configs/px057_h4_holdout_transport_20260727.json",
+      "reports/adaptive_stopping_overthinking/PX057_H4_HOLDOUT_TRANSPORT_AMENDMENT_20260727.md",
+      "cloud_jobs/px057_h4_holdout_20260727/.gitattributes",
+      "cloud_jobs/px057_h4_holdout_20260727/sagemaker_entry.py",
+      "cloud_jobs/px057_h4_calibration_20260725/sagemaker_entry.py",
+      "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py",
+      "scripts/freeze_px057_h4_holdout_transport.py",
+      "scripts/submit_px057_h4_holdout.py",
+      "scripts/fetch_px057_h4_holdout.py",
+      "tests/test_px057_h4_holdout_transport_freeze.py",
+      "tests/test_px057_h4_holdout_cloud.py"
+    ]
+  },
+  "collection": {
+    "split": "holdout",
+    "expected_traces": 300,
+    "rounds": 8,
+    "expected_generations": 2400,
+    "files": [
+      "selected_rows.jsonl",
+      "reasoning_traces.jsonl",
+      "raw_generations.jsonl",
+      "collection_summary.json"
+    ]
+  },
+  "calibration_evidence": {
+    "protected_fetch_commit": "e27aafaa46967c85cb7f88517ef374e4ae8a3d73",
+    "protected_fetch_completed_before_transport_freeze": true,
+    "payload_or_outcome_inspected_before_transport_freeze": false,
+    "verification_method": "Exact committed bytes are hash-verified without parsing any calibration payload or computing any calibration outcome.",
+    "cloud_manifests": {
+      "cell1_llama31_gsm8k": {
+        "path": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell1_llama31_gsm8k.json",
+        "bytes": 10188,
+        "sha256": "c0b0793705c31cd64ead0f2a6235ab7e872a3e9231d95e3791590053b7ead989"
+      },
+      "cell2_qwen25_arc": {
+        "path": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell2_qwen25_arc.json",
+        "bytes": 10142,
+        "sha256": "00ee964b725523a74ff18b243769ed1b92af03c41c4f674f77134e38bc734ea7"
+      },
+      "cell3_llama31_arc": {
+        "path": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell3_llama31_arc.json",
+        "bytes": 10157,
+        "sha256": "0c28a2e9c7bc30d4b4616da1d5972680aead6e3315b88f66e45cc20fc9723f22"
+      }
+    },
+    "bundles": {
+      "cell1_llama31_gsm8k": {
+        "collection_summary.json": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/calibration/collection_summary.json",
+          "bytes": 4561,
+          "sha256": "a73a3ce45517c71f50aadaeb1c6fea51ab4dd03cd26ceca6ee97d1af9c63c5d4"
+        },
+        "raw_generations.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/calibration/raw_generations.jsonl",
+          "bytes": 9156495,
+          "sha256": "6acee8c6fe662b478164ed7a305571228300e3c1fad53e8c893e08544bd5c772"
+        },
+        "reasoning_traces.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/calibration/reasoning_traces.jsonl",
+          "bytes": 574512,
+          "sha256": "08cf9d0df9d9f73ef793a10c3d65c06018a09b2bfb7e3f685cb272794d7ec4fa"
+        },
+        "selected_rows.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/calibration/selected_rows.jsonl",
+          "bytes": 185117,
+          "sha256": "a48ef2c73edc6eec80428358feee3f38e1c5182dac441ca39c339fb9b54f00ef"
+        }
+      },
+      "cell2_qwen25_arc": {
+        "collection_summary.json": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/calibration/collection_summary.json",
+          "bytes": 4569,
+          "sha256": "3311bd814730b811d66721ef34c1650e4669b58120a921675a45006e5824e995"
+        },
+        "raw_generations.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/calibration/raw_generations.jsonl",
+          "bytes": 10941795,
+          "sha256": "a2fb2084fcc25b84fa6698c1a1527550f0b35a7ddbadf37724cb71cd25e775c4"
+        },
+        "reasoning_traces.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/calibration/reasoning_traces.jsonl",
+          "bytes": 580081,
+          "sha256": "966295c0b9b0f51bc1c34ff6f7029d95eb54f066b89d7342bf0aa3a40664740b"
+        },
+        "selected_rows.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/calibration/selected_rows.jsonl",
+          "bytes": 283503,
+          "sha256": "90402e3c87598ef754583915508adea852362690b0da203f88ff8e9acd1a6224"
+        }
+      },
+      "cell3_llama31_arc": {
+        "collection_summary.json": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/calibration/collection_summary.json",
+          "bytes": 4583,
+          "sha256": "93724c4e7002d06a11da8389ad30eb4db0238f519c928eb8426fa42535afd8b1"
+        },
+        "raw_generations.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/calibration/raw_generations.jsonl",
+          "bytes": 10650544,
+          "sha256": "9e5224adfba63257f60f00b34e54157310613504e09db5376959da6ed1e530d3"
+        },
+        "reasoning_traces.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/calibration/reasoning_traces.jsonl",
+          "bytes": 585653,
+          "sha256": "5a43ea763555bd442f467276ca6326fae61214d08c9c5fbecbc7d65e733a8a99"
+        },
+        "selected_rows.jsonl": {
+          "path": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/calibration/selected_rows.jsonl",
+          "bytes": 283503,
+          "sha256": "90402e3c87598ef754583915508adea852362690b0da203f88ff8e9acd1a6224"
+        }
+      }
+    }
+  },
+  "cells": {
+    "cell1_llama31_gsm8k": {
+      "short_id": "c1",
+      "job_name": "px057-h4-hold-c1-r1-20260727",
+      "model_key": "second_model",
+      "dataset_key": "gsm8k",
+      "holdout_manifest": "manifests/px057_h4_20260725/gsm8k_holdout.jsonl",
+      "holdout_manifest_sha256": "48111d29fb29119a8838bad298e4639e3e59aaa345a88bf84f2704216574aa0f",
+      "ltt_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/ltt_determination.json",
+      "ltt_lock_manifest": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/ltt_lock.json",
+      "manual_audit_blinded": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/manual_extraction_blinded.json",
+      "manual_audit": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/manual_extraction_audit.json",
+      "holdout_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/holdout_determination.json",
+      "launch_manifest": "manifests/px057_h4_20260725/holdout_launches/cell1_llama31_gsm8k.json",
+      "cloud_manifest": "manifests/px057_h4_20260725/holdout_cloud_jobs/cell1_llama31_gsm8k.json",
+      "output_dir": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/holdout",
+      "result_prefix": "experiments/px057-adaptive-stopping/h4-certified-risk-20260725/holdout/cell1_llama31_gsm8k/px057-h4-hold-c1-r1-20260727"
+    },
+    "cell2_qwen25_arc": {
+      "short_id": "c2",
+      "job_name": "px057-h4-hold-c2-r1-20260727",
+      "model_key": "gate2_model",
+      "dataset_key": "arc_challenge",
+      "holdout_manifest": "manifests/px057_h4_20260725/arc_challenge_holdout.jsonl",
+      "holdout_manifest_sha256": "406267317be881a73136642628c0692dcd284d62416287072e090a1e069a53c1",
+      "ltt_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/ltt_determination.json",
+      "ltt_lock_manifest": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/ltt_lock.json",
+      "manual_audit_blinded": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/manual_extraction_blinded.json",
+      "manual_audit": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/manual_extraction_audit.json",
+      "holdout_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/holdout_determination.json",
+      "launch_manifest": "manifests/px057_h4_20260725/holdout_launches/cell2_qwen25_arc.json",
+      "cloud_manifest": "manifests/px057_h4_20260725/holdout_cloud_jobs/cell2_qwen25_arc.json",
+      "output_dir": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/holdout",
+      "result_prefix": "experiments/px057-adaptive-stopping/h4-certified-risk-20260725/holdout/cell2_qwen25_arc/px057-h4-hold-c2-r1-20260727"
+    },
+    "cell3_llama31_arc": {
+      "short_id": "c3",
+      "job_name": "px057-h4-hold-c3-r1-20260727",
+      "model_key": "second_model",
+      "dataset_key": "arc_challenge",
+      "holdout_manifest": "manifests/px057_h4_20260725/arc_challenge_holdout.jsonl",
+      "holdout_manifest_sha256": "406267317be881a73136642628c0692dcd284d62416287072e090a1e069a53c1",
+      "ltt_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/ltt_determination.json",
+      "ltt_lock_manifest": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/ltt_lock.json",
+      "manual_audit_blinded": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/manual_extraction_blinded.json",
+      "manual_audit": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/manual_extraction_audit.json",
+      "holdout_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/holdout_determination.json",
+      "launch_manifest": "manifests/px057_h4_20260725/holdout_launches/cell3_llama31_arc.json",
+      "cloud_manifest": "manifests/px057_h4_20260725/holdout_cloud_jobs/cell3_llama31_arc.json",
+      "output_dir": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/holdout",
+      "result_prefix": "experiments/px057-adaptive-stopping/h4-certified-risk-20260725/holdout/cell3_llama31_arc/px057-h4-hold-c3-r1-20260727"
+    }
+  },
+  "rules": {
+    "first_attempt_only": true,
+    "ltt_binding": "Each submitted cell must bind the exact committed-and-pushed LTT determination and terminal lock SHA-256 values after calibration adjudication; neither exists at this transport freeze.",
+    "launch_registration": "The exact launch ARN, request hash, source VersionId and source SHA-256 must be committed and pushed before a result may be fetched.",
+    "holdout_eligibility": "A cell may launch only when its frozen LTT determination has a non-empty certified prefix and its committed terminal lock validates.",
+    "no_retry": "No retry or replacement job is allowed under this transport ID.",
+    "inspection_boundary": "Calibration scientific payloads and calibration outcomes remain unopened through this transport freeze; only paths, byte lengths, hashes, and transport metadata manifests are bound."
+  }
+}
