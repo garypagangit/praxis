@@ -14,7 +14,7 @@ Updated: 2026-07-26
 ## Active cloud work
 
 - Job: `px062-g21-retry1-20260727`
-- Status: `InProgress` / `Pending`
+- Status: `InProgress` / `Training`
 - Workload: two models x three conditions x 300 tasks = 1,800 outputs.
 
 ## PX-057 through PX-065
@@ -26,7 +26,7 @@ Updated: 2026-07-26
 | [PX-059](uncertainty_adaptive_speculative_decoding/PX059_SOURCE_GATE_20260724.md) | Uncertainty-Adaptive Speculative Decoding | Closed at novelty gate | Not novel enough to advance as a separate Praxis contribution. | Archive unless a distinctly new mechanism appears. |
 | [PX-060](coed_direction_robustness/PX060_FINAL_DETERMINATION_20260724.md) | Robustness and Meaning of Learned Continuous Edge Directions | Final negative | Prediction improved and reversal was tolerated, but direction identifiability and deletion robustness failed. | Any equivalence-class identifiability test must be a new hypothesis. |
 | [PX-061](wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md) | Unequal Wavelet Noise and Adaptive Clipping for Private Federated Learning | Final negative | Adaptive unequal noise gained 1.42 points vs. a required 2.0; static unequal allocation did not help. | Do not advance to Fashion-MNIST confirmation. |
-| [PX-062](coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md) | Provenance and Existence Gate for Coding-Agent Skills | Gate 1 negative; Gate 2.1 running | Gate 1 was negative. The first Gate 2 job failed before inference; the single byte-registered Gate 2.1 retry is now running. | Verify startup, collect all 1,800 outputs, then run the frozen independent adjudicator once. |
+| [PX-062](coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md) | Provenance and Existence Gate for Coding-Agent Skills | Gate 1 negative; Gate 2.1 running | Gate 1 was negative. The byte-registered Gate 2.1 retry crossed the old S3 failure point and is running the exact entry point. | Collect all 1,800 outputs, then run the frozen independent adjudicator once. |
 | [PX-063](new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md) | Deterministic Reward-Hack Verification on TRACE | Blocked | Dataset fetch remains unresolved. | Verify and freeze the public dataset before implementation. |
 | [PX-064](new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md) | Registry Verification as Environment Hardening in Tool-Use RL | Blocked | Benchmark artifact verification remains unresolved. | Establish a reproducible benchmark environment before execution. |
 | [PX-065](new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md) | Provenance-Admission Gate for Agent Memory | Simulation ready | No scientific result yet. | Run the frozen inert simulation after PX-062 adjudication. |

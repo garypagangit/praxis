@@ -57,8 +57,8 @@ DETAILS = {
         "classification": "Gate 1 negative; Gate 2.1 running",
         "tone": "active",
         "evidence": "1,070 released poisoned skills, 44 clean skills, and a frozen 300-task hallucination benchmark.",
-        "result": "Gate 1 was negative. The first Gate 2 job failed before inference; the single byte-registered Gate 2.1 retry is now running.",
-        "next": "Verify startup, collect all 1,800 outputs, then run the frozen independent adjudicator once.",
+        "result": "Gate 1 was negative. The byte-registered Gate 2.1 retry crossed the old S3 failure point and is running the exact entry point.",
+        "next": "Collect all 1,800 outputs, then run the frozen independent adjudicator once.",
         "link": "coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md",
     },
     "PX-063": {
