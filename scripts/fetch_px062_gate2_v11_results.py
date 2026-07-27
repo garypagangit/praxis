@@ -707,9 +707,14 @@ def validate_download(
     if observed_sha != expected["sha256"]:
         raise ValueError(f"{label} downloaded SHA-256 mismatch")
     if not re.fullmatch(r"[0-9a-f]{32}", expected["etag"]):
-        raise ValueError(f"{label} ETag is not a single-part MD5")
+        raise ValueError(f"{label} ETag is malformed")
     observed_md5 = digest_file(archive, "md5")
-    if observed_md5 != expected["etag"]:
+    # The registered source was a single-part SSE-S3 put-object, so its ETag
+    # is also a plaintext MD5 and remains an independent local check.  The
+    # SageMaker model artifact is SSE-KMS encrypted; AWS does not guarantee
+    # that such an ETag equals the plaintext MD5.  Its downloaded bytes are
+    # instead bound by the preregistered SHA-256 plus AWS's full-object CRC32C.
+    if "checksum_sha256_base64" in expected and observed_md5 != expected["etag"]:
         raise ValueError(f"{label} downloaded MD5/ETag mismatch")
     if "checksum_sha256_base64" in expected:
         checksum = base64.b64encode(bytes.fromhex(observed_sha)).decode("ascii")
@@ -717,7 +722,8 @@ def validate_download(
             raise ValueError(f"{label} downloaded base64 SHA-256 mismatch")
     return {
         "bytes": size,
-        "etag": observed_md5,
+        "etag": expected["etag"],
+        "md5": observed_md5,
         "sha256": observed_sha,
         "version_id": expected["version_id"],
     }

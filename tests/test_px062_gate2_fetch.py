@@ -739,6 +739,34 @@ def test_download_verifies_size_sha_and_etag(tmp_path, field):
         validate_download(archive, response, expected, "test", 1024)
 
 
+def test_kms_output_etag_is_identity_not_plaintext_md5(tmp_path):
+    raw = b"kms-encrypted-output-artifact"
+    archive = tmp_path / "model.tar.gz"
+    archive.write_bytes(raw)
+    observed_sha = hashlib.sha256(raw).hexdigest()
+    plaintext_md5 = hashlib.md5(raw, usedforsecurity=False).hexdigest()
+    kms_etag = "2f4345cbb9df1bb352a01297faa8702a"
+    assert kms_etag != plaintext_md5
+    expected = {
+        "version_id": "kms-version",
+        "etag": kms_etag,
+        "bytes": len(raw),
+        "sha256": observed_sha,
+        "checksum_crc32c_base64": "WIDSoQ==",
+    }
+    response = {
+        "VersionId": "kms-version",
+        "ETag": f'"{kms_etag}"',
+        "ChecksumCRC32C": "WIDSoQ==",
+    }
+
+    result = validate_download(archive, response, expected, "output", 1024)
+
+    assert result["etag"] == kms_etag
+    assert result["md5"] == plaintext_md5
+    assert result["sha256"] == observed_sha
+
+
 @pytest.mark.parametrize("mutation", ["symlink", "duplicate", "traversal"])
 def test_tar_rejects_links_duplicates_and_traversal(tmp_path, mutation):
     files = {"safe/file.txt": b"safe"}
