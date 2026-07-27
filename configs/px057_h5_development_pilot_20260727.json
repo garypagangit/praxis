@@ -1,0 +1,102 @@
+{
+  "experiment_id": "px057-h5-development-pilot-bounded-chat-20260727",
+  "px_id": "PX-057",
+  "status": "DEVELOPMENT_ONLY_NOT_CONFIRMATORY",
+  "claim_boundary": "All questions were generated in H4 and are outcome-exposed. Results may select and fix an H5 mechanism, but may not be counted as H5 calibration, holdout, certification, or confirmatory evidence.",
+  "repository": {
+    "url": "https://github.com/garypagangit/praxis.git",
+    "branch": "agent/px057-h5-certified-transfer"
+  },
+  "aws": {
+    "profile": "praxis-build",
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::272615233626:role/service-role/AmazonSageMaker-ExecutionRole-20260416T191047",
+    "bucket": "praxis-garypagan-272615233626-us-east-1",
+    "s3_prefix": "experiments/px057-adaptive-stopping/h5-development-pilot-20260727",
+    "instance_type": "ml.g5.2xlarge",
+    "volume_size_gb": 200,
+    "max_runtime_seconds": 43200,
+    "container_image": "763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training@sha256:01d8dfbde8f6e47a20e5b1e4033e105976663f2641084921b8769ee6998ef807",
+    "huggingface_secret_id": "praxis/huggingface/token-AsBt3Y"
+  },
+  "generation": {
+    "rounds": 8,
+    "max_new_tokens": 96,
+    "seed": 5757,
+    "pilot_n": 500,
+    "sample_seed": 5758,
+    "decoding": "greedy",
+    "native_chat_template": true,
+    "response_protocol": "bounded_check_then_answer_then_end",
+    "previous_context": "latest_valid_answer_only"
+  },
+  "primary_development_policy": {
+    "min_step": 4,
+    "patience": 2,
+    "confidence_threshold": null,
+    "fixed_long_answer": "strictly_valid_round_8_only_no_fallback"
+  },
+  "one_look_mechanism_selection_gate": {
+    "early_stop_harms_max": 4,
+    "mean_compute_saving_min": 0.25,
+    "adaptive_minus_fixed_correct_min": -5,
+    "strict_valid_round_rate_min": 0.95,
+    "fixed_long_correct_min": 141,
+    "all_mechanism_sentinels_selected_and_fixed_correct": true,
+    "rule": "Evaluate once after all 4,000 generations. No threshold or policy tuning from this pilot. Failure makes this mechanism H5 NO-GO; another repair requires a new development-pilot revision."
+  },
+  "mechanism_sentinels": [
+    {"question_id": "gsm8k-test-1129", "gold_answer": "8"},
+    {"question_id": "gsm8k-test-504", "gold_answer": "2"},
+    {"question_id": "gsm8k-test-323", "gold_answer": "75"},
+    {"question_id": "gsm8k-test-591", "gold_answer": "220"},
+    {"question_id": "gsm8k-test-458", "gold_answer": "35"},
+    {"question_id": "gsm8k-test-361", "gold_answer": "20"},
+    {"question_id": "gsm8k-test-1249", "gold_answer": "56"}
+  ],
+  "repair_hypothesis": "H4 called an instruction-tuned causal model with unframed bare text. Native chat serialization plus a bounded check/answer/end contract should prevent continuation loops, preserve short task-relevant reasoning, distinguish natural completion from truncation, and move the C1 safety/utility frontier.",
+  "prompts": {
+    "numeric_instruction": "Check: <one or two concise arithmetic sentences, at most 40 words>\nFinal answer: <number>\n<END>",
+    "choice_instruction": "Check: <one or two concise sentences, at most 40 words>\nFinal answer: <one listed label>\n<END>",
+    "choice_line_template": "{label}. {text}",
+    "initial_template": "Solve the problem from scratch. Return exactly these lines and nothing else:\n{answer_instruction}\nDo not write \"Final answer\" anywhere else.\n\nProblem:\n{problem}",
+    "reconsideration_template": "Re-solve the problem from scratch. The prior answer below may be wrong; do not use it as a premise. Return exactly these lines and nothing else:\n{answer_instruction}\nDo not write \"Final answer\" anywhere else.\n\nProblem:\n{problem}\n\nUntrusted prior answer: {previous_answer}\nAudit round: {round_index}"
+  },
+  "models": {
+    "qwen25": {
+      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "device_map": "auto",
+      "local_files_only": false
+    },
+    "llama31": {
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "device_map": "auto",
+      "local_files_only": false
+    }
+  },
+  "cells": [
+    {
+      "cell_id": "cell1_llama31_gsm8k",
+      "job_code": "c1",
+      "model_key": "llama31",
+      "source_manifest": "manifests/px057_h4_20260725/gsm8k_calibration.jsonl",
+      "output_dir": "reports/adaptive_stopping_overthinking/h5_development_pilot_20260727/cell1_llama31_gsm8k"
+    },
+    {
+      "cell_id": "cell2_qwen25_arc",
+      "job_code": "c2",
+      "model_key": "qwen25",
+      "source_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
+      "output_dir": "reports/adaptive_stopping_overthinking/h5_development_pilot_20260727/cell2_qwen25_arc"
+    },
+    {
+      "cell_id": "cell3_llama31_arc",
+      "job_code": "c3",
+      "model_key": "llama31",
+      "source_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
+      "output_dir": "reports/adaptive_stopping_overthinking/h5_development_pilot_20260727/cell3_llama31_arc"
+    }
+  ]
+}
