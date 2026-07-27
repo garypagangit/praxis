@@ -740,3 +740,15 @@ def test_git_process_executor_is_injectable(review_repo: ReviewRepo) -> None:
     )
     assert result["valid"] is True
     assert any(call[:2] == ("rev-parse", "--verify") for call in calls)
+
+
+def test_missing_git_process_becomes_a_structured_gate_failure(
+    review_repo: ReviewRepo,
+) -> None:
+    def unavailable(
+        args: tuple[str, ...], repo_root: Path
+    ) -> subprocess.CompletedProcess[bytes]:
+        raise FileNotFoundError("git executable unavailable")
+
+    client = SubprocessGit(review_repo.root, executor=unavailable)
+    assert_error(review_repo, "git_evidence_unavailable", git=client)
