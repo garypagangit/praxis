@@ -54,11 +54,11 @@ DETAILS = {
         "link": "wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md",
     },
     "PX-062": {
-        "classification": "Gate 1 negative; Gate 2.1 registered",
+        "classification": "Gate 1 negative; Gate 2.1 running",
         "tone": "active",
         "evidence": "1,070 released poisoned skills, 44 clean skills, and a frozen 300-task hallucination benchmark.",
-        "result": "Gate 1 was negative. The first Gate 2 job failed before inference; the corrected retry source, request, and least-privilege S3 access are now sealed.",
-        "next": "Launch the single byte-registered Gate 2.1 retry after the GPU quota is free.",
+        "result": "Gate 1 was negative. The first Gate 2 job failed before inference; the single byte-registered Gate 2.1 retry is now running.",
+        "next": "Verify startup, collect all 1,800 outputs, then run the frozen independent adjudicator once.",
         "link": "coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md",
     },
     "PX-063": {
@@ -137,11 +137,11 @@ def markdown(experiments: list[dict], cloud: dict) -> str:
         "- Lead new positive: **PX-057 adaptive stopping**.",
         "- Mixed result: **PX-058 explanation stability passed; drift warning failed**.",
         "- Closed or negative: **PX-059, PX-060, PX-061**.",
-        "- Registered confirmatory retry: **PX-062 skill-name hallucination Gate 2.1**.",
+        "- Active confirmatory retry: **PX-062 skill-name hallucination Gate 2.1**.",
         "- Queued or blocked: **PX-063 through PX-065**.",
         "- Related mature defense: **PX-050 independently confirmed one-million-command robustness within its frozen grammar**.",
         "",
-        "## Next cloud work",
+        "## Active cloud work",
         "",
         f"- Job: `{cloud.get('Job')}`",
         f"- Status: `{cloud.get('Status')}` / `{cloud.get('Secondary')}`",
@@ -230,12 +230,12 @@ a{{color:var(--blue);font-weight:700;text-decoration:none}} a:hover{{text-decora
 <body>
 <header><div class="kicker">Praxis research portfolio</div><h1>Experiment Dashboard</h1><p>Evidence-first status for PX-057 through PX-065, plus the related PX-050 large-scale defense result. Updated July 26, 2026.</p></header>
 <main>
-<section class="cloud"><div><strong>Next cloud experiment</strong><br>PX-062 Gate 2.1 skill-name hallucination - 2 models x 3 conditions x 300 tasks = 1,800 outputs</div><span class="status">{status} / {secondary}</span></section>
+<section class="cloud"><div><strong>Active cloud experiment</strong><br>PX-062 Gate 2.1 skill-name hallucination - 2 models x 3 conditions x 300 tasks = 1,800 outputs</div><span class="status">{status} / {secondary}</span></section>
 <section class="summary">
 <div class="metric"><b>1</b><span>strong bounded positive</span></div>
 <div class="metric"><b>1</b><span>mixed result</span></div>
 <div class="metric"><b>3</b><span>closed or negative</span></div>
-<div class="metric"><b>1</b><span>registered confirmatory retry</span></div>
+<div class="metric"><b>1</b><span>active confirmatory retry</span></div>
 </section>
 <h2>Current experiment cards</h2><section class="cards">{''.join(cards)}</section>
 <h2>Evidence and next actions</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Experiment</th><th>Classification</th><th>Evidence</th><th>Next action</th></tr></thead><tbody>{''.join(table_rows)}</tbody></table></div>
