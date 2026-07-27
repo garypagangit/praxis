@@ -2,6 +2,12 @@
 
 Date: 2026-07-24
 
+> **Gate 2.1 status update, 2026-07-26:** The first Gate 2 cloud job failed at
+> S3 source retrieval before user code or model inference. It produced no
+> scientific result. The task hash stated below is a stale pre-run value and is
+> superseded, with full disclosure, by
+> `PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md`. Gate 1 results are unchanged.
+
 ## Status
 
 **Gate 1 valid negative for provenance-only defense against authentic poisoned skills.**
