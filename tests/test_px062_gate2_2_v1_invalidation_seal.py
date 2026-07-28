@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
 
 import pytest
 
 from scripts import seal_px062_gate2_2_v1_invalidation as seal
+from scripts import run_px062_gate2_2_blind_audit as audit_runner
 
 
 def test_canonical_conflict_ledger_is_complete_and_row_hashed() -> None:
@@ -59,6 +61,63 @@ def test_pair_manifest_binds_all_artifacts_and_sessions() -> None:
             "b07b136223e75597799d57c66384ba7a3a200c6c913b3ce006244933eec45139"
         ),
     }
+
+
+def test_historical_pair_passes_from_descendant_head() -> None:
+    head = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=seal.ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    ancestry = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", seal.REPOSITORY_CHECKPOINT, head],
+        cwd=seal.ROOT,
+        check=False,
+    )
+
+    assert head != seal.REPOSITORY_CHECKPOINT
+    assert ancestry.returncode == 0
+    reconstructed = seal.historical_pair_verifier(seal.ROOT)
+    sealed = json.loads((seal.ROOT / seal.PAIR_MANIFEST).read_bytes())
+    assert reconstructed == sealed
+
+
+def test_historical_pair_rejects_prediction_tampering(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    target = (seal.ROOT / seal.SEALED_FILES["audit_1_predictions"][0]).resolve()
+    original_read_bytes = Path.read_bytes
+
+    def tampered_read_bytes(path: Path) -> bytes:
+        raw = original_read_bytes(path)
+        if path.resolve() == target:
+            return raw[:-1] + b" "
+        return raw
+
+    monkeypatch.setattr(Path, "read_bytes", tampered_read_bytes)
+    with pytest.raises(seal.SealError, match="historical audit-pair authentication failed"):
+        seal.historical_pair_verifier(seal.ROOT)
+
+
+def test_historical_pair_rejects_non_ancestry(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    original_git = audit_runner._git
+
+    def non_ancestor_git(root: Path, *args: str) -> str:
+        if args[:2] == ("merge-base", "--is-ancestor"):
+            raise audit_runner.AuditError("simulated non-ancestor")
+        return original_git(root, *args)
+
+    monkeypatch.setattr(audit_runner, "_git", non_ancestor_git)
+    with pytest.raises(
+        seal.SealError, match="historical audit-pair authentication failed"
+    ) as captured:
+        seal.historical_pair_verifier(seal.ROOT)
+    assert isinstance(captured.value.__cause__, audit_runner.AuditError)
+    assert "historical checkpoint is not an ancestor" in str(captured.value.__cause__)
 
 
 def test_canonical_outputs_are_byte_deterministic_without_reprobing_finalizer() -> None:

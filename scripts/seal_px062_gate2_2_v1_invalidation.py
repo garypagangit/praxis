@@ -190,6 +190,36 @@ def binding(key: str, *, rows: int | None = None) -> dict[str, Any]:
     return result
 
 
+def historical_pair_verifier(
+    root: Path,
+    *,
+    write_manifest: bool = False,
+) -> dict[str, Any]:
+    """Authenticate the sealed pair at its ancestor checkpoint.
+
+    ``validate_canonical_pair_evidence`` supplies a verifier callback that is
+    normally invoked with current-checkpoint semantics.  That is incorrect
+    once the immutable invalidation is committed on a descendant.  Force the
+    audit runner's historical mode so it verifies checkpoint ancestry and
+    reconstructs every tracked input from the recorded Git blobs.
+    """
+
+    if write_manifest:
+        raise SealError("historical invalidation verification cannot write a manifest")
+    try:
+        try:
+            from scripts.run_px062_gate2_2_blind_audit import verify_pair
+        except ModuleNotFoundError:  # Direct execution from scripts/.
+            from run_px062_gate2_2_blind_audit import verify_pair  # type: ignore[no-redef]
+        return verify_pair(
+            root.resolve(),
+            write_manifest=False,
+            verification_mode="historical",
+        )
+    except Exception as exc:
+        raise SealError("historical audit-pair authentication failed") from exc
+
+
 def validate_pair_manifest(root: Path, raw: bytes) -> dict[str, Any]:
     manifest = strict_json(raw, PAIR_MANIFEST.as_posix())
     if not isinstance(manifest, dict):
@@ -198,6 +228,9 @@ def validate_pair_manifest(root: Path, raw: bytes) -> dict[str, Any]:
         raise SealError("audit-pair manifest schema drift")
     if manifest.get("answer_key_contents_included") is not False:
         raise SealError("audit-pair manifest unexpectedly contains answer-key contents")
+    reconstructed = historical_pair_verifier(root, write_manifest=False)
+    if reconstructed != manifest:
+        raise SealError("historical audit-pair reconstruction differs from sealed manifest")
     artifacts = manifest.get("artifacts")
     if not isinstance(artifacts, list) or len(artifacts) != 438:
         raise SealError("audit-pair manifest must bind exactly 438 artifacts")
@@ -439,6 +472,7 @@ def validate_finalizer_failure(root: Path) -> dict[str, Any]:
             candidate_dir=DEFAULT_CANDIDATE_DIR,
             provisional_resolution_path=PROVISIONAL_RESOLUTION,
             final_resolution_path=FINAL_RESOLUTION,
+            pair_verifier=historical_pair_verifier,
         )
     except ValueError as exc:
         if type(exc) is not ValueError or str(exc) != EXPECTED_FINALIZER_ERROR:
