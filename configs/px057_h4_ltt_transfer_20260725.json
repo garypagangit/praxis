@@ -1,0 +1,266 @@
+{
+  "experiment_id": "px057-h4-ltt-certified-transfer-20260725",
+  "px_id": "PX-057",
+  "protocol_revision": "2.2-predata-cloud-transport",
+  "protocol_status": "PRE_DATA_FROZEN",
+  "phase_a": {
+    "requirements_path": "requirements-px057-h4.txt",
+    "requirements_sha256": "5aa1adf7ce4187838a9f2867c9e6919bb5b06e11f90d70194ab48fc09984d163",
+    "runtime_manifest": "manifests/px057_h4_20260725/runtime_environment_v2.json",
+    "freeze_determination": "manifests/px057_h4_20260725/phase_a_freeze_v2.json",
+    "cloud_job_manifest": "manifests/px057_h4_20260725/phase_a_cloud_job_v2.json",
+    "aws": {
+      "profile": "praxis-build",
+      "region": "us-east-1",
+      "role_arn": "arn:aws:iam::272615233626:role/service-role/AmazonSageMaker-ExecutionRole-20260416T191047",
+      "bucket": "praxis-garypagan-272615233626-us-east-1",
+      "s3_prefix": "experiments/px057-adaptive-stopping/h4-certified-risk-20260725",
+      "instance_type": "ml.g5.2xlarge",
+      "volume_size_gb": 200,
+      "max_runtime_seconds": 14400,
+      "container_image_tag_uri": "763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training:2.3.0-gpu-py311-cu121-ubuntu20.04-sagemaker",
+      "container_image_digest": "sha256:01d8dfbde8f6e47a20e5b1e4033e105976663f2641084921b8769ee6998ef807",
+      "container_image_pinned_uri": "763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-training@sha256:01d8dfbde8f6e47a20e5b1e4033e105976663f2641084921b8769ee6998ef807",
+      "huggingface_secret_id": "praxis/huggingface/token",
+      "repository_url": "https://github.com/garypagangit/praxis.git",
+      "branch": "agent/px057-h4-certified-transfer"
+    },
+    "required_python_major_minor": "3.11",
+    "required_packages": {
+      "accelerate": "1.1.1",
+      "pandas": "2.2.3",
+      "pyarrow": "17.0.0",
+      "requests": "2.32.3",
+      "safetensors": "0.4.5",
+      "sentencepiece": "0.2.0",
+      "torch": "2.3.0",
+      "transformers": "4.46.3"
+    },
+    "synthetic_model_smoke_prompt": "Reply with exactly the single token OK.",
+    "protected_paths": [
+      ".gitattributes",
+      "reports/adaptive_stopping_overthinking/PX057_H4_LTT_PREREG_20260725.md",
+      "reports/adaptive_stopping_overthinking/PX057_H4_IMPLEMENTATION_READINESS_20260725.md",
+      "configs/px057_h4_ltt_transfer_20260725.json",
+      "configs/px057_h4_prompt_templates_20260725.json",
+      "requirements-px057-h4.txt",
+      "manifests/px057_h4_20260725/split_freeze.json",
+      "manifests/px057_h4_20260725/gsm8k_calibration.jsonl",
+      "manifests/px057_h4_20260725/gsm8k_holdout.jsonl",
+      "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
+      "manifests/px057_h4_20260725/arc_challenge_holdout.jsonl",
+      "reports/adaptive_stopping_overthinking/gate2_full_cloud_20260724/extracted/px057_gate1_gpu_pilot/selected_rows.json",
+      "scripts/px057_h4_common.py",
+      "scripts/run_px057_h4_trace_collection.py",
+      "scripts/run_px057_ltt_calibration.py",
+      "scripts/run_px057_h4_holdout_gate.py",
+      "scripts/prepare_px057_h4_manual_audit.py",
+      "scripts/adjudicate_px057_h4.py",
+      "scripts/freeze_px057_h4_phase_a.py",
+      "scripts/submit_px057_h4_phase_a.py",
+      "scripts/fetch_px057_h4_phase_a.py",
+      "scripts/submit_px057_h4_calibration.py",
+      "scripts/fetch_px057_h4_calibration.py",
+      "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_entry.py",
+      "cloud_jobs/px057_h4_phase_a_20260725/sagemaker_role_policy.json",
+      "cloud_jobs/px057_h4_calibration_20260725/.gitattributes",
+      "cloud_jobs/px057_h4_calibration_20260725/sagemaker_entry.py",
+      "manifests/px057_h4_20260725/phase_a_cloud_job_v2.json",
+      "scripts/run_px057_trace_collection.py",
+      "scripts/run_px057_adaptive_stopping_gate.py",
+      "tests/test_px057_h4_common.py",
+      "tests/test_px057_h4_trace_collection.py",
+      "tests/test_px057_h4_integrity.py",
+      "tests/test_px057_h4_calibration_cloud.py"
+    ]
+  },
+  "calibration_transport": {
+    "max_runtime_seconds": 86400,
+    "sagemaker_quota_code": "L-2D6DEB3C",
+    "first_attempt_only": true,
+    "job_name_scheme": "px057-h4-cal-{c1|c2|c3}-r2-20260725",
+    "container_argument_max_chars": 256,
+    "source_bootstrap": "explicit_s3_version_and_sha256_before_extraction",
+    "registration_rule": "Each cell's sole launch ARN must be written, committed, and pushed before its cloud result may be fetched or evaluated."
+  },
+  "models": {
+    "gate2_model": {
+      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "device_map": "auto",
+      "local_files_only": false
+    },
+    "second_model": {
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "device_map": "auto",
+      "local_files_only": false
+    }
+  },
+  "datasets": {
+    "gsm8k": {
+      "source_url": "https://raw.githubusercontent.com/openai/grade-school-math/3101c7d5072418e28b9008a6636bde82a006892c/grade_school_math/data/test.jsonl",
+      "source_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "repository_revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "gate2_selected_rows": "reports/adaptive_stopping_overthinking/gate2_full_cloud_20260724/extracted/px057_gate1_gpu_pilot/selected_rows.json",
+      "source_population_size": 1319,
+      "eligible_population_size": 1119
+    },
+    "arc_challenge": {
+      "source_url": "https://huggingface.co/datasets/allenai/ai2_arc/resolve/210d026faf9955653af8916fad021475a3f00453/ARC-Challenge/test-00000-of-00001.parquet",
+      "source_sha256": "62f03257e737aed263f55c6abf87c7bb0028a44a6bdd2a26eb1279eb42c1d1e9",
+      "dataset_revision": "210d026faf9955653af8916fad021475a3f00453",
+      "source_population_size": 1172,
+      "eligible_population_size": 1172
+    }
+  },
+  "split_design": {
+    "manifest_dir": "manifests/px057_h4_20260725",
+    "freeze_manifest": "manifests/px057_h4_20260725/split_freeze.json",
+    "sampling_design": "deterministic_simple_random_sample_without_replacement",
+    "calibration_n": 500,
+    "holdout_n": 300,
+    "calibration_seed": 5701,
+    "holdout_seed": 5702,
+    "arc_reuse": "The identical ARC calibration and holdout question partitions are reused across cells 2 and 3."
+  },
+  "generation": {
+    "rounds": 8,
+    "max_new_tokens": 256,
+    "seed": 57,
+    "prompt_template_id": "px057-h4-reconsideration-v1",
+    "prompt_template_path": "configs/px057_h4_prompt_templates_20260725.json",
+    "prompt_template_sha256": "1682703f7ca2d1c5e80097df307efc93ac08085f526ae09c6a3bab68f727cc25",
+    "decoding": "greedy"
+  },
+  "risk_control": {
+    "estimand": "early-stop harm rate in each frozen finite eligible benchmark population",
+    "primary_test": "exact_hypergeometric_finite_population_lower_tail",
+    "sensitivity_test": "iid_binomial_lower_tail",
+    "alpha": 0.02,
+    "family_delta": 0.05,
+    "cell_delta": 0.016666666666666666,
+    "policy_grid": {
+      "min_step": [
+        2,
+        3,
+        4
+      ],
+      "patience": [
+        1,
+        2
+      ],
+      "confidence_threshold": [
+        0.0,
+        0.02,
+        0.05,
+        0.1,
+        0.2
+      ]
+    },
+    "fixed_sequence_order": {
+      "min_step": [
+        4,
+        3,
+        2
+      ],
+      "patience": [
+        2,
+        1
+      ],
+      "confidence_threshold": [
+        0.2,
+        0.1,
+        0.05,
+        0.02,
+        0.0
+      ]
+    },
+    "fixed_sequence_rationale": "Ex-ante conservative-priority lexicographic order, fixed independently of all H4 traces; no monotonic risk ordering is assumed.",
+    "k1_role": "No-convergence control; answer stability is vacuous when patience equals one.",
+    "tau0_role": "Pure answer-stability arm only when patience is at least two."
+  },
+  "heldout_gates": {
+    "harm_rate_max": 0.02,
+    "accuracy_delta_min": -0.01,
+    "mean_compute_saving_min": 0.2,
+    "interpretation": "Preregistered point-estimate consistency and utility gates; not a second risk certificate."
+  },
+  "manual_audit": {
+    "seed": 5703,
+    "trace_units_per_cell": 50,
+    "round_units_per_cell": 400,
+    "maximum_round_disagreements": 8,
+    "blinding": "Auditor records answers before automated extraction and policy/gate information are revealed."
+  },
+  "cells": [
+    {
+      "cell_id": "cell1_llama31_gsm8k",
+      "model_key": "second_model",
+      "dataset_key": "gsm8k",
+      "eligible_population_size": 1119,
+      "calibration_manifest": "manifests/px057_h4_20260725/gsm8k_calibration.jsonl",
+      "holdout_manifest": "manifests/px057_h4_20260725/gsm8k_holdout.jsonl",
+      "calibration_launch_manifest": "manifests/px057_h4_20260725/calibration_launches/cell1_llama31_gsm8k.json",
+      "calibration_cloud_manifest": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell1_llama31_gsm8k.json",
+      "output_dirs": {
+        "calibration": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/calibration",
+        "holdout": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/holdout"
+      },
+      "ltt_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/ltt_determination.json",
+      "ltt_lock_manifest": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/ltt_lock.json",
+      "manual_audit_blinded": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/manual_extraction_blinded.json",
+      "manual_audit": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/manual_extraction_audit.json",
+      "holdout_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/holdout_determination.json"
+    },
+    {
+      "cell_id": "cell2_qwen25_arc",
+      "model_key": "gate2_model",
+      "dataset_key": "arc_challenge",
+      "eligible_population_size": 1172,
+      "calibration_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
+      "holdout_manifest": "manifests/px057_h4_20260725/arc_challenge_holdout.jsonl",
+      "calibration_launch_manifest": "manifests/px057_h4_20260725/calibration_launches/cell2_qwen25_arc.json",
+      "calibration_cloud_manifest": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell2_qwen25_arc.json",
+      "output_dirs": {
+        "calibration": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/calibration",
+        "holdout": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/holdout"
+      },
+      "ltt_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/ltt_determination.json",
+      "ltt_lock_manifest": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/ltt_lock.json",
+      "manual_audit_blinded": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/manual_extraction_blinded.json",
+      "manual_audit": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/manual_extraction_audit.json",
+      "holdout_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/holdout_determination.json"
+    },
+    {
+      "cell_id": "cell3_llama31_arc",
+      "model_key": "second_model",
+      "dataset_key": "arc_challenge",
+      "eligible_population_size": 1172,
+      "calibration_manifest": "manifests/px057_h4_20260725/arc_challenge_calibration.jsonl",
+      "holdout_manifest": "manifests/px057_h4_20260725/arc_challenge_holdout.jsonl",
+      "calibration_launch_manifest": "manifests/px057_h4_20260725/calibration_launches/cell3_llama31_arc.json",
+      "calibration_cloud_manifest": "manifests/px057_h4_20260725/calibration_cloud_jobs/cell3_llama31_arc.json",
+      "output_dirs": {
+        "calibration": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/calibration",
+        "holdout": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/holdout"
+      },
+      "ltt_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/ltt_determination.json",
+      "ltt_lock_manifest": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/ltt_lock.json",
+      "manual_audit_blinded": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/manual_extraction_blinded.json",
+      "manual_audit": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/manual_extraction_audit.json",
+      "holdout_determination": "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/holdout_determination.json"
+    }
+  ],
+  "holdout_lock_manifests": [
+    "reports/adaptive_stopping_overthinking/h4_20260725/cell1_llama31_gsm8k/ltt_lock.json",
+    "reports/adaptive_stopping_overthinking/h4_20260725/cell2_qwen25_arc/ltt_lock.json",
+    "reports/adaptive_stopping_overthinking/h4_20260725/cell3_llama31_arc/ltt_lock.json"
+  ],
+  "success_rule": {
+    "primary": "All three cells valid and each passes H4a through H4d.",
+    "h4e": "Retain confidence operationally only if a positive tau is selected in at least two of three cells.",
+    "h4e_boundary": "The vote is not a causal or independent statistical test of confidence."
+  },
+  "claim_boundary": "A pass supports finite-benchmark, per-cell calibrated adaptation with familywise 95% risk control across these three frozen cells. It does not support universal, deployment-wide, distribution-free, or zero-shot policy-transfer claims."
+}

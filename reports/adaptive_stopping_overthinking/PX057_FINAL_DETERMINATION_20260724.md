@@ -67,3 +67,25 @@ open model and one non-math reasoning corpus, retaining the fixed-short,
 fixed-long, answer-stability, uncertainty-only, adaptive, and oracle arms. The
 current Gate 2 result should remain unchanged and serve as the discovery
 experiment.
+
+## Superseded H4 update - 2026-07-27
+
+This historical paragraph records the initial interpretation and is superseded
+by the completion-audit correction below. The registered adjudicator returned
+`VALID_NEGATIVE`: all three calibration cells produced an empty certified
+prefix, so no held-out generation was authorized. The later audit found that
+this did not constitute a completed, protocol-valid H4 experiment. The bounded
+Gate 2 discovery result above is unchanged.
+
+See the [PX-057 H4 final determination](PX057_H4_FINAL_DETERMINATION_20260727.md)
+and [H4 evidence dashboard](PX057_H4_RESULT_DASHBOARD_20260727.html).
+
+## Completion-audit correction — 2026-07-27
+
+The `VALID_NEGATIVE` label above is withdrawn as the final H4 protocol status.
+A requirement-by-requirement audit found that Revision 2.2's mandatory
+pre-data independent-code-review PASS was never evidenced in the Phase A
+freeze or go/no-go sign-off. The registered adjudicator did not enforce that
+readiness gate. H4 is therefore **protocol-invalid with reproducible
+descriptive negative calibration evidence**. The absence of held-out
+generation remains correct, and the bounded Gate 2 result is unchanged.
