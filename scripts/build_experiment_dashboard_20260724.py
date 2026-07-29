@@ -9,6 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "configs" / "new_praxis_experiment_registry_20260723.json"
+ACTIVE_CLOUD_JOB = "px057-h4-cal-c3-r2-20260725"
+ACTIVE_CLOUD_LABEL = "PX-057 H4 Cell 3 cross-model/domain calibration"
+ACTIVE_CLOUD_WORKLOAD = "4,000 generation slots (Llama 3.1 / ARC)"
 
 
 DETAILS = {
@@ -17,7 +20,7 @@ DETAILS = {
         "tone": "positive",
         "evidence": "Valid Gate 2: 200 GSM8K questions and 1,600 model generations.",
         "result": "Adaptive accuracy 91.0% vs. 61.5% fixed-long; token saving 66.5%; prevention 89.6%; harm 0.5%.",
-        "next": "Run H4 cross-model and non-math transfer without changing the completed discovery result.",
+        "next": "Complete the active H4 Cell 3 cross-model/domain calibration without changing the completed discovery result.",
         "link": "adaptive_stopping_overthinking/PX057_FINAL_DETERMINATION_20260724.md",
     },
     "PX-058": {
@@ -53,20 +56,20 @@ DETAILS = {
         "link": "wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md",
     },
     "PX-062": {
-        "classification": "Gate 1 negative; Gate 2 active",
-        "tone": "active",
-        "evidence": "1,070 released poisoned skills, 44 clean skills, and a frozen 300-task hallucination benchmark.",
-        "result": "Provenance blocked tampering and nonexistent names but admitted 100% of authentic signed poisoned skills.",
-        "next": "Complete the two-model, three-condition live skill-name hallucination run and adjudicate 1,800 outputs.",
+        "classification": "Gate 1 negative; Gate 2 infrastructure blocked",
+        "tone": "queued",
+        "evidence": "1,070 released poisoned skills, 44 clean skills, and a frozen 300-task hallucination benchmark; the submitted Gate 2 job failed while fetching its S3 code bundle, before model inference.",
+        "result": "Provenance blocked tampering and nonexistent names but admitted 100% of authentic signed poisoned skills; Gate 2 has no scientific output yet.",
+        "next": "Repair and verify the S3 source bundle, then resubmit the unchanged frozen Gate 2 job.",
         "link": "coding_agent_skill_provenance/PX062_CURRENT_DETERMINATION_20260724.md",
     },
     "PX-063": {
-        "classification": "Blocked",
-        "tone": "queued",
-        "evidence": "TRACE deterministic reward-hack verifier is specified.",
-        "result": "Dataset fetch remains unresolved.",
-        "next": "Verify and freeze the public dataset before implementation.",
-        "link": "new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md",
+        "classification": "Final - not evaluable",
+        "tone": "nonevaluable",
+        "evidence": "Valid Protocol 1.5 full 517-row run; all integrity gates and exact replay passed.",
+        "result": "No blocks were emitted: precision undefined (0/0), hacked D-checkable recall 0/241, and clean false-positive rate 0/249.",
+        "next": "Close this transcript-syntax hypothesis. Any semantic or structured tool-event detector requires a new preregistered experiment.",
+        "link": "reward_hack_trace/PX063_PROTOCOL_1_5_RESULT_AUDIT_20260726.md",
     },
     "PX-064": {
         "classification": "Blocked",
@@ -97,7 +100,7 @@ def cloud_status(profile: str) -> dict:
         "--region",
         "us-east-1",
         "--training-job-name",
-        "px062-skill-hallucination-2026-07-24-22-21-01",
+        ACTIVE_CLOUD_JOB,
         "--query",
         "{Status:TrainingJobStatus,Secondary:SecondaryStatus,Failure:FailureReason}",
         "--output",
@@ -113,22 +116,23 @@ def markdown(experiments: list[dict], cloud: dict) -> str:
     rows = [
         "# Praxis Experiment Dashboard",
         "",
-        "Updated: 2026-07-24",
+        "Updated: 2026-07-26",
         "",
         "## Portfolio snapshot",
         "",
         "- Lead new positive: **PX-057 adaptive stopping**.",
         "- Mixed result: **PX-058 explanation stability passed; drift warning failed**.",
         "- Closed or negative: **PX-059, PX-060, PX-061**.",
-        "- Active: **PX-062 skill-name hallucination Gate 2**.",
-        "- Queued or blocked: **PX-063 through PX-065**.",
+        "- Final not evaluable: **PX-063 deterministic TRACE-derived gate**.",
+        "- Active confirmation: **PX-057 H4 Cell 3**.",
+        "- Infrastructure-blocked or queued: **PX-062, PX-064, PX-065**.",
         "- Related mature defense: **PX-050 independently confirmed one-million-command robustness within its frozen grammar**.",
         "",
         "## Active cloud work",
         "",
-        f"- Job: `px062-skill-hallucination-2026-07-24-22-21-01`",
+        f"- Job: `{ACTIVE_CLOUD_JOB}`",
         f"- Status: `{cloud.get('Status')}` / `{cloud.get('Secondary')}`",
-        "- Workload: two models x three conditions x 300 tasks = 1,800 outputs.",
+        f"- Workload: {ACTIVE_CLOUD_LABEL}; {ACTIVE_CLOUD_WORKLOAD}.",
         "",
         "## PX-057 through PX-065",
         "",
@@ -166,7 +170,7 @@ def html_dashboard(experiments: list[dict], cloud: dict) -> str:
             f"""<article class="card {detail['tone']}">
 <div class="id">{html.escape(item['px_id'])}</div>
 <h3>{html.escape(item['title'])}</h3>
-<span class="badge">{html.escape(detail['classification'])}</span>
+<span class="badge {detail['tone']}">{html.escape(detail['classification'])}</span>
 <p>{html.escape(detail['result'])}</p>
 <a href="{html.escape(detail['link'])}">Open determination</a>
 </article>"""
@@ -187,9 +191,9 @@ def html_dashboard(experiments: list[dict], cloud: dict) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Praxis Experiment Dashboard - 2026-07-24</title>
+<title>Praxis Experiment Dashboard - 2026-07-26</title>
 <style>
-:root{{--navy:#142f48;--blue:#2475a1;--teal:#159786;--red:#b64343;--amber:#d49317;--ink:#202a32;--muted:#63717b;--line:#d9e2e8;--bg:#eef3f6;}}
+:root{{--navy:#142f48;--blue:#2475a1;--teal:#159786;--red:#b64343;--amber:#d49317;--violet:#7251a6;--ink:#202a32;--muted:#63717b;--line:#d9e2e8;--bg:#eef3f6;}}
 *{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.45}}
 header{{background:linear-gradient(120deg,var(--navy),#245878);color:white;padding:46px max(28px,6vw) 38px}}
 header .kicker{{font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#81d8cc}}
@@ -197,13 +201,13 @@ h1{{font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;margin:.35rem 0 .8rem}} he
 main{{max-width:1440px;margin:auto;padding:30px max(22px,4vw) 60px}}
 .cloud{{display:flex;gap:20px;align-items:center;justify-content:space-between;background:#fff;border-left:6px solid var(--teal);padding:18px 22px;border-radius:10px;box-shadow:0 4px 18px #18324a12;margin-bottom:28px}}
 .cloud strong{{color:var(--navy)}} .status{{background:#e3f4f0;color:#087466;font-weight:800;padding:6px 12px;border-radius:999px;white-space:nowrap}}
-.summary{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 28px}}
+.summary{{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:0 0 28px}}
 .metric{{background:#fff;border-radius:10px;padding:18px;border:1px solid var(--line)}} .metric b{{display:block;font-size:1.7rem;color:var(--navy)}} .metric span{{color:var(--muted)}}
 h2{{color:var(--navy);margin:30px 0 14px}} .cards{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
 .card{{background:#fff;border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:10px;padding:18px;box-shadow:0 3px 12px #18324a0b}}
-.card.positive{{border-top-color:var(--teal)}} .card.mixed,.card.active{{border-top-color:var(--amber)}} .card.negative,.card.closed{{border-top-color:var(--red)}} .card.queued{{border-top-color:#82929d}}
+.card.positive{{border-top-color:var(--teal)}} .card.mixed,.card.active{{border-top-color:var(--amber)}} .card.negative,.card.closed{{border-top-color:var(--red)}} .card.nonevaluable{{border-top-color:var(--violet)}} .card.queued{{border-top-color:#82929d}}
 .card .id{{font-weight:900;color:var(--blue);font-size:.8rem;letter-spacing:.08em}} .card h3{{margin:.35rem 0 .55rem;color:var(--navy)}} .card p{{font-size:.92rem;color:#45545f}}
-.badge{{display:inline-block;border-radius:999px;padding:4px 9px;background:#edf2f5;font-size:.75rem;font-weight:800}} .badge.positive{{background:#def2ed;color:#087466}} .badge.mixed,.badge.active{{background:#fff0cf;color:#895c00}} .badge.negative,.badge.closed{{background:#f9e1e1;color:#973535}}
+.badge{{display:inline-block;border-radius:999px;padding:4px 9px;background:#edf2f5;font-size:.75rem;font-weight:800}} .badge.positive{{background:#def2ed;color:#087466}} .badge.mixed,.badge.active{{background:#fff0cf;color:#895c00}} .badge.negative,.badge.closed{{background:#f9e1e1;color:#973535}} .badge.nonevaluable{{background:#eee7f8;color:#60408f}}
 a{{color:var(--blue);font-weight:700;text-decoration:none}} a:hover{{text-decoration:underline}}
 .table-wrap{{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:10px}} table{{border-collapse:collapse;width:100%;min-width:1050px}} th{{text-align:left;background:var(--navy);color:#fff;padding:11px}} td{{padding:11px;border-bottom:1px solid var(--line);vertical-align:top;font-size:.9rem}} tr:last-child td{{border-bottom:0}}
 .note{{margin-top:26px;background:#fff;padding:20px;border-radius:10px;border:1px solid var(--line)}} footer{{color:var(--muted);font-size:.82rem;margin-top:30px}}
@@ -211,19 +215,20 @@ a{{color:var(--blue);font-weight:700;text-decoration:none}} a:hover{{text-decora
 </style>
 </head>
 <body>
-<header><div class="kicker">Praxis research portfolio</div><h1>Experiment Dashboard</h1><p>Evidence-first status for PX-057 through PX-065, plus the related PX-050 large-scale defense result. Updated July 24, 2026.</p></header>
+<header><div class="kicker">Praxis research portfolio</div><h1>Experiment Dashboard</h1><p>Evidence-first status for PX-057 through PX-065, plus the related PX-050 large-scale defense result. Updated July 26, 2026.</p></header>
 <main>
-<section class="cloud"><div><strong>Active cloud experiment</strong><br>PX-062 skill-name hallucination - 2 models x 3 conditions x 300 tasks = 1,800 outputs</div><span class="status">{status} / {secondary}</span></section>
+<section class="cloud"><div><strong>Active cloud experiment</strong><br>{html.escape(ACTIVE_CLOUD_LABEL)} - {html.escape(ACTIVE_CLOUD_WORKLOAD)}</div><span class="status">{status} / {secondary}</span></section>
 <section class="summary">
 <div class="metric"><b>1</b><span>strong bounded positive</span></div>
 <div class="metric"><b>1</b><span>mixed result</span></div>
 <div class="metric"><b>3</b><span>closed or negative</span></div>
-<div class="metric"><b>1</b><span>active live gate</span></div>
+<div class="metric"><b>1</b><span>final not evaluable</span></div>
+<div class="metric"><b>1</b><span>active confirmation</span></div>
 </section>
 <h2>Current experiment cards</h2><section class="cards">{''.join(cards)}</section>
 <h2>Evidence and next actions</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Experiment</th><th>Classification</th><th>Evidence</th><th>Next action</th></tr></thead><tbody>{''.join(table_rows)}</tbody></table></div>
 <section class="note"><h2>Related completed defense</h2><p><strong>PX-050:</strong> independent one-million-command confirmation produced zero invalid allows across 500,000 absent-package cases, allowed 100% of 416,668 supported safe-valid commands, and blocked 100% of 166,664 shell-chain cases.</p><p><a href="agentic_deployment_defense/PX050_LARGE_SCALE_ROBUSTNESS_DETERMINATION_20260724.md">Open PX-050 determination</a> &nbsp; | &nbsp; <a href="PX057_PX061_PORTFOLIO_AUDIT_20260724.md">Open PX-057-PX-061 audit</a> &nbsp; | &nbsp; <a href="../output/doc/px062_working_praxis_20260724/PX-062_Working_Praxis_Report.pdf">Open PX-062 working report</a></p></section>
-<footer>Statuses reflect preregistered evidence boundaries. Fixture passes are not classified as scientific positives.</footer>
+<footer>Statuses reflect preregistered evidence boundaries. Fixture passes are not scientific positives, and undefined metrics are not threshold failures.</footer>
 </main></body></html>"""
 
 

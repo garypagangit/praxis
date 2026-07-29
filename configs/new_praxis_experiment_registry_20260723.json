@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-23",
+  "generated": "2026-07-26",
   "status_rule": "No experiment is positive until its preregistered scientific gate is run on frozen non-fixture data.",
   "experiments": [
     {
@@ -7,10 +7,11 @@
       "slug": "adaptive-stopping-overthinking",
       "title": "Adaptive Stopping to Prevent LLM Overthinking",
       "priority": 1,
-      "status": "final_positive_valid_gate2_h1_h2_h3_pass_h4_transfer_pending",
+      "status": "final_positive_valid_gate2_h1_h2_h3_pass_h4_cell3_running",
       "anchor": "When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling",
       "first_gate": "Replay frozen multi-step answer traces and test whether a precommitted stability/uncertainty stop rule preserves accuracy, prevents correct-to-wrong flips, and reduces tokens.",
-      "primary_artifact": "reports/adaptive_stopping_overthinking/PX057_ADAPTIVE_STOPPING_PREREG_20260723.md"
+      "primary_artifact": "reports/adaptive_stopping_overthinking/PX057_ADAPTIVE_STOPPING_PREREG_20260723.md",
+      "active_job": "px057-h4-cal-c3-r2-20260725"
     },
     {
       "px_id": "PX-058",
@@ -54,20 +55,22 @@
       "slug": "coding-agent-skill-provenance",
       "title": "Provenance and Existence Gate for Coding-Agent Skills",
       "priority": 6,
-      "status": "gate1_public_corpus_negative_provenance_only_authentic_poison_escape_1.0_gate2_live_model_job_running",
+      "status": "gate1_public_corpus_negative_gate2_cloud_job_failed_before_inference",
       "anchor": "Supply-Chain Poisoning Attacks Against LLM Coding Agent Skill Ecosystems",
       "first_gate": "Verify public skill repositories and hash-pinned inert canaries; measure legitimate false rejects and tampered-file escapes.",
       "primary_artifact": "reports/coding_agent_skill_provenance/PX062_CURRENT_DETERMINATION_20260724.md",
-      "active_job": "px062-skill-hallucination-2026-07-24-22-21-01"
+      "failed_job": "px062-skill-hallucination-2026-07-24-22-21-01"
     },
     {
       "px_id": "PX-063",
       "slug": "deterministic-reward-hack-verifier",
       "title": "Deterministic Reward-Hack Verification on TRACE",
       "priority": 7,
-      "status": "blocked_on_dataset_fetch",
+      "status": "final_not_evaluable_valid_protocol_1_5_zero_blocks_recall_failed_integrity_passed",
       "anchor": "Benchmarking Reward Hack Detection in Code Environments via Contrastive Analysis",
-      "first_gate": "Execute deterministic checks on the checkable TRACE subset and compare with the published LLM-judge baseline while measuring clean-trajectory false positives."
+      "first_gate": "Execute the frozen deterministic checks on all 517 pinned TRACE-derived rows, with label-blind exact replay and clean-trajectory false-positive measurement.",
+      "primary_artifact": "reports/reward_hack_trace/PX063_PROTOCOL_1_5_RESULT_AUDIT_20260726.md",
+      "sealed_run_artifact": "reports/reward_hack_trace/deterministic_gate_20260726_v15/PX063_DETERMINISTIC_GATE_20260726_V15.md"
     },
     {
       "px_id": "PX-064",
