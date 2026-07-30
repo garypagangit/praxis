@@ -2,6 +2,15 @@
 
 Date: 2026-07-24
 
+> **Gate 2.2 extension status, 2026-07-29:** The context-preserving
+> structured-selection extension stopped at its preregistered label-quality
+> gate before any Qwen/Mistral or AWS run. Four complete blinded audits
+> accepted 1,031 of 1,032 rows, but the remaining row split exactly by model
+> family: both Sol passes chose `NONE`, while both Terra passes chose
+> `linear`. Mechanical evidence integrity passed; semantic governance failed,
+> so v1.3 is invalidated and may not be patched or rerun. See the
+> [sealed v1.3 invalidation](gate2_2_context_structured_v1_3_20260728/LABEL_AUDIT_INVALIDATION_V1_3_20260729.md).
+
 > **Final status, 2026-07-27:** Gate 2.1 completed with full evidence integrity
 > and a registered **FAIL / cross-model no-go**. Qwen produced a bounded
 > model-specific positive, but Mistral failed the primary nonexistent-name rate

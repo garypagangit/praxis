@@ -1,0 +1,353 @@
+{
+  "schema_version": "px062-gate2.2-v1.3-label-audit-invalidation-v1",
+  "experiment_id": "px062-skill-selection-gate2-2-v1-3-20260728",
+  "benchmark_version": "1.3",
+  "status": "INVALIDATED_LABEL_AUDIT_SEMANTIC_GATE_FAILED",
+  "source_manifest_created_utc": "2026-07-29T15:09:10.807419Z",
+  "repository_checkpoint": {
+    "commit": "0291f2052b312a740cfb9779e2895bd4942330eb",
+    "canonical_checkpoint_sha256": "d1f93ee43842ebe22dd4f23851532aabd571ea70c26a587733d49a567cf9cf67",
+    "historical_authentication": "PASS"
+  },
+  "sealed_inputs": {
+    "tasks": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/frozen_inputs/tasks.jsonl",
+      "bytes": 2119409,
+      "sha256": "79becaa213147f98146777bdf1e0cee7baf0afd2cdbfb4226daae6a961d58b0c",
+      "rows": 1032
+    },
+    "answer_key": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/frozen_inputs/answer_key.jsonl",
+      "bytes": 301680,
+      "sha256": "e7de909cce9b8e10a8d148cac4a60012dfe4ac6e61d6034bdc7919dfbb0e44e1",
+      "rows": 1032
+    },
+    "registry_catalog": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/frozen_inputs/registry_catalog.json",
+      "bytes": 20543,
+      "sha256": "97b751849bd26e6bd9f347d5153f4237d995e4e0f8eda289faaa18d75523b905"
+    },
+    "benchmark_manifest": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/frozen_inputs/benchmark_manifest.json",
+      "bytes": 9731,
+      "sha256": "31d2c24f916b805bc9f70d9a582aead26468ae67788bf1e4bba6a11e94c06c30"
+    }
+  },
+  "sealed_audit_evidence": {
+    "mechanical_four_pass_verification": "PASS",
+    "consensus_manifest": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_evidence_manifest.json",
+      "bytes": 315626,
+      "sha256": "509aad00a8a49be55fecfcaab4f4dc75573720d34ed5443edaa9f6d0ca762ee0"
+    },
+    "artifact_count": 873,
+    "artifact_bytes": 10151496,
+    "per_attempt_raw_evidence_files": 860,
+    "artifact_inventory_sha256": "331f366c4b40115ebdb349afe767320b9baa476ab506a3564f68070c9187e8ef",
+    "accepted_session_count": 172,
+    "all_attempt_count": 172,
+    "retry_attempt_count": 0,
+    "accepted_session_ids_sha256": "5a9416eb5ce9d8d505a507b29baf4253f678a7ac729e07546e545a2ab7ad6260",
+    "repository_checkpoint_sha256": "d1f93ee43842ebe22dd4f23851532aabd571ea70c26a587733d49a567cf9cf67",
+    "tracked_checkpoint_files": 19
+  },
+  "nonunanimous_ledger": {
+    "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_conflicts.jsonl",
+    "bytes": 10380,
+    "sha256": "c2f8de446ca40552106116ea3875313b352864242a65e0ede99bef30832b439b",
+    "rows": 9,
+    "order": "frozen tasks.jsonl row order",
+    "accepted_single_dissent_rows": 8,
+    "rejected_balanced_consensus_rows": 1,
+    "prompt_sha256_definition": "SHA-256 of the exact UTF-8 prompt string bytes, without an added newline",
+    "canonical_row_sha256_definition": "SHA-256 of canonical compact sorted-key UTF-8 JSON for the row excluding canonical_row_sha256, without an added newline"
+  },
+  "semantic_gate": {
+    "status": "FAIL",
+    "rows": 1032,
+    "policy": {
+      "audit_slots": 4,
+      "sol_slots": [
+        1,
+        3
+      ],
+      "terra_slots": [
+        2,
+        4
+      ],
+      "minimum_key_votes": 3,
+      "require_key_support_from_each_model_family": true,
+      "single_dissent_tolerated": true,
+      "semantic_retry_permitted": false,
+      "disputed_only_rerun_permitted": false
+    },
+    "unanimous_key_rows": 1023,
+    "single_dissent_rows": 8,
+    "single_dissent_task_ids": [
+      "g22-0c93b02f79924ffb7f44",
+      "g22-2636bb0b0cf5c0d1df7e",
+      "g22-39d85e405d26fb74a7b8",
+      "g22-a714fb66f15b32e3c59e",
+      "g22-ba2c15332881e08c49d8",
+      "g22-0fbb1effb594d2d413bb",
+      "g22-b64001c05552057a61af",
+      "g22-00775f6db2ed35aca4d5"
+    ],
+    "accepted_rows": 1031,
+    "rejected_rows": 1,
+    "rejected_task_ids": [
+      "g22-ba732261f65ca75f9d2e"
+    ],
+    "rejected_details": [
+      {
+        "task_id": "g22-ba732261f65ca75f9d2e",
+        "expected_skill": "linear",
+        "predictions": {
+          "1": null,
+          "2": "linear",
+          "3": null,
+          "4": "linear"
+        },
+        "key_vote_count": 2,
+        "key_support_from_sol": false,
+        "key_support_from_terra": true
+      }
+    ],
+    "all_labels_balanced_consensus_accepted": false,
+    "audits": [
+      {
+        "slot": 1,
+        "model": "gpt-5.6-sol",
+        "rows": 1032,
+        "agreement_with_answer_key": 1031,
+        "disagreement_task_ids": [
+          "g22-ba732261f65ca75f9d2e"
+        ],
+        "confidence_counts": {
+          "high": 971,
+          "medium": 60,
+          "low": 1
+        },
+        "predictions": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_1_predictions.jsonl",
+          "bytes": 190033,
+          "sha256": "66f63173a6313568440751771cc64f2a116e4233869533bb392326affa894516",
+          "rows": 1032
+        },
+        "sidecar": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_1_run.json",
+          "bytes": 226810,
+          "sha256": "ead72c3fd10a879c73ff0325f46c1e3d9fa0482be888f00ffe51fd50dc140da9"
+        },
+        "accepted_session_count": 43,
+        "attempt_count": 43,
+        "retry_attempt_count": 0
+      },
+      {
+        "slot": 2,
+        "model": "gpt-5.6-terra",
+        "rows": 1032,
+        "agreement_with_answer_key": 1027,
+        "disagreement_task_ids": [
+          "g22-0c93b02f79924ffb7f44",
+          "g22-39d85e405d26fb74a7b8",
+          "g22-a714fb66f15b32e3c59e",
+          "g22-0fbb1effb594d2d413bb",
+          "g22-00775f6db2ed35aca4d5"
+        ],
+        "confidence_counts": {
+          "high": 968,
+          "medium": 60,
+          "low": 4
+        },
+        "predictions": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_2_predictions.jsonl",
+          "bytes": 175148,
+          "sha256": "aef8bcd99781620100f301814ddb3686946979243bb3ce9ce87f1460887cb8a4",
+          "rows": 1032
+        },
+        "sidecar": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_2_run.json",
+          "bytes": 227500,
+          "sha256": "ca1c32ea3c37c3300436308bb78a79bc93b7d00977d1d506b53c964bfea9dd5e"
+        },
+        "accepted_session_count": 43,
+        "attempt_count": 43,
+        "retry_attempt_count": 0
+      },
+      {
+        "slot": 3,
+        "model": "gpt-5.6-sol",
+        "rows": 1032,
+        "agreement_with_answer_key": 1030,
+        "disagreement_task_ids": [
+          "g22-b64001c05552057a61af",
+          "g22-ba732261f65ca75f9d2e"
+        ],
+        "confidence_counts": {
+          "high": 960,
+          "medium": 72,
+          "low": 0
+        },
+        "predictions": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_3_predictions.jsonl",
+          "bytes": 187795,
+          "sha256": "9800264e239892acae7e6bf933b6a23cd4b652264c8385a265ccfd2fd5b54a86",
+          "rows": 1032
+        },
+        "sidecar": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_3_run.json",
+          "bytes": 226810,
+          "sha256": "607e89845e41910cc37b8b8dcdfb9b44a8d289c00ed267fc848330cace9b9a1f"
+        },
+        "accepted_session_count": 43,
+        "attempt_count": 43,
+        "retry_attempt_count": 0
+      },
+      {
+        "slot": 4,
+        "model": "gpt-5.6-terra",
+        "rows": 1032,
+        "agreement_with_answer_key": 1030,
+        "disagreement_task_ids": [
+          "g22-2636bb0b0cf5c0d1df7e",
+          "g22-ba2c15332881e08c49d8"
+        ],
+        "confidence_counts": {
+          "high": 966,
+          "medium": 65,
+          "low": 1
+        },
+        "predictions": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_4_predictions.jsonl",
+          "bytes": 175297,
+          "sha256": "b08d4cea0afe149ee86773c33015e9937d0bc06a8d5e418c259ed6ac8494e511",
+          "rows": 1032
+        },
+        "sidecar": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_4_run.json",
+          "bytes": 227500,
+          "sha256": "a7118744e874e7d03047b35a14dde40b656896d439e882efb4be6f879861e6be"
+        },
+        "accepted_session_count": 43,
+        "attempt_count": 43,
+        "retry_attempt_count": 0
+      }
+    ],
+    "nonunanimous_by_task_type": {
+      "available_single_skill": 1,
+      "misleading_name_none": 2,
+      "misleading_name_real_skill": 3,
+      "unavailable_capability": 3
+    },
+    "nonunanimous_outcome_counts": {
+      "ACCEPTED_SINGLE_DISSENT": 8,
+      "REJECTED_BALANCED_CONSENSUS": 1
+    },
+    "observed_family_split_on_rejected_row": {
+      "sol_slots": {
+        "slots": [
+          1,
+          3
+        ],
+        "prediction": null
+      },
+      "terra_slots": {
+        "slots": [
+          2,
+          4
+        ],
+        "prediction": "linear"
+      },
+      "description": "Both Sol passes selected NONE while both Terra passes selected the frozen Linear answer."
+    },
+    "canonical_evaluation_sha256": "4683553ce453fe0707178d30034902868031a1a99933ef34703ed2cc62e2e01a"
+  },
+  "resolution_absence": {
+    "provisional": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_provisional_resolution.json",
+      "exists": false
+    },
+    "final": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_resolution.json",
+      "exists": false
+    }
+  },
+  "verifier_check": {
+    "path": "scripts/verify_px062_gate2_2_v13_label_audits.py",
+    "bytes": 7890,
+    "sha256": "eb506c5e0188a71d78ce84b268d9b63739d20e8e4b45c392c2244d9fb803b8a9",
+    "mode": "check_only",
+    "function": "verify",
+    "exit_semantics": {
+      "exception_type": "ValueError",
+      "message": "label audits do not satisfy balanced 3-of-4 consensus on all 1032 rows",
+      "cli_exit_code": 1,
+      "terminal_stderr_line": "ValueError: label audits do not satisfy balanced 3-of-4 consensus on all 1032 rows"
+    },
+    "provisional_resolution_written": false,
+    "final_resolution_written": false
+  },
+  "finalizer_check": {
+    "path": "scripts/finalize_px062_gate2_2_v13_labels.py",
+    "bytes": 20550,
+    "sha256": "4c5e254a6da22684cbccf2ac63315eb894c6561428ad8019d779ae16bc23f7d6",
+    "mode": "check_only",
+    "function": "prepare_finalization",
+    "exit_semantics": {
+      "exception_type": "ValueError",
+      "message": "label audits do not satisfy balanced 3-of-4 consensus on all 1032 rows",
+      "cli_exit_code": 1,
+      "terminal_stderr_line": "ValueError: label audits do not satisfy balanced 3-of-4 consensus on all 1032 rows"
+    },
+    "provisional_resolution_written": false,
+    "final_resolution_written": false
+  },
+  "target_execution_absence": {
+    "repository_evidence_scope": "Canonical local output, launch, completion, and adjudication paths",
+    "paths": {
+      "collection_output_dir": {
+        "path": "outputs/px062_gate2_2_v1_3",
+        "exists": false
+      },
+      "launch_registration": {
+        "path": "manifests/px062_gate2_2_v1_3_20260728/confirmatory_registration.json",
+        "exists": false
+      },
+      "launch_receipt": {
+        "path": "manifests/px062_gate2_2_v1_3_20260728/launch_receipt.json",
+        "exists": false
+      },
+      "completion_registration": {
+        "path": "manifests/px062_gate2_2_v1_3_20260728/completion_registration.json",
+        "exists": false
+      },
+      "adjudication_authorization": {
+        "path": "manifests/px062_gate2_2_v1_3_20260728/adjudication_authorization.json",
+        "exists": false
+      },
+      "sealed_confirmation": {
+        "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/sealed_confirmation",
+        "exists": false
+      },
+      "confirmatory_result": {
+        "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/PX062_GATE2_2_V1_3_CONFIRMATORY_RESULT.json",
+        "exists": false
+      }
+    },
+    "qwen_or_mistral_gate2_2_collection_launched": false,
+    "aws_gate2_2_training_job_launched": false
+  },
+  "required_disposition": {
+    "benchmark_version_1_3_valid_for_model_collection": false,
+    "row_patching_permitted": false,
+    "disputed_only_reaudit_permitted": false,
+    "unchanged_input_rerun_to_seek_pass_permitted": false,
+    "semantic_retry_permitted": false,
+    "new_benchmark_version_required": true,
+    "new_task_catalog_answer_hashes_required": true,
+    "version_1_3_audits_reusable_for_acceptance": false,
+    "qwen_or_mistral_gate2_2_collection_launched": false,
+    "aws_gate2_2_training_job_launched": false
+  }
+}

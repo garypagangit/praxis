@@ -398,6 +398,16 @@ This index intentionally publishes both positive and negative results. The rule 
 
 **Primary artifacts:** `reports/coding_agent_skill_provenance/PX062_FINAL_DETERMINATION_20260727.md`, `reports/coding_agent_skill_provenance/PX062_FINAL_DASHBOARD_20260727.html`, `reports/coding_agent_skill_provenance/gate2_skill_hallucination_v1_1_20260726/adjudication.json`, and `reports/coding_agent_skill_provenance/gate2_skill_hallucination_v1_1_20260726/completion_fetch_receipt.json`. The adjudication is fixed at commit `2c58379b370c5f588a567910cae1a3f622f452a0`.
 
+## 2026-07-29 PX-062 Gate 2.2 v1.3 Label-Gate Addendum
+
+**Status:** Gate 2.2 v1.3 is **invalidated at its preregistered semantic label gate**. It is not eligible for Qwen/Mistral collection or an AWS experiment launch.
+
+**Evidence result:** All four fresh blinded audits completed over the full 1,032-row corpus. Mechanical authentication passed for 873 hash-bound artifacts, 860 raw per-attempt evidence files, and 172 unique sessions with zero retries. The balanced semantic rule accepted 1,023 unanimous rows and 8 single-dissent rows, but rejected 1 row; the complete benchmark therefore failed exactly as preregistered. On the rejected Linear task, both Sol passes selected `NONE` and both Terra passes selected `linear`, creating a reproducible 2-2 model-family boundary split.
+
+**Disposition:** No row may be patched in place, no disputed-only or unchanged-input rerun is permitted, and the v1.3 audits cannot be reused as successor acceptance evidence. After repeated context-selection label-gate failures, further prompt-only repair is retired. Any future continuation must replace stochastic model agreement as the sole label authority with a prospectively frozen deterministic contract or independent expert adjudication.
+
+**Primary artifacts:** `reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/LABEL_AUDIT_INVALIDATION_V1_3_20260729.md`, `reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_invalidation.json` (SHA-256 `8878a20c6fedda90f28721f26f7f370576a018f2892c4309ae1fb43a3f498e43`), `reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/label_audit_conflicts.jsonl` (SHA-256 `c2f8de446ca40552106116ea3875313b352864242a65e0ede99bef30832b439b`), and `scripts/seal_px062_gate2_2_v13_invalidation.py`. The four audits bind preregistered commit `0291f2052b312a740cfb9779e2895bd4942330eb`; no Gate 2.2 v1.3 target-model or SageMaker job was launched.
+
 ## Source Dashboards
 
 - `reports/EXPERIMENT_CURRENT_DASHBOARD_20260513.md`

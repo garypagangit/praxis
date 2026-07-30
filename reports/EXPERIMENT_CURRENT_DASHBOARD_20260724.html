@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Praxis Experiment Dashboard - 2026-07-26</title>
+<title>Praxis Experiment Dashboard - 2026-07-29</title>
 <style>
 :root{--navy:#142f48;--blue:#2475a1;--teal:#159786;--red:#b64343;--amber:#d49317;--ink:#202a32;--muted:#63717b;--line:#d9e2e8;--bg:#eef3f6;}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.45}
@@ -11,8 +11,8 @@ header{background:linear-gradient(120deg,var(--navy),#245878);color:white;paddin
 header .kicker{font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#81d8cc}
 h1{font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;margin:.35rem 0 .8rem} header p{max-width:900px;color:#dce9f0;margin:0}
 main{max-width:1440px;margin:auto;padding:30px max(22px,4vw) 60px}
-.cloud{display:flex;gap:20px;align-items:center;justify-content:space-between;background:#fff;border-left:6px solid var(--teal);padding:18px 22px;border-radius:10px;box-shadow:0 4px 18px #18324a12;margin-bottom:28px}
-.cloud strong{color:var(--navy)} .status{background:#e3f4f0;color:#087466;font-weight:800;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.cloud{display:flex;gap:20px;align-items:center;justify-content:space-between;background:#fff;border-left:6px solid var(--red);padding:18px 22px;border-radius:10px;box-shadow:0 4px 18px #18324a12;margin-bottom:28px}
+.cloud strong{color:var(--navy)} .status{background:#f9e1e1;color:#973535;font-weight:800;padding:6px 12px;border-radius:999px;white-space:nowrap}
 .summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 28px}
 .metric{background:#fff;border-radius:10px;padding:18px;border:1px solid var(--line)} .metric b{display:block;font-size:1.7rem;color:var(--navy)} .metric span{color:var(--muted)}
 h2{color:var(--navy);margin:30px 0 14px} .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -27,14 +27,14 @@ a{color:var(--blue);font-weight:700;text-decoration:none} a:hover{text-decoratio
 </style>
 </head>
 <body>
-<header><div class="kicker">Praxis research portfolio</div><h1>Experiment Dashboard</h1><p>Evidence-first status for PX-057 through PX-065, plus the related PX-050 large-scale defense result. Updated July 26, 2026.</p></header>
+<header><div class="kicker">Praxis research portfolio</div><h1>Experiment Dashboard</h1><p>Evidence-first status for PX-057 through PX-065, plus the related PX-050 large-scale defense result. Updated July 29, 2026.</p></header>
 <main>
-<section class="cloud"><div><strong>Active cloud experiment</strong><br>PX-062 Gate 2.1 skill-name hallucination - 2 models x 3 conditions x 300 tasks = 1,800 outputs</div><span class="status">InProgress / Training</span></section>
+<section class="cloud"><div><strong>Latest completed gate</strong><br>PX-062 Gate 2.2 v1.3 completed four blinded audits over 1,032 rows. Mechanical evidence passed, but one 2-2 model-family split invalidated the semantic label gate before any target-model or AWS run.</div><span class="status">Label gate failed</span></section>
 <section class="summary">
 <div class="metric"><b>1</b><span>strong bounded positive</span></div>
 <div class="metric"><b>1</b><span>mixed result</span></div>
-<div class="metric"><b>3</b><span>closed or negative</span></div>
-<div class="metric"><b>1</b><span>active confirmatory retry</span></div>
+<div class="metric"><b>4</b><span>closed or negative</span></div>
+<div class="metric"><b>3</b><span>not evaluable, blocked, or ready</span></div>
 </section>
 <h2>Current experiment cards</h2><section class="cards"><article class="card positive">
 <div class="id">PX-057</div>
@@ -66,18 +66,18 @@ a{color:var(--blue);font-weight:700;text-decoration:none} a:hover{text-decoratio
 <span class="badge">Final negative</span>
 <p>Adaptive unequal noise gained 1.42 points vs. a required 2.0; static unequal allocation did not help.</p>
 <a href="wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md">Open determination</a>
-</article><article class="card active">
+</article><article class="card negative">
 <div class="id">PX-062</div>
 <h3>Provenance and Existence Gate for Coding-Agent Skills</h3>
-<span class="badge">Gate 1 negative; Gate 2.1 running</span>
-<p>Gate 1 was negative. The byte-registered Gate 2.1 retry crossed the old S3 failure point and is running the exact entry point.</p>
-<a href="coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md">Open determination</a>
+<span class="badge negative">Gate 2.2 v1.3 label gate invalidated</span>
+<p>Gate 2.1 failed across models. Gate 2.2 v1.3 then passed 1,031 of 1,032 frozen labels, but the remaining row split exactly by model family. No target-model or AWS run occurred.</p>
+<a href="coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/LABEL_AUDIT_INVALIDATION_V1_3_20260729.md">Open sealed v1.3 invalidation</a>
 </article><article class="card queued">
 <div class="id">PX-063</div>
 <h3>Deterministic Reward-Hack Verification on TRACE</h3>
-<span class="badge">Blocked</span>
-<p>Dataset fetch remains unresolved.</p>
-<a href="new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md">Open determination</a>
+<span class="badge">Protocol 1.5 not evaluable</span>
+<p>The pinned 517-row development run produced zero blocks. Clean false positives passed, but hacked-row recall was 0/241 and block precision was undefined.</p>
+<a href="https://github.com/garypagangit/praxis/pull/14">Open PX-063 branch</a>
 </article><article class="card queued">
 <div class="id">PX-064</div>
 <h3>Registry Verification as Environment Hardening in Tool-Use RL</h3>
@@ -88,7 +88,7 @@ a{color:var(--blue);font-weight:700;text-decoration:none} a:hover{text-decoratio
 <div class="id">PX-065</div>
 <h3>Provenance-Admission Gate for Agent Memory</h3>
 <span class="badge">Simulation ready</span>
-<p>No scientific result yet.</p>
+<p>No scientific result yet; this is the next unblocked experiment.</p>
 <a href="new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md">Open determination</a>
 </article></section>
 <h2>Evidence and next actions</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Experiment</th><th>Classification</th><th>Evidence</th><th>Next action</th></tr></thead><tbody><tr>
@@ -122,17 +122,17 @@ a{color:var(--blue);font-weight:700;text-decoration:none} a:hover{text-decoratio
 <td>Matched-accounting mechanism audit and registered three-band repair completed.</td>
 <td>Do not advance to Fashion-MNIST confirmation.</td>
 </tr><tr>
-<td><a href="coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md">PX-062</a></td>
+<td><a href="coding_agent_skill_provenance/gate2_2_context_structured_v1_3_20260728/LABEL_AUDIT_INVALIDATION_V1_3_20260729.md">PX-062</a></td>
 <td>Provenance and Existence Gate for Coding-Agent Skills</td>
-<td><span class="badge active">Gate 1 negative; Gate 2.1 running</span></td>
-<td>1,070 released poisoned skills, 44 clean skills, and a frozen 300-task hallucination benchmark.</td>
-<td>Collect all 1,800 outputs, then run the frozen independent adjudicator once.</td>
+<td><span class="badge negative">Gate 2.2 v1.3 label gate invalidated</span></td>
+<td>Four complete audits: 1,023 unanimous rows, 8 accepted single-dissent rows, and 1 rejected 2-2 family split; 172 unique sessions and 873 verified artifacts.</td>
+<td>Preserve the sealed invalidation. Do not patch or rerun v1.3; any continuation needs new deterministic or expert label governance.</td>
 </tr><tr>
-<td><a href="new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md">PX-063</a></td>
+<td><a href="https://github.com/garypagangit/praxis/pull/14">PX-063</a></td>
 <td>Deterministic Reward-Hack Verification on TRACE</td>
-<td><span class="badge queued">Blocked</span></td>
-<td>TRACE deterministic reward-hack verifier is specified.</td>
-<td>Verify and freeze the public dataset before implementation.</td>
+<td><span class="badge queued">Protocol 1.5 not evaluable</span></td>
+<td>Pinned 517-row development run: zero blocks, 0/241 hacked-row recall, 0/249 clean false positives, and undefined block precision.</td>
+<td>Do not tune the sealed run; a structured tool-event experiment requires a new preregistration.</td>
 </tr><tr>
 <td><a href="new_praxis_experiments_20260723/NEW_EXPERIMENT_BUILD_ORDER_20260723.md">PX-064</a></td>
 <td>Registry Verification as Environment Hardening in Tool-Use RL</td>
@@ -144,7 +144,7 @@ a{color:var(--blue);font-weight:700;text-decoration:none} a:hover{text-decoratio
 <td>Provenance-Admission Gate for Agent Memory</td>
 <td><span class="badge queued">Simulation ready</span></td>
 <td>Inert provenance-admission simulation for agent memory is specified.</td>
-<td>Run the frozen inert simulation after PX-062 adjudication.</td>
+<td>Run the frozen inert simulation as the next unblocked experiment.</td>
 </tr></tbody></table></div>
 <section class="note"><h2>Related completed defense</h2><p><strong>PX-050:</strong> independent one-million-command confirmation produced zero invalid allows across 500,000 absent-package cases, allowed 100% of 416,668 supported safe-valid commands, and blocked 100% of 166,664 shell-chain cases.</p><p><a href="agentic_deployment_defense/PX050_LARGE_SCALE_ROBUSTNESS_DETERMINATION_20260724.md">Open PX-050 determination</a> &nbsp; | &nbsp; <a href="PX057_PX061_PORTFOLIO_AUDIT_20260724.md">Open PX-057-PX-061 audit</a> &nbsp; | &nbsp; <a href="../output/doc/px062_working_praxis_20260724/PX-062_Working_Praxis_Report.pdf">Open PX-062 working report</a></p></section>
 <footer>Statuses reflect preregistered evidence boundaries. Fixture passes are not classified as scientific positives.</footer>
