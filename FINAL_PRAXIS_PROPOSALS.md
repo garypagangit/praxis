@@ -15,13 +15,23 @@ The common research lane is:
 
 | Final Praxis | Working title | Status | Novelty position | Primary scientific question | Biggest risk | Immediate gate |
 |---|---|---|---|---|---|---|
-| **Final Praxis 001** | Deterministic Outcome-State Verification for Agent Task Completion | **GO / preregistration required** | Strongest candidate. Moves verification from command validity to independently measurable environmental consequences. Distinguish from judge-based reward-hack evaluation by using frozen postconditions and explicit false-success acceptance. | Can deterministic postcondition verification reduce false acceptance of claimed task success while preserving true successful completion? | Task fixtures could make verification trivial or unrepresentative. | Freeze task taxonomy, postconditions, judge baseline, disagreement metrics, and promotion thresholds before model runs. |
+| **Final Praxis 001** | Independent Outcome-State Verification for Agent Task Completion Under Evaluator Disagreement | **GATE 0 PASS WITH RESCOPE / Gate 1 design active** | Generic final-state evaluation is already established by τ-bench/AppWorld, and deterministic reward-hack measurement is crowded by 2026 work. The remaining contribution is a controlled judge-vs-postcondition disagreement study covering false/incomplete completion, collateral damage, and legitimate alternate paths. | Can machine-checkable postconditions reduce false-success acceptance relative to judge-based evaluation without rejecting valid alternate completions? | Novelty collapses if the work becomes only another state-based benchmark or reward-hacking testbed. | Build and validate 20+ task templates / 140+ inert fixtures, run prospective sample-size calculation, then freeze scientific thresholds before natural model generation. |
 | **Final Praxis 002** | Deterministic Trust-Boundary Containment for Multi-Agent Security Workflows | **GO after novelty gate** | Architecture alone is not novel. Candidate contribution is a measured cascade-containment experiment: whether deterministic checks between probabilistic agents stop upstream errors from becoming downstream actions. | Do deterministic inter-agent gates reduce cascade escape rate without unacceptable utility loss? | Current agent-security literature is crowded; novelty fails if experiment only restates least-privilege or prompt-injection defenses. | Complete closest-work matrix, then freeze cascade definitions, injection/error fixtures, baselines, and utility budget. |
 | **Final Praxis 003** | Safety-Gated Adaptive Investigation Stopping for Agentic Security Triage | **CONDITIONAL GO** | Generic adaptive stopping is crowded (including REFRAIN, ACL 2026). Novelty must be security-investigation termination plus a preregistered safety decomposition and mechanically enforced review gate. | Can a frozen stopping policy prevent correct-to-wrong investigation degradation while reducing investigation cost under a valid safety protocol? | The earlier stopping line cannot be treated as a certified positive; policy selection may leak from prior descriptive runs. | Calculate required calibration/review sample size, freeze policy independently of prior invalid run outcomes, and mechanically enforce review/harm gate before compute. |
 
+## Final Praxis 001 Gate 0 Finding
+
+**PASS WITH RESCOPE.** The broad idea "verify final state deterministically" is not novel enough. Final Praxis 001 is now frozen around **evaluation integrity under judge/postcondition disagreement**. The experiment must directly measure false-success acceptance, legitimate-success preservation, alternate-valid-path acceptance, collateral-state misses, and paired evaluator disagreement.
+
+Current Final Praxis 001 artifacts:
+
+- `final_praxis/001_outcome_state_verification/001_NOVELTY_GATE_20260908.md`
+- `final_praxis/001_outcome_state_verification/001_PREREGISTRATION_DRAFT_20260908.md`
+- `final_praxis/001_outcome_state_verification/001_TASK_TAXONOMY_AND_FIXTURE_PLAN_20260908.md`
+
 ## Current Ranking
 
-1. **Final Praxis 001** — best probability of a clean, falsifiable, publication-safe result.
+1. **Final Praxis 001** — best probability of a clean, falsifiable result after the Gate 0 rescope.
 2. **Final Praxis 002** — highest flagship upside, but requires the strongest novelty discipline and largest build.
 3. **Final Praxis 003** — promising mechanism, but only if the corrected protocol and anti-leakage controls are satisfied before execution.
 
