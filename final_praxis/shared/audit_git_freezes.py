@@ -1,10 +1,14 @@
 """Verify Git's committed bytes against every current scientific freeze."""
 import hashlib
+import argparse
 import json
 import subprocess
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[2]
+parser = argparse.ArgumentParser()
+parser.add_argument("--read-only", action="store_true")
+args = parser.parse_args()
 commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
 results = []
 for folder in sorted((root / "final_praxis").glob("00*")):
@@ -20,7 +24,8 @@ for folder in sorted((root / "final_praxis").glob("00*")):
             errors.append(relative)
     results.append({"experiment": folder.name[:3], "frozen_files": len(files), "errors": errors, "status": "PASS" if not errors else "FAIL"})
 receipt = {"commit": commit, "status": "PASS" if all(x["status"] == "PASS" for x in results) else "FAIL", "experiments": results}
-(root / "final_praxis/execution/20260908/GIT_FROZEN_BYTE_AUDIT.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+if not args.read_only:
+    (root / "final_praxis/execution/20260908/GIT_FROZEN_BYTE_AUDIT.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
 print(json.dumps(receipt, indent=2))
 if receipt["status"] != "PASS":
     raise SystemExit(1)

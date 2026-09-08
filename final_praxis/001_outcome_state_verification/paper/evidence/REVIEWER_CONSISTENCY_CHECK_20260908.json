@@ -1,0 +1,143 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-09-08T22:17:12.148349+00:00",
+  "method": "Read-only direct reconstruction without importing production parsers, verifier or statistical analysis. Re-evaluated all frozen postconditions from retained states, independently parsed primary and diagnostic model responses, recomputed metrics and both bootstrap intervals, and checked unique model-generation IDs and token totals.",
+  "primary_units": 400,
+  "unique_real_generations": 1240,
+  "protocol_sha256": "eb5f66c216cab7ca88660211c437a2ea366978fdaf32dc4e60ad6d87e89a58e1",
+  "cloud_verification_sha256": "00521f725875e0a875d373f4002087dce0b1f5a993393d75341f46699e131f03",
+  "metrics": {
+    "det": {
+      "FSAR": {
+        "numerator": 0,
+        "denominator": 200,
+        "rate": 0.0
+      },
+      "TSAR": {
+        "numerator": 200,
+        "denominator": 200,
+        "rate": 1.0
+      },
+      "APAR": {
+        "numerator": 100,
+        "denominator": 100,
+        "rate": 1.0
+      },
+      "CVMR": {
+        "numerator": 0,
+        "denominator": 50,
+        "rate": 0.0
+      }
+    },
+    "judge": {
+      "FSAR": {
+        "numerator": 7,
+        "denominator": 200,
+        "rate": 0.035
+      },
+      "TSAR": {
+        "numerator": 19,
+        "denominator": 200,
+        "rate": 0.095
+      },
+      "APAR": {
+        "numerator": 10,
+        "denominator": 100,
+        "rate": 0.1
+      },
+      "CVMR": {
+        "numerator": 3,
+        "denominator": 50,
+        "rate": 0.06
+      }
+    },
+    "self_report": {
+      "FSAR": {
+        "numerator": 50,
+        "denominator": 200,
+        "rate": 0.25
+      },
+      "TSAR": {
+        "numerator": 117,
+        "denominator": 200,
+        "rate": 0.585
+      },
+      "APAR": {
+        "numerator": 60,
+        "denominator": 100,
+        "rate": 0.6
+      },
+      "CVMR": {
+        "numerator": 30,
+        "denominator": 50,
+        "rate": 0.6
+      }
+    }
+  },
+  "judge_malformed_primary": {
+    "success_not_boolean": 205
+  },
+  "primary_malformed_by_truth": {
+    "invalid": 90,
+    "valid": 115
+  },
+  "numeric_success_values_primary_and_diagnostic": {
+    "0.8": 68,
+    "0.9": 102,
+    "1.0": 24,
+    "0.5": 4,
+    "0.6": 3,
+    "0.3": 1,
+    "0.2": 10,
+    "0.1": 6,
+    "0.0": 6,
+    "0.7": 3
+  },
+  "collateral_judge_accepts_by_family": {
+    "config": 2,
+    "database": 1,
+    "file": 0,
+    "workflow": 0
+  },
+  "natural_successes": 236,
+  "disagreement_count": 188,
+  "intervals": {
+    "paired_stratified_bootstrap_ci95": [
+      0.015,
+      0.055
+    ],
+    "task_cluster_bootstrap_ci95_diagnostic": [
+      0.0,
+      0.095
+    ]
+  },
+  "mcnemar_two_sided_p": 0.015625,
+  "tokens": {
+    "prompt": 366660,
+    "completion": 90637
+  },
+  "full_state_diagnostic": {
+    "valid_n": 20,
+    "valid_accepted": 4,
+    "invalid_n": 20,
+    "invalid_accepted": 1
+  },
+  "full_state_diagnostic_malformed": {
+    "valid": 9,
+    "invalid": 13
+  },
+  "classification": "Negative",
+  "failed_gates": [
+    "G4_collateral",
+    "G5_nontrivial_judge_gap"
+  ],
+  "claim_limits": [
+    "Judge schema rejection is not equivalent to a semantic judgment of task failure.",
+    "The observed primary effect does not establish the required 10% judge-gap floor; primary 7/200 FSAR is 3.5%.",
+    "Template-cluster robustness interval includes zero despite positive within-template interval.",
+    "Deterministic accuracy is structural because truth uses the same postcondition-defined construct.",
+    "400 units repeat 20 templates; natural action success is separate from imposed final-state conditions.",
+    "The 40-case full-state diagnostic cannot promote or repair the primary result."
+  ],
+  "changes": "No raw artifact, frozen source, prompt, denominator or threshold changed."
+}
