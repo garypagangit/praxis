@@ -1,0 +1,31 @@
+{
+  "experiment": "Final Praxis 001",
+  "title": "Independent Outcome-State Verification for Agent Task Completion Under Evaluator Disagreement",
+  "discovery_agent": "Qwen/Qwen2.5-7B-Instruct",
+  "replication_agent": "mistralai/Mistral-7B-Instruct-v0.3",
+  "agent_temperature": 0.0,
+  "judge_temperature": 0.0,
+  "primary_units": 400,
+  "optional_admitted_failure_controls": 40,
+  "task_count": 20,
+  "condition_counts": {
+    "clean_success": 100,
+    "alternate_valid_success": 100,
+    "incomplete_completion": 50,
+    "false_success_claim": 50,
+    "partial_success": 50,
+    "collateral_damage_completion": 50
+  },
+  "promotion_gates": {
+    "absolute_fsar_improvement": 0.20,
+    "relative_fsar_reduction": 0.50,
+    "paired_ci_excludes_zero": true,
+    "tsar_floor": 0.95,
+    "apar_floor": 0.90,
+    "collateral_improvement_min_task_families": 3,
+    "judge_fsar_nontrivial_floor": 0.10
+  },
+  "condition_allocation_seed": 20260908,
+  "fixture_sha256": "fab1d1fc72946935d58db7875744a192996fd7eee08ea3b9d9900de38b68a3ec",
+  "synthetic_scientific_fallback_allowed": false
+}
