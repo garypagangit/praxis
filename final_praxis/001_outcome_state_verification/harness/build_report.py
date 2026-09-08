@@ -2,11 +2,12 @@
 from __future__ import annotations
 import argparse
 import csv
+from collections import Counter
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-from .scientific_protocol import ROOT, file_hash
-from .verify_scientific import verify_run
+from .scientific_protocol import ROOT, file_hash, parse_object
+from .verify_scientific import verify_run, parse as audit_parse
 
 def proportion(cell):
     if not cell["denominator"]:
@@ -28,15 +29,27 @@ def build(run_dir):
     failed = ", ".join(key for key, value in gates.items() if not value) or "none"
     condition_rows = []
     examples = []
+    judge_finish_reasons, malformed_kinds = Counter(), Counter()
     for path in sorted((run_dir / "raw/agent").glob("*.json")):
         agent = json.loads(path.read_text(encoding="utf-8"))
         judge = json.loads((run_dir / "raw/judge" / path.name).read_text(encoding="utf-8"))
+        judge_finish_reasons[judge["response"].get("finish_reason", "unrecorded")] += 1
+        if audit_parse(judge["response"]["text"])[1]:
+            try:
+                parsed = parse_object(judge["response"]["text"])
+                value = parsed.get("success")
+                kind = "numeric_success_instead_of_boolean" if type(value) in (int, float) else "other_schema_error"
+            except (ValueError, TypeError):
+                kind = "not_a_complete_json_object"
+            malformed_kinds[kind] += 1
         condition_rows.append({"instance_id": agent["instance_id"], "task_id": agent["task_id"], "task_family": agent["task_family"],
                                "condition": agent["condition"], "judge": judge["decision"]["success"],
                                "det": agent["verdict"]["success"], "self_report": agent["claim_decision"]["success"]})
         if judge["decision"]["success"] != agent["verdict"]["success"] and len(examples) < 3:
             examples.append((agent, judge))
     diag = result["full_state_diagnostic"]
+    diagnostic_records = [json.loads(path.read_text(encoding="utf-8")) for path in (run_dir / "raw/full_state_judge").glob("*.json")]
+    diagnostic_malformed = sum(audit_parse(item["response"]["text"])[1] for item in diagnostic_records)
     parts = ["# Independent Outcome-State Verification for Agent Task Completion Under Evaluator Disagreement",
              "", "Doctor of Engineering Praxis research report — Final Praxis 001", "",
              f"Evidence-based determination: **{result['classification']}**. Report generated {datetime.now(timezone.utc).isoformat()}.",
@@ -66,13 +79,14 @@ def build(run_dir):
              f"The experiment used a local preregistration frozen before model output inspection. Protocol SHA-256: `{result['protocol_sha256']}`. The initial draft and historical fixture marker remain preserved; `AMENDMENT_20260908_PRE_RESULTS.md` records the hash discrepancy, parser/verifier repairs, precise model selection, and distinction between controlled stress and natural behavior. `AMENDMENT_20260908_AUDIT_BINDING_V2.md` documents the cross-audit correction that binds the run manifest, archived prompts, and raw inference lineage to the frozen inputs. The earlier v1 infrastructure pilot is historical only; a fresh v2 pilot qualified discovery. Every numerical promotion threshold remained unchanged. The seed was {config['seed']}. A separate 16-case infrastructure pilot preceded discovery and did not enter the 400-unit denominator.",
              "", "### 3.2 Graphical Methodology of Research (GMR)", "",
              "The evidence flow is: freeze task semantics and allocations; validate deterministic infrastructure; execute a real model's natural action proposal; retain natural state; impose an independently prescribed final-state condition; obtain the model's honest completion assessment from visible receipts; obtain a distinct learned judgment; independently recompute state truth and metrics; apply fixed gates; report both successful and unsuccessful hypotheses.",
-             "", "```mermaid", "flowchart TD", ' A["Frozen tasks, model revisions, prompts, thresholds"] --> B["140 legacy fixtures + focused tests"]',
-             ' B --> C["16-case infrastructure pilot"]', ' C --> D["400 real Qwen action proposals"]',
-             ' D --> E["Natural action state: descriptive only"]', ' D --> F["Preallocated controlled state projection"]',
-             ' F --> G["Actual requested-field receipts + real Qwen completion claim"]',
-             ' G --> H["Mistral transcript-only primary judge"]', ' F --> I["Full-state deterministic verification"]',
-             ' F --> J["40-case full-state Mistral diagnostic"]', ' H --> K["Independent raw audit + paired statistics"]',
-             ' I --> K', ' J --> K', ' K --> L["Unchanged gates + bounded determination"]', "```",
+             "", "```mermaid", "flowchart TD", ' A["Freeze tasks, model revisions, prompts and thresholds"] --> B["140 fixtures, 18 focused tests and 16-case pilot"]',
+             ' B --> C["Generate 400 real Qwen action proposals"]',
+             ' C --> D["Archive natural states; impose controlled final states"]',
+             ' D --> E["Generate real Qwen claims from visible receipts"]',
+             ' E --> F["Pair transcript-only judge with separate state oracle"]',
+             ' F --> G["Run preselected 40-case full-state judge diagnostic"]',
+             ' G --> H["Independently audit raw evidence and paired statistics"]',
+             ' H --> I["Apply unchanged gates and report bounded conclusions"]', "```",
              "", "### 3.3 Tasks, state construction, and observation regime", "",
              "Each template has five clean and five alternate-valid cases plus ten invalid cases. Rotation across templates produces exactly 50 incomplete, 50 false-success-target, 50 partial, and 50 collateral conditions. Clean/alternate counts are 100 each. Symbolic IDs vary by instance. The agent receives target field assignments and a requirement to preserve all other fields; it may propose up to 12 existing-path assignments. Natural execution is retained before any intervention.",
              "", "The stress projection independently constructs the intended successful state, then corrupts the first goal, every goal, the last goal, or the first protected invariant according to condition. Actual final values for proposed action paths become visible receipts. Qwen generates its completion assessment after reading those receipts. The judge receives initial state, task request, proposed actions, receipts, and raw completion text. It does not see condition labels, the intervention script, hidden expected-state objects, or verifier code. The deterministic evaluator sees the full final state. Set-valued lists accept permutation without duplicates; type errors and missing required fields fail.",
@@ -80,6 +94,7 @@ def build(run_dir):
              "", "### 3.4 Models, inference, and provenance", "",
              f"Agent: `{config['agent']['model_id']}` at `{config['agent']['revision']}`. Judge: `{config['judge']['model_id']}` at `{config['judge']['revision']}`. Both use BF16, greedy decoding, temperature 0, SDPA attention, and no quantization. Budgets are {config['action_max_new_tokens']} action tokens, {config['claim_max_new_tokens']} completion-assessment tokens, and {config['judge_max_new_tokens']} judge tokens. The raw records retain model revision, runtime, request identifiers, prompt hashes, token counts, timestamps, and complete generated text. Mistral's system instructions are preserved by merging them into the first user turn according to the frozen adapter.",
              "", "The immutable model source records are available from the publishers: [Qwen model card](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) and [Mistral model card](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3). Actual execution is established by the experiment's raw inference artifacts, not by model-card claims.",
+             "", "The qualifying pilot exposed numeric success fields in some judge outputs. The frozen protocol treats model schema mistakes as outcomes when the infrastructure preserves and classifies them correctly. Accordingly, no semantic parser coercion, revised judge instruction, changed token budget, or selective retry was introduced after pilot inspection. This preserved prospective decision rules while narrowing the interpretation of the judge comparison. The final malformed-response counts quantify that limitation.",
              "", "### 3.5 Metrics, uncertainty, and decision rules", "",
              "FSAR is the proportion of all imposed invalid states accepted as successful; TSAR is acceptance among valid states; APAR is acceptance among alternate-valid states; CVMR is acceptance among collateral-invalid states. The same units are scored by each evaluator. Malformed model JSON counts as rejection and remains in the denominator. The default exclusion count is zero; infrastructure absence cannot be replaced by a synthetic decision.",
              "", "The primary effect is FSAR(judge) minus FSAR(deterministic). The frozen primary 95% interval uses 10,000 paired bootstrap resamples within each task template. An exact two-sided McNemar test provides a secondary paired check. A template-cluster bootstrap samples 20 templates with replacement as a prespecified robustness diagnostic; it acknowledges dependence among parameterized cases.",
@@ -91,6 +106,7 @@ def build(run_dir):
     for name in ("self_report", "judge", "det"):
         parts.append("| " + name + " | " + " | ".join(proportion(metrics[name][key]) for key in ("FSAR", "TSAR", "APAR", "CVMR")) + " |")
     parts += ["", f"Paired FSAR difference: {result['delta_FSAR']:.4f}; primary stratified bootstrap 95% interval [{ci[0]:.4f}, {ci[1]:.4f}]. Template-cluster diagnostic 95% interval [{cluster[0]:.4f}, {cluster[1]:.4f}]. Exact McNemar two-sided p={result['mcnemar']['two_sided_p']:.6g}, with {result['mcnemar']['judge_only_false_accepts']} judge-only and {result['mcnemar']['det_only_false_accepts']} verifier-only false acceptances. Judge/verifier decisions disagreed on {result['disagreement_count']}/400 units.",
+              "", f"Primary judge finish reasons: {dict(judge_finish_reasons)}. Malformed response types: {dict(malformed_kinds)}. The frozen decision contract rejects malformed output. Thus a low judge FSAR can reflect schema noncompliance or conservative rejection as well as correct semantic assessment. The judge's valid-state acceptance and malformed counts must be considered with its invalid-state rejection rate; low FSAR alone does not establish a capable evaluator. Numeric success values are not retrospectively coerced to booleans, and no malformed unit is removed from the primary denominator.",
               "", "These statistics describe a fixed stress distribution. The deterministic zero-error rate, if observed, follows the implemented ground-truth predicates and should not be presented as an independent validation of universal oracle correctness.",
               "", "### 4.3 Family and condition diagnostics", "",
               "| Task family | Judge FSAR | Verifier FSAR | Judge CVMR | Verifier CVMR |", "|---|---:|---:|---:|---:|"]
@@ -103,7 +119,7 @@ def build(run_dir):
         parts.append(f"| {condition} | {len(subset)} | {sum(row['judge'] for row in subset)} | {sum(row['det'] for row in subset)} | {sum(row['self_report'] for row in subset)} |")
     parts += ["", "### 4.4 Natural state and full-state judge diagnostic", "",
               f"Before imposed state projection, genuine model-proposed assignments completed {result['natural_success_count']}/400 natural task instances ({result['natural_success_count']/400:.1%}). This is an action-state completion measure on easy parameterized templates. Its denominator is not pooled with controlled-stress acceptance rates, and the post-intervention completion claim does not describe natural-state outcomes.",
-              "", f"The {diag['n']}-case full-state diagnostic was selected before inference. On this same subset, primary judge collateral acceptance was {proportion(diag['primary_judge']['CVMR'])}; full-state judge collateral acceptance was {proportion(diag['full_state_judge']['CVMR'])}. Primary judge valid-state acceptance was {proportion(diag['primary_judge']['TSAR'])}; full-state judge valid-state acceptance was {proportion(diag['full_state_judge']['TSAR'])}. These matched descriptive comparisons assess the role of observation access. They are not a second primary test and cannot change failed discovery gates.",
+              "", f"The {diag['n']}-case full-state diagnostic was selected before inference. On this same subset, primary judge collateral acceptance was {proportion(diag['primary_judge']['CVMR'])}; full-state judge collateral acceptance was {proportion(diag['full_state_judge']['CVMR'])}. Primary judge valid-state acceptance was {proportion(diag['primary_judge']['TSAR'])}; full-state judge valid-state acceptance was {proportion(diag['full_state_judge']['TSAR'])}. The full-state diagnostic contained {diagnostic_malformed}/{diag['n']} malformed responses, which also count as rejections. These matched descriptive comparisons assess the role of observation access only to the extent permitted by model schema adherence. They are not a second primary test and cannot change failed discovery gates.",
               "", "### 4.5 Frozen gates and research-question decisions", "",
               "| Gate | Result |", "|---|---|"]
     parts += [f"| {name} | {'PASS' if value else 'FAIL'} |" for name, value in gates.items()]
@@ -169,6 +185,13 @@ def build(run_dir):
         "report_sha256": file_hash(out / "PRAXIS_REPORT.md"), "classification": result["classification"],
         "tables": {path.name: file_hash(path) for path in table_dir.glob("*.csv")}}
     (out / "PROVENANCE.json").write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
+    (ROOT / "CURRENT_STATUS.md").write_text(
+        f"# Final Praxis 001 current execution status\n\n**Completed: {result['classification']}.** All 400 discovery units and the 40-case full-state judge diagnostic have real model output and passed independent artifact verification.\n\n"
+        f"Judge invalid-state acceptance: {proportion(j)}. Deterministic invalid-state acceptance: {proportion(d)}. Primary paired FSAR interval: {ci}. Failed frozen gates: {failed}.\n\n"
+        f"Primary judge malformed outputs: {result['malformed_counts']['judge_malformed']}/400; full-state judge malformed outputs: {diagnostic_malformed}/40. These are rejection outcomes under the unchanged frozen parser and must not be interpreted as successful semantic evaluation.\n\n"
+        f"Protocol: `{result['protocol_sha256']}`. Evidence run: `{relative}`. Full five-chapter Praxis report: `paper/PRAXIS_REPORT.md`.\n\n"
+        "The 16-case v2 pilot and historical v1 pilot do not enter scientific denominators. Imposed state corruption is separate from natural agent action-state performance. No replication or general safety claim is made.\n",
+        encoding="utf-8")
     return out / "PRAXIS_REPORT.md"
 
 if __name__ == "__main__":

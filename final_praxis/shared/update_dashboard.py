@@ -16,12 +16,14 @@ def main():
     p.add_argument("--evidence")
     p.add_argument("--next")
     p.add_argument("--report")
+    p.add_argument("--pdf")
+    p.add_argument("--docx")
     p.add_argument("--scientifically-complete", action="store_true")
     args = p.parse_args()
     data = json.loads((ROOT / "status.json").read_text(encoding="utf-8"))
     for experiment in data["experiments"]:
         if experiment["id"] == args.id:
-            for key in ["status", "evidence", "next", "report"]:
+            for key in ["status", "evidence", "next", "report", "pdf", "docx"]:
                 value = getattr(args, key)
                 if value is not None:
                     experiment[key] = value
@@ -33,7 +35,8 @@ def main():
     cards = []
     rows = []
     for e in data["experiments"]:
-        report = '<a href="' + html.escape(e["report"], quote=True) + '">Read verified report</a>' if e.get("report") else ""
+        links = [("pdf", "PDF report"), ("docx", "Word report"), ("report", "Methods and results")]
+        report = ' | '.join('<a href="' + html.escape(e[key], quote=True) + '">' + label + '</a>' for key, label in links if e.get(key))
         cards.append('<article><div class="eyebrow">Final Praxis ' + e["id"] + '</div><h2>' + html.escape(e["title"]) + '</h2><span class="status">' + html.escape(e["status"]) + '</span><p>' + html.escape(e["evidence"]) + '</p><p class="muted">' + html.escape(e["next"]) + '</p>' + report + '</article>')
         link = f'[Report](final_praxis/{e["report"]})' if e.get("report") else "Pending"
         rows.append(f'| **{e["id"]} - {e["title"]}** | {e["status"]} | {e["evidence"]} | {e["next"]} | {link} |')

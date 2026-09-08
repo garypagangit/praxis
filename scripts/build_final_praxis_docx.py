@@ -174,7 +174,7 @@ def diagram_from_mermaid(source,path):
     import matplotlib.pyplot as plt
     from matplotlib.patches import FancyBboxPatch
     depth=max(ranks.values())+1;height=min(7.2,max(2.6,depth*.69))
-    fig,ax=plt.subplots(figsize=(6.5,height));ax.set_xlim(0,1);ax.set_ylim(-.2,depth-.1);ax.axis("off")
+    fig,ax=plt.subplots(figsize=(6.5,height));ax.set_xlim(0,1);ax.set_ylim(-.32,depth-.68);ax.axis("off")
     positions={}
     for level in range(depth):
         row=[name for name in nodes if ranks[name]==level]
