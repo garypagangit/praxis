@@ -17,6 +17,7 @@ Raw archives are stored in the project AWS account and require authorized AWS ac
 | 003 | superseded pilot v1 | 7637 | `506011602877b0ee342f7cb79a029698c86d0200071ede7f2e3c9153fb5fdcb1` |
 | 003 | verified pilot v2 | 7862 | `21b2cf2280b2e8ed1caab1cda5597aa7ea08d4118d6d0d3307cf0e108f9584dc` |
 | 001 | discovery agent phase v2 | 3714917 | `781bf335853bc829838b605229aae8d25417c28aba5c3ada3b0418646c2499d7` |
+| 001 | complete discovery v2 | 6118112 | `77a3961864d1207e13d204d80c5fb65dc9fcbc504509f30737595e203a567436` |
 | 002 | complete discovery v1 | 3639711 | `572bef736b087c3a6df172356e6e7557b48511be881e63c14c3f44608c9dd0ce` |
 | 003 | complete discovery v2 | 816217 | `d0280c134ade9d0e1e0d90630386247a7da99aa755d9616653ef575961e60b44` |
 
@@ -33,6 +34,7 @@ Raw archives are stored in the project AWS account and require authorized AWS ac
 - 003 superseded pilot v1: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/003/pilot_v1.zip`
 - 003 verified pilot v2: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/003/pilot_v2.zip`
 - 001 discovery agent phase v2: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/001/discovery_agent_v2.zip`
+- 001 complete discovery v2: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/001/discovery_complete_v2.zip`
 - 002 complete discovery v1: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/002/discovery_v1.zip`
 - 003 complete discovery v2: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/003/discovery_v2.zip`
 

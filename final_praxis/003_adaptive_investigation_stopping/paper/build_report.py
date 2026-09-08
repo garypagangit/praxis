@@ -2,6 +2,7 @@
 import argparse
 import csv
 import json
+from collections import Counter
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -22,6 +23,16 @@ def main():
     target=out/"PRAXIS_REPORT.md"
     if target.exists():raise FileExistsError("Preserve published report; choose a versioned report amendment.")
     arms=analysis["arms"];a4=arms["A4"]
+    review_reasons=Counter()
+    for case in analysis["case_results"]:
+        review_reasons.update({reason for decision in case["arms"]["A4"]["decisions"] for reason in decision["reasons"]})
+    valid_json=0;explicit_abstain=0
+    for row in rows:
+        try:
+            parsed=json.loads(row["raw_response"].strip()).get("disposition","").strip().lower()
+            valid_json+=parsed in ("benign","malicious","abstain")
+            explicit_abstain+=parsed=="abstain"
+        except (ValueError,TypeError,AttributeError):pass
     stages=[]
     for r in range(1,9):
         stage=[row for row in rows if row["round"]==r]
@@ -61,7 +72,7 @@ def main():
     ax.legend();fig.tight_layout();fig.savefig(out/"round_trajectory.png",dpi=180);fig.savefig(out/"round_trajectory.svg");plt.close(fig)
     arm_table="\n".join(f"| {arm} | {s['correct']}/400 ({pct(s['accuracy'])}) | {s['mean_rounds']:.2f} | {pct(s['token_saving'])} | {s['harm_cases']} ({pct(s['harm_rate'])}) | {pct(s['harm_upper_95'])} | {pct(s['review_rate'])} | {pct(s['abstain_rate'])} |" for arm,s in arms.items())
     gates="\n".join(f"| {key} | {'PASS' if passed else 'FAIL'} |" for key,passed in analysis["gates"].items())
-    ni="\n".join(f"- A4 minus {arm}: {pct(v['difference'])}; lower one-sided 97.5% paired-bootstrap bound {pct(v['lower_97_5'])}." for arm,v in analysis["noninferiority"].items())
+    ni="\n".join(f"- A4 minus {arm}: {v['difference']*100:.2f} percentage points; lower one-sided 97.5% paired-bootstrap bound {v['lower_97_5']*100:.2f} percentage points." for arm,v in analysis["noninferiority"].items())
     stage_table="\n".join(f"| {s['round']} | {s['correct']}/400 | {s['abstain']}/400 | {s['tokens']:,} |" for s in stages)
     family_table="\n".join(f"| {family} | {value['n']} | {value['a4_correct']} |" for family,value in analysis["family_breakdown"].items())
     harm_decision="passed" if analysis["gates"]["H4_harm"] else "failed"
@@ -116,7 +127,7 @@ Harm is an incorrect selected endpoint with any later correct response. Preventi
 
 ### Verified outcome
 
-The independent verifier passed all 400 cases and 3,200 unique round records, reproduced policy decisions and counters, and checked protocol/model identities and file hashes. The final classification is **{analysis['classification']}**. Fixture and infrastructure-pilot outputs are separate from these scientific records.
+The unchanged frozen verifier passed in the cloud for all 400 cases and 3,200 unique round records, reproduced policy decisions and counters, and checked protocol/model identities and file hashes. The final classification is **{analysis['classification']}**. Fixture and infrastructure-pilot outputs are separate from these scientific records. A strict local replay stopped on a last-place SciPy beta-quantile equality difference. A separately labelled supplemental replay checked all exact integer, boolean, identity and hash conditions and allowed absolute floating-equality deltas only up to 1e-14; the three actual differences were at most 9.72e-17. All threshold inequalities and gate decisions were unchanged. The strict local failure and supplemental receipt are retained in `paper/evidence`; the frozen cloud PASS is neither overwritten nor represented as a strict local PASS.
 
 | Arm | Correctness | Mean rounds | Token saving vs A1 | Early-stop harm | Harm upper 95% | Reviewed | Abstained |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -135,6 +146,10 @@ The correctness comparisons were:
 {ni}
 
 A4 round saving was {pct(a4['round_saving'])}, with paired 95% interval [{pct(analysis['round_saving_ci_95'][0])}, {pct(analysis['round_saving_ci_95'][1])}]. Token saving was {pct(a4['token_saving'])}, with paired 95% interval [{pct(analysis['token_saving_ci_95'][0])}, {pct(analysis['token_saving_ci_95'][1])}]. Prevention affected {a4['prevented_cases']} of {analysis['degradation_cases']} eligible cases: {pct(a4['prevention_rate'])}. The harm safety gate {harm_decision}. Mandatory failed gates prevent promotion regardless of favorable descriptive metrics; thresholds remain unchanged.
+
+The hypothesis decisions are therefore specific: cost and degradation prevention passed, while correctness non-inferiority, the early-stop harm ceiling and review-rate ceiling failed. The observed phenomenon exceeded its minimum event count. A4 was not equivalent to A2 under the frozen equivalence rule, but that difference is not evidence of a useful safety layer: A4 had lower correctness and greater review burden. A1's zero early-stop harm is structural because the fixed-long endpoint has no later observed round; it does not mean its final classifications were always correct.
+
+All {valid_json:,} model responses used recognized JSON dispositions; {explicit_abstain:,} explicitly abstained. The negative result cannot be attributed to malformed-output parsing. Every case triggered a latest-disposition-flip review before A4 terminated ({review_reasons['latest_disposition_flip']}/400); the frozen rule counts transitions from abstention into a supported disposition as flips. Additional overlapping triggers included abstention in {review_reasons['abstention']} cases, protected status in {review_reasons['protected_high_impact']}, and low evidence completeness in {review_reasons['low_evidence_completeness']}. Thus the review rule charged useful resolution of uncertainty as well as possible degradation, explaining why every case consumed review. This is a limitation of the frozen policy definition; it was not relaxed after observing results.
 
 ### Stage and family structure
 
@@ -164,7 +179,7 @@ Future work can evaluate expert-labelled staged incidents, independently selecte
 
 ## References
 
-1. Sun et al. *Stop When Enough: Adaptive Early-Stopping for Chain-of-Thought Reasoning*. 2025/2026. https://arxiv.org/abs/2510.10103
+1. Sun et al. *Stop When Enough: Adaptive Early-Stopping for Chain-of-Thought Reasoning*. 2025. https://arxiv.org/abs/2510.10103
 2. Zhou et al. *Adaptive Stopping for Multi-Turn LLM Reasoning*. 2026. https://arxiv.org/abs/2604.01413
 3. Begimher et al. *SIR-Bench: Evaluating Investigation Depth in Security Incident Response Agents*. 2026. https://arxiv.org/html/2604.12040v1
 4. NVIDIA. *Vulnerability analysis blueprint: test-time compute and early stopping*. Inspected 2026-09-08. https://github.com/NVIDIA-AI-Blueprints/vulnerability-analysis

@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "reviewed_utc": "2026-09-08T22:13:48.264331+00:00",
+  "review_kind": "Independent bounded numerical and claim consistency review",
+  "verified_cases": 400,
+  "verified_rounds": 3200,
+  "unique_generation_ids": 3200,
+  "raw_sha256": "13a97bf948a7baf5f55fe7929e0cf4b05fea3fefb2117b08e0795702ba79871c",
+  "analysis_sha256": "aef795a2990ab6764aacd7e1b477a64bc96a52dd062467a32156d2797a574243",
+  "report_sha256_at_review": "37f0e587d0db63141165661b3fa1df1542f507a116425706bd24e1234b918ced",
+  "classification": "Negative",
+  "method": "Reconstructed all four policy endpoints directly from raw dispositions and public review metadata, without importing production policy or evaluation functions. Independently checked actor/asset/inclusive-time ground truth, JSON disposition validity, token addition, selected endpoints, correctness, harmful-stop indicators, prevention, review, abstention and every stage table count against archived analysis.",
+  "exact_counter_checks": "PASS",
+  "degradation_events": 100,
+  "degradation_cases": 97,
+  "arms": {
+    "A0": {
+      "correct": 76,
+      "harm_cases": 225,
+      "prevented_cases": 42,
+      "mean_rounds": 2.0,
+      "total_tokens": 211678,
+      "review_rate": 0.0,
+      "abstain_rate": 0.72
+    },
+    "A1": {
+      "correct": 217,
+      "harm_cases": 0,
+      "prevented_cases": 0,
+      "mean_rounds": 8.0,
+      "total_tokens": 1424895,
+      "review_rate": 0.0,
+      "abstain_rate": 0.0
+    },
+    "A2": {
+      "correct": 226,
+      "harm_cases": 37,
+      "prevented_cases": 48,
+      "mean_rounds": 5.79,
+      "total_tokens": 903417,
+      "review_rate": 0.0,
+      "abstain_rate": 0.0
+    },
+    "A4": {
+      "correct": 138,
+      "harm_cases": 34,
+      "prevented_cases": 39,
+      "mean_rounds": 6.1325,
+      "total_tokens": 982810,
+      "review_rate": 1.0,
+      "abstain_rate": 0.34
+    }
+  },
+  "review_triggers": {
+    "latest_disposition_flip": 400,
+    "protected_high_impact": 40,
+    "abstention": 288,
+    "low_evidence_completeness": 40
+  },
+  "raw_token_count": 1424895,
+  "float_check": {
+    "scope": "Per-arm one-sided Clopper-Pearson harm upper bounds only",
+    "absolute_tolerance": 1e-14,
+    "thresholds_changed": false
+  },
+  "claim_checks": [
+    "Savings are counterfactual policy-prefix costs; collection used all 3,200 rounds.",
+    "Harm means an incorrect selected endpoint with a later correct frozen response, including early abstention; it is not actual harmful-action execution.",
+    "A1 zero early-stop harm is structural because no later round exists.",
+    "Prevention counts avoiding any later incorrect response; it does not require the final round to remain incorrect.",
+    "A4 is not superior to A2: it has lower correctness, greater token use, more rounds and universal review.",
+    "Generated template dependence and one-model scope remain explicit."
+  ],
+  "citation_check": {
+    "REFRAIN": "Primary arXiv 2510.10103 confirms Sun et al., 11 Oct 2025; suggested unambiguous 2025 date to report owner.",
+    "MiCP": "Primary arXiv 2604.01413 confirms Zhou et al., 2026.",
+    "SIR_Bench": "Primary arXiv 2604.12040 confirms Begimher et al., 2026.",
+    "NVIDIA": "Official vulnerability-analysis repository documents early_stop_threshold based on consecutive identical justification statuses."
+  },
+  "scope_note": "This receipt supplements the frozen cloud audit; it neither replaces the retained strict local floating-equality failure nor changes the frozen protocol or any scientific outcome."
+}
