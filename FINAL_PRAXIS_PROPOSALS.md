@@ -5,35 +5,36 @@ Branch: `Final-Praxis-Proposals`
 
 ## Portfolio Dashboard
 
-| Final Praxis | Working title | Status | Scientific position | Next executable gate |
+| Final Praxis | Working title | Current status | Completed without external compute | Remaining blocker |
 |---|---|---|---|---|
-| **Final Praxis 001** | Independent Outcome-State Verification for Agent Task Completion Under Evaluator Disagreement | **GATE 0-2 COMPLETE; GATE 3 DESIGN FROZEN; BLOCKED ON EXTERNAL MODEL COMPUTE** | No scientific result yet. 140/140 inert fixtures passed with deterministic hash `fab1d1fc72946935d58db7875744a192996fd7eee08ea3b9d9900de38b68a3ec`. Discovery is frozen at 400 paired units. Primary agent is `Qwen/Qwen2.5-7B-Instruct`; replication model is `mistralai/Mistral-7B-Instruct-v0.3`. | Bind a real Qwen inference adapter and a distinct real judge adapter, run <=16-unit infrastructure pilot, then execute the frozen 400-unit discovery and independent verification. Synthetic scientific fallback is prohibited. |
-| **Final Praxis 002** | Deterministic Trust-Boundary Containment for Multi-Agent Security Workflows | **NOVELTY GATE NEXT** | Architecture alone is not novel; contribution must be measured cascade containment. | Complete closest-work kill/go matrix, then freeze cascade experiment. |
-| **Final Praxis 003** | Safety-Gated Adaptive Investigation Stopping for Agentic Security Triage | **CONDITIONAL / METHODS GATE NEXT** | Generic stopping is crowded; only security-specific stopping with corrected preregistered safety protocol is viable. | Freeze calibration/review sample-size and anti-leakage policy before any compute. |
+| **Final Praxis 001** | Independent Outcome-State Verification for Agent Task Completion Under Evaluator Disagreement | **READY FOR REAL-MODEL PILOT / EXTERNALLY COMPUTE-BLOCKED** | Novelty rescope; frozen preregistration; 20-task catalog; 400-unit design; executable inert harness; **140/140 fixture PASS**; stable fixture SHA-256 `fab1d1fc72946935d58db7875744a192996fd7eee08ea3b9d9900de38b68a3ec`; primary Qwen and Mistral replication plan; fail-closed scientific runner. | Real `Qwen/Qwen2.5-7B-Instruct` inference adapter plus a distinct real judge endpoint; then <=16-unit pilot, 400-unit discovery, independent verification and classification. |
+| **Final Praxis 002** | Deterministic Trust-Boundary Containment for Multi-Agent Security Workflows | **NOVELTY PASS WITH NARROW CLAIM / DESIGN FROZEN / BUILD READY** | Closest-work pressure test; stage-attributed cascade novelty sentence; 4 arms; 6 frozen error families; 480-run paired design; CER/utility/propagation-depth gates; implementation specification and deterministic fixture requirement. | Implement 144+ fixture harness, then real multi-agent model execution. Scientific evidence ultimately requires external model compute. |
+| **Final Praxis 003** | Safety-Gated Adaptive Investigation Stopping for Agentic Security Triage | **METHODS GATE CONDITIONAL PASS / DESIGN FROZEN / BUILD READY** | Generic-stopping novelty excluded; policy-independence rules; 400-case discovery size; code-enforced STOP/CONTINUE/REVIEW semantics; harm upper-bound gate; prevention/compute/non-inferiority thresholds; implementation specification. | Build 80+ trace fixtures and freeze a 400-case staged-evidence corpus; real eight-round model traces then require external model compute. |
 
-## Final Praxis 001 completed work
+## Final ranking
 
-- Gate 0: **PASS WITH RESCOPE** — final-state evaluation itself is not the novelty; evaluator-integrity disagreement is.
-- Gate 1: **DESIGN FROZEN** — 20 tasks, 140 fixture minimum, 400 primary scientific units, paired FSAR primary endpoint, fixed utility/security gates.
-- Gate 2: **PASS** — executable inert harness and deterministic verifier; 140/140 fixtures passed and replay hash is stable.
-- Gate 3 design: **FROZEN** — primary/replication models, allocation seed, generation policy, pilot constraints and fail-closed scientific runner committed.
+1. **Final Praxis 001** — nearest to scientific execution and still the cleanest falsifiable candidate.
+2. **Final Praxis 002** — strongest flagship upside if stage-attributed cascade behavior exists; design now protects against the final-action-gate-only explanation.
+3. **Final Praxis 003** — viable only under the corrected safety protocol; no historical adaptive-stopping result is inherited.
 
-### Important boundary
+## Scientific truth status
 
-This environment can edit/read the GitHub repository and run local deterministic code, but it does **not** expose the repository's AWS/cloud credentials or an external LLM inference endpoint. Therefore I cannot truthfully execute the Qwen/judge pilot or 400-unit scientific run from this chat. Final Praxis 001 is **externally compute-blocked**, not complete and not positive/negative.
+**None of the three Final Praxis experiments currently has a scientific positive/negative result.** Final Praxis 001 has passed its deterministic infrastructure gate; 002 and 003 have passed the design/novelty/methods work needed to justify builds. Real model inference is required before any final scientific classification.
 
-Key artifacts:
-- `final_praxis/001_outcome_state_verification/001_GATE3_MODEL_AND_EXECUTION_FREEZE_20260908.md`
-- `final_praxis/001_outcome_state_verification/configs/experiment.json`
-- `final_praxis/001_outcome_state_verification/harness/run_scientific.py`
-- all Gate 0-2 design, fixture, verifier and audit artifacts in the same folder.
+## What has been deliberately prevented
 
-## Portfolio priority while 001 is compute-blocked
+- no synthetic LLM decisions substituted for scientific evidence;
+- no historical PX-057 numbers promoted into Final Praxis 003;
+- no claim that deterministic final-state evaluation itself is novel in Final Praxis 001;
+- no claim that trust-boundary architecture itself is novel in Final Praxis 002;
+- no moving promotion thresholds after observing discovery results.
 
-1. **Final Praxis 002** — run novelty kill/go and design gates now; no model compute is needed for these steps.
-2. **Final Praxis 003** — complete methods/sample-size gate now; no model compute is needed for these steps.
-3. Return to **Final Praxis 001** as soon as a real inference adapter/cloud execution path is available.
+## Execution order when compute is available
 
-## Common rule
+1. Final Praxis 001 real-model pilot -> 400-unit discovery -> independent verification -> classify.
+2. Final Praxis 002 deterministic fixture harness -> real 480-run paired discovery -> verify -> classify.
+3. Final Praxis 003 trace fixture harness + frozen staged corpus -> real 400-case eight-round traces -> verify safety gates -> classify.
 
-Never substitute synthetic model decisions for a scientific run merely to mark an experiment complete. Classification remains Positive / Bounded Positive / Mixed / Negative / Protocol Invalid / Blocked based only on frozen real evidence.
+## Completion rule
+
+A proposal is scientifically complete only after its frozen real-model discovery and independent verification. Until then its dashboard status must remain `READY`, `BUILD READY`, or `BLOCKED`, never Positive/Negative.
