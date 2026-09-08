@@ -1,0 +1,31 @@
+{
+  "experiment_id": "Final-Praxis-002",
+  "protocol_version": "002-v1-20260908",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "model_precision": "bfloat16",
+  "quantization": "none",
+  "attention": "sdpa",
+  "require_runtime_metadata": true,
+  "seed": 20260908,
+  "temperature": 0.0,
+  "max_new_tokens": 256,
+  "concurrency": 8,
+  "max_infrastructure_retries": 2,
+  "arms": ["A0", "A1", "A2", "A3"],
+  "primary_workflow_runs": 480,
+  "matched_cases": 120,
+  "pilot_case_ids": ["B001-C", "B001-I", "B011-C", "B011-I"],
+  "bootstrap_resamples": 20000,
+  "bootstrap_seed": 20260908,
+  "promotion": {
+    "cer_relative_reduction": 0.5,
+    "cer_absolute_reduction": 0.15,
+    "clean_success_floor": 0.90,
+    "max_clean_utility_loss": 0.05,
+    "minimum_improved_families": 4,
+    "handoff_vs_final_cer_reduction": 0.05,
+    "ungated_cer_floor": 0.10
+  },
+  "synthetic_scientific_fallback_allowed": false
+}

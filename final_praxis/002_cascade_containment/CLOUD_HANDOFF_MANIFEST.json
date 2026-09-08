@@ -1,0 +1,61 @@
+{
+  "id": "final-praxis-002",
+  "name": "Cascade containment",
+  "created": "2026-09-08",
+  "updated": "2026-09-08T21:52:22+00:00",
+  "status": "Discovery running",
+  "posture": "in_progress",
+  "owner": "garyp",
+  "hypothesis": "Deterministic handoff and final-action boundaries contain induced multi-agent errors while preserving clean utility and changing propagation beyond a final-action gate alone.",
+  "falsification_criteria": [
+    "Apply every numeric promotion/kill threshold in the frozen preregistration.",
+    "Missing raw records, identity/hash mismatch or unverifiable evidence prevents scientific classification."
+  ],
+  "datasets": [
+    {
+      "id": "final-praxis-002-frozen-generated-corpus",
+      "local_paths": [
+        "final_praxis/002_cascade_containment/configs/"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/code/"
+      ],
+      "label_requirements": "Frozen deterministic labels for transparently generated inert scenarios; no external incident population is claimed."
+    }
+  ],
+  "code": {
+    "entrypoints": [
+      "final_praxis/002_cascade_containment/harness/"
+    ],
+    "configs": [
+      "final_praxis/002_cascade_containment/FROZEN_PROTOCOL.json",
+      "final_praxis/002_cascade_containment/PREREGISTRATION_v1.md"
+    ],
+    "tests": [
+      "final_praxis/002_cascade_containment/FIXTURE_GATE.md"
+    ],
+    "cloud_jobs": [
+      "final_praxis/shared/"
+    ]
+  },
+  "artifact_policy": {
+    "commit_lightweight_paths": [
+      "final_praxis/002_cascade_containment/",
+      "final_praxis/status.json",
+      "FINAL_PRAXIS_PROPOSALS.md"
+    ],
+    "do_not_commit_paths": [
+      "final_praxis/002_cascade_containment/runs/",
+      "final_praxis/002_cascade_containment/artifacts/discovery/",
+      "final_praxis/002_cascade_containment/artifacts/pilot/"
+    ],
+    "s3_output_prefix": "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/002/"
+  },
+  "current_decision": "Discovery running",
+  "next_action": "Complete 480 frozen workflows, independently verify raw outputs, then classify.",
+  "cloud_startup_notes": [
+    "Read FINAL_PRAXIS_EXECUTION_RUNBOOK.md and execution/20260908/EXECUTION_PLAN.md.",
+    "Retrieve exact source bundles and raw evidence from the recorded S3 prefix; never regenerate frozen inputs silently.",
+    "Do not overwrite completed runs, alter frozen thresholds, or count pilots/fixtures as scientific results."
+  ]
+}

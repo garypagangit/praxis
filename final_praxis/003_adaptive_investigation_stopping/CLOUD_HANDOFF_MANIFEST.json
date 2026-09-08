@@ -1,0 +1,61 @@
+{
+  "id": "final-praxis-003",
+  "name": "Adaptive investigation stopping",
+  "created": "2026-09-08",
+  "updated": "2026-09-08T21:52:22+00:00",
+  "status": "Discovery running",
+  "posture": "in_progress",
+  "owner": "garyp",
+  "hypothesis": "Mechanically reviewed stability stopping preserves utility, prevents degradation and saves counterfactual investigation cost under frozen harm and review gates.",
+  "falsification_criteria": [
+    "Apply every numeric promotion/kill threshold in the frozen preregistration.",
+    "Missing raw records, identity/hash mismatch or unverifiable evidence prevents scientific classification."
+  ],
+  "datasets": [
+    {
+      "id": "final-praxis-003-frozen-generated-corpus",
+      "local_paths": [
+        "final_praxis/003_adaptive_investigation_stopping/configs/"
+      ],
+      "s3_prefixes": [
+        "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/code/"
+      ],
+      "label_requirements": "Frozen deterministic labels for transparently generated inert scenarios; no external incident population is claimed."
+    }
+  ],
+  "code": {
+    "entrypoints": [
+      "final_praxis/003_adaptive_investigation_stopping/harness/"
+    ],
+    "configs": [
+      "final_praxis/003_adaptive_investigation_stopping/FROZEN_PROTOCOL.json",
+      "final_praxis/003_adaptive_investigation_stopping/PREREGISTRATION_v1.md"
+    ],
+    "tests": [
+      "final_praxis/003_adaptive_investigation_stopping/FIXTURE_GATE.md"
+    ],
+    "cloud_jobs": [
+      "final_praxis/shared/"
+    ]
+  },
+  "artifact_policy": {
+    "commit_lightweight_paths": [
+      "final_praxis/003_adaptive_investigation_stopping/",
+      "final_praxis/status.json",
+      "FINAL_PRAXIS_PROPOSALS.md"
+    ],
+    "do_not_commit_paths": [
+      "final_praxis/003_adaptive_investigation_stopping/runs/",
+      "final_praxis/003_adaptive_investigation_stopping/artifacts/discovery/",
+      "final_praxis/003_adaptive_investigation_stopping/artifacts/pilot/"
+    ],
+    "s3_output_prefix": "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260908/003/"
+  },
+  "current_decision": "Discovery running",
+  "next_action": "Collect all 400 cases / 3,200 rounds, then independently verify safety and utility gates.",
+  "cloud_startup_notes": [
+    "Read FINAL_PRAXIS_EXECUTION_RUNBOOK.md and execution/20260908/EXECUTION_PLAN.md.",
+    "Retrieve exact source bundles and raw evidence from the recorded S3 prefix; never regenerate frozen inputs silently.",
+    "Do not overwrite completed runs, alter frozen thresholds, or count pilots/fixtures as scientific results."
+  ]
+}
