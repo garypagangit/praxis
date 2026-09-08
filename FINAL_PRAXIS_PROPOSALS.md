@@ -13,29 +13,38 @@ This branch contains the three final Praxis candidates selected for rigorous com
 
 | Final Praxis | Working title | Status | Novelty position | Frozen/next gate |
 |---|---|---|---|---|
-| **Final Praxis 001** | Independent Outcome-State Verification for Agent Task Completion Under Evaluator Disagreement | **GATE 1 DESIGN FROZEN / GATE 2 BUILD READY** | Broad final-state evaluation is not novel. Surviving contribution is controlled evaluation-integrity measurement: judge false-success acceptance vs authoritative postcondition truth, including alternate-valid solutions and collateral-state violations. | **Frozen:** 20 task templates, 140 fixture minimum, 400 primary scientific units (+40 admitted-failure controls if budget permits), paired FSAR analysis, TSAR/APAR/CVMR floors and kill rules. **Next:** implement inert harness and pass all fixtures before any scientific model output is inspected. |
+| **Final Praxis 001** | Independent Outcome-State Verification for Agent Task Completion Under Evaluator Disagreement | **GATE 2 FIXTURE PASS / GATE 3 ADAPTER PREP** | Broad final-state evaluation is not novel. Surviving contribution is controlled evaluation-integrity measurement: judge false-success acceptance vs authoritative postcondition truth, including alternate-valid solutions and collateral-state violations. | **Passed:** executable inert harness, 20 task templates, 140/140 fixture validation, deterministic replay hash `fab1d1fc...b68a3ec`. **Frozen scientific design:** 400 primary units (+40 admitted-failure controls if budget permits), paired FSAR analysis, TSAR/APAR/CVMR gates. **Next:** freeze agent/judge model adapters and run an infrastructure-only end-to-end pilot before the 400-unit discovery run. |
 | **Final Praxis 002** | Deterministic Trust-Boundary Containment for Multi-Agent Security Workflows | **GO after novelty gate** | Architecture alone is not novel. Contribution must be measured cascade containment across probabilistic-agent handoffs. | Complete closest-work matrix; freeze cascade definitions, baselines, utility budget and kill criteria. |
 | **Final Praxis 003** | Safety-Gated Adaptive Investigation Stopping for Agentic Security Triage | **CONDITIONAL GO** | Generic stopping is crowded. Novelty must be security-investigation termination plus preregistered safety decomposition and mechanically enforced review gate. | Calculate calibration/review sample size; freeze policy independently of prior protocol-invalid/descriptive outcomes. |
 
-## Final Praxis 001 — completed design steps
+## Final Praxis 001 — completed gates
 
 - **Gate 0:** PASS WITH RESCOPE.
-- **Gate 1A task design:** 20 frozen inert templates across file/workspace, record/database, configuration, and multi-object workflow state.
-- **Gate 1B fixture design:** seven required state/claim families per task = 140 minimum infrastructure fixtures.
-- **Gate 1C discovery design:** 400 primary paired evaluator units: 200 valid-success and 200 invalid-success; optional 40 admitted-failure controls.
-- **Gate 1D promotion contract:** primary paired FSAR reduction plus TSAR >= .95, APAR >= .90, collateral improvement in >=3/4 families, non-trivial judge FSAR >= .10, and complete audit validity.
-- **Gate 2 specification:** inert local JSON/SQLite environment, deterministic verifier, frozen judge interface, immutable raw artifacts, and independent recomputation.
+- **Gate 1:** DESIGN FROZEN.
+  - 20 inert task templates across four task families.
+  - Seven required state/claim fixture classes per task.
+  - 400 primary discovery units: 200 valid-success + 200 invalid-success; optional 40 admitted-failure controls.
+  - Frozen promotion contract: paired FSAR reduction, TSAR >= .95, APAR >= .90, collateral improvement in >=3/4 families, primary judge FSAR >= .10, full audit validity.
+- **Gate 2:** FIXTURE/VERIFIER PASS.
+  - 140/140 fixtures passed.
+  - Repeated fixture generation produced identical SHA-256 `fab1d1fc72946935d58db7875744a192996fd7eee08ea3b9d9900de38b68a3ec`.
+  - Deterministic replay reproduced stored verifier outcomes.
+  - Scientific runner fails closed without fixture gate marker.
 
-Current artifacts:
+## Final Praxis 001 current artifacts
+
 - `final_praxis/001_outcome_state_verification/001_NOVELTY_GATE_20260908.md`
 - `final_praxis/001_outcome_state_verification/001_PREREGISTRATION_DRAFT_20260908.md`
 - `final_praxis/001_outcome_state_verification/001_FROZEN_TASK_CATALOG_20260908.md`
 - `final_praxis/001_outcome_state_verification/001_SAMPLE_SIZE_AND_FROZEN_GATES_20260908.md`
 - `final_praxis/001_outcome_state_verification/001_IMPLEMENTATION_SPEC_20260908.md`
+- `final_praxis/001_outcome_state_verification/001_GATE2_FIXTURE_DETERMINATION_20260908.md`
+- `final_praxis/001_outcome_state_verification/harness/`
+- `final_praxis/001_outcome_state_verification/artifacts/fixtures/FIXTURE_GATE_PASS`
 
 ## Ranking
 
-1. **Final Praxis 001** — best probability of a clean, falsifiable result; now implementation-ready.
+1. **Final Praxis 001** — strongest clean-result candidate; infrastructure gate has passed and the next risk is real evaluator/agent behavior, not harness correctness.
 2. **Final Praxis 002** — highest flagship upside; novelty gate remains mandatory before build.
 3. **Final Praxis 003** — promising only if corrected protocol and anti-leakage controls clear before compute.
 
