@@ -245,7 +245,7 @@ def solve_issue(issue, base, calls, output):
                 events.append(event)
                 break
             remaining = MAX_CONTEXT_CHARS-context_size(messages)-512
-            result = access.dispatch(action, cap=min(MAX_RESPONSE_CHARS,remaining))
+            result = access.dispatch(action, cap=min(MAX_RESPONSE_CHARS-128,remaining))
             result["responses_remaining"] = MAX_TURNS-turn
             event["status"], event["operation_result"] = "source_access", result
         except Exception as exc:
