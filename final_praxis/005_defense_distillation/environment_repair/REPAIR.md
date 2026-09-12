@@ -1,0 +1,22 @@
+# 005 environment-only evaluation repair
+
+The experiment is resumable without retraining. The saved failure trace shows all five 160-example generations and all three training stages completed, followed by 640 Qwen judgments. MD-Judge's three weight shards loaded successfully. Its tokenizer then failed because Transformers' LlamaConverter could not import protobuf. No MD inference progress appears before failure. This is a missing environment dependency, not a scientific null or evidence against the models.
+
+Original code commit: `37fdd3f154a78017f9eb313385e25379c36affde`. Original immutable MD checkpoint: `OpenSafetyLab/MD-Judge-v0.1` at `993302ce502a634b64a1cb8be95b6729d4d27b13`. Preserve all original study source, preregistration, protocol identity, prompts, tokenizer settings, decoding limits, generations, adapters and Qwen judgments. Do not replace MD-Judge or switch to a slow tokenizer to avoid this dependency.
+
+Install only `protobuf==5.29.5` with `--no-deps --only-binary=:all: --require-hashes -r requirements-repair.txt`. The [official PyPI release](https://pypi.org/project/protobuf/5.29.5/) supports Python >=3.8 and declares no dependencies; the pinned Linux x86-64 ABI3 wheel is compatible with this Python3.10 host. The [Transformers4.51.3 converter implementation](https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/convert_slow_tokenizer.py) requires the protobuf backend used by this tokenizer. This pin is a compatibility repair, not a recommendation to upgrade unrelated packages. The adjacent PyPI receipt records the wheel metadata and SHA256 `63848923da3325e1bf7e9003d680ce6e14b07e55d0473253a690c3a8b8fd6e61`.
+
+Run a fresh **CPU tokenizer-only** qualification from the already downloaded, pinned MD cache with `trust_remote_code=False`, then these exact original commands:
+
+```
+/mnt/praxis-20260912-005/venv/bin/python /mnt/praxis-20260912-005/fp005-20260912-37fdd3f/code/final_praxis/005_defense_distillation/run.py judge --judge md --out /mnt/praxis-20260912-005/fp005-20260912-37fdd3f/outputs
+/mnt/praxis-20260912-005/venv/bin/python /mnt/praxis-20260912-005/fp005-20260912-37fdd3f/code/final_praxis/005_defense_distillation/run.py report --out /mnt/praxis-20260912-005/fp005-20260912-37fdd3f/outputs
+```
+
+The CLI stage is **report**, not analyze. Do not run `all`, `train`, `evaluate`, or `judge --judge qwen`. The original MD judge resumes by existing `(arm,id)` records and checks protocol identity. The report verifies all arms/judges and generates the original automated provisional summary and blinded manual-review queue. An automated summary still requires manual adjudication and retains the novelty/truncation limitations.
+
+`resume_evaluation.py` implements only this sequence. Without `--execute` it prints the plan and makes no model/cloud/package calls. With `--execute` it requires the original Linux venv, validates every original bundle source hash, snapshots generation/checkpoint/teacher/Qwen hashes, saves the failed MD environment receipt, installs the single pinned package, verifies the package delta, qualifies the cached tokenizer in a fresh process, and invokes only MD judging then reporting. It checks protected artifact hashes afterward. Its repair receipts live in the original run root under a new `repair_protobuf_*` directory; it does not rewrite the original source or install manifest.
+
+Root must supervise the wrapper against the **original run root** so private S3 synchronization includes the continued outputs. Use a distinct repair systemd unit and new launch receipt, preserving the prior failed driver/supervisor logs before anything replaces them. Keep the original AWS-side stop at **15:55:49 UTC on12September2026**, the guest stop, and the original campaign cap. The wrapper reserves five minutes before that deadline and limits each resumed stage to at most one hour; root's outer supervisor should impose a shorter total bound if necessary. No new GPU instance, endpoint, storage volume, model family, data or paid API is needed. Stop the existing host when repair/report/sync finishes, or if CPU tokenizer qualification fails and no bounded implementation repair is available.
+
+Preparation validation: source/config/judge/CLI read; wheel metadata verified; wrapper plan and pure stage-selection tests run locally. No AWS call, package installation, tokenizer loading or model inference was performed by this triage agent. Actual host qualification remains required before claiming the repair succeeded.
