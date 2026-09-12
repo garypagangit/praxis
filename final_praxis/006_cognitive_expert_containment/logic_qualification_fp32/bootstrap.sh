@@ -14,7 +14,7 @@ export HF_HUB_DISABLE_TELEMETRY=1
 export HF_HUB_DISABLE_XET=1
 export PYTHONUNBUFFERED=1
 mkdir -p "$TMPDIR" "$HF_HOME" "$XDG_CACHE_HOME" "$PIP_CACHE_DIR" "$runroot/outputs"
-study="$runroot/code/final_praxis/006_cognitive_expert_containment/logic_qualification"
+study="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 python3.10 -m venv "$scratch/venv006logic"
 python="$scratch/venv006logic/bin/python"
 # Audit always runs on an inference/setup failure and can never promote an incomplete job.

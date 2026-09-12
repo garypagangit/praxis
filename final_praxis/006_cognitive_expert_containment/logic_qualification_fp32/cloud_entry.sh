@@ -4,7 +4,7 @@ runroot="$1"
 preregsha="$2"
 scratch=/mnt/praxis-20260912-005
 case "$runroot" in "$scratch"/fp006-logic-*) ;; *) exit 70;; esac
-study="$runroot/code/final_praxis/006_cognitive_expert_containment/logic_qualification"
+study="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 "$scratch/venv/bin/python" "$runroot/code/final_praxis/shared_20260912/supervisor.py" \
   --root "$runroot" --run-id "$(basename "$runroot")" --prereg "$study/PREREGISTRATION.md" \
   --prereg-sha256 "$preregsha" --seconds 27000 -- /bin/bash "$study/bootstrap.sh" "$runroot"

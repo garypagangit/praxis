@@ -1,5 +1,7 @@
 # Logic qualification: final automated review
 
+The separately preregistered [FP32 follow-up](../logic_qualification_fp32/STATUS.md) is the active next experiment. This BF16 result remains unchanged.
+
 Run `fp006-logic-5075fe39d3` ended with cloud state **FAILED**. The independently recomputed review is **DO_NOT_ADVANCE_CURRENT_QUALIFICATION**.
 
 **Cohort status:** PARTIAL_OR_INVALID_DESCRIPTIVE_ONLY. **Validated cells:** 0/816.

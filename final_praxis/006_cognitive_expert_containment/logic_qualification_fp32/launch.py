@@ -105,8 +105,22 @@ def main():
         if invocation['Status']!='Success':
             cloud.client('ec2').stop_instances(InstanceIds=[plan['instance']])
             raise RuntimeError('Deployment failed; host stopped. Inspect deployment_result.json')
-        print(json.dumps({'status':'DETACHED_JOB_STARTED','run_id':plan['run_id'],'ssm_status':invocation['Status']}),flush=True)
-        return
+        # A briefly active systemd unit alone does not establish supervisor startup.
+        heartbeat_deadline=time.monotonic()+180
+        s3=cloud.client('s3')
+        while time.monotonic()<heartbeat_deadline:
+            try:
+                response=s3.get_object(Bucket=cloud.BUCKET,Key=cloud.PREFIX+'runs/'+plan['run_id']+'/cloud_status.json')
+                status=json.loads(response['Body'].read())
+                if status.get('run_id')!=plan['run_id'] or status.get('preregistration_sha256')!=plan['prereg_sha256']:
+                    raise ValueError('Supervisor heartbeat identity mismatch')
+                write(directory/'initial_supervisor_status.json',status)
+                print(json.dumps({'status':'SUPERVISOR_HEARTBEAT_VERIFIED','run_id':plan['run_id'],'state':status['state']}),flush=True)
+                return
+            except s3.exceptions.NoSuchKey:
+                time.sleep(10)
+        cloud.client('ec2').stop_instances(InstanceIds=[plan['instance']])
+        raise RuntimeError('Supervisor heartbeat missing after deployment; requested host stop')
     raise TimeoutError('Deployment status unknown; watchdog remains active, inspect SSM before retrying')
 
 if __name__=='__main__': main()
