@@ -1,0 +1,19 @@
+# Bounded runtime review — no inference performed
+
+Reviewed the pinned MiCRo source, Transformers v4.53.2 Llama/cache interfaces, PyTorch v2.7.1 CUDA histogram implementation, and the campaign's `run_study.py` while it was being prepared. This is a static readiness review; no weights or GPU results were used.
+
+1. **Cache handling is structurally sound.** The author stores each expert's K/V under `layer_idx * 4 + expert_idx`, and even an inactive expert updates its K/V during single-token decoding. This preserves its history if later tokens route to it. Keep these updates. Use fresh caches per cell and full-prefix attention masks. The current runner does both. `['logic']` masks router index zero to negative infinity before selection; explicitly passing `[]` restores the intact arm.
+
+2. **Match actual route selection, including ties.** `routing_weights` contains raw logits. The author's float32 softmax followed by `torch.topk(..., 1)` may choose a different tied expert from `argmax`. Instrumentation should repeat that exact selection before counting routes or comparing cached/full routing. This affects diagnostic fidelity, even though either operation excludes the ablated negative-infinity expert.
+
+3. **Avoid a hidden counting synchronization.** [PyTorch v2.7.1 CUDA bincount](https://github.com/pytorch/pytorch/blob/v2.7.1/aten/src/ATen/native/cuda/SummaryOps.cu#L276) computes the maximum with a host `.item()` even when `minlength=4`. Fixed-size `one_hot(selected, num_classes=4).sum(0)` avoids that extra synchronization. Accumulate counts on GPU and copy once per generation. The author implementation already uses dynamic `torch.where` indices per expert, so it has substantial synchronization overhead; measure throughput during the bounded pilot before assuming dense-model speed.
+
+4. **Count processed input tokens.** Prefill and decoding route totals can be separated. Across all 16 groups the total should be `16 * (prompt_tokens + generated_tokens - 1)`: the final emitted stop/EOS token is not subsequently fed into the model. These are processed-input routes, not one routing observation for every emitted token.
+
+5. **Test both portability and caching.** The inspected runner initially compared cached and full SDPA calls, but not eager versus SDPA. Add full-last-token eager/SDPA comparisons under all three conditions, restore SDPA afterward, and log route-selection agreement and router margins as diagnostics. The proposed BF16 max-absolute-logit difference of 0.25 plus identical final top token is a preregistered engineering acceptance rule, not a universal mathematical error bound. Do not relax it after inspecting qualification outputs. Repeated same-shape calls and ablation-reset calls should remain exactly equal.
+
+6. **Use the manual-forward argument name.** `logits_to_keep=1` matches `MiCRoLlama.forward` and prevents a full vocabulary-logit tensor for every prompt position. The author's generation-preparation method uses an inconsistent `num_logits_to_keep` name; the current manual runner avoids that path. Transformers 4.53.2's `LlamaDecoderLayer` returns a tuple, matching the author's `[0]` indexing. Later Transformers versions should not be substituted without a separate compatibility check.
+
+7. **Do not tie embeddings based only on the config flag.** Both embedding and output-head tensors occur independently in the checkpoint. In Transformers 4.53.2, this custom class does not override the output-embedding getter, so standard weight tying is not performed despite the saved flag. The loader's exact total-parameter and shape checks catch accidental changes here.
+
+No fatal cache or ablation defect was identified in the reviewed runner. The portability comparison and exact tie-aware route instrumentation should be in place before freezing and running it.
