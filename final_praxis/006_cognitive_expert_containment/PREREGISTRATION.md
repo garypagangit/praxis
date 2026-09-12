@@ -1,0 +1,15 @@
+# Final Praxis006 — selective cognitive expert containment
+
+User option3. Frozen before model execution on12September2026. The immediate authorized experiment is the bounded qualification in [qualification/PREREG_SMOKE.md](qualification/PREREG_SMOKE.md). The main-method plan below is a research proposal; it is not yet a powered confirmatory experiment.
+
+**Research question.** Can a reliability-conditioned routing intervention prevent one unreliable cognitive expert from overturning correct answers while preserving beneficial corrections and specialist capability?
+
+**Literature basis.** [MiCRo, Mixture of Cognitive Reasoners](https://arxiv.org/html/2506.13331v3) provides learned logic, social, world and language experts, public small-model checkpoints and ablations. It supports an intervention inside a single model rather than an unsupported claim about biological brain regions. Permanent expert ablation is an existing baseline. [Sycophancy as Rational Updating](https://arxiv.org/html/2608.26511v1) motivates separating harmful answer revision from useful evidence updating; behavior alone would not establish shared neural causality.
+
+**H1.** A controlled expert perturbation increases correct-to-wrong changes relative to unmodified routing. **H2.** A conditional containment rule reduces these changes at matched compute relative to no containment and permanent ablation. **H3.** That reduction can coexist with non-inferior wrong-to-correct recovery and held-out specialist task performance. Their respective nulls are no measurable excess harm, no containment improvement, or improvement bought through disabled useful updating. The method must beat existing routing/ablation and ordinary verification controls to support novelty.
+
+The proposed intervention would estimate per-expert reliability on a calibration split and modify routing only when disagreement and calibrated unreliability exceed a frozen threshold. A larger protocol must define the perturbation, mathematical rule, calibration split, matched-compute comparators, margins, sample size and seeds before any outcome from that experiment is inspected. No claim that this broad concept is new has been established. A targeted overlap review is required before promoting it to the primary Praxis.
+
+**First decision gate.** Reproduce loading and observable ablation using the public checkpoint and the public GSM8K data used in the base research context. Run the pinned eight-question CPU qualification now. If the model cannot supply at least two initially correct and two initially wrong outcomes, record a capability floor; do not change questions after seeing outcomes. A larger checkpoint or longer budget would be a separately frozen amendment. Qualification success alone is not support for H1–H3.
+
+Record source, checkpoint, data and protocol hashes, software versions, all generated answers, routing counts, invalid/truncated outputs and costs. Preserve failed qualification receipts. Use existing bounded AWS CPU host and campaign S3 checkpoints. This gate creates no additional GPU, training run or paid API endpoint.
