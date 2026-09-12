@@ -1,0 +1,70 @@
+{
+  "request": {
+    "Name": "praxis-20260912-stop-e8df2a60-812677",
+    "ScheduleExpression": "at(2026-09-12T14:00:33)",
+    "ScheduleExpressionTimezone": "UTC",
+    "FlexibleTimeWindow": {
+      "Mode": "OFF"
+    },
+    "ActionAfterCompletion": "DELETE",
+    "Target": {
+      "Arn": "arn:aws:scheduler:::aws-sdk:ec2:stopInstances",
+      "RoleArn": "arn:aws:iam::272615233626:role/praxis-20260912-stop-only",
+      "Input": "{\"InstanceIds\": [\"i-07178e293e8df2a60\"]}",
+      "RetryPolicy": {
+        "MaximumRetryAttempts": 3,
+        "MaximumEventAgeInSeconds": 300
+      }
+    },
+    "Description": "Authorized bounded Praxis campaign automatic host stop"
+  },
+  "response": {
+    "ResponseMetadata": {
+      "RequestId": "0598c275-ff97-46ad-870f-9bc095714ddc",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "x-amzn-requestid": "0598c275-ff97-46ad-870f-9bc095714ddc",
+        "content-type": "application/json",
+        "content-length": "112",
+        "date": "Sat, 12 Sep 2026 10:00:42 GMT"
+      },
+      "RetryAttempts": 0
+    },
+    "ScheduleArn": "arn:aws:scheduler:us-east-1:272615233626:schedule/default/praxis-20260912-stop-e8df2a60-812677"
+  },
+  "verified": {
+    "ResponseMetadata": {
+      "RequestId": "9a7fd279-f302-490e-8f50-e34e6dc3d79c",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "x-amzn-requestid": "9a7fd279-f302-490e-8f50-e34e6dc3d79c",
+        "content-type": "application/json",
+        "content-length": "979",
+        "date": "Sat, 12 Sep 2026 10:00:43 GMT"
+      },
+      "RetryAttempts": 0
+    },
+    "ActionAfterCompletion": "DELETE",
+    "Arn": "arn:aws:scheduler:us-east-1:272615233626:schedule/default/praxis-20260912-stop-e8df2a60-812677",
+    "CreationDate": "2026-09-12 06:00:42.318000-04:00",
+    "Description": "Authorized bounded Praxis campaign automatic host stop",
+    "FlexibleTimeWindow": {
+      "Mode": "OFF"
+    },
+    "GroupName": "default",
+    "LastModificationDate": "2026-09-12 06:00:42.318000-04:00",
+    "Name": "praxis-20260912-stop-e8df2a60-812677",
+    "ScheduleExpression": "at(2026-09-12T14:00:33)",
+    "ScheduleExpressionTimezone": "UTC",
+    "State": "ENABLED",
+    "Target": {
+      "Arn": "arn:aws:scheduler:::aws-sdk:ec2:stopInstances",
+      "Input": "{\"InstanceIds\": [\"i-07178e293e8df2a60\"]}",
+      "RetryPolicy": {
+        "MaximumEventAgeInSeconds": 300,
+        "MaximumRetryAttempts": 3
+      },
+      "RoleArn": "arn:aws:iam::272615233626:role/praxis-20260912-stop-only"
+    }
+  }
+}

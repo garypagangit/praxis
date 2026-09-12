@@ -1,0 +1,68 @@
+{
+  "request": {
+    "Name": "praxis-20260912-restore-stage2-e8df2a60",
+    "ScheduleExpression": "at(2026-09-12T14:10:33)",
+    "ScheduleExpressionTimezone": "UTC",
+    "FlexibleTimeWindow": {
+      "Mode": "OFF"
+    },
+    "ActionAfterCompletion": "DELETE",
+    "Target": {
+      "Arn": "arn:aws:scheduler:::aws-sdk:ec2:modifyInstanceAttribute",
+      "RoleArn": "arn:aws:iam::272615233626:role/praxis-20260912-stop-only",
+      "Input": "{\"InstanceId\": \"i-07178e293e8df2a60\", \"InstanceType\": {\"Value\": \"g5.xlarge\"}}",
+      "RetryPolicy": {
+        "MaximumRetryAttempts": 5,
+        "MaximumEventAgeInSeconds": 1800
+      }
+    }
+  },
+  "response": {
+    "ResponseMetadata": {
+      "RequestId": "ab0cf9b6-cade-4808-a63e-49fa2c1a2b02",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "x-amzn-requestid": "ab0cf9b6-cade-4808-a63e-49fa2c1a2b02",
+        "content-type": "application/json",
+        "content-length": "115",
+        "date": "Sat, 12 Sep 2026 10:07:34 GMT"
+      },
+      "RetryAttempts": 0
+    },
+    "ScheduleArn": "arn:aws:scheduler:us-east-1:272615233626:schedule/default/praxis-20260912-restore-stage2-e8df2a60"
+  },
+  "verified": {
+    "ResponseMetadata": {
+      "RequestId": "d3d922ac-4e0f-435d-9a01-145ebbffea88",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "x-amzn-requestid": "d3d922ac-4e0f-435d-9a01-145ebbffea88",
+        "content-type": "application/json",
+        "content-length": "987",
+        "date": "Sat, 12 Sep 2026 10:07:43 GMT"
+      },
+      "RetryAttempts": 0
+    },
+    "ActionAfterCompletion": "DELETE",
+    "Arn": "arn:aws:scheduler:us-east-1:272615233626:schedule/default/praxis-20260912-restore-stage2-e8df2a60",
+    "CreationDate": "2026-09-12 06:07:34.733000-04:00",
+    "FlexibleTimeWindow": {
+      "Mode": "OFF"
+    },
+    "GroupName": "default",
+    "LastModificationDate": "2026-09-12 06:07:34.733000-04:00",
+    "Name": "praxis-20260912-restore-stage2-e8df2a60",
+    "ScheduleExpression": "at(2026-09-12T14:10:33)",
+    "ScheduleExpressionTimezone": "UTC",
+    "State": "ENABLED",
+    "Target": {
+      "Arn": "arn:aws:scheduler:::aws-sdk:ec2:modifyInstanceAttribute",
+      "Input": "{\"InstanceId\": \"i-07178e293e8df2a60\", \"InstanceType\": {\"Value\": \"g5.xlarge\"}}",
+      "RetryPolicy": {
+        "MaximumEventAgeInSeconds": 1800,
+        "MaximumRetryAttempts": 5
+      },
+      "RoleArn": "arn:aws:iam::272615233626:role/praxis-20260912-stop-only"
+    }
+  }
+}
