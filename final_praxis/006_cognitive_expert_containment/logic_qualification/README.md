@@ -34,4 +34,6 @@ The launcher prints and saves the run ID, Git commit, S3 key, bundle/protocol ha
 python audit.py --run-dir /downloaded/outputs --data data.json --protocol protocol.json --technical /downloaded/outputs/technical.json --report-dir /downloaded/independent-audit
 ```
 
+`collect.py --run-id <run-id> --out <private-folder> --wait --publish` monitors the private S3 lifecycle, downloads terminal evidence, verifies its frozen audit inputs, recomputes the audit locally, and commits only derived completion reports and STATUS.md to this numbered branch. It retries connectivity without launching compute or changing an experiment. Raw outputs stay in private artifact storage. Publication refuses unrelated staged edits; an unavailable Git connection leaves results committed locally for a later push. The collector needs the local machine and AWS session, while cloud inference, its first audit, S3 persistence and shutdown run independently.
+
 A complete technical/scientific pass advances only the useful-specialist prerequisite. The next separate study must introduce and test a literature-defensible containment modification against permanent ablation, random routing and ordinary verification across held-out fault families. Incomplete or failed runs cannot pass, and the automated process does not start a different paid scientific experiment on failure.
