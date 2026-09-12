@@ -82,7 +82,7 @@ def ensure_role_and_schedule(instance, hours):
     save('watchdog',{'request':params,'response':result,'verified':checked})
     return {'name':schedule_name,'stop_at_utc':stop_at.isoformat()}
 
-def start(option, prereg, hours):
+def start(option, prereg, hours, cpu_fallback=False):
     record = freeze(prereg, option, hours)
     ec2 = client('ec2'); instance = HOSTS[option]
     prior = ec2.describe_instances(InstanceIds=[instance])['Reservations'][0]['Instances'][0]
@@ -91,8 +91,19 @@ def start(option, prereg, hours):
     behavior = ec2.describe_instance_attribute(InstanceId=instance,Attribute='instanceInitiatedShutdownBehavior')
     if behavior['InstanceInitiatedShutdownBehavior']['Value'] != 'stop':
         raise RuntimeError('Guest shutdown must stop, never terminate')
+    if cpu_fallback:
+        if option != '004': raise ValueError('CPU fallback is only for the coding/evidence host')
+        if prior['InstanceType'] != 'g5.xlarge': raise ValueError('Unexpected original type; inspect before modification')
+        change=ec2.modify_instance_attribute(InstanceId=instance,InstanceType={'Value':'m6i.2xlarge'})
+        save('cpu-fallback',{'instance':instance,'original_type':prior['InstanceType'],'temporary_type':'m6i.2xlarge',
+            'restore_after_stopping':True,'response':change})
     watchdog = ensure_role_and_schedule(instance, hours)
-    response = ec2.start_instances(InstanceIds=[instance])
+    try:
+        response = ec2.start_instances(InstanceIds=[instance])
+    except Exception as error:
+        save('start-failed',{'instance':instance,'error_type':type(error).__name__,'detail':str(error),'watchdog':watchdog})
+        client('scheduler').delete_schedule(Name=watchdog['name'])
+        raise
     result = dict(record,instance=instance,watchdog=watchdog,response=response)
     print(json.dumps({'started':instance,'receipt':save('start-'+option,result),'watchdog':watchdog}),flush=True)
 
@@ -142,8 +153,9 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('action',choices=['start','status','send','upload','download','stop','enable-bedrock'])
     p.add_argument('--option',choices=HOSTS);p.add_argument('--prereg');p.add_argument('--hours',type=float,default=8)
     p.add_argument('--script');p.add_argument('--timeout',type=int,default=600);p.add_argument('--command-id');p.add_argument('--path');p.add_argument('--key')
+    p.add_argument('--cpu-fallback',action='store_true')
     a=p.parse_args()
-    if a.action=='start':start(a.option,a.prereg,a.hours)
+    if a.action=='start':start(a.option,a.prereg,a.hours,a.cpu_fallback)
     elif a.action=='status':status(a.option,a.command_id)
     elif a.action=='send':send(a.option,a.script,a.timeout)
     elif a.action in ['upload','download']:transfer(a.action,a.path,a.key)
