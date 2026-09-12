@@ -1,17 +1,19 @@
-# FP32 logic qualification: launch correction ready
+# FP32 logic qualification: running
 
-Updated12 September2026,20:28 UTC. The separately frozen FP32 follow-up hit a shell-path error before supervisor startup. The operational correction is ready; its scientific protocol is unchanged. The original attempt processed zero GSM8K pilot/test questions and its [negative review remains archived](../logic_qualification/completed/RESULTS.md).
+Updated12 September2026,20:32 UTC. The corrected AWS launch has produced a verified supervisor heartbeat. The FP32 checkpoint is being prepared for numerical qualification. No capability result is available yet.
 
-- Frozen follow-up commit: `374224c36f6bddbb802d31a28db8fa271a2bf30c` on `Final-Praxis-006-Cognitive-Expert-Containment`.
-- Preserved failed deployment: `fp006-logic-374224c36f`; see [DEPLOYMENT_REPAIR.md](DEPLOYMENT_REPAIR.md).
+- Active run: `fp006-logic-ec92d2561c`; operational source commit `ec92d2561c3011ba525cdfba66b58b86ee758d49`.
+- Scientific protocol frozen at `374224c36f6bddbb802d31a28db8fa271a2bf30c`, byte-identical after the [launcher correction](DEPLOYMENT_REPAIR.md).
 - Protocol SHA256: `8a76f26328795c86fff99df994737490cab4f559aeec74cdeb557352422b6ad4`.
-- Same untouched256 test questions x3 conditions, plus16 train-pilot questions x3:816 planned generations.
-- FP32 with TF32 disabled; strict next-token equality and maximum0.001 absolute logit difference across the fixed backend/cache probes. Scientific gates remain unchanged.
-- All24 local tests passed before launch. GPU qualification and study outcomes are pending.
-- Each launch retains a$75 cap and an independent eight-hour stop watchdog. The first FP32 deployment requested early shutdown; a corrected launch will receive a fresh watchdog.
+- 256 untouched GSM8K test questions across intact, logic ablation and social ablation;16 disjoint train-pilot questions across the same arms.816 planned generations.
+- FP32 with TF32 disabled; exact next-token agreement and at most0.001 absolute logit differences on six fixed backend/cache probes.
+- All27 local tests passed before the corrected launch. Model numerical qualification remains pending.
+- Job cap:$75; eight-hour g5.xlarge compute bound approximately$8.05. External AWS stop deadline:13 September2026,04:30:35 UTC (12:30:35 a.m. Eastern), with earlier stop after completion/failure.
 
-The corrected detached cloud supervisor will save cells, synchronize S3 and run the automatic audit independently of local connectivity. A local collector can independently audit final evidence and publish derived reviews to this numbered branch, retaining both negative and positive outcomes. It never starts further paid experiments.
+The [BF16 numerical-preflight failure](../logic_qualification/completed/RESULTS.md) and first FP32 launch error are preserved. Neither processed the planned GSM8K cohort. No failed criterion was relaxed or original result overwritten.
 
-Private artifacts: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp006-logic-374224c36f/`. The result will appear in `outputs/audit/RESULTS.md`; completed collection publishes this folder's `completed/RESULTS.md` and updates this status.
+Private live artifacts: `s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp006-logic-ec92d2561c/`. The detached cloud supervisor saves cells, syncs to S3 and runs the automatic audit independently of local connectivity. `outputs/audit/RESULTS.md` will contain the decision.
 
-This remains a prerequisite capability test. It does not yet establish a new containment method or select a primary Praxis.
+The local collector independently audits stable final artifacts and can publish this folder's `completed/RESULTS.md`, provenance and updated status to the numbered Git branch, including negative or incomplete outcomes. It retries connectivity and never starts another paid experiment. Cloud processing, its audit and its stop watchdog continue without the local collector.
+
+This tests whether a useful logic expert exists to preserve. It does not yet demonstrate a novel containment method or select a primary Praxis.
