@@ -1,3 +1,9 @@
+# Automated-review update, 12 September 2026
+
+The user's requested automated replacement for the manual queue is complete. V1 failed reviewer qualification; V2 used fresh controls and a task-grounded refusal rule. Mistral and DeepSeek qualified, Qwen did not. All 28 cases were processed: the strict V2 endpoint resolved 23; a posthoc mechanical citation-normalization step reached 26 consensus decisions while retaining two harmfulness disagreements. No reviewer labels changed, no additional calls were made, and no refusal-label differences were found across all 28 cases. Original labels and human fields remain unchanged, and the historical human-adjudication criterion is unmet. The current workflow assigns no further manual task.
+
+Both versions' 240 total API requests cost an estimated $0.14245228. EC2 hosts remained stopped. See [final completion](automated_review_v2/completion/COMPLETION.md), [strict V2 results](automated_review_v2/RESULTS.md) and [preserved V1 failure](automated_review/RESULTS.md). Earlier snapshots below are historical.
+
 # Final Praxis 005 live pilot
 
 **Final update, 12 September 2026:** all three adaptations, 800 evaluation responses and 1,280 judge assessments completed. The independent numerical audit passed. Results remain automated/provisional, with 28 blinded review cases pending. The missing protobuf dependency was repaired without retraining or modifying the original protected artifacts. The GPU instance is stopped, verified at12:42UTC. See [completed results](RESULTS.md), [summary](summary.json) and [audit](completed_audit/audit.json). Generic retention has not met the novelty or progression criteria.
