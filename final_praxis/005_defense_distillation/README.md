@@ -6,7 +6,7 @@ Protocol: [PREREGISTRATION.md](PREREGISTRATION.md). Original freeze `bb5f372`; p
 
 ## Runtime
 
-Use one A10G 24GB GPU, Python 3.11, and at least 60GB free disk. No bitsandbytes, FlashAttention, custom model Python or external judge API is required. Models load with Safetensors and `trust_remote_code=False`. All model IDs/revisions are pinned and ungated. The Qwen parent has a research license; do not redistribute checkpoints without checking applicable terms.
+Use one A10G 24GB GPU, Python 3.10 or 3.11, and at least 60GB free disk. The qualified AWS host uses Python 3.10.12 in an isolated environment; `cloud/bootstrap.sh` records its exact packages. No bitsandbytes, FlashAttention, custom model Python or external judge API is required. Models load with Safetensors and `trust_remote_code=False`. All model IDs/revisions are pinned and ungated. The Qwen parent has a research license; do not redistribute checkpoints without checking applicable terms.
 
 In a fresh Linux virtual environment:
 
