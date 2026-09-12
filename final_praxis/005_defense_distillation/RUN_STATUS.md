@@ -1,5 +1,9 @@
 # Final Praxis 005 live pilot
 
+**Final update, 12 September 2026:** all three adaptations, 800 evaluation responses and 1,280 judge assessments completed. The independent numerical audit passed. Results remain automated/provisional, with 28 blinded review cases pending. The missing protobuf dependency was repaired without retraining or modifying the original protected artifacts. The GPU instance is stopped, verified at12:42UTC. See [completed results](RESULTS.md), [summary](summary.json) and [audit](completed_audit/audit.json). Generic retention has not met the novelty or progression criteria.
+
+The snapshots below are retained as the execution history.
+
 Snapshot: 12 September 2026, 08:45 UTC. **Actual training completed for the first adapter; reproduction/feasibility only. The novelty criterion is not met**, as documented in [NOVELTY_AMENDMENT.md](NOVELTY_AMENDMENT.md). Teacher preparation completed with 64 accepted responses from 81 attempts. Both unchanged models completed all 160 evaluations. The trained parent's held-out evaluation is now running; the two ER adaptations and safety judges remain pending. No H1/H2 conclusion is available yet.
 
 The parent's fixed-budget math result is 12/32 correct final answers with complete outputs; ER scored 20/32. Truncation counts for harmful/benign/math panels were 23/40/18 for the parent and 4/6/6 for ER (panel sizes 64/64/32), with no empty outputs. These comparisons have substantial token-budget and response-style dependence. No refusal or harmlessness conclusion follows from generation counts.
