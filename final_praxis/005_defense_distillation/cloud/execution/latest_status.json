@@ -1,0 +1,121 @@
+{
+  "s3_uri": "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp005-20260912-37fdd3f/",
+  "cloud_status.json": {
+    "run_id": "fp005-20260912-37fdd3f",
+    "state": "RUNNING",
+    "updated_utc": "2026-09-12T08:06:22.508426+00:00",
+    "started_utc": "2026-09-12T08:03:50.484790+00:00",
+    "preregistration_sha256": "21d3fee055f08fc916f0a0fbab6a6ae4437f05e1dc4d8cd23ff2a1b13c681b9b",
+    "command": [
+      "/bin/bash",
+      "/mnt/praxis-20260912-005/fp005-20260912-37fdd3f/code/final_praxis/005_defense_distillation/cloud/bootstrap.sh",
+      "/mnt/praxis-20260912-005",
+      "/mnt/praxis-20260912-005/fp005-20260912-37fdd3f"
+    ],
+    "seconds_limit": 25200,
+    "elapsed_seconds": 152.02,
+    "s3_prefix": "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp005-20260912-37fdd3f/",
+    "uploaded_files": 36,
+    "sync_errors": [],
+    "pid": 1672
+  },
+  "launch.json": {
+    "run_id": "fp005-20260912-37fdd3f",
+    "instance": "i-039ed976444ade397",
+    "git_commit": "37fdd3f154a78017f9eb313385e25379c36affde",
+    "bundle_sha256": "ab381d7439a706b5a3852e949588a19cfdae4394aefb7651d03c12727aa590f8",
+    "preregistration_sha256": "21d3fee055f08fc916f0a0fbab6a6ae4437f05e1dc4d8cd23ff2a1b13c681b9b",
+    "stop_at_utc": "2026-09-12T15:55:49.634894+00:00",
+    "supervisor_seconds": 25200,
+    "command": [
+      "systemd-run",
+      "--unit=fp005-20260912-37fdd3f",
+      "--collect",
+      "--property=RuntimeMaxSec=25230",
+      "--property=KillMode=control-group",
+      "/usr/bin/python3",
+      "/mnt/praxis-20260912-005/fp005-20260912-37fdd3f/code/final_praxis/shared_20260912/supervisor.py",
+      "--root",
+      "/mnt/praxis-20260912-005/fp005-20260912-37fdd3f",
+      "--run-id",
+      "fp005-20260912-37fdd3f",
+      "--prereg",
+      "/mnt/praxis-20260912-005/fp005-20260912-37fdd3f/code/final_praxis/005_defense_distillation/PREREGISTRATION.md",
+      "--prereg-sha256",
+      "21d3fee055f08fc916f0a0fbab6a6ae4437f05e1dc4d8cd23ff2a1b13c681b9b",
+      "--seconds",
+      "25200",
+      "--",
+      "/bin/bash",
+      "/mnt/praxis-20260912-005/fp005-20260912-37fdd3f/code/final_praxis/005_defense_distillation/cloud/bootstrap.sh",
+      "/mnt/praxis-20260912-005",
+      "/mnt/praxis-20260912-005/fp005-20260912-37fdd3f"
+    ],
+    "recorded_utc": "2026-09-12T08:03:50.141600+00:00",
+    "s3_uri": "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp005-20260912-37fdd3f/"
+  },
+  "outputs/teacher_complete.json": {
+    "not_yet_present": true
+  },
+  "outputs/summary.json": {
+    "not_yet_present": true
+  },
+  "latest_events": [
+    {
+      "event": "cuda_qualified",
+      "torch": "2.6.0+cu124",
+      "gpu": "NVIDIA A10G",
+      "bf16": true
+    },
+    {
+      "event": "stage_start",
+      "utc_epoch": 1789200344.96317,
+      "stage": [
+        "prepare"
+      ]
+    },
+    {
+      "event": "prepared",
+      "utc_epoch": 1789200381.5483084,
+      "counts": {
+        "er_total": 10000,
+        "replay_pool": 4268,
+        "teacher_pool": 192,
+        "eval": 160
+      },
+      "dedup": {
+        "harm": {
+          "eligible_before_dedup": 107,
+          "removed": 23,
+          "remaining": 84,
+          "selected": 64
+        },
+        "benign": {
+          "eligible_before_dedup": 250,
+          "removed": 0,
+          "remaining": 250,
+          "selected": 64
+        }
+      }
+    },
+    {
+      "event": "stage_start",
+      "utc_epoch": 1789200381.6379526,
+      "stage": [
+        "distill"
+      ]
+    },
+    {
+      "event": "prepared_cached",
+      "utc_epoch": 1789200381.703872,
+      "counts": {
+        "er_total": 10000,
+        "replay_pool": 4268,
+        "teacher_pool": 192,
+        "eval": 160
+      }
+    }
+  ],
+  "driver_log_bytes_read": 17124,
+  "traceback_present": false
+}

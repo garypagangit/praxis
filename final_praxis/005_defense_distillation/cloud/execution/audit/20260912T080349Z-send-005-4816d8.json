@@ -1,0 +1,83 @@
+{
+  "parameters": {
+    "InstanceIds": [
+      "i-039ed976444ade397"
+    ],
+    "DocumentName": "AWS-RunShellScript",
+    "Parameters": {
+      "commands": [
+        "set -eu\nscratch=/mnt/praxis-20260912-005\nrun_id=fp005-20260912-37fdd3f\nrun_root=\"$scratch/$run_id\"\ntest \"$(findmnt -n -o TARGET --target \"$scratch\")\" = \"$scratch\"\nmkdir -p \"$run_root\"\naws s3 cp s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/bundles/fp005-37fdd3f-ab381d74.zip \"$run_root/source_bundle.zip\" --region us-east-1 --no-progress\npython3 - <<'PY'\nimport hashlib,json,pathlib,subprocess,zipfile\nfrom datetime import datetime,timezone\nroot=pathlib.Path('/mnt/praxis-20260912-005/fp005-20260912-37fdd3f')\nbundle=root/'source_bundle.zip'\nexpected='ab381d7439a706b5a3852e949588a19cfdae4394aefb7651d03c12727aa590f8'\nif hashlib.sha256(bundle.read_bytes()).hexdigest()!=expected:raise RuntimeError('Source bundle hash mismatch')\ncode=root/'code';code.mkdir(exist_ok=True)\nwith zipfile.ZipFile(bundle) as archive:\n    for name in archive.namelist():\n        target=(code/name).resolve()\n        if code.resolve() not in target.parents:raise RuntimeError('Unsafe archive path')\n    archive.extractall(code)\nmanifest=json.loads((code/'bundle_manifest.json').read_text())\nif manifest['git_commit']!='37fdd3f154a78017f9eb313385e25379c36affde':raise RuntimeError('Unexpected source commit')\nfor name,digest in manifest['files'].items():\n    if hashlib.sha256((code/name).read_bytes()).hexdigest()!=digest:raise RuntimeError('Extracted source changed')\nprereg=code/'final_praxis/005_defense_distillation/PREREGISTRATION.md'\nprereg_sha='21d3fee055f08fc916f0a0fbab6a6ae4437f05e1dc4d8cd23ff2a1b13c681b9b'\nif hashlib.sha256(prereg.read_bytes()).hexdigest()!=prereg_sha:raise RuntimeError('Preregistration hash mismatch')\nstop=datetime.fromisoformat('2026-09-12T15:55:49.634894+00:00')\nremaining=int((stop-datetime.now(timezone.utc)).total_seconds())-300\nseconds=min(25200,remaining-60)\nif seconds<1800:raise RuntimeError('Insufficient remaining cloud budget')\nsubprocess.run(['shutdown','-P','+'+str(remaining//60)],check=True)\ncommand=['systemd-run','--unit=fp005-20260912-37fdd3f','--collect',\n    '--property=RuntimeMaxSec='+str(seconds+30),'--property=KillMode=control-group',\n    '/usr/bin/python3',str(code/'final_praxis/shared_20260912/supervisor.py'),\n    '--root',str(root),'--run-id','fp005-20260912-37fdd3f','--prereg',str(prereg),\n    '--prereg-sha256',prereg_sha,'--seconds',str(seconds),'--',\n    '/bin/bash',str(code/'final_praxis/005_defense_distillation/cloud/bootstrap.sh'),\n    str(root.parent),str(root)]\nreceipt={'run_id':'fp005-20260912-37fdd3f','instance':'i-039ed976444ade397',\n    'git_commit':manifest['git_commit'],'bundle_sha256':expected,'preregistration_sha256':prereg_sha,\n    'stop_at_utc':stop.isoformat(),'supervisor_seconds':seconds,'command':command,\n    'recorded_utc':datetime.now(timezone.utc).isoformat(),\n    's3_uri':'s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp005-20260912-37fdd3f/'}\n(root/'launch.json').write_text(json.dumps(receipt,indent=2))\nsubprocess.run(command,check=True)\nprint(json.dumps(receipt))\nPY\n"
+      ],
+      "executionTimeout": [
+        "180"
+      ]
+    },
+    "TimeoutSeconds": 120,
+    "Comment": "AuthorizedFinalPraxis005: launch_run.sh",
+    "OutputS3BucketName": "praxis-garypagan-272615233626-us-east-1",
+    "OutputS3KeyPrefix": "final-praxis/20260912/ssm"
+  },
+  "response": {
+    "Command": {
+      "CommandId": "841924f9-b72f-409c-934d-592c03cfc5ad",
+      "DocumentName": "AWS-RunShellScript",
+      "DocumentVersion": "$DEFAULT",
+      "Comment": "AuthorizedFinalPraxis005: launch_run.sh",
+      "ExpiresAfter": "2026-09-12 04:08:49.232000-04:00",
+      "Parameters": {
+        "commands": [
+          "set -eu\nscratch=/mnt/praxis-20260912-005\nrun_id=fp005-20260912-37fdd3f\nrun_root=\"$scratch/$run_id\"\ntest \"$(findmnt -n -o TARGET --target \"$scratch\")\" = \"$scratch\"\nmkdir -p \"$run_root\"\naws s3 cp s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/bundles/fp005-37fdd3f-ab381d74.zip \"$run_root/source_bundle.zip\" --region us-east-1 --no-progress\npython3 - <<'PY'\nimport hashlib,json,pathlib,subprocess,zipfile\nfrom datetime import datetime,timezone\nroot=pathlib.Path('/mnt/praxis-20260912-005/fp005-20260912-37fdd3f')\nbundle=root/'source_bundle.zip'\nexpected='ab381d7439a706b5a3852e949588a19cfdae4394aefb7651d03c12727aa590f8'\nif hashlib.sha256(bundle.read_bytes()).hexdigest()!=expected:raise RuntimeError('Source bundle hash mismatch')\ncode=root/'code';code.mkdir(exist_ok=True)\nwith zipfile.ZipFile(bundle) as archive:\n    for name in archive.namelist():\n        target=(code/name).resolve()\n        if code.resolve() not in target.parents:raise RuntimeError('Unsafe archive path')\n    archive.extractall(code)\nmanifest=json.loads((code/'bundle_manifest.json').read_text())\nif manifest['git_commit']!='37fdd3f154a78017f9eb313385e25379c36affde':raise RuntimeError('Unexpected source commit')\nfor name,digest in manifest['files'].items():\n    if hashlib.sha256((code/name).read_bytes()).hexdigest()!=digest:raise RuntimeError('Extracted source changed')\nprereg=code/'final_praxis/005_defense_distillation/PREREGISTRATION.md'\nprereg_sha='21d3fee055f08fc916f0a0fbab6a6ae4437f05e1dc4d8cd23ff2a1b13c681b9b'\nif hashlib.sha256(prereg.read_bytes()).hexdigest()!=prereg_sha:raise RuntimeError('Preregistration hash mismatch')\nstop=datetime.fromisoformat('2026-09-12T15:55:49.634894+00:00')\nremaining=int((stop-datetime.now(timezone.utc)).total_seconds())-300\nseconds=min(25200,remaining-60)\nif seconds<1800:raise RuntimeError('Insufficient remaining cloud budget')\nsubprocess.run(['shutdown','-P','+'+str(remaining//60)],check=True)\ncommand=['systemd-run','--unit=fp005-20260912-37fdd3f','--collect',\n    '--property=RuntimeMaxSec='+str(seconds+30),'--property=KillMode=control-group',\n    '/usr/bin/python3',str(code/'final_praxis/shared_20260912/supervisor.py'),\n    '--root',str(root),'--run-id','fp005-20260912-37fdd3f','--prereg',str(prereg),\n    '--prereg-sha256',prereg_sha,'--seconds',str(seconds),'--',\n    '/bin/bash',str(code/'final_praxis/005_defense_distillation/cloud/bootstrap.sh'),\n    str(root.parent),str(root)]\nreceipt={'run_id':'fp005-20260912-37fdd3f','instance':'i-039ed976444ade397',\n    'git_commit':manifest['git_commit'],'bundle_sha256':expected,'preregistration_sha256':prereg_sha,\n    'stop_at_utc':stop.isoformat(),'supervisor_seconds':seconds,'command':command,\n    'recorded_utc':datetime.now(timezone.utc).isoformat(),\n    's3_uri':'s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp005-20260912-37fdd3f/'}\n(root/'launch.json').write_text(json.dumps(receipt,indent=2))\nsubprocess.run(command,check=True)\nprint(json.dumps(receipt))\nPY\n"
+        ],
+        "executionTimeout": [
+          "180"
+        ]
+      },
+      "InstanceIds": [
+        "i-039ed976444ade397"
+      ],
+      "Targets": [],
+      "RequestedDateTime": "2026-09-12 04:03:49.232000-04:00",
+      "Status": "Pending",
+      "StatusDetails": "Pending",
+      "OutputS3Region": "us-east-1",
+      "OutputS3BucketName": "praxis-garypagan-272615233626-us-east-1",
+      "OutputS3KeyPrefix": "final-praxis/20260912/ssm",
+      "MaxConcurrency": "50",
+      "MaxErrors": "0",
+      "TargetCount": 1,
+      "CompletedCount": 0,
+      "ErrorCount": 0,
+      "DeliveryTimedOutCount": 0,
+      "ServiceRole": "",
+      "NotificationConfig": {
+        "NotificationArn": "",
+        "NotificationEvents": [],
+        "NotificationType": ""
+      },
+      "CloudWatchOutputConfig": {
+        "CloudWatchLogGroupName": "",
+        "CloudWatchOutputEnabled": false
+      },
+      "TimeoutSeconds": 120,
+      "AlarmConfiguration": {
+        "IgnorePollAlarmFailure": false,
+        "Alarms": []
+      },
+      "TriggeredAlarms": []
+    },
+    "ResponseMetadata": {
+      "RequestId": "5143dca4-8c47-43b3-a564-5d13c0b2ad88",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "server": "Server",
+        "date": "Sat, 12 Sep 2026 08:03:49 GMT",
+        "content-type": "application/x-amz-json-1.1",
+        "content-length": "4137",
+        "connection": "keep-alive",
+        "x-amzn-requestid": "5143dca4-8c47-43b3-a564-5d13c0b2ad88",
+        "cache-control": "no-store"
+      },
+      "RetryAttempts": 0
+    }
+  }
+}

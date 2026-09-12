@@ -1,0 +1,83 @@
+{
+  "parameters": {
+    "InstanceIds": [
+      "i-039ed976444ade397"
+    ],
+    "DocumentName": "AWS-RunShellScript",
+    "Parameters": {
+      "commands": [
+        "set -eu\npython3 - <<'PY'\nimport json,pathlib,subprocess,time\nserial='vol02b4f3854b7ff5bc4'\nmount=pathlib.Path('/mnt/praxis-20260912-005')\nfor attempt in range(15):\n    items=json.loads(subprocess.check_output(['lsblk','--json','--bytes','--output','NAME,PATH,SERIAL,SIZE,FSTYPE,MOUNTPOINT,TYPE'],text=True))['blockdevices']\n    matches=[x for x in items if (x.get('serial') or '').replace('-','')==serial and x['type']=='disk']\n    if len(matches)==1:break\n    time.sleep(2)\nelse:raise RuntimeError('Authorized new scratch volume did not appear by exact serial')\ndevice=matches[0]\nif int(device['size'])!=100*1024**3:raise RuntimeError('Unexpected size')\nif device.get('mountpoint') not in [None,str(mount)]:raise RuntimeError('Unexpected mount; refusing to format')\nif device.get('children'):raise RuntimeError('Unexpected partitions; refusing to format')\nif not device.get('fstype'):\n    probe=subprocess.run(['blkid',device['path']],capture_output=True,text=True)\n    if probe.returncode!=2 or probe.stdout.strip():raise RuntimeError('Unexpected existing signature')\n    subprocess.run(['mkfs.ext4','-L','praxis00520260912',device['path']],check=True)\nelif device['fstype']!='ext4':raise RuntimeError('Unexpected filesystem')\nmount.mkdir(parents=True,exist_ok=True)\nif device.get('mountpoint')!=str(mount):\n    if any(mount.iterdir()):raise RuntimeError('Refuse to conceal existing directory data')\n    subprocess.run(['mount',device['path'],str(mount)],check=True)\nuuid=subprocess.check_output(['blkid','-s','UUID','-o','value',device['path']],text=True).strip()\nentry='UUID='+uuid+' '+str(mount)+' ext4 defaults,nofail 0 2\\n'\nfstab=pathlib.Path('/etc/fstab')\nif str(mount) not in fstab.read_text():\n    with fstab.open('a') as f:f.write('\\n# Authorized Final Praxis005 temporary experiment volume\\n'+entry)\nfor name in ['tmp','hf_cache','xdg_cache','pip_cache']:(mount/name).mkdir(exist_ok=True)\nprint(json.dumps({'device':device['path'],'matched_serial':serial,'mount':str(mount),'uuid':uuid}))\nPY\ndf -h /mnt/praxis-20260912-005\n"
+      ],
+      "executionTimeout": [
+        "180"
+      ]
+    },
+    "TimeoutSeconds": 120,
+    "Comment": "AuthorizedFinalPraxis005: mount_scratch.sh",
+    "OutputS3BucketName": "praxis-garypagan-272615233626-us-east-1",
+    "OutputS3KeyPrefix": "final-praxis/20260912/ssm"
+  },
+  "response": {
+    "Command": {
+      "CommandId": "b0b7d13d-c9ef-427a-8142-4e167d2946f4",
+      "DocumentName": "AWS-RunShellScript",
+      "DocumentVersion": "$DEFAULT",
+      "Comment": "AuthorizedFinalPraxis005: mount_scratch.sh",
+      "ExpiresAfter": "2026-09-12 04:06:48.219000-04:00",
+      "Parameters": {
+        "commands": [
+          "set -eu\npython3 - <<'PY'\nimport json,pathlib,subprocess,time\nserial='vol02b4f3854b7ff5bc4'\nmount=pathlib.Path('/mnt/praxis-20260912-005')\nfor attempt in range(15):\n    items=json.loads(subprocess.check_output(['lsblk','--json','--bytes','--output','NAME,PATH,SERIAL,SIZE,FSTYPE,MOUNTPOINT,TYPE'],text=True))['blockdevices']\n    matches=[x for x in items if (x.get('serial') or '').replace('-','')==serial and x['type']=='disk']\n    if len(matches)==1:break\n    time.sleep(2)\nelse:raise RuntimeError('Authorized new scratch volume did not appear by exact serial')\ndevice=matches[0]\nif int(device['size'])!=100*1024**3:raise RuntimeError('Unexpected size')\nif device.get('mountpoint') not in [None,str(mount)]:raise RuntimeError('Unexpected mount; refusing to format')\nif device.get('children'):raise RuntimeError('Unexpected partitions; refusing to format')\nif not device.get('fstype'):\n    probe=subprocess.run(['blkid',device['path']],capture_output=True,text=True)\n    if probe.returncode!=2 or probe.stdout.strip():raise RuntimeError('Unexpected existing signature')\n    subprocess.run(['mkfs.ext4','-L','praxis00520260912',device['path']],check=True)\nelif device['fstype']!='ext4':raise RuntimeError('Unexpected filesystem')\nmount.mkdir(parents=True,exist_ok=True)\nif device.get('mountpoint')!=str(mount):\n    if any(mount.iterdir()):raise RuntimeError('Refuse to conceal existing directory data')\n    subprocess.run(['mount',device['path'],str(mount)],check=True)\nuuid=subprocess.check_output(['blkid','-s','UUID','-o','value',device['path']],text=True).strip()\nentry='UUID='+uuid+' '+str(mount)+' ext4 defaults,nofail 0 2\\n'\nfstab=pathlib.Path('/etc/fstab')\nif str(mount) not in fstab.read_text():\n    with fstab.open('a') as f:f.write('\\n# Authorized Final Praxis005 temporary experiment volume\\n'+entry)\nfor name in ['tmp','hf_cache','xdg_cache','pip_cache']:(mount/name).mkdir(exist_ok=True)\nprint(json.dumps({'device':device['path'],'matched_serial':serial,'mount':str(mount),'uuid':uuid}))\nPY\ndf -h /mnt/praxis-20260912-005\n"
+        ],
+        "executionTimeout": [
+          "180"
+        ]
+      },
+      "InstanceIds": [
+        "i-039ed976444ade397"
+      ],
+      "Targets": [],
+      "RequestedDateTime": "2026-09-12 04:01:48.219000-04:00",
+      "Status": "Pending",
+      "StatusDetails": "Pending",
+      "OutputS3Region": "us-east-1",
+      "OutputS3BucketName": "praxis-garypagan-272615233626-us-east-1",
+      "OutputS3KeyPrefix": "final-praxis/20260912/ssm",
+      "MaxConcurrency": "50",
+      "MaxErrors": "0",
+      "TargetCount": 1,
+      "CompletedCount": 0,
+      "ErrorCount": 0,
+      "DeliveryTimedOutCount": 0,
+      "ServiceRole": "",
+      "NotificationConfig": {
+        "NotificationArn": "",
+        "NotificationEvents": [],
+        "NotificationType": ""
+      },
+      "CloudWatchOutputConfig": {
+        "CloudWatchLogGroupName": "",
+        "CloudWatchOutputEnabled": false
+      },
+      "TimeoutSeconds": 120,
+      "AlarmConfiguration": {
+        "IgnorePollAlarmFailure": false,
+        "Alarms": []
+      },
+      "TriggeredAlarms": []
+    },
+    "ResponseMetadata": {
+      "RequestId": "f55f259a-7bc5-4b52-90ff-68f86fb48aa6",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "server": "Server",
+        "date": "Sat, 12 Sep 2026 08:01:48 GMT",
+        "content-type": "application/x-amz-json-1.1",
+        "content-length": "3156",
+        "connection": "keep-alive",
+        "x-amzn-requestid": "f55f259a-7bc5-4b52-90ff-68f86fb48aa6",
+        "cache-control": "no-store"
+      },
+      "RetryAttempts": 0
+    }
+  }
+}

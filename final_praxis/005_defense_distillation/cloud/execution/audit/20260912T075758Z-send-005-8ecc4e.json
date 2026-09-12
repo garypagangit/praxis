@@ -1,0 +1,83 @@
+{
+  "parameters": {
+    "InstanceIds": [
+      "i-039ed976444ade397"
+    ],
+    "DocumentName": "AWS-RunShellScript",
+    "Parameters": {
+      "commands": [
+        "set -eu\ndate -u\nuname -a\npython3 --version\ncommand -v python3.11 || true\ncommand -v python3.10 || true\ncommand -v aws || true\ncommand -v uv || true\ndf -h /\nlsblk --json --output PATH,SERIAL,SIZE,FSTYPE,MOUNTPOINT,TYPE\nnvidia-smi --query-gpu=name,memory.total,memory.free,driver_version --format=csv,noheader\npython3 -c 'import importlib.util,json; print(json.dumps({m:bool(importlib.util.find_spec(m)) for m in [\"boto3\",\"torch\",\"transformers\",\"venv\"]}))'\nshutdown --show || true\n"
+      ],
+      "executionTimeout": [
+        "180"
+      ]
+    },
+    "TimeoutSeconds": 120,
+    "Comment": "AuthorizedFinalPraxis005: probe.sh",
+    "OutputS3BucketName": "praxis-garypagan-272615233626-us-east-1",
+    "OutputS3KeyPrefix": "final-praxis/20260912/ssm"
+  },
+  "response": {
+    "Command": {
+      "CommandId": "33e1f436-a53a-4416-ad48-de3bec879a8f",
+      "DocumentName": "AWS-RunShellScript",
+      "DocumentVersion": "$DEFAULT",
+      "Comment": "AuthorizedFinalPraxis005: probe.sh",
+      "ExpiresAfter": "2026-09-12 04:02:54.337000-04:00",
+      "Parameters": {
+        "commands": [
+          "set -eu\ndate -u\nuname -a\npython3 --version\ncommand -v python3.11 || true\ncommand -v python3.10 || true\ncommand -v aws || true\ncommand -v uv || true\ndf -h /\nlsblk --json --output PATH,SERIAL,SIZE,FSTYPE,MOUNTPOINT,TYPE\nnvidia-smi --query-gpu=name,memory.total,memory.free,driver_version --format=csv,noheader\npython3 -c 'import importlib.util,json; print(json.dumps({m:bool(importlib.util.find_spec(m)) for m in [\"boto3\",\"torch\",\"transformers\",\"venv\"]}))'\nshutdown --show || true\n"
+        ],
+        "executionTimeout": [
+          "180"
+        ]
+      },
+      "InstanceIds": [
+        "i-039ed976444ade397"
+      ],
+      "Targets": [],
+      "RequestedDateTime": "2026-09-12 03:57:54.337000-04:00",
+      "Status": "Pending",
+      "StatusDetails": "Pending",
+      "OutputS3Region": "us-east-1",
+      "OutputS3BucketName": "praxis-garypagan-272615233626-us-east-1",
+      "OutputS3KeyPrefix": "final-praxis/20260912/ssm",
+      "MaxConcurrency": "50",
+      "MaxErrors": "0",
+      "TargetCount": 1,
+      "CompletedCount": 0,
+      "ErrorCount": 0,
+      "DeliveryTimedOutCount": 0,
+      "ServiceRole": "",
+      "NotificationConfig": {
+        "NotificationArn": "",
+        "NotificationEvents": [],
+        "NotificationType": ""
+      },
+      "CloudWatchOutputConfig": {
+        "CloudWatchLogGroupName": "",
+        "CloudWatchOutputEnabled": false
+      },
+      "TimeoutSeconds": 120,
+      "AlarmConfiguration": {
+        "IgnorePollAlarmFailure": false,
+        "Alarms": []
+      },
+      "TriggeredAlarms": []
+    },
+    "ResponseMetadata": {
+      "RequestId": "d233a263-7466-4b11-a251-37dfc1d266c9",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "server": "Server",
+        "date": "Sat, 12 Sep 2026 07:57:54 GMT",
+        "content-type": "application/x-amz-json-1.1",
+        "content-length": "1577",
+        "connection": "keep-alive",
+        "x-amzn-requestid": "d233a263-7466-4b11-a251-37dfc1d266c9",
+        "cache-control": "no-store"
+      },
+      "RetryAttempts": 0
+    }
+  }
+}
