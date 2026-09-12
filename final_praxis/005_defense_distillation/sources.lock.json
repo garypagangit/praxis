@@ -1,0 +1,226 @@
+{
+  "models": {
+    "base": {
+      "id": "Qwen/Qwen2.5-3B-Instruct",
+      "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "gated": false,
+      "license": "other",
+      "files": [
+        ".gitattributes",
+        "LICENSE",
+        "README.md",
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "model-00001-of-00002.safetensors",
+        "model-00002-of-00002.safetensors",
+        "model.safetensors.index.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "extended_refusal": {
+      "id": "HarethahMo/qwen2.5-3B-extended-refusal",
+      "revision": "17071173e68ca63cab099003b1b7037bcc3f695a",
+      "gated": false,
+      "license": null,
+      "files": [
+        ".gitattributes",
+        "README.md",
+        "added_tokens.json",
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "model-00001-of-00003.safetensors",
+        "model-00002-of-00003.safetensors",
+        "model-00003-of-00003.safetensors",
+        "model.safetensors.index.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "guard": {
+      "id": "Qwen/Qwen3Guard-Gen-0.6B",
+      "revision": "fada3b2f655b89601929198343c94cd2f64d93cc",
+      "gated": false,
+      "license": "apache-2.0",
+      "files": [
+        ".gitattributes",
+        "LICENSE",
+        "README.md",
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "model.safetensors",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ]
+    },
+    "guard_independent": {
+      "id": "OpenSafetyLab/MD-Judge-v0.1",
+      "revision": "993302ce502a634b64a1cb8be95b6729d4d27b13",
+      "gated": false,
+      "license": "apache-2.0",
+      "files": [
+        ".gitattributes",
+        "README.md",
+        "config.json",
+        "generation_config.json",
+        "model-00001-of-00003.safetensors",
+        "model-00002-of-00003.safetensors",
+        "model-00003-of-00003.safetensors",
+        "model.safetensors.index.json",
+        "special_tokens_map.json",
+        "tokenizer.model",
+        "tokenizer_config.json"
+      ]
+    }
+  },
+  "datasets": {
+    "extended_refusal": {
+      "id": "HarethahMo/extended-refusal",
+      "revision": "04eb98eac20481763c776d889193be3028029c4f",
+      "license": "apache-2.0",
+      "files": [
+        ".gitattributes",
+        "README.md",
+        "data/train-00000-of-00001.parquet",
+        "extended-refusal-gpt4o.json"
+      ]
+    },
+    "harmbench": {
+      "repo": "centerforaisafety/HarmBench",
+      "revision": "8e1604d1171fe8a48d8febecd22f600e462bdcdd",
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "path": "data/behavior_datasets/harmbench_behaviors_text_test.csv"
+    },
+    "xstest": {
+      "repo": "paul-rottger/xstest",
+      "revision": "d7bb5bd738c1fcbc36edd83d5e7d1b71a3e2d84d",
+      "license": {
+        "key": "cc-by-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "spdx_id": "CC-BY-4.0",
+        "url": "https://api.github.com/licenses/cc-by-4.0",
+        "node_id": "MDc6TGljZW5zZTI1"
+      },
+      "path": "xstest_v2_prompts.csv"
+    },
+    "gsm8k": {
+      "repo": "openai/grade-school-math",
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "license": null,
+      "path": "grade_school_math/data/train.jsonl"
+    }
+  },
+  "retrievals": [
+    {
+      "url": "https://huggingface.co/api/models/Qwen/Qwen2.5-3B-Instruct",
+      "path": "source_receipts/model_base.json",
+      "sha256": "f2ca1e4f56da5811a4f1bccc6cd5cf2048a89639657fce824d4f45a854364076"
+    },
+    {
+      "url": "https://huggingface.co/api/models/HarethahMo/qwen2.5-3B-extended-refusal",
+      "path": "source_receipts/model_extended_refusal.json",
+      "sha256": "ca05f27d1946c64e4a23626cebc657cd848cdfb719ba2964f909f36eb3d997d9"
+    },
+    {
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3Guard-Gen-0.6B",
+      "path": "source_receipts/model_guard.json",
+      "sha256": "ffe1ee2d46d03f01fe98efbea8f2e4b7da77bffb652d43197cc7a33f23acbf18"
+    },
+    {
+      "url": "https://huggingface.co/api/models/OpenSafetyLab/MD-Judge-v0.1",
+      "path": "source_receipts/model_guard_independent.json",
+      "sha256": "c8e8c8e0cb95c59a89fa699bd82cb998d8227d9557d661c7ef211f0308340ba2"
+    },
+    {
+      "url": "https://api.github.com/repos/centerforaisafety/HarmBench",
+      "path": "source_receipts/repo_harmbench.json",
+      "sha256": "11d3f1b2c94dc2250b6eb3f05fd54a7268c448092d19d6e5fc91ab4c8302e01e"
+    },
+    {
+      "url": "https://api.github.com/repos/paul-rottger/xstest",
+      "path": "source_receipts/repo_xstest.json",
+      "sha256": "19c11797749d262840c96209b768b31f008bc30089c4426d1e394559fda332be"
+    },
+    {
+      "url": "https://api.github.com/repos/openai/grade-school-math",
+      "path": "source_receipts/repo_gsm8k.json",
+      "sha256": "6a3abfd96efd0c17905f720916beb5fcc22678af15377052c4bdca0c5e9ba33b"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/HarethahMo/extended-refusal",
+      "path": "source_receipts/er_dataset.json",
+      "sha256": "a4ead8bc9b7394c1dc25cec817f7ba091ec3365def947f38bf5cf3a21551b5ac"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct/resolve/aa8e72537993ba99e69dfaafa59ed015b17504d1/README.md",
+      "path": "source_receipts/base_README.md",
+      "sha256": "2c74693e6ae36ba878124d465195b4dad0f71035b54ece1c9fd1553cc497ef8c"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct/resolve/aa8e72537993ba99e69dfaafa59ed015b17504d1/config.json",
+      "path": "source_receipts/base_config.json",
+      "sha256": "eed00b17e22553979d090fa492e587e92885e328914c8e0b0b78f0a0d3576b3b"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct/resolve/aa8e72537993ba99e69dfaafa59ed015b17504d1/LICENSE",
+      "path": "source_receipts/base_LICENSE",
+      "sha256": "ef52482bb785733093dc9a2e8edd8e764c77d12d8e9d8f10a80c9b547d32d0f9"
+    },
+    {
+      "url": "https://huggingface.co/HarethahMo/qwen2.5-3B-extended-refusal/resolve/17071173e68ca63cab099003b1b7037bcc3f695a/README.md",
+      "path": "source_receipts/extended_refusal_README.md",
+      "sha256": "0336368f8274a5ed09f54cee8d56a851ecee96026d9f391a6735762c16608a60"
+    },
+    {
+      "url": "https://huggingface.co/HarethahMo/qwen2.5-3B-extended-refusal/resolve/17071173e68ca63cab099003b1b7037bcc3f695a/config.json",
+      "path": "source_receipts/extended_refusal_config.json",
+      "sha256": "672935039bf333d89f31b93a066c1d0d5ff9ec1a507dc4703b58c04bde865b76"
+    },
+    {
+      "url": "https://huggingface.co/HarethahMo/qwen2.5-3B-extended-refusal/resolve/17071173e68ca63cab099003b1b7037bcc3f695a/LICENSE",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3Guard-Gen-0.6B/resolve/fada3b2f655b89601929198343c94cd2f64d93cc/README.md",
+      "path": "source_receipts/guard_README.md",
+      "sha256": "3a52042f467261243d949d86a779f08ac8ff9da30ce47fd636db6e1c9c1b7635"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3Guard-Gen-0.6B/resolve/fada3b2f655b89601929198343c94cd2f64d93cc/config.json",
+      "path": "source_receipts/guard_config.json",
+      "sha256": "4674816bdf440c113a9ca87aedfa069b67f7cabbd89e71da7d4e4a68adce4af4"
+    },
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3Guard-Gen-0.6B/resolve/fada3b2f655b89601929198343c94cd2f64d93cc/LICENSE",
+      "path": "source_receipts/guard_LICENSE",
+      "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+    },
+    {
+      "url": "https://huggingface.co/OpenSafetyLab/MD-Judge-v0.1/resolve/993302ce502a634b64a1cb8be95b6729d4d27b13/README.md",
+      "path": "source_receipts/guard_independent_README.md",
+      "sha256": "e4d28655a09f2b81da6fb8306f99591e4ea71dd786b290a347fa14c5e07cd2c4"
+    },
+    {
+      "url": "https://huggingface.co/OpenSafetyLab/MD-Judge-v0.1/resolve/993302ce502a634b64a1cb8be95b6729d4d27b13/config.json",
+      "path": "source_receipts/guard_independent_config.json",
+      "sha256": "0a25fff04faefe6d0bb68f18305e0e04b30b407a0a95a689e5c9da334b05fc29"
+    },
+    {
+      "url": "https://huggingface.co/OpenSafetyLab/MD-Judge-v0.1/resolve/993302ce502a634b64a1cb8be95b6729d4d27b13/LICENSE",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}
