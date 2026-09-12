@@ -34,7 +34,7 @@ def main():
                 spec["retrievals"].append({"url":url,"error":str(exc)})
     er=json.loads(values["er_dataset"])
     spec["datasets"]["extended_refusal"]={"id":"HarethahMo/extended-refusal","revision":er["sha"],"license":er.get("cardData",{}).get("license"),"files":[x["rfilename"] for x in er.get("siblings",[])]}
-    files={"harmbench":"data/behavior_datasets/harmbench_behaviors_text_test.csv","xstest":"xstest_v2_prompts.csv","gsm8k":"grade_school_math/data/train.jsonl"}
+    files={"harmbench":"data/behavior_datasets/harmbench_behaviors_text_test.csv","xstest":"xstest_prompts.csv","gsm8k":"grade_school_math/data/train.jsonl"}
     for key,repo in REPOS.items():
         meta=json.loads(values[f"repo_{key}"])
         commit=json.loads(fetch(f"https://api.github.com/repos/{repo}/commits/{meta['default_branch']}"))["sha"]
