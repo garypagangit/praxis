@@ -1,0 +1,43 @@
+{
+  "candidates": [
+    {
+      "label": "not empathy",
+      "text": "The answer is No."
+    },
+    {
+      "label": "empathy",
+      "text": "The answer is Yes."
+    }
+  ],
+  "continuation": "literal full answer string; no extra leading space or chat-end token",
+  "fewshot_messages": [
+    {
+      "content": "For the sentence: \"When I read about the floods in Bangladesh, I was shocked by the scale of destruction. I can't imagine losing my home like that. It's heartbreaking to see families wading through water with nothing but the clothes on their backs. No one deserves to suffer like that.\", is it expressing empathy?",
+      "role": "user"
+    },
+    {
+      "content": "The speaker is expressing concern and emotional distress for people suffering due to a natural disaster. They acknowledge the pain of others and show a desire for their well-being. This indicates an empathetic response. The answer is Yes.",
+      "role": "assistant"
+    },
+    {
+      "content": "For the sentence: \"Some people just don't manage their time well, and that's why they end up failing. I mean, everyone has the same 24 hours. If you can't figure it out, maybe you don't deserve success.\", is it expressing empathy?",
+      "role": "user"
+    },
+    {
+      "content": "The speaker is judgmental and lacks understanding of others' circumstances. There is no attempt to relate to others' struggles or express care, which shows a lack of empathy. The answer is No.",
+      "role": "assistant"
+    },
+    {
+      "content": "For the sentence: \"I saw a story about a young girl walking miles every day just to get clean water for her family. It made me realize how lucky I am, and I felt a deep sadness knowing people still go through that. I wish there were more ways we could help.\", is it expressing empathy?",
+      "role": "user"
+    },
+    {
+      "content": "The speaker reflects on someone else's hardship with sadness and a desire to help. They are emotionally moved and express concern, which are key indicators of empathy. The answer is Yes.",
+      "role": "assistant"
+    }
+  ],
+  "question_template": "For the sentence: \"{text}\", is it expressing empathy?",
+  "serialization": "pinned tokenizer.apply_chat_template, add_generation_prompt=True, no extra system message",
+  "socket_prompt_commit": "2f4fffff01a591346bf823df59a515eabb764b1d",
+  "source_commit": "275a5e4b1369ff19c8e3f33f42f16bc5ef19e6d7"
+}
