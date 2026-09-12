@@ -1,0 +1,159 @@
+{
+  "pricing": {
+    "ok": true,
+    "result": [
+      {
+        "unit": "Hrs",
+        "endRange": "Inf",
+        "description": "$1.006 per On Demand Linux g5.xlarge Instance Hour",
+        "appliesTo": [],
+        "rateCode": "79BRGEEZC6TARVWJ.JRTCKXETXF.6YS6EN2CT7",
+        "beginRange": "0",
+        "pricePerUnit": {
+          "USD": "1.0060000000"
+        }
+      }
+    ]
+  },
+  "role": {
+    "ok": true,
+    "result": [
+      {
+        "role": "praxis-data-loader-role",
+        "attached": [
+          {
+            "PolicyName": "AmazonSSMManagedInstanceCore",
+            "PolicyArn": "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+          },
+          {
+            "PolicyName": "AmazonEC2ContainerRegistryReadOnly",
+            "PolicyArn": "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+          },
+          {
+            "PolicyName": "AmazonS3FullAccess",
+            "PolicyArn": "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+          }
+        ],
+        "inline": [
+          "praxis-hf-secret-read"
+        ]
+      }
+    ]
+  },
+  "s3": {
+    "ok": true,
+    "result": {
+      "ResponseMetadata": {
+        "RequestId": "KHHPNVG75HTTE4QW",
+        "HostId": "sVVfFvkTag7iSuNRj4pFxKsuePVICgte0nowAVye/oUKYV5NbR6Img6FnPAKZZPsojNUnMxh2KrpHOLFbC18/d499fjCPeVG",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+          "x-amz-id-2": "sVVfFvkTag7iSuNRj4pFxKsuePVICgte0nowAVye/oUKYV5NbR6Img6FnPAKZZPsojNUnMxh2KrpHOLFbC18/d499fjCPeVG",
+          "x-amz-request-id": "KHHPNVG75HTTE4QW",
+          "date": "Sat, 12 Sep 2026 07:34:41 GMT",
+          "x-amz-bucket-region": "us-east-1",
+          "x-amz-access-point-alias": "false",
+          "x-amz-bucket-arn": "arn:aws:s3:::praxis-garypagan-272615233626-us-east-1",
+          "content-type": "application/xml",
+          "transfer-encoding": "chunked",
+          "server": "AmazonS3"
+        },
+        "RetryAttempts": 0
+      },
+      "BucketArn": "arn:aws:s3:::praxis-garypagan-272615233626-us-east-1",
+      "BucketRegion": "us-east-1",
+      "AccessPointAlias": false
+    }
+  },
+  "volumes": {
+    "ok": true,
+    "result": [
+      {
+        "AvailabilityZoneId": "use1-az2",
+        "Iops": 3000,
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "praxis-sec-lord-llama-gpu"
+          },
+          {
+            "Key": "Experiment",
+            "Value": "sec-lord-ds-lord"
+          },
+          {
+            "Key": "Job",
+            "Value": "sec-lord-llama-cti-20260510"
+          }
+        ],
+        "VolumeType": "gp3",
+        "MultiAttachEnabled": false,
+        "Throughput": 125,
+        "Operator": {
+          "Managed": false,
+          "HiddenByDefault": false
+        },
+        "VolumeId": "vol-036ba10a37906fa63",
+        "Size": 220,
+        "SnapshotId": "snap-0bc559df9daccf490",
+        "AvailabilityZone": "us-east-1a",
+        "State": "in-use",
+        "CreateTime": "2026-05-11 00:20:39.332000+00:00",
+        "Attachments": [
+          {
+            "DeleteOnTermination": true,
+            "EbsCardIndex": 0,
+            "VolumeId": "vol-036ba10a37906fa63",
+            "InstanceId": "i-039ed976444ade397",
+            "Device": "/dev/sda1",
+            "State": "attached",
+            "AttachTime": "2026-05-11 00:20:39+00:00"
+          }
+        ],
+        "Encrypted": false
+      },
+      {
+        "AvailabilityZoneId": "use1-az6",
+        "Iops": 3000,
+        "Tags": [
+          {
+            "Key": "Experiment",
+            "Value": "gml-cross-dataset"
+          },
+          {
+            "Key": "Job",
+            "Value": "gml-cross-dataset-20260518"
+          },
+          {
+            "Key": "Name",
+            "Value": "praxis-gml-cross-dataset-gpu"
+          }
+        ],
+        "VolumeType": "gp3",
+        "MultiAttachEnabled": false,
+        "Throughput": 125,
+        "Operator": {
+          "Managed": false,
+          "HiddenByDefault": false
+        },
+        "VolumeId": "vol-01281b9c8b6321768",
+        "Size": 220,
+        "SnapshotId": "snap-0bc559df9daccf490",
+        "AvailabilityZone": "us-east-1c",
+        "State": "in-use",
+        "CreateTime": "2026-05-19 01:04:27.068000+00:00",
+        "Attachments": [
+          {
+            "DeleteOnTermination": true,
+            "EbsCardIndex": 0,
+            "VolumeId": "vol-01281b9c8b6321768",
+            "InstanceId": "i-07178e293e8df2a60",
+            "Device": "/dev/sda1",
+            "State": "attached",
+            "AttachTime": "2026-05-19 01:04:27+00:00"
+          }
+        ],
+        "Encrypted": false
+      }
+    ]
+  }
+}
