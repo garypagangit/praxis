@@ -59,6 +59,7 @@ def main():
         write(out/'loading_failure.json',info);raise RuntimeError('Checkpoint did not load exactly')
     tokenizer=AutoTokenizer.from_pretrained(tok['id'],revision=tok['revision'],trust_remote_code=False)
     tokenizer.pad_token_id=2
+    assert len(model.layers)==30 and model.config.num_hidden_layers==120
     write(out/'environment.json',{'torch':torch.__version__,'transformers':importlib.metadata.version('transformers'),
         'model':settings['model'],'revision':settings['model_revision'],'parameters':sum(p.numel() for p in model.parameters()),
         'layers':len(model.layers),'expanded_layers':model.config.num_hidden_layers,'device':'cpu','dtype':'float32',
@@ -69,10 +70,20 @@ def main():
         repeat=model(**prompt,use_cache=False,experts_ablate=['none']).logits
         model.config._attn_implementation='eager';eager=model(**prompt,use_cache=False,experts_ablate=['none']).logits
         model.config._attn_implementation='sdpa'
+        model(**prompt,use_cache=False,experts_ablate=['social'])
+        reset=model(**prompt,use_cache=False,experts_ablate=[]).logits
+        cache_diffs=[]
+        for ablate in [[],['social']]:
+            tokens=prompt['input_ids'];prefix=tokens[:,:-1]
+            pre=model(input_ids=prefix,use_cache=True,experts_ablate=ablate)
+            cached=model(input_ids=tokens[:,-1:],attention_mask=torch.ones_like(tokens),past_key_values=pre.past_key_values,use_cache=True,experts_ablate=ablate).logits
+            full=model(input_ids=tokens,use_cache=False,experts_ablate=ablate).logits
+            cache_diffs.append(float((cached[0,-1]-full[0,-1]).abs().max()))
     checks={'finite':bool(torch.isfinite(one).all()),'repeat_max_abs':float((one-repeat).abs().max()),
-        'eager_sdpa_max_abs':float((one-eager).abs().max()),'last_top_token_equal':bool(one[0,-1].argmax()==eager[0,-1].argmax())}
+        'eager_sdpa_max_abs':float((one-eager).abs().max()),'last_top_token_equal':bool(one[0,-1].argmax()==eager[0,-1].argmax()),
+        'ablation_reset_max_abs':float((one-reset).abs().max()),'cached_full_max_abs':cache_diffs}
     write(out/'numerical_checks.json',checks)
-    if not checks['finite'] or checks['repeat_max_abs']>1e-6 or checks['eager_sdpa_max_abs']>1e-3 or not checks['last_top_token_equal']:
+    if not checks['finite'] or checks['repeat_max_abs']>1e-6 or checks['eager_sdpa_max_abs']>1e-3 or not checks['last_top_token_equal'] or checks['ablation_reset_max_abs']>1e-6 or max(cache_diffs)>1e-3:
         raise RuntimeError('Numerical portability qualification failed')
     raw=obtain(settings['gsm8k_url'],out/'gsm8k_test.jsonl',settings['gsm8k_sha256'])
     rows=[json.loads(line) for line in raw.decode().splitlines() if line.strip()][:8]
@@ -106,12 +117,13 @@ def main():
             print(json.dumps({'id':index,'condition':condition,'valid_answer':predicted is not None,'tokens':len(generated),'seconds':record['seconds']}),flush=True)
     paired={i:{r['condition']:r for r in outputs if r['id']==i} for i in range(8)}
     base_correct=sum(x['baseline']['correct'] for x in paired.values())
-    summary={'status':'COMPLETED_FEASIBILITY','n':8,'baseline_correct':base_correct,
+    base_wrong=sum(x['baseline']['answer'] is not None and not x['baseline']['truncated'] and not x['baseline']['correct'] for x in paired.values())
+    summary={'status':'COMPLETED_FEASIBILITY','n':8,'baseline_correct':base_correct,'baseline_valid_wrong':base_wrong,
         'ablation_correct':sum(x['social_ablation']['correct'] for x in paired.values()),
         'correct_to_wrong':sum(x['baseline']['correct'] and not x['social_ablation']['correct'] for x in paired.values()),
         'wrong_to_correct':sum(not x['baseline']['correct'] and x['social_ablation']['correct'] for x in paired.values()),
         'invalid_answers':sum(r['answer'] is None for r in outputs),'truncated':sum(r['truncated'] for r in outputs),
-        'capability_gate':2<=base_correct<=6,'novel_method_tested':False,'paper_score_reproduction_claimed':False}
+        'capability_gate':base_correct>=2 and base_wrong>=2,'novel_method_tested':False,'paper_score_reproduction_claimed':False}
     write(out/'summary.json',summary);print(json.dumps(summary),flush=True)
 
 if __name__=='__main__':main()
