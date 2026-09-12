@@ -81,6 +81,47 @@ if receipts["teacher_complete.json"] and receipts["distillation_data.json"]:
         audit["teacher"].update({"completion_masks_checked": len(encoded),
             "maximum_sequence_length": max(len(r["input_ids"]) for r in encoded),
             "minimum_completion_tokens": min(sum(t != -100 for t in r["labels"]) for r in encoded)})
+audit["training"] = {}
+for arm in ("base_kd", "er_kd", "er_replay"):
+    name = f"checkpoints/{arm}/train_complete.json"
+    if not receipts[name]:
+        continue
+    training = run.read_json(destination / name)
+    key = "base" if arm == "base_kd" else "extended_refusal"
+    if (training["protocol_id"] != identity or training["arm"] != arm or
+        training["base"] != sources["models"][key] or not training["adapter_l2_change"] > 0 or
+        training["steps"] != config["train_steps"] or
+        training["examples_seen"] != config["train_steps"] * config["grad_accumulation"] or
+        training["teacher_data_sha256"] != receipts["distillation_data.json"]["sha256"]):
+        raise ValueError("Training metadata does not match the frozen design")
+    checkpoint_pending = False
+    for filename, expected_hash in training["adapter_files"].items():
+        artifact = f"checkpoints/{arm}/{filename}"
+        _, receipt = fetch(artifact)
+        if receipt is None:
+            checkpoint_pending = True
+            break
+        if receipt["sha256"] != expected_hash:
+            raise ValueError("Serialized adapter differs from training manifest")
+        receipts[artifact] = receipt
+    if checkpoint_pending:
+        audit["training"][arm] = {"status": "checkpoint_upload_pending"}
+        continue
+    from safetensors import safe_open
+    import torch
+    with safe_open(destination / f"checkpoints/{arm}/adapter_model.safetensors", framework="pt", device="cpu") as f:
+        tensors = {k: f.get_tensor(k).float() for k in f.keys()}
+    if not all(torch.isfinite(t).all() for t in tensors.values()):
+        raise ValueError("Nonfinite serialized adapter")
+    b_matrices = [t for name, t in tensors.items() if "lora_B" in name]
+    b_squared_norm = sum(float(t.square().sum()) for t in b_matrices)
+    if not b_matrices or not b_squared_norm > 0:
+        raise ValueError("Serialized LoRA B matrices did not move from zero initialization")
+    record = {k: training[k] for k in ("steps", "examples_seen", "replay_examples_seen", "supervised_tokens",
+        "trainable_parameters", "adapter_l2_change", "loss_first4", "loss_last4", "peak_gpu_bytes")}
+    record.update({"serialized_files_verified": True, "serialized_tensor_count": len(tensors),
+        "nonzero_lora_b_matrices": sum(bool(t.any()) for t in b_matrices), "lora_b_l2_norm": b_squared_norm ** .5})
+    audit["training"][arm] = record
 audit["arms"] = {}
 for arm in config["arms"]:
     filename = f"generations_{arm}.jsonl"
@@ -105,13 +146,9 @@ for arm in config["arms"]:
         if panel == "math":
             record[panel]["final_answer_correct_untruncated"] = sum(
                 not r["truncated"] and run.numeric_answer(r["response"]) == expected[r["id"]]["answer"] for r in subset)
-    train_name = f"checkpoints/{arm}/train_complete.json"
-    if train_name in receipts and receipts[train_name]:
-        training = run.read_json(destination / train_name)
-        if training["protocol_id"] != identity or not training["adapter_l2_change"] > 0:
-            raise ValueError("Adaptation artifact is not valid")
-        record["training"] = {k: training[k] for k in ("steps", "examples_seen", "replay_examples_seen",
-            "supervised_tokens", "trainable_parameters", "adapter_l2_change", "loss_first4", "loss_last4", "peak_gpu_bytes")}
+            record[panel]["correct_but_truncated_diagnostic"] = sum(
+                r["truncated"] and run.numeric_answer(r["response"]) == expected[r["id"]]["answer"] for r in subset)
+            record[panel]["missing_final_answer_diagnostic"] = sum(run.numeric_answer(r["response"]) is None for r in subset)
     audit["arms"][arm] = record
 run.write_json(HERE / "cloud" / "execution" / "artifact_audit.json", audit)
 print(json.dumps({k: v for k, v in audit.items() if k != "receipts"}, indent=2))

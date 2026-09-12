@@ -1,5 +1,5 @@
 {
-  "observed_utc": "2026-09-12T08:30:43.991889+00:00",
+  "observed_utc": "2026-09-12T08:48:17.632685+00:00",
   "protocol_id": "2e3749bcc7fa4f5d1bbd9b5758608ecb5827c2546fc8ebc29fef991cb035b938",
   "s3_uri": "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp005-20260912-37fdd3f/outputs/",
   "receipts": {
@@ -40,17 +40,39 @@
       "etag": "\"dcb7676f2f9ebddc018f9963783b3ef5\""
     },
     "generations_er.jsonl": {
-      "bytes": 6832,
-      "sha256": "c039ca37cdabe293b7c76b4ee7d4260aab90ace04b3b727d310e12d6ce324cfd",
-      "last_modified": "2026-09-12T08:30:33+00:00",
-      "etag": "\"53680e236bebe55083eef546e48b6893\""
+      "bytes": 188343,
+      "sha256": "a96b79cf988c56e970eba47eea0dfd923eacff019f476107f7a35b00113a9c2f",
+      "last_modified": "2026-09-12T08:44:08+00:00",
+      "etag": "\"2196503210fceb964ade89eec4ffe567\""
     },
-    "generations_base_kd.jsonl": null,
+    "generations_base_kd.jsonl": {
+      "bytes": 27380,
+      "sha256": "c3ceb46ab953f890991801a071e382018919f722fa9d90005f8e87b6bbbcc668",
+      "last_modified": "2026-09-12T08:48:10+00:00",
+      "etag": "\"db83549957f35bb76bd259a1f6b8f6f0\""
+    },
     "generations_er_kd.jsonl": null,
     "generations_er_replay.jsonl": null,
-    "checkpoints/base_kd/train_complete.json": null,
+    "checkpoints/base_kd/train_complete.json": {
+      "bytes": 1285,
+      "sha256": "c7bf5bc251b041c8b1d7a5f5b4fd4f49bbe09c4d099448e6c15107158482cc40",
+      "last_modified": "2026-09-12T08:45:39+00:00",
+      "etag": "\"a20a8575f92817f5aa68fb13922a119c\""
+    },
     "checkpoints/er_kd/train_complete.json": null,
-    "checkpoints/er_replay/train_complete.json": null
+    "checkpoints/er_replay/train_complete.json": null,
+    "checkpoints/base_kd/adapter_model.safetensors": {
+      "bytes": 7391728,
+      "sha256": "4708a46d1bd31819a54a698ee975b4a18140d991c246b1307aa84fddc09ec435",
+      "last_modified": "2026-09-12T08:45:39+00:00",
+      "etag": "\"63749e71a0837015c0b6f72c6c6a0074\""
+    },
+    "checkpoints/base_kd/adapter_config.json": {
+      "bytes": 779,
+      "sha256": "699c886102fbbb254b4c6a7c729173a4bbac6f06bafd6b9c25343335c4fd567d",
+      "last_modified": "2026-09-12T08:45:39+00:00",
+      "etag": "\"7fc63e62af6b611ac5bab5b85a35087c\""
+    }
   },
   "limitations": [
     "live partial evaluation snapshots are not outcome estimates",
@@ -65,7 +87,27 @@
     "eligibility_verified": true,
     "first_accepted_selection_verified": true,
     "exact_prompt_overlap_with_test": 0,
-    "peak_gpu_bytes": 6794772480
+    "peak_gpu_bytes": 6794772480,
+    "completion_masks_checked": 64,
+    "maximum_sequence_length": 380,
+    "minimum_completion_tokens": 7
+  },
+  "training": {
+    "base_kd": {
+      "steps": 32,
+      "examples_seen": 128,
+      "replay_examples_seen": 0,
+      "supervised_tokens": 14454,
+      "trainable_parameters": 1843200,
+      "adapter_l2_change": 1.7627987022273905,
+      "loss_first4": 0.27340420335531235,
+      "loss_last4": 0.14098165649920702,
+      "peak_gpu_bytes": 6971336192,
+      "serialized_files_verified": true,
+      "serialized_tensor_count": 144,
+      "nonzero_lora_b_matrices": 72,
+      "lora_b_l2_norm": 0.8792701713482419
+    }
   },
   "arms": {
     "base": {
@@ -86,16 +128,41 @@
         "n": 32,
         "truncated": 18,
         "empty": 0,
-        "final_answer_correct_untruncated": 12
+        "final_answer_correct_untruncated": 12,
+        "correct_but_truncated_diagnostic": 1,
+        "missing_final_answer_diagnostic": 19
       }
     },
     "er": {
-      "completed": 6,
+      "completed": 160,
       "expected": 160,
       "ignored_partial_trailing_record": false,
       "harm": {
-        "n": 6,
-        "truncated": 0,
+        "n": 64,
+        "truncated": 4,
+        "empty": 0
+      },
+      "benign": {
+        "n": 64,
+        "truncated": 6,
+        "empty": 0
+      },
+      "math": {
+        "n": 32,
+        "truncated": 6,
+        "empty": 0,
+        "final_answer_correct_untruncated": 20,
+        "correct_but_truncated_diagnostic": 1,
+        "missing_final_answer_diagnostic": 5
+      }
+    },
+    "base_kd": {
+      "completed": 27,
+      "expected": 160,
+      "ignored_partial_trailing_record": false,
+      "harm": {
+        "n": 27,
+        "truncated": 6,
         "empty": 0
       },
       "benign": {
@@ -107,7 +174,9 @@
         "n": 0,
         "truncated": 0,
         "empty": 0,
-        "final_answer_correct_untruncated": 0
+        "final_answer_correct_untruncated": 0,
+        "correct_but_truncated_diagnostic": 0,
+        "missing_final_answer_diagnostic": 0
       }
     }
   }
