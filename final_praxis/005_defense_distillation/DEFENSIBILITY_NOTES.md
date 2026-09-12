@@ -16,3 +16,5 @@ Important interpretation constraints, retained without changing the running desi
 The prespecified cheap gate remains appropriate: a measured retention failure that survives the evaluator and utility checks could justify designing a more specific defense objective. An absent signal or an adequate ordinary-replay baseline does not support investing in a complicated method from this pilot alone. A technical failure remains distinct from a scientific null. The first full report must include unchanged models, trained models, invalid/truncated assessments, training evidence and every registered endpoint.
 
 No running model code, settings, examples or budgets have been changed during these artifact audits. Post-launch commits contain observation tools and receipts; the AWS source bundle remains the frozen `37fdd3f154a78017f9eb313385e25379c36affde` version.
+
+The [post-launch novelty amendment](NOVELTY_AMENDMENT.md) records closer prior work missed by the initial v1 review. The present study is reproduction/feasibility work; its novelty criterion is not met.

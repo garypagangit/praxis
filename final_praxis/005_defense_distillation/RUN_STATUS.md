@@ -1,6 +1,8 @@
 # Final Praxis 005 live pilot
 
-Snapshot: 12 September 2026, 08:11 UTC. **Running actual CUDA inference.** The defended teacher generated 56 fixed GSM8K training responses; 43 passed the preregistered numeric-answer, length and nontruncation checks. This exceeds the minimum of 32; generation continues unchanged toward 64. These are training-data feasibility counts, not held-out utility or safety-retention results. No H1/H2 conclusion is available yet.
+Snapshot: 12 September 2026, 08:30 UTC. **Running actual CUDA inference; reproduction/feasibility only. The novelty criterion is not met**, as documented in [NOVELTY_AMENDMENT.md](NOVELTY_AMENDMENT.md). Teacher preparation completed with 64 accepted responses from 81 attempts. The unchanged parent completed all 160 evaluations; the defended model's evaluation is running. No H1/H2 conclusion is available yet.
+
+The parent's fixed-budget math result is 12/32 correct final answers with complete outputs; 18/32 math outputs were truncated. Its safety and benign panels had 23/64 and 40/64 truncated outputs respectively, with none empty. These measurements must retain their token-budget limitation. The safety judges have not yet run, and no refusal or harmlessness conclusion follows from generation counts.
 
 The cloud job passed all 12 harness tests, qualified Torch 2.6.0+cu124/BF16 on the A10G, and reproduced the CPU freeze's five public data hashes and all 160 evaluation IDs. At this snapshot there are no tracebacks or S3 synchronization errors. After teacher preparation, it evaluates both unchanged models and independently trains/evaluates the three registered adapters, then runs the two safety judges. Manual review remains required.
 

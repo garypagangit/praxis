@@ -1,5 +1,5 @@
 {
-  "observed_utc": "2026-09-12T08:19:17.343424+00:00",
+  "observed_utc": "2026-09-12T08:30:43.991889+00:00",
   "protocol_id": "2e3749bcc7fa4f5d1bbd9b5758608ecb5827c2546fc8ebc29fef991cb035b938",
   "s3_uri": "s3://praxis-garypagan-272615233626-us-east-1/final-praxis/20260912/runs/fp005-20260912-37fdd3f/outputs/",
   "receipts": {
@@ -34,12 +34,17 @@
       "etag": "\"5f40ad8709040bbc2d7c57723bdc0304\""
     },
     "generations_base.jsonl": {
-      "bytes": 74297,
-      "sha256": "f6b81db5790e06bbd2e65aaa0038dc2bcb65d1f2f654027020ab08e3539c798d",
-      "last_modified": "2026-09-12T08:18:58+00:00",
-      "etag": "\"f5aaf6a1990f7180909dc1ecd10359be\""
+      "bytes": 191353,
+      "sha256": "26214d17d7693cb49b38c069f096fb4bed61b0d1a21c38fad54ebf5b480f33cb",
+      "last_modified": "2026-09-12T08:29:02+00:00",
+      "etag": "\"dcb7676f2f9ebddc018f9963783b3ef5\""
     },
-    "generations_er.jsonl": null,
+    "generations_er.jsonl": {
+      "bytes": 6832,
+      "sha256": "c039ca37cdabe293b7c76b4ee7d4260aab90ace04b3b727d310e12d6ce324cfd",
+      "last_modified": "2026-09-12T08:30:33+00:00",
+      "etag": "\"53680e236bebe55083eef546e48b6893\""
+    },
     "generations_base_kd.jsonl": null,
     "generations_er_kd.jsonl": null,
     "generations_er_replay.jsonl": null,
@@ -60,14 +65,11 @@
     "eligibility_verified": true,
     "first_accepted_selection_verified": true,
     "exact_prompt_overlap_with_test": 0,
-    "peak_gpu_bytes": 6794772480,
-    "completion_masks_checked": 64,
-    "maximum_sequence_length": 380,
-    "minimum_completion_tokens": 7
+    "peak_gpu_bytes": 6794772480
   },
   "arms": {
     "base": {
-      "completed": 65,
+      "completed": 160,
       "expected": 160,
       "ignored_partial_trailing_record": false,
       "harm": {
@@ -76,8 +78,29 @@
         "empty": 0
       },
       "benign": {
-        "n": 1,
-        "truncated": 1,
+        "n": 64,
+        "truncated": 40,
+        "empty": 0
+      },
+      "math": {
+        "n": 32,
+        "truncated": 18,
+        "empty": 0,
+        "final_answer_correct_untruncated": 12
+      }
+    },
+    "er": {
+      "completed": 6,
+      "expected": 160,
+      "ignored_partial_trailing_record": false,
+      "harm": {
+        "n": 6,
+        "truncated": 0,
+        "empty": 0
+      },
+      "benign": {
+        "n": 0,
+        "truncated": 0,
         "empty": 0
       },
       "math": {
