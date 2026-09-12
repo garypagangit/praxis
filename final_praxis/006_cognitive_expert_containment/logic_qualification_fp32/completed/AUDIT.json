@@ -1,0 +1,4642 @@
+{
+  "status": "COMPLETE",
+  "protocol_sha256": "8a76f26328795c86fff99df994737490cab4f559aeec74cdeb557352422b6ad4",
+  "data_sha256": "b1599c6ceb080d988bb1998813b071d280bfe39ac1f6846069103b4c2c6d178d",
+  "expected_cells": 816,
+  "recorded_cells": 816,
+  "validated_unique_cells": 816,
+  "missing_cell_count": 0,
+  "missing_cells": [],
+  "integrity_errors": [],
+  "technical_checks": {
+    "pinned_bundle": true,
+    "exact_checkpoint_load": true,
+    "finite": true,
+    "repeat_equal": true,
+    "ablation_reset_equal": true,
+    "cache_top_token_equal": true,
+    "cache_max_abs_within_tolerance": true,
+    "ablation_routes_zero": true,
+    "eager_sdpa_top_token_equal": true,
+    "eager_sdpa_max_abs_within_tolerance": true
+  },
+  "all_technical_checks": true,
+  "splits": {
+    "pilot": {
+      "arms": {
+        "intact": {
+          "n": 16,
+          "planned_n": 16,
+          "strict_correct": 0,
+          "flexible_correct": 4,
+          "strict_extracted": 1,
+          "flexible_extracted": 16,
+          "flexible_contains_digit": 16,
+          "truncated": 1,
+          "empty": 0,
+          "correct_and_truncated": 0,
+          "nontruncated_n": 15,
+          "nontruncated_flexible_correct": 4,
+          "nontruncated_flexible_accuracy": 0.26666666666666666,
+          "stop_reasons": {
+            "eos": 15,
+            "token_cap": 1
+          },
+          "tokens": 2671,
+          "sum_request_seconds": 121.80254230499997,
+          "routes": [
+            18387,
+            459,
+            14755,
+            26943
+          ],
+          "flexible_accuracy": 0.25
+        },
+        "logic_ablation": {
+          "n": 16,
+          "planned_n": 16,
+          "strict_correct": 0,
+          "flexible_correct": 0,
+          "strict_extracted": 1,
+          "flexible_extracted": 16,
+          "flexible_contains_digit": 16,
+          "truncated": 4,
+          "empty": 0,
+          "correct_and_truncated": 0,
+          "nontruncated_n": 12,
+          "nontruncated_flexible_correct": 0,
+          "nontruncated_flexible_accuracy": 0.0,
+          "stop_reasons": {
+            "eos": 12,
+            "token_cap": 4
+          },
+          "tokens": 4883,
+          "sum_request_seconds": 221.0810718429998,
+          "routes": [
+            0,
+            672,
+            34867,
+            60397
+          ],
+          "flexible_accuracy": 0.0
+        },
+        "social_ablation": {
+          "n": 16,
+          "planned_n": 16,
+          "strict_correct": 0,
+          "flexible_correct": 4,
+          "strict_extracted": 2,
+          "flexible_extracted": 16,
+          "flexible_contains_digit": 16,
+          "truncated": 1,
+          "empty": 0,
+          "correct_and_truncated": 0,
+          "nontruncated_n": 15,
+          "nontruncated_flexible_correct": 4,
+          "nontruncated_flexible_accuracy": 0.26666666666666666,
+          "stop_reasons": {
+            "eos": 15,
+            "token_cap": 1
+          },
+          "tokens": 2559,
+          "sum_request_seconds": 117.31873135399974,
+          "routes": [
+            17765,
+            0,
+            14693,
+            26294
+          ],
+          "flexible_accuracy": 0.25
+        }
+      },
+      "complete_paired_questions": 16,
+      "paired": {
+        "strict/intact_minus_logic_ablation": {
+          "n": 16,
+          "intact_correct": 0,
+          "comparison_correct": 0,
+          "correct_to_wrong": 0,
+          "wrong_to_correct": 0,
+          "discordant": 0,
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "strict/intact_minus_social_ablation": {
+          "n": 16,
+          "intact_correct": 0,
+          "comparison_correct": 0,
+          "correct_to_wrong": 0,
+          "wrong_to_correct": 0,
+          "discordant": 0,
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "strict/social_minus_logic": {
+          "n": 16,
+          "intact_correct": 0,
+          "comparison_correct": 0,
+          "correct_to_wrong": 0,
+          "wrong_to_correct": 0,
+          "discordant": 0,
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "flexible/intact_minus_logic_ablation": {
+          "n": 16,
+          "intact_correct": 4,
+          "comparison_correct": 0,
+          "correct_to_wrong": 4,
+          "wrong_to_correct": 0,
+          "discordant": 4,
+          "difference": 0.25,
+          "ci95": [
+            0.0625,
+            0.5
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "flexible/intact_minus_social_ablation": {
+          "n": 16,
+          "intact_correct": 4,
+          "comparison_correct": 4,
+          "correct_to_wrong": 0,
+          "wrong_to_correct": 0,
+          "discordant": 0,
+          "difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "flexible/social_minus_logic": {
+          "n": 16,
+          "intact_correct": 4,
+          "comparison_correct": 0,
+          "correct_to_wrong": 4,
+          "wrong_to_correct": 0,
+          "discordant": 4,
+          "difference": 0.25,
+          "ci95": [
+            0.0625,
+            0.5
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        }
+      },
+      "jointly_nontruncated_sensitivity": {
+        "intact_minus_logic_ablation": {
+          "n": 11,
+          "excluded_truncated_pairs": 5,
+          "estimate": {
+            "n": 11,
+            "intact_correct": 2,
+            "comparison_correct": 0,
+            "correct_to_wrong": 2,
+            "wrong_to_correct": 0,
+            "discordant": 2,
+            "difference": 0.18181818181818182,
+            "ci95": [
+              0.0,
+              0.45454545454545453
+            ],
+            "quantile_method": "linear interpolation at (replicates - 1) * probability",
+            "bootstrap_replicates": 10000,
+            "seed": 20260912,
+            "interval_scope": "paired questions, not training seeds or model families"
+          },
+          "descriptive_only": true,
+          "selection_warning": "Conditions determine inclusion; this is not the full-cohort primary estimand and never enters gates."
+        },
+        "intact_minus_social_ablation": {
+          "n": 15,
+          "excluded_truncated_pairs": 1,
+          "estimate": {
+            "n": 15,
+            "intact_correct": 4,
+            "comparison_correct": 4,
+            "correct_to_wrong": 0,
+            "wrong_to_correct": 0,
+            "discordant": 0,
+            "difference": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "quantile_method": "linear interpolation at (replicates - 1) * probability",
+            "bootstrap_replicates": 10000,
+            "seed": 20260912,
+            "interval_scope": "paired questions, not training seeds or model families"
+          },
+          "descriptive_only": true,
+          "selection_warning": "Conditions determine inclusion; this is not the full-cohort primary estimand and never enters gates."
+        }
+      },
+      "descriptive_only": true
+    },
+    "test": {
+      "arms": {
+        "intact": {
+          "n": 256,
+          "planned_n": 256,
+          "strict_correct": 2,
+          "flexible_correct": 80,
+          "strict_extracted": 8,
+          "flexible_extracted": 253,
+          "flexible_contains_digit": 253,
+          "truncated": 48,
+          "empty": 0,
+          "correct_and_truncated": 2,
+          "nontruncated_n": 208,
+          "nontruncated_flexible_correct": 78,
+          "nontruncated_flexible_accuracy": 0.375,
+          "stop_reasons": {
+            "eos": 208,
+            "token_cap": 48
+          },
+          "tokens": 68367,
+          "sum_request_seconds": 3102.568896580992,
+          "routes": [
+            359185,
+            9269,
+            358042,
+            649696
+          ],
+          "flexible_accuracy": 0.3125
+        },
+        "logic_ablation": {
+          "n": 256,
+          "planned_n": 256,
+          "strict_correct": 2,
+          "flexible_correct": 13,
+          "strict_extracted": 18,
+          "flexible_extracted": 255,
+          "flexible_contains_digit": 255,
+          "truncated": 79,
+          "empty": 0,
+          "correct_and_truncated": 0,
+          "nontruncated_n": 177,
+          "nontruncated_flexible_correct": 13,
+          "nontruncated_flexible_accuracy": 0.07344632768361582,
+          "stop_reasons": {
+            "eos": 177,
+            "token_cap": 79
+          },
+          "tokens": 90817,
+          "sum_request_seconds": 4092.0379375070042,
+          "routes": [
+            0,
+            17248,
+            644344,
+            1073800
+          ],
+          "flexible_accuracy": 0.05078125
+        },
+        "social_ablation": {
+          "n": 256,
+          "planned_n": 256,
+          "strict_correct": 3,
+          "flexible_correct": 91,
+          "strict_extracted": 11,
+          "flexible_extracted": 251,
+          "flexible_contains_digit": 251,
+          "truncated": 47,
+          "empty": 0,
+          "correct_and_truncated": 3,
+          "nontruncated_n": 209,
+          "nontruncated_flexible_correct": 88,
+          "nontruncated_flexible_accuracy": 0.42105263157894735,
+          "stop_reasons": {
+            "eos": 209,
+            "token_cap": 47
+          },
+          "tokens": 67657,
+          "sum_request_seconds": 3082.2964949189964,
+          "routes": [
+            356454,
+            0,
+            359986,
+            648392
+          ],
+          "flexible_accuracy": 0.35546875
+        }
+      },
+      "complete_paired_questions": 256,
+      "paired": {
+        "strict/intact_minus_logic_ablation": {
+          "n": 256,
+          "intact_correct": 2,
+          "comparison_correct": 2,
+          "correct_to_wrong": 2,
+          "wrong_to_correct": 2,
+          "discordant": 4,
+          "difference": 0.0,
+          "ci95": [
+            -0.015625,
+            0.015625
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "strict/intact_minus_social_ablation": {
+          "n": 256,
+          "intact_correct": 2,
+          "comparison_correct": 3,
+          "correct_to_wrong": 1,
+          "wrong_to_correct": 2,
+          "discordant": 3,
+          "difference": -0.00390625,
+          "ci95": [
+            -0.015625,
+            0.0078125
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "strict/social_minus_logic": {
+          "n": 256,
+          "intact_correct": 3,
+          "comparison_correct": 2,
+          "correct_to_wrong": 3,
+          "wrong_to_correct": 2,
+          "discordant": 5,
+          "difference": 0.00390625,
+          "ci95": [
+            -0.01171875,
+            0.01953125
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "flexible/intact_minus_logic_ablation": {
+          "n": 256,
+          "intact_correct": 80,
+          "comparison_correct": 13,
+          "correct_to_wrong": 72,
+          "wrong_to_correct": 5,
+          "discordant": 77,
+          "difference": 0.26171875,
+          "ci95": [
+            0.203125,
+            0.3203125
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "flexible/intact_minus_social_ablation": {
+          "n": 256,
+          "intact_correct": 80,
+          "comparison_correct": 91,
+          "correct_to_wrong": 6,
+          "wrong_to_correct": 17,
+          "discordant": 23,
+          "difference": -0.04296875,
+          "ci95": [
+            -0.078125,
+            -0.0078125
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        },
+        "flexible/social_minus_logic": {
+          "n": 256,
+          "intact_correct": 91,
+          "comparison_correct": 13,
+          "correct_to_wrong": 83,
+          "wrong_to_correct": 5,
+          "discordant": 88,
+          "difference": 0.3046875,
+          "ci95": [
+            0.2421875,
+            0.36328125
+          ],
+          "quantile_method": "linear interpolation at (replicates - 1) * probability",
+          "bootstrap_replicates": 10000,
+          "seed": 20260912,
+          "interval_scope": "paired questions, not training seeds or model families"
+        }
+      },
+      "jointly_nontruncated_sensitivity": {
+        "intact_minus_logic_ablation": {
+          "n": 143,
+          "excluded_truncated_pairs": 113,
+          "estimate": {
+            "n": 143,
+            "intact_correct": 56,
+            "comparison_correct": 12,
+            "correct_to_wrong": 48,
+            "wrong_to_correct": 4,
+            "discordant": 52,
+            "difference": 0.3076923076923077,
+            "ci95": [
+              0.22377622377622378,
+              0.3916083916083916
+            ],
+            "quantile_method": "linear interpolation at (replicates - 1) * probability",
+            "bootstrap_replicates": 10000,
+            "seed": 20260912,
+            "interval_scope": "paired questions, not training seeds or model families"
+          },
+          "descriptive_only": true,
+          "selection_warning": "Conditions determine inclusion; this is not the full-cohort primary estimand and never enters gates."
+        },
+        "intact_minus_social_ablation": {
+          "n": 194,
+          "excluded_truncated_pairs": 62,
+          "estimate": {
+            "n": 194,
+            "intact_correct": 78,
+            "comparison_correct": 86,
+            "correct_to_wrong": 6,
+            "wrong_to_correct": 14,
+            "discordant": 20,
+            "difference": -0.041237113402061855,
+            "ci95": [
+              -0.08762886597938144,
+              0.005154639175257732
+            ],
+            "quantile_method": "linear interpolation at (replicates - 1) * probability",
+            "bootstrap_replicates": 10000,
+            "seed": 20260912,
+            "interval_scope": "paired questions, not training seeds or model families"
+          },
+          "descriptive_only": true,
+          "selection_warning": "Conditions determine inclusion; this is not the full-cohort primary estimand and never enters gates."
+        }
+      },
+      "descriptive_only": false
+    }
+  },
+  "scoring": {
+    "harness_commit": "ad8737ae7fad24cf64e50fc7fc31397bff586b9e",
+    "task_sha256": "c506c7f5c19da2817db443f7e6d943421dfc9237510a70991d2667cf8efce1e0",
+    "primary": "flexible exact match including truncated outputs",
+    "extraction_gate": "pinned flexible RegexFilter result contains a digit and differs from [invalid]",
+    "normalization": "regex removal then lowercasing; no arithmetic/numeric coercion",
+    "uncertainty_scope": "paired question bootstrap; no training-seed uncertainty"
+  },
+  "qualification": {
+    "passed": false,
+    "components": {
+      "complete_frozen_cohort": true,
+      "all_technical_checks": true,
+      "intact_accuracy_at_least_25pct": true,
+      "intact_truncation_at_most_10pct": false,
+      "intact_extraction_at_least_90pct": true,
+      "logic_loss_at_least_10pp": true,
+      "paired_ci_lower_positive": true
+    },
+    "integer_thresholds": {
+      "minimum_intact_correct": 64,
+      "maximum_intact_truncated": 25,
+      "minimum_intact_extracted": 231,
+      "minimum_net_logic_loss": 26
+    },
+    "decision": "DO_NOT_ADVANCE_CURRENT_QUALIFICATION"
+  },
+  "limitations": [
+    "No novelty, containment, or fault-transfer efficacy claim.",
+    "Flexible extraction may reward the last number in unfinished reasoning; truncation remains separate.",
+    "Independent audit checks IDs, hashes, metadata and arithmetic; it does not re-decode token IDs or inspect weight tensors.",
+    "Question uncertainty is not uncertainty across model families, seeds or measurement protocols.",
+    "Incomplete/invalid cohorts and pilot results cannot pass qualification."
+  ],
+  "input_receipts": [
+    {
+      "file": "cells\\pilot-train-0105-intact.json",
+      "sha256": "49f006efac82339ff30bed00f479b57c65ced00d084b31fbdb62d1606dc69bc7",
+      "bytes": 1009
+    },
+    {
+      "file": "cells\\pilot-train-0105-logic_ablation.json",
+      "sha256": "1f7ba8a19dc9a86d3b49a8ff90048df73966cd641b6d78fe45ef9d4a712c4386",
+      "bytes": 1013
+    },
+    {
+      "file": "cells\\pilot-train-0105-social_ablation.json",
+      "sha256": "16eb4ff9d32166125a8790b5ab420014a1db5aa50458d1684374a6fa479e9a75",
+      "bytes": 1017
+    },
+    {
+      "file": "cells\\pilot-train-0184-intact.json",
+      "sha256": "9440ab66b6f0a9eb499bf5dd96c4f9505e98db7de6224573c5465e4cd9240311",
+      "bytes": 1468
+    },
+    {
+      "file": "cells\\pilot-train-0184-logic_ablation.json",
+      "sha256": "b8f986daf0d85892d8ac33420960044dc39c2081ed8fce5618b81b4a4062c891",
+      "bytes": 2549
+    },
+    {
+      "file": "cells\\pilot-train-0184-social_ablation.json",
+      "sha256": "1c96f2577cf5d4956ad69c7c84bd55ee2973cb5af6029960e08d1c9d88b0a1c7",
+      "bytes": 1476
+    },
+    {
+      "file": "cells\\pilot-train-0380-intact.json",
+      "sha256": "e74992f80b6c4380c8cbf166d6113285f45aed1458a63cf1a5d6a9b7ac2b89ca",
+      "bytes": 1750
+    },
+    {
+      "file": "cells\\pilot-train-0380-logic_ablation.json",
+      "sha256": "bd7fefbe627db6b0c3c333d4f1b466d562b12e4dd504e15a25d88480889e9449",
+      "bytes": 1435
+    },
+    {
+      "file": "cells\\pilot-train-0380-social_ablation.json",
+      "sha256": "5b1c3671b6059493c1b3fdd228686aa578a89d4754c937a4f4370a2a37214521",
+      "bytes": 1758
+    },
+    {
+      "file": "cells\\pilot-train-0569-intact.json",
+      "sha256": "3374af7b97def1464475d10da494095ec92075490a00aca9a5e7f494b60d9088",
+      "bytes": 2400
+    },
+    {
+      "file": "cells\\pilot-train-0569-logic_ablation.json",
+      "sha256": "09211df908c667c910a43a9ce09d7fe6d959b7f04a52d4d0ec5a7048bc75c973",
+      "bytes": 19144
+    },
+    {
+      "file": "cells\\pilot-train-0569-social_ablation.json",
+      "sha256": "e1d384908f9cb3b25e80b01006369c76254a75dd3f21b1e35d353d5b4a124871",
+      "bytes": 2409
+    },
+    {
+      "file": "cells\\pilot-train-1222-intact.json",
+      "sha256": "671bedfb3af674c806dd4a6a507bfeb6c3a0011225c78a3255e64346bff5b4ae",
+      "bytes": 2753
+    },
+    {
+      "file": "cells\\pilot-train-1222-logic_ablation.json",
+      "sha256": "5babc1c7d294a8a0b95f363626b3c764f550916ca54d7f20660ccfaae5bb3587",
+      "bytes": 2531
+    },
+    {
+      "file": "cells\\pilot-train-1222-social_ablation.json",
+      "sha256": "c574723a78f782a0ee9f2082d225018043d632de8ac3f7a2e7821b678dd1667b",
+      "bytes": 2762
+    },
+    {
+      "file": "cells\\pilot-train-2095-intact.json",
+      "sha256": "ecb91e4ce67d91d79eea0c49d1a42e3aef1570c16660c62ffbbf7ee76d10bba2",
+      "bytes": 1926
+    },
+    {
+      "file": "cells\\pilot-train-2095-logic_ablation.json",
+      "sha256": "822650fa80bc4957f37c4cbb268c8a9f76664244532fcfd19552a1f61ac06670",
+      "bytes": 1601
+    },
+    {
+      "file": "cells\\pilot-train-2095-social_ablation.json",
+      "sha256": "d85ee6a6e341838371c1dac6404758c3bc2123c1c14401be8af0c8aa69262347",
+      "bytes": 1936
+    },
+    {
+      "file": "cells\\pilot-train-2123-intact.json",
+      "sha256": "ae8211a9926b9c94dc145697f00f62de52d4e64fa9d1059d32a9adb17c7e185c",
+      "bytes": 3211
+    },
+    {
+      "file": "cells\\pilot-train-2123-logic_ablation.json",
+      "sha256": "44508e54319558f2bf776741432c9ba9dff2dca490181b5bf6893a11caf55f4f",
+      "bytes": 16764
+    },
+    {
+      "file": "cells\\pilot-train-2123-social_ablation.json",
+      "sha256": "8c58971f33eeca23bada6dc3b8d8d9691dc8c7961a4ac8498665046b59d3d464",
+      "bytes": 3003
+    },
+    {
+      "file": "cells\\pilot-train-2190-intact.json",
+      "sha256": "1e5fa28c7d5e23f1afdcddf1f2529864dff28a8bc5e28b14e130d37ec9401d24",
+      "bytes": 3006
+    },
+    {
+      "file": "cells\\pilot-train-2190-logic_ablation.json",
+      "sha256": "d30082cab32861f6ac45df0acd4337090aa3f4dd53cc998e8ec8e14dc3caa971",
+      "bytes": 2045
+    },
+    {
+      "file": "cells\\pilot-train-2190-social_ablation.json",
+      "sha256": "d82ebf4793940004d262afc7dd176fb1a617ddfc32a4366595e770542a0b30b4",
+      "bytes": 2940
+    },
+    {
+      "file": "cells\\pilot-train-3312-intact.json",
+      "sha256": "a2d56052c78f7497f8df5c238ee53696f4986e8d0fbf2485755eb8a03f167d15",
+      "bytes": 4942
+    },
+    {
+      "file": "cells\\pilot-train-3312-logic_ablation.json",
+      "sha256": "8e550efde80c0e9d9cb32f3b9652fd9e8d72b3dfe67653a907b20e5994249dc1",
+      "bytes": 14805
+    },
+    {
+      "file": "cells\\pilot-train-3312-social_ablation.json",
+      "sha256": "cab1678d0e7689d48a166813f95cfd730e45dbace41edea14633ac3b583001ba",
+      "bytes": 4124
+    },
+    {
+      "file": "cells\\pilot-train-3839-intact.json",
+      "sha256": "1587c269275bc627a61479fbe9c7ef7d1d59f9461209008c30fefda22e66a57d",
+      "bytes": 1545
+    },
+    {
+      "file": "cells\\pilot-train-3839-logic_ablation.json",
+      "sha256": "cc7ecd86d03f62cdb0874ec4e5fd8f24646157c041bb17b174a520027601be54",
+      "bytes": 16538
+    },
+    {
+      "file": "cells\\pilot-train-3839-social_ablation.json",
+      "sha256": "c70b62e424217175efe892d67415e41643b7fc632ba2bbe55fdcdb0fe340466c",
+      "bytes": 1977
+    },
+    {
+      "file": "cells\\pilot-train-3982-intact.json",
+      "sha256": "94f78b84036825d6ad0f980d465af1253eb5ed51510a34868285b6d8434404da",
+      "bytes": 19092
+    },
+    {
+      "file": "cells\\pilot-train-3982-logic_ablation.json",
+      "sha256": "6e1e0b0affb8fd7e76189db518ded80403ac5e1b9b6c708b942bdd7fcec10ee9",
+      "bytes": 2023
+    },
+    {
+      "file": "cells\\pilot-train-3982-social_ablation.json",
+      "sha256": "8110d1b3a478e62b517ed02645b9e1573916cc7cb9807e5f856fea35097902b4",
+      "bytes": 19172
+    },
+    {
+      "file": "cells\\pilot-train-4775-intact.json",
+      "sha256": "84192f4cf91912d0d1ab8f64aba14c3b1917fd961dcb804248fe8b8dae81b988",
+      "bytes": 2081
+    },
+    {
+      "file": "cells\\pilot-train-4775-logic_ablation.json",
+      "sha256": "a8ca5c99dd45f336fef5db016e97ba4cccbb5b98848a9550d3fbd215dcc90f60",
+      "bytes": 2542
+    },
+    {
+      "file": "cells\\pilot-train-4775-social_ablation.json",
+      "sha256": "d3d65a674b7fc7aaae0381bab9feb486ee03148fee57aa28f65756b63bf94232",
+      "bytes": 2088
+    },
+    {
+      "file": "cells\\pilot-train-5401-intact.json",
+      "sha256": "c91c114eabeb2e68fdcb35a4b59ab4c946d8511685d0c01374aae80fb166b7f6",
+      "bytes": 2855
+    },
+    {
+      "file": "cells\\pilot-train-5401-logic_ablation.json",
+      "sha256": "3235dbc9aa22fe90a24c513181ab7d48acf7c1f70c2c2d55ea76fbc21317e38e",
+      "bytes": 1968
+    },
+    {
+      "file": "cells\\pilot-train-5401-social_ablation.json",
+      "sha256": "800586f2fdd7c08ed448108c5ce5987d699f4635e763f5cefefe723ea6af6917",
+      "bytes": 2802
+    },
+    {
+      "file": "cells\\pilot-train-5851-intact.json",
+      "sha256": "26728932b15576621888052805baa812abd86d7fa281c0d524892cd17c27d294",
+      "bytes": 2707
+    },
+    {
+      "file": "cells\\pilot-train-5851-logic_ablation.json",
+      "sha256": "5826876be77cf395476226283c5d93bf021d44f704d4717b8aaa2d91e11d37df",
+      "bytes": 2888
+    },
+    {
+      "file": "cells\\pilot-train-5851-social_ablation.json",
+      "sha256": "24f45a70ac5f5f1802579a56137a7ed9a2b1a5b116f46fbd12a5fbb3d638505e",
+      "bytes": 2716
+    },
+    {
+      "file": "cells\\pilot-train-6274-intact.json",
+      "sha256": "642e669c62cded9b7a3ddd289897850695ff43f61548d4dab8c53c6817ff857c",
+      "bytes": 7297
+    },
+    {
+      "file": "cells\\pilot-train-6274-logic_ablation.json",
+      "sha256": "f4a6e2060c3d7702b3555c169c1b180ebb81d15ae8672f73ec7b5e562be12d5d",
+      "bytes": 2093
+    },
+    {
+      "file": "cells\\pilot-train-6274-social_ablation.json",
+      "sha256": "c5c6265b0d6c200cd8f0cda1ff8aa0ffc9c3edeedd66687b89e646a123598c1c",
+      "bytes": 4801
+    },
+    {
+      "file": "cells\\pilot-train-7402-intact.json",
+      "sha256": "75a0c55cac14dd67b48fd9afc46113b603db47e3201605e5ebd33fe7382937e1",
+      "bytes": 1523
+    },
+    {
+      "file": "cells\\pilot-train-7402-logic_ablation.json",
+      "sha256": "7a42ba264d9430bc6de7b3227ffeb713f28b1d06d0fda6dce2a5b037ef76830c",
+      "bytes": 1662
+    },
+    {
+      "file": "cells\\pilot-train-7402-social_ablation.json",
+      "sha256": "a25ff779355ae51e480752c6e6ae789ca0c0aa387aa4499b9460279dd2d6bc1a",
+      "bytes": 2665
+    },
+    {
+      "file": "cells\\test-test-0016-intact.json",
+      "sha256": "18be3f6739b053ad394cd27fd1cc0c472fc0f4192a4d5c553fe6f0373af0cfcb",
+      "bytes": 1400
+    },
+    {
+      "file": "cells\\test-test-0016-logic_ablation.json",
+      "sha256": "122ec476ac093e29b9060d729907282520aba3398ca805b99545306dea4f7f2d",
+      "bytes": 1752
+    },
+    {
+      "file": "cells\\test-test-0016-social_ablation.json",
+      "sha256": "a29640673a0eabfd9580f805dc9e55c5fb70e80202f9265d3252161ed293c043",
+      "bytes": 2233
+    },
+    {
+      "file": "cells\\test-test-0017-intact.json",
+      "sha256": "f034a81c6b4ddca270cb111f21685c8a29a37567494a60deaac10b7f74e091cd",
+      "bytes": 1281
+    },
+    {
+      "file": "cells\\test-test-0017-logic_ablation.json",
+      "sha256": "e9d079e01c609efb1195262b91f500e06318ef79a74ed699bd6ac97abc0dc8b1",
+      "bytes": 1742
+    },
+    {
+      "file": "cells\\test-test-0017-social_ablation.json",
+      "sha256": "b94a6e869825cc24ec27bbb8b1fc77e4c320b44704ac4c443b72620ca51b05d4",
+      "bytes": 1288
+    },
+    {
+      "file": "cells\\test-test-0018-intact.json",
+      "sha256": "6da1d675a97efb1c40a6d38979258f49a85071a9c75c08900047940e7d4d3fdc",
+      "bytes": 2101
+    },
+    {
+      "file": "cells\\test-test-0018-logic_ablation.json",
+      "sha256": "4621b683dac44c9faa7faf7b24271c90fa7b92a2e8dae46b2cb6028ca593b9e4",
+      "bytes": 13694
+    },
+    {
+      "file": "cells\\test-test-0018-social_ablation.json",
+      "sha256": "3318d94d0eb0d1f038c2f5d9dd72a7f54e5781c5a014f77a2a6051f8cd24b460",
+      "bytes": 2111
+    },
+    {
+      "file": "cells\\test-test-0025-intact.json",
+      "sha256": "3aac2fe2f6a9956999df9d7e7989d3b912b6aa4d6727da278925be761c1294be",
+      "bytes": 3229
+    },
+    {
+      "file": "cells\\test-test-0025-logic_ablation.json",
+      "sha256": "7a3269efa5d25739bd6f6a00512a690ba71d507fe4a26156e306e95cbdacd178",
+      "bytes": 1348
+    },
+    {
+      "file": "cells\\test-test-0025-social_ablation.json",
+      "sha256": "07f27a42a5b7f8aa564c6ac36d498180be20181d4e798a540f9ff4c0a4212326",
+      "bytes": 3199
+    },
+    {
+      "file": "cells\\test-test-0041-intact.json",
+      "sha256": "e125b69580e6a8eec652ef091eeee06851f21c9cb0f86f1745642fa55c626b83",
+      "bytes": 1929
+    },
+    {
+      "file": "cells\\test-test-0041-logic_ablation.json",
+      "sha256": "99017993bf66e9454b4f35d92748c3579fc0652bfc45413d7ad8fba01a717d10",
+      "bytes": 1931
+    },
+    {
+      "file": "cells\\test-test-0041-social_ablation.json",
+      "sha256": "79d03c19bc798a3cce1038212ec681543ec2dbc7f4b0a617257e8a3eb5d48916",
+      "bytes": 1933
+    },
+    {
+      "file": "cells\\test-test-0049-intact.json",
+      "sha256": "893bc740c3f97fd5eb048dd9dba4fde846833c81484d5ef36455dba6c9f9a28b",
+      "bytes": 2217
+    },
+    {
+      "file": "cells\\test-test-0049-logic_ablation.json",
+      "sha256": "f246066bc89d8c68ba2309cd6199f9a58e89c15451850c9f57eabae182bcdb26",
+      "bytes": 18318
+    },
+    {
+      "file": "cells\\test-test-0049-social_ablation.json",
+      "sha256": "359ad3453799d40e95ca1f4501c89831fa5bb5dc3bbfdee63a56d0cb4de0fd08",
+      "bytes": 2225
+    },
+    {
+      "file": "cells\\test-test-0052-intact.json",
+      "sha256": "3f04d466ca2b7efdc6b6483b8516f3f9a82b0a122e180dac236225ef4711bfaa",
+      "bytes": 2661
+    },
+    {
+      "file": "cells\\test-test-0052-logic_ablation.json",
+      "sha256": "50fe100b7d25c3ba59b14072f6dcdbfe05e15f3fd3e255c0165f416ca1fcb092",
+      "bytes": 1582
+    },
+    {
+      "file": "cells\\test-test-0052-social_ablation.json",
+      "sha256": "78e660f3285c22138213b9078f7bdb39e85bf381825d379a70543a1144fc961a",
+      "bytes": 2475
+    },
+    {
+      "file": "cells\\test-test-0075-intact.json",
+      "sha256": "49dbfd4b2d7511cb6438bd81d6c6d4e58cd00348c7e9cfd162a223ebea73fd1f",
+      "bytes": 2929
+    },
+    {
+      "file": "cells\\test-test-0075-logic_ablation.json",
+      "sha256": "0893580b43d90eec0462d545699a878dc4589fad749993f66b3ddf59e2514cbd",
+      "bytes": 2860
+    },
+    {
+      "file": "cells\\test-test-0075-social_ablation.json",
+      "sha256": "dfb45bc197b8d8c6043de9d431a111b7dec72998fbe882fcadef475bde37291f",
+      "bytes": 3087
+    },
+    {
+      "file": "cells\\test-test-0081-intact.json",
+      "sha256": "5b51bc36bfdbeb4db19490ea860fffc73f41e0fd6664d20fde15263087683a03",
+      "bytes": 2495
+    },
+    {
+      "file": "cells\\test-test-0081-logic_ablation.json",
+      "sha256": "1324e9bd5f3ba49bef15bb04e62005cebac9ec23a0fde5ec23033d0c163839b9",
+      "bytes": 2223
+    },
+    {
+      "file": "cells\\test-test-0081-social_ablation.json",
+      "sha256": "e4cdd056eb0789b6b1ff52302a921848557679be7ec81f55b7d1e2975d7576a1",
+      "bytes": 2501
+    },
+    {
+      "file": "cells\\test-test-0088-intact.json",
+      "sha256": "2c33a2c00edb6b13ee31c5a5fec66630ad75861b8ce1ae73f6a41a368ada0c13",
+      "bytes": 2115
+    },
+    {
+      "file": "cells\\test-test-0088-logic_ablation.json",
+      "sha256": "e3240909437320f7badee6bc1e738cca95ebad5a231dc856c884b719bdcd8512",
+      "bytes": 1323
+    },
+    {
+      "file": "cells\\test-test-0088-social_ablation.json",
+      "sha256": "1fffb5e3157f756bd77a32ea4bf5a3e93bc4cdb7789768e6295701d27ede5001",
+      "bytes": 2170
+    },
+    {
+      "file": "cells\\test-test-0093-intact.json",
+      "sha256": "4b068134edd6648cea6b464990599e629fac814804b0103c29b652a7a388951a",
+      "bytes": 2700
+    },
+    {
+      "file": "cells\\test-test-0093-logic_ablation.json",
+      "sha256": "f4de2f5302c52f03713a9ffc5c49483e31ad8d49ea4fab006c19c41be09c515f",
+      "bytes": 1699
+    },
+    {
+      "file": "cells\\test-test-0093-social_ablation.json",
+      "sha256": "4ea237a4aa259d968b162161b400c8698c4e9cac376286f061d8b2fd3da92c26",
+      "bytes": 20430
+    },
+    {
+      "file": "cells\\test-test-0094-intact.json",
+      "sha256": "4842fdb8fa8f991ab49a73bd520f9460efdef5957b9e5a51909a23390b62b9dd",
+      "bytes": 2342
+    },
+    {
+      "file": "cells\\test-test-0094-logic_ablation.json",
+      "sha256": "1ec0ad9aa66c3aaba44e4c8d2e4efd0d81cba25b77fe23f3bba5d109911f22b3",
+      "bytes": 17581
+    },
+    {
+      "file": "cells\\test-test-0094-social_ablation.json",
+      "sha256": "31431e2ba6233c305d6e89ecc6b1c8bcf908e878939bb0cd8c6ca195ba67a773",
+      "bytes": 2350
+    },
+    {
+      "file": "cells\\test-test-0103-intact.json",
+      "sha256": "7061e5ce70d967521b6cd377c622a8d45a9fc133d8b4736d760b1b5f946e0122",
+      "bytes": 3201
+    },
+    {
+      "file": "cells\\test-test-0103-logic_ablation.json",
+      "sha256": "831b499a58b634ef9b4c8d3ef254de373b9f77ba4a64bfe21f3546951fcd089b",
+      "bytes": 1474
+    },
+    {
+      "file": "cells\\test-test-0103-social_ablation.json",
+      "sha256": "0c4dd00e6cc6e739a05e2a15dc9bf81967c0e1d0462703f5673c581648d882f5",
+      "bytes": 3209
+    },
+    {
+      "file": "cells\\test-test-0104-intact.json",
+      "sha256": "ff249b8f0070bf2011125045650dc05982760368e886c0cb65d969f0be123686",
+      "bytes": 2169
+    },
+    {
+      "file": "cells\\test-test-0104-logic_ablation.json",
+      "sha256": "9888fe48119482646702aa9eb0911b6583620eb88478d7ad5274f7065a5d7f20",
+      "bytes": 1827
+    },
+    {
+      "file": "cells\\test-test-0104-social_ablation.json",
+      "sha256": "a1672102f090da05ae58a23cc2ca94fb95f586783eb420bfa7b86eb23ff65d72",
+      "bytes": 2623
+    },
+    {
+      "file": "cells\\test-test-0115-intact.json",
+      "sha256": "a2b8f5cf8015f96cc9143668a8bc8d21dd7f600b416ea862944b502c1cd8ea8c",
+      "bytes": 17258
+    },
+    {
+      "file": "cells\\test-test-0115-logic_ablation.json",
+      "sha256": "776817346a6c1bf626a059dec9cd0e106e4469fa0b22b1881d5d843d7251aaf9",
+      "bytes": 17995
+    },
+    {
+      "file": "cells\\test-test-0115-social_ablation.json",
+      "sha256": "9f6024b7bee7918d095d7281046b0ef701233290ebec93e5e4db947a56eb63ee",
+      "bytes": 17963
+    },
+    {
+      "file": "cells\\test-test-0119-intact.json",
+      "sha256": "b48db67debfd5d9761e571a7509cc8b01680c6ac56623fbd918a21a961db058c",
+      "bytes": 15797
+    },
+    {
+      "file": "cells\\test-test-0119-logic_ablation.json",
+      "sha256": "696734f3b56f425aebdd06e5de7aebfb26a8e2dbf68fe8ddd14c697a50d3a364",
+      "bytes": 1338
+    },
+    {
+      "file": "cells\\test-test-0119-social_ablation.json",
+      "sha256": "8e59ec5c82402b2b1946fbd9689389b6b316c13ec9d3da2d24e31fbc349848f2",
+      "bytes": 3743
+    },
+    {
+      "file": "cells\\test-test-0125-intact.json",
+      "sha256": "df94b1384e19a6d76356b48cedc21264f40da9a76c8d5da57d5af32cf80bd0eb",
+      "bytes": 2500
+    },
+    {
+      "file": "cells\\test-test-0125-logic_ablation.json",
+      "sha256": "110b8510f65d595170152cf851290e22930044df9329016385628576953c4285",
+      "bytes": 1983
+    },
+    {
+      "file": "cells\\test-test-0125-social_ablation.json",
+      "sha256": "5e587efb6fbce55771e97a1b3b61aa56312cfca68f06e2b11d658c9b4bcb8bf2",
+      "bytes": 2306
+    },
+    {
+      "file": "cells\\test-test-0129-intact.json",
+      "sha256": "4b061bb9f1da313c9ef1053894c99a6d1dfe7be42d1a03c87263007c110a07f1",
+      "bytes": 16934
+    },
+    {
+      "file": "cells\\test-test-0129-logic_ablation.json",
+      "sha256": "efc325e58589c385a04c51ccef9263624f03ac66df8a1aa2f137066928f8fdce",
+      "bytes": 2009
+    },
+    {
+      "file": "cells\\test-test-0129-social_ablation.json",
+      "sha256": "37234343bf2e9f9116aab8bdaf4b30d1f032a62b7d7ea0a502d00cc519c00d14",
+      "bytes": 17261
+    },
+    {
+      "file": "cells\\test-test-0133-intact.json",
+      "sha256": "b1d6a9a85e3e798caacf6471418b8b1030f110d6e91bd65d33e297d71efabd3e",
+      "bytes": 2183
+    },
+    {
+      "file": "cells\\test-test-0133-logic_ablation.json",
+      "sha256": "184951654c390664997842919579de0cd842542ee9e10526eede3218f83bcad5",
+      "bytes": 17374
+    },
+    {
+      "file": "cells\\test-test-0133-social_ablation.json",
+      "sha256": "cb84353d069a1fde768db8a304c28fc382f67aaf94288df466864e9a12f14182",
+      "bytes": 2240
+    },
+    {
+      "file": "cells\\test-test-0134-intact.json",
+      "sha256": "306a02a4cfa01be3bdfa46753af5399818a74b0209e4151f6d21c573faae7e24",
+      "bytes": 1985
+    },
+    {
+      "file": "cells\\test-test-0134-logic_ablation.json",
+      "sha256": "339617c2dac3f3fd5f43846c4c7a9d7428b52b4bc89150f2ee31e89b35151b98",
+      "bytes": 1378
+    },
+    {
+      "file": "cells\\test-test-0134-social_ablation.json",
+      "sha256": "aca57b807c61c8764c86784c9ef563f285d749b9448fdce789a27543e9b01d80",
+      "bytes": 2344
+    },
+    {
+      "file": "cells\\test-test-0136-intact.json",
+      "sha256": "d05ffd28a2ee64fda6064af5b305564415b0c08e6b86a2b132a480c414622874",
+      "bytes": 1595
+    },
+    {
+      "file": "cells\\test-test-0136-logic_ablation.json",
+      "sha256": "31066736c7e86bed65c9931b52ed3d7fe63dc759cb4b449df8c980344f12b328",
+      "bytes": 1417
+    },
+    {
+      "file": "cells\\test-test-0136-social_ablation.json",
+      "sha256": "609592cef7161fb1c8db7c94660877e8f59a5383382d12b0464a32ceff5225a7",
+      "bytes": 1420
+    },
+    {
+      "file": "cells\\test-test-0138-intact.json",
+      "sha256": "1b35e5d58600fea29c53152129fa1d0a27c87cc4ee88443c94d977a5d444816f",
+      "bytes": 2874
+    },
+    {
+      "file": "cells\\test-test-0138-logic_ablation.json",
+      "sha256": "9af22455c29b4c2cf6063d0f71b7513ab28bf59671227039964dec2fd37244b4",
+      "bytes": 18070
+    },
+    {
+      "file": "cells\\test-test-0138-social_ablation.json",
+      "sha256": "3dbd44c3d82c360cceafb33f034a8b4f26c8596e3157679f88b8798a1998afa4",
+      "bytes": 2880
+    },
+    {
+      "file": "cells\\test-test-0143-intact.json",
+      "sha256": "d96c255f61bfb15d389840f2c5bfb78c16a1472cc32034d4340abf43a18b5fde",
+      "bytes": 1955
+    },
+    {
+      "file": "cells\\test-test-0143-logic_ablation.json",
+      "sha256": "576c4312f59b35df3ad899d4717fc36a89f82dde454e41753d176b20cb2f7f09",
+      "bytes": 18336
+    },
+    {
+      "file": "cells\\test-test-0143-social_ablation.json",
+      "sha256": "82bf9eb3c50b8fcd4812357e4aca4db18e1c00c13f9bc0f6f6d1970c87c4f8be",
+      "bytes": 1963
+    },
+    {
+      "file": "cells\\test-test-0144-intact.json",
+      "sha256": "258fcad9b95e6d88befd07bb35faed7dc294a9c3e81c9614606aa094b2fbd0d7",
+      "bytes": 2756
+    },
+    {
+      "file": "cells\\test-test-0144-logic_ablation.json",
+      "sha256": "60e82661ef2ab6aa30633ca3251dc2a510867603886be29f773e6dda8c149e9c",
+      "bytes": 1931
+    },
+    {
+      "file": "cells\\test-test-0144-social_ablation.json",
+      "sha256": "1e57399ea61f4d36e3c90f96ba156ca4c4a2df958fe6990905aaf7dcde253e16",
+      "bytes": 19979
+    },
+    {
+      "file": "cells\\test-test-0148-intact.json",
+      "sha256": "e3a98dbf47ab0d1421d3e30001b3d1e2d2bf9c16a91a6f51ffbc01d629bfe6ba",
+      "bytes": 17476
+    },
+    {
+      "file": "cells\\test-test-0148-logic_ablation.json",
+      "sha256": "a9df73d94868781b91b8601d1fda8e62914580fb0becffb7da9c4fd26ab40f1b",
+      "bytes": 18455
+    },
+    {
+      "file": "cells\\test-test-0148-social_ablation.json",
+      "sha256": "d4d98c9e127adf8dc83d7bd3b91d3f5f9de85d89d36712c66628e7a373241174",
+      "bytes": 17481
+    },
+    {
+      "file": "cells\\test-test-0149-intact.json",
+      "sha256": "bb5ea1bec3b36316c1855e7685cd8a648b5aaf1f9402f9acf166125bd34374df",
+      "bytes": 2100
+    },
+    {
+      "file": "cells\\test-test-0149-logic_ablation.json",
+      "sha256": "dcf11e3ee87ed91b9174bbb493ad914d7c6c8abbc841d906579df2b94954a842",
+      "bytes": 1708
+    },
+    {
+      "file": "cells\\test-test-0149-social_ablation.json",
+      "sha256": "a73a7d56c3022f6b8c8736c5ef19006b75c4b8dbb4b3b80decd94dce549ad164",
+      "bytes": 2106
+    },
+    {
+      "file": "cells\\test-test-0152-intact.json",
+      "sha256": "326cb301413d0f396ab8b45496d0921e86ab9b8ef12f3326107f02eae8be0dcc",
+      "bytes": 2116
+    },
+    {
+      "file": "cells\\test-test-0152-logic_ablation.json",
+      "sha256": "5f2fb84000cc753fd6a144d1645627385e9f47bfd624b199b7e402a802c9b18d",
+      "bytes": 1910
+    },
+    {
+      "file": "cells\\test-test-0152-social_ablation.json",
+      "sha256": "0746afa89bf533de406b6edb18bcd639c81882a276b649618e836f69466b8f3c",
+      "bytes": 2126
+    },
+    {
+      "file": "cells\\test-test-0155-intact.json",
+      "sha256": "abf5a7236692a299dcbd4053de52d0edc03910a042c05d271bef6315efe9006e",
+      "bytes": 5320
+    },
+    {
+      "file": "cells\\test-test-0155-logic_ablation.json",
+      "sha256": "20d409413dee4161398ed07ada3dfbe2c70d64adff58643f70c1cdb9b4bc01ae",
+      "bytes": 19791
+    },
+    {
+      "file": "cells\\test-test-0155-social_ablation.json",
+      "sha256": "3964ab391115be458556d90a6c5d18bc2050ca6d4186d17f5d0ab6cf110d9b7d",
+      "bytes": 5326
+    },
+    {
+      "file": "cells\\test-test-0161-intact.json",
+      "sha256": "2aabd95c628f6be2db8141cdb9f844f4a6987f4761efedc20381d02cd84aee18",
+      "bytes": 3493
+    },
+    {
+      "file": "cells\\test-test-0161-logic_ablation.json",
+      "sha256": "8b94a7fa39495411ad50c83787745120908dcfff826eaa311793dc4c32b33b4c",
+      "bytes": 17939
+    },
+    {
+      "file": "cells\\test-test-0161-social_ablation.json",
+      "sha256": "e4b6d20817ca669de3a7810e17880118e0f2e6d282b4bc4380ec3253352b213b",
+      "bytes": 3499
+    },
+    {
+      "file": "cells\\test-test-0162-intact.json",
+      "sha256": "3dfd4aaf7fa013fa3e93a29ebff7c8b1c555ed6bf9cfb44be46849012248f80a",
+      "bytes": 17406
+    },
+    {
+      "file": "cells\\test-test-0162-logic_ablation.json",
+      "sha256": "e0e005d7db982d11f5659ace35a8de7a52336c2fbac9b1a2a07acc84c6cf0c33",
+      "bytes": 18186
+    },
+    {
+      "file": "cells\\test-test-0162-social_ablation.json",
+      "sha256": "873dac23bc2f3f231d64e222091461d5d6524a12ee07f12c34d2924234bd9d18",
+      "bytes": 17475
+    },
+    {
+      "file": "cells\\test-test-0172-intact.json",
+      "sha256": "2e2872c3354f73d027301a25f9ac6469f000cd00e59b89e284c48e98a81b66e0",
+      "bytes": 17656
+    },
+    {
+      "file": "cells\\test-test-0172-logic_ablation.json",
+      "sha256": "4c9a284ea88b3b3ecc6335e594389a487293e2387f990b9811de7c9da0a29824",
+      "bytes": 18122
+    },
+    {
+      "file": "cells\\test-test-0172-social_ablation.json",
+      "sha256": "20830ee7c5e3a9f55a2bddf49e2029220ef0a39d9fa9fcde537d4e03db3b16ea",
+      "bytes": 17786
+    },
+    {
+      "file": "cells\\test-test-0179-intact.json",
+      "sha256": "28ab488d35c5afc4ae3b7a747cf34a17877eb616287d918a52f1f2680a737a22",
+      "bytes": 2187
+    },
+    {
+      "file": "cells\\test-test-0179-logic_ablation.json",
+      "sha256": "8e2ab28db857aa5103bcaa1a88e6c4333997d52353ffe183b425c04ab62e9774",
+      "bytes": 1810
+    },
+    {
+      "file": "cells\\test-test-0179-social_ablation.json",
+      "sha256": "d6c9eab5126407ea837a723da357f857a30a1408b51faa30ec403d78c925a0c3",
+      "bytes": 2195
+    },
+    {
+      "file": "cells\\test-test-0188-intact.json",
+      "sha256": "e3dcb3a094918c2d7391dcba8b14a1895a1bb28ae4c1a3565cc01a38b0bb991a",
+      "bytes": 2414
+    },
+    {
+      "file": "cells\\test-test-0188-logic_ablation.json",
+      "sha256": "69b24f99725b58057789924114c86340ea4d6440d777470bbd60a1b942404de6",
+      "bytes": 18966
+    },
+    {
+      "file": "cells\\test-test-0188-social_ablation.json",
+      "sha256": "51aa948672b8639e4146f45cba8c5a3d3c2118ab145e6c5483f6290f62423d84",
+      "bytes": 2422
+    },
+    {
+      "file": "cells\\test-test-0193-intact.json",
+      "sha256": "6c81729a6bec2a34e3499ab53dd06ca38b5510a384c299f4b92c28b543c38c4f",
+      "bytes": 2339
+    },
+    {
+      "file": "cells\\test-test-0193-logic_ablation.json",
+      "sha256": "45655d601b1cbdc76ed56c5ae2266f6cc77de6b9d4188e944b6b9c7a5e614943",
+      "bytes": 1586
+    },
+    {
+      "file": "cells\\test-test-0193-social_ablation.json",
+      "sha256": "216689c0660d7221ed29a90558cd4d00bdc3f3ca69dbb34bf04659223498d5dd",
+      "bytes": 17321
+    },
+    {
+      "file": "cells\\test-test-0200-intact.json",
+      "sha256": "6cda4b5296f7075212239ecc8c0c349c52ac4b2cb09ed34b835a0adc473de50b",
+      "bytes": 19024
+    },
+    {
+      "file": "cells\\test-test-0200-logic_ablation.json",
+      "sha256": "5baf49d9917be4be37869edd781d14912c42f11130cdfb14692c3b9e7bae77d4",
+      "bytes": 1582
+    },
+    {
+      "file": "cells\\test-test-0200-social_ablation.json",
+      "sha256": "a6198c8befa92ef532b25cdb295b893d1ba756488b00929246ff0173b3e6b80a",
+      "bytes": 3365
+    },
+    {
+      "file": "cells\\test-test-0201-intact.json",
+      "sha256": "5cae8f42b3346e68caedbf59c21ff843f7e7462347207cea38fe8fe57714f3e2",
+      "bytes": 19530
+    },
+    {
+      "file": "cells\\test-test-0201-logic_ablation.json",
+      "sha256": "0d5e3b40c4c967aba40c721952bbcee78c87270d1c0dddbb2358e244602bb20a",
+      "bytes": 1994
+    },
+    {
+      "file": "cells\\test-test-0201-social_ablation.json",
+      "sha256": "9eca3df0d1cb672a3af788277349d8d6ff91c575e7d839552bc8a7ca79acee2f",
+      "bytes": 19534
+    },
+    {
+      "file": "cells\\test-test-0212-intact.json",
+      "sha256": "359ef801cd40ce8f24305f2b8bc4589d9766e98e7c78c72e8f48db83739f94e8",
+      "bytes": 3301
+    },
+    {
+      "file": "cells\\test-test-0212-logic_ablation.json",
+      "sha256": "3f3fcc47c7f4f77bcf501c839882534176589230be6b63c3b40aad37c24b4f20",
+      "bytes": 2859
+    },
+    {
+      "file": "cells\\test-test-0212-social_ablation.json",
+      "sha256": "bd9826bfd120521fe0cf34e13c1652dc1e45b9727d624ebc0e80ae272a2db712",
+      "bytes": 2470
+    },
+    {
+      "file": "cells\\test-test-0217-intact.json",
+      "sha256": "627af48065668580cb0a93dac52e3504290386b2ea067b7a22058d082116ef69",
+      "bytes": 1888
+    },
+    {
+      "file": "cells\\test-test-0217-logic_ablation.json",
+      "sha256": "b50909eaf34d92b68b1d6136734c85468ecf9f95870e8dbbb84ce4beeff10698",
+      "bytes": 17917
+    },
+    {
+      "file": "cells\\test-test-0217-social_ablation.json",
+      "sha256": "475db6c67b9868290f70005372a58c9f6b7818c8ffc406407a96d4a7a2f513bb",
+      "bytes": 1896
+    },
+    {
+      "file": "cells\\test-test-0222-intact.json",
+      "sha256": "7aab2e9eaf8a805df157c5d1f8c59f4805e82c76e551fc0241507a773982c3b4",
+      "bytes": 1764
+    },
+    {
+      "file": "cells\\test-test-0222-logic_ablation.json",
+      "sha256": "3c335c95c95e7fc94e1c4011050801a4e88ba53832d3c8fbd1cf631223c1254e",
+      "bytes": 1551
+    },
+    {
+      "file": "cells\\test-test-0222-social_ablation.json",
+      "sha256": "0a3e2a2650c36c34ddbdadd4c6c18d6457a1614a2b9956563347699b0d0b6461",
+      "bytes": 1773
+    },
+    {
+      "file": "cells\\test-test-0229-intact.json",
+      "sha256": "9a3d8db775420d27e6e14d59fe4440a132bda6f54ad1cbd5effd73cfd78169f4",
+      "bytes": 18300
+    },
+    {
+      "file": "cells\\test-test-0229-logic_ablation.json",
+      "sha256": "e86eb51b00316376d785aeb3e6d76c20b0d9329ae10512dddd8855c7acc3e5a3",
+      "bytes": 2397
+    },
+    {
+      "file": "cells\\test-test-0229-social_ablation.json",
+      "sha256": "515868ac44a340fc85e8d796a425de1d280495bb80ad7210f3531daa03361e92",
+      "bytes": 18305
+    },
+    {
+      "file": "cells\\test-test-0234-intact.json",
+      "sha256": "ff69ab6b914fa841a4dffdf2933e0c36726053fedf89127d4ff49dd6a5194bc0",
+      "bytes": 1791
+    },
+    {
+      "file": "cells\\test-test-0234-logic_ablation.json",
+      "sha256": "f051c02a67ed566d851d390a0d94f0ee75fb7713e2be3ec032828275f64f93fa",
+      "bytes": 18394
+    },
+    {
+      "file": "cells\\test-test-0234-social_ablation.json",
+      "sha256": "9393c8c8398d65b070288ba954fb17a1d69da2bd1dab4b0977ed96d9032edc86",
+      "bytes": 1799
+    },
+    {
+      "file": "cells\\test-test-0235-intact.json",
+      "sha256": "fd36aeb1c0f20e20ee3cecdb7d4e123b8bace1adf73266ba832e4663dfa2421c",
+      "bytes": 2712
+    },
+    {
+      "file": "cells\\test-test-0235-logic_ablation.json",
+      "sha256": "447f4bb0db58900afe1999e374baa363086d5cc0064ab969abf9a8ad3cced28d",
+      "bytes": 1415
+    },
+    {
+      "file": "cells\\test-test-0235-social_ablation.json",
+      "sha256": "d3d2991f909305cd027c85aa35bf384b7b24c557d9c88ffa51d51609e2e96f78",
+      "bytes": 2719
+    },
+    {
+      "file": "cells\\test-test-0242-intact.json",
+      "sha256": "cfbcbf4749fc1daa66fc16c85e3f555f71c33294cea7048905604dafacaaa9d1",
+      "bytes": 2217
+    },
+    {
+      "file": "cells\\test-test-0242-logic_ablation.json",
+      "sha256": "2373ecd71c68f2f8767b43722b516f0c0c1fe9f104f270c77edea7134e782d01",
+      "bytes": 17007
+    },
+    {
+      "file": "cells\\test-test-0242-social_ablation.json",
+      "sha256": "f17e843981773067c08cba27418eef8108632d910071b72b55cf759cb958d5c3",
+      "bytes": 2224
+    },
+    {
+      "file": "cells\\test-test-0244-intact.json",
+      "sha256": "b763eee79f5cc950574f24af607b80a3eee244fcedb6a7b880733c639043601c",
+      "bytes": 13231
+    },
+    {
+      "file": "cells\\test-test-0244-logic_ablation.json",
+      "sha256": "9c6c8068a28a805193febfa17023df0f83f78aceefe742f87f5800b260c9a31f",
+      "bytes": 2434
+    },
+    {
+      "file": "cells\\test-test-0244-social_ablation.json",
+      "sha256": "114b47775755bf8ccc1c2b61d2832931fcab471199f498655f358f500ad056c8",
+      "bytes": 18015
+    },
+    {
+      "file": "cells\\test-test-0252-intact.json",
+      "sha256": "8d263f60e42c2088e9cb32e669c14f65c6300d99298627d32ea3f9ac2dc1bae9",
+      "bytes": 3144
+    },
+    {
+      "file": "cells\\test-test-0252-logic_ablation.json",
+      "sha256": "0e182d8a9088e30e770bb9084b32e53cb81524f28cc5d97ac10419d0f237c33b",
+      "bytes": 19536
+    },
+    {
+      "file": "cells\\test-test-0252-social_ablation.json",
+      "sha256": "460e97d1c26abe68808b6a2a4977d5111b92e1aef7274b3ecfb13add417d1d34",
+      "bytes": 19147
+    },
+    {
+      "file": "cells\\test-test-0264-intact.json",
+      "sha256": "c74cdcc11c148f347bf47dfca122f2e12f9208acfe6e5bcc5e93387b3553c514",
+      "bytes": 2104
+    },
+    {
+      "file": "cells\\test-test-0264-logic_ablation.json",
+      "sha256": "f546a707916a66ca40e68fe297581ee48bf03d734a80c59fb30e8f5ab9102ddf",
+      "bytes": 1923
+    },
+    {
+      "file": "cells\\test-test-0264-social_ablation.json",
+      "sha256": "ef7e2a722ab62757b3e13b82242c6243dd9adbcbab7b3b4982fc7891e09d5cfd",
+      "bytes": 2112
+    },
+    {
+      "file": "cells\\test-test-0267-intact.json",
+      "sha256": "429c86a8ac6a621e698f8eaf3b2cb1d63c1aa3f32d808a93e58ad31e1e0897b1",
+      "bytes": 2897
+    },
+    {
+      "file": "cells\\test-test-0267-logic_ablation.json",
+      "sha256": "5b721daf3845477edec7a9339c314900e28e6b9728dbe92b7578ddc68720f88b",
+      "bytes": 1518
+    },
+    {
+      "file": "cells\\test-test-0267-social_ablation.json",
+      "sha256": "4ab0381484a8dbb4f9a1f15b0e8c9d3984291e8fe2c94844a17098c376a2622a",
+      "bytes": 2904
+    },
+    {
+      "file": "cells\\test-test-0278-intact.json",
+      "sha256": "fb7b58e73c60ef659253e5d5fcc960522ba9961f7ae3af58ad8dbfcbae3f8eac",
+      "bytes": 1746
+    },
+    {
+      "file": "cells\\test-test-0278-logic_ablation.json",
+      "sha256": "82c0115879ab9a45a4d925a2553aae4b659c43f2c4a775aa47761bd58cc7984b",
+      "bytes": 1479
+    },
+    {
+      "file": "cells\\test-test-0278-social_ablation.json",
+      "sha256": "f917f906d04ad5b3f0eedc6aa01d8d29bfef12561c3d4a25b86bbb89cc154cbf",
+      "bytes": 2601
+    },
+    {
+      "file": "cells\\test-test-0290-intact.json",
+      "sha256": "77babb569d1cd7d4d5fd8dbf7b8bf0423022ffd88f63fee898bfd2041f21cdc9",
+      "bytes": 2087
+    },
+    {
+      "file": "cells\\test-test-0290-logic_ablation.json",
+      "sha256": "abce137a007161b8fe5363e45a1f877fb28c44eea520ee5f6abbb75050d271a7",
+      "bytes": 1396
+    },
+    {
+      "file": "cells\\test-test-0290-social_ablation.json",
+      "sha256": "2bc9bc01b897a105cead1f74d461017769ecd82b83f14db19f8166f2c6225158",
+      "bytes": 2093
+    },
+    {
+      "file": "cells\\test-test-0292-intact.json",
+      "sha256": "40048277797cc02de758590033bfcdad381193bd559e5a472401e1e2f7371b9c",
+      "bytes": 2127
+    },
+    {
+      "file": "cells\\test-test-0292-logic_ablation.json",
+      "sha256": "deab4c58e830a4d03b05e91e794fe5c33cc23c0ead012d38411ab0cdebad3ca3",
+      "bytes": 16923
+    },
+    {
+      "file": "cells\\test-test-0292-social_ablation.json",
+      "sha256": "6afdbd7bafdc8b32f2bf7cd03f5f48bb2cdbb5af25383076d74358673efd2ecd",
+      "bytes": 2049
+    },
+    {
+      "file": "cells\\test-test-0296-intact.json",
+      "sha256": "22a8380b4343e7d717651d1a3774cc19bc570a7b50ac874dd391e7ba896076bd",
+      "bytes": 2806
+    },
+    {
+      "file": "cells\\test-test-0296-logic_ablation.json",
+      "sha256": "974d192c02721719b9a068ddeb038eff384eac913921d5f1b34efc65615f6769",
+      "bytes": 1495
+    },
+    {
+      "file": "cells\\test-test-0296-social_ablation.json",
+      "sha256": "3efdfc90e836f76ecfd9b4506ff5d2b1d9f7eede6703348250faf0a5dd41f9e1",
+      "bytes": 2083
+    },
+    {
+      "file": "cells\\test-test-0300-intact.json",
+      "sha256": "f38dad38385a600da9a1792107baa365ad7f93954348d721b560351c4339e3e7",
+      "bytes": 2352
+    },
+    {
+      "file": "cells\\test-test-0300-logic_ablation.json",
+      "sha256": "795e50298059402213872e4e7e3eaaa0685329557e0e01184408dd6525f598fc",
+      "bytes": 2042
+    },
+    {
+      "file": "cells\\test-test-0300-social_ablation.json",
+      "sha256": "8080f84c6c21708e2ccb74a6815a77afb8b31c05a77b2120bf71ba7ca619d188",
+      "bytes": 2358
+    },
+    {
+      "file": "cells\\test-test-0301-intact.json",
+      "sha256": "ca85173f96a427f545e2013d46d65163b0c8e4f2b70c25738dfde6b849d33758",
+      "bytes": 2042
+    },
+    {
+      "file": "cells\\test-test-0301-logic_ablation.json",
+      "sha256": "0d075ca74b1403279d31c22eb8ce14417df1c21db5d51af1c67bc3ded0c095c0",
+      "bytes": 2015
+    },
+    {
+      "file": "cells\\test-test-0301-social_ablation.json",
+      "sha256": "6ecd802228cf05af681f39160e87e8c3e7fd1387bcc8c838c5903feb46af9831",
+      "bytes": 2705
+    },
+    {
+      "file": "cells\\test-test-0307-intact.json",
+      "sha256": "4b9b4e0d49ca5b8e199b1733ebcb7c5cf68c4737be3d807eab93242cc66d9afc",
+      "bytes": 17506
+    },
+    {
+      "file": "cells\\test-test-0307-logic_ablation.json",
+      "sha256": "53c85540e6561aec7859de5b8b6d4a79fc9804dfa59a93614b45facd163410a6",
+      "bytes": 2064
+    },
+    {
+      "file": "cells\\test-test-0307-social_ablation.json",
+      "sha256": "a164c9d20b894f86b8ce3a5169a24f362a8045dae5618dbfececafe8872573ab",
+      "bytes": 17511
+    },
+    {
+      "file": "cells\\test-test-0313-intact.json",
+      "sha256": "de739dee49ab6175f3620064226e2f85d42581065aa03612b78375decf5687a5",
+      "bytes": 2441
+    },
+    {
+      "file": "cells\\test-test-0313-logic_ablation.json",
+      "sha256": "64be13c13e97902d4ac21d136bd4f8e8f74433d5290b3951e3d9cf19ed78d4a3",
+      "bytes": 17263
+    },
+    {
+      "file": "cells\\test-test-0313-social_ablation.json",
+      "sha256": "0ea0c49eeeb65f92a88c5f2b31bb353f363d955967fc5316a526f1406b463a83",
+      "bytes": 2658
+    },
+    {
+      "file": "cells\\test-test-0322-intact.json",
+      "sha256": "fc7b255767d1a208eaed05bdb902f3ca8d218044db76635ec2bda68e78fba3b5",
+      "bytes": 2148
+    },
+    {
+      "file": "cells\\test-test-0322-logic_ablation.json",
+      "sha256": "55163be2c6028942f0f70c8efb4b0aa18d5747676684d129c30b1673ca6df2bb",
+      "bytes": 1854
+    },
+    {
+      "file": "cells\\test-test-0322-social_ablation.json",
+      "sha256": "6d2ebbafcfc55c81e493e90ed27c30ab124650929a2ed9766501880ba5d69b27",
+      "bytes": 2155
+    },
+    {
+      "file": "cells\\test-test-0334-intact.json",
+      "sha256": "c9e3dc5911e0a3590d4ea9fbc7b353f63ee024235a5d87cb629c287cbd6f5636",
+      "bytes": 1599
+    },
+    {
+      "file": "cells\\test-test-0334-logic_ablation.json",
+      "sha256": "e00c8b171f57d00c2355cd260ffe3334a6fa524f8b8d68037719d5b511fb87e7",
+      "bytes": 1582
+    },
+    {
+      "file": "cells\\test-test-0334-social_ablation.json",
+      "sha256": "b2207c26c590851a833d295505140d39ac855d882e977f1f6da1ccff919ce986",
+      "bytes": 1654
+    },
+    {
+      "file": "cells\\test-test-0339-intact.json",
+      "sha256": "3ea1e9219902dfd5bd93067431782094e5ea874d3b6267895f1a028fa80f29ce",
+      "bytes": 2694
+    },
+    {
+      "file": "cells\\test-test-0339-logic_ablation.json",
+      "sha256": "b5f501053c18a5599ed2c1389a33f30d095d985a56ba4fd98f2b082654d93c75",
+      "bytes": 17193
+    },
+    {
+      "file": "cells\\test-test-0339-social_ablation.json",
+      "sha256": "b7a3eb2ac90b719cbb2124c53ae186b1bd4f9407c03d288ec0aacd593559de2c",
+      "bytes": 1679
+    },
+    {
+      "file": "cells\\test-test-0351-intact.json",
+      "sha256": "8212270c203ea5d143216c7fda103280b57989f2a56001554cfd06c7a50d8b4c",
+      "bytes": 2176
+    },
+    {
+      "file": "cells\\test-test-0351-logic_ablation.json",
+      "sha256": "ecd8e9b3c48e7057553a645d84c2c23f5208f5de5e1e0c02cbaa1bffec6722e4",
+      "bytes": 1736
+    },
+    {
+      "file": "cells\\test-test-0351-social_ablation.json",
+      "sha256": "4f66263b3c2c874df07b199599ee1fb560ba784a5bb7e27a187aaed78842c452",
+      "bytes": 2449
+    },
+    {
+      "file": "cells\\test-test-0360-intact.json",
+      "sha256": "e7b0b3aaf2483ee8c74546059c6790716f356e9ac8f6ae84804b0ee0e4cf0fa9",
+      "bytes": 1373
+    },
+    {
+      "file": "cells\\test-test-0360-logic_ablation.json",
+      "sha256": "9cf4fc1214273aea7a074eaac6af7fae8aab41dbc67ec66ec44692b810ed4dc2",
+      "bytes": 1424
+    },
+    {
+      "file": "cells\\test-test-0360-social_ablation.json",
+      "sha256": "21f5ae2cfa66decc2f58ecbcd2d151a5e174f6d5d9fb0575489fd4320b260ee3",
+      "bytes": 1382
+    },
+    {
+      "file": "cells\\test-test-0363-intact.json",
+      "sha256": "2cf286f5e0d655b480de2abe1b7144db232ad059fb2206a46987f66474aeeea4",
+      "bytes": 17809
+    },
+    {
+      "file": "cells\\test-test-0363-logic_ablation.json",
+      "sha256": "7c52cf5f2bd590e042ae40b8da16b085108b4d76c59e58fca2b26c543060161a",
+      "bytes": 17941
+    },
+    {
+      "file": "cells\\test-test-0363-social_ablation.json",
+      "sha256": "c12b8764ff13ea595dee1ce603f9fb7d70eea026b2a15238636dc3f7333d8f22",
+      "bytes": 2962
+    },
+    {
+      "file": "cells\\test-test-0369-intact.json",
+      "sha256": "334597a6eab586abc1dafa314dc090bf19dbbed92416f7955573e523b9010d22",
+      "bytes": 20627
+    },
+    {
+      "file": "cells\\test-test-0369-logic_ablation.json",
+      "sha256": "8222cc086b572d097c3db56d6ec06e449ae6980bd7204230aff8d55310cb9ea0",
+      "bytes": 18432
+    },
+    {
+      "file": "cells\\test-test-0369-social_ablation.json",
+      "sha256": "82499f221c6f20307f92d7f4cb25781c61a6182a60a29881da7e49181e53a717",
+      "bytes": 15358
+    },
+    {
+      "file": "cells\\test-test-0370-intact.json",
+      "sha256": "e9f641761bf520ec11bcd9305a42b1e2e3c233ff742e7f3e18a6eb4d157e3706",
+      "bytes": 17875
+    },
+    {
+      "file": "cells\\test-test-0370-logic_ablation.json",
+      "sha256": "182104c6b0017696efe5e4e69135abf9b24ba9e752b83d86a3d73038a4676da2",
+      "bytes": 1900
+    },
+    {
+      "file": "cells\\test-test-0370-social_ablation.json",
+      "sha256": "68b3215fab4a4cbc8ca0c94d70c73eb235400cb1c6c68ba831b82e442708671f",
+      "bytes": 17885
+    },
+    {
+      "file": "cells\\test-test-0372-intact.json",
+      "sha256": "56e9880efbf0d714118928817ae0cbc382aa863335e186f3b7dbc7613110bc47",
+      "bytes": 3117
+    },
+    {
+      "file": "cells\\test-test-0372-logic_ablation.json",
+      "sha256": "5c5566397e1f9ff841817bf9a21487bf512f269cf3fc45988fa2cb9f36aac19b",
+      "bytes": 20188
+    },
+    {
+      "file": "cells\\test-test-0372-social_ablation.json",
+      "sha256": "a69b62fa58738aa78593354c213b9b47ec9a45401fea32a04fe6cf741951a97a",
+      "bytes": 2989
+    },
+    {
+      "file": "cells\\test-test-0377-intact.json",
+      "sha256": "84d4fa5162d6f27583c7991bb0b53c0295a2d6f322a714740b575a2297fb8796",
+      "bytes": 18510
+    },
+    {
+      "file": "cells\\test-test-0377-logic_ablation.json",
+      "sha256": "226065b74c7274d21f3904c7378eee6a61a962b2069ca4d5884d752ed4ef8c75",
+      "bytes": 2434
+    },
+    {
+      "file": "cells\\test-test-0377-social_ablation.json",
+      "sha256": "81dc6d896704f636210e71e66f2885944401efead86ea7169c7ab6a29607e777",
+      "bytes": 2201
+    },
+    {
+      "file": "cells\\test-test-0380-intact.json",
+      "sha256": "c2d747af4f2df61512044125cf5ed9f0dacd9e3c42bea5487b39b2fc28f0c654",
+      "bytes": 2033
+    },
+    {
+      "file": "cells\\test-test-0380-logic_ablation.json",
+      "sha256": "115ba8a1729182ed05510f7844356a371c3e85c169951acc8fe5a80cc610d5e7",
+      "bytes": 1666
+    },
+    {
+      "file": "cells\\test-test-0380-social_ablation.json",
+      "sha256": "00a6ed621fcc96f4f7769214f40780d2e390e1279a1cb314cbbd2fc466aaa8fa",
+      "bytes": 2041
+    },
+    {
+      "file": "cells\\test-test-0381-intact.json",
+      "sha256": "33ee1f246f450ad55b4c9ced0a0c9f970608b1b3b63da812f73a3ad64434e1a1",
+      "bytes": 2741
+    },
+    {
+      "file": "cells\\test-test-0381-logic_ablation.json",
+      "sha256": "a78b2b2504d09713a9cb5ce58976a19f7af1e059758a91ff42d14a7ef5f62193",
+      "bytes": 1406
+    },
+    {
+      "file": "cells\\test-test-0381-social_ablation.json",
+      "sha256": "ee4a49c59c4bb8f26bcc19abbf583a1d8e9c46dcfc0a322b1fd0456e8f014728",
+      "bytes": 2648
+    },
+    {
+      "file": "cells\\test-test-0388-intact.json",
+      "sha256": "a134f38730d76139ecef5f2fb49593a346ff407fafd91fcc6ff2330864f7d810",
+      "bytes": 1944
+    },
+    {
+      "file": "cells\\test-test-0388-logic_ablation.json",
+      "sha256": "66d2c074a94cf3ef754d5acc80a5492690aefe8f0b4cb6bdf8bf6ee7310a9996",
+      "bytes": 1836
+    },
+    {
+      "file": "cells\\test-test-0388-social_ablation.json",
+      "sha256": "307f0d4198c9606d664ad46633bbdbdebd9f20afff1f7b7fb541d4a71bc669fa",
+      "bytes": 1951
+    },
+    {
+      "file": "cells\\test-test-0395-intact.json",
+      "sha256": "f1e6bb08c2eb7b7e6b662cebccfb125a903d7e3dbab08cd7f6dc82b7f0290c4c",
+      "bytes": 2493
+    },
+    {
+      "file": "cells\\test-test-0395-logic_ablation.json",
+      "sha256": "251e24b040874699b94d5d8f9e457c79787ff987dad7d360bc1365a579bb7d7a",
+      "bytes": 3137
+    },
+    {
+      "file": "cells\\test-test-0395-social_ablation.json",
+      "sha256": "d27926a8d037da2ce70aaeffc44535f2f4beace758eede03bcd24d314db4dc07",
+      "bytes": 2476
+    },
+    {
+      "file": "cells\\test-test-0397-intact.json",
+      "sha256": "511aa7ea8ade781555b0bb79f76e8a09b62197156951dd1105d4b25a2d7efe3f",
+      "bytes": 1826
+    },
+    {
+      "file": "cells\\test-test-0397-logic_ablation.json",
+      "sha256": "47a85002c6a2f35adb567c2bcc929821a0ff582ffab8a12e9dfe672c182e0a1a",
+      "bytes": 1898
+    },
+    {
+      "file": "cells\\test-test-0397-social_ablation.json",
+      "sha256": "d1781e4c032ec846e0233084816fb7a191fe2ea0d9db57d41410e7ec4ef67089",
+      "bytes": 1752
+    },
+    {
+      "file": "cells\\test-test-0398-intact.json",
+      "sha256": "ef58942a7f83de9dee575c386917ed541585d0dddcf75b266eac96cf3a36a0fb",
+      "bytes": 2347
+    },
+    {
+      "file": "cells\\test-test-0398-logic_ablation.json",
+      "sha256": "c02159b3595eb256f9ed2bf08d134debd62db746869b1cdc8e4ee4c421644d25",
+      "bytes": 16354
+    },
+    {
+      "file": "cells\\test-test-0398-social_ablation.json",
+      "sha256": "0f76de92b43c6d406f3b7f4d183eb53b6556a078b5021e5078daefb2bc0e5eb4",
+      "bytes": 2355
+    },
+    {
+      "file": "cells\\test-test-0408-intact.json",
+      "sha256": "ff6fee8ca38b15469ce02be499365b33d6e688da423c8b375a66f6d76079e479",
+      "bytes": 16073
+    },
+    {
+      "file": "cells\\test-test-0408-logic_ablation.json",
+      "sha256": "4aa25f8f8fad36cdf6d2552d9bc1953127554554c502c7a9ae9afc93dfdf0f62",
+      "bytes": 18328
+    },
+    {
+      "file": "cells\\test-test-0408-social_ablation.json",
+      "sha256": "88de772249c5ed955e884a935dfd3152dd1cf7ec235a22b2c65979056d86e85a",
+      "bytes": 16502
+    },
+    {
+      "file": "cells\\test-test-0411-intact.json",
+      "sha256": "bfd1036a96c090ee02bebc049fcfcc47c128eb82a98eb4a448b1ac6066c7f1a5",
+      "bytes": 16327
+    },
+    {
+      "file": "cells\\test-test-0411-logic_ablation.json",
+      "sha256": "922fcf884d344976721bccb1640d7528b87a65e78bac1f9066386e4afbce492b",
+      "bytes": 2309
+    },
+    {
+      "file": "cells\\test-test-0411-social_ablation.json",
+      "sha256": "7623a3b9e7c3c04e05765cb2292d2683419f4868c30f9e2c10ce14eeace4f55f",
+      "bytes": 16337
+    },
+    {
+      "file": "cells\\test-test-0413-intact.json",
+      "sha256": "8a4c5565ddf5746a72beee90e6c9a285e702003a89474591febc7f067556ef67",
+      "bytes": 3504
+    },
+    {
+      "file": "cells\\test-test-0413-logic_ablation.json",
+      "sha256": "21620df9644632ceb99cdc938e78428068afc321535a88b6e8ce6e616efe3bf5",
+      "bytes": 1605
+    },
+    {
+      "file": "cells\\test-test-0413-social_ablation.json",
+      "sha256": "aa4f9633ed71035cf28097b87b50b57179364d09dab8e66afa536dfb05bb06a6",
+      "bytes": 3614
+    },
+    {
+      "file": "cells\\test-test-0416-intact.json",
+      "sha256": "1449d49340d2fea4bce287e1c763c9210c60e24accc0e4602324efae66f6f245",
+      "bytes": 17142
+    },
+    {
+      "file": "cells\\test-test-0416-logic_ablation.json",
+      "sha256": "3612d9ddf660b5648b1d132dc40f9fcae22cede5493f3ffc8ad61805c50a194e",
+      "bytes": 18465
+    },
+    {
+      "file": "cells\\test-test-0416-social_ablation.json",
+      "sha256": "dab1665df273fda70ffdefc554d27f5694a922eb1b30f98eaa484182f2be527c",
+      "bytes": 16499
+    },
+    {
+      "file": "cells\\test-test-0417-intact.json",
+      "sha256": "1ec718b7b47ef937fe677f51ea041c3d094efeab8f7ba6c23f90fb62afb19a0e",
+      "bytes": 2593
+    },
+    {
+      "file": "cells\\test-test-0417-logic_ablation.json",
+      "sha256": "2f22325f01ed8143225f4c8010cf6b5afe3f2d397521f2c895b0bdc627f74ec8",
+      "bytes": 19230
+    },
+    {
+      "file": "cells\\test-test-0417-social_ablation.json",
+      "sha256": "698e732e4521fa5121b3bacc341202c228fe25febfe5788baade4170f55f6207",
+      "bytes": 2600
+    },
+    {
+      "file": "cells\\test-test-0419-intact.json",
+      "sha256": "debb384b5d378cda7a57412e5bbfa2561eb557f1625c4163c030670170bc4bd8",
+      "bytes": 1627
+    },
+    {
+      "file": "cells\\test-test-0419-logic_ablation.json",
+      "sha256": "3a18e833bc99524aac72aebd8e6634b3e71185691adce1ebf1288c6f6e1de91f",
+      "bytes": 1636
+    },
+    {
+      "file": "cells\\test-test-0419-social_ablation.json",
+      "sha256": "7dd386b14fadef0b5399022e4f09ce58208b25fb5b3896f8c7960a9729199e44",
+      "bytes": 1634
+    },
+    {
+      "file": "cells\\test-test-0424-intact.json",
+      "sha256": "27ed87a42f12b594311e08ac319f3bdb638511b6dc046583d7db8f026740663c",
+      "bytes": 1390
+    },
+    {
+      "file": "cells\\test-test-0424-logic_ablation.json",
+      "sha256": "2b799a112d16ddb80c0eac6cc61f14a6e11cb35835b5f7f169834a6b85be23fd",
+      "bytes": 1424
+    },
+    {
+      "file": "cells\\test-test-0424-social_ablation.json",
+      "sha256": "6acb305e2aa1a9e00f4f1a694fa2fb807423c227e598eb7ecff0db3c3640aa6a",
+      "bytes": 1397
+    },
+    {
+      "file": "cells\\test-test-0427-intact.json",
+      "sha256": "22d0b8a66e27e86d134e084a0480b9f3508f34d0c8240014dc9b6836ef7cefb3",
+      "bytes": 2410
+    },
+    {
+      "file": "cells\\test-test-0427-logic_ablation.json",
+      "sha256": "b589eefb06f79e01ad67abc45d33f4e2b89f6886bf620d9c876fcedd07771d8f",
+      "bytes": 17639
+    },
+    {
+      "file": "cells\\test-test-0427-social_ablation.json",
+      "sha256": "fe067c30f6620c47a69f9d356f8e9e6b42ba6fa9bfd259448213c9c11d3c1d92",
+      "bytes": 2417
+    },
+    {
+      "file": "cells\\test-test-0434-intact.json",
+      "sha256": "0026e89a360e207f02a00a97e9310a305952eb154268a603832ad880a615c463",
+      "bytes": 15172
+    },
+    {
+      "file": "cells\\test-test-0434-logic_ablation.json",
+      "sha256": "eb807289de421ad54700f588309f221fd200faea96307b04b32777b80a129afc",
+      "bytes": 16548
+    },
+    {
+      "file": "cells\\test-test-0434-social_ablation.json",
+      "sha256": "8986a32baa5e1c186d388a8800c685e788b27379084a9f0ff4de986910948316",
+      "bytes": 2211
+    },
+    {
+      "file": "cells\\test-test-0446-intact.json",
+      "sha256": "42e5d803bb9976f4313e189bb050a6a8643aaec28980e1bd133f3a6a739f9c6a",
+      "bytes": 2406
+    },
+    {
+      "file": "cells\\test-test-0446-logic_ablation.json",
+      "sha256": "9deaadd90d0d7f8b647b676e890071967ce0ba9a02fa06b0a20c7d51ee859e7b",
+      "bytes": 2408
+    },
+    {
+      "file": "cells\\test-test-0446-social_ablation.json",
+      "sha256": "d74aa1e42606766051c2e425cc0e7e11a7e3d1625928f522d7ca07bd4f2599ab",
+      "bytes": 2412
+    },
+    {
+      "file": "cells\\test-test-0449-intact.json",
+      "sha256": "7e67d5570a95163ed32d03cb3fabee8c5ecd276c70391ec24d083ec64d90f5de",
+      "bytes": 2081
+    },
+    {
+      "file": "cells\\test-test-0449-logic_ablation.json",
+      "sha256": "61c6f435d3100a9c19d0d5a60e9755d06088e9b8ed0cff556e5bfdf8d86a7789",
+      "bytes": 13548
+    },
+    {
+      "file": "cells\\test-test-0449-social_ablation.json",
+      "sha256": "321516c8cd1b4c45ffa36e74798c6bc169c53735d6a6832047b87fd8c19f3b38",
+      "bytes": 2088
+    },
+    {
+      "file": "cells\\test-test-0452-intact.json",
+      "sha256": "e2b9b35d834c76bdb2bdf9e379c4df608050104fc64d08806eff652be2d31736",
+      "bytes": 2587
+    },
+    {
+      "file": "cells\\test-test-0452-logic_ablation.json",
+      "sha256": "3ebe3247a9811dfd28d3ecf1b2c0885199f74deff665e9078f95c00ef75368b0",
+      "bytes": 17301
+    },
+    {
+      "file": "cells\\test-test-0452-social_ablation.json",
+      "sha256": "be6d2f5b35002889023b9fb22d2d98b9ce20d7927a6fc7e5308b9c957e715cf2",
+      "bytes": 2596
+    },
+    {
+      "file": "cells\\test-test-0463-intact.json",
+      "sha256": "b8d86389d8ebe51f042da094e8a1bf5b360fdcec905d8c13b91f6abe8a969413",
+      "bytes": 2011
+    },
+    {
+      "file": "cells\\test-test-0463-logic_ablation.json",
+      "sha256": "6868c47f03f88ef802f681acabcfe1c994c9e90761c6313a8b0ddede64ee5182",
+      "bytes": 1343
+    },
+    {
+      "file": "cells\\test-test-0463-social_ablation.json",
+      "sha256": "8b7e93b39afc325c6ad50ae8dd257fcb65c17453a18389742237f42bf9dc1f0e",
+      "bytes": 2017
+    },
+    {
+      "file": "cells\\test-test-0469-intact.json",
+      "sha256": "8f443b0e78300a51b51c35fb2402a72f2ff423f14adbe889410c99e2b42d011c",
+      "bytes": 2530
+    },
+    {
+      "file": "cells\\test-test-0469-logic_ablation.json",
+      "sha256": "2b5a5f89a44d17eef5f68c6532f029cdd391638f003f1b5c589c4700f864e08d",
+      "bytes": 2125
+    },
+    {
+      "file": "cells\\test-test-0469-social_ablation.json",
+      "sha256": "c6feb45d5c567eeb510e7c2851df15b5e436cd125750b14c94b9f0cf661e7b6a",
+      "bytes": 1859
+    },
+    {
+      "file": "cells\\test-test-0479-intact.json",
+      "sha256": "f22d6f5c6f348af71ab09b5912abc1811f84580f49ec224322e29c65043811b0",
+      "bytes": 2299
+    },
+    {
+      "file": "cells\\test-test-0479-logic_ablation.json",
+      "sha256": "1863d67ce1172b603043373498ae3799928faa719e1efc0b34838ee06af5839d",
+      "bytes": 2254
+    },
+    {
+      "file": "cells\\test-test-0479-social_ablation.json",
+      "sha256": "7f15dfd5d912b9655b4f23b4b7c9da7cd8992f575c4d42e027bb424a5f49e6e7",
+      "bytes": 2306
+    },
+    {
+      "file": "cells\\test-test-0480-intact.json",
+      "sha256": "219151254e685d546cd833843b7f4152b60c64f6b9fe051d54db7ba2816526cd",
+      "bytes": 2471
+    },
+    {
+      "file": "cells\\test-test-0480-logic_ablation.json",
+      "sha256": "c03dc208ceb88aa10db9deb25081e9e3546c74095afaff75da8f72ab1f9bfcff",
+      "bytes": 1952
+    },
+    {
+      "file": "cells\\test-test-0480-social_ablation.json",
+      "sha256": "c9adde9342207876fcc6b802182b1fc6854407165429da22f8c6b0601fe77db3",
+      "bytes": 2480
+    },
+    {
+      "file": "cells\\test-test-0484-intact.json",
+      "sha256": "e57d3972bb88ad1341c56974a45fd27195160ab563a92319ca7ea92df7217595",
+      "bytes": 1924
+    },
+    {
+      "file": "cells\\test-test-0484-logic_ablation.json",
+      "sha256": "b38600b15c4f4f7417a4c0216f78d4912f0998ae1b58430616b5484be8c936db",
+      "bytes": 1646
+    },
+    {
+      "file": "cells\\test-test-0484-social_ablation.json",
+      "sha256": "bd6aa1064dc91a4f325cdde9373fc15a40fbf08f6befb00cbc6e30f445988c5c",
+      "bytes": 1930
+    },
+    {
+      "file": "cells\\test-test-0496-intact.json",
+      "sha256": "7a70a960464dce24e33a075a265de45550927b7281bc19e7ee206a49d4c1654b",
+      "bytes": 2049
+    },
+    {
+      "file": "cells\\test-test-0496-logic_ablation.json",
+      "sha256": "fabaf28f2c549b708ec6817c3b226ea27a985d89eb622c2954f7e28eca37d0b8",
+      "bytes": 2008
+    },
+    {
+      "file": "cells\\test-test-0496-social_ablation.json",
+      "sha256": "41b524122fdd21a5568a41b929bb3ace79f74ba4b2e986a96c4fb1fc4dc823ee",
+      "bytes": 1930
+    },
+    {
+      "file": "cells\\test-test-0497-intact.json",
+      "sha256": "4eec1801bc4bd82e1499bcea114d233b5370d677b34820e1196bfb324789ce91",
+      "bytes": 2145
+    },
+    {
+      "file": "cells\\test-test-0497-logic_ablation.json",
+      "sha256": "ff0ec20c041f74faae859b4d9f196405416964f70556dbec5e634f654b9ae047",
+      "bytes": 2210
+    },
+    {
+      "file": "cells\\test-test-0497-social_ablation.json",
+      "sha256": "3b48f6841c31507f60bb3bb3e7bc804d9926504a6208216c2dd8df627bff3292",
+      "bytes": 2152
+    },
+    {
+      "file": "cells\\test-test-0498-intact.json",
+      "sha256": "a75b83c590a071fee69fc2bd6cc134ab7201ab828b394ccd85e70798a7c63377",
+      "bytes": 2878
+    },
+    {
+      "file": "cells\\test-test-0498-logic_ablation.json",
+      "sha256": "d1088750e982a92bee618035e5172785a5a48565d0684ec4208645f47a382dfb",
+      "bytes": 1653
+    },
+    {
+      "file": "cells\\test-test-0498-social_ablation.json",
+      "sha256": "7d7074030e8d163de012942dd5b35e7c0ea61b9d1a84591d67cf989fc4790267",
+      "bytes": 2215
+    },
+    {
+      "file": "cells\\test-test-0506-intact.json",
+      "sha256": "c3eeb2acb859d136be00584be58abaa71b1fdcfdbf76b12a9f1757b762b11f87",
+      "bytes": 12973
+    },
+    {
+      "file": "cells\\test-test-0506-logic_ablation.json",
+      "sha256": "6704c3259062f66531d5a0d9bc0d3f48d6c2a6c03875f4764ea45347c4064311",
+      "bytes": 1311
+    },
+    {
+      "file": "cells\\test-test-0506-social_ablation.json",
+      "sha256": "9d27dfaffa4786355379b1fe74f4c498615032280bfd1f8ab83214f085e2447b",
+      "bytes": 1900
+    },
+    {
+      "file": "cells\\test-test-0507-intact.json",
+      "sha256": "6af9f92ff8bb968bf882cc51270c9505a572a6ff1c39fe6b9f5b388a57659cf9",
+      "bytes": 2170
+    },
+    {
+      "file": "cells\\test-test-0507-logic_ablation.json",
+      "sha256": "13493482302a931cd481c51ef841c8306fd3d7ee22e9737ef4f919ed24bb1517",
+      "bytes": 17700
+    },
+    {
+      "file": "cells\\test-test-0507-social_ablation.json",
+      "sha256": "0e5bf8c42a269d9f9e135ea486993d1795bd8544d5c46003d0f3c3ac420fc388",
+      "bytes": 2179
+    },
+    {
+      "file": "cells\\test-test-0511-intact.json",
+      "sha256": "82baf8af8524670af87243e127c61b01c6b760d90d625b45570dde5621225f52",
+      "bytes": 2150
+    },
+    {
+      "file": "cells\\test-test-0511-logic_ablation.json",
+      "sha256": "c7be25026f2b3e4e9412d0d7cee6746c7e3e2655346416ee74dacfaa6e707946",
+      "bytes": 17244
+    },
+    {
+      "file": "cells\\test-test-0511-social_ablation.json",
+      "sha256": "05cf794b7d8e260975d142586b2728a12867695bdf31e3a609ce5c26e7cd4783",
+      "bytes": 2157
+    },
+    {
+      "file": "cells\\test-test-0536-intact.json",
+      "sha256": "261bd4f203bfd8d2d926ccb5694272b32e1afe94cf5469c2b562a0df54b2d9d2",
+      "bytes": 2337
+    },
+    {
+      "file": "cells\\test-test-0536-logic_ablation.json",
+      "sha256": "1e067d69d8dca83f7f314d7babd905ec04b79cc8242d3f4a359df0c91780e871",
+      "bytes": 16203
+    },
+    {
+      "file": "cells\\test-test-0536-social_ablation.json",
+      "sha256": "11db48e15d93aef0a7afee447626a5d2df0ec68b9b41094b527b6b2d1c1bfe40",
+      "bytes": 2343
+    },
+    {
+      "file": "cells\\test-test-0543-intact.json",
+      "sha256": "fce412d7d5238f5b8988cd8c0f1d55a291e65e185f325d1b46e783b6f6d172f4",
+      "bytes": 2321
+    },
+    {
+      "file": "cells\\test-test-0543-logic_ablation.json",
+      "sha256": "4434f29007bda20c7f238c116d13e8074b0c6aeb9cee49cbb743d529eaa72170",
+      "bytes": 1945
+    },
+    {
+      "file": "cells\\test-test-0543-social_ablation.json",
+      "sha256": "e53ee86cc0609491a3e46e4b3649911793671ca1f24b84d35fcac4408109a17e",
+      "bytes": 2177
+    },
+    {
+      "file": "cells\\test-test-0544-intact.json",
+      "sha256": "f00beab739024c86ae241702a057ea10fc619dbe5623371bae5e89abe5dc3dad",
+      "bytes": 2576
+    },
+    {
+      "file": "cells\\test-test-0544-logic_ablation.json",
+      "sha256": "757beff1f7417db2ecb900019ac972952726494cd8f0b3139c569fcd022d6737",
+      "bytes": 1385
+    },
+    {
+      "file": "cells\\test-test-0544-social_ablation.json",
+      "sha256": "71491abd8dc922efaa99bf5ae68aa36b309788354bc9c811128145e8ec801fcc",
+      "bytes": 2582
+    },
+    {
+      "file": "cells\\test-test-0554-intact.json",
+      "sha256": "be6fb68599a38db6ecdc3c1cec16d0e2886d31145372b353833f6dba19bad240",
+      "bytes": 2547
+    },
+    {
+      "file": "cells\\test-test-0554-logic_ablation.json",
+      "sha256": "f2b1fe90d1ae439b1055a3e1619b8c2148fcb49a707446e9a56c6620a66940cd",
+      "bytes": 14167
+    },
+    {
+      "file": "cells\\test-test-0554-social_ablation.json",
+      "sha256": "e0f465747f5e3a709151640661003c2c62efb0e2ebbe06e3b4367ff016d9f208",
+      "bytes": 2557
+    },
+    {
+      "file": "cells\\test-test-0561-intact.json",
+      "sha256": "5f579971baf0cadfae29cddb296f31f0523fb59c20c06193a11d3489ff2d8082",
+      "bytes": 2230
+    },
+    {
+      "file": "cells\\test-test-0561-logic_ablation.json",
+      "sha256": "34ac3153c5169e88dc0a0db9a5694e51dc913a550d3f410e166b4612d522c893",
+      "bytes": 19924
+    },
+    {
+      "file": "cells\\test-test-0561-social_ablation.json",
+      "sha256": "850a4f303bb1a2331669a9b5c8e0e6a567eea1dac945ef17a869015f1480b6c0",
+      "bytes": 2238
+    },
+    {
+      "file": "cells\\test-test-0562-intact.json",
+      "sha256": "283e54b51c2754e0dfb4244aca4297439362889b2d7ab9917bc19ebd33943e54",
+      "bytes": 2347
+    },
+    {
+      "file": "cells\\test-test-0562-logic_ablation.json",
+      "sha256": "bf5c152cc18f42b3cfd8fd09f5211e51e8eac28e35470a3fad0fcf535ba643b6",
+      "bytes": 1600
+    },
+    {
+      "file": "cells\\test-test-0562-social_ablation.json",
+      "sha256": "382698a0ae32642f9ac994d46f69b5881ec36327cd8b6f83ccafccf6b52ac0a1",
+      "bytes": 2356
+    },
+    {
+      "file": "cells\\test-test-0563-intact.json",
+      "sha256": "c3a55d656c61732f377c79ed116147f0c82a31f8a51b4731635c7ff040f299a1",
+      "bytes": 2313
+    },
+    {
+      "file": "cells\\test-test-0563-logic_ablation.json",
+      "sha256": "65f7b97a1ecc221fd62f2288c0066b699af8a253a3b082c019b08d4fcb08fbd1",
+      "bytes": 1877
+    },
+    {
+      "file": "cells\\test-test-0563-social_ablation.json",
+      "sha256": "45542d537f0d2c2affa75fa9472918d724020e846a03a1e9f5c26cb57ecbfdd6",
+      "bytes": 2599
+    },
+    {
+      "file": "cells\\test-test-0565-intact.json",
+      "sha256": "5b8e9ca2eef050eb88b15b0653809f90701e606b3777edf2724429a1e1875c6d",
+      "bytes": 2136
+    },
+    {
+      "file": "cells\\test-test-0565-logic_ablation.json",
+      "sha256": "2abf4969719e38983e66d1dfb9ebe8c2c883eaafd6620163e7d6496aaf983558",
+      "bytes": 19740
+    },
+    {
+      "file": "cells\\test-test-0565-social_ablation.json",
+      "sha256": "a6aca8799ab56df8861a6adbf2e823f0f2983cb79311b559ad9431c53d79eea7",
+      "bytes": 2180
+    },
+    {
+      "file": "cells\\test-test-0568-intact.json",
+      "sha256": "cacba9991808dd5ae26fd4992bf39a9b1e6d9606bff53e178f1e1f57b0938145",
+      "bytes": 2189
+    },
+    {
+      "file": "cells\\test-test-0568-logic_ablation.json",
+      "sha256": "e0bed99b5fe02d45c9b98642600c5e3f95746a70caf0680ed79c8bc3cbfd68fd",
+      "bytes": 1300
+    },
+    {
+      "file": "cells\\test-test-0568-social_ablation.json",
+      "sha256": "f760181b6cce7554ffac9c5bf6926e91a813c16b31e82f66c57bfe81b8179ee5",
+      "bytes": 18312
+    },
+    {
+      "file": "cells\\test-test-0569-intact.json",
+      "sha256": "02b9dffa42c1880cf4d81132780f8251aa8a2e871e1210ea272d86288a0eb53a",
+      "bytes": 1434
+    },
+    {
+      "file": "cells\\test-test-0569-logic_ablation.json",
+      "sha256": "0381bbc1eab473c662ee74b35841c7bd062d3013c098f282fb1612bd1474c737",
+      "bytes": 1432
+    },
+    {
+      "file": "cells\\test-test-0569-social_ablation.json",
+      "sha256": "425a14b9d120a382e2c5d21f10114488955ec4e75ffa80387edbb382a07d5511",
+      "bytes": 1608
+    },
+    {
+      "file": "cells\\test-test-0572-intact.json",
+      "sha256": "5d4235cb04922eba4f2dc0cae56097786120721c3fc45be6c2bd23985aa77e3f",
+      "bytes": 2782
+    },
+    {
+      "file": "cells\\test-test-0572-logic_ablation.json",
+      "sha256": "b351ff00696de7766c8bf3389d540a0d2f693e6ecab8d2aff7bbda22da0bcd81",
+      "bytes": 1460
+    },
+    {
+      "file": "cells\\test-test-0572-social_ablation.json",
+      "sha256": "dbd712718250b248246bb5dfe6a9f0f2d83adf0f8eb1e4d8c0cf9a7400a44628",
+      "bytes": 2791
+    },
+    {
+      "file": "cells\\test-test-0575-intact.json",
+      "sha256": "b75753e075f08ce684ce436c3a8bef7766b18da52976c1a5811eae39db820d41",
+      "bytes": 1974
+    },
+    {
+      "file": "cells\\test-test-0575-logic_ablation.json",
+      "sha256": "2b8e0dd5231a93990b60f472f6835bb43d534ac222f839450aa9611dbb4b6dba",
+      "bytes": 1951
+    },
+    {
+      "file": "cells\\test-test-0575-social_ablation.json",
+      "sha256": "0d4f18cd1df971b6758be0defab23fcf651364f83532a7a3864b21e0cb1fe6d5",
+      "bytes": 1983
+    },
+    {
+      "file": "cells\\test-test-0580-intact.json",
+      "sha256": "604477bd1f926c64b27aff928408869783d60ce9528fb98fb0bdf26691b0a1fe",
+      "bytes": 2094
+    },
+    {
+      "file": "cells\\test-test-0580-logic_ablation.json",
+      "sha256": "e0c69018a22655de037f3e8fe12dfc2b1bf805f0026c1816e67112b53573d0c5",
+      "bytes": 1605
+    },
+    {
+      "file": "cells\\test-test-0580-social_ablation.json",
+      "sha256": "8d803b7ff3d855ab9f32e3a2e2591f66a28a0c51f1b9b572ae32a5d19eb3c293",
+      "bytes": 1757
+    },
+    {
+      "file": "cells\\test-test-0585-intact.json",
+      "sha256": "ba08120edeb481faa802187142403b4bd88d0294d6275d9b69a9aae6197859b8",
+      "bytes": 2781
+    },
+    {
+      "file": "cells\\test-test-0585-logic_ablation.json",
+      "sha256": "82ad2554bdd40ce60a80b3fbcb704301e2bd337a79df78dc08f4249cd939fb05",
+      "bytes": 18586
+    },
+    {
+      "file": "cells\\test-test-0585-social_ablation.json",
+      "sha256": "7cd67639b30a26193877ad4e82e0b1773abe3895ce723dd9ebddc77b5f53d445",
+      "bytes": 2735
+    },
+    {
+      "file": "cells\\test-test-0586-intact.json",
+      "sha256": "cc8267cf8f3a6cf9009d68090c5e451af6a075d9d7c9a688bdf818d12557a0a8",
+      "bytes": 2947
+    },
+    {
+      "file": "cells\\test-test-0586-logic_ablation.json",
+      "sha256": "21797ebcc35d81d7f125fa0f533d867bee380a40a7061b1eca189b433278463b",
+      "bytes": 1537
+    },
+    {
+      "file": "cells\\test-test-0586-social_ablation.json",
+      "sha256": "9545b30184ff7b6a0cc8fddd7d8827f1c047ec3311a9cbfdfc0eb40cab6646c1",
+      "bytes": 3476
+    },
+    {
+      "file": "cells\\test-test-0591-intact.json",
+      "sha256": "90f9aba9aec34ce51ffdad85faf09052d58e8c0789c020e68a0344a87139a79f",
+      "bytes": 2367
+    },
+    {
+      "file": "cells\\test-test-0591-logic_ablation.json",
+      "sha256": "920fb22d97805c52e77ef54251cd94f2cf5ecab85630af9ed4971c82433626df",
+      "bytes": 2468
+    },
+    {
+      "file": "cells\\test-test-0591-social_ablation.json",
+      "sha256": "576906f20f5620f5ca6e893a0bdf463bbe16d5742a8bca49542454dbd63012f5",
+      "bytes": 2374
+    },
+    {
+      "file": "cells\\test-test-0599-intact.json",
+      "sha256": "26604d7e0d045b8f132ec11b0da4bd682fb7c5f793fa4e85f7abfef5f72e5d4f",
+      "bytes": 2204
+    },
+    {
+      "file": "cells\\test-test-0599-logic_ablation.json",
+      "sha256": "47d628e78973dd31a4fe1104118c19d473cdb387e281b43fdb956ea3a69c5538",
+      "bytes": 1695
+    },
+    {
+      "file": "cells\\test-test-0599-social_ablation.json",
+      "sha256": "ada1afab944a4badd2e6436158297929d8143cffa0bf25b63a8a5cfc6948dc80",
+      "bytes": 2221
+    },
+    {
+      "file": "cells\\test-test-0601-intact.json",
+      "sha256": "aa09bc5868e9ff2c0c35b9fac76ff54d7134fc40533de7d13a623ae5f3c19e13",
+      "bytes": 16684
+    },
+    {
+      "file": "cells\\test-test-0601-logic_ablation.json",
+      "sha256": "2476734375e1a314551a9193078cfc7735649642c4d290c7bd8a3faeb9818ad6",
+      "bytes": 2304
+    },
+    {
+      "file": "cells\\test-test-0601-social_ablation.json",
+      "sha256": "de63d5267db03096056d0a83d9c04847fda2b26c2b8e51e142ef4d7ec900818f",
+      "bytes": 17131
+    },
+    {
+      "file": "cells\\test-test-0612-intact.json",
+      "sha256": "abe8f406bf0f83b4a874fde04256bb11bebba156ece6906490110e5c007a4043",
+      "bytes": 12967
+    },
+    {
+      "file": "cells\\test-test-0612-logic_ablation.json",
+      "sha256": "a85ec764068f7d3f9383f23d72835c6b4ea8f9bef65ae4eed57ae1c3ce7aa865",
+      "bytes": 1373
+    },
+    {
+      "file": "cells\\test-test-0612-social_ablation.json",
+      "sha256": "2e7b02834ee4f4c682811d075d45e1ff5c5fc7d34bf83ab47db49d0ee2218845",
+      "bytes": 16063
+    },
+    {
+      "file": "cells\\test-test-0619-intact.json",
+      "sha256": "9ae3941ee823633afee4682714900decfb3364626529f27d602adc449c13a7bf",
+      "bytes": 1822
+    },
+    {
+      "file": "cells\\test-test-0619-logic_ablation.json",
+      "sha256": "d625ada4047ef47405f27a721c91234088f492b1dac19ce9ebdf1b3273984bd1",
+      "bytes": 21235
+    },
+    {
+      "file": "cells\\test-test-0619-social_ablation.json",
+      "sha256": "c4a0d41026c42dab4b1233081c1be6f17145132301cfa66f910a4a7a42a44d43",
+      "bytes": 1832
+    },
+    {
+      "file": "cells\\test-test-0620-intact.json",
+      "sha256": "a4541d6bba0acc9ba974d6122195f76db53d0a12ff0a8fb60fbf0c26682a57c8",
+      "bytes": 2228
+    },
+    {
+      "file": "cells\\test-test-0620-logic_ablation.json",
+      "sha256": "dde64208cdb6b7013fb81096f01ddca9bd93d92f64f320e3ba2c49df83c96258",
+      "bytes": 1783
+    },
+    {
+      "file": "cells\\test-test-0620-social_ablation.json",
+      "sha256": "6f02d2905399b4d2a03eb1b173362214e867f2b46a2629a189af40428666a29a",
+      "bytes": 2237
+    },
+    {
+      "file": "cells\\test-test-0621-intact.json",
+      "sha256": "d59d9caa83005d245d8582614426458c7b113324e4bc903a70ad2dc2270b7057",
+      "bytes": 2721
+    },
+    {
+      "file": "cells\\test-test-0621-logic_ablation.json",
+      "sha256": "ac36e9e52d3cf6d0815b389e7b49dff05bd74cb3be86e0d36ab554e5df3ab2ec",
+      "bytes": 1443
+    },
+    {
+      "file": "cells\\test-test-0621-social_ablation.json",
+      "sha256": "446d64df9b79bcb43ffe0dca0b0e4dac0286b3b32297bcf698219f03715a2a76",
+      "bytes": 2737
+    },
+    {
+      "file": "cells\\test-test-0624-intact.json",
+      "sha256": "85d5dd16d85e23ec89b62a3c41f1858f31ef8f87e4c547644ab583cedb6e05de",
+      "bytes": 1655
+    },
+    {
+      "file": "cells\\test-test-0624-logic_ablation.json",
+      "sha256": "abe9b7a2415f3a071344784716b0eed4f78ee77f8f2dee5c72c7b4fb4db6bcd2",
+      "bytes": 1879
+    },
+    {
+      "file": "cells\\test-test-0624-social_ablation.json",
+      "sha256": "43e784a4ccd8ff33260d086095eb0a10be84c81efbd93cc738a27054dd611a0b",
+      "bytes": 1665
+    },
+    {
+      "file": "cells\\test-test-0625-intact.json",
+      "sha256": "3f6a928e4b6bc9e2db58ae5245389869fb7b174612f2537960f8fe6079b16da3",
+      "bytes": 1615
+    },
+    {
+      "file": "cells\\test-test-0625-logic_ablation.json",
+      "sha256": "dcbaf8fed1b8160f04291de6d0c457be03f503264acbb92f25ad9a2d5bef5657",
+      "bytes": 1758
+    },
+    {
+      "file": "cells\\test-test-0625-social_ablation.json",
+      "sha256": "f38cdfc47fca4de6881e47c30fd03094bed81aacd1333132ce056ee7ef2695f9",
+      "bytes": 1621
+    },
+    {
+      "file": "cells\\test-test-0630-intact.json",
+      "sha256": "d66bab9df4c3aa60f92c15176650ecb67c1b8a4121bd9f4fe5bc9f28b166a452",
+      "bytes": 2213
+    },
+    {
+      "file": "cells\\test-test-0630-logic_ablation.json",
+      "sha256": "cb464f2524548ba70db1b004f0a2d37b252c7c99f06c6a1c82eab976fd566e1a",
+      "bytes": 17315
+    },
+    {
+      "file": "cells\\test-test-0630-social_ablation.json",
+      "sha256": "c6654e2078a149c5a0fba97e527ca501f7ebc5c76e1799f9efd8fe0f07965299",
+      "bytes": 2219
+    },
+    {
+      "file": "cells\\test-test-0631-intact.json",
+      "sha256": "b3e3157d16622014f022e9a36672388220157d25292f1941553221fe1f76d9d1",
+      "bytes": 2916
+    },
+    {
+      "file": "cells\\test-test-0631-logic_ablation.json",
+      "sha256": "b444e22aa9e0a0928d02b0dc8ad725f49a73e8fdb216d37a13bda621f6b28ffe",
+      "bytes": 2666
+    },
+    {
+      "file": "cells\\test-test-0631-social_ablation.json",
+      "sha256": "68c30681022d152d626bcfe771502b94a81115098daf451a42ce552c3657d437",
+      "bytes": 2924
+    },
+    {
+      "file": "cells\\test-test-0641-intact.json",
+      "sha256": "90d1960dc8bbfa42b50f1a255e6ad5186fd01178fe88f7eeae082964b41450ca",
+      "bytes": 2323
+    },
+    {
+      "file": "cells\\test-test-0641-logic_ablation.json",
+      "sha256": "585729e67bec7eebc7200f9f62a08c954b1660749e8e0e6a7a896732f74763e9",
+      "bytes": 15933
+    },
+    {
+      "file": "cells\\test-test-0641-social_ablation.json",
+      "sha256": "1c1fae56c22be694d217c4d623a2f7ea096f63d6e90e68e5f361126c6969c472",
+      "bytes": 2389
+    },
+    {
+      "file": "cells\\test-test-0647-intact.json",
+      "sha256": "a0558e1965c484eace8d07ceb7e38cacecd5a1a0635cc4b12ce84a0610113eb7",
+      "bytes": 2906
+    },
+    {
+      "file": "cells\\test-test-0647-logic_ablation.json",
+      "sha256": "20c3fcfb3bad011beb0a27620b9f80255e85d5d118c80bdcedf2f16cd02accec",
+      "bytes": 2197
+    },
+    {
+      "file": "cells\\test-test-0647-social_ablation.json",
+      "sha256": "ddb9e36ca6c5ed6f3d232a9b529cd634828cde2fddcc4372102cd8f4ab56dc10",
+      "bytes": 2915
+    },
+    {
+      "file": "cells\\test-test-0654-intact.json",
+      "sha256": "96be3d9847bdfeb326439bd8360567b10dd793855b26e532add33e33bf7204c7",
+      "bytes": 3031
+    },
+    {
+      "file": "cells\\test-test-0654-logic_ablation.json",
+      "sha256": "f6bf4521e6388ddf631dd7106dd72d3b9e0a617e5a9ed67e27ff7b4eee92bfba",
+      "bytes": 1921
+    },
+    {
+      "file": "cells\\test-test-0654-social_ablation.json",
+      "sha256": "9b8445635837fed2f6d403f88d1c91483a07cbbe4352b85b147d50133c3acf7e",
+      "bytes": 3165
+    },
+    {
+      "file": "cells\\test-test-0657-intact.json",
+      "sha256": "305c761effc18483863a2bf07ef3223a471d3dc403cd4b3fffacad5b008133b6",
+      "bytes": 2809
+    },
+    {
+      "file": "cells\\test-test-0657-logic_ablation.json",
+      "sha256": "0b832e86f2acca034f70556280b55735b5d4e3499420ed96bc58a4f300256270",
+      "bytes": 1831
+    },
+    {
+      "file": "cells\\test-test-0657-social_ablation.json",
+      "sha256": "77f0e14a867d0e68332960bba0233abb24c99fd824e03e67d76128f7a49ba2c9",
+      "bytes": 2995
+    },
+    {
+      "file": "cells\\test-test-0667-intact.json",
+      "sha256": "6a69bb642321ae04afc305ce3eef04dbb7f3cec03018935123dea9c4c02b3a13",
+      "bytes": 2061
+    },
+    {
+      "file": "cells\\test-test-0667-logic_ablation.json",
+      "sha256": "d38caf70a40987b9fc1abb60a1826e25bdc5eb86343596d9c8ee8486e510c021",
+      "bytes": 1902
+    },
+    {
+      "file": "cells\\test-test-0667-social_ablation.json",
+      "sha256": "302aa672e5f0ecb2cbf8290be9aa45d47b23c0a191c059108f42394ee1381c0e",
+      "bytes": 2069
+    },
+    {
+      "file": "cells\\test-test-0668-intact.json",
+      "sha256": "b1b66d3d9a221df55f16a2305faea1a02ec10ce95dd9b62b7ca2c8397f793b03",
+      "bytes": 1762
+    },
+    {
+      "file": "cells\\test-test-0668-logic_ablation.json",
+      "sha256": "52d8a6bbe68a48e0bf21543591e9baba46e5fb3d5576c91125f05285d1431a35",
+      "bytes": 1375
+    },
+    {
+      "file": "cells\\test-test-0668-social_ablation.json",
+      "sha256": "471a7cc68cd4fb68d1acb619350aeff59c61cde2b7cf1e7c70a8e37bc0a55301",
+      "bytes": 1687
+    },
+    {
+      "file": "cells\\test-test-0670-intact.json",
+      "sha256": "c9908a8bfea2f6c06a4aab16122840eeba984ccabfdcf884f7a99dec3961290f",
+      "bytes": 1949
+    },
+    {
+      "file": "cells\\test-test-0670-logic_ablation.json",
+      "sha256": "3fef5f82faeea23470028cd50d14ccadde0e2316f4d9dd40ba15f11b0d53a4b9",
+      "bytes": 1356
+    },
+    {
+      "file": "cells\\test-test-0670-social_ablation.json",
+      "sha256": "65abbe6bea5d6d62c31423e7a259e709d7a9ce9d7dd71b595d07b80cc16c7498",
+      "bytes": 1953
+    },
+    {
+      "file": "cells\\test-test-0671-intact.json",
+      "sha256": "611c6519aadd24e8baeae8a26b200bf850d5d54e12aec21cc1509f62d1b7f703",
+      "bytes": 2528
+    },
+    {
+      "file": "cells\\test-test-0671-logic_ablation.json",
+      "sha256": "7b635f866d5c14ce55a647f864b149cade9d4902ab70749e1840dcfa2c0eed4e",
+      "bytes": 16389
+    },
+    {
+      "file": "cells\\test-test-0671-social_ablation.json",
+      "sha256": "12c54726628ae0018d0bdd873ccc53070fac79a4c2533a94ce12e3c4dda2c7c3",
+      "bytes": 2574
+    },
+    {
+      "file": "cells\\test-test-0675-intact.json",
+      "sha256": "9f87acc15e61e9fb4c71b579cce137adc84645c4df3fdf4eb43477abbeee996d",
+      "bytes": 2801
+    },
+    {
+      "file": "cells\\test-test-0675-logic_ablation.json",
+      "sha256": "dcaf9ee06aa32dc05e761f7f11d54d9aa1987bf4c84cc5564529096ac0412839",
+      "bytes": 14244
+    },
+    {
+      "file": "cells\\test-test-0675-social_ablation.json",
+      "sha256": "37f34058a3d57ab9b7fd0fcd6ed16daf9f28f74b0b0a3928a5b5a6648d4da003",
+      "bytes": 2293
+    },
+    {
+      "file": "cells\\test-test-0676-intact.json",
+      "sha256": "c7cda27069b3f70dad44802ca78e168f777782b450644bd159fc3799786258b1",
+      "bytes": 11821
+    },
+    {
+      "file": "cells\\test-test-0676-logic_ablation.json",
+      "sha256": "60545a49e0c78113bb28ef535c6ffb407af0d48d4f8a9ce235af2d9625c90709",
+      "bytes": 16423
+    },
+    {
+      "file": "cells\\test-test-0676-social_ablation.json",
+      "sha256": "6050cb738c1fad78c80154ba8234e371a0b591e7e09cedd51c24059b36cbc965",
+      "bytes": 15867
+    },
+    {
+      "file": "cells\\test-test-0677-intact.json",
+      "sha256": "a1bb2eda0784f39c7a8beff362ffa6ee6df813554a8d7e3c74d667047b626d0e",
+      "bytes": 3272
+    },
+    {
+      "file": "cells\\test-test-0677-logic_ablation.json",
+      "sha256": "93cec7cdfd951c42cab875e14dc970edfc76841fc6ab1c6e307cba515653e496",
+      "bytes": 3368
+    },
+    {
+      "file": "cells\\test-test-0677-social_ablation.json",
+      "sha256": "7d909933db3aef71e952e88fc917f9ea901d75a0e950969a53416aa0d3ce541b",
+      "bytes": 22045
+    },
+    {
+      "file": "cells\\test-test-0678-intact.json",
+      "sha256": "0a7b4b3b629224ffa453f4f2271e9402122ae971cbfd62a8528627bd029ad120",
+      "bytes": 2052
+    },
+    {
+      "file": "cells\\test-test-0678-logic_ablation.json",
+      "sha256": "763efdfbdd4a1924c34f8b2d6fa791599dac1000fb59150d9bfec2f0a9f522b2",
+      "bytes": 17879
+    },
+    {
+      "file": "cells\\test-test-0678-social_ablation.json",
+      "sha256": "64b30cf044cfdc5a96896bf8a38d832cd3ee54cc260fa9aeb5a75978e3084d00",
+      "bytes": 2060
+    },
+    {
+      "file": "cells\\test-test-0679-intact.json",
+      "sha256": "e05ad89cefbb1ae192d23a1a9a68ac00080c87f8fd312356d17e9a7a37b31c43",
+      "bytes": 1703
+    },
+    {
+      "file": "cells\\test-test-0679-logic_ablation.json",
+      "sha256": "01b8fe2fb9784a169b1251eb24a34af9646afa44329aa13bf6fa0ec7786c3fa5",
+      "bytes": 18467
+    },
+    {
+      "file": "cells\\test-test-0679-social_ablation.json",
+      "sha256": "d4901c6eb63856234b71e91ad1dc253085f1de81a26f773ebc90ab0df36399af",
+      "bytes": 1712
+    },
+    {
+      "file": "cells\\test-test-0681-intact.json",
+      "sha256": "0061096c5c95f2600833fb383bff2a2e09aa1a423cf8c5dc43c28d1d845fdb3b",
+      "bytes": 2743
+    },
+    {
+      "file": "cells\\test-test-0681-logic_ablation.json",
+      "sha256": "6d938ea8240ac8bcf90cebb7e1ab606b574f9db4fe943f9031c676bf1adc577f",
+      "bytes": 18518
+    },
+    {
+      "file": "cells\\test-test-0681-social_ablation.json",
+      "sha256": "4f568bce63afdf888e4cf65c4deff3f4d22ef155ddad37b5ccf677d0948a547c",
+      "bytes": 2750
+    },
+    {
+      "file": "cells\\test-test-0684-intact.json",
+      "sha256": "98717dac0dfc2cc2ad254fbb053d2c777786b1321386d2a3575abcf0b5108883",
+      "bytes": 1635
+    },
+    {
+      "file": "cells\\test-test-0684-logic_ablation.json",
+      "sha256": "1e8e90ae44e4fe17d7085b211af58c019a2e4d84606044d4a3bd3fd46f902405",
+      "bytes": 1763
+    },
+    {
+      "file": "cells\\test-test-0684-social_ablation.json",
+      "sha256": "7db52b817e611d2ff7732cddf20994dbf46af502c6036bcc234ab5a8a3ceb7c2",
+      "bytes": 1626
+    },
+    {
+      "file": "cells\\test-test-0693-intact.json",
+      "sha256": "b3dce2101af618fd9a96cd3cdb08f97bab2a42270ae80ad9e4f1cb982cb36802",
+      "bytes": 2427
+    },
+    {
+      "file": "cells\\test-test-0693-logic_ablation.json",
+      "sha256": "24b70378b4ea952261cb9663a9e9eea050015250d6808fe27ded7868d50d7fca",
+      "bytes": 2430
+    },
+    {
+      "file": "cells\\test-test-0693-social_ablation.json",
+      "sha256": "4e126851fb8ae4393efbb3d5076a1ac09a820bd00b380203a3bc16fa86ff03df",
+      "bytes": 2434
+    },
+    {
+      "file": "cells\\test-test-0707-intact.json",
+      "sha256": "ba6038be56620ddf5915c77d281857c010dfaa93ef7dba9497db774bae4169a6",
+      "bytes": 20744
+    },
+    {
+      "file": "cells\\test-test-0707-logic_ablation.json",
+      "sha256": "9c2b9bc47ef85527688ace326d535342b1f06e8a779263543d31126f539d8217",
+      "bytes": 1489
+    },
+    {
+      "file": "cells\\test-test-0707-social_ablation.json",
+      "sha256": "efa3c01d44ebf022448df3c0e7bd57c23ffe01c94b4d0e2a046feed23c4a5f76",
+      "bytes": 3473
+    },
+    {
+      "file": "cells\\test-test-0710-intact.json",
+      "sha256": "4dc08458dd6e5ff87882b37588157ef760c52dad85768fc09fd815812ff3d474",
+      "bytes": 2358
+    },
+    {
+      "file": "cells\\test-test-0710-logic_ablation.json",
+      "sha256": "1f5c7c96477fc9d7b6deaccecebf1a688618ee255166885222ace9eeac39900d",
+      "bytes": 12924
+    },
+    {
+      "file": "cells\\test-test-0710-social_ablation.json",
+      "sha256": "803d9dc1f92b32a391f57800030cc54a1026a0844e1707cd60bc4e422fe7891f",
+      "bytes": 13057
+    },
+    {
+      "file": "cells\\test-test-0716-intact.json",
+      "sha256": "9c9eadd30ed90b42e9a538158d0bb57db0968b24e7d028c31d7e61c8a506f022",
+      "bytes": 15439
+    },
+    {
+      "file": "cells\\test-test-0716-logic_ablation.json",
+      "sha256": "5c8f3d9b7cee107f041f925207435095d8ec972e3d704dc611f2510e1600d076",
+      "bytes": 1384
+    },
+    {
+      "file": "cells\\test-test-0716-social_ablation.json",
+      "sha256": "c04ec4fd0c978b1e8f60800412ef34dfc17b747744cd0e5428324f831f0b90d4",
+      "bytes": 2040
+    },
+    {
+      "file": "cells\\test-test-0743-intact.json",
+      "sha256": "d45ed9e3df3dba3049ea53fa9f4ac3510ca02d3d567987f2408499529ae22f03",
+      "bytes": 2282
+    },
+    {
+      "file": "cells\\test-test-0743-logic_ablation.json",
+      "sha256": "a91be4db096caa5567433c201b965467e8b1c4de13d134c504a55d84cbd1f17e",
+      "bytes": 1004
+    },
+    {
+      "file": "cells\\test-test-0743-social_ablation.json",
+      "sha256": "1c9229415af37e3e913e579ec46c67c4fd74de41637931e78b8438600a38ae26",
+      "bytes": 2061
+    },
+    {
+      "file": "cells\\test-test-0751-intact.json",
+      "sha256": "af57a5137636356aeadf5e550a60774acf17977e5a58fadfb557633c957bf153",
+      "bytes": 2421
+    },
+    {
+      "file": "cells\\test-test-0751-logic_ablation.json",
+      "sha256": "f1ac1d72d5dcd33a5b7df9c02e6f72fb0c5c9a07374850ce8965913ec7642e87",
+      "bytes": 17828
+    },
+    {
+      "file": "cells\\test-test-0751-social_ablation.json",
+      "sha256": "24a0a8e3af124c31cb979bed485e688b5849d3f9a26c7fd7b6acd2c60b5ca4ab",
+      "bytes": 2290
+    },
+    {
+      "file": "cells\\test-test-0755-intact.json",
+      "sha256": "ea7e5361bed9c5a14302b2f1024c54dcaeb061ed7feec2565da74ff9fb601d03",
+      "bytes": 2101
+    },
+    {
+      "file": "cells\\test-test-0755-logic_ablation.json",
+      "sha256": "d0e6f23270559dea760470292c5bb0d8f2212a601afeac1e664d9be62dd988ec",
+      "bytes": 1627
+    },
+    {
+      "file": "cells\\test-test-0755-social_ablation.json",
+      "sha256": "431e496250d2799fab9c30cff8904238d94578fe3b39ac0c8ecaba77e5b2245f",
+      "bytes": 2108
+    },
+    {
+      "file": "cells\\test-test-0762-intact.json",
+      "sha256": "a4a0c7f8188056b6990aedabdb7534ecef3ced7935e198b6d9f9967c4a3e2596",
+      "bytes": 2214
+    },
+    {
+      "file": "cells\\test-test-0762-logic_ablation.json",
+      "sha256": "c1169694d51fb650a86241d41b4907c0e026813698aa60b1c11470c7370fb9a4",
+      "bytes": 19207
+    },
+    {
+      "file": "cells\\test-test-0762-social_ablation.json",
+      "sha256": "cedbae38c1daa6aa2a53eb287aba0ff9409aa155c1e146b5f5b6ac77442be502",
+      "bytes": 2207
+    },
+    {
+      "file": "cells\\test-test-0763-intact.json",
+      "sha256": "efff76316677de68ab38b64e22a45856373a9c06083e69eceeac7560ad7d56bd",
+      "bytes": 2445
+    },
+    {
+      "file": "cells\\test-test-0763-logic_ablation.json",
+      "sha256": "b8d810c55f28edd0298b6a787caf28ba9f164876198a37093b2d8782a7e82c64",
+      "bytes": 2041
+    },
+    {
+      "file": "cells\\test-test-0763-social_ablation.json",
+      "sha256": "e3200610aa3fc71b53bea460de98219d789e534f70cb30561631f207b5a27fe5",
+      "bytes": 2452
+    },
+    {
+      "file": "cells\\test-test-0775-intact.json",
+      "sha256": "887bd1540f3f0c3a434bb62af50c9575351109f1ee600d2da9ba8d96cc53bc8c",
+      "bytes": 3229
+    },
+    {
+      "file": "cells\\test-test-0775-logic_ablation.json",
+      "sha256": "91f80662ac4920e64e8912586aea2223e221982bc907517139da632b0bb9903e",
+      "bytes": 2456
+    },
+    {
+      "file": "cells\\test-test-0775-social_ablation.json",
+      "sha256": "43705b1b83bdd48e725c057a265ea0259db8c1bb47a58502ca882fb3d9c47ba5",
+      "bytes": 3013
+    },
+    {
+      "file": "cells\\test-test-0776-intact.json",
+      "sha256": "908874a88910dd76a3f1fe85fcf512a97a8183d46a701aada11211d5df85deae",
+      "bytes": 1691
+    },
+    {
+      "file": "cells\\test-test-0776-logic_ablation.json",
+      "sha256": "226d45859216b4c0d79ecc197f8e2b30db7ace25e6ce581d0c7a33b63e42ccfa",
+      "bytes": 1417
+    },
+    {
+      "file": "cells\\test-test-0776-social_ablation.json",
+      "sha256": "3e2b4155ce6e8c92ac8dbc6d696200ce84545f20f56133e748a877314144151e",
+      "bytes": 1801
+    },
+    {
+      "file": "cells\\test-test-0777-intact.json",
+      "sha256": "1f1211a08a4fd51c3436859abf34f26d18fb0ec54350937c758696e5c51933a4",
+      "bytes": 17459
+    },
+    {
+      "file": "cells\\test-test-0777-logic_ablation.json",
+      "sha256": "41d055a2b10d5b16dbb4951e5ff9a2aa8144d62a750602e4e75df7ad9d9e5f00",
+      "bytes": 2281
+    },
+    {
+      "file": "cells\\test-test-0777-social_ablation.json",
+      "sha256": "11519bce60d92b23d538c6a93a9b67716ddf03cb52c7b1bf5b25574acb9ed612",
+      "bytes": 2287
+    },
+    {
+      "file": "cells\\test-test-0782-intact.json",
+      "sha256": "d920181bd90eec0743f276a96abad7c70cad32569b080e00571bcad03023c972",
+      "bytes": 2182
+    },
+    {
+      "file": "cells\\test-test-0782-logic_ablation.json",
+      "sha256": "d8850fb020423597c4d996e89ea1e06e78b159d1dada00ef1f4e44d956656d33",
+      "bytes": 17450
+    },
+    {
+      "file": "cells\\test-test-0782-social_ablation.json",
+      "sha256": "781f89727e9e516c82659158708cedb86c0c2638f514d0e647a4a0e8cdcf2b42",
+      "bytes": 2174
+    },
+    {
+      "file": "cells\\test-test-0786-intact.json",
+      "sha256": "448f398b06b06b362d4b3e8f083151f37fb22f5cd62ae290ef88165f5dd78477",
+      "bytes": 2116
+    },
+    {
+      "file": "cells\\test-test-0786-logic_ablation.json",
+      "sha256": "8c8ab1681da50eaf23114885a65aa75f7f1ea5daed5ffcee39d2ed12dedf50f0",
+      "bytes": 15175
+    },
+    {
+      "file": "cells\\test-test-0786-social_ablation.json",
+      "sha256": "1482a5a63f48f61622d7d97d72eb02fa452823798f504d2bcaa953a6a3895d11",
+      "bytes": 2160
+    },
+    {
+      "file": "cells\\test-test-0800-intact.json",
+      "sha256": "02441c9e6724941dc3be4204851a500f414b02e1fcb4835badc861312f29f49b",
+      "bytes": 2072
+    },
+    {
+      "file": "cells\\test-test-0800-logic_ablation.json",
+      "sha256": "3b12be94d1c72aba991ad2dc7fe7e38634aa372d1811b51538346462758739f5",
+      "bytes": 1531
+    },
+    {
+      "file": "cells\\test-test-0800-social_ablation.json",
+      "sha256": "2e8f846fa46bf955d808dec58a375d1f1192bbec1ff6da4ad5bb5bd432e07093",
+      "bytes": 2079
+    },
+    {
+      "file": "cells\\test-test-0803-intact.json",
+      "sha256": "be1ee86ffd74b12d26e4b81fd160a44261738ce2eb9e6f09c92f8fd3fb27b8a8",
+      "bytes": 2477
+    },
+    {
+      "file": "cells\\test-test-0803-logic_ablation.json",
+      "sha256": "7f38d6a0fcf720f60eba6e6ac7ad1f082e72a7c279e555f73a1552a33247d28a",
+      "bytes": 18438
+    },
+    {
+      "file": "cells\\test-test-0803-social_ablation.json",
+      "sha256": "5a8820c9b8ea1e160c2532caeb270de69b14e4719e956b5a32f7df501f643eda",
+      "bytes": 2484
+    },
+    {
+      "file": "cells\\test-test-0811-intact.json",
+      "sha256": "4dd9c36a3134ebd5963a0e23b38f89ce46351dd653b035cc5149c24a8c3fe8ca",
+      "bytes": 3986
+    },
+    {
+      "file": "cells\\test-test-0811-logic_ablation.json",
+      "sha256": "21f26a229a6220a1ad0a59785038008b5269d45c2cd361f810b62cf6b02bbab3",
+      "bytes": 1582
+    },
+    {
+      "file": "cells\\test-test-0811-social_ablation.json",
+      "sha256": "2151e81b50b7652ce8fc8fd772d617fb18f0cff537c615fbdedb582b332f0a3c",
+      "bytes": 18140
+    },
+    {
+      "file": "cells\\test-test-0815-intact.json",
+      "sha256": "4252460d6e165d86ca10469cd90006de7354a0a54de37b03d0adeddd7b246c51",
+      "bytes": 19620
+    },
+    {
+      "file": "cells\\test-test-0815-logic_ablation.json",
+      "sha256": "76df96dd17a55ca39b2ec6f8734f53c1e41f0ff54989b0331d155815fe5342cb",
+      "bytes": 1935
+    },
+    {
+      "file": "cells\\test-test-0815-social_ablation.json",
+      "sha256": "bfe6ec81a4e9685d80b7b9e33bd3047ad200edae782aa4878b5d6842e570094a",
+      "bytes": 19626
+    },
+    {
+      "file": "cells\\test-test-0816-intact.json",
+      "sha256": "f7bfc95bf7c64b2c078294e214151a27ee6489ab8f41e8c16e2f92cbf41132f7",
+      "bytes": 2370
+    },
+    {
+      "file": "cells\\test-test-0816-logic_ablation.json",
+      "sha256": "c80d7baf3755a1dc027e191cb37bf0feabca05f498e774502753810cf20772c9",
+      "bytes": 1752
+    },
+    {
+      "file": "cells\\test-test-0816-social_ablation.json",
+      "sha256": "c532af02327a557bd012706cedc8f9062560d55df3f57fd0deefc8ed3f29bf33",
+      "bytes": 2378
+    },
+    {
+      "file": "cells\\test-test-0823-intact.json",
+      "sha256": "4c5d6177a04581e0be8a8fe69058df043556ed1dbedbba024a1750261dd6e028",
+      "bytes": 2349
+    },
+    {
+      "file": "cells\\test-test-0823-logic_ablation.json",
+      "sha256": "3c95bf2d4c78d29d8cfc8f62f947f3b32cd0f467ce65524be25a2ed00ef0f63a",
+      "bytes": 2421
+    },
+    {
+      "file": "cells\\test-test-0823-social_ablation.json",
+      "sha256": "01f87eeed17320622a320b305be12ecf74306fd5630ffc8777188d55b4c34596",
+      "bytes": 2356
+    },
+    {
+      "file": "cells\\test-test-0826-intact.json",
+      "sha256": "7920c72a46d34d6374c16a89b1ea263c3a990e96495f4efc5048467d1c36e407",
+      "bytes": 2606
+    },
+    {
+      "file": "cells\\test-test-0826-logic_ablation.json",
+      "sha256": "de830e6bd60a0aa57f7c6c2920f6ce5d771ab79c4ccc11679fd5f498a3ceb064",
+      "bytes": 2071
+    },
+    {
+      "file": "cells\\test-test-0826-social_ablation.json",
+      "sha256": "be28f77ac101db68246955d98779645ec50dbb67a3427e7a296b954bee96c456",
+      "bytes": 2613
+    },
+    {
+      "file": "cells\\test-test-0834-intact.json",
+      "sha256": "840fba6c089dcb6b3dc69216e8eef3fd889c6d813944dea9ee5270f5ae98f754",
+      "bytes": 2023
+    },
+    {
+      "file": "cells\\test-test-0834-logic_ablation.json",
+      "sha256": "1d6405b61512045ff89d295e3f849288970336b58a07385352fc783b8ef373dd",
+      "bytes": 18127
+    },
+    {
+      "file": "cells\\test-test-0834-social_ablation.json",
+      "sha256": "2fedea8c71ed197e6f0e32b021d2d823023913cccb414b9f017d151a8c19d441",
+      "bytes": 2032
+    },
+    {
+      "file": "cells\\test-test-0844-intact.json",
+      "sha256": "f8786338b28e6bece13a7fa378ff6547207f2ddb4124022d29fa4d10c53fb5ad",
+      "bytes": 19470
+    },
+    {
+      "file": "cells\\test-test-0844-logic_ablation.json",
+      "sha256": "248c55aadea5577a8b91117e363baec1dfd3d748f26ae51e4673c00a58f562b8",
+      "bytes": 21062
+    },
+    {
+      "file": "cells\\test-test-0844-social_ablation.json",
+      "sha256": "94dd8548a4212325474f6bc14b248af2ecf97c8bf0e5a8a4b5029712077c62a6",
+      "bytes": 19741
+    },
+    {
+      "file": "cells\\test-test-0859-intact.json",
+      "sha256": "1dc6c5beb9a6e167b529bb6a34d89a26b0560e1106294c16ac5319de8b68e999",
+      "bytes": 2307
+    },
+    {
+      "file": "cells\\test-test-0859-logic_ablation.json",
+      "sha256": "bfaf5d22969c4daea38bf8eb9d7edd849643056ce30dfbfe19d3254d47f9ca0e",
+      "bytes": 14187
+    },
+    {
+      "file": "cells\\test-test-0859-social_ablation.json",
+      "sha256": "c62efc0d74e6266b0b0e4a45f32e47f62feab2fb0871e0100c907880a47abb23",
+      "bytes": 2308
+    },
+    {
+      "file": "cells\\test-test-0860-intact.json",
+      "sha256": "3faee07d7b1541f098e3b4eabc177b025e05ea4771a2350657537f77b6002618",
+      "bytes": 2262
+    },
+    {
+      "file": "cells\\test-test-0860-logic_ablation.json",
+      "sha256": "b65eca7cdb23152ff9936abaf6b10e5ad87bfe134b5fbe4dc5b6c82c7c5a8930",
+      "bytes": 18487
+    },
+    {
+      "file": "cells\\test-test-0860-social_ablation.json",
+      "sha256": "bfbad91f4747cf8436c947407b491c575a0580f55195aa57ba3d33e5078ce31f",
+      "bytes": 2773
+    },
+    {
+      "file": "cells\\test-test-0869-intact.json",
+      "sha256": "18979e02342d9af16c03af8d0d3b5b76b13d688c22c624e3af3e6d2c4b3b0c7e",
+      "bytes": 1857
+    },
+    {
+      "file": "cells\\test-test-0869-logic_ablation.json",
+      "sha256": "f8796064fef56cbeb9c5d8862925dc24a41189ea7b2051efc70e80b7f22014fb",
+      "bytes": 1934
+    },
+    {
+      "file": "cells\\test-test-0869-social_ablation.json",
+      "sha256": "ccc7a0d8a2275a2af66dd4f624e840743ed33917f5b1111f03f378087ab0ac43",
+      "bytes": 1865
+    },
+    {
+      "file": "cells\\test-test-0874-intact.json",
+      "sha256": "37a4d6a9f30fe62f873b3283e4b4797575e507f86c1b231bc524e4fe94125145",
+      "bytes": 1640
+    },
+    {
+      "file": "cells\\test-test-0874-logic_ablation.json",
+      "sha256": "32c371ce73a84943d1090f3e8bd43dae575ceff9fcc0aebd9d907986ceda1ba6",
+      "bytes": 1402
+    },
+    {
+      "file": "cells\\test-test-0874-social_ablation.json",
+      "sha256": "d53847a110156914b3e8ffb46314ccad39a804db496f63d72761b33cae8a4695",
+      "bytes": 1647
+    },
+    {
+      "file": "cells\\test-test-0878-intact.json",
+      "sha256": "8dbc7a978abde682fa2375150578e3821f7797c0ec191c7bfc68806d940c9cc3",
+      "bytes": 2770
+    },
+    {
+      "file": "cells\\test-test-0878-logic_ablation.json",
+      "sha256": "01cd2a688aaea47b400c078ab58af9d4cab8d07c2b717223e5e8495d2f101179",
+      "bytes": 17483
+    },
+    {
+      "file": "cells\\test-test-0878-social_ablation.json",
+      "sha256": "a4fc07d0865d9a51da281c821e56e42fd510e26573b801d9dcfab9902617c06b",
+      "bytes": 2520
+    },
+    {
+      "file": "cells\\test-test-0879-intact.json",
+      "sha256": "1ee8ca52f0baffbdcaa206316234ce984795e454df34f72a8a977ce24d85b3fe",
+      "bytes": 2582
+    },
+    {
+      "file": "cells\\test-test-0879-logic_ablation.json",
+      "sha256": "6f43ea7bfa732ed4dc8b16ff96dbf2056aa5c9899bc1a125ea0059fa31ac4950",
+      "bytes": 1672
+    },
+    {
+      "file": "cells\\test-test-0879-social_ablation.json",
+      "sha256": "f8d1754f42cc5c43490f8175eee8f2e60d363cf57c0357a02450a20fe9a2dcde",
+      "bytes": 2588
+    },
+    {
+      "file": "cells\\test-test-0881-intact.json",
+      "sha256": "e4d40a0eb994424fd7229da2c78cd5ffa7f6bfbfd7420761caf3ccbf5de1abd5",
+      "bytes": 2939
+    },
+    {
+      "file": "cells\\test-test-0881-logic_ablation.json",
+      "sha256": "8da56376dfe9ae1431cf74817bc4c8f0e9bddb3b3879dfb8c6984dd30a517dc5",
+      "bytes": 1449
+    },
+    {
+      "file": "cells\\test-test-0881-social_ablation.json",
+      "sha256": "050487b8905944646e7a9f2124836f21a52c20960ad91ff2af36ee61376d168f",
+      "bytes": 2685
+    },
+    {
+      "file": "cells\\test-test-0891-intact.json",
+      "sha256": "fb314ec4bdbcd7a511a6a45ed7df6c09848dbde0d619cc6af5ebea16f634aca6",
+      "bytes": 16915
+    },
+    {
+      "file": "cells\\test-test-0891-logic_ablation.json",
+      "sha256": "378310c6ee9fcea2c9e4716889b70a6f9d1a67750ab88ca0b5a950f03401a4f1",
+      "bytes": 1520
+    },
+    {
+      "file": "cells\\test-test-0891-social_ablation.json",
+      "sha256": "fefd91d9b8a7e59824f183c48da50baa736e233bfca233b6f30ea4700b8bcfc0",
+      "bytes": 3314
+    },
+    {
+      "file": "cells\\test-test-0894-intact.json",
+      "sha256": "9176095f9ba59bbcd89131d325c39a19bdee9b11ee0323efac7bd82ed40dbde4",
+      "bytes": 3560
+    },
+    {
+      "file": "cells\\test-test-0894-logic_ablation.json",
+      "sha256": "dcf7f648a632a3a3ced7e22619b56dade2b2ba77f4232783bb0d166e14d3f8d2",
+      "bytes": 1011
+    },
+    {
+      "file": "cells\\test-test-0894-social_ablation.json",
+      "sha256": "b859f943418846d0de891affdf801e1d1a200c8f95373fb4f6851578d77510c9",
+      "bytes": 15343
+    },
+    {
+      "file": "cells\\test-test-0907-intact.json",
+      "sha256": "29bbcfe9632e520cdea2912eb9ff46487130da4ea9b448ed5647709dec5efe73",
+      "bytes": 1735
+    },
+    {
+      "file": "cells\\test-test-0907-logic_ablation.json",
+      "sha256": "59c6e4f397ca781b07e4f7f09d5af7e6db0ed9afd58412c5c0e0810ddcbb6a50",
+      "bytes": 1644
+    },
+    {
+      "file": "cells\\test-test-0907-social_ablation.json",
+      "sha256": "e83e1c3733424f898026f48555d7345e65408b89d1342d23f89ebd762f39349f",
+      "bytes": 1743
+    },
+    {
+      "file": "cells\\test-test-0908-intact.json",
+      "sha256": "4db1ca05abb86b640e154fb09597e1d6bf90a63585d15fd52ccee9251833dc9d",
+      "bytes": 2164
+    },
+    {
+      "file": "cells\\test-test-0908-logic_ablation.json",
+      "sha256": "e210dba3032dea76c4f88230f06a12031695ac7d0ec170b70094ebeb2e13f91e",
+      "bytes": 1919
+    },
+    {
+      "file": "cells\\test-test-0908-social_ablation.json",
+      "sha256": "bf7b034904106b849287af23a5eb7e068553afecbc26dbdc4710f326715bc685",
+      "bytes": 2170
+    },
+    {
+      "file": "cells\\test-test-0911-intact.json",
+      "sha256": "3dba828f603f5bae03de8de925841b32cc9a91721aeb1fecb9eb1926396b5dc5",
+      "bytes": 2936
+    },
+    {
+      "file": "cells\\test-test-0911-logic_ablation.json",
+      "sha256": "07177f543e171f346d8601d97d2b296d075b4c7eacb971e3bf4d7f8279328d1e",
+      "bytes": 1430
+    },
+    {
+      "file": "cells\\test-test-0911-social_ablation.json",
+      "sha256": "b31ed11e313f50fef4ddc6e202e901200758fb9e534386034c0a0f572bdc057a",
+      "bytes": 2944
+    },
+    {
+      "file": "cells\\test-test-0912-intact.json",
+      "sha256": "db59609c4f70fe2086dc65dc4a0aa7e4e248e524ad50d94d8217fae699160947",
+      "bytes": 1436
+    },
+    {
+      "file": "cells\\test-test-0912-logic_ablation.json",
+      "sha256": "5c1f89b872059da16d7543a4ea3e3cc388bf3e2cff2b9ba34f8531570e22ef4a",
+      "bytes": 1440
+    },
+    {
+      "file": "cells\\test-test-0912-social_ablation.json",
+      "sha256": "6ca799d6f533942bce18108e5eb6454eb38d1a73642083011c8fec5a071773b2",
+      "bytes": 1444
+    },
+    {
+      "file": "cells\\test-test-0918-intact.json",
+      "sha256": "74a837ed9107e83e3ee1871ddc2faf2c04397ae1cad5e8ca5aa89547ac1a731b",
+      "bytes": 2861
+    },
+    {
+      "file": "cells\\test-test-0918-logic_ablation.json",
+      "sha256": "786639b8ccfd1749b9e7e8cb47a7ebe923364cdd75dc23072b6f24453ac49598",
+      "bytes": 19776
+    },
+    {
+      "file": "cells\\test-test-0918-social_ablation.json",
+      "sha256": "35cb17acc4b3fe4dc0e05747f1a83ff3e72cb26fdc2710fffcf93ccf95821398",
+      "bytes": 2870
+    },
+    {
+      "file": "cells\\test-test-0920-intact.json",
+      "sha256": "a404b62b36c6b1b32145d2ece8e1d583f411404abb357a6f04356e811fadbdec",
+      "bytes": 2930
+    },
+    {
+      "file": "cells\\test-test-0920-logic_ablation.json",
+      "sha256": "b0ddeba1fb1a2ff8425e55c531a4e37264c3a0c1d70a2b221011888633f0a8af",
+      "bytes": 16707
+    },
+    {
+      "file": "cells\\test-test-0920-social_ablation.json",
+      "sha256": "890b495ea0bee309a0d6be3f182d28dd3749637e626670c34bc6fcfc2d4dc53d",
+      "bytes": 2835
+    },
+    {
+      "file": "cells\\test-test-0923-intact.json",
+      "sha256": "753317bc15e3b5afe26901cd556987264aaf2ef8ab936335585c85f0c7bfc8f9",
+      "bytes": 2094
+    },
+    {
+      "file": "cells\\test-test-0923-logic_ablation.json",
+      "sha256": "4279d70a31c474e48373427225b35c07f21282ade2b59d7dff73dfce493cac20",
+      "bytes": 18978
+    },
+    {
+      "file": "cells\\test-test-0923-social_ablation.json",
+      "sha256": "cc551e1df3195552970e9a6d3f02b97b6af3e5325c408cf5557c856964c7acfc",
+      "bytes": 2102
+    },
+    {
+      "file": "cells\\test-test-0932-intact.json",
+      "sha256": "d2e1ca916b10d808672afc36bf51ecad4da52960681eac17a168d7e83315e947",
+      "bytes": 16909
+    },
+    {
+      "file": "cells\\test-test-0932-logic_ablation.json",
+      "sha256": "0c2df2e8ba3fe45b29e2fb4ed02dd7990525df295a845a9ddbfe205d072c3b93",
+      "bytes": 1211
+    },
+    {
+      "file": "cells\\test-test-0932-social_ablation.json",
+      "sha256": "4dd96be8110caf7b100eaf247945e275ec1742d6dcda4470eebd3ea9187a7f6d",
+      "bytes": 2172
+    },
+    {
+      "file": "cells\\test-test-0934-intact.json",
+      "sha256": "237b01f028da46dfb5820bf9bf1f978d4174f158849fa1bda548cd04f989b271",
+      "bytes": 2022
+    },
+    {
+      "file": "cells\\test-test-0934-logic_ablation.json",
+      "sha256": "c4d64b8faa4588f918581fe243327c8d678364c441387c2de791b363b06d0d06",
+      "bytes": 1887
+    },
+    {
+      "file": "cells\\test-test-0934-social_ablation.json",
+      "sha256": "caf5d0ea32979bc5f183b960c1ff98af37e91c9271236642c1b1b218b433649a",
+      "bytes": 2813
+    },
+    {
+      "file": "cells\\test-test-0935-intact.json",
+      "sha256": "790d61efce5c1a498d3b417f3445f5870a16a8c942dec4d868b3853323076132",
+      "bytes": 2790
+    },
+    {
+      "file": "cells\\test-test-0935-logic_ablation.json",
+      "sha256": "06be899346e7366fba2e044a39602b0e7224a9d472c70fb06c26e65feb326cef",
+      "bytes": 2730
+    },
+    {
+      "file": "cells\\test-test-0935-social_ablation.json",
+      "sha256": "0fad4f461e625764fd4bc78ab3381efaea91f786eca90c0103e10158225ed39c",
+      "bytes": 3248
+    },
+    {
+      "file": "cells\\test-test-0942-intact.json",
+      "sha256": "f8729d7e3edab93857ee4f494e75e812662e90b1714d6b3be773180cc1fcb84d",
+      "bytes": 2430
+    },
+    {
+      "file": "cells\\test-test-0942-logic_ablation.json",
+      "sha256": "38d4ea37f811aaa6e76be95a984b03444ad9e89584a6c7f5778a07385fef29fb",
+      "bytes": 1795
+    },
+    {
+      "file": "cells\\test-test-0942-social_ablation.json",
+      "sha256": "5b2a42e810bcdf352d2409e48d4c2124632bc087df9e417af0344c9c3c483da1",
+      "bytes": 18648
+    },
+    {
+      "file": "cells\\test-test-0950-intact.json",
+      "sha256": "c48a0aba07ded1c4caae4086b592130c88008e8838fd85574a37f4b482d956c4",
+      "bytes": 17976
+    },
+    {
+      "file": "cells\\test-test-0950-logic_ablation.json",
+      "sha256": "4de2a70c490e179b73b89c503d19de48c374df7d56d260668eb3f5fc3b710465",
+      "bytes": 1533
+    },
+    {
+      "file": "cells\\test-test-0950-social_ablation.json",
+      "sha256": "3d806ff9806594f1c46e99b161b3b77b90a0195fd227b2fbd75270f116cece0d",
+      "bytes": 18231
+    },
+    {
+      "file": "cells\\test-test-0953-intact.json",
+      "sha256": "05260bb41b23360a011f8245d18ac89d7c285fc58f608f05b8b7ef83664a366e",
+      "bytes": 2194
+    },
+    {
+      "file": "cells\\test-test-0953-logic_ablation.json",
+      "sha256": "e19d77970d675ac110abcf9856cda47da26df148a7778b40b6a6b73d5d488b89",
+      "bytes": 2477
+    },
+    {
+      "file": "cells\\test-test-0953-social_ablation.json",
+      "sha256": "ca5d854011e767712de34e1a727afa17de9c77f05be8a8cb1c23bc6727bf49c5",
+      "bytes": 2516
+    },
+    {
+      "file": "cells\\test-test-0954-intact.json",
+      "sha256": "b94d1a7a38962dd188227519d8284777cb9d8fac7c51e67ecb092c4b80d4292c",
+      "bytes": 16471
+    },
+    {
+      "file": "cells\\test-test-0954-logic_ablation.json",
+      "sha256": "8d6bdacea8691c9e1503326645bf0519a1ead05a16d27b97a3a16160db438ae8",
+      "bytes": 18068
+    },
+    {
+      "file": "cells\\test-test-0954-social_ablation.json",
+      "sha256": "10902296653184bf1311cbc161197554808054602973b6e61642ec4d25c87f41",
+      "bytes": 16518
+    },
+    {
+      "file": "cells\\test-test-0956-intact.json",
+      "sha256": "41d7ec56f0b3d7c7b304039cd6bc67d497561ab929c9f46ce6272040d9bdede8",
+      "bytes": 16187
+    },
+    {
+      "file": "cells\\test-test-0956-logic_ablation.json",
+      "sha256": "eb8ffa4763d9c352593ff3026967bc77c189db0848deb4aa808a31c8da80be6e",
+      "bytes": 1517
+    },
+    {
+      "file": "cells\\test-test-0956-social_ablation.json",
+      "sha256": "f379d0713023091b8e08a38a9faf42821f089ad2476f9dc7705f5f6317d20b30",
+      "bytes": 2352
+    },
+    {
+      "file": "cells\\test-test-0963-intact.json",
+      "sha256": "0c439b5831d8398e2b90e5beec53bfeb9813e57712cebeb6cc4e29d9e81fc8f3",
+      "bytes": 2575
+    },
+    {
+      "file": "cells\\test-test-0963-logic_ablation.json",
+      "sha256": "8656c65d3e2cd4912b31373349ffaf963c6462d11553cf4089daf1094a08c3e5",
+      "bytes": 1735
+    },
+    {
+      "file": "cells\\test-test-0963-social_ablation.json",
+      "sha256": "d5cbe026a089421ec00e9f435a62bdeef0fb99d62212e942217959982debdfa7",
+      "bytes": 15896
+    },
+    {
+      "file": "cells\\test-test-0975-intact.json",
+      "sha256": "060377a7aa22e3af528ba7890e0c5571bfe002ac2ccc7b0153d4b9b73144e225",
+      "bytes": 1704
+    },
+    {
+      "file": "cells\\test-test-0975-logic_ablation.json",
+      "sha256": "f9aad994eb1367f84a25c1581c7087aa4d0f7c342702011c6510d4a67dca5e02",
+      "bytes": 1303
+    },
+    {
+      "file": "cells\\test-test-0975-social_ablation.json",
+      "sha256": "dd0ab995c02d6b6f875207c402262345db7f289aefa8cdf622b6c4634ec54792",
+      "bytes": 1966
+    },
+    {
+      "file": "cells\\test-test-0977-intact.json",
+      "sha256": "4b120c949de344ebe1ca372ec76e596b847cfe5cef2c787117cb2fb35fef4d18",
+      "bytes": 3037
+    },
+    {
+      "file": "cells\\test-test-0977-logic_ablation.json",
+      "sha256": "b42826f5cbe9ebbb488e453f0c8fc27d5cf3c0c5f8b63b2f13ed25eed5a924c7",
+      "bytes": 1476
+    },
+    {
+      "file": "cells\\test-test-0977-social_ablation.json",
+      "sha256": "f6dcd24d085c48474458a0b2889d5c69b7cffb0c015fc63aa62eaa66c9dff2f1",
+      "bytes": 3253
+    },
+    {
+      "file": "cells\\test-test-0979-intact.json",
+      "sha256": "677cdd9be57ed2fad42a2b19fb2df3c3ec64d25d64e799c87750d9ee00f8e9fa",
+      "bytes": 3008
+    },
+    {
+      "file": "cells\\test-test-0979-logic_ablation.json",
+      "sha256": "9a09095cc0530463916ab204ad0e114d52b47879e2221757b7478936d3575e16",
+      "bytes": 1556
+    },
+    {
+      "file": "cells\\test-test-0979-social_ablation.json",
+      "sha256": "91065f9fb6ae1b5474db692cb472175be999fe034a61277440213d98d4e6991c",
+      "bytes": 2501
+    },
+    {
+      "file": "cells\\test-test-0985-intact.json",
+      "sha256": "bb7e37328307de2cf08469291769ad1eba6aef6c13a8fa25d31561cfe4d1032f",
+      "bytes": 2075
+    },
+    {
+      "file": "cells\\test-test-0985-logic_ablation.json",
+      "sha256": "0209d87c85a5ce0952d054f746cf4243b982225ea5ed87634bdfff45dfccd4d8",
+      "bytes": 1009
+    },
+    {
+      "file": "cells\\test-test-0985-social_ablation.json",
+      "sha256": "5d06936af73588164caf749994a4a268d08a01788cabcea631632a7d06f29f62",
+      "bytes": 1771
+    },
+    {
+      "file": "cells\\test-test-0995-intact.json",
+      "sha256": "70f1128673c4809d6ad8004e8087d4f0f5051586b2320cce5efa9b1a29161667",
+      "bytes": 1746
+    },
+    {
+      "file": "cells\\test-test-0995-logic_ablation.json",
+      "sha256": "042ebdb84b89736a48bb5e620152ddf4935d837bf23ad458d1f09542013b4592",
+      "bytes": 1449
+    },
+    {
+      "file": "cells\\test-test-0995-social_ablation.json",
+      "sha256": "82f2a407f0a0a387af3becedd1ac119f4a9671b2e27df5e5b508ecbda495d3e6",
+      "bytes": 2020
+    },
+    {
+      "file": "cells\\test-test-1002-intact.json",
+      "sha256": "485982c5817b580136b42f98f8cfeb7443cc9d59e7d877e4a1f5a49904fe86c8",
+      "bytes": 3010
+    },
+    {
+      "file": "cells\\test-test-1002-logic_ablation.json",
+      "sha256": "0af68d629eb39f7d19af60d2ba4d6011d71aab5b18b88586620571f6d52ddb2b",
+      "bytes": 2226
+    },
+    {
+      "file": "cells\\test-test-1002-social_ablation.json",
+      "sha256": "9cff888845e8961b9ebd23539d30080fb05fa3b22b62db369de70255078bf322",
+      "bytes": 3018
+    },
+    {
+      "file": "cells\\test-test-1004-intact.json",
+      "sha256": "8644e9b2e90c1801e16259eee522eae06ee8389a03dbaf033c444c7139773ed3",
+      "bytes": 3339
+    },
+    {
+      "file": "cells\\test-test-1004-logic_ablation.json",
+      "sha256": "5f67f34d6cd7656a2393cc2c840124e5c9ed1235021dd2d30009d59722c6331c",
+      "bytes": 1959
+    },
+    {
+      "file": "cells\\test-test-1004-social_ablation.json",
+      "sha256": "1d1a206a56ce1e9a6f843037d739439f42efc51fa3e20e03ddc9465d5a6c66c6",
+      "bytes": 3348
+    },
+    {
+      "file": "cells\\test-test-1007-intact.json",
+      "sha256": "bfe3dc77772f1880bced407916487f2a662fe8959bad799e812ad25e52719a4f",
+      "bytes": 2207
+    },
+    {
+      "file": "cells\\test-test-1007-logic_ablation.json",
+      "sha256": "a46436e0e182a56e6af1497606542fa1a9c0aa0dfa6b944f75f5742b752b8767",
+      "bytes": 18342
+    },
+    {
+      "file": "cells\\test-test-1007-social_ablation.json",
+      "sha256": "89301b2d7e0785928b4dabdb086cb8e990200d040d7602eb46d7e0dfc5c98be5",
+      "bytes": 2215
+    },
+    {
+      "file": "cells\\test-test-1014-intact.json",
+      "sha256": "71847d6d67b34d1ed85a505930b995a79e2c0946ccc833a3b1b242f4719d4ecf",
+      "bytes": 2048
+    },
+    {
+      "file": "cells\\test-test-1014-logic_ablation.json",
+      "sha256": "90b6d24cbfc2400c216eb286f7b6bfc92b1cf2fdb29321c79ba83fa7bef4137e",
+      "bytes": 14187
+    },
+    {
+      "file": "cells\\test-test-1014-social_ablation.json",
+      "sha256": "ce94e9414be99b63fd44db3345e82829199c4f59dd2daa1dd7f91543f3bbcd44",
+      "bytes": 15880
+    },
+    {
+      "file": "cells\\test-test-1021-intact.json",
+      "sha256": "40b947b65cc0232a46a5d6512f21da527c702e7e89bfbc0d8da166ad13cb4594",
+      "bytes": 18165
+    },
+    {
+      "file": "cells\\test-test-1021-logic_ablation.json",
+      "sha256": "f167b195429437b988e0cb5c949ae24efc544b06c53f2385b7ce4aac05e223f4",
+      "bytes": 1662
+    },
+    {
+      "file": "cells\\test-test-1021-social_ablation.json",
+      "sha256": "0a9af1b84cc219e4815e4ca2585a96742c3946e17e60d1ad8d92ef87152de3a2",
+      "bytes": 5133
+    },
+    {
+      "file": "cells\\test-test-1029-intact.json",
+      "sha256": "449559252e4b5a10802656fe42d3cc58c81adf0dcde7d68eaef8d8e5c20e4569",
+      "bytes": 15949
+    },
+    {
+      "file": "cells\\test-test-1029-logic_ablation.json",
+      "sha256": "dc9dca9e84a90c05e8f70f74ee8344936d77d730ee2ec604c2367cf2f015e3db",
+      "bytes": 17818
+    },
+    {
+      "file": "cells\\test-test-1029-social_ablation.json",
+      "sha256": "886b77d705d6fd4c9c6e7caa0c32e71461b5073f4dc772bd50f67c0745dbd4aa",
+      "bytes": 15131
+    },
+    {
+      "file": "cells\\test-test-1031-intact.json",
+      "sha256": "b58e5f10c786df1ee55a298b3b69d078a2c79b04cc9c35cb84fbac9cd7fca3d7",
+      "bytes": 2316
+    },
+    {
+      "file": "cells\\test-test-1031-logic_ablation.json",
+      "sha256": "0133c895d93840c84279d178eadf3b222a6cf7d145ec2d6faca0213aa28c2fb0",
+      "bytes": 1959
+    },
+    {
+      "file": "cells\\test-test-1031-social_ablation.json",
+      "sha256": "5142b4fa69563ad322fb6e9fe6809665105c7c874bb5ca1f8d498e42846ecf25",
+      "bytes": 2543
+    },
+    {
+      "file": "cells\\test-test-1032-intact.json",
+      "sha256": "df244bb184c300571b57ee28e16518d9dde6d391fcc0f5782e731259b9f713de",
+      "bytes": 19292
+    },
+    {
+      "file": "cells\\test-test-1032-logic_ablation.json",
+      "sha256": "2a92dc930a78168821695fd02a85166313f480815ae1a1d54eaf1ddfc18cbb93",
+      "bytes": 2001
+    },
+    {
+      "file": "cells\\test-test-1032-social_ablation.json",
+      "sha256": "abf8c6a8727e44ea9e57e8891f0739d9468675a3dc73ed1ace6c650e39c2325a",
+      "bytes": 20171
+    },
+    {
+      "file": "cells\\test-test-1033-intact.json",
+      "sha256": "a81c5f99171cec2a3dea299cd40dbf53b60c29f58dab5154f639930dc25da9bf",
+      "bytes": 16988
+    },
+    {
+      "file": "cells\\test-test-1033-logic_ablation.json",
+      "sha256": "607e419f50ae4849932b9693b989bbad0544b93892ab391bd914dc963c701eee",
+      "bytes": 1487
+    },
+    {
+      "file": "cells\\test-test-1033-social_ablation.json",
+      "sha256": "0b4b2ca3a8495c47a61b32aeb60a385d4c1ce9296f2038abd8bd85053bc9ab6c",
+      "bytes": 21002
+    },
+    {
+      "file": "cells\\test-test-1036-intact.json",
+      "sha256": "75876207aa204647fd2637a7a5cc886f41aed931edb13c42a09f039d906cd2f6",
+      "bytes": 1672
+    },
+    {
+      "file": "cells\\test-test-1036-logic_ablation.json",
+      "sha256": "8f3f8d4df39bd2df8d079d8cef3cce1513654a84b0ccd022c8fa23862c357fb9",
+      "bytes": 1370
+    },
+    {
+      "file": "cells\\test-test-1036-social_ablation.json",
+      "sha256": "de3319c85f88a0778d6e8aa8a31646617c150636e8f01cba39a2f24211a0be91",
+      "bytes": 1587
+    },
+    {
+      "file": "cells\\test-test-1046-intact.json",
+      "sha256": "c91e416f05b3a0cfaf3720e7f8d62dbf4f644d701dc5dd3feff28f23d6e0cd39",
+      "bytes": 2731
+    },
+    {
+      "file": "cells\\test-test-1046-logic_ablation.json",
+      "sha256": "bf05950d5581a5d3593f101a9353b4f40e9a92b05345bbae14c383a9b18ad67f",
+      "bytes": 1812
+    },
+    {
+      "file": "cells\\test-test-1046-social_ablation.json",
+      "sha256": "558c9e14117ccb9659698a295f5eb36b3057ae76a8f7d73d041009e2ab73e9ba",
+      "bytes": 2999
+    },
+    {
+      "file": "cells\\test-test-1048-intact.json",
+      "sha256": "9e5553feffcd3973564069e801d6d547e207ce4af8c1f3eb15c6dd44f4a434f8",
+      "bytes": 2608
+    },
+    {
+      "file": "cells\\test-test-1048-logic_ablation.json",
+      "sha256": "d14a87db6d94719a272904ee4c80657045e3d09213a341d3d971376120f913e4",
+      "bytes": 14199
+    },
+    {
+      "file": "cells\\test-test-1048-social_ablation.json",
+      "sha256": "6a6c721f9373603e9859b65d3239a7d6e8630799dc2cefff5f0323d325958b40",
+      "bytes": 3256
+    },
+    {
+      "file": "cells\\test-test-1053-intact.json",
+      "sha256": "99e689f071600cb8e433cda7f99701faee912156f33007e065cfb8a98729e3aa",
+      "bytes": 3005
+    },
+    {
+      "file": "cells\\test-test-1053-logic_ablation.json",
+      "sha256": "0681465ae3025ecfaf78fdc9d4a7d8c77ff1efbff94c41cba946e16e8209e1ae",
+      "bytes": 2978
+    },
+    {
+      "file": "cells\\test-test-1053-social_ablation.json",
+      "sha256": "e0a702deeefcd75b91c38674f79be467f87f89bf34484a44b5f340c3e171cfc6",
+      "bytes": 2972
+    },
+    {
+      "file": "cells\\test-test-1054-intact.json",
+      "sha256": "fab3ee2cd7c8b3ba430e75b83517aec002585ca522ca4f8c3bba7f6613ca28ea",
+      "bytes": 2446
+    },
+    {
+      "file": "cells\\test-test-1054-logic_ablation.json",
+      "sha256": "d85c356d98353009c04abb1afe7547ce70d69acb518e24fe423f64b2a47673e5",
+      "bytes": 1425
+    },
+    {
+      "file": "cells\\test-test-1054-social_ablation.json",
+      "sha256": "ef754ee3e1dbd63840e98ffb960d3cdf6f37811299eeb80cdf1975c4a810e449",
+      "bytes": 3204
+    },
+    {
+      "file": "cells\\test-test-1063-intact.json",
+      "sha256": "7056edda39fcb939c6522eae72acdb345d809da149c30d22952154310bd5a5da",
+      "bytes": 1878
+    },
+    {
+      "file": "cells\\test-test-1063-logic_ablation.json",
+      "sha256": "faa0eb9f47f5dfb4072f9bafed154fd5f29c68f5810e88ef11ae6bf85b3a42cc",
+      "bytes": 1566
+    },
+    {
+      "file": "cells\\test-test-1063-social_ablation.json",
+      "sha256": "8e0eebf0eefd490147057365ad7711d1a8603bbd8204704e567eee7266d29f78",
+      "bytes": 1632
+    },
+    {
+      "file": "cells\\test-test-1066-intact.json",
+      "sha256": "81910cb4f69bfaf99d1c035f2acbf750b15bcae3d437e09584f9082fb51163ae",
+      "bytes": 2640
+    },
+    {
+      "file": "cells\\test-test-1066-logic_ablation.json",
+      "sha256": "d8a8bf6e3546dff54a2ed19c7763e894964918254d0dfd3ffb5d63705998364f",
+      "bytes": 16227
+    },
+    {
+      "file": "cells\\test-test-1066-social_ablation.json",
+      "sha256": "fa4ec477d4bd57a5ac1cd9c4e890cf6059ae5379a5cfb3615508ba55e0dab685",
+      "bytes": 2649
+    },
+    {
+      "file": "cells\\test-test-1078-intact.json",
+      "sha256": "dc5c5b5c2abc5eaec21ad28dc2430a17d6770811ac23f88d9b5818d08ca18503",
+      "bytes": 2665
+    },
+    {
+      "file": "cells\\test-test-1078-logic_ablation.json",
+      "sha256": "0ecccf81133d12849021da61efa0ace57ac466d45dda875eb350984b1332a600",
+      "bytes": 19594
+    },
+    {
+      "file": "cells\\test-test-1078-social_ablation.json",
+      "sha256": "723a5119317bb26c5c56dd4dabfaeda6031f1f73e6d55d463789b25f256ef2f9",
+      "bytes": 2599
+    },
+    {
+      "file": "cells\\test-test-1081-intact.json",
+      "sha256": "64ec9de15b444aabfdbbdbbe9701d28a3ca6972a189bb7e4b95df6d8b49b4c82",
+      "bytes": 1711
+    },
+    {
+      "file": "cells\\test-test-1081-logic_ablation.json",
+      "sha256": "2e056cc2a845e039ba1c967fb78b0f77b24f830cd0acada32d4dacf071697ee4",
+      "bytes": 1528
+    },
+    {
+      "file": "cells\\test-test-1081-social_ablation.json",
+      "sha256": "a52ad5cbdafb4b97aa3a15f7647aa52ab0095191fee2b5a02683d424cc833041",
+      "bytes": 1673
+    },
+    {
+      "file": "cells\\test-test-1091-intact.json",
+      "sha256": "a1e9401ef772b32e86bbca529af576a64ea15749e4ba450aeb97c30f1955ef22",
+      "bytes": 2639
+    },
+    {
+      "file": "cells\\test-test-1091-logic_ablation.json",
+      "sha256": "ebbdf769fbef4f1270304a1ae81cb705c1a22d32b200ddeaeb649dcfe895ceb1",
+      "bytes": 1440
+    },
+    {
+      "file": "cells\\test-test-1091-social_ablation.json",
+      "sha256": "0258573b0c4fc6be7c9b60cc6c8aa9a5ee3cc6fbb33d6729317d38d6e32c0f52",
+      "bytes": 2648
+    },
+    {
+      "file": "cells\\test-test-1093-intact.json",
+      "sha256": "70c2d8f343cda2ffc489aa6f98b4ce1f5e203942e5a8b7f7c243bef8269b31a0",
+      "bytes": 2823
+    },
+    {
+      "file": "cells\\test-test-1093-logic_ablation.json",
+      "sha256": "c2499181d48af714c795478f93df4586283ee5ea89de7493efbd82f210ef20e7",
+      "bytes": 3267
+    },
+    {
+      "file": "cells\\test-test-1093-social_ablation.json",
+      "sha256": "3d6d934c54f1b57ae9c40430418d1026a1f30cfb704f5f529c7f842683f396a7",
+      "bytes": 18376
+    },
+    {
+      "file": "cells\\test-test-1097-intact.json",
+      "sha256": "f991272da3d3002d750680979653ddfad40132ed9bc232b19ddde3c567f09c99",
+      "bytes": 16384
+    },
+    {
+      "file": "cells\\test-test-1097-logic_ablation.json",
+      "sha256": "ba563e70be9344c89628878f4b57b60e532096957e82cca0469f74f5c8698d15",
+      "bytes": 2352
+    },
+    {
+      "file": "cells\\test-test-1097-social_ablation.json",
+      "sha256": "7847b0223f0452782c59039709f97bbae3734d544a2f9be98be24f8bc738cf97",
+      "bytes": 17117
+    },
+    {
+      "file": "cells\\test-test-1101-intact.json",
+      "sha256": "2cd71046e3df54d223e40c31ebf5cbdc64cf78bb0a19630031343fbf2e6042d3",
+      "bytes": 16666
+    },
+    {
+      "file": "cells\\test-test-1101-logic_ablation.json",
+      "sha256": "7a37aa7ca5c41a053d37a4a940f73a19ad85cbfcd10de85ca0515112fffa2090",
+      "bytes": 1485
+    },
+    {
+      "file": "cells\\test-test-1101-social_ablation.json",
+      "sha256": "d23513f5f23b014e28babf22880b3ee250375806b55f14d71e0cf5f5ce305204",
+      "bytes": 16670
+    },
+    {
+      "file": "cells\\test-test-1104-intact.json",
+      "sha256": "2615db1be691b3b8322c4a8a99b82cce5da9900aa498bb02b623604b0c4d9788",
+      "bytes": 1468
+    },
+    {
+      "file": "cells\\test-test-1104-logic_ablation.json",
+      "sha256": "ea361795c1c4fb183bbd42a25a069b2e38cff5583405145c219a0032d1a7760b",
+      "bytes": 1571
+    },
+    {
+      "file": "cells\\test-test-1104-social_ablation.json",
+      "sha256": "ec65c854aed886cb9189776e4b85d0b9f7b34c11040c86f193e36c59e71f1c40",
+      "bytes": 1479
+    },
+    {
+      "file": "cells\\test-test-1105-intact.json",
+      "sha256": "1bcd1c10d459803a66c851bfdb4111500d6c5b36a22f3746d0d92cfafb9fa2d4",
+      "bytes": 18079
+    },
+    {
+      "file": "cells\\test-test-1105-logic_ablation.json",
+      "sha256": "566952e8f574f229275b00724628ce8c22ac0ce22589ffd37fcf93abed1af53a",
+      "bytes": 1819
+    },
+    {
+      "file": "cells\\test-test-1105-social_ablation.json",
+      "sha256": "43d4b462698ed720263eb2e3c5a1e07781feb68adef10c0ae6808bb93499efab",
+      "bytes": 3046
+    },
+    {
+      "file": "cells\\test-test-1109-intact.json",
+      "sha256": "259478bb4ce41ea297d14de7c61d6f08f8f568a5afd96696245765430702a286",
+      "bytes": 1827
+    },
+    {
+      "file": "cells\\test-test-1109-logic_ablation.json",
+      "sha256": "186d2ef36fd0eb5b334251041ecee55bb76028e9e45f4c21225bb32a6718ef92",
+      "bytes": 1526
+    },
+    {
+      "file": "cells\\test-test-1109-social_ablation.json",
+      "sha256": "f580f41bc77df9dbc42ee51126ebb88103da6b0e830c5a75bccadf95da632add",
+      "bytes": 1834
+    },
+    {
+      "file": "cells\\test-test-1110-intact.json",
+      "sha256": "92723d225b9ac7d8d89a3fca1c509cc0579ebca41ce2ebb77b5e627df4432a87",
+      "bytes": 2251
+    },
+    {
+      "file": "cells\\test-test-1110-logic_ablation.json",
+      "sha256": "a2f32309a4d7038f29c56b278da7edbd5c13525a419d1f6ee930175978bc5991",
+      "bytes": 1865
+    },
+    {
+      "file": "cells\\test-test-1110-social_ablation.json",
+      "sha256": "2007e3ba3396e3959a336c51aa8b47f949f58abe69b7d097dc0ebec5bd6a6352",
+      "bytes": 2257
+    },
+    {
+      "file": "cells\\test-test-1112-intact.json",
+      "sha256": "bf858a21444d6bafeb72f9f2dfea5ffd4e7d16eb1f0f537d4439ced21b80a4ae",
+      "bytes": 2390
+    },
+    {
+      "file": "cells\\test-test-1112-logic_ablation.json",
+      "sha256": "4c65f8c65cec3caef0111dc76237cb2959b78776326f96c7f63534f40b7da3d3",
+      "bytes": 2547
+    },
+    {
+      "file": "cells\\test-test-1112-social_ablation.json",
+      "sha256": "9c40a98fd65816e37ba68d95fded24e2bf50ed65b73c6b91aea4b22a31384d44",
+      "bytes": 2450
+    },
+    {
+      "file": "cells\\test-test-1117-intact.json",
+      "sha256": "278447d06e4eca5162cac74d9cc34bf9497700d54d96d6dad65104dd5761edfb",
+      "bytes": 2204
+    },
+    {
+      "file": "cells\\test-test-1117-logic_ablation.json",
+      "sha256": "dcc682b8aeb8411f3f7fc4f0e3d7c4e4a8a7d6a17f6ee247c8b8a029b92b06fa",
+      "bytes": 17822
+    },
+    {
+      "file": "cells\\test-test-1117-social_ablation.json",
+      "sha256": "393656a0000878c04f79e6d34937f3d3ccd60c92be673a115cbe4fbb9dc5b149",
+      "bytes": 2296
+    },
+    {
+      "file": "cells\\test-test-1140-intact.json",
+      "sha256": "8028e702035cf1f2df8429dbb730305ea8335a90fb5cda655e536846598dd11c",
+      "bytes": 2590
+    },
+    {
+      "file": "cells\\test-test-1140-logic_ablation.json",
+      "sha256": "ce9a8891bab14a146ba061ef00361896cb4e9b312cd0defaae6d734145916df6",
+      "bytes": 1474
+    },
+    {
+      "file": "cells\\test-test-1140-social_ablation.json",
+      "sha256": "b7b6aabe1b33807ae85dc0889d5b7caba071daaa893a54313b17847789ead9f2",
+      "bytes": 3204
+    },
+    {
+      "file": "cells\\test-test-1148-intact.json",
+      "sha256": "eaaaad103433152ef52f0b365f0ee8e18d782e62658ecd67749fb1f338ee773b",
+      "bytes": 1869
+    },
+    {
+      "file": "cells\\test-test-1148-logic_ablation.json",
+      "sha256": "aa8c95e1f14471fa7937df540e65b2b200c2a09511e29213b98be2c448131522",
+      "bytes": 1777
+    },
+    {
+      "file": "cells\\test-test-1148-social_ablation.json",
+      "sha256": "df67ac4e9b0a50946c9f8e337e850862f40a9ea2a64ba13c7b0d60bfb7db4f41",
+      "bytes": 1876
+    },
+    {
+      "file": "cells\\test-test-1152-intact.json",
+      "sha256": "fd4b80e7a8ee3b95113242cf38a397d8a35f903f7d6d4f82e9c7cea48605de7c",
+      "bytes": 2872
+    },
+    {
+      "file": "cells\\test-test-1152-logic_ablation.json",
+      "sha256": "29b577095dc25e70aae92e398c1d9497430295940bc8b749681f3dd391845a90",
+      "bytes": 1320
+    },
+    {
+      "file": "cells\\test-test-1152-social_ablation.json",
+      "sha256": "8d814a9c6627712f614f4eee23d0ae191a601e115bb5c46f7792dc63d8b40b7d",
+      "bytes": 2879
+    },
+    {
+      "file": "cells\\test-test-1154-intact.json",
+      "sha256": "2859c6942bc4c34e8cb380d69b1cd0b859dda86eac4ed47d12a268a9ddc154b0",
+      "bytes": 2511
+    },
+    {
+      "file": "cells\\test-test-1154-logic_ablation.json",
+      "sha256": "0adfffd4826ee55c121a13594b6b05d7bf55c1426fa7039e72449bd96c3d10a2",
+      "bytes": 19404
+    },
+    {
+      "file": "cells\\test-test-1154-social_ablation.json",
+      "sha256": "c33844bad8882b3daf29deb72f568737b592c696ccaab4c77fb7957951416dba",
+      "bytes": 1922
+    },
+    {
+      "file": "cells\\test-test-1155-intact.json",
+      "sha256": "65c6545b929caa2b12d0ef9e7da1d1b9ca41a00224defdc601a373f3fa84662f",
+      "bytes": 2003
+    },
+    {
+      "file": "cells\\test-test-1155-logic_ablation.json",
+      "sha256": "deeca426ff0a776f7a659104479c5cb3221dccf55167322588570311f3da3d39",
+      "bytes": 1796
+    },
+    {
+      "file": "cells\\test-test-1155-social_ablation.json",
+      "sha256": "1ea1c4081c6eea633549542b92f3126f2138b6b7d6ed5628102c674f16d6aa0e",
+      "bytes": 1877
+    },
+    {
+      "file": "cells\\test-test-1157-intact.json",
+      "sha256": "7cdbc37a20474705b71ca1fbf9afb2f7c292f33180aededccb0a956e081ff1cc",
+      "bytes": 2077
+    },
+    {
+      "file": "cells\\test-test-1157-logic_ablation.json",
+      "sha256": "89e7c004bead2a8206d46582923df78809b506113a8b2f32cb3c94e8ea1e1149",
+      "bytes": 1513
+    },
+    {
+      "file": "cells\\test-test-1157-social_ablation.json",
+      "sha256": "cac73876395c22677ebb2ad9ea6332685218620aec30bd785aeacd64beb6134e",
+      "bytes": 2530
+    },
+    {
+      "file": "cells\\test-test-1158-intact.json",
+      "sha256": "3c825da771516743d3c8477405494cf8a5242982f8299aae6c10e1c5b54163f3",
+      "bytes": 3735
+    },
+    {
+      "file": "cells\\test-test-1158-logic_ablation.json",
+      "sha256": "f7901e6f9c0c6a39cd63120ddc8d3ea34be483f9b887bd7a977a35e580bb086d",
+      "bytes": 1952
+    },
+    {
+      "file": "cells\\test-test-1158-social_ablation.json",
+      "sha256": "247fcf5387d454b7f22d0051c4c457b403ce52717e3db843319d14544488f388",
+      "bytes": 3958
+    },
+    {
+      "file": "cells\\test-test-1188-intact.json",
+      "sha256": "b3efeb69c9408c63ab041f131740da5990ce2c87669f7ee065a827e4e95cfd5c",
+      "bytes": 1971
+    },
+    {
+      "file": "cells\\test-test-1188-logic_ablation.json",
+      "sha256": "4e81bd40a276ad429e543f5c142128d372a1d6ccb5c2e7dd3d77c26600fe3199",
+      "bytes": 1310
+    },
+    {
+      "file": "cells\\test-test-1188-social_ablation.json",
+      "sha256": "99e980ecacd08d6c131d319653a3d346350019a837e55d20d4d7c5956be5e3b6",
+      "bytes": 2535
+    },
+    {
+      "file": "cells\\test-test-1190-intact.json",
+      "sha256": "0a7cb8facad40565a1103b1fbd64c2a8d110752f32f45cf0adf7a7aee264dee4",
+      "bytes": 2890
+    },
+    {
+      "file": "cells\\test-test-1190-logic_ablation.json",
+      "sha256": "df2164269381cd5aa3fdde3498b8b85e006c0c04702a76c2162e86905b37eecf",
+      "bytes": 2221
+    },
+    {
+      "file": "cells\\test-test-1190-social_ablation.json",
+      "sha256": "5c12e4204767edb666f8ff4fb0c2f590cc1bbdc6df2fd85f36151492eb46c70c",
+      "bytes": 2928
+    },
+    {
+      "file": "cells\\test-test-1206-intact.json",
+      "sha256": "03bea8984abc5c60f2ca4f7a1469ca154b05201663c89cfd3641fc925eb8f404",
+      "bytes": 2559
+    },
+    {
+      "file": "cells\\test-test-1206-logic_ablation.json",
+      "sha256": "95a35104318b5f5883f79dd9e51085b7eb8a14d65139436569fbb8183ae9a15f",
+      "bytes": 1970
+    },
+    {
+      "file": "cells\\test-test-1206-social_ablation.json",
+      "sha256": "9ba8323c8f8ee3e7a5e976b9c5efbffd58758db3a19ea56af5bef898440b4b89",
+      "bytes": 2567
+    },
+    {
+      "file": "cells\\test-test-1210-intact.json",
+      "sha256": "6616e5df055f59e8b6b58d22e7508e8536a70c50eeb2b9b9b998c8ca8fdc7a02",
+      "bytes": 2382
+    },
+    {
+      "file": "cells\\test-test-1210-logic_ablation.json",
+      "sha256": "92a0f81bc9b21bf72976e087eddcf39b6e6eee89a739665f0158345391d0b622",
+      "bytes": 1322
+    },
+    {
+      "file": "cells\\test-test-1210-social_ablation.json",
+      "sha256": "d9f718b25f24fc7f57047e5951e78240692b9067ba81285797c25463936512f6",
+      "bytes": 2510
+    },
+    {
+      "file": "cells\\test-test-1211-intact.json",
+      "sha256": "4de19ba5fa9c0dd8c310007b857d2f96c82f68a2943ff2ca927a100a71f31697",
+      "bytes": 13439
+    },
+    {
+      "file": "cells\\test-test-1211-logic_ablation.json",
+      "sha256": "1f8dabc2d00b59bd8596159bb6755eed3e6fdc23ba691ef3b18e9ff1a13c79ca",
+      "bytes": 1532
+    },
+    {
+      "file": "cells\\test-test-1211-social_ablation.json",
+      "sha256": "e2e3cfa0216f4c677fbe9a68fb4ea375fc7d57d61ecc2239226e125b0c3b9a58",
+      "bytes": 13447
+    },
+    {
+      "file": "cells\\test-test-1212-intact.json",
+      "sha256": "59e7a4efe8bda714da54b543a5d5d3a0f6439bf0ddfb2d264db6e28ca7a8925e",
+      "bytes": 16543
+    },
+    {
+      "file": "cells\\test-test-1212-logic_ablation.json",
+      "sha256": "f1c44f15e10a2b934b161bc29d5971160f6530433e2421c7ba42e6d91a1c77cd",
+      "bytes": 1971
+    },
+    {
+      "file": "cells\\test-test-1212-social_ablation.json",
+      "sha256": "7eeb1ff691f9260713744485bbaa04245f4a8f39d0d9885dd409775fd4ae7c04",
+      "bytes": 16550
+    },
+    {
+      "file": "cells\\test-test-1214-intact.json",
+      "sha256": "8d50c80867f8ba7d626cf13e4552cef991e30695300d41f4e950e5f8f6852d76",
+      "bytes": 1896
+    },
+    {
+      "file": "cells\\test-test-1214-logic_ablation.json",
+      "sha256": "3e9afee23df077bba6e3ac5aba2683d5de12fc73cb32a5e3b13764d5c5ea1a8f",
+      "bytes": 1845
+    },
+    {
+      "file": "cells\\test-test-1214-social_ablation.json",
+      "sha256": "edca9b753cf97871be946bc8563988501e62154d467f7272d9921db7351c030d",
+      "bytes": 1862
+    },
+    {
+      "file": "cells\\test-test-1216-intact.json",
+      "sha256": "1b963f26ef96ae94ea91c6393b92516e864717a7ff889a37502b604f4cf1ccc6",
+      "bytes": 19429
+    },
+    {
+      "file": "cells\\test-test-1216-logic_ablation.json",
+      "sha256": "ef21deefe7e4196288770462ef78e2262c6b5011eafe1d429cd3bc92406ae7cf",
+      "bytes": 3379
+    },
+    {
+      "file": "cells\\test-test-1216-social_ablation.json",
+      "sha256": "557063f15f018934552caa22f4cd575e75df14deede84cf7afea0fbee9d370a7",
+      "bytes": 3430
+    },
+    {
+      "file": "cells\\test-test-1218-intact.json",
+      "sha256": "e81ed3460e67b9cb039a202565731f70f7296a30d3aa4111ebda0e6b06c03ea0",
+      "bytes": 3871
+    },
+    {
+      "file": "cells\\test-test-1218-logic_ablation.json",
+      "sha256": "c9e6456988c9d3032a9bf840224070c69979a52c6d330a7e43e0a76964b945f0",
+      "bytes": 1674
+    },
+    {
+      "file": "cells\\test-test-1218-social_ablation.json",
+      "sha256": "45c5ec85e1b3d84ebba5d593b3526513c130f12dfd18e64ba7255d10cfe83c49",
+      "bytes": 3858
+    },
+    {
+      "file": "cells\\test-test-1219-intact.json",
+      "sha256": "85c99a1ce381707fbf4a86c121167c264a7f690bc12b628868221e9a36eea968",
+      "bytes": 1845
+    },
+    {
+      "file": "cells\\test-test-1219-logic_ablation.json",
+      "sha256": "2d0c32ba8fcc953dfc96c8f62ce9c6e6c84d19f313950c107637951fe98c4d61",
+      "bytes": 18523
+    },
+    {
+      "file": "cells\\test-test-1219-social_ablation.json",
+      "sha256": "b5ac8cfbd6fecc9c91f14a0ce3f421df78fc9014c160c84683b40a538676ba30",
+      "bytes": 1739
+    },
+    {
+      "file": "cells\\test-test-1223-intact.json",
+      "sha256": "ead7b13dbdd2109888f64c883a2dbe0a06a67cbae45fd543939b2acd0edff2e7",
+      "bytes": 1831
+    },
+    {
+      "file": "cells\\test-test-1223-logic_ablation.json",
+      "sha256": "0119191e40b111c4faff5065eb097dd647fdc812d8242ea57b6c20aca71c152c",
+      "bytes": 1495
+    },
+    {
+      "file": "cells\\test-test-1223-social_ablation.json",
+      "sha256": "5e1d21774b1616c71654a5b2cc6594c9ddf8618486402f9f0d74d11b95115231",
+      "bytes": 1829
+    },
+    {
+      "file": "cells\\test-test-1224-intact.json",
+      "sha256": "e09101365bc8847e60257f817821ccca3928f9a5feae7ed99b3fce7d7592247e",
+      "bytes": 2010
+    },
+    {
+      "file": "cells\\test-test-1224-logic_ablation.json",
+      "sha256": "c65e30aba2c7e549a81d6167a443f51dc6575bd17a08e1a2bdbe5f454d0cac0b",
+      "bytes": 1688
+    },
+    {
+      "file": "cells\\test-test-1224-social_ablation.json",
+      "sha256": "ffbc466ec952889f530be67f3b0193507c8dc34cf4ee29af372effa838a4aa1c",
+      "bytes": 2019
+    },
+    {
+      "file": "cells\\test-test-1225-intact.json",
+      "sha256": "71096e29622b7785d408a14cee027e47a65cbdfee106f1489bedbeb07c0dde82",
+      "bytes": 2704
+    },
+    {
+      "file": "cells\\test-test-1225-logic_ablation.json",
+      "sha256": "ad5c419e17a85ab8fd9b72131c3a8b5ad75e62cde08bdf517e6ec2c46f535da3",
+      "bytes": 19172
+    },
+    {
+      "file": "cells\\test-test-1225-social_ablation.json",
+      "sha256": "e87b006afd325d3b10d9423c926d6940e88ed463fd43c38d8eebe99fdd7f75ab",
+      "bytes": 3204
+    },
+    {
+      "file": "cells\\test-test-1227-intact.json",
+      "sha256": "124c2cd6c77b72f6a0f6a0c483775ada684cd89f4e80d51b4ac1583b88dc29cc",
+      "bytes": 3258
+    },
+    {
+      "file": "cells\\test-test-1227-logic_ablation.json",
+      "sha256": "9e706df9472ecb9193c42a3e0d015762caee6594bd7f47b4fd48fbf30efbbf70",
+      "bytes": 2320
+    },
+    {
+      "file": "cells\\test-test-1227-social_ablation.json",
+      "sha256": "f27d2cb2c287bf19c4f07ef761781cf86f73e215049ecf26fd72b8c923cf4562",
+      "bytes": 3266
+    },
+    {
+      "file": "cells\\test-test-1228-intact.json",
+      "sha256": "30dfe880d5c6220b04b1eea82f0d7749826a6c4b9a8bb81c6f2586aba32187c5",
+      "bytes": 2039
+    },
+    {
+      "file": "cells\\test-test-1228-logic_ablation.json",
+      "sha256": "80edc60f45675865b0904f31e17ab5f2f0cb622dbf3117b2b81e7a63d64667ae",
+      "bytes": 18669
+    },
+    {
+      "file": "cells\\test-test-1228-social_ablation.json",
+      "sha256": "2326f3c945db4b0d8106438ea0f75afcda988ba3130ba4ea1d0e64ff9e48afa6",
+      "bytes": 1976
+    },
+    {
+      "file": "cells\\test-test-1244-intact.json",
+      "sha256": "41176bcd89ba90bedfbe236c6e951633fd015cf7eed21d39b56e161f50605625",
+      "bytes": 3341
+    },
+    {
+      "file": "cells\\test-test-1244-logic_ablation.json",
+      "sha256": "0125dc8fdf8a4a8a0769a5b2b67087e0d51d3bf0ec2d9dce0285e90221a447e0",
+      "bytes": 2215
+    },
+    {
+      "file": "cells\\test-test-1244-social_ablation.json",
+      "sha256": "683deceb360edec3b4934b710f4212cbf87c1ed96fc6e62069fc70c5ee88a30b",
+      "bytes": 3343
+    },
+    {
+      "file": "cells\\test-test-1247-intact.json",
+      "sha256": "01067d1af394f3647baef51f6b04ddf2a220038fd1a0f75243321529851cb89d",
+      "bytes": 2208
+    },
+    {
+      "file": "cells\\test-test-1247-logic_ablation.json",
+      "sha256": "eaeb6e1d523930ded03b4966f7dc8774ba29b5fcb8f3e805199a3b3aa8a56023",
+      "bytes": 2219
+    },
+    {
+      "file": "cells\\test-test-1247-social_ablation.json",
+      "sha256": "99562126992e5a90d498557bfa5bf38367c5184d5ecc18e124025cf811abe77a",
+      "bytes": 2218
+    },
+    {
+      "file": "cells\\test-test-1249-intact.json",
+      "sha256": "a0819c35885cc1ed92899b93e93c21408f10bf928de328dbc323936cdf907a3b",
+      "bytes": 16400
+    },
+    {
+      "file": "cells\\test-test-1249-logic_ablation.json",
+      "sha256": "86c554f398019c3261d1d300cb68ba736e8823fdd14842f99d3890b5530721af",
+      "bytes": 3268
+    },
+    {
+      "file": "cells\\test-test-1249-social_ablation.json",
+      "sha256": "0c4675360bd12ba22a94073e121d423f431a016948458369f759ad8dd650e68f",
+      "bytes": 16406
+    },
+    {
+      "file": "cells\\test-test-1252-intact.json",
+      "sha256": "e5702f9e5fa6e7fca78d965a1cb384873aa9e93b3d68d9477d1362c575b665fd",
+      "bytes": 1912
+    },
+    {
+      "file": "cells\\test-test-1252-logic_ablation.json",
+      "sha256": "f54d559784426d28f9383525c347851ee271c6ff367907daab2f119f4dae2c80",
+      "bytes": 1786
+    },
+    {
+      "file": "cells\\test-test-1252-social_ablation.json",
+      "sha256": "85814bf6bfb3c77f88002a9ada5f851ff1f2ef0e9955bf2c26c206f75cd77a2b",
+      "bytes": 1920
+    },
+    {
+      "file": "cells\\test-test-1260-intact.json",
+      "sha256": "ba24429cbde2496563089e09e45eb79831b68a92a5fdb0c555cf2385102fcdb1",
+      "bytes": 1930
+    },
+    {
+      "file": "cells\\test-test-1260-logic_ablation.json",
+      "sha256": "626172899efef6f8782696348b4ff656e6f43a2356241ae7c9dc510c35abd13c",
+      "bytes": 2139
+    },
+    {
+      "file": "cells\\test-test-1260-social_ablation.json",
+      "sha256": "b207af99437f3403a35745620f1fc63dea4ac3801a8dafa479e4a2bab54f17c0",
+      "bytes": 1939
+    },
+    {
+      "file": "cells\\test-test-1263-intact.json",
+      "sha256": "4c4d8aed3e0c26f550a93021bf4280ea1b9d453fb5a965f038eb8800b1097882",
+      "bytes": 2018
+    },
+    {
+      "file": "cells\\test-test-1263-logic_ablation.json",
+      "sha256": "97c564d2253e09eb8053a8fb6e1cb69ed47e17dfd04bc53c2bd6422f87912853",
+      "bytes": 2255
+    },
+    {
+      "file": "cells\\test-test-1263-social_ablation.json",
+      "sha256": "5d04d21d81239963c316d50e39e4f68f209bafb52c90b9e8c3bcbcf1263eba7d",
+      "bytes": 2138
+    },
+    {
+      "file": "cells\\test-test-1273-intact.json",
+      "sha256": "de72bb1542b4f7f3adf3570b2ecff608f180e783d169cdb0ae5a9ab8bee853ec",
+      "bytes": 2116
+    },
+    {
+      "file": "cells\\test-test-1273-logic_ablation.json",
+      "sha256": "cdcf6e573ab98cf5cf8d6d3100bbe086004d73e0747951be44e858d0d8fdce6e",
+      "bytes": 18566
+    },
+    {
+      "file": "cells\\test-test-1273-social_ablation.json",
+      "sha256": "4c8353c70c47c8236d3c937f92d365ecdbe38e7ae0b2c740367827a87fb2e07f",
+      "bytes": 2122
+    },
+    {
+      "file": "cells\\test-test-1278-intact.json",
+      "sha256": "459e99c6c3fd84441e6b26d083f5f3506d3abfba93813355c1571149ea271482",
+      "bytes": 18981
+    },
+    {
+      "file": "cells\\test-test-1278-logic_ablation.json",
+      "sha256": "68d72fa09404cbdb925f06ed9be2e5e6ae6579a1c26b1794ca6b2de9376a1cd6",
+      "bytes": 1936
+    },
+    {
+      "file": "cells\\test-test-1278-social_ablation.json",
+      "sha256": "1569c07f87312cb0a9376129b555c65340dc0033ae4cecfdde6696d17f74cb50",
+      "bytes": 18986
+    },
+    {
+      "file": "cells\\test-test-1284-intact.json",
+      "sha256": "8de34de9ef944fc0fb618f8f76d58a795bf18d491f37650226bc52f9ac1d625d",
+      "bytes": 3055
+    },
+    {
+      "file": "cells\\test-test-1284-logic_ablation.json",
+      "sha256": "ff19aa0d6eb12fd29d389b802828a8884b3fa24e1055d1af9abea65d19fafbc9",
+      "bytes": 18354
+    },
+    {
+      "file": "cells\\test-test-1284-social_ablation.json",
+      "sha256": "21dec18e4f0d2aae19eb1f1f96418b267aa3f53bf8353e8e0c4cc13c0e10d40e",
+      "bytes": 3061
+    },
+    {
+      "file": "cells\\test-test-1285-intact.json",
+      "sha256": "019e014d551df2d9707e952f81fcc640b2dd2e4bc10fc0f39d5457d668480f0c",
+      "bytes": 17106
+    },
+    {
+      "file": "cells\\test-test-1285-logic_ablation.json",
+      "sha256": "6b74a999fec4b9d7d8d0bd6d1b863cc3b06dd61cb890c9f18e8182b649d00dad",
+      "bytes": 1567
+    },
+    {
+      "file": "cells\\test-test-1285-social_ablation.json",
+      "sha256": "968fd04bca87bcf4909f9f53e2da5a1233ca2807e8fa9c491aaf2169d8b21d07",
+      "bytes": 20755
+    },
+    {
+      "file": "cells\\test-test-1288-intact.json",
+      "sha256": "ccf5cfe927258bebf55d0e48e70e03b04fd9e98e0c95ff80a6508c3df47027d1",
+      "bytes": 3220
+    },
+    {
+      "file": "cells\\test-test-1288-logic_ablation.json",
+      "sha256": "192d1f48a2dc3e1dd51a9dc8c2f8d2dff1bafacd139f61d2f190997a3a4e7f0e",
+      "bytes": 15839
+    },
+    {
+      "file": "cells\\test-test-1288-social_ablation.json",
+      "sha256": "7e92b7c861527068bc04df8c6e6f8f14dd8ca421a6c9791dde733076f3a28fd8",
+      "bytes": 2665
+    },
+    {
+      "file": "cells\\test-test-1289-intact.json",
+      "sha256": "17fba6001c26890da7d5a18f640b44aa767efb35d3a991755532f044c1979bbc",
+      "bytes": 2060
+    },
+    {
+      "file": "cells\\test-test-1289-logic_ablation.json",
+      "sha256": "168ef7d2d581057bed399c09fff9dd91708879ea10f1aa76d8e35048e31a1581",
+      "bytes": 1761
+    },
+    {
+      "file": "cells\\test-test-1289-social_ablation.json",
+      "sha256": "ce675ff460559d1b7b764359c78dc7621ff702e3bbdab39350eaefde71b1cdd4",
+      "bytes": 2139
+    },
+    {
+      "file": "cells\\test-test-1297-intact.json",
+      "sha256": "a3d2776e75fd2e916e22c73b7629728f4b868721b3733fb0005c99c041de7da6",
+      "bytes": 18213
+    },
+    {
+      "file": "cells\\test-test-1297-logic_ablation.json",
+      "sha256": "f4c56927f0f805be166816bea65e8f4760681479a6e4f3180628068a07e87185",
+      "bytes": 3076
+    },
+    {
+      "file": "cells\\test-test-1297-social_ablation.json",
+      "sha256": "2c98d3eb068051c01f4151d79f8001999276f709006270786e92de2ef4102125",
+      "bytes": 18221
+    },
+    {
+      "file": "cells\\test-test-1301-intact.json",
+      "sha256": "c0a67d1df4756b05db5c7625aa56daa4acc67a281748dcd37ac1d8575a7cde3d",
+      "bytes": 2044
+    },
+    {
+      "file": "cells\\test-test-1301-logic_ablation.json",
+      "sha256": "7bf9ddf4f4a47325d4fe4a61f379202b2f9a2fbf4869684a1656d4ff773329b5",
+      "bytes": 4007
+    },
+    {
+      "file": "cells\\test-test-1301-social_ablation.json",
+      "sha256": "986bd3a666caec6612d6e1485aca57df1a6f2f183f196863440ad215ac14b40b",
+      "bytes": 2051
+    },
+    {
+      "file": "cells\\test-test-1303-intact.json",
+      "sha256": "7bc4053fd27c3849eed9b88a39acabce58cfca829822cbcc51d8bc52dd32e2a5",
+      "bytes": 4172
+    },
+    {
+      "file": "cells\\test-test-1303-logic_ablation.json",
+      "sha256": "85b3a331e877c4841bea8291313182c3ce8ba805e8dfc77a0c8355d3a28c6e6d",
+      "bytes": 15957
+    },
+    {
+      "file": "cells\\test-test-1303-social_ablation.json",
+      "sha256": "dcbc3cc0ceefdc4e3ad552fbad8824238c13532d2fcbd62146483f5e6a608cc9",
+      "bytes": 15697
+    },
+    {
+      "file": "cells\\test-test-1307-intact.json",
+      "sha256": "c4643505cf2102940d9907c6af8aa46600d9864e6a69da3ef34bef330d63463c",
+      "bytes": 2147
+    },
+    {
+      "file": "cells\\test-test-1307-logic_ablation.json",
+      "sha256": "aa189a8e789db10e5bea5d51293bd326fc5d3ae33078f68abd5aa0d1e8aba975",
+      "bytes": 1916
+    },
+    {
+      "file": "cells\\test-test-1307-social_ablation.json",
+      "sha256": "6932504e0f090377949cd454e779e66a7f22d879437b5d01261b8042e12b2bc0",
+      "bytes": 2158
+    },
+    {
+      "file": "cells\\test-test-1309-intact.json",
+      "sha256": "4291cdbe9c47bb844b000f4f894fcc706b9f3523ae485ac135339ef4a768e777",
+      "bytes": 18504
+    },
+    {
+      "file": "cells\\test-test-1309-logic_ablation.json",
+      "sha256": "2c630b59488668b28e9b6a49aac0ede0f243d8f9e362dd5563c79b0b8626193d",
+      "bytes": 19101
+    },
+    {
+      "file": "cells\\test-test-1309-social_ablation.json",
+      "sha256": "3edc6ebbebf90941de62274b5fa09f379f23929b992389dff37fc78ad0408d39",
+      "bytes": 18509
+    },
+    {
+      "file": "cells\\test-test-1318-intact.json",
+      "sha256": "5628c2214c23abb0b434c98c833683f04bd2cc25706e7ad24f05420d4e65a5d0",
+      "bytes": 2017
+    },
+    {
+      "file": "cells\\test-test-1318-logic_ablation.json",
+      "sha256": "3926e918764149fd6a7d8ace979c0fcb9bd4641f9b9b55159487ab168afb03d1",
+      "bytes": 19866
+    },
+    {
+      "file": "cells\\test-test-1318-social_ablation.json",
+      "sha256": "6279d8f75c95408e836b22cae36ab97736d733f8e0e08eeabaa32367189ace5d",
+      "bytes": 2024
+    },
+    {
+      "file": "C:\\w\\fp006\\final_praxis\\006_cognitive_expert_containment\\logic_qualification_fp32\\data.json",
+      "sha256": "b1599c6ceb080d988bb1998813b071d280bfe39ac1f6846069103b4c2c6d178d",
+      "bytes": 205737
+    },
+    {
+      "file": "C:\\w\\fp006\\final_praxis\\006_cognitive_expert_containment\\logic_qualification_fp32\\protocol.json",
+      "sha256": "8a76f26328795c86fff99df994737490cab4f559aeec74cdeb557352422b6ad4",
+      "bytes": 1562
+    },
+    {
+      "file": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_20260912_logic_fp32_repaired_execution\\collected\\outputs\\technical.json",
+      "sha256": "197cae42273740edf562e9af4748378d58795886a57b6a335557b1216ac3c4f0",
+      "bytes": 4399
+    }
+  ],
+  "audit_utc": "2026-09-12T23:35:58.655553+00:00"
+}
