@@ -1,0 +1,11 @@
+# Next research investment
+
+Prioritize a baseline qualification for the **MiCRo logic expert on GSM8K**. The previous tiny checkpoint did not demonstrate useful empathy classification, so it cannot establish that a containment method preserves an effective social skill. A logic task offers an objective answer key and a published ablation to reproduce.
+
+The [MiCRo paper, version 3](https://arxiv.org/html/2506.13331v3) reports useful GSM8K performance for MiCRo-Llama-1B and a drop when its logic expert is removed. The public [checkpoint](https://huggingface.co/bkhmsi/micro-llama-1b/tree/b9ea46bbfb2836552e963ea3ad322d9fb3b07179), [source code](https://github.com/BKHMSI/mixture-of-cognitive-reasoners/tree/275a5e4b1369ff19c8e3f33f42f16bc5ef19e6d7) and [GSM8K dataset](https://huggingface.co/datasets/openai/gsm8k/tree/740312add88f781978c0658806c59bc2815b9866) provide a concrete base. The full modular checkpoint contains about 4.49 billion parameters; the 1B label describes its backbone. Record architecture, tokenizer, evaluation-harness and access/licensing provenance before execution.
+
+The next research question is: **Does the pinned intact model outperform its logic-ablated counterpart on an independently fixed math cohort under identical prompts, scoring and generation budgets?** This is a prerequisite replication, not the novel Praxis contribution. Freeze the expected paired effect, sample-size justification, validity/truncation limits and stop rule before inference; audit the custom expert routing and baseline-ablation-baseline reset.
+
+If the useful-specialist prerequisite passes, develop a separate intervention whose contribution is preserving that capability while containing corruption across multiple held-out fault families. Its comparisons must include permanent ablation, random routing and ordinary verification. The previous cosine selector remains a recorded negative result. Ablation alone, a larger checkpoint, or a different dataset would not establish novelty; refresh the closest-prior review before selecting the actual modification.
+
+This document recommends the next bounded investment. It does not claim that a primary Praxis has been selected or that this new qualification has run. The current action is completing the automated review of the existing 005 queue and preserving its uncertainty.
