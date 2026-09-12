@@ -1,0 +1,754 @@
+{
+  "protocol_id": "2e3749bcc7fa4f5d1bbd9b5758608ecb5827c2546fc8ebc29fef991cb035b938",
+  "prereg_commit": "bb5f3720c18e47a21f6fea5b4e56b1f9c781ef14",
+  "prereg_amendment_commit": "ec18486",
+  "status": "automated_provisional",
+  "missing": [],
+  "arms": {
+    "base": {
+      "harm": {
+        "n": 64,
+        "qwen_unsafe": 0.046875,
+        "md_unsafe": 0.03125,
+        "both_unsafe": 0.03125,
+        "either_unsafe_or_unresolved": 0.359375,
+        "controversial_or_unsafe": 0.359375,
+        "invalid_judgment": 0,
+        "incomplete": 0.359375,
+        "disagreement": 0.015625,
+        "mean_output_tokens": 135.34375
+      },
+      "benign": {
+        "n": 64,
+        "overrefusal": 0.203125,
+        "complete_nonrefusal": 0.21875,
+        "qwen_unsafe": 0.015625,
+        "md_unsafe": 0,
+        "invalid_judgment": 0,
+        "incomplete": 0.625,
+        "disagreement": 0.015625,
+        "mean_output_tokens": 158.46875
+      },
+      "math": {
+        "n": 32,
+        "math_correct": 0.375,
+        "mean_output_tokens": 229.96875
+      }
+    },
+    "er": {
+      "harm": {
+        "n": 64,
+        "qwen_unsafe": 0.015625,
+        "md_unsafe": 0,
+        "both_unsafe": 0,
+        "either_unsafe_or_unresolved": 0.0625,
+        "controversial_or_unsafe": 0.0625,
+        "invalid_judgment": 0,
+        "incomplete": 0.0625,
+        "disagreement": 0.015625,
+        "mean_output_tokens": 145.8125
+      },
+      "benign": {
+        "n": 64,
+        "overrefusal": 0.9375,
+        "complete_nonrefusal": 0.015625,
+        "qwen_unsafe": 0,
+        "md_unsafe": 0,
+        "invalid_judgment": 0,
+        "incomplete": 0.09375,
+        "disagreement": 0,
+        "mean_output_tokens": 144.125
+      },
+      "math": {
+        "n": 32,
+        "math_correct": 0.625,
+        "mean_output_tokens": 177.9375
+      }
+    },
+    "base_kd": {
+      "harm": {
+        "n": 64,
+        "qwen_unsafe": 0.046875,
+        "md_unsafe": 0.03125,
+        "both_unsafe": 0.015625,
+        "either_unsafe_or_unresolved": 0.296875,
+        "controversial_or_unsafe": 0.296875,
+        "invalid_judgment": 0,
+        "incomplete": 0.296875,
+        "disagreement": 0.046875,
+        "mean_output_tokens": 123.40625
+      },
+      "benign": {
+        "n": 64,
+        "overrefusal": 0.203125,
+        "complete_nonrefusal": 0.375,
+        "qwen_unsafe": 0,
+        "md_unsafe": 0,
+        "invalid_judgment": 0,
+        "incomplete": 0.453125,
+        "disagreement": 0,
+        "mean_output_tokens": 150.671875
+      },
+      "math": {
+        "n": 32,
+        "math_correct": 0.6875,
+        "mean_output_tokens": 105.46875
+      }
+    },
+    "er_kd": {
+      "harm": {
+        "n": 64,
+        "qwen_unsafe": 0.015625,
+        "md_unsafe": 0,
+        "both_unsafe": 0,
+        "either_unsafe_or_unresolved": 0.046875,
+        "controversial_or_unsafe": 0.046875,
+        "invalid_judgment": 0,
+        "incomplete": 0.046875,
+        "disagreement": 0.015625,
+        "mean_output_tokens": 146.328125
+      },
+      "benign": {
+        "n": 64,
+        "overrefusal": 0.921875,
+        "complete_nonrefusal": 0.03125,
+        "qwen_unsafe": 0,
+        "md_unsafe": 0,
+        "invalid_judgment": 0,
+        "incomplete": 0.0625,
+        "disagreement": 0,
+        "mean_output_tokens": 140.984375
+      },
+      "math": {
+        "n": 32,
+        "math_correct": 0.71875,
+        "mean_output_tokens": 120.21875
+      }
+    },
+    "er_replay": {
+      "harm": {
+        "n": 64,
+        "qwen_unsafe": 0.015625,
+        "md_unsafe": 0,
+        "both_unsafe": 0,
+        "either_unsafe_or_unresolved": 0.03125,
+        "controversial_or_unsafe": 0.03125,
+        "invalid_judgment": 0,
+        "incomplete": 0.03125,
+        "disagreement": 0.015625,
+        "mean_output_tokens": 146.046875
+      },
+      "benign": {
+        "n": 64,
+        "overrefusal": 0.921875,
+        "complete_nonrefusal": 0.015625,
+        "qwen_unsafe": 0,
+        "md_unsafe": 0,
+        "invalid_judgment": 0,
+        "incomplete": 0.09375,
+        "disagreement": 0,
+        "mean_output_tokens": 143.859375
+      },
+      "math": {
+        "n": 32,
+        "math_correct": 0.65625,
+        "mean_output_tokens": 120.625
+      }
+    }
+  },
+  "paired_changes": {
+    "base_kd-base": {
+      "harm/qwen_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          -0.046875,
+          0.046875
+        ]
+      },
+      "harm/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/both_unsafe": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "harm/either_unsafe_or_unresolved": {
+        "n": 64,
+        "change": -0.0625,
+        "ci95": [
+          -0.125,
+          -0.015625
+        ]
+      },
+      "harm/controversial_or_unsafe": {
+        "n": 64,
+        "change": -0.0625,
+        "ci95": [
+          -0.125,
+          -0.015625
+        ]
+      },
+      "harm/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/incomplete": {
+        "n": 64,
+        "change": -0.0625,
+        "ci95": [
+          -0.125,
+          -0.015625
+        ]
+      },
+      "harm/disagreement": {
+        "n": 64,
+        "change": 0.03125,
+        "ci95": [
+          0,
+          0.078125
+        ]
+      },
+      "benign/overrefusal": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/complete_nonrefusal": {
+        "n": 64,
+        "change": 0.15625,
+        "ci95": [
+          0.078125,
+          0.234375
+        ]
+      },
+      "benign/qwen_unsafe": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "benign/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/incomplete": {
+        "n": 64,
+        "change": -0.171875,
+        "ci95": [
+          -0.265625,
+          -0.078125
+        ]
+      },
+      "benign/disagreement": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "math/math_correct": {
+        "n": 32,
+        "change": 0.3125,
+        "ci95": [
+          0.09375,
+          0.53125
+        ]
+      }
+    },
+    "er_kd-er": {
+      "harm/qwen_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/both_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/either_unsafe_or_unresolved": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.078125,
+          0.03125
+        ]
+      },
+      "harm/controversial_or_unsafe": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.078125,
+          0.03125
+        ]
+      },
+      "harm/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/incomplete": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.078125,
+          0.03125
+        ]
+      },
+      "harm/disagreement": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/overrefusal": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "benign/complete_nonrefusal": {
+        "n": 64,
+        "change": 0.015625,
+        "ci95": [
+          0,
+          0.046875
+        ]
+      },
+      "benign/qwen_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/incomplete": {
+        "n": 64,
+        "change": -0.03125,
+        "ci95": [
+          -0.078125,
+          0
+        ]
+      },
+      "benign/disagreement": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "math/math_correct": {
+        "n": 32,
+        "change": 0.09375,
+        "ci95": [
+          -0.09375,
+          0.28125
+        ]
+      }
+    },
+    "er_replay-er": {
+      "harm/qwen_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/both_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/either_unsafe_or_unresolved": {
+        "n": 64,
+        "change": -0.03125,
+        "ci95": [
+          -0.078125,
+          0
+        ]
+      },
+      "harm/controversial_or_unsafe": {
+        "n": 64,
+        "change": -0.03125,
+        "ci95": [
+          -0.078125,
+          0
+        ]
+      },
+      "harm/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/incomplete": {
+        "n": 64,
+        "change": -0.03125,
+        "ci95": [
+          -0.078125,
+          0
+        ]
+      },
+      "harm/disagreement": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/overrefusal": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "benign/complete_nonrefusal": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          -0.046875,
+          0.046875
+        ]
+      },
+      "benign/qwen_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/incomplete": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          -0.0625,
+          0.0625
+        ]
+      },
+      "benign/disagreement": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "math/math_correct": {
+        "n": 32,
+        "change": 0.03125,
+        "ci95": [
+          -0.15625,
+          0.21875
+        ]
+      }
+    },
+    "er_replay-er_kd": {
+      "harm/qwen_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/both_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/either_unsafe_or_unresolved": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "harm/controversial_or_unsafe": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "harm/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "harm/incomplete": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.046875,
+          0
+        ]
+      },
+      "harm/disagreement": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/overrefusal": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          -0.046875,
+          0.046875
+        ]
+      },
+      "benign/complete_nonrefusal": {
+        "n": 64,
+        "change": -0.015625,
+        "ci95": [
+          -0.0625,
+          0.03125
+        ]
+      },
+      "benign/qwen_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/md_unsafe": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/invalid_judgment": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "benign/incomplete": {
+        "n": 64,
+        "change": 0.03125,
+        "ci95": [
+          -0.03125,
+          0.09375
+        ]
+      },
+      "benign/disagreement": {
+        "n": 64,
+        "change": 0,
+        "ci95": [
+          0,
+          0
+        ]
+      },
+      "math/math_correct": {
+        "n": 32,
+        "change": -0.0625,
+        "ci95": [
+          -0.21875,
+          0.09375
+        ]
+      }
+    }
+  },
+  "judge_envelope_interpretation": "Instrument disagreement and unresolved assessments; not bounds on true harmfulness",
+  "limitations": [
+    "one training seed and one model family",
+    "manual adjudication pending",
+    "same-size benign hard-label distillation, not size compression",
+    "no new abliteration-resistance test"
+  ],
+  "difference_in_changes": {
+    "qwen_unsafe": {
+      "n": 64,
+      "change": 0,
+      "ci95": [
+        -0.046875,
+        0.046875
+      ]
+    },
+    "md_unsafe": {
+      "n": 64,
+      "change": 0,
+      "ci95": [
+        0,
+        0
+      ]
+    },
+    "both_unsafe": {
+      "n": 64,
+      "change": 0.015625,
+      "ci95": [
+        0,
+        0.046875
+      ]
+    },
+    "either_unsafe_or_unresolved": {
+      "n": 64,
+      "change": 0.046875,
+      "ci95": [
+        -0.03125,
+        0.125
+      ]
+    },
+    "controversial_or_unsafe": {
+      "n": 64,
+      "change": 0.046875,
+      "ci95": [
+        -0.03125,
+        0.125
+      ]
+    },
+    "invalid_judgment": {
+      "n": 64,
+      "change": 0,
+      "ci95": [
+        0,
+        0
+      ]
+    },
+    "incomplete": {
+      "n": 64,
+      "change": 0.046875,
+      "ci95": [
+        -0.03125,
+        0.125
+      ]
+    },
+    "disagreement": {
+      "n": 64,
+      "change": -0.03125,
+      "ci95": [
+        -0.078125,
+        0
+      ]
+    }
+  }
+}
