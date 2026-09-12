@@ -1,0 +1,9 @@
+﻿# Interpretation of the completed containment run
+
+The independent audit passed for all 192 calibration and 384 confirmation cells, with zero integrity errors. The run used 2,308 candidate forwards. The frozen training-only selector chose threshold 1.5 and random fallback probability 0.4984984984984985.
+
+The intervention demonstrates synthetic-fault actuation and some recovery, but it does not establish an advantage over strong controls. Clean accuracy was 15/32 for unprotected, conditional and random routing, and 14/32 for permanent social ablation. Negation reduced the unprotected model to 4/32; conditional, random and permanent policies all reached 14/32. Conditional routing recovered 12 of the 13 clean-correct questions damaged by negation, without losing a clean-correct answer. Thus the narrow damage/recovery feasibility screens pass.
+
+The transfer result is negative. On the held-out permutation fault, conditional routing made zero interventions and remained at 9/32; random reached 11/32 and permanent ablation reached 14/32. Across these three aggregate condition accuracies, random is at least as good as conditional and strictly better on permutation. No demonstrated selective-method advantage warrants a general containment claim.
+
+The gate replaced every eligible social selection under negation, and none under clean or permutation inputs. Combined with identical calibration outcomes for thresholds 0.5, 1.0 and 1.5, this supports an actuator-specific discrimination result. It does not show detection of naturally incorrect internal reasoning or fault-general selection. The exact paired counts, confidence intervals, routing totals and likelihood checks are retained in audit.json. Any empathy qualification is a separately preregistered test of useful social participation; it must preserve this negative transfer result.
