@@ -8,9 +8,11 @@ def main():
     study=(root/'final_praxis'/a.study).resolve()
     if study.parent!=root/'final_praxis' or not study.is_dir():raise ValueError('Explicit new study required')
     files=[]
+    tracked=set(subprocess.check_output(['git','ls-files'],cwd=root,text=True).splitlines())
     for directory in [study,root/'final_praxis/shared_20260912']:
         for path in directory.rglob('*'):
             if not path.is_file():continue
+            if path.relative_to(root).as_posix() not in tracked:continue
             if path.is_symlink():raise ValueError('Symlink not permitted in cloud bundle')
             if set(path.relative_to(directory).parts).intersection({'__pycache__','execution','runs','results','.venv','cache','hf_cache','vendor','checkpoints'}):continue
             if path.suffix in {'.pyc','.zip','.safetensors','.pt','.pth'}:continue

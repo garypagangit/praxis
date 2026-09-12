@@ -142,7 +142,7 @@ class BudgetLedger:
 class BedrockAdapter:
     def __init__(self, model_id, *, profile="praxis-build", region="us-east-1",
                  receipt_dir=None, ledger=None, max_attempts=3, timeout=300,
-                 additional_model_request_fields=None, client=None):
+                 additional_model_request_fields=None, client=None, allowed_temperatures=(0,)):
         if model_id not in RATES:
             raise ValueError("Model requires a verified price entry before invocation")
         if region != "us-east-1":
@@ -161,6 +161,9 @@ class BedrockAdapter:
         self.receipt_dir.mkdir(parents=True, exist_ok=True)
         self.ledger = ledger or BudgetLedger()
         self.max_attempts = max_attempts
+        self.allowed_temperatures = tuple(allowed_temperatures)
+        if self.allowed_temperatures not in ((0,), (0, 0.3)):
+            raise ValueError("Only original greedy or preregistered stage-two sampling is supported")
         self.additional = additional_model_request_fields
         # Disable hidden SDK retries: every actual attempt must have its own receipt.
         self.client = client or boto3.Session(profile_name=profile, region_name=region).client(
@@ -179,8 +182,8 @@ class BedrockAdapter:
                  request_id=None, seed=None):
         if not 1 <= max_new_tokens <= 4096:
             raise ValueError("Output token bound must be 1..4096")
-        if temperature != 0:
-            raise ValueError("This experiment adapter freezes temperature=0")
+        if temperature not in self.allowed_temperatures:
+            raise ValueError("Temperature is outside this run's explicit allowed set")
         request_id = request_id or uuid.uuid4().hex
         if not re.fullmatch(r"[A-Za-z0-9_.-]{1,150}", request_id):
             raise ValueError("Unsafe or oversized request ID")
@@ -295,4 +298,3 @@ class BedrockAdapter:
             write_new(self.receipt_dir / (request_id + ".result.json"), result)
             return result
         raise AssertionError("Unreachable retry state")
-
