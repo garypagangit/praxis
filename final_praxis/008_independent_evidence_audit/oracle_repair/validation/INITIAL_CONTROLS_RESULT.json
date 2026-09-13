@@ -1,0 +1,868 @@
+{
+  "completed_utc": "2026-09-13T23:50:05.557783+00:00",
+  "scorer_sha256": "35f588c4205e164042fc4c6770969fba4a61a2c5f288e152a805d517af99f446",
+  "runner_sha256": "c795a8915d3066d89949e3dacf0efb42ad9213ecbe1bbfa7f9490f649eb52cec",
+  "controls_sha256": "de6d229380f529031a0fa81dcbb5261ce4b6a781687848baf512929611c7656b",
+  "control_freeze": {
+    "created_utc": "2026-09-13T23:49:20.346990+00:00",
+    "control_file": "controls.json",
+    "sha256": "de6d229380f529031a0fa81dcbb5261ce4b6a781687848baf512929611c7656b",
+    "answer_controls": 50,
+    "table_controls": 20,
+    "scorer_existed_at_freeze": false,
+    "expected_outcomes": "Manually specified before scorer implementation was available to this validator"
+  },
+  "scorer_version": "typed-oracle-v1",
+  "counts": {
+    "pass": 68,
+    "not_implemented": 2
+  },
+  "all_controls_pass": false,
+  "scope": "Synthetic agreement and record-restoration controls only; does not establish benchmark purpose success or model capability",
+  "results": [
+    {
+      "id": "integer_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "integer_wrong",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "integer_float_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "float_integer_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "finite_negative_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "signed_zero",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "fraction_is_not_truncated",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "integer_not_text",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "near_float_exact_policy",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "explicit_absolute_tolerance_pass",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "explicit_absolute_tolerance_fail",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "explicit_relative_tolerance_pass",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "explicit_relative_tolerance_fail",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "boolean_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "boolean_wrong",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "boolean_is_not_integer",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "integer_is_not_boolean",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "code_leading_zero_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "code_leading_zero_loss",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "numeric_code_not_number",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "textual_json_not_list",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "string_case_exact",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "string_whitespace_exact",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "empty_string_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "null_is_present",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "null_not_string",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "nested_mapping_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "mapping_keys_with_wrong_values",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "nested_mapping_corruption",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "mapping_missing_key",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "mapping_extra_key",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "empty_mapping_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "ordered_list_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "ordered_list_reordered",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "ordered_list_duplicate_deleted",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "ordered_list_duplicate_added",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "empty_list_identity",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "multiset_list_reordered",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "multiset_list_duplicate_deleted",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "multiset_nested_values",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "explicit_set_contract_duplicates",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "list_boolean_is_not_number",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "nan_reference_invalid",
+      "category": "answer",
+      "expected": "invalid_reference",
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "nonfinite_or_unsupported_reference"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "nested_nan_reference_invalid",
+      "category": "answer",
+      "expected": "invalid_reference",
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "nonfinite_or_unsupported_reference"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "infinite_reference_invalid",
+      "category": "answer",
+      "expected": "invalid_reference",
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "nonfinite_or_unsupported_reference"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "nonfinite_prediction_invalid",
+      "category": "answer",
+      "expected": "invalid_prediction",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "nonfinite_or_unsupported_prediction"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "missing_output",
+      "category": "answer",
+      "expected": "missing_output",
+      "actual": {
+        "status": "missing_output",
+        "correct": false,
+        "reason": "missing_output"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "missing_output_for_nullable_reference",
+      "category": "answer",
+      "expected": "missing_output",
+      "actual": {
+        "status": "missing_output",
+        "correct": false,
+        "reason": "missing_output"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "execution_error",
+      "category": "answer",
+      "expected": "execution_error",
+      "actual": {
+        "status": "execution_error",
+        "correct": false,
+        "reason": "execution_error"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "error_text_is_not_answer",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_identity",
+      "category": "table",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "record_agreement",
+        "matched_cells": 4,
+        "total_cells": 4,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 1.0
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_explicit_id_reorder",
+      "category": "table",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "record_agreement",
+        "matched_cells": 4,
+        "total_cells": 4,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 1.0
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_extra_bad_row",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 2,
+        "total_cells": 4,
+        "missing_ids": [],
+        "added_ids": [
+          "[[\"str\", \"b\"]]"
+        ],
+        "cell_match_fraction": 0.5
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_deleted_row",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 2,
+        "total_cells": 4,
+        "missing_ids": [
+          "[[\"str\", \"b\"]]"
+        ],
+        "added_ids": [],
+        "cell_match_fraction": 0.5
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_null_identity",
+      "category": "table",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "record_agreement",
+        "matched_cells": 2,
+        "total_cells": 2,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 1.0
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_null_overwritten",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 1,
+        "total_cells": 2,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 0.5
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_value_erased",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 1,
+        "total_cells": 2,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 0.5
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_missing_column",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "prediction_schema_mismatch",
+        "matched_cells": 0,
+        "total_cells": null
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_extra_column",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "prediction_schema_mismatch",
+        "matched_cells": 0,
+        "total_cells": null
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_duplicate_prediction_id",
+      "category": "table",
+      "expected": "invalid_prediction_identity",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "duplicate_identity",
+        "matched_cells": 0,
+        "total_cells": null
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_duplicate_reference_id",
+      "category": "table",
+      "expected": "invalid_reference_identity",
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "duplicate_identity",
+        "matched_cells": 0,
+        "total_cells": null
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_missing_prediction_id",
+      "category": "table",
+      "expected": "invalid_prediction_identity",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "prediction_schema_mismatch",
+        "matched_cells": 0,
+        "total_cells": null
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_null_reference_id",
+      "category": "table",
+      "expected": "invalid_reference_identity",
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "record IDs must be nonnull finite scalars",
+        "matched_cells": 0,
+        "total_cells": null
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_code_ids_preserved",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 0,
+        "total_cells": 4,
+        "missing_ids": [
+          "[[\"str\", \"001\"]]"
+        ],
+        "added_ids": [
+          "[[\"str\", \"1\"]]"
+        ],
+        "cell_match_fraction": 0.0
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_bool_value_distinct",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 1,
+        "total_cells": 2,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 0.5
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_all_null_values",
+      "category": "table",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "record_agreement",
+        "matched_cells": 4,
+        "total_cells": 4,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 1.0
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_missing_output",
+      "category": "table",
+      "expected": "missing_output",
+      "verdict": "not_implemented",
+      "detail": "score_table has no prediction_status input"
+    },
+    {
+      "id": "table_execution_error",
+      "category": "table",
+      "expected": "execution_error",
+      "verdict": "not_implemented",
+      "detail": "score_table has no prediction_status input"
+    },
+    {
+      "id": "table_empty_with_schema",
+      "category": "table",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "record_agreement",
+        "matched_cells": 0,
+        "total_cells": 0,
+        "missing_ids": [],
+        "added_ids": [],
+        "cell_match_fraction": 1.0
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "table_empty_prediction",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 0,
+        "total_cells": 2,
+        "missing_ids": [
+          "[[\"str\", \"a\"]]"
+        ],
+        "added_ids": [],
+        "cell_match_fraction": 0.0
+      },
+      "verdict": "pass"
+    }
+  ]
+}

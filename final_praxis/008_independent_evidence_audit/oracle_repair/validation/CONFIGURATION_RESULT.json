@@ -1,0 +1,152 @@
+{
+  "completed_utc": "2026-09-13T23:51:46.985491+00:00",
+  "provenance": "Manually specified supplementary source-review controls, not blinded pre-implementation controls",
+  "scorer_sha256": "465a315ad2fa7ad169128520986d40a082f29c36acc189eedcc5f662619ae868",
+  "runner_sha256": "e4fb1d2e4741183eb5311c8fb00325aa180b9b4041c3fa3d833647f860ccf786",
+  "total": 17,
+  "passed": 17,
+  "results": [
+    {
+      "id": "count_above_float_precision_identity",
+      "expected_status": "correct",
+      "expected_correct": true,
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "pass": true
+    },
+    {
+      "id": "count_above_float_precision_off_by_one",
+      "expected_status": "incorrect",
+      "expected_correct": false,
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "pass": true
+    },
+    {
+      "id": "count_above_float_precision_lossy_float",
+      "expected_status": "incorrect",
+      "expected_correct": false,
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "pass": true
+    },
+    {
+      "id": "null_forbidden_reference",
+      "expected_status": "invalid_reference",
+      "expected_correct": null,
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "nonfinite_or_unsupported_reference"
+      },
+      "pass": true
+    },
+    {
+      "id": "null_forbidden_prediction",
+      "expected_status": "incorrect",
+      "expected_correct": false,
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "nonfinite_or_unsupported_prediction"
+      },
+      "pass": true
+    },
+    {
+      "id": "nonstring_reference_mapping_key",
+      "expected_status": "invalid_reference",
+      "expected_correct": null,
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "nonfinite_or_unsupported_reference"
+      },
+      "pass": true
+    },
+    {
+      "id": "nonstring_prediction_mapping_key",
+      "expected_status": "incorrect",
+      "expected_correct": false,
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "nonfinite_or_unsupported_prediction"
+      },
+      "pass": true
+    },
+    {
+      "id": "invalid_reference_precedes_missing_prediction",
+      "expected_status": "invalid_reference",
+      "expected_correct": null,
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "nonfinite_or_unsupported_reference"
+      },
+      "pass": true
+    },
+    {
+      "id": "unknown_numeric_mode",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "unknown_list_mode",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "unknown_path_mode",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "unknown_columnar_mode",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "negative_absolute_tolerance",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "infinite_relative_tolerance",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "nan_absolute_tolerance",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "boolean_tolerance",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    },
+    {
+      "id": "unknown_prediction_status",
+      "expected_exception": "ValueError",
+      "exception": "ValueError",
+      "pass": true
+    }
+  ]
+}

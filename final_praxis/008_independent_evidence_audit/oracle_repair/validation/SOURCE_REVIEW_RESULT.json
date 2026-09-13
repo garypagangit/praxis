@@ -1,0 +1,218 @@
+{
+  "completed_utc": "2026-09-13T23:51:04.032298+00:00",
+  "scorer_sha256": "465a315ad2fa7ad169128520986d40a082f29c36acc189eedcc5f662619ae868",
+  "runner_sha256": "7037a0370f05acb9cc9ef6e300b0408e2994f602046b5a59694e219f520c76b4",
+  "controls_sha256": "cb78bfa4208047963a533e48b06b725e2dbdb0c5783ab7b084ebc59ac816db1a",
+  "control_freeze": {
+    "created_utc": "2026-09-13T23:51:03.482172+00:00",
+    "control_file": "source_review_controls.json",
+    "sha256": "cb78bfa4208047963a533e48b06b725e2dbdb0c5783ab7b084ebc59ac816db1a",
+    "answer_controls": 14,
+    "table_controls": 2,
+    "scorer_existed_at_freeze": true,
+    "scorer_sha256_at_freeze": "465a315ad2fa7ad169128520986d40a082f29c36acc189eedcc5f662619ae868",
+    "expected_outcomes": "Manually specified after source review; includes targeted nested-columnar regression and matching controls"
+  },
+  "scorer_version": "typed-oracle-v1",
+  "counts": {
+    "pass": 16
+  },
+  "all_controls_pass": true,
+  "scope": "Synthetic agreement and record-restoration controls only; does not establish benchmark purpose success or model capability",
+  "results": [
+    {
+      "id": "columnar_paired_row_permutation",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_independent_column_sort_corrupts_pairing",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_duplicate_row_loss",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_ordered_reorder_fails",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_invalid_reference_lengths",
+      "category": "answer",
+      "expected": "invalid_reference",
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "invalid_parallel_columns"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_invalid_prediction_lengths",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_nested_order_is_preserved",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_nested_intact_row_permutation",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "nontransitive_tolerance_needs_augmenting_path",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "nontransitive_tolerance_no_perfect_matching",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "tolerant_set_keeps_exact_distinct_members",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "path_specific_set_accepts_permutation",
+      "category": "answer",
+      "expected": "correct",
+      "actual": {
+        "status": "correct",
+        "correct": true,
+        "reason": "typed_agreement"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "path_specific_set_does_not_reorder_other_sequence",
+      "category": "answer",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "typed_mismatch"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "columnar_non_list_reference_invalid",
+      "category": "answer",
+      "expected": "invalid_reference",
+      "actual": {
+        "status": "invalid_reference",
+        "correct": null,
+        "reason": "invalid_parallel_columns"
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "typed_boolean_id_differs_from_integer",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 0,
+        "total_cells": 4,
+        "missing_ids": [
+          "[[\"bool\", true]]"
+        ],
+        "added_ids": [
+          "[[\"int\", 1]]"
+        ],
+        "cell_match_fraction": 0.0
+      },
+      "verdict": "pass"
+    },
+    {
+      "id": "typed_integer_id_differs_from_float",
+      "category": "table",
+      "expected": "incorrect",
+      "actual": {
+        "status": "incorrect",
+        "correct": false,
+        "reason": "record_mismatch",
+        "matched_cells": 0,
+        "total_cells": 4,
+        "missing_ids": [
+          "[[\"int\", 1]]"
+        ],
+        "added_ids": [
+          "[[\"float\", 1.0]]"
+        ],
+        "cell_match_fraction": 0.0
+      },
+      "verdict": "pass"
+    }
+  ]
+}

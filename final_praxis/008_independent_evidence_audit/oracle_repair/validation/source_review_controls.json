@@ -1,0 +1,26 @@
+{
+  "schema_version":"independent-oracle-controls-v1",
+  "provenance":"Additional manually specified controls after source review, separate from initially blinded control freeze",
+  "default_answer_contract":{"numeric_abs_tol":0.0,"numeric_rel_tol":0.0,"list_mode":"ordered"},
+  "answer_controls":[
+    {"id":"columnar_paired_row_permutation","reference":{"code":["A","B"],"count":[1,2]},"prediction":{"code":["B","A"],"count":[2,1]},"contract":{"columnar_mode":"multiset"},"expected":"correct"},
+    {"id":"columnar_independent_column_sort_corrupts_pairing","reference":{"code":["A","B"],"count":[1,2]},"prediction":{"code":["A","B"],"count":[2,1]},"contract":{"columnar_mode":"multiset"},"expected":"incorrect"},
+    {"id":"columnar_duplicate_row_loss","reference":{"code":["A","A"],"count":[1,1]},"prediction":{"code":["A"],"count":[1]},"contract":{"columnar_mode":"multiset"},"expected":"incorrect"},
+    {"id":"columnar_ordered_reorder_fails","reference":{"code":["A","B"],"count":[1,2]},"prediction":{"code":["B","A"],"count":[2,1]},"contract":{"columnar_mode":"ordered"},"expected":"incorrect"},
+    {"id":"columnar_invalid_reference_lengths","reference":{"code":["A","B"],"count":[1]},"prediction":{"code":["A","B"],"count":[1]},"contract":{"columnar_mode":"multiset"},"expected":"invalid_reference"},
+    {"id":"columnar_invalid_prediction_lengths","reference":{"code":["A","B"],"count":[1,2]},"prediction":{"code":["A","B"],"count":[1]},"contract":{"columnar_mode":"multiset"},"expected":"incorrect"},
+    {"id":"columnar_nested_order_is_preserved","reference":{"code":["A"],"sequence":[[1,2]]},"prediction":{"code":["A"],"sequence":[[2,1]]},"contract":{"columnar_mode":"multiset"},"expected":"incorrect"},
+    {"id":"columnar_nested_intact_row_permutation","reference":{"code":["A","B"],"sequence":[[1,2],[3,4]]},"prediction":{"code":["B","A"],"sequence":[[3,4],[1,2]]},"contract":{"columnar_mode":"multiset"},"expected":"correct"},
+    {"id":"nontransitive_tolerance_needs_augmenting_path","reference":[0,1],"prediction":[0.5,-0.5],"contract":{"list_mode":"multiset","numeric_abs_tol":0.5},"expected":"correct"},
+    {"id":"nontransitive_tolerance_no_perfect_matching","reference":[0,2],"prediction":[0.5,-0.5],"contract":{"list_mode":"multiset","numeric_abs_tol":0.5},"expected":"incorrect"},
+    {"id":"tolerant_set_keeps_exact_distinct_members","reference":[0,1],"prediction":[0.5],"contract":{"list_mode":"set","numeric_abs_tol":0.5},"expected":"incorrect"},
+    {"id":"path_specific_set_accepts_permutation","reference":{"labels":[1,2],"steps":[3,4]},"prediction":{"labels":[2,1,2],"steps":[3,4]},"contract":{"path_modes":{"/labels":"set"}},"expected":"correct"},
+    {"id":"path_specific_set_does_not_reorder_other_sequence","reference":{"labels":[1,2],"steps":[3,4]},"prediction":{"labels":[2,1,2],"steps":[4,3]},"contract":{"path_modes":{"/labels":"set"}},"expected":"incorrect"},
+    {"id":"columnar_non_list_reference_invalid","reference":{"code":"A","count":[1]},"prediction":{"code":"A","count":[1]},"contract":{"columnar_mode":"multiset"},"expected":"invalid_reference"}
+  ],
+  "default_table_contract":{"key_columns":["id"],"columns":["id","value"]},
+  "table_controls":[
+    {"id":"typed_boolean_id_differs_from_integer","reference":[{"id":true,"value":1}],"prediction":[{"id":1,"value":1}],"expected":"incorrect"},
+    {"id":"typed_integer_id_differs_from_float","reference":[{"id":1,"value":1}],"prediction":[{"id":1.0,"value":1}],"expected":"incorrect"}
+  ]
+}

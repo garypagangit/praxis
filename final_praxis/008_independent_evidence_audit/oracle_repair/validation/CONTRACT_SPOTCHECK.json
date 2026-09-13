@@ -1,0 +1,190 @@
+{
+  "completed_utc": "2026-09-13T23:54:43.630270+00:00",
+  "scope": "Independent source-only semantic spot check; no model outputs, aggregate scores or inference.",
+  "contract_sha256_at_review": "2a4514a14801536c882e0978f29e0cfcffd159a4f58508dcc5e00da71adff757",
+  "review_script_sha256": "d6a7cb00f7eeb83d278222b35c643dcc286fa562e9f23a25c022051859966035",
+  "pandas_version": "3.0.2",
+  "sources": [
+    {
+      "id": 42,
+      "path": "datasets/CFI_datasets/cleaned_tables/chi_sample_p42.csv",
+      "sha256": "a2522c5de2bf392656f36a579289779ebd9355e34ae7ec612012e0a82668a865"
+    },
+    {
+      "id": 48,
+      "path": "datasets/CFI_datasets/cleaned_tables/chi_sample_p48.csv",
+      "sha256": "04e34454ffab2b766a7c48d581f93762da922370d0e54e1bc1a83e4ff0130c00"
+    },
+    {
+      "id": 40,
+      "path": "datasets/CFI_datasets/cleaned_tables/chi_sample_p40.csv",
+      "sha256": "4dc63974ec6a717684c46ead07618bbb08f417ea9957784e4e6cd25f799331ba"
+    },
+    {
+      "id": 130,
+      "path": "datasets/hospital/clean_tables/hos_pp130.csv",
+      "sha256": "1fef81ccb326ef3723b41491f5215cac76e5652c529cdca3e413d507c1af16c4"
+    },
+    {
+      "id": 68,
+      "path": "datasets/ppp_datasets/cleaned_tables/ppp_sample_p68.csv",
+      "sha256": "969192a8d9d4938694ed13724c217df2df86896dfabc8b16a49d5fa595294040"
+    },
+    {
+      "id": 109,
+      "path": "datasets/dish_datasets/cleaned_tables/dish_sample_p109.csv",
+      "sha256": "b76cea99c9266e062e5653ea09b7f681b95f3a5a017606b5f0024738644ff3cc"
+    },
+    {
+      "id": 93,
+      "path": "datasets/dish_datasets/cleaned_tables/dish_sample_p93.csv",
+      "sha256": "2069a172db08422933cf7e9386d5d99e2863723317dfdb6feb43d0a1f088a53e"
+    },
+    {
+      "id": 133,
+      "path": "datasets/hospital/clean_tables/hos_pp133.csv",
+      "sha256": "905bedac22768604c8f20e386b227a67868ba2bc5eb757707c079b308888a956"
+    },
+    {
+      "id": 16,
+      "path": "datasets/menu_datasets/clean_tables/menu_sample_p16.csv",
+      "sha256": "9707677c6d5b1ac3ac492240a99e217f54c13bd20cbfaa3993e72d8fe38d1fcf"
+    },
+    {
+      "id": 17,
+      "path": "datasets/menu_datasets/clean_tables/menu_sample_p17.csv",
+      "sha256": "ccdf54aaf05d1aea456b2debbf585e76570307e8ee4561e6c882cafb08917b88"
+    },
+    {
+      "id": 23,
+      "path": "datasets/menu_datasets/clean_tables/menu_sample_p23.csv",
+      "sha256": "e6281a54870b118b5dd314bbea4c7c9b0120ecc30ef31b16620606beff1222cc"
+    },
+    {
+      "id": 47,
+      "path": "datasets/CFI_datasets/cleaned_tables/chi_sample_p47.csv",
+      "sha256": "58fc39d0eb29053f12dda9446cb4ce1bcb0c388d1591484bffb8144cbfbeb4c9"
+    },
+    {
+      "id": 89,
+      "path": "datasets/ppp_datasets/cleaned_tables/ppp_sample_p89.csv",
+      "sha256": "34b68ef816bdfc796d32e9fdfa43c584b6e0f9ddb072e289c24c2b23e4e4917e"
+    },
+    {
+      "id": 92,
+      "path": "datasets/dish_datasets/cleaned_tables/dish_sample_p92.csv",
+      "sha256": "7e01b3613b650f3d1825747a5c697abb5648fec7903da91560c33990abcd9ad1"
+    },
+    {
+      "id": 7,
+      "path": "datasets/menu_datasets/clean_tables/menu_sample_p7.csv",
+      "sha256": "5506b1fbaab6d8f8d606a190429fe36dd4b6c585aa376429b64c270f8b0fa3c0"
+    }
+  ],
+  "findings": [
+    {
+      "id": 42,
+      "selected_inspection_rows": 3,
+      "distinct_licenses": 2,
+      "distinct_business_names": 2,
+      "issue": "Inspection row count differs from distinct store count."
+    },
+    {
+      "id": 48,
+      "businesses": 10,
+      "tied_maximum_businesses": 10,
+      "issue": "One idxmax answer arbitrarily selects among multiple valid tied maxima."
+    },
+    {
+      "id": 40,
+      "facility_types": 4,
+      "groups_with_tied_modes": 1,
+      "issue": "One mode per group plus literal JSON scoring does not credit all semantically valid ties/serializations."
+    },
+    {
+      "id": 130,
+      "requested_top_k": 3,
+      "counties_tied_at_cutoff": 4,
+      "issue": "Top-k boundary is tied; multiple valid top-three subsets exist."
+    },
+    {
+      "id": 68,
+      "business_types": 7,
+      "frequency_counts_in_rank_order": [
+        5,
+        5,
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      "issue": "Ordered reference treats arbitrary within-tie order as mandatory."
+    },
+    {
+      "id": 109,
+      "top_five_appearance_counts": [
+        33,
+        14,
+        9,
+        4,
+        4
+      ],
+      "issue": "Ranked top-five selection has an unspecified within-tie order."
+    },
+    {
+      "id": 93,
+      "returned_name_records": 37,
+      "distinct_names": 31,
+      "distinct_record_ids": 37,
+      "issue": "Name-list multiplicity is not explicitly required by the purpose wording."
+    },
+    {
+      "id": 133,
+      "selected_hospital_rows": 19,
+      "distinct_provider_numbers": 15,
+      "issue": "Hospital row count differs from the number of distinct hospital provider identifiers."
+    },
+    {
+      "id": 16,
+      "exact_event_sponsors": 3,
+      "word_matching_sponsors": 4,
+      "additional_sponsors_with_compound_event_labels": 1,
+      "issue": "Broad meal-offering purpose does not explicitly authorize exclusion of compound event labels; this is evidence of ambiguity, not replacement gold."
+    },
+    {
+      "id": 17,
+      "exact_event_sponsors": 12,
+      "word_matching_sponsors": 19,
+      "additional_sponsors_with_compound_event_labels": 7,
+      "issue": "Broad meal-offering purpose does not explicitly authorize exclusion of compound event labels; this is evidence of ambiguity, not replacement gold."
+    }
+  ],
+  "positive_controls": [
+    {
+      "id": 23,
+      "within_top_three_ties": 0,
+      "third_cutoff_ties": 1
+    },
+    {
+      "id": 47,
+      "maximal_failure_rate_ties": 1
+    },
+    {
+      "id": 89,
+      "maximal_aggregate_amount_ties": 1
+    },
+    {
+      "id": 92,
+      "rows": 50,
+      "unique_record_ids": 50,
+      "unique_names": 50
+    },
+    {
+      "id": 7,
+      "selected_rows": 6,
+      "unique_record_ids": 6
+    }
+  ],
+  "recommendation": "Retain diagnostic agreement; exclude unresolved entity, tie, serialization and multiplicity contracts from purpose-success claims until independently resolved."
+}
