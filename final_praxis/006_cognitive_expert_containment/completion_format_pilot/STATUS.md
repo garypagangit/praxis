@@ -1,6 +1,6 @@
 # Completion-format pilot: running
 
-Run `fp006-format-811d7cc4a6` launched on AWS under preregistration commit `811d7cc4a60d610fd7e5c0a4b3a3f2fbf9a6b140`. Supervisor heartbeat verified at **13 September 2026, 00:46 UTC** (12 September, 8:46 p.m. Eastern), with zero initial synchronization errors. This is startup verification; no scientific pass is claimed.
+Run `fp006-format-811d7cc4a6` launched on AWS under preregistration commit `811d7cc4a60d610fd7e5c0a4b3a3f2fbf9a6b140`. Supervisor heartbeat verified at **13 September 2026, 00:46 UTC** (12 September, 8:46 p.m. Eastern), with zero initial synchronization errors. A later independent check at **00:52 UTC / 8:52 p.m. Eastern** validated **2/64 response cells**, with zero integrity errors, all **12 numerical probes passing**, and zero synchronization errors. The scientific result remains pending. [LIVE_CHECK.json](LIVE_CHECK.json) records that snapshot.
 
 The fixed study has **32 unused GSM8K TRAIN questions, raw/chat paired intact generations, 64 cells total**. The source-backed chat wrapper is the only candidate; raw is diagnostic. Chat must have <=3 capped responses, >=29 numeric extractions and >=8 nontruncated flexible-correct responses, with all technical/integrity gates passing. The 1,024-token cap is unchanged. [PREREGISTRATION.md](PREREGISTRATION.md) freezes the literature, RQ, hypotheses, data, thresholds and stop rules.
 
