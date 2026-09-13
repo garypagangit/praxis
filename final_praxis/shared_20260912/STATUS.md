@@ -4,7 +4,7 @@
 
 **Latest completed run:** `fp006-format-811d7cc4a6` completed all64 responses at13September01:02UTC. Cloud and local audits agree, with zero integrity errors and all numerical checks passing. Raw scored10/32 correct with3 capped responses; chat scored9/32 correct with7 capped responses. Chat needed at most3 capped responses. Its decision remains **DO_NOT_ADVANCE_CURRENT_QUALIFICATION**, published automatically in commit `7ab16c9`. [Final pilot results](https://github.com/garypagangit/praxis/blob/Final-Praxis-006-Cognitive-Expert-Containment/final_praxis/006_cognitive_expert_containment/completion_format_pilot/completed/RESULTS.md).
 
-**Cloud verification:** The completed run requested early shutdown and had an external stop scheduled for02:45UTC. A fresh read at22:54UTC was blocked by expired AWS SSO; the official CLI sign-in flow was opened. Current stopped/running state is not inferred from experiment completion. No new model job was launched during this closeout.
+**Cloud verification:** AWS SSO reconnected successfully. Live EC2 verification at 23:17:08 UTC on 13 September confirmed both campaign hosts (`i-039ed976444ade397` and `i-07178e293e8df2a60`, both `g5.xlarge`) are stopped in `us-east-1`. No campaign stop schedules remain. This verifies current state; it does not establish the exact earlier shutdown time. [Verification receipt](AWS_RECONNECT_20260913.json).
 
 | Your option | Numbered Git branch | Completed evidence | Closeout decision |
 |---|---|---|---|

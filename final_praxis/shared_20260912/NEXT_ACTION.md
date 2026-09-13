@@ -10,4 +10,4 @@ Only after the source, task-success oracle, useful baseline and closest-prior bo
 
 [Candidate008](https://github.com/garypagangit/praxis/tree/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit) contains the completed offline audit and the exact next repair: freeze task/query/reference semantics, implement independently checked typed scoring and row/error accounting, then replay released outputs offline. [All experiment status](STATUS.md) records the four closures. No primary Praxis is selected yet.
 
-Operationally, the expired AWS SSO session needs a completed sign-in before the current state of the two experiment hosts can be checked. The old job's completed state and scheduled shutdown are not substituted for that live check. The official AWS CLI login was opened; no new compute job was submitted.
+Operationally, AWS SSO is connected again. Live verification at 23:17:08 UTC on 13 September confirmed both experiment hosts are stopped and no campaign stop schedules remain. [Verification receipt](AWS_RECONNECT_20260913.json). The next research action remains the offline oracle repair and replay described above.
