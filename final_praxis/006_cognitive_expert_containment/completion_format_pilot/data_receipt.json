@@ -1,0 +1,48 @@
+{
+  "source_files": {
+    "train": {
+      "url": "https://raw.githubusercontent.com/openai/grade-school-math/3101c7d5072418e28b9008a6636bde82a006892c/grade_school_math/data/train.jsonl",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "rows": 7473
+    },
+    "test": {
+      "url": "https://raw.githubusercontent.com/openai/grade-school-math/3101c7d5072418e28b9008a6636bde82a006892c/grade_school_math/data/test.jsonl",
+      "sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "rows": 1319
+    }
+  },
+  "source_commit": "3101c7d5072418e28b9008a6636bde82a006892c",
+  "selection": "ascending SHA256(completion-format-v1:train:<exact question>), tie original index; unique NFKC casefold whitespace-normalized questions",
+  "excluded_prior_train_ids": [
+    "train-4775",
+    "train-0184",
+    "train-0569",
+    "train-2123",
+    "train-5851",
+    "train-5401",
+    "train-3312",
+    "train-0380",
+    "train-2190",
+    "train-2095",
+    "train-3982",
+    "train-3839",
+    "train-7402",
+    "train-0105",
+    "train-1222",
+    "train-6274"
+  ],
+  "exclude_all_normalized_test_questions": true,
+  "prior_data_sha256": "b1599c6ceb080d988bb1998813b071d280bfe39ac1f6846069103b4c2c6d178d",
+  "eligible_train_n": 7457,
+  "pilot_n": 32,
+  "test_n": 0,
+  "data_sha256": "b94a434966eb8a503fa5ca568666fec6c8f286efe78134afd1eff9ec2fbc237f",
+  "tokenizer_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+  "tokenizer_json_sha256": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+  "chat_template_sha256": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4",
+  "rendering_library_versions": {
+    "transformers": "5.8.0",
+    "tokenizers": "0.22.2"
+  },
+  "runtime_requirement": "Cloud pinned tokenizer must reproduce EVERY saved raw/chat input token ID before inference. No remote code needed to render tokenizer template."
+}

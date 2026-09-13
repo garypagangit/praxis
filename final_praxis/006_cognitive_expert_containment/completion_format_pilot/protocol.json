@@ -1,0 +1,63 @@
+{
+  "study_id": "fp006-completion-format-pilot-v1",
+  "data_sha256": "b94a434966eb8a503fa5ca568666fec6c8f286efe78134afd1eff9ec2fbc237f",
+  "test_n": 0,
+  "pilot_n": 32,
+  "conditions": [
+    "raw",
+    "chat"
+  ],
+  "prompt_template": "Q: {question}\nA: Let's think step by step.",
+  "chat_template": {
+    "raw": false,
+    "chat": true
+  },
+  "add_special_tokens": {
+    "raw": true,
+    "chat": false
+  },
+  "bos_token_id": 128000,
+  "eos_token_ids": [
+    128001,
+    128009
+  ],
+  "pad_token_id": 128004,
+  "stop_strings": [
+    "Q:",
+    "</s>",
+    "<|im_end|>"
+  ],
+  "max_new_tokens": 1024,
+  "do_sample": false,
+  "seed": 20260913,
+  "batch_size": 1,
+  "dtype": "float32",
+  "attention": "sdpa",
+  "cache_max_abs_tolerance": 0.001,
+  "numerical_prompts": [
+    "A simple arithmetic question: 2 + 2 =",
+    "There are three boxes with five apples each. The total number of apples is",
+    "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\nToday Date: 13 Sep 2026\n\n<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nA simple arithmetic question: 2 + 2 =<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+    "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\nToday Date: 13 Sep 2026\n\n<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nThere are three boxes with five apples each. The total number of apples is<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+  ],
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 20260913,
+  "primary_metric": "chat_nontruncated_harness_flexible_correct_count",
+  "gates": {
+    "chat_truncated_max_count": 3,
+    "chat_numeric_extracted_min_count": 29,
+    "chat_nontruncated_flexible_correct_min_count": 8
+  },
+  "inference_seconds_limit": 4800,
+  "supervisor_seconds_limit": 6300,
+  "host_hours_limit": 2,
+  "total_usd_cap": 15,
+  "paper_score_reproduction_claimed": false,
+  "novel_method_tested": false,
+  "predecessor_run": "fp006-logic-ec92d2561c",
+  "amendment": "Prospective single fixed chat-wrapper feasibility pilot after raw-format qualification failed completion; no held-out TEST generation in this study",
+  "chat_date_string": "13 Sep 2026",
+  "expected_cells": 64,
+  "checkpoint_interventions": false,
+  "automatic_followup": false
+}
