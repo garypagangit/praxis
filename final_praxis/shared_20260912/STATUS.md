@@ -2,7 +2,7 @@
 
 **Investment decision:** Option 3 (branch 006, cognitive expert containment) is the only direction receiving another bounded feasibility test. Its latest model shows a strong useful logic contribution, but the qualification failed its completion gate. Do not yet select a primary publishable Praxis. The current implementations in options 1, 2 and 4 are closed; there is no assigned manual review left.
 
-**Live next step, 00:46 UTC:** The [completion-format pilot](https://github.com/garypagangit/praxis/blob/Final-Praxis-006-Cognitive-Expert-Containment/final_praxis/006_cognitive_expert_containment/completion_format_pilot/STATUS.md) is running on AWS as `fp006-format-811d7cc4a6`, with a verified supervisor heartbeat. Its frozen preregistration is `811d7cc`; the automatic collector is active. Startup is verified; the scientific outcome is pending. External stop: 02:45:28 UTC (12 September, 10:45:28 p.m. Eastern). Only the GPU host is used; the other experiment host remains stopped.
+**Live next step, 00:52 UTC:** The [completion-format pilot](https://github.com/garypagangit/praxis/blob/Final-Praxis-006-Cognitive-Expert-Containment/final_praxis/006_cognitive_expert_containment/completion_format_pilot/STATUS.md) is running on AWS as `fp006-format-811d7cc4a6`, with a verified supervisor heartbeat. Its frozen preregistration is `811d7cc`; the automatic collector is active. All 12 numerical probes passed, and the first 2/64 responses passed an independent integrity audit with zero errors. The scientific outcome is pending. External stop: 02:45:28 UTC (12 September, 10:45:28 p.m. Eastern). Only the GPU host is used; the other experiment host remains stopped.
 
 | Your option | Numbered Git branch | Completed evidence | Closeout decision |
 |---|---|---|---|
