@@ -1,0 +1,508 @@
+{
+  "status": "COMPLETE",
+  "protocol_sha256": "faa3714d14160ea713847cc5aaa1231c426f035e4855e8cff881840856b24b8b",
+  "data_sha256": "b94a434966eb8a503fa5ca568666fec6c8f286efe78134afd1eff9ec2fbc237f",
+  "expected_cells": 64,
+  "recorded_cells": 64,
+  "validated_unique_cells": 64,
+  "missing_cell_count": 0,
+  "missing_cells": [],
+  "integrity_errors": [],
+  "technical_checks": {
+    "pinned_bundle": true,
+    "exact_checkpoint_load": true,
+    "finite": true,
+    "repeat_equal": true,
+    "ablation_reset_equal": true,
+    "cache_top_token_equal": true,
+    "cache_max_abs_within_tolerance": true,
+    "ablation_routes_zero": true,
+    "eager_sdpa_top_token_equal": true,
+    "eager_sdpa_max_abs_within_tolerance": true
+  },
+  "technical_detail_errors": [],
+  "all_technical_checks": true,
+  "arms": {
+    "raw": {
+      "n": 32,
+      "planned_n": 32,
+      "flexible_correct": 10,
+      "strict_correct": 0,
+      "strict_extracted": 0,
+      "flexible_extracted": 32,
+      "flexible_contains_digit": 32,
+      "nontruncated_flexible_correct": 10,
+      "truncated": 3,
+      "empty": 0,
+      "correct_and_truncated": 0,
+      "stop_reasons": {
+        "eos": 29,
+        "token_cap": 3
+      },
+      "tokens": 5960,
+      "sum_request_seconds": 266.1162484139998,
+      "routes": [
+        33819,
+        854,
+        34316,
+        60067
+      ],
+      "flexible_accuracy": 0.3125
+    },
+    "chat": {
+      "n": 32,
+      "planned_n": 32,
+      "flexible_correct": 9,
+      "strict_correct": 0,
+      "strict_extracted": 0,
+      "flexible_extracted": 32,
+      "flexible_contains_digit": 32,
+      "nontruncated_flexible_correct": 9,
+      "truncated": 7,
+      "empty": 0,
+      "correct_and_truncated": 0,
+      "stop_reasons": {
+        "eos": 25,
+        "token_cap": 7
+      },
+      "tokens": 9276,
+      "sum_request_seconds": 412.55210332200016,
+      "routes": [
+        46783,
+        1491,
+        48719,
+        102527
+      ],
+      "flexible_accuracy": 0.28125
+    }
+  },
+  "complete_paired_questions": 32,
+  "paired_diagnostics": {
+    "chat_minus_raw_flexible": {
+      "n": 32,
+      "intact_correct": 9,
+      "comparison_correct": 10,
+      "correct_to_wrong": 4,
+      "wrong_to_correct": 5,
+      "discordant": 9,
+      "difference": -0.03125,
+      "ci95": [
+        -0.21875,
+        0.15625
+      ],
+      "quantile_method": "linear interpolation at (replicates - 1) * probability",
+      "bootstrap_replicates": 10000,
+      "seed": 20260913,
+      "interval_scope": "paired questions, not training seeds or model families",
+      "reference_condition": "chat",
+      "comparison_condition": "raw",
+      "descriptive_only": true
+    },
+    "chat_minus_raw_completed_correct": {
+      "n": 32,
+      "intact_correct": 9,
+      "comparison_correct": 10,
+      "correct_to_wrong": 4,
+      "wrong_to_correct": 5,
+      "discordant": 9,
+      "difference": -0.03125,
+      "ci95": [
+        -0.21875,
+        0.15625
+      ],
+      "quantile_method": "linear interpolation at (replicates - 1) * probability",
+      "bootstrap_replicates": 10000,
+      "seed": 20260913,
+      "interval_scope": "paired questions, not training seeds or model families",
+      "reference_condition": "chat",
+      "comparison_condition": "raw",
+      "descriptive_only": true
+    },
+    "raw_minus_chat_truncation": {
+      "n": 32,
+      "intact_correct": 3,
+      "comparison_correct": 7,
+      "correct_to_wrong": 1,
+      "wrong_to_correct": 5,
+      "discordant": 6,
+      "difference": -0.125,
+      "ci95": [
+        -0.28125,
+        0.0
+      ],
+      "quantile_method": "linear interpolation at (replicates - 1) * probability",
+      "bootstrap_replicates": 10000,
+      "seed": 20260913,
+      "interval_scope": "paired questions, not training seeds or model families",
+      "reference_condition": "raw",
+      "comparison_condition": "chat",
+      "descriptive_only": true
+    }
+  },
+  "qualification": {
+    "passed": false,
+    "components": {
+      "complete_frozen_64_cell_cohort": true,
+      "all_technical_checks": true,
+      "chat_truncated_at_most_3_of_32": false,
+      "chat_numeric_extracted_at_least_29_of_32": true,
+      "chat_nontruncated_correct_at_least_8_of_32": true
+    },
+    "decision": "DO_NOT_ADVANCE_CURRENT_QUALIFICATION",
+    "automatic_followup": false,
+    "interpretation": "A pass permits designing a separately frozen fresh-test qualification; it is not a full-study or investment pass."
+  },
+  "scoring": {
+    "harness_commit": "ad8737ae7fad24cf64e50fc7fc31397bff586b9e",
+    "task_sha256": "c506c7f5c19da2817db443f7e6d943421dfc9237510a70991d2667cf8efce1e0",
+    "primary_gate": "nontruncated flexible-correct chat answers, on all 32 planned chat questions",
+    "numeric_extraction": "flexible match containing a digit",
+    "normalization": "pinned regex removals then lowercase; no numeric coercion"
+  },
+  "limitations": [
+    "This is a training-split feasibility pilot, not a held-out efficacy or novelty result.",
+    "Raw is diagnostic only; it cannot replace a failed chat candidate.",
+    "Pilot gates do not prove a population truncation rate below 10%.",
+    "Chat text is independently rendered here; token IDs are hashed and compared to the frozen manifest, not independently decoded by this standard-library audit.",
+    "Question-bootstrap intervals do not cover model seeds or families.",
+    "No automatic follow-up inference is permitted by this pilot result."
+  ],
+  "input_receipts": [
+    {
+      "file": "cells\\pilot-train-0164-chat.json",
+      "sha256": "7b4ff267e5e42dd7bc3090ad3b9a4940a79965016c77e88d068da0c748501e71",
+      "bytes": 2277
+    },
+    {
+      "file": "cells\\pilot-train-0164-raw.json",
+      "sha256": "c9aab9e180f674785b274550100f1985c8df89f6bd1811af3d6c57cab68fb395",
+      "bytes": 2572
+    },
+    {
+      "file": "cells\\pilot-train-0284-chat.json",
+      "sha256": "e1b7438a327827495e36557efc4f22a07cadc15210b11243b8428da8a6c8a5d3",
+      "bytes": 2310
+    },
+    {
+      "file": "cells\\pilot-train-0284-raw.json",
+      "sha256": "15be96f2049ac6b6dccd1b16d851b9be0df8ba2ef424c607be1e0f3f5e000b8c",
+      "bytes": 2277
+    },
+    {
+      "file": "cells\\pilot-train-0454-chat.json",
+      "sha256": "e14a47e176d1ca770830d45ae650a91def5fed5c90643e44c74d51a64790e318",
+      "bytes": 2425
+    },
+    {
+      "file": "cells\\pilot-train-0454-raw.json",
+      "sha256": "1eb4ba15ab01e01ef47ffc17baefcc85f445dd829e62c3e3a3bf7c2081e34b90",
+      "bytes": 3596
+    },
+    {
+      "file": "cells\\pilot-train-1040-chat.json",
+      "sha256": "8aecdc835ffe909f34347b0adaead81170131ef166605593c54c42c9a2404bee",
+      "bytes": 2878
+    },
+    {
+      "file": "cells\\pilot-train-1040-raw.json",
+      "sha256": "2bc6129b1cffe9af7496d079d00a7c0e4eaba88853501b1ee3a4a23452186bde",
+      "bytes": 2999
+    },
+    {
+      "file": "cells\\pilot-train-1126-chat.json",
+      "sha256": "5a85d19edec29d0155767351c380c7bb26c674799e4e2729c71693ae71d11db3",
+      "bytes": 2148
+    },
+    {
+      "file": "cells\\pilot-train-1126-raw.json",
+      "sha256": "f40a52421f2cb5f0e9245bf6ca440f8cbda3b7152fd7409ae75e67dfc6470999",
+      "bytes": 2483
+    },
+    {
+      "file": "cells\\pilot-train-1129-chat.json",
+      "sha256": "fd894e6a30303244f9c8bf3ff578181250d4f76139c3bd72d06e880edabb4fcd",
+      "bytes": 2422
+    },
+    {
+      "file": "cells\\pilot-train-1129-raw.json",
+      "sha256": "42451a9476ed928782f7df27ee782c983eee15034604303b7e0d0e427ad0796b",
+      "bytes": 2419
+    },
+    {
+      "file": "cells\\pilot-train-1325-chat.json",
+      "sha256": "2071c29b7a572b9b3cda3253eab8a415425b0b4b357261bc77fa0c320d0e267f",
+      "bytes": 1622
+    },
+    {
+      "file": "cells\\pilot-train-1325-raw.json",
+      "sha256": "8f6585a77b37722c1003301be202aa112e97fa233f7e0e2fde0930e2f10fbeef",
+      "bytes": 1827
+    },
+    {
+      "file": "cells\\pilot-train-1406-chat.json",
+      "sha256": "529541abceba812f2359233f117fde0a57bb36b4ae9e343b1353b4b7d70da2c2",
+      "bytes": 1840
+    },
+    {
+      "file": "cells\\pilot-train-1406-raw.json",
+      "sha256": "7d44f4ec14c299c100dc1b92e8bde0f71a5c3396a595464a6b65a980676fd021",
+      "bytes": 1887
+    },
+    {
+      "file": "cells\\pilot-train-1577-chat.json",
+      "sha256": "6391ce6439ce73bff19ee0ea009130ba5de78f1c7ba0bf8850a9ee6a44a7d414",
+      "bytes": 1921
+    },
+    {
+      "file": "cells\\pilot-train-1577-raw.json",
+      "sha256": "887e72d9a4606aa10dea71800801a5e70b88a2467b87359d0df5453aba2d4214",
+      "bytes": 2182
+    },
+    {
+      "file": "cells\\pilot-train-1711-chat.json",
+      "sha256": "5f579326eb49b81629266fcb7dd716f1ac6734d42b00680bceb9e98dc41f4b0d",
+      "bytes": 17298
+    },
+    {
+      "file": "cells\\pilot-train-1711-raw.json",
+      "sha256": "8320a9e06e54237a0ff73be5c61f22d62eb5a89854e923cdb65414bd8451c48f",
+      "bytes": 17791
+    },
+    {
+      "file": "cells\\pilot-train-1973-chat.json",
+      "sha256": "5001c57c6f1c644001822d53b83de9d8bf8229ffb846a1c28e5744706983191e",
+      "bytes": 2751
+    },
+    {
+      "file": "cells\\pilot-train-1973-raw.json",
+      "sha256": "e8d04687679ff1197089255023298f6048b8aa58c2ed0be75aa329b7ad5946ff",
+      "bytes": 2239
+    },
+    {
+      "file": "cells\\pilot-train-2194-chat.json",
+      "sha256": "7dfe35f39f8968fa48d4422eb4d21aee57f1f3f2314f8fdabd0641caf33975d3",
+      "bytes": 1513
+    },
+    {
+      "file": "cells\\pilot-train-2194-raw.json",
+      "sha256": "49835b5a43020a7923c79053b4e7d9f24756386402ff5033ee7b39ca3d6d2043",
+      "bytes": 2274
+    },
+    {
+      "file": "cells\\pilot-train-2319-chat.json",
+      "sha256": "33f6f0045761798beedb76a54f83a4510ac3f8f8bd106cd8502a9790cb938077",
+      "bytes": 1845
+    },
+    {
+      "file": "cells\\pilot-train-2319-raw.json",
+      "sha256": "6bbcbda101581e3e0a8fafa723ea89516a7241494405f3ca85ed554fbbbcd1a0",
+      "bytes": 2473
+    },
+    {
+      "file": "cells\\pilot-train-2495-chat.json",
+      "sha256": "7f718ebad601664bcaead6732e262e275de04366c6edbc5b53864912a2517e54",
+      "bytes": 2291
+    },
+    {
+      "file": "cells\\pilot-train-2495-raw.json",
+      "sha256": "bae8c9d8302d499d1eb6c3981f94ee1773348f9a96e59094bd6376887f525da1",
+      "bytes": 2291
+    },
+    {
+      "file": "cells\\pilot-train-2598-chat.json",
+      "sha256": "e4871e9a46125099383632430a07ed563ebd32730109768f0a4d4f538f94c93e",
+      "bytes": 1941
+    },
+    {
+      "file": "cells\\pilot-train-2598-raw.json",
+      "sha256": "c4ce3669be8c506a7fe6fc1284f94e9f6517b8beaf436d1704b1a38fd86326bf",
+      "bytes": 1390
+    },
+    {
+      "file": "cells\\pilot-train-2943-chat.json",
+      "sha256": "3b46ba6b68e7ee05c375c4db4c3c8a28129d65d4a2b547ea41b8f50c6d098757",
+      "bytes": 2183
+    },
+    {
+      "file": "cells\\pilot-train-2943-raw.json",
+      "sha256": "dfa9996bd58a6cfda24483dccba20f99a4e0f891281d5d0acda17efbd7a3bd80",
+      "bytes": 2843
+    },
+    {
+      "file": "cells\\pilot-train-3356-chat.json",
+      "sha256": "3008987cea005192255c1ae09e7d5e2c266bab74f0d2362b423a174eb604e42a",
+      "bytes": 1614
+    },
+    {
+      "file": "cells\\pilot-train-3356-raw.json",
+      "sha256": "a9f735787a16826051c7d8f2f0cfceb2fae883b8ad444d2f36518fc0847e7624",
+      "bytes": 2311
+    },
+    {
+      "file": "cells\\pilot-train-3589-chat.json",
+      "sha256": "84951f3f113e000d5b6b699230b778acf0d6fa085d78f635ce61d059626efff2",
+      "bytes": 14040
+    },
+    {
+      "file": "cells\\pilot-train-3589-raw.json",
+      "sha256": "9de2b19b663ec7849eb58b0cbb2ccc8cd7ab3886dbfd4e530a29716a8d2674b4",
+      "bytes": 3778
+    },
+    {
+      "file": "cells\\pilot-train-4107-chat.json",
+      "sha256": "cf41dac1b33e922a7a480f7ed2f415d22201796749853d7563f5c08610de4a5f",
+      "bytes": 2510
+    },
+    {
+      "file": "cells\\pilot-train-4107-raw.json",
+      "sha256": "ddb992b1479d23883627fff9e13bd603640fb1fc1e95093d0ecd3499f14f15a7",
+      "bytes": 3457
+    },
+    {
+      "file": "cells\\pilot-train-4249-chat.json",
+      "sha256": "a7d6de8d98ddfcc09029053fb2b361fe420414fe3e5579565fcba8efb28a9ccf",
+      "bytes": 2182
+    },
+    {
+      "file": "cells\\pilot-train-4249-raw.json",
+      "sha256": "4b2e6d121461f02275550fd0739cebd0b4887c961adf46d2fa5410669043baeb",
+      "bytes": 1807
+    },
+    {
+      "file": "cells\\pilot-train-4508-chat.json",
+      "sha256": "45e95676871925b910bb4fe646b5d54f6e39e97486c8fefce51755f756f71326",
+      "bytes": 2267
+    },
+    {
+      "file": "cells\\pilot-train-4508-raw.json",
+      "sha256": "c10a075745b5f3a7b4e1cf7576569e34020fa719385bfc469c0429c7914194fa",
+      "bytes": 2065
+    },
+    {
+      "file": "cells\\pilot-train-4856-chat.json",
+      "sha256": "9b69c6a49d49ea8651081ab1db64eedc356bcae425c0dff5df0ce1d52acf037d",
+      "bytes": 17642
+    },
+    {
+      "file": "cells\\pilot-train-4856-raw.json",
+      "sha256": "1d66711e17a6e4c0d48530e095872236d183784d368b2086cf7f1920163e76d4",
+      "bytes": 2525
+    },
+    {
+      "file": "cells\\pilot-train-4981-chat.json",
+      "sha256": "9a3a204a2a0c13a3c2dfd57871096005ed54fa69f4fa484cd24023df772b18e4",
+      "bytes": 2467
+    },
+    {
+      "file": "cells\\pilot-train-4981-raw.json",
+      "sha256": "cbf0c3732996c98342c13d458082bacc719e916d108024724b8540ebb314ee8f",
+      "bytes": 2609
+    },
+    {
+      "file": "cells\\pilot-train-5724-chat.json",
+      "sha256": "d2ee2d921345361a736dcd260cd2b14a996dab6d051d926a12982ac29d5e588b",
+      "bytes": 16656
+    },
+    {
+      "file": "cells\\pilot-train-5724-raw.json",
+      "sha256": "654df7973ca79768ff9abe021b9e0317e6d55a040ef2f83b7fe48b665f584a40",
+      "bytes": 3658
+    },
+    {
+      "file": "cells\\pilot-train-5913-chat.json",
+      "sha256": "2ad6143cc4e6a8e3d771c55ef6f6fc31b9477a7dcbd1e9b32a059fd56b31d676",
+      "bytes": 19307
+    },
+    {
+      "file": "cells\\pilot-train-5913-raw.json",
+      "sha256": "18bed1fe7a44a58419e7a96c60eb91089dba3f947225af43fe2b9d44819114c5",
+      "bytes": 17419
+    },
+    {
+      "file": "cells\\pilot-train-6586-chat.json",
+      "sha256": "d928e3bc3a489aa6774cfcf47d59f2241e97037de81c00442a4ac5e87e35e406",
+      "bytes": 2022
+    },
+    {
+      "file": "cells\\pilot-train-6586-raw.json",
+      "sha256": "82590d308e94613bd1a3d641da0efa368165a4612510148a0dd075ef8bb8face",
+      "bytes": 1869
+    },
+    {
+      "file": "cells\\pilot-train-6746-chat.json",
+      "sha256": "81e74d2b6622766aa408c9074e9ca67ec5833127b07367e8c3b823a4b85eb200",
+      "bytes": 1798
+    },
+    {
+      "file": "cells\\pilot-train-6746-raw.json",
+      "sha256": "1dc877a80bf32019d993d200f09d16ca30ce45ddff473af9e4adc200d0268926",
+      "bytes": 2209
+    },
+    {
+      "file": "cells\\pilot-train-6870-chat.json",
+      "sha256": "d971b7ef49597f1af80b3926d5d6e2c3d1acd950218e5eba272311ba68c047e9",
+      "bytes": 2817
+    },
+    {
+      "file": "cells\\pilot-train-6870-raw.json",
+      "sha256": "38bf395c3cef5e648d47db482450f2e9e820d4fa08ec8cea2e0c4f7cc947ee55",
+      "bytes": 2800
+    },
+    {
+      "file": "cells\\pilot-train-7152-chat.json",
+      "sha256": "bf2775dc603a6453ddce4ed6ddcee3ee843c1107fcc631c3eba497a377cb14b0",
+      "bytes": 17563
+    },
+    {
+      "file": "cells\\pilot-train-7152-raw.json",
+      "sha256": "14289c9e68931862fc22aee47195bfa6b2b638243f0a97bdffc5e8b4400e7226",
+      "bytes": 2891
+    },
+    {
+      "file": "cells\\pilot-train-7309-chat.json",
+      "sha256": "79ee8d7854c9c8306530c743b8043b215a39ad3b3c108fbcfe8c80de2d0d9b5c",
+      "bytes": 2868
+    },
+    {
+      "file": "cells\\pilot-train-7309-raw.json",
+      "sha256": "3d88d3292c77a2d62405e4247180062c599bc0dcd8a64e33aa46aa1681121c62",
+      "bytes": 2595
+    },
+    {
+      "file": "cells\\pilot-train-7359-chat.json",
+      "sha256": "732812d5c6667fb344dfa46c47fb3eaec696c66e8de64356cac0521167361f9e",
+      "bytes": 18403
+    },
+    {
+      "file": "cells\\pilot-train-7359-raw.json",
+      "sha256": "d37d251ca4a87278bce7ee0b2771603abd670979d626ad4944663c6714cb4d6a",
+      "bytes": 2829
+    },
+    {
+      "file": "cells\\pilot-train-7469-chat.json",
+      "sha256": "7a9d9588d65bacf722e28ad1415a8862c9063e85baf0c811015479d2ac9d0093",
+      "bytes": 2424
+    },
+    {
+      "file": "cells\\pilot-train-7469-raw.json",
+      "sha256": "dc2d9e0e07941aaf48f99b7478bb61beefd9b20623968cfa395ff9a6da0194a2",
+      "bytes": 19953
+    },
+    {
+      "file": "C:\\w\\fp006\\final_praxis\\006_cognitive_expert_containment\\completion_format_pilot\\data.json",
+      "sha256": "b94a434966eb8a503fa5ca568666fec6c8f286efe78134afd1eff9ec2fbc237f",
+      "bytes": 163387
+    },
+    {
+      "file": "C:\\w\\fp006\\final_praxis\\006_cognitive_expert_containment\\completion_format_pilot\\protocol.json",
+      "sha256": "faa3714d14160ea713847cc5aaa1231c426f035e4855e8cff881840856b24b8b",
+      "bytes": 2334
+    },
+    {
+      "file": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_20260913_completion_followup\\collected\\outputs\\technical.json",
+      "sha256": "42769701d5e6557b26e0008b85dfa1cb0a3962cee8e65a8337b81af61b3d187c",
+      "bytes": 8395
+    }
+  ],
+  "audit_utc": "2026-09-13T01:04:11.601804+00:00"
+}
