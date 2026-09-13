@@ -1,0 +1,44 @@
+{
+  "decision": "HOLD_UNTRUSTWORTHY_BASELINE_ORACLE",
+  "publish_allowlist": [
+    "README.md",
+    "audit_oracles.py",
+    "fetch_sources.py",
+    "SOURCE_MANIFEST.json",
+    "PUBLIC_AUDIT.json",
+    "PUBLIC_INVENTORY.json",
+    "INVENTORY_SUMMARY.json",
+    "RUN_HISTORY.md",
+    "EXECUTION_RECEIPT.json",
+    "inventory/inventory.py"
+  ],
+  "allowlist_sha256": {
+    "README.md": "7d98b5ff8d8742457b9c9cbe32f08274ab04bdc4d0dc3847a687813b18256bad",
+    "audit_oracles.py": "4f594a2a440db8850fb2adde5adc2c29e057d37fee0e0e6b2f35c85949796653",
+    "fetch_sources.py": "ee743b55107ef558f6cade648412d1bc5e6dbfd3cb6ca6f8c1c9dda3021096d8",
+    "SOURCE_MANIFEST.json": "198e8b01a1c8dc8e5215b8e9d69e8e4b46ab9b82957d640da00272c930b3b77a",
+    "PUBLIC_AUDIT.json": "b2e4754e622a256a38c172f4a9940fec9584c1a6c2364061eae7645054f4bc16",
+    "PUBLIC_INVENTORY.json": "73db9514b70a1285772293186e485f621b766213df02bfb705fc16db59e8bb05",
+    "INVENTORY_SUMMARY.json": "bb724963a938519520aa259af3b377525fd3ee08a904b20fc10a3cae44df9722",
+    "RUN_HISTORY.md": "9a9c3adec5ba84b3efb3cba7cec6984cd8e0601ddcfcddb93d3115d6fa93f37a",
+    "EXECUTION_RECEIPT.json": "ffc97307321592c56349661c9972ee40c2521de78c07a3f5e1cf8e9ab8d5c052",
+    "inventory/inventory.py": "49b54a0af02a6d44eff121d55fba983060e5ab08bf3fb781b04c63e6ff655313"
+  },
+  "do_not_publish": [
+    "source/",
+    "inventory/cache/",
+    "ANSWER_FIXTURES.json",
+    "AUDIT.json",
+    "audit_stdout.txt",
+    "inventory/inventory_receipt.json",
+    "inventory/README.md",
+    "inventory/tree.json"
+  ],
+  "notes": [
+    "Allowlist contains our scripts/reports and derived count/hash/path metadata only.",
+    "Excluded ANSWER_FIXTURES contains copied gold answers; source and cache contain third-party content.",
+    "Unredacted inventory receipt includes heuristic examples from source purposes/answers; use PUBLIC_INVENTORY instead.",
+    "Original full package remains local for reproducibility. SHA256SUMS is metadata but is not required for public release; publish a new checksum manifest over copied allowlist if desired.",
+    "No corrected evaluator, new model baseline, or paper-wide reproduction has been performed."
+  ]
+}

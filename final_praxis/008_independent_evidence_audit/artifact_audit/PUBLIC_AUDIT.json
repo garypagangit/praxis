@@ -1,0 +1,186 @@
+{
+  "decision": "HOLD_UNTRUSTWORTHY_BASELINE_ORACLE",
+  "audit_execution_completed": true,
+  "scope": "142 released gold-answer identity/negative fixture pairs; eight data-comparator fixtures; three reviewed actual query functions. Not a full pipeline or saved-model-performance reproduction.",
+  "repository_commit": "082dcbf5304329ef1ff08f5830e4116256b00a59",
+  "input_hashes": {
+    "evaluation/answer_analysis.py": "3c551a79e26818b82799b0bd079ddb19caae01f526b10369fbea5b2fcc2489a1",
+    "evaluation/data_compare.py": "06dbd1dc87a65317ac0a34fe1b6f86913d5eaa2ea9a964e1d256b7ab4559d97b",
+    "evaluation/q_execution.py": "b5b7c42a1e60a0457cc275a17cc839777d9aa461d8ae7c30bb68922277f13622",
+    "dataset-all - all_purposes.csv": "17f3c65a86630c603f034083581da03ab773ccf7deebf8636ece6f9d8a18ff06",
+    "CoT.rerun/answer_1-154_gt.json": "9e4cbb32d08408ca103df40273e6db6ed27a3edc2982f57cd1412d318b994f49"
+  },
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "pandas": "3.0.2",
+      "numpy": "2.4.4",
+      "python-dateutil": "2.9.0.post0"
+    }
+  },
+  "purpose_rows": 142,
+  "unique_purpose_ids": 142,
+  "gold_rows": 142,
+  "unique_gold_ids": 142,
+  "id_sets_equal": true,
+  "nonfinite_gold": [
+    {
+      "id": 104,
+      "paths": [
+        "answer.highest_price[7]"
+      ]
+    }
+  ],
+  "receipt_encoding": "Python json.loads accepts upstream NaN; original values supplied to scorer unchanged. Nonfinite values tagged only in output JSON. Their identity behavior is not a valid semantic scoring guarantee.",
+  "answer_fixtures_by_type": {
+    "dict": {
+      "n": 13,
+      "identity_accuracy_one": 13,
+      "identity_f1_one": 13,
+      "negative_accuracy_zero": 13,
+      "wrong_answer_f1_one": 13,
+      "identity_failure_ids": []
+    },
+    "float": {
+      "n": 11,
+      "identity_accuracy_one": 11,
+      "identity_f1_one": 11,
+      "negative_accuracy_zero": 11,
+      "wrong_answer_f1_one": 0,
+      "identity_failure_ids": []
+    },
+    "int": {
+      "n": 29,
+      "identity_accuracy_one": 0,
+      "identity_f1_one": 0,
+      "negative_accuracy_zero": 29,
+      "wrong_answer_f1_one": 0,
+      "identity_failure_ids": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        10,
+        21,
+        22,
+        27,
+        31,
+        35,
+        42,
+        49,
+        50,
+        54,
+        67,
+        127,
+        132,
+        133,
+        135,
+        136,
+        137,
+        143,
+        144,
+        145,
+        147,
+        148,
+        149,
+        150
+      ]
+    },
+    "list": {
+      "n": 65,
+      "identity_accuracy_one": 65,
+      "identity_f1_one": 65,
+      "negative_accuracy_zero": 65,
+      "wrong_answer_f1_one": 0,
+      "identity_failure_ids": []
+    },
+    "str": {
+      "n": 24,
+      "identity_accuracy_one": 22,
+      "identity_f1_one": 22,
+      "negative_accuracy_zero": 24,
+      "wrong_answer_f1_one": 0,
+      "identity_failure_ids": [
+        78,
+        79
+      ]
+    }
+  },
+  "identity_correct": 111,
+  "identity_total": 142,
+  "negative_correct": 142,
+  "minimal_repairs": [
+    "Freeze one authoritative purpose-to-query-to-gold contract; resolve pp2 rounding and pp3 count-versus-list mismatch before interpreting aggregate task success.",
+    "Normalize numeric types explicitly (exclude bool; define finite-value and tolerance rules); handle integer and mixed int/float comparisons; add identity/wrong fixtures for every released answer type.",
+    "Do not use dictionary-key F1 as answer-value correctness; specify canonical exact/typed value scoring and list ordering/duplicate policy per task.",
+    "Define stable row identity or task-specific order invariance, extra/deleted-row accounting, missing-column behavior and null semantics; do not silently exclude failures.",
+    "Keep unmodified upstream results as a reproduction track, and any repaired oracle as a separately versioned measurement amendment. Re-score released outputs offline before any new inference."
+  ],
+  "table_fixtures": [
+    {
+      "name": "identity",
+      "observed_value": 1.0,
+      "exception": null,
+      "interpretation": "Positive control; expect 1."
+    },
+    {
+      "name": "all_values_wrong",
+      "observed_value": 0.0,
+      "exception": null,
+      "interpretation": "Negative control; expect 0."
+    },
+    {
+      "name": "same_records_reordered",
+      "observed_value": 0.0,
+      "exception": null,
+      "interpretation": "Same records by explicit row_id, but comparator uses positional/default index alignment."
+    },
+    {
+      "name": "extra_wrong_record",
+      "observed_value": 1.0,
+      "exception": null,
+      "interpretation": "Extra rows are not penalized by this target-column comparator."
+    },
+    {
+      "name": "missing_record",
+      "observed_value": null,
+      "exception": "KeyError",
+      "interpretation": "Missing output rows require explicit failure accounting rather than unhandled exceptions."
+    },
+    {
+      "name": "changed_gold_null",
+      "observed_value": 1.0,
+      "exception": null,
+      "interpretation": "Null gold cells are excluded. Whether filling is allowed must be set by the task; this metric cannot measure preservation there."
+    },
+    {
+      "name": "all_gold_null",
+      "observed_value": null,
+      "exception": "ZeroDivisionError",
+      "interpretation": "All-null targets need a defined result; denominator is zero upstream."
+    },
+    {
+      "name": "missing_target_column",
+      "observed_value": null,
+      "exception": "KeyError",
+      "interpretation": "Schema failures need explicit scoring."
+    }
+  ],
+  "query_contract_findings": [
+    {
+      "id": 1,
+      "observation": "Actual upstream query returns an int that upstream answer scoring cannot credit."
+    },
+    {
+      "id": 2,
+      "observation": "Query truncates the arithmetic mean to int; purpose does not specify this rounding."
+    },
+    {
+      "id": 3,
+      "observation": "Published purpose asks for a count, but query and released gold return distinct values."
+    }
+  ],
+  "not_a_model_performance_reproduction": true
+}

@@ -1,0 +1,10 @@
+# Next: repair and independently qualify the task-success oracle
+
+The offline audit completed without model calls and returned HOLD. Do not launch a new model study or treat this candidate as a primary Praxis. Upstream scoring and source hashes remain preserved in `artifact_audit/`; copied source, gold answers and datasets are not included in Git. Reproduction scripts fetch the pinned public files when run.
+
+1. Freeze one purpose/query/reference manifest. The gold wording matches `purposes/all_purposes.csv`;33 root/full-purpose wordings differ. Resolve rounding, count-versus-list, and nonfinite-reference semantics from task evidence. Keep the upstream contract intact as a separately reported comparison; document any measurement amendment.
+2. Build a versioned typed answer scorer. Integer and finite mixed-numeric identity tests must pass; define numeric tolerances/units per task. Preserve identifier/code strings, check nested dictionary values, and declare list order/duplicate semantics. Valid identical answers must receive full credit and deliberately wrong answers must fail. Do not let key overlap stand in for correct values or silently drop invalid-reference tasks.
+3. Specify record identity and permitted transformations, including reordered, added/deleted rows, nulls, missing columns and query-execution errors. Validate against independently constructed task controls, not just the scorer's own implementation.
+4. Replay released outputs offline, keeping missing outputs distinct from source-code raw-table fallback. Report upstream and revised metrics separately with coverage. This must establish a capable baseline before a new paid experiment is registered.
+
+Only after these prerequisites and the close-prior comparison are resolved should the candidate's hypothesis, source-table splits, budget and stop rules be frozen for inference. A useful future specialist and a policy beyond PBRC's existing query contracts are still unproven. The current hold is due to measurement validity.
