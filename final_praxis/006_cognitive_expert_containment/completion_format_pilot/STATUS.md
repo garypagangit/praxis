@@ -6,4 +6,4 @@ Run `fp006-format-811d7cc4a6` ended with cloud state **COMPLETED**. The independ
 
 Read [completed/RESULTS.md](completed/RESULTS.md) for all arm scores, uncertainty, integrity checks and continuation criteria. [completed/ARTIFACTS.json](completed/ARTIFACTS.json) preserves source pins and private artifact hashes.
 
-A passing pilot only qualifies a separately preregistered fresh held-out qualification; it does not start it automatically or establish a novel method or primary-Praxis investment. The cloud supervisor requests early shutdown after its final upload; its external two-hour stop watchdog remains a backstop.
+**Implementation closed.** The chat candidate had7/32 capped responses against a maximum of3. The proposed fresh256 held-out qualification will not run. See [CLOSEOUT.md](CLOSEOUT.md) for the stopping decision and current verification limits; the original scientific review remains unchanged.
