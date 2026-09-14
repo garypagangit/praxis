@@ -1,0 +1,92 @@
+{
+  "status": "CLOSED_HOST_VERIFIED_STOPPED_RESULTS_DOWNLOADED",
+  "created_utc": "2026-09-14T15:07:26.117242+00:00",
+  "region": "us-east-1",
+  "instance_type": "g5.xlarge",
+  "gpu": "NVIDIA A10G",
+  "selected_hosts_started": 1,
+  "started_request_utc": "2026-09-14T14:07:00.005028+00:00",
+  "stop_request_observed_utc": "2026-09-14T15:02:41+00:00",
+  "stopped_state_observed_utc": "2026-09-14T15:07:25+00:00",
+  "verified_state": "stopped",
+  "external_scheduled_stop_utc": "2026-09-14T16:06:59.513132+00:00",
+  "manual_stop_verified_before_deadline": true,
+  "cost": {
+    "verified_usd_per_hour": 1.006,
+    "start_request_to_stopped_observation_hours": 1.0069430477777779,
+    "approximate_instance_compute_usd": 1.0129847060644446,
+    "reserve_usd": 25,
+    "is_invoice": false,
+    "scope": "Elapsed-window estimate for the selected instance only; excludes storage, transfer, tax and unrelated account resources."
+  },
+  "protocols": [
+    {
+      "path": "final_praxis/009_soup_streaming/QUALIFICATION_PROTOCOL.md",
+      "sha256": "042559776af19736332c95664729a72876927544495f719639afbcd73264394b",
+      "commit": "4da11527170eb22ce767021e482dd9473b531272"
+    },
+    {
+      "path": "final_praxis/010_attack_aware_forecasting/QUALIFICATION_PROTOCOL.md",
+      "sha256": "9e7261151100a93bed67ac5009322fa72d232fe786b05153de8a97c0c04e1406",
+      "commit": "2bc01bf2f1c43fae01cb9b16311dfda2a099e7e9"
+    }
+  ],
+  "result_archives": [
+    {
+      "archive": "009-results-attempt1.tar.gz",
+      "sha256": "bed1fcc3a1c67b9ce3dad31805300ce015b4956a4ea8413f4cb96123eb87079d",
+      "bytes": 7787,
+      "download_observed_utc": "2026-09-14T14:14:14+00:00"
+    },
+    {
+      "archive": "009-results-attempt2.tar.gz",
+      "sha256": "86da9b25cc9491432d74637b4c719be301127451a6d5b2b213028857236f8616",
+      "bytes": 1016574,
+      "download_observed_utc": "2026-09-14T14:15:14+00:00"
+    },
+    {
+      "archive": "010-setup-results.tar.gz",
+      "sha256": "f3353c439b02dc89872c2c336c0275696190bf98662f1fe7edb78f019cce3a5f",
+      "bytes": 8898,
+      "download_observed_utc": "2026-09-14T14:19:11+00:00"
+    },
+    {
+      "archive": "010-new3-results.tar.gz",
+      "sha256": "4fde7e9e366ebe12ee87b84db11dfadd48f5f58f98f6b1e75c62221b7a89f5f6",
+      "bytes": 33367,
+      "download_observed_utc": "2026-09-14T14:21:40+00:00"
+    },
+    {
+      "archive": "010-original25-results.tar.gz",
+      "sha256": "2f5777654e48298f28991a98f67775b460d9e62100976cba84484ab2cc9e31c9",
+      "bytes": 735900,
+      "download_observed_utc": "2026-09-14T14:57:56+00:00"
+    },
+    {
+      "archive": "010-calibration-results.tar.gz",
+      "sha256": "59d2f3345fad360516fd1b97ad3bfada7351af5386d0b093e0f95607ac8f6eba",
+      "bytes": 825078,
+      "download_observed_utc": "2026-09-14T15:02:38+00:00"
+    }
+  ],
+  "environment": {
+    "python": "3.10.12",
+    "torch": "2.6.0+cu124",
+    "location": "Existing ephemeral NVMe mount, isolated per-experiment virtual environments",
+    "model_workers": "Separate network namespaces, offline model assets, sequential GPU execution",
+    "old_caches_deleted": false,
+    "shared_environment_upgraded": false
+  },
+  "operational_corrections": [
+    "An initial SOUP shell wrapper failed parsing before model execution; its replacement invoked bash explicitly.",
+    "SOUP attempt 1 was incomplete because its shard safety guard rejected the working-directory arrangement. Attempt 2 used the identical worker bundle from the common parent directory and completed. Both scientific attempt receipts are retained.",
+    "The 010 setup publisher initially inherited disabled metadata credentials; publication was retried using the normal host role outside the offline model worker. Setup outputs were retained."
+  ],
+  "scientific_scope": "Reproducibility and operational qualification only. No new-defense efficacy campaign, held-out HAI scoring, pretrained SOUP quality run or paid inference API was executed.",
+  "provenance_private_receipt_sha256": {
+    "active_run": "17f14c2ff27c3232a5421a38f12d86542a5a3e9840486e276d265dbb8151615b",
+    "stop_request": "fc84a1bbfd981a46c113340b2fb87b8145135a4d8e539a626f9d9efcc76c3329",
+    "stopped_state": "890098e900c7194032ec7640616554cb5ec01590b572e4cc1b40468ad4a81eb3"
+  },
+  "privacy": "Account and resource identifiers remain in private operational receipts; published hashes bind this redacted record to those receipts."
+}

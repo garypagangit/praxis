@@ -21,3 +21,23 @@ The cloud-results directory contains `new3/` and the setup/control/environment r
 Use a new output filename to retain earlier receipts. Errors or missing inputs produce a failure receipt and a nonzero exit status. A partial 010 result returns zero only to indicate that its released new3 audit completed; its `overall_010_qualification` field remains `PENDING`.
 
 `AUDIT_ARCHIVE_VALIDATION.json` records one local replay of these audits against the same stored artifacts, comparing the documented check identities/verdicts and numerical fields. This validation involves no model inference and no new scientific experiment.
+
+The separate [postrun extension](audit_010_extended_postrun.py) adds original25 and calibration, with NumPy and SciPy. It was written after original25 finished; its provenance is [recorded separately](AUDIT_EXTENSION_SOURCE_ARCHIVE.json). The earlier source, archive record and review are retained. Select only explicitly released modes:
+
+```text
+python audit_010_extended_postrun.py --source FORECASTING_SOURCE_DIRECTORY --cloud-results SAVED_CLOUD_RESULTS_DIRECTORY --source-review INDEPENDENT_010_REVIEW.json --modes new3,original25 --output REVIEW_OUTPUT.json
+```
+
+After calibration is released, use `--modes new3,original25,calibration --nab-data PUBLIC_NAB_CSV`. The file is pinned by SHA-256. The audit reconstructs seeded input streams, covariance and scores, preserves the exact mixed-precision admission arithmetic, and checks all intervention assignments. For calibration it verifies truth alignment, missing-target boundaries, labels, scoring masks, threshold decisions and summary counts. It does not rerun model predictions or W1ACAS optimizer updates, nor treat archived p-values as independently regenerated. Operational success is distinct from detection efficacy or novelty.
+
+Nine independently specified synthetic controls cover floating-point admission, oracle timing, freeze semantics, duplicate assignments, episode versus point counts, forecast alignment and training-mask accounting:
+
+```text
+python -m unittest test_audit_010_extended_postrun -v
+```
+
+[Final validation](AUDIT_EXTENSION_FINAL_VALIDATION.json) binds the retained three review versions and all 20,026 final checks. [Three additional integrity controls](AUDIT_EXTENSION_MUTATION_CONTROLS.json) refuse missing receipts, a false reported gate and a rehashed record with incorrect floating-point admission. They only mutate temporary copies and are repeatable with:
+
+```text
+python check_010_extension_mutations.py --source FORECASTING_SOURCE_DIRECTORY --cloud-results SAVED_CLOUD_RESULTS_DIRECTORY --output MUTATION_REVIEW.json
+```

@@ -39,7 +39,11 @@ def main():
                     relative = f'completed_qualification/{mode}/{filename}'
                     if (base / relative).is_file():
                         names.append(relative)
-            for optional in ['RELEASE_MANIFEST.json', 'RELEASE_VERIFICATION.json', 'completed_qualification/FINAL_AUDIT.json']:
+            for optional in ['RELEASE_MANIFEST.json', 'RELEASE_VERIFICATION.json',
+                             'completed_qualification/RELEASE_MANIFEST.json',
+                             'completed_qualification/RELEASE_VERIFICATION.json',
+                             'completed_qualification/FINAL_ARTIFACT_AUDIT.json',
+                             'completed_qualification/QUALIFICATION_SUMMARY.json']:
                 if (base / optional).is_file():
                     names.append(optional)
         files = []
@@ -52,7 +56,9 @@ def main():
             files.append({'path': relative, 'bytes': len(data), 'sha256': sha(data),
                           'url': f'https://github.com/garypagangit/praxis/blob/{head}/{relative}'})
         # Verify every sealed item is actually present in the committed tree.
-        manifest_name = 'MANIFEST.json' if label == 'CTI' else 'RELEASE_MANIFEST.json'
+        manifest_name = ('MANIFEST.json' if label == 'CTI' else
+                         'completed_qualification/RELEASE_MANIFEST.json' if label == '010' else
+                         'RELEASE_MANIFEST.json')
         manifest_path = base / manifest_name
         inventory_count = 0
         if manifest_path.exists():
