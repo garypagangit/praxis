@@ -1,0 +1,412 @@
+{
+  "scope": "CPU instrumentation; generated toy blocks; no pretrained quality or GPU speed claim",
+  "assigned": 10,
+  "completed": 10,
+  "passed": 10,
+  "qualification_pass": true,
+  "provenance": {
+    "source_pin": "b0a6338232f47d7ffabac90deb810728c2e179b4",
+    "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]",
+    "platform": "Linux-6.8.0-1053-aws-x86_64-with-glibc2.35",
+    "dependencies": {
+      "torch": "2.6.0+cu124",
+      "transformers": "5.17.0",
+      "peft": "0.20.0",
+      "safetensors": "0.8.0",
+      "bitsandbytes": "0.50.2",
+      "numpy": "2.2.6"
+    },
+    "protocol_sha256": "042559776af19736332c95664729a72876927544495f719639afbcd73264394b",
+    "source_manifest_sha256": "c21eb2a5a5de848de6b150815a03196a8bf395492baea1aa5a6e5c4e999f50fb",
+    "harness_files": {
+      "common.py": "efd01f92ef01710484f104fa96229bfb74aa18ab118d6dcc339b5ac02383f1eb",
+      "cpu_controls.py": "960a1d4a3faa2ff235f340d7b97f4dd1286eb1a10e9549ddff45f8484a8479fd",
+      "gpu_qualification.py": "541cfa76913aa877ead51858ec011f065ec83d98a62662da9259448dc60528c9",
+      "source_gate.py": "30399315134dc06b9cc4d573c0af29d4b35b4a953f7cdd734e6f66f572d1ba20",
+      "staged_source.py": "bf93e20f87b3be6e0b0959612b563581c54636f9279920316a8c2c310ea66cb0"
+    }
+  },
+  "checks": [
+    {
+      "check": "all_gradients_and_trajectory_ram",
+      "passed": true,
+      "detail": {
+        "trajectory_steps": 3,
+        "comparisons": [
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          }
+        ],
+        "negative_control": false,
+        "layer_loads": 16,
+        "staging": null
+      }
+    },
+    {
+      "check": "all_gradients_and_trajectory_disk",
+      "passed": true,
+      "detail": {
+        "trajectory_steps": 3,
+        "comparisons": [
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          }
+        ],
+        "negative_control": false,
+        "layer_loads": 16,
+        "staging": null
+      }
+    },
+    {
+      "check": "all_gradients_and_trajectory_staged_sync",
+      "passed": true,
+      "detail": {
+        "trajectory_steps": 3,
+        "comparisons": [
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          }
+        ],
+        "negative_control": false,
+        "layer_loads": 16,
+        "staging": {
+          "slots": 2,
+          "peak_slots": 2,
+          "peak_staging_bytes": 512,
+          "byte_bound": 512,
+          "requested_read_bytes": 3584,
+          "reads": 14,
+          "waited_copy_events": 0,
+          "pin": false,
+          "prefetch": false,
+          "physical_read_bytes": null,
+          "physical_read_note": "Use process I/O counters; logical reads are not physical disk traffic."
+        }
+      }
+    },
+    {
+      "check": "all_gradients_and_trajectory_staged_prefetch",
+      "passed": true,
+      "detail": {
+        "trajectory_steps": 3,
+        "comparisons": [
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          },
+          {
+            "passed": true,
+            "tensors": 10,
+            "differences": []
+          }
+        ],
+        "negative_control": false,
+        "layer_loads": 16,
+        "staging": {
+          "slots": 2,
+          "peak_slots": 2,
+          "peak_staging_bytes": 512,
+          "byte_bound": 512,
+          "requested_read_bytes": 3584,
+          "reads": 14,
+          "waited_copy_events": 0,
+          "pin": false,
+          "prefetch": true,
+          "physical_read_bytes": null,
+          "physical_read_note": "Use process I/O counters; logical reads are not physical disk traffic."
+        }
+      }
+    },
+    {
+      "check": "corrupted_adapter_is_rejected",
+      "passed": true,
+      "detail": {
+        "trajectory_steps": 3,
+        "comparisons": [
+          {
+            "passed": false,
+            "tensors": 10,
+            "differences": [
+              {
+                "key": "0.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.1210915595293045
+              },
+              {
+                "key": "0.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0020316746085882187
+              },
+              {
+                "key": "1.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0010913312435150146
+              },
+              {
+                "key": "1.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0023882240056991577
+              },
+              {
+                "key": "2.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.001226186752319336
+              },
+              {
+                "key": "2.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0013844100758433342
+              },
+              {
+                "key": "3.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0011376719921827316
+              },
+              {
+                "key": "3.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0006784088909626007
+              },
+              {
+                "key": "loss",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0065839290618896484
+              },
+              {
+                "key": "output",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.07094414532184601
+              }
+            ]
+          },
+          {
+            "passed": false,
+            "tensors": 10,
+            "differences": [
+              {
+                "key": "0.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.03687088191509247
+              },
+              {
+                "key": "0.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0018073257524520159
+              },
+              {
+                "key": "1.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0026134680956602097
+              },
+              {
+                "key": "1.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.003629937767982483
+              },
+              {
+                "key": "2.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.002344613429158926
+              },
+              {
+                "key": "2.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0031394101679325104
+              },
+              {
+                "key": "3.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0037133218720555305
+              },
+              {
+                "key": "3.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.003296143375337124
+              },
+              {
+                "key": "loss",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.00032138824462890625
+              },
+              {
+                "key": "output",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.057946085929870605
+              }
+            ]
+          },
+          {
+            "passed": false,
+            "tensors": 10,
+            "differences": [
+              {
+                "key": "0.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.05131398141384125
+              },
+              {
+                "key": "0.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0017469823360443115
+              },
+              {
+                "key": "1.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.002004539594054222
+              },
+              {
+                "key": "1.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.004157643765211105
+              },
+              {
+                "key": "2.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0016377568244934082
+              },
+              {
+                "key": "2.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0030740946531295776
+              },
+              {
+                "key": "3.lora_A",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.002245508134365082
+              },
+              {
+                "key": "3.lora_B",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0037946365773677826
+              },
+              {
+                "key": "loss",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.0048525333404541016
+              },
+              {
+                "key": "output",
+                "same_shape_dtype": true,
+                "finite": true,
+                "max_abs": 0.06308090686798096
+              }
+            ]
+          }
+        ],
+        "negative_control": true,
+        "layer_loads": 16,
+        "staging": {
+          "slots": 2,
+          "peak_slots": 2,
+          "peak_staging_bytes": 512,
+          "byte_bound": 512,
+          "requested_read_bytes": 3584,
+          "reads": 14,
+          "waited_copy_events": 0,
+          "pin": false,
+          "prefetch": true,
+          "physical_read_bytes": null,
+          "physical_read_note": "Use process I/O counters; logical reads are not physical disk traffic."
+        }
+      }
+    },
+    {
+      "check": "recycled_pool_ownership_is_rejected",
+      "passed": true,
+      "detail": "recycled owner rejected"
+    },
+    {
+      "check": "copy_event_precedes_source_reclaim",
+      "passed": true,
+      "detail": {
+        "event_completed_before_reclaim": true
+      }
+    },
+    {
+      "check": "asynchronous_read_failure_is_visible",
+      "passed": true,
+      "detail": "read error surfaced"
+    },
+    {
+      "check": "close_semantics",
+      "passed": true,
+      "detail": "idempotent close and read refusal"
+    },
+    {
+      "check": "comparison_cannot_pass_vacuously",
+      "passed": true,
+      "detail": "nonfinite and empty comparisons rejected"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "scope": "Public source, artifact and dataset qualification; no inference",
+  "provenance": {
+    "source_pin": "b0a6338232f47d7ffabac90deb810728c2e179b4",
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "dependencies": {
+      "torch": "2.11.0",
+      "transformers": "5.8.0",
+      "peft": null,
+      "safetensors": "0.7.0",
+      "bitsandbytes": null,
+      "numpy": "2.4.4"
+    },
+    "protocol_sha256": "042559776af19736332c95664729a72876927544495f719639afbcd73264394b",
+    "source_manifest_sha256": "c21eb2a5a5de848de6b150815a03196a8bf395492baea1aa5a6e5c4e999f50fb",
+    "harness_files": {
+      "common.py": "efd01f92ef01710484f104fa96229bfb74aa18ab118d6dcc339b5ac02383f1eb",
+      "cpu_controls.py": "960a1d4a3faa2ff235f340d7b97f4dd1286eb1a10e9549ddff45f8484a8479fd",
+      "gpu_qualification.py": "541cfa76913aa877ead51858ec011f065ec83d98a62662da9259448dc60528c9",
+      "source_gate.py": "30399315134dc06b9cc4d573c0af29d4b35b4a953f7cdd734e6f66f572d1ba20",
+      "staged_source.py": "bf93e20f87b3be6e0b0959612b563581c54636f9279920316a8c2c310ea66cb0"
+    }
+  },
+  "checks": [
+    {
+      "check": "pinned_train",
+      "passed": true
+    },
+    {
+      "check": "pinned_validation",
+      "passed": true
+    },
+    {
+      "check": "pinned_test",
+      "passed": true
+    },
+    {
+      "check": "pinned_dataset_revision",
+      "passed": true
+    },
+    {
+      "check": "full_card_research_permission",
+      "passed": true
+    }
+  ],
+  "data_access_schema_terms_pass": true,
+  "dataset_revision": "cab853a1dbdf4c42c2b3ef2173804746df8825fe",
+  "data": [
+    {
+      "split": "train",
+      "url": "https://huggingface.co/datasets/dair-ai/emotion/resolve/cab853a1dbdf4c42c2b3ef2173804746df8825fe/split/train-00000-of-00001.parquet",
+      "bytes": 1030740,
+      "sha256": "10817f0f2ea42358bc62f69a09dfb8bd71701727df6d5a387bea742f3ea06417",
+      "parquet_magic": true,
+      "rows": 16000,
+      "schema": "text: string\nlabel: int64\n-- schema metadata --\nhuggingface: '{\"info\": {\"features\": {\"text\": {\"dtype\": \"string\", \"_type\":' + 112",
+      "within_split_duplicate_text_count": 31,
+      "label_counts": {
+        "0": 4666,
+        "1": 5362,
+        "2": 1304,
+        "3": 2159,
+        "4": 1937,
+        "5": 572
+      }
+    },
+    {
+      "split": "validation",
+      "url": "https://huggingface.co/datasets/dair-ai/emotion/resolve/cab853a1dbdf4c42c2b3ef2173804746df8825fe/split/validation-00000-of-00001.parquet",
+      "bytes": 127466,
+      "sha256": "c70f0e660b5ebd1ea9a37d2a851f516f08a6d6477cdfc11be204e22a2f1102fd",
+      "parquet_magic": true,
+      "rows": 2000,
+      "schema": "text: string\nlabel: int64\n-- schema metadata --\nhuggingface: '{\"info\": {\"features\": {\"text\": {\"dtype\": \"string\", \"_type\":' + 112",
+      "within_split_duplicate_text_count": 2,
+      "label_counts": {
+        "0": 550,
+        "1": 704,
+        "2": 178,
+        "3": 275,
+        "4": 212,
+        "5": 81
+      }
+    },
+    {
+      "split": "test",
+      "url": "https://huggingface.co/datasets/dair-ai/emotion/resolve/cab853a1dbdf4c42c2b3ef2173804746df8825fe/split/test-00000-of-00001.parquet",
+      "bytes": 128987,
+      "sha256": "6f8407fa1ca9c310f55781f082ed73812f6551e8dda2c61973123a121869245b",
+      "parquet_magic": true,
+      "rows": 2000,
+      "schema": "text: string\nlabel: int64\n-- schema metadata --\nhuggingface: '{\"info\": {\"features\": {\"text\": {\"dtype\": \"string\", \"_type\":' + 112",
+      "within_split_duplicate_text_count": 0,
+      "label_counts": {
+        "0": 581,
+        "1": 695,
+        "2": 159,
+        "3": 275,
+        "4": 224,
+        "5": 66
+      }
+    }
+  ],
+  "exact_text_overlap": {
+    "train_validation": 5,
+    "train_test": 11,
+    "validation_test": 3
+  },
+  "same_text_multiple_labels": 51,
+  "paper_v3": {
+    "doi": "10.5281/zenodo.21918325",
+    "date": "2026-08-13",
+    "pages": 37,
+    "pdf_sha256": "132580e07ceb34f774eb8dd929b36d99f2c0aba76ff4ecb8f6c05de1489d1992"
+  },
+  "exact_published_quality_reproduction_ready": false,
+  "exact_split_preparation_script_present": false,
+  "quality_reproduction_limit": "Original sample-preparation script and exact full split IDs not recovered; gated original Llama checkpoint not downloaded. A fresh split/model would be an adapted reproduction.",
+  "nf4_reference_gap": {
+    "standalone_harness_has_matched_dequant_reference": false,
+    "updated_unit_test_has_matched_dequant_reference": true,
+    "interpretation": "Do not classify native fused-vs-dequant arithmetic differences as streaming defects."
+  },
+  "terms": {
+    "metadata": [
+      "other"
+    ],
+    "research_use_explicit": true,
+    "unrestricted_redistribution_verified": false,
+    "raw_data_kept_outside_git": true
+  },
+  "novel_algorithm_gate": "NOT ESTABLISHED: async read-ahead and bounded buffers are established; must beat matched offload/prefetch baselines in a distinct, useful regime."
+}

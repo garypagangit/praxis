@@ -1,0 +1,88 @@
+{
+  "source_report_sha256": "13544423eff1d2214f194057f3179335fe61c0ab5769d765917da16f6e990719",
+  "scope": "Descriptive tiny random-model warm-cache instrumentation; not independent efficacy replicates",
+  "parameters": 152128,
+  "positive_assigned": 16,
+  "positive_completed": 16,
+  "positive_passed": 16,
+  "negative_assigned": 4,
+  "negative_completed": 4,
+  "negative_passed": 4,
+  "negative_kind": "Corruption of an already recorded gradient; not a model-generated defect",
+  "timing_blocks_per_arm": 3,
+  "warmup_steps_per_block": 2,
+  "measured_steps_per_block": 3,
+  "block_median_step_ms": {
+    "0": {
+      "disk": 63.551071999995656,
+      "staged_sync": 64.85870200003774,
+      "staged_prefetch": 67.2591159999456
+    },
+    "1": {
+      "staged_sync": 64.95430400002533,
+      "staged_prefetch": 70.00464599997258,
+      "disk": 64.69326800004183
+    },
+    "2": {
+      "staged_prefetch": 68.41860100001895,
+      "disk": 65.21340000000464,
+      "staged_sync": 66.12956999998687
+    }
+  },
+  "mean_of_block_median_step_ms": {
+    "disk": 64.48591333334737,
+    "staged_sync": 65.31419200001665,
+    "staged_prefetch": 68.56078766664571
+  },
+  "prefetch_time_increase_percent_vs_disk": 6.319014685012014,
+  "prefetch_time_increase_percent_vs_staged_sync": 4.9707354056040876,
+  "all_measured_process_physical_read_deltas_zero": true,
+  "measured_process_physical_read_deltas_bytes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "owned_staging_peak_slots": 2,
+  "owned_staging_peak_bytes_by_quantization": {
+    "none": 147968,
+    "nf4": 38640
+  },
+  "qualification_pass": true,
+  "instrumentation_complete": true,
+  "pretrained_quality_reproduced": false,
+  "novel_speedup_established": false,
+  "disposition": "GO for a separately specified bounded pilot only; not efficacy or paper-readiness approval",
+  "limitations": [
+    "One A10G host and one 152,128-parameter random model; no laptop or 8B checkpoint run.",
+    "The NF4 reference uses the matched dequantization path; native fused-kernel equivalence is not established.",
+    "Two short optimizer steps and four layers do not cover all models, layer sizes or long training.",
+    "Large embedding/head streaming is not qualified.",
+    "Warm tiny timing shows extra overhead; it cannot estimate a cold or memory-constrained workload benefit.",
+    "Research-use dataset terms are available; exact original paper split preparation remains unavailable.",
+    "Separate artifact checker implementation shares authorship with the worker; source review by the coordinator is distinct."
+  ]
+}

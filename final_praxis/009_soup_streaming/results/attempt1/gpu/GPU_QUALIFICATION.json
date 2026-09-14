@@ -1,0 +1,181 @@
+{
+  "scope": "Tiny random-model instrumentation; warm-cache development timing only",
+  "assigned_positive": 16,
+  "assigned_negative": 4,
+  "comparisons": [
+    {
+      "quant": "none",
+      "seq": 12,
+      "arm": "ram",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "none",
+      "seq": 12,
+      "arm": "disk",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "none",
+      "seq": 12,
+      "arm": "staged_sync",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "none",
+      "seq": 12,
+      "arm": "staged_prefetch",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "none",
+      "seq": 64,
+      "arm": "ram",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "none",
+      "seq": 64,
+      "arm": "disk",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "none",
+      "seq": 64,
+      "arm": "staged_sync",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "none",
+      "seq": 64,
+      "arm": "staged_prefetch",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 12,
+      "arm": "ram",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 12,
+      "arm": "disk",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 12,
+      "arm": "staged_sync",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 12,
+      "arm": "staged_prefetch",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 64,
+      "arm": "ram",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 64,
+      "arm": "disk",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 64,
+      "arm": "staged_sync",
+      "passed": false,
+      "status": "not_completed"
+    },
+    {
+      "quant": "nf4",
+      "seq": 64,
+      "arm": "staged_prefetch",
+      "passed": false,
+      "status": "not_completed"
+    }
+  ],
+  "negative_controls": [],
+  "timing": [],
+  "qualification_pass": false,
+  "provenance": {
+    "source_pin": "b0a6338232f47d7ffabac90deb810728c2e179b4",
+    "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]",
+    "platform": "Linux-6.8.0-1053-aws-x86_64-with-glibc2.35",
+    "dependencies": {
+      "torch": "2.6.0+cu124",
+      "transformers": "5.17.0",
+      "peft": "0.20.0",
+      "safetensors": "0.8.0",
+      "bitsandbytes": "0.50.2",
+      "numpy": "2.2.6"
+    },
+    "protocol_sha256": "042559776af19736332c95664729a72876927544495f719639afbcd73264394b",
+    "source_manifest_sha256": "c21eb2a5a5de848de6b150815a03196a8bf395492baea1aa5a6e5c4e999f50fb",
+    "harness_files": {
+      "common.py": "efd01f92ef01710484f104fa96229bfb74aa18ab118d6dcc339b5ac02383f1eb",
+      "cpu_controls.py": "960a1d4a3faa2ff235f340d7b97f4dd1286eb1a10e9549ddff45f8484a8479fd",
+      "gpu_qualification.py": "541cfa76913aa877ead51858ec011f065ec83d98a62662da9259448dc60528c9",
+      "source_gate.py": "30399315134dc06b9cc4d573c0af29d4b35b4a953f7cdd734e6f66f572d1ba20",
+      "staged_source.py": "bf93e20f87b3be6e0b0959612b563581c54636f9279920316a8c2c310ea66cb0"
+    }
+  },
+  "status": "complete",
+  "hardware": {
+    "gpu": "NVIDIA A10G",
+    "capability": [
+      8,
+      6
+    ],
+    "total_vram": 23684841472,
+    "cuda_runtime": "12.4"
+  },
+  "model": {
+    "kind": "generated random tiny Llama; not a pretrained model",
+    "parameters": 152128,
+    "files": {
+      "config.json": "82a2ff7d2840febc19e6dc702481263780fbb8536d092779e03fcf1157be6b76",
+      "model.safetensors": "f3470e3657d7acb7e5541fe46ce467cbc29cf9c77870b1ae825b232e9c924f3c"
+    }
+  },
+  "infrastructure_errors": [
+    {
+      "quant": "none",
+      "error": "ValueError('shard output directory must be under $HOME, $CWD or $TMPDIR; got /opt/dlami/nvme/praxis-qualification-20260914/009/cache_gpu/shards_none')",
+      "traceback": "Traceback (most recent call last):\n  File \"/opt/dlami/nvme/praxis-qualification-20260914/009/code/gpu_qualification.py\", line 235, in main\n    index = shard_checkpoint(str(weights), str(shard_dir), dtype='bfloat16', arch='llama', **kwargs)\n  File \"/opt/dlami/nvme/praxis-qualification-20260914/009/Soup-b0a6338232f47d7ffabac90deb810728c2e179b4/src/soup_cli/utils/layer_shard.py\", line 1039, in shard_checkpoint\n    resolved_out = _validate_out_dir(out_dir)\n  File \"/opt/dlami/nvme/praxis-qualification-20260914/009/Soup-b0a6338232f47d7ffabac90deb810728c2e179b4/src/soup_cli/utils/layer_shard.py\", line 760, in _validate_out_dir\n    raise ValueError(\nValueError: shard output directory must be under $HOME, $CWD or $TMPDIR; got /opt/dlami/nvme/praxis-qualification-20260914/009/cache_gpu/shards_none\n"
+    },
+    {
+      "quant": "nf4",
+      "error": "ValueError('shard output directory must be under $HOME, $CWD or $TMPDIR; got /opt/dlami/nvme/praxis-qualification-20260914/009/cache_gpu/shards_nf4')",
+      "traceback": "Traceback (most recent call last):\n  File \"/opt/dlami/nvme/praxis-qualification-20260914/009/code/gpu_qualification.py\", line 235, in main\n    index = shard_checkpoint(str(weights), str(shard_dir), dtype='bfloat16', arch='llama', **kwargs)\n  File \"/opt/dlami/nvme/praxis-qualification-20260914/009/Soup-b0a6338232f47d7ffabac90deb810728c2e179b4/src/soup_cli/utils/layer_shard.py\", line 1039, in shard_checkpoint\n    resolved_out = _validate_out_dir(out_dir)\n  File \"/opt/dlami/nvme/praxis-qualification-20260914/009/Soup-b0a6338232f47d7ffabac90deb810728c2e179b4/src/soup_cli/utils/layer_shard.py\", line 760, in _validate_out_dir\n    raise ValueError(\nValueError: shard output directory must be under $HOME, $CWD or $TMPDIR; got /opt/dlami/nvme/praxis-qualification-20260914/009/cache_gpu/shards_nf4\n"
+    }
+  ],
+  "completed_positive": 0,
+  "passed_positive": 0,
+  "completed_negative": 0,
+  "passed_negative": 0,
+  "timing_assigned": 9,
+  "timing_completed": 0,
+  "instrumentation_complete": false
+}
