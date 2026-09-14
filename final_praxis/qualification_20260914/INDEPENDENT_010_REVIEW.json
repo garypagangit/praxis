@@ -1,0 +1,114 @@
+{
+  "status": "PASS_FOR_BOUNDED_QUALIFICATION_EXECUTION",
+  "reviewed_utc": "2026-09-14T14:16:30.835894+00:00",
+  "reviewer": "oracle_contract, separate from 010 implementation owner",
+  "scope": "Read-only source review of GPU worker, asset preparation, runtime controls, pinned upstream numerical paths, protocol and A1; only this review receipt written.",
+  "worker_sha256": "efe42db66be79a0267c78a8d3e790e66ec3ddcadc9a61f2f7407b9992bff9bc2",
+  "prepare_assets_sha256": "bc3c7bc0598524dafa6ab2109f0ad8d166d47098aff7d75e14e1d7a1e7bcee1f",
+  "runtime_freeze_sha256": "541fdee406e82bb91aed79f6745928a20fa1148e3bac567eb664696f96161910",
+  "protocol_sha256": "9e7261151100a93bed67ac5009322fa72d232fe786b05153de8a97c0c04e1406",
+  "amendment_a1_sha256": "24d5d4534173672cc876fcad1bbac412f700b2ca9880bd43f31ffe5c9c05734f",
+  "runtime_controls_receipt_sha256": "4560ad33a5e91c30ab1508269c4bac4cec47a053fce6cee4d13be044d95cba5b",
+  "frozen_files_verified": {
+    "QUALIFICATION_PROTOCOL.md": true,
+    "PROTOCOL_FREEZE.json": true,
+    "QUALIFICATION_AMENDMENT_A1.md": true,
+    "SOURCE_MANIFEST.json": true,
+    "RUNTIME_ASSET_MANIFEST.json": true,
+    "SOURCE_AUDIT.md": true,
+    "GPU_RUNBOOK.md": true,
+    "code/audit_data.py": true,
+    "code/cpu_pilot.py": true,
+    "code/gpu_qualification.py": true,
+    "code/prepare_assets.py": true,
+    "code/test_runtime_controls.py": true,
+    "code/requirements-gpu.txt": true
+  },
+  "unresolved_execution_blockers": [],
+  "issues_resolved": [
+    {
+      "issue": "Runtime code and model/data manifest were not bound by the original protocol-only freeze.",
+      "resolution": "Separate pre-model RUNTIME_FREEZE binds all 13 current runtime/protocol files, checked before execution; root must bind that freeze in the launched bundle."
+    },
+    {
+      "issue": "Pinned source ZIP was checked but imported extracted Python files were not.",
+      "resolution": "check_assets compares every extracted archive member with ZIP bytes and rejects extra Python source files."
+    },
+    {
+      "issue": "Runtime verification checked only LFS model weights, omitting config Git blobs.",
+      "resolution": "verify_model now checks SHA256 of LFS files and Git-blob hashes of all other downloaded non-dotfiles, including config.json."
+    },
+    {
+      "issue": "Original25 could claim implementation_complete with nonfinite historical quantities.",
+      "resolution": "Explicit implementation_gate_pass requires finite covariance/statistics/raw arrays, 4800 unique endpoint rows and 8000 unique intervention rows. Exceptions write HOLD failure receipt."
+    },
+    {
+      "issue": "Protocol requested one effective W1ACAS optimization epoch, but upstream keyword mismatch uses two.",
+      "resolution": "Pre-inference A1 preserves original code and requested_n_epochs=1/effective_epochs=2, asserts the effective value, and forbids silently labelling a corrected variant exact upstream reproduction."
+    },
+    {
+      "issue": "Historical/deployable intervention accounting was not retained step by step.",
+      "resolution": "Current worker records all t=51..100 admissions for both streams and all 20 seeds, retaining the historical oracle-onset gate and marking deployable oracle eligibility null."
+    },
+    {
+      "issue": "A nonfinite repeat could evade Python max-based determinism aggregation.",
+      "resolution": "Every repeated TimesFM3 forecast and quantile array is explicitly finite-asserted before difference aggregation."
+    },
+    {
+      "issue": "Probe summary omitted registered onset, last32, full retention and recovery diagnostics.",
+      "resolution": "Those fields are now derived from the fixed saved step stream, without favorable-outcome gate or threshold search."
+    },
+    {
+      "issue": "Reusing a result directory could retain a stale prior success after a failed attempt.",
+      "resolution": "Worker now requires a fresh or empty output directory."
+    },
+    {
+      "issue": "Initialization and inference timing were conflated.",
+      "resolution": "All modes now expose initialization and subsequent stage timings; original25 reports lazy JIT within inference/bookkeeping."
+    }
+  ],
+  "chronology_and_oracles": {
+    "scored_target_lookahead_found": false,
+    "reason": "Fixed data paths with outcome labels excluded from forecast inputs; contexts stop before their targets. Upstream horizon aggregation shifts predictions to the observed timestamp. W1ACAS emits beta before updating weights, using current residual only after current observation arrives. Initial retrospective fit scores occur before the masked train boundary 1007.",
+    "initial_calibration_is_retrospective": true,
+    "initial_calibration_scored_as_test": false,
+    "historical_attack_start_oracle_preserved_and_labelled": true,
+    "deployable_updates_use_current_alarm_without_attack_start": true,
+    "labels_used_for_threshold_selection": false,
+    "hai_heldout_access_found": false,
+    "limits": "Source reasoning plus implementation-owner synthetic controls; not an exhaustive temporal-correctness proof. Fixed-series length determines upstream calibration capacity; no streaming variable-length guarantee claimed."
+  },
+  "synthetic_controls": {
+    "reported_passed": 22,
+    "reported_total": 22,
+    "receipt_and_source_hashes_independently_verified": true,
+    "executed_by_this_reviewer": false,
+    "pretrained_model_loads": 0,
+    "real_model_inference_calls": 0,
+    "mock_forecasts_are_scientific_results": false,
+    "interpretation": "Includes source/import and chronology controls plus a fake last-value model exercising original AST bookkeeping. These do not establish TimesFM/Chronos behavior, latency, memory, anomaly efficacy or novelty."
+  },
+  "resource_and_dependency_limits": {
+    "shared_host": "One g5.xlarge/A10G with candidate 009",
+    "shared_host_max_seconds": 7200,
+    "combined_reserve_usd": 25,
+    "per_mode_timeout_seconds": {
+      "new3": 1500,
+      "original25": 2400,
+      "calibration": 2400
+    },
+    "original25_expected_forecast_calls": 8020,
+    "timesfm3_probe_forecast_calls": 512,
+    "timeouts_subordinate_to_shared_deadline": true,
+    "external_stop_verified_by_this_review": false,
+    "required_behavior": "Root must enforce and later verify the shared stop. Incomplete or timed-out modes remain HOLD/PENDING; all per-mode maxima cannot be assumed affordable alongside 009.",
+    "dependencies": "Pinned Python packages and official source are specified; compatible CUDA driver, actual model load, installed dependency environment and real GPU measurements remain runtime checks. Offline inference environment must be enforced by root, not inferred solely from HF flags.",
+    "downloads": "Approximately 2.44 GB pinned weights plus small source/data downloads. prepare_assets uses public GETs and hash checks, but no internal network deadline; provisioning remains within root external ceiling."
+  },
+  "candidate_novelty_established": false,
+  "candidate_defense_efficacy_established": false,
+  "gpu_qualification_results_reviewed": false,
+  "reviewer_model_calls": 0,
+  "reviewer_cloud_calls": 0,
+  "frozen_source_modified_by_reviewer": false
+}
