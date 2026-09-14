@@ -12,6 +12,8 @@ September 14, 2026. The new protocols were committed before GPU execution. This 
 
 The [three existing research drafts and evidence packages](https://github.com/garypagangit/praxis/tree/Final-Praxis-Top-Three-Papers-20260914/final_praxis/papers/20260914) remain available. CTI has the strongest completed cybersecurity evidence, 008 is the decision-manipulation alternative, and PX055 supports a narrower geometric measurement claim.
 
+The [independent next-design novelty challenge](NEXT_DESIGN_NOVELTY_CHALLENGE.md) identifies close prior methods, required baselines and specific tests that could falsify the proposed contribution. A generic fixed-reference/adaptive-reference combination is insufficient novelty, and an admission-weight cap alone does not bound a neural forecast's sensitivity. A byte-integrity check does not establish method efficacy or novelty.
+
 ## Academic authorship status
 
 The current [GW doctoral policy page](https://online.engineering.gwu.edu/policies-procedures-doctoral) links an [AI policy](https://gwu.box.com/s/ickb578cz7d75089n2j5c1y9c6gb0z2v) that restricts AI-written submitted Praxis work. These AI-assisted documents are internal research materials. No applicable written exception has been verified, and human editing alone does not establish compliance. Source identification and coding are permitted under the policy's conditions, including attribution and the author's ability to explain the code. This package preserves provenance and makes no submission or approval claim.
