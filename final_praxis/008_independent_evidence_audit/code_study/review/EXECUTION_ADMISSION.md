@@ -1,0 +1,9 @@
+# Generated-code admission boundary
+
+`execution_admission.py` parses source without executing it. It returns a versioned decision, source hash and explicit rejection reasons. The policy allows a fixed set of pure-computation module members and rejects common file/network/environment access, dynamic execution, introspection, private/dunder attribute access, unsupported module-level execution and oversized source.
+
+This is a conservative policy filter for the semantic-defect experiment, **not a Python security sandbox or proof of hidden-data isolation**. Infinite loops can pass static admission and must be stopped by cloud limits. Obfuscated access, hostile harness attacks and all possible side channels are not covered. The model prompt forbids those behaviors, the protocol limits the threat accordingly, and OS isolation remains necessary.
+
+The 36 independent synthetic policy controls pass. Static compatibility covers all 328 canonical/buggy HumanEvalPack variants: 326 pass and both Python/160 variants use the prohibited `eval` builtin. That compatibility result does not exclude the task or alter its qualification outcomes. Trusted released originals may run under the base-qualification contract. Admission applies to proposed model-written code; a generated repair of task160 can replace `eval` with a pure implementation. Rejected generated proposals remain in assigned-task accounting, and KEEP of a trusted original must not be mislabeled as an admitted new program.
+
+Allowed import names in the proposer prompt are aligned with the filter, including pure hashing functions and excluding `copy`/`random`. Allowed module names do not permit every member: selected introspective or file-oriented helpers remain prohibited. Record the exact validator version/hash with every generated-code decision. Changes after model outputs would require a prospectively disclosed amendment and must not silently rescue rejected outputs.
