@@ -1,0 +1,59 @@
+{
+  "deviation_id": "Q1-D1",
+  "classification": "UNPREREGISTERED_METADATA_ACCESS_EXPANSION",
+  "recorded_and_frozen_utc": "2026-09-14T14:37:24.395759+00:00",
+  "original_plan": "Q1 accesses train1 schema and timestamps; remaining files reserved for later prospectively specified roles.",
+  "actual_deviation": "After Q1 pretrained-model execution began, all8 HAI21.03 compressed files were fetched/hash-verified and timestamp metadata was inspected. The additional seven file reads were not in the original train1-only access plan and were not preregistered.",
+  "execution_order": {
+    "q1_timesfm3_started_utc": "2026-09-14T14:19:09+00:00",
+    "metadata_pass_completed_utc": "2026-09-14T14:35:39.009019+00:00",
+    "root_stop_received_after_pass_completed": true
+  },
+  "additional_files": [
+    "hai-21.03/test1.csv.gz",
+    "hai-21.03/test2.csv.gz",
+    "hai-21.03/test3.csv.gz",
+    "hai-21.03/test4.csv.gz",
+    "hai-21.03/test5.csv.gz",
+    "hai-21.03/train2.csv.gz",
+    "hai-21.03/train3.csv.gz"
+  ],
+  "column_selection": {
+    "parsed_value_columns": [
+      {
+        "name": "time",
+        "zero_based_index": 0,
+        "type": "ISO8601 datetime"
+      }
+    ],
+    "header_names_read": true,
+    "header_names_other_than_time_not_retained_in_metadata_ledger": true,
+    "column_counts_by_file": {
+      "hai-21.03/test1.csv.gz": 84,
+      "hai-21.03/test2.csv.gz": 84,
+      "hai-21.03/test3.csv.gz": 84,
+      "hai-21.03/test4.csv.gz": 84,
+      "hai-21.03/test5.csv.gz": 84,
+      "hai-21.03/train1.csv.gz": 84,
+      "hai-21.03/train2.csv.gz": 84,
+      "hai-21.03/train3.csv.gz": 84
+    },
+    "sensor_value_columns_parsed": [],
+    "attack_label_value_columns_parsed": []
+  },
+  "outcome_or_model_analysis_from_extra_files": false,
+  "model_or_frozen_protocol_changes": false,
+  "further_hai_access_stopped": true,
+  "future_split_requirement": "Any date-based split choices must cite this post-start metadata ledger and be frozen prospectively before sensor/label analysis; do not describe those choices as part of original Q1 preregistration.",
+  "frozen_artifacts": {
+    "ledger": {
+      "relative_path": "completed_qualification/HAI_TIMESTAMP_AUDIT.json",
+      "sha256": "540f4c4ef125172741dbfe98a9a76eb52c423222a5eb159ff7321b5a94e04720"
+    },
+    "audit_source": {
+      "relative_path": "postrun/audit_hai_timestamps.py",
+      "sha256": "09b6d01c667e48a0dfebeba06157eae92688122b1b2d4b5f8f70e7b6ccdfd6b3"
+    }
+  },
+  "preservation": "Prior protocol/runtime/source/initial-access receipts remain unchanged; metadata ledger and audit source are now frozen. Raw files retained outside Git; no deletion."
+}
