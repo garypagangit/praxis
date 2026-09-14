@@ -1,0 +1,113 @@
+{
+  "reviewer": "/root/reconnect_status_006",
+  "review_type": "visual_original_resolution",
+  "pdf_path": "output/doc/praxis_008_20260914/PRAXIS_008_PAPER.pdf",
+  "pdf_sha256": "6a2a8ec48157865bd2ed022540cf09a055827fc4a3b7cb665ab4691711827f09",
+  "pdf_sha256_independently_verified": true,
+  "pdf_page_count": 24,
+  "reviewed_pdf_pages": [
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "printed_page_numbers": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "method": "Inspected every assigned PNG individually using view_image(detail=original), forwarded at original resolution, without contact-sheet reduction. Each image is 918 by 1188 pixels. Text extraction was not used as a substitute for visual inspection.",
+  "overall_status": "MINOR_PAGINATION_FIX_RECOMMENDED",
+  "blocking_legibility_or_clipping_issues": 0,
+  "minor_issues": 1,
+  "manuscript_edits_performed": false,
+  "page_checks": [
+    {
+      "page": 17,
+      "image_sha256": "7d24a18b5bc9aeaaaab20329697e367bec4116f9599e96d0248d2b689730d380",
+      "status": "PASS",
+      "observations": "Body text and section 4.7 are legible; margins, running header and footer are consistent. No overlap, clipping, stranded heading or broken paragraph detected. Space before the next chapter is reasonable."
+    },
+    {
+      "page": 18,
+      "image_sha256": "d86f13188d2947655621f0f3291ee0174f0ec7a7ba2543d65c8be9b897e09d42",
+      "status": "PASS",
+      "observations": "Chapter 5 title and subsections have clear hierarchy. The dense body remains readable and within margins; subsection 5.2 has sufficient following text. No orphan or clipping detected."
+    },
+    {
+      "page": 19,
+      "image_sha256": "a6148235a5422828c3c6182e267091af37e7e0f98e63098fc8b2bcc89f23ad4f",
+      "status": "PASS",
+      "observations": "Threats-to-validity labels and body text remain legible. Paragraphs and the final line stay inside the text block, with appropriate footer separation. No overlap or orphan detected."
+    },
+    {
+      "page": 20,
+      "image_sha256": "e7e98b37092db38c4f2d445ff190b27ae43c8cb1cdfb9c113e7586f294c26db4",
+      "status": "PASS",
+      "observations": "Future-work and conclusion headings remain with their paragraphs. Text is legible, with no clipping. The following references begin on a new page; remaining white space is consistent with that section break."
+    },
+    {
+      "page": 21,
+      "image_sha256": "c75b995c5536bf04b2e9d422f3ef1b3b4e22891b969e941c680c4c287b503e54",
+      "status": "PASS",
+      "observations": "All ten references are visually readable, with consistent hanging indents and clear italic titles and link labels. Wrapped entries remain within margins. No reference is clipped or stranded across the page boundary. This checks presentation, not bibliographic correctness or link availability."
+    },
+    {
+      "page": 22,
+      "image_sha256": "c3cab7029de58261f3a6470d11a6d32896aff82a3cd4d8aa89f4efac21c35c12",
+      "status": "MINOR_ISSUE",
+      "observations": "Table A1 is readable with aligned columns, clear shading, and no clipped paths or row splits. Long artifact paths and SHA256 values fit within margins. The final standalone lead-in introduces commands that start on the following page.",
+      "issue_ids": [
+        "P22_COMMAND_LEADIN_SEPARATED"
+      ]
+    },
+    {
+      "page": 23,
+      "image_sha256": "2fec0cecaadda39783ac66ad081a90f4f608555047eb7c205c820750308b930a",
+      "status": "MINOR_ISSUE_CONTINUATION",
+      "observations": "Both monospaced reproduction commands wrap within the text block and are legible at original resolution, though smaller than body text. The commands are separated from their preceding lead-in by the page break. Explanatory prose is clear and unclipped. Large remaining white space results from Appendix B starting on a fresh page and is not independently flagged as a defect.",
+      "issue_ids": [
+        "P22_COMMAND_LEADIN_SEPARATED"
+      ]
+    },
+    {
+      "page": 24,
+      "image_sha256": "da80827f50e975507cc96f761805ac97061b6af9d3fa45179600dcf94914cb78",
+      "status": "PASS",
+      "observations": "Appendix B heading and both paragraphs are legible, aligned, and inside margins. No isolated heading, clipping, overlapping text or malformed glyphs detected."
+    }
+  ],
+  "issues": [
+    {
+      "id": "P22_COMMAND_LEADIN_SEPARATED",
+      "severity": "minor",
+      "pdf_pages": [
+        22,
+        23
+      ],
+      "printed_pages": [
+        21,
+        22
+      ],
+      "description": "Page 22 ends with 'From code_study, statistical reproduction uses these commands:' while both command paragraphs begin on page 23.",
+      "recommended_fix": "Keep the introductory paragraph with the first command paragraph so they move together to page 23.",
+      "verification_after_fix": "Re-render and inspect pages 22-24, or all shifted pages if pagination changes; bind the replacement review to the new PDF and image hashes."
+    }
+  ],
+  "scope_limitations": [
+    "This receipt covers visual presentation on PDF pages 17-24 only.",
+    "It does not independently revalidate scientific claims, source citations or reproducibility commands."
+  ],
+  "current": false,
+  "superseded_by": "VISUAL_QA_PAGES_18_26.json",
+  "superseded_by_pdf_sha256": "b8db7d6ffe4a72dac511ff9ee559696d48e689cb5f6906d5176d6a159c134bc2"
+}

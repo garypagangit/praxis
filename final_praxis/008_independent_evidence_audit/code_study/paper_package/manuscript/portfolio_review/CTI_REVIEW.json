@@ -1,0 +1,573 @@
+{
+  "created_utc": "2026-09-14T03:39:56.029415+00:00",
+  "scope": "Bounded CTI historical evidence and manuscript audit; no AWS, inference, candidate execution, historical artifact modification, or full raw-output reanalysis. DOCX text and tables inspected; no fresh visual-layout approval.",
+  "primary_status": "PASS_SOURCE_KNOWN_ONLY",
+  "primary_bootstrap_replicates": 20000,
+  "primary_results": {
+    "Llama": {
+      "gates": {
+        "query_attack_invalid_safety": true,
+        "query_main": true,
+        "query_main_pre_cross_model_holm": true,
+        "query_mismatch_invalid_safety": true,
+        "query_mismatch_noninferiority": false,
+        "source_invalid_safety": true,
+        "source_main": true,
+        "source_mismatch_invalid_safety": true,
+        "source_negative_controls": true,
+        "source_relationship_specificity": true
+      },
+      "duplicate_vanilla_concordance": {
+        "correctness_match_rate": 1.0,
+        "correctness_matches": 2500,
+        "interpretation": "execution reproducibility diagnostic; not a treatment-effect gate",
+        "parsed_answer_match_rate": 1.0,
+        "parsed_answer_matches": 2500,
+        "rows": 2500
+      },
+      "source_vs_vanilla": {
+        "comparison": {
+          "accuracy_difference": 0.23067173637515842,
+          "both_correct": 898,
+          "both_wrong": 172,
+          "control": "vanilla",
+          "control_only": 72,
+          "discordant_rows": 508,
+          "mcnemar_exact_p": 1.5679968044055172e-64,
+          "mcnemar_holm_p": 3.1359936088110344e-64,
+          "paired_bootstrap_ci95": [
+            0.20532319391634982,
+            0.25665399239543724
+          ],
+          "paired_rows": 1578,
+          "treatment": "relationship_evidence",
+          "treatment_only": 436
+        },
+        "treatment": {
+          "accuracy": 0.8453738910012675,
+          "accuracy_ci95": [
+            0.8266985168885261,
+            0.8623718029731273
+          ],
+          "correct": 1334,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 1578
+        },
+        "control": {
+          "accuracy": 0.614702154626109,
+          "accuracy_ci95": [
+            0.5904393303244824,
+            0.6384078768222319
+          ],
+          "correct": 970,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 1578
+        }
+      },
+      "source_vs_technique": {
+        "comparison": {
+          "accuracy_difference": 0.20342205323193915,
+          "both_correct": 958,
+          "both_wrong": 189,
+          "control": "technique_only_evidence",
+          "control_only": 55,
+          "discordant_rows": 431,
+          "mcnemar_exact_p": 7.14752163690329e-60,
+          "mcnemar_holm_p": 7.14752163690329e-60,
+          "paired_bootstrap_ci95": [
+            0.17997465145754118,
+            0.22686945500633712
+          ],
+          "paired_rows": 1578,
+          "treatment": "relationship_evidence",
+          "treatment_only": 376
+        },
+        "treatment": {
+          "accuracy": 0.8453738910012675,
+          "accuracy_ci95": [
+            0.8266985168885261,
+            0.8623718029731273
+          ],
+          "correct": 1334,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 1578
+        },
+        "control": {
+          "accuracy": 0.6419518377693283,
+          "accuracy_ci95": [
+            0.6179786858840892,
+            0.6652355373251042
+          ],
+          "correct": 1013,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 1578
+        }
+      },
+      "query_vs_vanilla": {
+        "comparison": {
+          "accuracy_difference": 0.18187579214195185,
+          "both_correct": 862,
+          "both_wrong": 213,
+          "control": "vanilla",
+          "control_only": 108,
+          "cross_model_holm_p": 3.8104328410556755e-39,
+          "discordant_rows": 503,
+          "mcnemar_exact_p": 1.9052164205278378e-39,
+          "mcnemar_holm_p": 1.9052164205278378e-39,
+          "paired_bootstrap_ci95": [
+            0.1552598225602028,
+            0.20849176172370087
+          ],
+          "paired_rows": 1578,
+          "treatment": "relationship_evidence",
+          "treatment_only": 395
+        },
+        "treatment": {
+          "accuracy": 0.7965779467680608,
+          "accuracy_ci95": [
+            0.7760074723251202,
+            0.8157079583083728
+          ],
+          "correct": 1257,
+          "invalid": 1,
+          "invalid_rate": 0.0006337135614702154,
+          "rows": 1578
+        },
+        "control": {
+          "accuracy": 0.614702154626109,
+          "accuracy_ci95": [
+            0.5904393303244824,
+            0.6384078768222319
+          ],
+          "correct": 970,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 1578
+        }
+      },
+      "mismatch": {
+        "comparison": {
+          "accuracy_difference": -0.14967462039045554,
+          "both_correct": 467,
+          "both_wrong": 231,
+          "control": "vanilla",
+          "control_only": 181,
+          "discordant_rows": 224,
+          "mcnemar_exact_p": 2.468207731058066e-21,
+          "mcnemar_holm_p": 2.468207731058066e-21,
+          "paired_bootstrap_ci95": [
+            -0.18004338394793926,
+            -0.1193058568329718
+          ],
+          "paired_rows": 922,
+          "treatment": "relationship_evidence",
+          "treatment_only": 43
+        },
+        "treatment": {
+          "accuracy": 0.5531453362255966,
+          "accuracy_ci95": [
+            0.5208995544285818,
+            0.5849501016505801
+          ],
+          "correct": 510,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 922
+        },
+        "control": {
+          "accuracy": 0.702819956616052,
+          "accuracy_ci95": [
+            0.6725281732064479,
+            0.7314286775446392
+          ],
+          "correct": 648,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 922
+        }
+      }
+    },
+    "Qwen": {
+      "gates": {
+        "query_attack_invalid_safety": true,
+        "query_main": true,
+        "query_main_pre_cross_model_holm": true,
+        "query_mismatch_invalid_safety": true,
+        "query_mismatch_noninferiority": false,
+        "source_invalid_safety": true,
+        "source_main": true,
+        "source_mismatch_invalid_safety": true,
+        "source_negative_controls": true,
+        "source_relationship_specificity": true
+      },
+      "duplicate_vanilla_concordance": {
+        "correctness_match_rate": 1.0,
+        "correctness_matches": 2500,
+        "interpretation": "execution reproducibility diagnostic; not a treatment-effect gate",
+        "parsed_answer_match_rate": 1.0,
+        "parsed_answer_matches": 2500,
+        "rows": 2500
+      },
+      "source_vs_vanilla": {
+        "comparison": {
+          "accuracy_difference": 0.1958174904942966,
+          "both_correct": 868,
+          "both_wrong": 197,
+          "control": "vanilla",
+          "control_only": 102,
+          "discordant_rows": 513,
+          "mcnemar_exact_p": 5.807493275504095e-45,
+          "mcnemar_holm_p": 1.161498655100819e-44,
+          "paired_bootstrap_ci95": [
+            0.16920152091254753,
+            0.2218155893536108
+          ],
+          "paired_rows": 1578,
+          "treatment": "relationship_evidence",
+          "treatment_only": 411
+        },
+        "treatment": {
+          "accuracy": 0.8105196451204055,
+          "accuracy_ci95": [
+            0.79043869607533,
+            0.8290924171947802
+          ],
+          "correct": 1279,
+          "invalid": 1,
+          "invalid_rate": 0.0006337135614702154,
+          "rows": 1578
+        },
+        "control": {
+          "accuracy": 0.614702154626109,
+          "accuracy_ci95": [
+            0.5904393303244824,
+            0.6384078768222319
+          ],
+          "correct": 970,
+          "invalid": 1,
+          "invalid_rate": 0.0006337135614702154,
+          "rows": 1578
+        }
+      },
+      "source_vs_technique": {
+        "comparison": {
+          "accuracy_difference": 0.17427122940430925,
+          "both_correct": 923,
+          "both_wrong": 218,
+          "control": "technique_only_evidence",
+          "control_only": 81,
+          "discordant_rows": 437,
+          "mcnemar_exact_p": 3.465320338058628e-42,
+          "mcnemar_holm_p": 3.465320338058628e-42,
+          "paired_bootstrap_ci95": [
+            0.15019011406844107,
+            0.19835234474017743
+          ],
+          "paired_rows": 1578,
+          "treatment": "relationship_evidence",
+          "treatment_only": 356
+        },
+        "treatment": {
+          "accuracy": 0.8105196451204055,
+          "accuracy_ci95": [
+            0.79043869607533,
+            0.8290924171947802
+          ],
+          "correct": 1279,
+          "invalid": 1,
+          "invalid_rate": 0.0006337135614702154,
+          "rows": 1578
+        },
+        "control": {
+          "accuracy": 0.6362484157160964,
+          "accuracy_ci95": [
+            0.6122079137080125,
+            0.6596271666043829
+          ],
+          "correct": 1004,
+          "invalid": 1,
+          "invalid_rate": 0.0006337135614702154,
+          "rows": 1578
+        }
+      },
+      "query_vs_vanilla": {
+        "comparison": {
+          "accuracy_difference": 0.13878326996197718,
+          "both_correct": 799,
+          "both_wrong": 218,
+          "control": "vanilla",
+          "control_only": 171,
+          "cross_model_holm_p": 1.1080856760691112e-20,
+          "discordant_rows": 561,
+          "mcnemar_exact_p": 1.1080856760691112e-20,
+          "mcnemar_holm_p": 1.1080856760691112e-20,
+          "paired_bootstrap_ci95": [
+            0.10963244613434728,
+            0.16730038022813687
+          ],
+          "paired_rows": 1578,
+          "treatment": "relationship_evidence",
+          "treatment_only": 390
+        },
+        "treatment": {
+          "accuracy": 0.7534854245880862,
+          "accuracy_ci95": [
+            0.7316223494794275,
+            0.7741173348227034
+          ],
+          "correct": 1189,
+          "invalid": 2,
+          "invalid_rate": 0.0012674271229404308,
+          "rows": 1578
+        },
+        "control": {
+          "accuracy": 0.614702154626109,
+          "accuracy_ci95": [
+            0.5904393303244824,
+            0.6384078768222319
+          ],
+          "correct": 970,
+          "invalid": 1,
+          "invalid_rate": 0.0006337135614702154,
+          "rows": 1578
+        }
+      },
+      "mismatch": {
+        "comparison": {
+          "accuracy_difference": -0.17462039045553146,
+          "both_correct": 381,
+          "both_wrong": 262,
+          "control": "vanilla",
+          "control_only": 220,
+          "discordant_rows": 279,
+          "mcnemar_exact_p": 5.297590441635064e-23,
+          "mcnemar_holm_p": 5.297590441635064e-23,
+          "paired_bootstrap_ci95": [
+            -0.20824295010845986,
+            -0.14099783080260303
+          ],
+          "paired_rows": 922,
+          "treatment": "relationship_evidence",
+          "treatment_only": 59
+        },
+        "treatment": {
+          "accuracy": 0.4772234273318872,
+          "accuracy_ci95": [
+            0.44514426190773393,
+            0.5094915997726253
+          ],
+          "correct": 440,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 922
+        },
+        "control": {
+          "accuracy": 0.6518438177874186,
+          "accuracy_ci95": [
+            0.6205214455064005,
+            0.6819061432912048
+          ],
+          "correct": 601,
+          "invalid": 0,
+          "invalid_rate": 0.0,
+          "rows": 922
+        }
+      }
+    }
+  },
+  "px068_terminal_status": "FAIL_ROUTER_CONFIRMATION",
+  "px071_scientific_completion": "No terminal model likelihood/result artifact located; latest inspected operational receipts are model-free September 2 work. Historical DRAFT_UNFROZEN_NOT_RUN text predates later signed operational freezes and is not a current freeze-state assertion.",
+  "integrity_spotchecks": {
+    "full_analysis_matches_archived_rerun": true,
+    "full_comparisons_match_archived_rerun": true,
+    "full_analysis_matches_published_sha256": true,
+    "px068_analysis_matches_terminal_receipt": true,
+    "git_runner_matches_frozen_hash": true
+  },
+  "readiness": "Existing bounded CTI mechanism/safety-boundary manuscript is near paper development completion; external confirmation and deployable router are not established.",
+  "comparison_with_008": "CTI provisionally ranks above008 for breadth/strength of completed empirical mechanism-and-harm evidence;008 has the stronger newly closed end-to-end evidence package. Both support bounded empirical papers, neither validates the attempted new defense/router. Root owns ranking across all other histories.",
+  "primary_sources": [
+    {
+      "title": "CTIBench",
+      "url": "https://arxiv.org/abs/2406.07599"
+    },
+    {
+      "title": "CTIBench public code/data",
+      "url": "https://github.com/maveryn/cti-bench"
+    },
+    {
+      "title": "MITRE ATT&CK release data",
+      "url": "https://github.com/mitre-attack/attack-stix-data"
+    },
+    {
+      "title": "TechniqueRAG",
+      "url": "https://aclanthology.org/2025.findings-acl.1076/"
+    },
+    {
+      "title": "Beyond RAG for Cyber Threat Intelligence",
+      "url": "https://arxiv.org/abs/2604.11419"
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "local_file",
+      "path": "configs/experiment_portfolio_registry.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\configs\\experiment_portfolio_registry.json",
+      "bytes": 14413,
+      "sha256": "fe9cf73d82c06fb2d531251d6b759c4c12ed481e1209dcdaaa90b2f242479321"
+    },
+    {
+      "kind": "local_file",
+      "path": "paper/relationship_evidence_cti/main.tex",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\paper\\relationship_evidence_cti\\main.tex",
+      "bytes": 21018,
+      "sha256": "769de23fb9eb2b476d6266de9fbb81548f144d5311601f4445cac361da6c9b8a"
+    },
+    {
+      "kind": "local_file",
+      "path": "paper/relationship_evidence_cti/SUBMISSION_TODO.md",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\paper\\relationship_evidence_cti\\SUBMISSION_TODO.md",
+      "bytes": 1323,
+      "sha256": "4417fecf0f4ae8493b8d3be686c2d60d34e49b61853c240e13f53147bf72a4cf"
+    },
+    {
+      "kind": "local_file",
+      "path": "output/doc/top_three_praxis_final_20260818/PX003_PX034_Final_Praxis_Paper_20260818_DRAFT_QA.docx",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\output\\doc\\top_three_praxis_final_20260818\\PX003_PX034_Final_Praxis_Paper_20260818_DRAFT_QA.docx",
+      "bytes": 48988,
+      "sha256": "247770c1cf734f6422a4f677bc7fb809d229256eef312339d65e96a24cbeafb1"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/praxis_research_manuscripts_20260714/PX003_PX034_CTI_EVIDENCE_ROUTING_RESEARCH_MANUSCRIPT_20260714.md",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_research_manuscripts_20260714\\PX003_PX034_CTI_EVIDENCE_ROUTING_RESEARCH_MANUSCRIPT_20260714.md",
+      "bytes": 9474,
+      "sha256": "7f9c9565e552ab090f50e79dc412f51e99c56ee4c27d30db5089d4facd2e624b"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/full_2500_analysis/analysis.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\confirmatory_closeout_20260731\\full_2500_analysis\\analysis.json",
+      "bytes": 47230,
+      "sha256": "c6a949b82adfe00abb3b3f1acbe04dc9277bda3b2d062a42e89a29d6cce3e181"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/full_2500_root_audit/analysis.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\confirmatory_closeout_20260731\\full_2500_root_audit\\analysis.json",
+      "bytes": 47230,
+      "sha256": "c6a949b82adfe00abb3b3f1acbe04dc9277bda3b2d062a42e89a29d6cce3e181"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/full_2500_analysis/comparisons.csv",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\confirmatory_closeout_20260731\\full_2500_analysis\\comparisons.csv",
+      "bytes": 6618,
+      "sha256": "45892abc84854c2acf79fa6bf48465031ce8153dfb78bd6923cdf4e20a85635d"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/full_2500_root_audit/comparisons.csv",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\confirmatory_closeout_20260731\\full_2500_root_audit\\comparisons.csv",
+      "bytes": 6618,
+      "sha256": "45892abc84854c2acf79fa6bf48465031ce8153dfb78bd6923cdf4e20a85635d"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/full_2500_freeze_manifest.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\confirmatory_closeout_20260731\\full_2500_freeze_manifest.json",
+      "bytes": 2771,
+      "sha256": "7ca7cfd973e9177d2d8e89827a18168d25110f45a0b598e3215546a0cdb7f25a"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/untouched_1078_sensitivity/analysis.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\confirmatory_closeout_20260731\\untouched_1078_sensitivity\\analysis.json",
+      "bytes": 48881,
+      "sha256": "026187de1c2b932411416dc985ab53fd156f7f3e23c4c7ca7e71b92b45952e84"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/px068_source_compatibility_router_20260731/PX068_TERMINAL_COMPLETENESS_AUDIT_V3_20260801.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\px068_source_compatibility_router_20260731\\PX068_TERMINAL_COMPLETENESS_AUDIT_V3_20260801.json",
+      "bytes": 3249,
+      "sha256": "d9cc050ae5c01cc08ce957cac09797c3ca2ef2f5adf8e761c46b66c68bd487a5"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/relationship_evidence_cti_compliance/px068_source_compatibility_router_20260731/terminal_analysis_primary_only_recovery_v3_20260801/analysis.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\relationship_evidence_cti_compliance\\px068_source_compatibility_router_20260731\\terminal_analysis_primary_only_recovery_v3_20260801\\analysis.json",
+      "bytes": 137111,
+      "sha256": "e4d7f5ce29d4bffc69300d27b9b690c9d860d929fc49c26ebaf7e3827520af77"
+    },
+    {
+      "kind": "local_file",
+      "path": "manifests/px071_parser_free_external_replication_20260818/source_build/px071_source_and_corpus_audit.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\manifests\\px071_parser_free_external_replication_20260818\\source_build\\px071_source_and_corpus_audit.json",
+      "bytes": 3630,
+      "sha256": "7607f6025d7aabd8e250a113e751ae345e37204eab0b0fa8bfea5144f89f3313"
+    },
+    {
+      "kind": "local_file",
+      "path": "reports/environment_sealing/20260902/PX071_V16_PROBE_HOST_ADAPTER_INDEPENDENT_REVIEW_20260902.json",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\environment_sealing\\20260902\\PX071_V16_PROBE_HOST_ADAPTER_INDEPENDENT_REVIEW_20260902.json",
+      "bytes": 2403,
+      "sha256": "371f509f717cfd036f327df38a2ccdc5ca42ebdf1d9799788bc634a5f0804294"
+    },
+    {
+      "kind": "local_file",
+      "path": "manifests/px071_parser_free_external_replication_20260818/v13_closeout_recovery_20260827/probe/px071_v13_probe_events.jsonl",
+      "absolute_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\manifests\\px071_parser_free_external_replication_20260818\\v13_closeout_recovery_20260827\\probe\\px071_v13_probe_events.jsonl",
+      "bytes": 830,
+      "sha256": "41b5484352843c3cadf614d0dc46e62fa76c4a60dca6ffb0d6f32707f413401d"
+    },
+    {
+      "kind": "git_blob",
+      "commit": "720d9e76a6142aae95ad1c31153d9ac38499fbb0",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/PX003_PX034_FINAL_FULL_2500_PRAXIS_REPORT_20260731.md",
+      "bytes": 23298,
+      "sha256": "52a266cd3b48a9f7c35e247e53b76d21646679f9f2e071cb420930afb257c9ef",
+      "present_in_current_checkout": false
+    },
+    {
+      "kind": "git_blob",
+      "commit": "720d9e76a6142aae95ad1c31153d9ac38499fbb0",
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/PX003_PX034_FULL_2500_SEPARATE_DETERMINISTIC_RERUN_AUDIT_20260731.md",
+      "bytes": 5014,
+      "sha256": "85c3c57841743fff8e97d10a0e3584280979bba64c380cc316f9e07e779bd6cc",
+      "present_in_current_checkout": false
+    },
+    {
+      "kind": "git_blob",
+      "commit": "720d9e76a6142aae95ad1c31153d9ac38499fbb0",
+      "path": "reports/relationship_evidence_cti_compliance/px068_source_compatibility_router_20260731/PX068_FINAL_PRAXIS_REPORT_20260801.md",
+      "bytes": 15636,
+      "sha256": "dbcb39084a82a1d7e5b2f17717caf2d70a537e5c1c402bb96a7381c632fbaaf9",
+      "present_in_current_checkout": false
+    },
+    {
+      "kind": "git_blob",
+      "commit": "720d9e76a6142aae95ad1c31153d9ac38499fbb0",
+      "path": "reports/relationship_evidence_cti_compliance/px071_parser_free_external_replication_20260801/README.md",
+      "bytes": 7321,
+      "sha256": "e1015c077c68a2a104081ba1d167175d01b7b24a0c3366e8545a39bc0a3c4505",
+      "present_in_current_checkout": false
+    },
+    {
+      "kind": "git_blob",
+      "commit": "720d9e76a6142aae95ad1c31153d9ac38499fbb0",
+      "path": "cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py",
+      "bytes": 25057,
+      "sha256": "cd94f3da527c0e35ce2c408b2d03865d62cb195c608656eb11a08ccc187178f9",
+      "present_in_current_checkout": true
+    }
+  ],
+  "source_mutations": 0,
+  "model_calls": 0,
+  "aws_calls": 0,
+  "external_publication_verified": false
+}

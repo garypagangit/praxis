@@ -2,7 +2,9 @@
 
 Scientific execution is complete across the numbered portfolio. **Invest the next effort in writing 008 as a bounded empirical study of selective disclosure of executed tests.** Its positive finding is specific to one model/configuration on native code pairs. The proposed hybrid defense did not succeed, and the disclosure effect was not observed in the smaller generated-corruption cohort. **Ready for bounded Praxis paper development:** the amended full audit passed with the disclosed numerical erratum, automated readiness passed 15/15, and both AWS hosts are stopped.
 
-The concrete starting document is [MANUSCRIPT_STARTER.md](MANUSCRIPT_STARTER.md), titled **Selective Disclosure of Executed Tests in Language-Model Code Revision**. It includes an abstract, research questions, observed hypothesis outcomes and a chapter outline mapped to evidence. [Detailed results and investment decision](RESULTS_AND_INVESTMENT.md), [methods and writing plan](METHODS_AND_WRITING_PLAN.md), [claim boundaries](CLAIM_BOUNDARIES.md).
+The complete paper is now available in [Word](manuscript/PRAXIS_008_PAPER.docx), [PDF](manuscript/PRAXIS_008_PAPER.pdf) and [Markdown](manuscript/PRAXIS_008_PAPER.md), titled **Selective Disclosure of Executed Tests in Language-Model Code Revision**. It includes five chapters, completed results, references and a reproducibility appendix. The earlier [MANUSCRIPT_STARTER.md](MANUSCRIPT_STARTER.md) is retained as a historical outline. [Detailed results and investment decision](RESULTS_AND_INVESTMENT.md), [methods and writing plan](METHODS_AND_WRITING_PLAN.md), [claim boundaries](CLAIM_BOUNDARIES.md).
+
+The recommendation above concerns the dedicated numbered portfolio. A subsequent [broader historical comparison](manuscript/TOP_THREE_PRAXIS_RECOMMENDATION.md) includes CTI and ranks CTI first for completed empirical breadth, 008 second as the completed code-revision study, and PX-055 as a conditional mechanistic alternative. This wider comparison does not change the 008 scientific findings.
 
 ## What 008 established
 
