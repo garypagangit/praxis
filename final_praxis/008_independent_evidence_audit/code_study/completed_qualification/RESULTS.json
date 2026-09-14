@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "scope": "Completed benchmark qualification; no main-study model outcomes or claims of intervention efficacy.",
+  "hypothesis": {
+    "required_eligible": 100,
+    "required_heldout": 60,
+    "passed": true
+  },
+  "cohort": {
+    "all_source_tasks": 164,
+    "eligible": 135,
+    "ineligible_retained": 29,
+    "eligible_development": 34,
+    "assigned_development": 41,
+    "eligible_heldout": 101,
+    "assigned_heldout": 123
+  },
+  "inputs": {
+    "tasks": 164,
+    "signature_aligned": 164,
+    "syntax_error_counts": {},
+    "base_input_occurrences": 1570,
+    "plus_input_occurrences": 122683,
+    "unique_inputs": 123981,
+    "tool_inputs": 32090,
+    "reserved_outcome_inputs": 91891,
+    "failure_symptoms": {
+      "incorrect output": 160,
+      "stackoverflow": 1,
+      "infinite loop": 3
+    },
+    "tasks_payload_sha256": "2dd1ce24af0d3a9365d9fe6ac40cf7a2b1b994812e10b986e6f85ec451c2b5df",
+    "task_split_seed": "praxis008-code-study-v1",
+    "downloaded_programs_executed": false
+  },
+  "execution": {
+    "worker_variants_assigned": 492,
+    "worker_variants_completed": 490,
+    "worker_variants_incomplete": 2,
+    "normalized_case_rows": 371943,
+    "observed_worker_case_rows": 371796,
+    "missing_case_rows_normalized_unknown": 147
+  },
+  "full_runtime_seconds": 282.67713601699984,
+  "pilot_runtime_seconds": 12.198120633000144,
+  "exclusion_reasons_overlapping": {
+    "reference_reserved_incomplete_or_error": 4,
+    "canonical_reserved_not_all_pass": 27,
+    "canonical_original_suite_not_pass": 3
+  },
+  "descriptive_exclusion_categories_disjoint": {
+    "reference_unavailable_or_error": {
+      "count": 4,
+      "task_ids": [
+        "Python/15",
+        "Python/83",
+        "Python/130",
+        "Python/139"
+      ]
+    },
+    "canonical_reserved_disagreement_or_exception": {
+      "count": 16,
+      "task_ids": [
+        "Python/22",
+        "Python/32",
+        "Python/44",
+        "Python/49",
+        "Python/64",
+        "Python/76",
+        "Python/95",
+        "Python/97",
+        "Python/111",
+        "Python/122",
+        "Python/123",
+        "Python/124",
+        "Python/125",
+        "Python/132",
+        "Python/140",
+        "Python/150"
+      ]
+    },
+    "canonical_reserved_timeout": {
+      "count": 7,
+      "task_ids": [
+        "Python/31",
+        "Python/39",
+        "Python/55",
+        "Python/63",
+        "Python/96",
+        "Python/127",
+        "Python/147"
+      ]
+    },
+    "original_suite_namespace_compatibility_only": {
+      "count": 2,
+      "task_ids": [
+        "Python/38",
+        "Python/50"
+      ]
+    }
+  },
+  "namespace_compatibility_disclosure": {
+    "discovered_after_main_study_freeze": true,
+    "frozen_cohort_changed": false,
+    "worker_source": "../qualification/worker.py",
+    "worker_source_sha256": "b79d909af1358a0bf1676806f65e9816f6418abbcd43fec40649b51de2010354",
+    "namespace_binding_line": 116,
+    "test_execution_line": 119,
+    "cases": [
+      {
+        "task_id": "Python/32",
+        "entry_point": "find_zero",
+        "missing_test_namespace_helper": "poly",
+        "canonical_helper_definition_line": 4,
+        "original_test_helper_call_lines": [
+          20
+        ],
+        "canonical_program_sha256": "3390a284edc311fb1d66d4a9e3a71a496f344fc7b747ce82fc9a8398fc775c7a",
+        "original_test_sha256": "6e97ff3914db3c0a1fc168e1a53119341bed2c6f140fcbc31196b0af2a0cbe94",
+        "original_exception": "NameError",
+        "frozen_exclusion_reasons": [
+          "canonical_reserved_not_all_pass",
+          "canonical_original_suite_not_pass"
+        ],
+        "sole_original_suite_exclusion": false
+      },
+      {
+        "task_id": "Python/38",
+        "entry_point": "decode_cyclic",
+        "missing_test_namespace_helper": "encode_cyclic",
+        "canonical_helper_definition_line": 3,
+        "original_test_helper_call_lines": [
+          13
+        ],
+        "canonical_program_sha256": "ca71c1b82b515debbcbb2062bda57e3b524071f928051dce227ebd9cdd8a6ca0",
+        "original_test_sha256": "b4eef60802959c97529ce203eb34c8e9ce2c3bba19d17223e2a54e5d0f006acf",
+        "original_exception": "NameError",
+        "frozen_exclusion_reasons": [
+          "canonical_original_suite_not_pass"
+        ],
+        "sole_original_suite_exclusion": true
+      },
+      {
+        "task_id": "Python/50",
+        "entry_point": "decode_shift",
+        "missing_test_namespace_helper": "encode_shift",
+        "canonical_helper_definition_line": 3,
+        "original_test_helper_call_lines": [
+          14
+        ],
+        "canonical_program_sha256": "04bf5789d5859d6e90453582d47fe3ebe11a0091164f07ae7db5cf7ee66591e0",
+        "original_test_sha256": "75045e3c1a8b5db989bc932c96f8f7afa4222d9ad3ed4a3c7410144c8cb00131",
+        "original_exception": "NameError",
+        "frozen_exclusion_reasons": [
+          "canonical_original_suite_not_pass"
+        ],
+        "sole_original_suite_exclusion": true
+      }
+    ],
+    "interpretation": "The separate original-test namespace lacks helper functions used by these released tests. These NameError exclusions are not evidence that the canonical programs are semantically wrong. A namespace fix requires a future version; no current result or eligibility is changed."
+  },
+  "auditor_amendment": {
+    "amended_before_main_model_launch": true,
+    "included_in_main_freeze_commit": "162d2ab2dc0e0bebf1f62e98f1f2d22d022d9edc",
+    "auditor_sha256": "e153668e3a114fd2cd6a65ede6ef7f2404a08636000d8521e1b3a04ee81e66e0",
+    "change": "Handle documented missing worker summaries and truncated JSONL tails by independently reconstructing unknown rows and validating failed process receipts. Experimental worker, protocol, eligibility, reference results and code hashes remain unchanged.",
+    "full_integrity_checks_passed": 7075,
+    "full_integrity_checks_total": 7075,
+    "metadata_controls_passed": 12
+  },
+  "generated_coordinator_controls": {
+    "passed": 31,
+    "total": 31,
+    "manifest_rows": 4,
+    "executed_known_code_controls": 2,
+    "rejected_unexecuted_controls": 2,
+    "model_calls": 0
+  },
+  "cost_estimate": {
+    "basis": "On-demand instance-rate equivalent for recorded qualification wall time, not an AWS invoice or total host spend.",
+    "captured_rate_usd_per_hour": 1.006,
+    "full_workload_equivalent_usd": 0.07899255523141717,
+    "pilot_workload_equivalent_usd": 0.0034086970435550402,
+    "pilot_plus_full_workload_equivalent_usd": 0.08240125227497222,
+    "qualification_model_calls": 0,
+    "excluded_from_estimate": [
+      "host setup/build/download and idle time",
+      "generated coordinator and bookkeeping controls",
+      "subsequent model study",
+      "storage and data transfer",
+      "taxes or billing adjustments"
+    ]
+  },
+  "pins": {
+    "qualification_freeze_commit": "5a8503e",
+    "main_model_study_freeze_commit": "162d2ab2dc0e0bebf1f62e98f1f2d22d022d9edc",
+    "qualification_bundle_sha256": "08a5fc6ed73f2332b9732d1effeb90d62c830ac2d38120bc3494728761eccf88",
+    "private_full_archive_sha256": "77c4c856196af0aac7f98efa1530baa047f2f582d425fa21fdf1b864ce2f6155",
+    "tasks_sha256": "2dd1ce24af0d3a9365d9fe6ac40cf7a2b1b994812e10b986e6f85ec451c2b5df",
+    "worker_sha256": "b79d909af1358a0bf1676806f65e9816f6418abbcd43fec40649b51de2010354",
+    "protocol_sha256": "9eec0ada2db0eaedee3c0647954f4ea38ff0d6fe1d6d77767cb83e13bcbcd934",
+    "image_id": "sha256:b0fb3cb3913ee8971b7dc5df9d688cd6113068411feecb4c975339926d1a7cea",
+    "base_image_digest": "sha256:8fb099199b9f2d70342674bd9dbccd3ed03a258f26bbd1d556822c6dfc60c317"
+  },
+  "public_case_archive_review": {
+    "rows": 371943,
+    "bytes": 21212815,
+    "allowed_metadata_keys": [
+      "case_id",
+      "case_index",
+      "elapsed_seconds",
+      "error_type",
+      "memberships",
+      "split",
+      "status",
+      "task_id",
+      "time_limit_seconds",
+      "variant"
+    ],
+    "contains_expected_values": false,
+    "contains_inputs_or_programs": false
+  }
+}
