@@ -2,7 +2,9 @@
 
 Gary Pagan · September 14, 2026
 
-Each manuscript begins with an executive summary in simple language, followed by the research questions, literature, methods, completed results, limitations, and references. These are complete empirical research manuscripts for committee review and Praxis development. They do not claim journal acceptance or institutional thesis approval. Failed interventions remain in the results.
+Each manuscript begins with an executive summary in simple language, followed by the research questions, literature, methods, completed results, limitations, and references. These are complete AI-assisted empirical research drafts for internal research development. Failed interventions remain in the results.
+
+**Academic-use clarification added September 14, 2026:** The current [GW doctoral policy page](https://online.engineering.gwu.edu/policies-procedures-doctoral) links an [AI policy](https://gwu.box.com/s/ickb578cz7d75089n2j5c1y9c6gb0z2v) that prohibits AI-generated drafting, revising and editing in submitted Praxis work, while permitting source identification and coding under its stated conditions. No applicable written exception has been verified. These drafts are not ready for academic submission, and human editing alone does not establish compliance. This notice preserves the authorship provenance and changes none of the frozen papers or experimental evidence. The CTI manuscript is also shorter than a full GW Praxis. The [CTI internal development handoff](https://github.com/garypagangit/praxis/tree/Final-Praxis-CTI-Development-20260914/final_praxis/cti_development_20260914) provides an evidence map, source records, code checks and independent-author preparation questions.
 
 ## Read the papers
 
