@@ -1,0 +1,180 @@
+{
+  "completed_utc": "2026-09-14T00:31:19.199520+00:00",
+  "scope": "Trusted validator-authored synthetic assertion programs only; no downloaded benchmark programs, model calls or cloud actions. Time-limit context replaced with nullcontext for these terminating Windows semantic tests; this does not qualify cloud sandbox/time limits.",
+  "worker_sha256": "b79d909af1358a0bf1676806f65e9816f6418abbcd43fec40649b51de2010354",
+  "runner_sha256": "896086686a44b55344b351ac60d3c6c93ab24925b880e8dd27d543d5e7f49796",
+  "controls": 9,
+  "passed": 9,
+  "results": [
+    {
+      "id": "two_passes",
+      "expected": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "pass",
+          "pass"
+        ],
+        "unreached": []
+      },
+      "actual": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "pass",
+          "pass"
+        ],
+        "unreached": []
+      },
+      "passed": true
+    },
+    {
+      "id": "stop_after_first_false",
+      "expected": {
+        "status": "fail",
+        "error_type": "AssertionError",
+        "events": [
+          "fail"
+        ],
+        "unreached": [
+          1
+        ]
+      },
+      "actual": {
+        "status": "fail",
+        "error_type": "AssertionError",
+        "events": [
+          "fail"
+        ],
+        "unreached": [
+          1
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "failing_expression_exception",
+      "expected": {
+        "status": "exception",
+        "error_type": "ZeroDivisionError",
+        "events": [
+          "exception"
+        ],
+        "unreached": [
+          1
+        ]
+      },
+      "actual": {
+        "status": "exception",
+        "error_type": "ZeroDivisionError",
+        "events": [
+          "exception"
+        ],
+        "unreached": [
+          1
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "false_assertion_evaluates_message",
+      "expected": {
+        "status": "exception",
+        "error_type": "ZeroDivisionError",
+        "events": [
+          "fail"
+        ],
+        "unreached": [
+          1
+        ]
+      },
+      "actual": {
+        "status": "exception",
+        "error_type": "ZeroDivisionError",
+        "events": [
+          "fail"
+        ],
+        "unreached": [
+          1
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "true_assertion_does_not_evaluate_message",
+      "expected": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "pass",
+          "pass"
+        ],
+        "unreached": []
+      },
+      "actual": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "pass",
+          "pass"
+        ],
+        "unreached": []
+      },
+      "passed": true
+    },
+    {
+      "id": "trailing_check_runs_once",
+      "expected": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "pass"
+        ],
+        "unreached": []
+      },
+      "actual": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "pass"
+        ],
+        "unreached": []
+      },
+      "passed": true
+    },
+    {
+      "id": "message_runs_once",
+      "expected": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "fail",
+          "pass"
+        ],
+        "unreached": []
+      },
+      "actual": {
+        "status": "pass",
+        "error_type": null,
+        "events": [
+          "fail",
+          "pass"
+        ],
+        "unreached": []
+      },
+      "passed": true
+    },
+    {
+      "id": "missing_trailing_call",
+      "passed": true,
+      "expected_exception": "ValueError",
+      "actual_exception": "ValueError"
+    },
+    {
+      "id": "wrong_trailing_entrypoint",
+      "passed": true,
+      "expected_exception": "ValueError",
+      "actual_exception": "ValueError"
+    }
+  ]
+}

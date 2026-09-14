@@ -1,0 +1,11 @@
+# Independent review of the polynomial-root comparator
+
+The supplied EvalPlus v0.3.1 evaluation source (`e5d0ed0bab96280b60b637ec7f15b5e4841b0cb2`) validates `find_zero` through the polynomial residual, then continues before recording that input's successful result and progress. Consequently its returned per-test vector can omit genuinely successful root checks and the aggregate completeness check can fail. Comparing only with the canonical program's numerical root would introduce a second problem: a polynomial can have multiple valid roots.
+
+The separately downloaded current evaluator at `26d6d00bb1fd0fa37f39c99d5290da67891d1c5e` differs in this file by exactly two added statements before that continuation: it records the per-input pass and increments progress. The residual assertion is unchanged. The old file SHA256 is `e9d4960c7da3547e2dbd20a1a3aa8bbea77f2caf16215b600a0a9ef5e14bfd80`; the new file SHA256 is `905bef8d559bfd955780b670c93a76f5b7a4a09b2a521170ff67de15d389ff96`.
+
+Pinning the corrected source before execution is an auditable solution. Preserve both source identities and the exact change in the qualification manifest. It repairs result bookkeeping while keeping the intended root-validity criterion; it can change reported aggregate outcomes compared with the defective release and must not be described as byte-identical execution of v0.3.1.
+
+The independent synthetic controls include a cubic with three exact roots: an alternative valid root must pass despite differing from the canonical answer. A non-root, NaN, infinity and excessive residual must fail. Ordinary float/type/length controls preserve the upstream HumanEval comparison conventions rather than importing the unrelated AutoDC typed scorer.
+
+The isolated runner should additionally execute the supplied three two-input bookkeeping controls: pass/pass, pass/fail and fail/pass. Each must retain two correctly indexed outcomes. A new worker that records per-input results directly avoids the old shared-array defect, but its completeness/indexing behavior still needs qualification. Canonical benchmark identity and deliberately invalid candidate controls remain required across the study cohort; these synthetic controls alone do not validate all benchmark tasks.

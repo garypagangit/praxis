@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "scope": "Manually specified controls for the pinned EvalPlus HumanEval comparator; these are not benchmark outputs.",
+  "comparison_cases": [
+    {"id":"integer_identity","entry_point":"synthetic","input":[],"output":12,"expected":12,"atol":0,"should_pass":true},
+    {"id":"integer_wrong","entry_point":"synthetic","input":[],"output":13,"expected":12,"atol":0,"should_pass":false},
+    {"id":"integer_float_exact_equality","entry_point":"synthetic","input":[],"output":12.0,"expected":12,"atol":0,"should_pass":true},
+    {"id":"integer_no_implicit_tolerance","entry_point":"synthetic","input":[],"output":12.00000001,"expected":12,"atol":0,"should_pass":false},
+    {"id":"float_default_tolerance_pass","entry_point":"synthetic","input":[],"output":1.0000005,"expected":1.0,"atol":0,"should_pass":true},
+    {"id":"float_default_tolerance_fail","entry_point":"synthetic","input":[],"output":1.00001,"expected":1.0,"atol":0,"should_pass":false},
+    {"id":"explicit_tolerance_pass","entry_point":"synthetic","input":[],"output":1.05,"expected":1.0,"atol":0.1,"should_pass":true},
+    {"id":"explicit_tolerance_wrong_type","entry_point":"synthetic","input":[],"output":1.05,"expected":1,"atol":0.1,"should_pass":false},
+    {"id":"float_list_tolerance_pass","entry_point":"synthetic","input":[],"output":[1.0000005,2.0],"expected":[1.0,2.0],"atol":0,"should_pass":true},
+    {"id":"float_list_length_mismatch","entry_point":"synthetic","input":[],"output":[1.0],"expected":[1.0,2.0],"atol":0,"should_pass":false},
+    {"id":"float_list_order_mismatch","entry_point":"synthetic","input":[],"output":[2.0,1.0],"expected":[1.0,2.0],"atol":0,"should_pass":false},
+    {"id":"literal_string_code","entry_point":"synthetic","input":[],"output":"001","expected":"001","atol":0,"should_pass":true},
+    {"id":"literal_string_not_integer","entry_point":"synthetic","input":[],"output":1,"expected":"001","atol":0,"should_pass":false},
+    {"id":"none_identity_follows_upstream","entry_point":"synthetic","input":[],"output":null,"expected":null,"atol":0,"should_pass":true},
+    {"id":"nan_does_not_match","entry_point":"synthetic","input":[],"output":{"__float__":"nan"},"expected":1.0,"atol":0,"should_pass":false},
+    {"id":"find_zero_canonical_root","entry_point":"find_zero","input":[[-6,11,-6,1]],"output":1.0,"expected":1.0,"atol":0.000001,"should_pass":true},
+    {"id":"find_zero_alternative_valid_root","entry_point":"find_zero","input":[[-6,11,-6,1]],"output":2.0,"expected":1.0,"atol":0.000001,"should_pass":true},
+    {"id":"find_zero_wrong_root","entry_point":"find_zero","input":[[-6,11,-6,1]],"output":0.0,"expected":1.0,"atol":0.000001,"should_pass":false},
+    {"id":"find_zero_nan_root","entry_point":"find_zero","input":[[-6,11,-6,1]],"output":{"__float__":"nan"},"expected":1.0,"atol":0.000001,"should_pass":false},
+    {"id":"find_zero_infinite_root","entry_point":"find_zero","input":[[-6,11,-6,1]],"output":{"__float__":"inf"},"expected":1.0,"atol":0.000001,"should_pass":false},
+    {"id":"find_zero_residual_tolerance_pass","entry_point":"find_zero","input":[[-1,1]],"output":1.0000005,"expected":1.0,"atol":0.000001,"should_pass":true},
+    {"id":"find_zero_residual_tolerance_fail","entry_point":"find_zero","input":[[-1,1]],"output":1.00001,"expected":1.0,"atol":0.000001,"should_pass":false}
+  ],
+  "bookkeeping_cases": [
+    {"id":"find_zero_two_passes","entry_point":"find_zero","coefficients":[[-1,1],[-2,1]],"candidate_returns":[1.0,2.0],"expected_per_input":[true,true],"expected_completed_count":2,"expected_aggregate":"pass"},
+    {"id":"find_zero_pass_then_fail","entry_point":"find_zero","coefficients":[[-1,1],[-2,1]],"candidate_returns":[1.0,1.0],"expected_per_input":[true,false],"expected_completed_count":2,"expected_aggregate":"fail"},
+    {"id":"find_zero_fail_then_pass","entry_point":"find_zero","coefficients":[[-1,1],[-2,1]],"candidate_returns":[0.0,2.0],"expected_per_input":[false,true],"expected_completed_count":2,"expected_aggregate":"fail"}
+  ]
+}
