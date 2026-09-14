@@ -64,7 +64,7 @@ def main():
             @classmethod
             def from_pretrained(cls, *a, **k): return cls()
             def compile(self, *a, **k): pass
-            def forecast(self, horizon, inputs): return np.array([[np.asarray(x)[-1]] for x in inputs]), None
+            def forecast(self, horizon, inputs): return np.array([[np.asarray(x)[-1]] for x in inputs], dtype=np.float32), None
         previous_module = sys.modules.get('timesfm')
         previous_verify = worker.verify_model
         sys.modules['timesfm'] = types.SimpleNamespace(TimesFM_2p5_200M_torch=FakeModel, ForecastConfig=lambda **k: k)
@@ -82,6 +82,36 @@ def main():
         original_receipt.write_text(json.dumps(original), encoding='utf-8')
         r = audit('original_arithmetic', original25=original_dir)
         checks['full_original_mock_arithmetic_audited'] = r['disposition'] == 'PENDING' and not r['failures'] and r['checks'].get('original_every_intervention_arithmetic') and r['checks'].get('original_every_residual_score_alarm')
+        checks['float32_source_predictions_preserved'] = r['checks'].get('original_prediction_values_exact_float32') is True
+        # Float32 multiplication must occur before float64 observation addition.
+        # Deliberately inject the old float64 replay into a real mock blend row.
+        actions_path = original_dir / 'interventions.jsonl'
+        original_actions_bytes = actions_path.read_bytes()
+        action_rows = [json.loads(line) for line in original_actions_bytes.splitlines()]
+        changed = False
+        for action in action_rows:
+            if action['action'] != 'blend': continue
+            wrong = .8 * np.asarray(action['prediction'], dtype=np.float64) + .2 * np.asarray(action['observation'], dtype=np.float64)
+            if not np.allclose(wrong, action['admitted'], atol=1e-10, rtol=1e-10):
+                action['admitted'] = wrong.tolist(); changed = True; break
+        checks['fixture_exposes_original_float64_rounding_bug'] = changed
+        actions_path.write_bytes((''.join(json.dumps(row) + '\n' for row in action_rows)).encode())
+        original['artifacts']['interventions.jsonl'] = hashlib.sha256(actions_path.read_bytes()).hexdigest()
+        original_receipt.write_text(json.dumps(original), encoding='utf-8')
+        r = audit('float64_admission_corruption', original25=original_dir)
+        checks['float64_blend_corruption_held_at_original_tolerance'] = r['disposition'] == 'HOLD' and 'original_every_intervention_arithmetic' in r['failures']
+        actions_path.write_bytes(original_actions_bytes)
+        original['artifacts']['interventions.jsonl'] = hashlib.sha256(original_actions_bytes).hexdigest()
+        # Direct fixture distinguishes source expressions even when their
+        # float64 observation-term difference is below the audit tolerance.
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('auditor_synthetic_test', runner)
+        auditor = importlib.util.module_from_spec(spec); spec.loader.exec_module(auditor)
+        pred = np.array([.12345679, 1.2345679, -3.1415927], dtype=np.float32)
+        obs = np.array([1.234567890123, -6.712345678901, 8.123456789012], dtype=np.float64)
+        historical = .8 * pred + (1 - .8) * obs
+        deployable = .8 * pred + .2 * obs
+        checks['source_policy_weights_and_operator_order_exact'] = not np.array_equal(historical, deployable) and np.array_equal(auditor.replay_admitted('historical_oracle_blend', 'blend', obs, pred), historical) and np.array_equal(auditor.replay_admitted('alarm_only_blend', 'blend', obs, pred), deployable)
         original['comparisons'][0]['detected_episodes'] = -1
         original_receipt.write_text(json.dumps(original), encoding='utf-8')
         r = audit('original_wrong_count', original25=original_dir)

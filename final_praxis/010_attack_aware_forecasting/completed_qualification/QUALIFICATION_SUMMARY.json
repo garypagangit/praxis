@@ -1,0 +1,224 @@
+{
+  "completed_utc": "2026-09-14T15:06:23.942679+00:00",
+  "qualification": "PASS_TO_PROSPECTIVE_DEVELOPMENT_ONLY",
+  "candidate_praxis_efficacy": "UNTESTED",
+  "scope": "Pinned public-source implementation qualification and fixed development controls; not an author-environment bitwise replication or a new defense trial.",
+  "audit_checks_passed": 51,
+  "audit_checks_total": 51,
+  "audit_sha256": "1b6a3b635991e7f9a33a35b00043fb2337047a08ec65edbc03a7196440f01de6",
+  "separately_authored_review": {
+    "receipt": "independent_review/INDEPENDENT_010_RESULTS_REVIEW.json",
+    "sha256": "272242b45045a107dba7961a314dea986da820ba8d5d6643b2ad24f06f2ac309",
+    "checks_passed": 20026,
+    "checks_total": 20026,
+    "scope": "Independent saved-result reconstruction; no forecast, latency, memory or adaptive-optimizer reexecution."
+  },
+  "original25_comparisons": [
+    {
+      "policy": "historical_oracle_blend",
+      "attack_points": 600,
+      "clean_points": 600,
+      "detected_episodes": 20,
+      "episode_denominator": 20,
+      "alarm_attack_points": 200,
+      "alarm_clean_points": 3
+    },
+    {
+      "policy": "rolling",
+      "attack_points": 600,
+      "clean_points": 600,
+      "detected_episodes": 20,
+      "episode_denominator": 20,
+      "alarm_attack_points": 138,
+      "alarm_clean_points": 3
+    },
+    {
+      "policy": "alarm_only_blend",
+      "attack_points": 600,
+      "clean_points": 600,
+      "detected_episodes": 20,
+      "episode_denominator": 20,
+      "alarm_attack_points": 200,
+      "alarm_clean_points": 3
+    },
+    {
+      "policy": "literal_freeze",
+      "attack_points": 600,
+      "clean_points": 600,
+      "detected_episodes": 20,
+      "episode_denominator": 20,
+      "alarm_attack_points": 246,
+      "alarm_clean_points": 64
+    }
+  ],
+  "original25_action_counts": {
+    "historical_oracle_blend": {
+      "att_pre_onset": {
+        "positions": 400,
+        "alarms": 8,
+        "actions": {
+          "observed": 400
+        }
+      },
+      "att_endpoint": {
+        "positions": 600,
+        "alarms": 200,
+        "actions": {
+          "observed": 400,
+          "blend": 200
+        }
+      },
+      "cln_pre_onset": {
+        "positions": 400,
+        "alarms": 8,
+        "actions": {
+          "observed": 400
+        }
+      },
+      "cln_endpoint": {
+        "positions": 600,
+        "alarms": 3,
+        "actions": {
+          "observed": 600
+        }
+      }
+    },
+    "rolling": {
+      "att_pre_onset": {
+        "positions": 400,
+        "alarms": 8,
+        "actions": {
+          "observed": 400
+        }
+      },
+      "att_endpoint": {
+        "positions": 600,
+        "alarms": 138,
+        "actions": {
+          "observed": 600
+        }
+      },
+      "cln_pre_onset": {
+        "positions": 400,
+        "alarms": 8,
+        "actions": {
+          "observed": 400
+        }
+      },
+      "cln_endpoint": {
+        "positions": 600,
+        "alarms": 3,
+        "actions": {
+          "observed": 600
+        }
+      }
+    },
+    "alarm_only_blend": {
+      "att_pre_onset": {
+        "positions": 400,
+        "alarms": 8,
+        "actions": {
+          "observed": 392,
+          "blend": 8
+        }
+      },
+      "att_endpoint": {
+        "positions": 600,
+        "alarms": 200,
+        "actions": {
+          "observed": 400,
+          "blend": 200
+        }
+      },
+      "cln_pre_onset": {
+        "positions": 400,
+        "alarms": 8,
+        "actions": {
+          "observed": 392,
+          "blend": 8
+        }
+      },
+      "cln_endpoint": {
+        "positions": 600,
+        "alarms": 3,
+        "actions": {
+          "observed": 597,
+          "blend": 3
+        }
+      }
+    },
+    "literal_freeze": {
+      "att_pre_onset": {
+        "positions": 400,
+        "alarms": 59,
+        "actions": {
+          "observed": 341,
+          "freeze": 59
+        }
+      },
+      "att_endpoint": {
+        "positions": 600,
+        "alarms": 246,
+        "actions": {
+          "freeze": 246,
+          "observed": 354
+        }
+      },
+      "cln_pre_onset": {
+        "positions": 400,
+        "alarms": 59,
+        "actions": {
+          "observed": 341,
+          "freeze": 59
+        }
+      },
+      "cln_endpoint": {
+        "positions": 600,
+        "alarms": 64,
+        "actions": {
+          "freeze": 64,
+          "observed": 536
+        }
+      }
+    }
+  },
+  "new3_shift": {
+    "step_onset_delay": 0,
+    "step_full_retention": 0.01171875,
+    "step_first32_alarm_fraction": 0.09375,
+    "step_last32_alarm_fraction": 0.0,
+    "step_late_alarm_fraction": 0.0,
+    "post_return_alarm_points": 2
+  },
+  "calibration": {
+    "dataset_rows": 4031,
+    "original_train_boundary": 1007,
+    "scored_positions": 3024,
+    "true_positive_points": 21,
+    "false_positive_points": 39,
+    "anomaly_points": 343,
+    "normal_points": 2681,
+    "requested_n_epochs": 1,
+    "effective_epochs": 2
+  },
+  "model_runtime_seconds": {
+    "original25": 2155.8417286872864,
+    "new3": 71.02843952178955,
+    "calibration": 235.82222700119019
+  },
+  "model_peak_allocated_gib": {
+    "original25": 0.8754153251647949,
+    "new3": 2.4640512466430664,
+    "calibration": 0.38729190826416016
+  },
+  "model_runtime_sum_seconds": 2462.692395210266,
+  "cost_scope": "Runtime receipts are not a billing invoice. Root campaign operational receipts account for shared AWS host/setup/stop and cost.",
+  "heldout_hai_scored": false,
+  "novel_defense_tested": false,
+  "source_amendment_A1": "Exact upstream requested n_epochs=1/effective epochs=2 mismatch preserved before inference.",
+  "auditor_correction_A2": "Float32 blend operation order corrected before original25 artifact inspection; no tolerance relaxation.",
+  "data_scope_deviation_D1": "Unpreregistered timestamp/header-only expansion to all eight HAI files after model execution started; no additional sensor/label values parsed. Ledger frozen and further access stopped.",
+  "future_split_requirement": "Cite the D1 ledger and preregister any date-based split before sensor or label analysis; benchmark filename splits are not chronological.",
+  "next_gate": "Freeze a small chronological development design for a causally observable constrained context-update modification, with benign-shift recovery and false-alarm constraints. Any claimed forecast-influence bound requires explicit sensitivity or perturbation assumptions; bounded admission mass alone does not bound a nonlinear forecast. Do not proceed directly to heldout efficacy or primary-Praxis claims.",
+  "summary_script_sha256": "147169f8d17c98ef19792c54e5dd0f0ad9cae7a7e3ef0df53b0d2c29f17b2528"
+}

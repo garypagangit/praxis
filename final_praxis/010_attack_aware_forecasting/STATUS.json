@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-09-14T14:37:24.395759+00:00",
-  "overall_qualification": "PENDING",
+  "updated_utc": "2026-09-14T15:03:36.267430+00:00",
+  "overall_qualification": "PASS_TO_PROSPECTIVE_DEVELOPMENT_ONLY",
   "gates": {
     "cpu_original_observer": "PASS",
     "cpu_persistence_controls": "PASS",
     "data_accessibility": "PASS",
     "cloud_setup": "PASS",
     "timesfm3_feasibility": "PASS",
-    "original_timesfm25_comparisons": "RUNNING",
-    "chronos_w1acas_public_base": "PENDING"
+    "original_timesfm25_comparisons": "PASS",
+    "chronos_w1acas_public_base": "PASS"
   },
   "actual_model_results": {
     "timesfm3": {
@@ -19,11 +19,68 @@
       "synthetic_shift_alarm_points": 3,
       "synthetic_shift_points": 256,
       "late_shift_alarm_points": 0
+    },
+    "timesfm25": {
+      "total_seconds": 2155.8417286872864,
+      "peak_allocated_gib": 0.8754153251647949,
+      "intervention_steps": 8000,
+      "endpoint_rows": 4800,
+      "comparisons": [
+        {
+          "policy": "historical_oracle_blend",
+          "attack_points": 600,
+          "clean_points": 600,
+          "detected_episodes": 20,
+          "episode_denominator": 20,
+          "alarm_attack_points": 200,
+          "alarm_clean_points": 3
+        },
+        {
+          "policy": "rolling",
+          "attack_points": 600,
+          "clean_points": 600,
+          "detected_episodes": 20,
+          "episode_denominator": 20,
+          "alarm_attack_points": 138,
+          "alarm_clean_points": 3
+        },
+        {
+          "policy": "alarm_only_blend",
+          "attack_points": 600,
+          "clean_points": 600,
+          "detected_episodes": 20,
+          "episode_denominator": 20,
+          "alarm_attack_points": 200,
+          "alarm_clean_points": 3
+        },
+        {
+          "policy": "literal_freeze",
+          "attack_points": 600,
+          "clean_points": 600,
+          "detected_episodes": 20,
+          "episode_denominator": 20,
+          "alarm_attack_points": 246,
+          "alarm_clean_points": 64
+        }
+      ]
+    },
+    "chronos_w1acas": {
+      "runtime_seconds": 235.82222700119019,
+      "peak_allocated_gib": 0.38729190826416016,
+      "dataset_rows": 4031,
+      "scored_positions": 3024,
+      "true_positive_points": 21,
+      "false_positive_points": 39,
+      "anomaly_points": 343,
+      "normal_points": 2681,
+      "requested_n_epochs": 1,
+      "effective_epochs": 2,
+      "max_repeat_abs_difference": 0.0
     }
   },
   "heldout_hai_scored": false,
   "novel_defense_tested": false,
-  "audited_final_original25_results_available": false,
+  "audited_final_original25_results_available": true,
   "frozen_worker_unchanged": true,
   "hai_metadata_access": {
     "completed_utc": "2026-09-14T14:35:39.009019+00:00",
@@ -40,5 +97,17 @@
     "scope_deviation": "Q1-D1: unpreregistered expansion after model execution began",
     "scope_deviation_receipt": "completed_qualification/HAI_METADATA_SCOPE_DEVIATION.json",
     "future_splits_must_cite_ledger_and_be_prospective": true
+  },
+  "artifact_audit": {
+    "checks_passed": 51,
+    "checks_total": 51,
+    "receipt": "completed_qualification/FINAL_ARTIFACT_AUDIT.json"
+  },
+  "investment_gate": "Technical qualification complete; next investment is a small prospective constrained context-update development experiment, with any influence guarantee contingent on explicit sensitivity or perturbation assumptions.",
+  "independent_review": {
+    "checks_passed": 20026,
+    "checks_total": 20026,
+    "receipt": "completed_qualification/independent_review/INDEPENDENT_010_RESULTS_REVIEW.json",
+    "source_and_replay_packaged": true
   }
 }

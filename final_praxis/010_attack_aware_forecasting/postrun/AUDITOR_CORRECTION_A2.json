@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-09-14T14:52:55.120652+00:00",
+  "amendment_id": "AUDITOR-A2",
+  "scope": "Read-only postrun auditor arithmetic correction; not a model protocol or worker amendment.",
+  "timing": "Before original25 artifact inspection; actual TimesFM3 artifact already inspected. Parent detected the issue by source review while original25 was running.",
+  "cause": "JSON restores Python floats but omits array dtype; old auditor promoted prediction to float64 before multiplying. Pinned TimesFM2.5 forecasts are float32 and the source blend multiplies before combining with float64 observations. Historical expression uses (1 - .8); deployable uses .2.",
+  "previous_auditor_sha256": "0f2cea5d92c2215e38c381b741fc660c901f4223475f0c545b789428ff4defe8",
+  "current_auditor_sha256": "343fe702b2820dfced58db5afcb246b0f8fd45907233b5556364adf713d8dd71",
+  "previous_controls_preserved": "AUDITOR_CONTROLS.json",
+  "current_controls": "AUDITOR_CONTROLS_A2.json",
+  "controls_sha256": "98ab17bb17b96d22b3b942ff11550d0a2d39a1111723d7363245885f70df0d42",
+  "checks_passed": 11,
+  "checks_total": 11,
+  "original_admission_atol": 1e-10,
+  "original_admission_rtol": 1e-10,
+  "tolerances_relaxed": false,
+  "new_checks": [
+    "Exact float32 representability of JSON predictions",
+    "Full 8000-row original-worker mock fixture now returns float32",
+    "Prior float64 blend reproduces a real strict-tolerance mismatch",
+    "Corrupted float64 admission is held",
+    "Historical and deployable scalar expressions replay byte-exact synthetic arrays"
+  ],
+  "source_evidence": [
+    {
+      "cache_path": "timesfm_full/src/timesfm/timesfm_2p5/timesfm_2p5_torch.py",
+      "sha256": "3a84b663db6dc163fe30370181397c6752b952d071811643e1bc06c423ab7b7a",
+      "lines": "239,428 float32 inputs;512 detach/cpu/numpy return"
+    },
+    {
+      "cache_path": "attack/1_replay_lti_final.py",
+      "sha256": "dec0c9251ec1afe055369ea179e81b5f2ef6ebeb8200c9cb841db90651d212ea",
+      "lines": "62 buffer_weight=.8;204 original blend expression"
+    },
+    {
+      "path": "code/gpu_qualification.py",
+      "sha256": "efe42db66be79a0267c78a8d3e790e66ec3ddcadc9a61f2f7407b9992bff9bc2",
+      "lines": "120 deployable blend expression"
+    }
+  ],
+  "numpy_cloud": "2.2.6",
+  "model_calls": 0,
+  "cloud_actions": 0,
+  "frozen_runtime_unchanged": true,
+  "previous_auditor_preserved_in_git_commit": "2bea97fab5b1f0a94bd1ee4a9948cb1c86cdd4eb"
+}

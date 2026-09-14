@@ -24,6 +24,22 @@ def read_rows(path):
     return [json.loads(line) for line in path.read_text(encoding='utf-8').splitlines() if line.strip()]
 
 
+def replay_admitted(policy, action, observation, prediction):
+    """Replay pinned NumPy arithmetic, including float32 prediction multiply.
+
+    TimesFM 2.5 returns float32. JSON's float values preserve those values but
+    np.asarray would otherwise silently promote them to float64. Observations
+    are float64. Preserve the historical (1 - .8) expression separately from
+    the deployable wrapper's literal .2; do not relax admission tolerances.
+    """
+    observation = np.asarray(observation, dtype=np.float64)
+    prediction = np.asarray(prediction, dtype=np.float32)
+    if action == 'blend':
+        observed_weight = (1 - .8) if policy == 'historical_oracle_blend' else .2
+        return .8 * prediction + observed_weight * observation
+    return observation
+
+
 def main():
     p = argparse.ArgumentParser()
     for name in ['original25', 'new3', 'calibration']:
@@ -73,9 +89,11 @@ def main():
             threshold = 12.838156466598647  # scipy chi2.ppf(.995,3), checked below via each score/alarm margin
             from scipy.stats import chi2
             threshold = float(chi2.ppf(.995, 3))
-            action_ok, score_ok, causal_gate = True, True, True
+            action_ok, score_ok, causal_gate, prediction_dtype_ok = True, True, True, True
             for row in actions:
-                observation, prediction = np.asarray(row['observation']), np.asarray(row['prediction'])
+                observation = np.asarray(row['observation'], dtype=np.float64)
+                prediction = np.asarray(row['prediction'], dtype=np.float32)
+                prediction_dtype_ok &= np.array_equal(np.asarray(row['prediction'], dtype=np.float64), prediction)
                 residual = observation - prediction
                 score = float(residual @ inv @ residual)
                 score_ok &= np.isfinite(score) and bool(score > threshold) == row['alarm']
@@ -93,8 +111,9 @@ def main():
                 if expected_action == 'freeze':
                     action_ok &= row['admitted'] is None
                 else:
-                    admitted = .8 * prediction + .2 * observation if expected_action == 'blend' else observation
+                    admitted = replay_admitted(row['policy'], expected_action, observation, prediction)
                     action_ok &= np.allclose(row['admitted'], admitted, atol=1e-10, rtol=1e-10)
+            check('original_prediction_values_exact_float32', prediction_dtype_ok)
             check('original_every_intervention_arithmetic', action_ok)
             check('original_every_residual_score_alarm', score_ok)
             check('original_oracle_vs_deployable_gate_distinction', causal_gate)
