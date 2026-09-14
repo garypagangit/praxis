@@ -1,0 +1,117 @@
+# Blinded claim boundaries for the frozen code study
+
+**Reading note after experiment completion:** the conditional map below preserves
+the interpretation rules prepared before heldout inspection. The observed case is
+H1 supported for schema-constrained Qwen, H2 unsupported for both reviewers, and no
+observed generated-harm H1 contrast. Use [the final summary](FINAL_RESULTS_SUMMARY.md)
+for current status; the historical preparation statement below is not a pending task.
+
+Prepared against model-study freeze `162d2ab2dc0e0bebf1f62e98f1f2d22d022d9edc`, then updated from the prospective [V2 technical-extension protocol](../technical_extension/PREREG_V2.md), adapter/runner source and the released V1 development-format diagnosis. **No heldout decisions, scientific policy outcomes, H1/H2 statistics or generated-cohort efficacy results were inspected for either writing step.** This document changes no hypothesis, threshold, code, split or analysis. It does not assert that V2 is frozen, complete or successful. The scenarios below remain conditional interpretations. The original design is [MODEL_STUDY_PREREG.md](../MODEL_STUDY_PREREG.md); [METHODS_AND_WRITING_PLAN.md](METHODS_AND_WRITING_PLAN.md) separates V1/V2 methods and provenance.
+
+The central distinction is between **showing an evidence-selection effect**, **showing a useful acquisition-policy improvement**, and **establishing a defensible original contribution**. Those conclusions require different evidence. A positive test does not automatically establish the other two.
+
+## What “positive” and “null” mean here
+
+H1 concerns **reviewer-only** harmful acceptance for selected versus uniform W testimony. H2 concerns **enforced** harmful acceptance for uniform A versus hybrid A verification. Each reviewer has separate native heldout, replicate-zero tests; the family contains all four hypotheses with Holm adjustment. “Supported” below means the registered direction and multiplicity-controlled evidence support that particular contrast. Always report its effect, interval, discordant counts and independent-task denominator.
+
+A supported H2 test alone is not the full policy recommendation. That recommendation additionally needs the frozen five-percentage-point harm margin, interval excluding zero, useful-acceptance noninferiority, at least 40 harmful and 40 useful source tasks per reviewer, favorable direction versus static edit selection, and complete required observation accounting. All-zero useful paired differences retain their empirical interval but do not establish population noninferiority. Static edit's directional comparison is weaker than statistically established superiority, and neither substitutes for a full coverage/differential-testing comparator.
+
+“Not supported” is not a claim of no effect. It can reflect a small estimate, insufficient harmful opportunities, large uncertainty, rare available A counterexamples, witness infeasibility, weak useful-repair capability or a technical stop. Report which situation occurred. A reverse-direction estimate remains a reverse-direction result; do not flip the preregistered one-sided test after seeing it. Unknown or incomplete execution cannot be described as a scientific null.
+
+## Native-cohort outcome map
+
+Apply this outcome map only to a clearly identified run/configuration with valid technical qualification and audited assigned-record flow. The proposed V2 assembled result is not a fresh replication of all V1 observations. Its exact reuse and configuration limits are set out below.
+
+| H1 | H2 | Other required evidence | Defensible contribution / primary-Praxis assessment |
+|---|---|---|---|
+| Supported | Supported | Full policy criteria pass; valid flow and oracle; effects reproduced under each claimed reviewer. | Strongest candidate within this study: an executable characterization of selective truthful evidence plus a bounded acquisition-policy improvement at the tested budgets. Still no first-ever threat claim, new-theorem claim or broad testing superiority. Generated transfer determines the additional scope below. |
+| Supported | Supported | Harm reduction is statistically supported, but useful retention, practical margin, edit comparator, minimum task counts or completeness fails. | Evidence-selection mechanism is supported; the candidate does not qualify as a useful defense under the frozen rule. A characterization or negative intervention paper may be defensible. Do not call lower harm a successful policy if it is purchased through inadequate repair acceptance. |
+| Supported | Not supported | Valid, informative measurements and an adequate useful baseline. | The study may support an empirical evidence-selection finding, with no demonstrated benefit of the proposed hybrid policy. Lead with the observed selection mechanism and limits of independent acquisition; remove policy-success language. Whether that is strong enough for the primary Praxis depends on its empirical distinction from close prior work, not on forcing H2 into a positive result. |
+| Not supported | Supported | Full policy criteria pass. | A bounded independent test-selection improvement can be described, but the claimed evidence-steering mechanism was not established through H1 in this interface. Do not say that the policy counteracted a demonstrated persuasion vulnerability. The contribution faces especially direct comparison with ordinary test selection and patch checking. |
+| Not supported | Not supported | Valid estimates with sufficient informative tasks and complete flow. | A completed negative characterization: the predicted selection effect and proposed practical benefit were not demonstrated. A careful negative-result chapter is possible; a successful novel-defense primary Praxis is unsupported. A failed registered screen stays failed. |
+| Any | Any | Too few informative tasks, inadequate useful baseline, substantial missingness, invalid oracle or failed technical gate. | Measurement, capability or execution qualification report only, with precise failure accounting. Do not convert abstention, omitted assignments, unknown outcomes or insufficient power into robustness or a well-measured null. |
+
+An interval whose upper endpoint lies below the registered 0.05 H2 practical margin can constrain that margin on the studied distribution. A point estimate below 0.05, an unadjusted p-value, or a confidence interval spanning both directions cannot support the same claim. No unregistered equivalence margin for H1 should be introduced to declare selection harmless.
+
+## Generated revisions determine transfer scope
+
+The native fixtures are released canonical programs paired with human-inserted bugs. Generated cohorts use one Qwen proposal per task and intent. Honest repair starts from an already buggy original; deliberate corruption starts from canonical code. Thus the generated harmful cohort is deliberately constructed, while honest repair primarily supplies useful or still-incorrect transitions. Failure to repair an already incorrect program is not a measured correct-to-wrong event.
+
+| Generated evidence | Additional claim allowed | Claim that remains unavailable |
+|---|---|---|
+| Informative honest repairs and deliberate corruptions, with the relevant secondary pattern consistent with native results and useful acceptance retained. | Transfer to one-shot Qwen-proposed repairs and explicitly prompted benign semantic corruptions, reviewed by the named models under this protocol. | Natural error prevalence, spontaneous maliciousness, arbitrary model subversion, general software-agent reliability, or multi-generator replication. |
+| Deliberate corruptions show the effect, but useful honest repairs are scarce or rejected. | Bounded vulnerability/detection characterization for intentionally generated defective replacements. | A useful repair workflow or successful harm/usefulness tradeoff. Rejecting most edits is not enough. |
+| Honest repair yield is useful, but too few admitted harmful corruptions or too little baseline harmful acceptance is observed. | Repair capability and its acceptance can be reported; the harmful-transfer estimate is sparse or uninformative. | Evidence that the defense is safe because few harms occurred, or evidence that model-generated corruption cannot work. |
+| Native results are favorable but generated patterns are null, opposite or unstable. | Native-fixture characterization only, with the failed or uncertain transfer reported prominently. | A general claim covering actual model-proposed revisions. More language translations or repeated seeds do not repair this scope gap. |
+| Proposals are malformed, rejected, unchanged, technically stopped or unexecuted at material rates. | Exact admission/capability/technical accounting and conditional results with their denominators. | Treating every invalid proposal as a successfully blocked semantic attack, or omitting them to improve an apparent transfer rate. |
+
+All generated contrasts remain secondary. An attractive generated subgroup cannot replace failed native primary hypotheses or select a winning model after heldout inspection. Self-review by Qwen and review by Devstral are separate conditions; a second reviewer does not create a second independent proposal generator or a new benchmark sample.
+
+## Model disagreement and mechanism interpretation
+
+If an effect appears in one reviewer only, name that model and report the other outcome. Do not claim model-general replication. If both show the registered direction, describe agreement across two named managed model interfaces on the same underlying task set; the common tasks are not independent dataset replications. Stability repeats estimate response consistency, not new-task generalization or uncertainty across model weights.
+
+For V2, name **schema-constrained Qwen** and **unchanged Devstral** explicitly. Their decoding interfaces differ. Devstral native observations are exactly reused from V1, so matching native Devstral results across version reports are the same evidence, not replication. No V1 Qwen review decision is reused in V2. A better serialization-validity rate may enable the planned scientific measurement, but it cannot establish a better substantive reviewer or a successful verification policy without the registered decision/outcome comparisons.
+
+H1 tests the **complete disclosure policy**, not a single isolated psychological or mathematical mechanism. Uniform W can contain failures; selected W suppresses them by disclosing passing records, may display fewer than two, and uses minimum-Jaccard pairing when possible. Therefore an H1 effect cannot by itself identify clustering, omission, positive-result filtering or rhetorical persuasion as the unique cause. Even the feasible-only equal-display comparison does not isolate minimum-Jaccard clustering from filtering passing records. That distinction must remain in the interpretation; no new ablation is being proposed or retrospectively substituted here.
+
+Reviewers are explicitly told that records are truthful but may be selectively disclosed, receive both complete programs, and cannot request more tools. An observed effect applies to this informed-reviewer interface. It does not measure deception about authenticity, unrestricted dialogue with a specialist, a compromised test runner or hidden multi-agent internal cognition.
+
+H2 measures the decision after an identical authenticated-failure veto in every arm. If hybrid finds more failed tests, enforcement can reject more harmful revisions without the model itself becoming more resistant to persuasion. Report reviewer-only decisions alongside enforcement so the two effects are visible. Under a sound oracle, vetoing a known failing revision is a consequence of the rule; the nontrivial comparison is which independently acquired evidence is found at the same budget and what useful work remains accepted.
+
+## V1 technical failure and prospective V2 boundaries
+
+The only released observation used for this amendment is development formatting: V1 Qwen native reviews were **430/532 valid (80.83%)**, with **102 normal-`end_turn` malformed JSON outputs**, below the 95% gate; Devstral was **530/532 valid (99.62%)**. The original parser, invalid statuses, stop rule and result archive remain untouched. Qwen's unrun heldout reviews and unrun heldout proposals must not be interpreted as observed nonacceptance, safety or scientific null results. Operational placeholders may remain in V1 accounting, but the narrative must identify non-execution.
+
+The prospective change is confined to provider-enforced Qwen review JSON with required `decision` and `reason`, keeping prompts, temperature, input code/evidence, 1,024-token review cap and strict parser fixed. Proposal generation keeps its original interface and 2,048-token cap. Constraint-guided decoding can change semantic choices as well as serialization; there is no warranted claim that V2 merely recovers the missing decision hidden inside each V1 malformed answer. No original answer is repaired or relabeled. A single schema warmup tests terminal validity on a synthetic task, not correctness; its cost is included and it contributes no experimental observation. [V2 protocol](../technical_extension/PREREG_V2.md)
+
+The extension fixes reuse by model/cohort/split before heldout scientific inspection: all V1 development proposals and their existing isolated execution artifacts, all V1 Devstral native decisions, and all V1 Devstral generated-development decisions are reused exactly, including invalid/ineligible placeholders. Qwen development reviews are new schema-constrained calls on the same exposed development tasks. Its two 95% cohort gates must pass before Qwen heldout review and previously unrun heldout proposal generation. If gates permit, both models newly review generated-heldout proposals. These are new calls on the original public source tasks, not new independent tasks or an additional proposal generator.
+
+| Possible V2 status | Permissible interpretation | Prohibited inference |
+|---|---|---|
+| Warmup or either required development gate fails | Another recorded technical qualification failure with complete accounting. | Scientific null, measured robustness, post-hoc parser repair or another outcome-driven prompt/schema search within this protocol. |
+| Technical gates pass; main measurements remain pending | The separately declared Qwen configuration qualifies for the prospective scientific evaluation. | H1/H2 support, better decisions, a novel defense, or paper-results completion. |
+| Audited V2 measurements finish | Apply the registered primary/secondary analyses and conditional outcome map to the assembled, explicitly labeled configuration. | Erasing V1 failure, selecting the better version after results, counting reused Devstral calls twice, or describing the entire V2 dataset as a fresh replication. |
+| Reuse hashes, source freeze, request routing or outcome-access chronology cannot be verified | Report the provenance gap; a confirmatory claim remains unqualified. | Treating a plausible-looking results file as proof of prospective execution. |
+
+Keep the original four-test Holm family for the V2 analysis; the extension does not choose a favorable reviewer or subgroup from heldout outcomes. Native and generated intent cohorts remain distinct. A V1/V2 difference is not a randomized estimate of schema-constrained decoding's causal effect: interfaces, technical selection and available heldout calls differ, and unchanged Devstral records are reused. The amendment supports completing the stated study, not a separate claim about schema constraints as a new defense.
+
+The V2 source-freeze manifest must bind its protocol/adapter/wrapper to the original core freeze. Import manifests must establish exact record bytes, matching assignments and original raw-call provenance. New Qwen review IDs carry `v2-review-`; new proposal and Devstral IDs are distinguished by the separate phase directory and receipts. Preserve the original archive and cost ledger; report a separate V2 ledger for genuinely new calls plus warmup, with no second charge for imports. The two $30 API caps are a **$60 combined ceiling**, still inside the original $100 total envelope and shared host window; neither ceiling is actual spending. Completion, host termination and measured costs require current receipts.
+
+Public benchmark exposure remains a limitation in both versions. Task specifications, code and expanded tests may be recognized or have appeared in provider training; withholding task IDs and H from experimental interfaces does not establish otherwise. The 41/123 split controls this study's development access. It does not certify unseen training data, and reused development proposals/tasks are not fresh validation. Report the experiment as a controlled public-benchmark study, not contamination-free deployment evidence.
+
+## Novelty boundaries that remain even after favorable results
+
+| Closest prior / established component | What this study may add if supported | What favorable results do not establish |
+|---|---|---|
+| [PBRC, section 9.2](https://arxiv.org/html/2604.15558v1#S9.SS2): selectively acquired valid evidence, omissions and query-policy constraints. | A concrete executable comparison with fixed code pairs, actual reviewer decisions, matched acquisition budgets and reserved outcomes. | Discovery of truthful-evidence steering or invention of query/evidence contracts. |
+| [When Helping Hurts](https://arxiv.org/html/2606.02866v1#S7): critic corruption and executable evidence gating. | Characterization of acquisition/disclosure choices among truthful execution records, with explicit repair-retention tradeoffs. | First grounded critic, first executable revision defense or a direct reproduction of its data-cleaning factual-consistency result. |
+| [DiffTGen](https://qixin5.github.io/files/pdf/research/issta17identify.pdf), [Poracle](https://www.jooyongyi.com/papers/TOSEM23.pdf) and regression-test selection. | A deliberately restricted input-only selection process conditioned on disclosed witness features. | Invention of differential testing, preservation contracts, counterexample checking or safe regression selection. |
+| [CodeMonkeys](https://arxiv.org/abs/2501.14723) and [S*](https://arxiv.org/abs/2502.14382): test-based candidate discrimination. | Evidence about a fixed proposed revision and who controls its displayed/independent tests. | A better patch-search algorithm or the first use of generated/selected tests to distinguish programs. |
+| [TDAD](https://arxiv.org/abs/2603.17973): code-aware test selection. | A bounded comparison of witness-complement features with frozen static edit and uniform controls. | Broad superiority to graph/coverage-based impact analysis; the present edit proxy does not reproduce that full system. |
+| [AI Control](https://arxiv.org/abs/2312.06942): useful coding assistance under deliberate subversion. | A narrow, reproducible evidence-selection experiment on benign function defects. | First adversarial code-defect evaluation, unrestricted subversion resistance or general model alignment. |
+
+The [literature matrix](../literature/CLOSE_PRIOR_MATRIX.md) is a targeted primary-source review, not proof that no identical study exists. Its Rothermel–Harrold publisher-text/theorem comparison remains incomplete. A positive result can strengthen the value of an empirical comparison; it cannot erase these prior mechanisms or certify novelty by itself.
+
+The score `1+2b+d` and its uniform-mixture exploration bound remain simple process definitions and a standard finite-pool calculation. Uniform sampling already has a stronger worst-case miss guarantee than the bound provided merely by the mixture's uniform component. Any hybrid advantage therefore needs measured feature informativeness. No outcome can turn that bound into a newly proved general robustness theorem.
+
+## What can support the primary Praxis
+
+The strongest permissible primary-Praxis framing is **an original empirical characterization of how evidence-selection control affects code-revision decisions, with a reproducible acquisition-policy comparison and explicit usefulness constraints**. This becomes a serious candidate only when the evidence supports a worthwhile distinction from the prior matrix, the task/outcome measurement is valid, and the full registered flow and automated audit are complete. Favorable native and generated results would broaden that scoped empirical claim; they would not establish a new field or universal defense.
+
+An H1-only result could support a mechanism-centered Praxis with a failed intervention, provided it supplies more than the already-known observation that cherry-picking can mislead. The value would have to reside in the controlled, executable, replicated measurement and the new boundary it establishes. An H2-only result needs an equally precise empirical distinction from ordinary test selection; a small weighting change by itself is insufficient novelty. These are assessments of potential contribution, not automatic selection rules or outcome-dependent protocol changes.
+
+If both primary hypotheses lack useful evidence, or the useful baseline and informative task counts are inadequate, preserve a negative or measurement report. Completing paper artifacts is still worthwhile, but it should not be presented as having found the strongest positive primary idea. Do not launch new experiments or modify the frozen study to satisfy this document.
+
+## Before releasing a final claim
+
+1. Bind the analyzed artifacts to the frozen source, source/input hashes, proposal IDs and selected-test commitments; complete the independent automated review.
+   For V2, also bind its extension freeze, exact permitted imports, raw-request/configuration lineage, separate ledgers and preserved V1 archive; confirm that its design preceded heldout scientific inspection.
+2. Show every assigned task/proposal/call, eligibility reason, invalid/unknown status and protocol stop. Separate full assigned operational rates from conditional and valid-only rates.
+3. Report both reviewers' four-test family, all effects/intervals and discordant counts, regardless of which result is favorable. Keep development, repeats and secondary cohorts distinct.
+4. Evaluate the full useful-policy gate, including practical effect size, useful repair retention, minimum independent tasks, static edit comparison and missing-assignment restrictions.
+5. Report actual test/API resources and matched logical m/k costs. Extra precomputed tests and shared acquisitions are neither free nor separate independent trials.
+6. Use reserved-suite success language. H-hidden-from-actors is not contamination-free; passing finite tests is not semantic program correctness.
+7. Match the title, abstract and conclusions to the observed scenario above. Keep any unresolved limitation in the main result interpretation.
+
+No scientific outcome is selected here. Experiment completion, paper-development readiness, a qualified policy recommendation, a defensible novelty claim and external publication remain separate statuses. Earlier 001–007 and FalseCite-Code results stay in [the portfolio history](PORTFOLIO_STATUS_DRAFT.md), not in pooled evidence for the current hypotheses.

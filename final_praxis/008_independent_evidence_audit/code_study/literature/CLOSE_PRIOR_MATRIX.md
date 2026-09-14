@@ -1,8 +1,8 @@
 # Literature boundary for the code revision study
 
-Review date: 2026-09-14. This is a targeted primary-source review, not a systematic review or proof of novelty. The proposed experiment has not run. Dataset qualification, protocol freezing, and actual model behavior remain separate requirements.
+Review date: 2026-09-14. This is a targeted primary-source review, not a systematic review or proof of novelty. The literature assessment was prepared before execution. See [completed interpretation](../paper_package/RESULTS_AND_INVESTMENT.md) for measured outcomes and the separately registered technical extension.
 
-**Recommendation:** lead with a controlled empirical study of selective but truthful test evidence in model-mediated code revision. Treat the proposed independent test-selection policy as a candidate extension whose value must be demonstrated against strong testing baselines. Ordinary test execution, changed-code coverage, differential testing, evidence provenance, and query-policy enforcement are established ideas.
+**Recommendation after execution:** lead with the controlled empirical study of selective but truthful test evidence in model-mediated code revision. The proposed independent test-selection policy failed its registered success criteria; retain it as an unsuccessful intervention. Ordinary test execution, changed-code coverage, differential testing, evidence provenance, and query-policy enforcement are established ideas. The results support the bounded disclosure-effect framing, not a new-defense or new-theorem claim.
 
 | Primary source | What is already established or directly relevant | Consequence for this study |
 |---|---|---|
@@ -24,7 +24,7 @@ Review date: 2026-09-14. This is a targeted primary-source review, not a systema
 
 ## What could support a defensible contribution
 
-1. **Empirical characterization:** a paired, preregistered estimate of whether truthful but selected passing tests alter harmful-revision acceptance, while holding the code pair, task, witness count, presentation, model and decoding configuration fixed. Include symmetric useful repairs, negative/neutral outcomes, two independent model families and an actual model-proposed revision cohort. A controlled native-bug cohort alone supports a narrower characterization.
+1. **Empirical characterization:** a paired, preregistered estimate of whether selective truthful disclosure alters harmful-revision acceptance, holding the code pair, task, supplier access, maximum display count, prompt template, model and decoding configuration fixed. Actual display count and disclosed outcomes vary: uniform testimony can contain failures; selected testimony withholds them and may show fewer or no records. The implemented contrast therefore does not isolate the geometric pairing heuristic. Include symmetric useful repairs, negative/neutral outcomes, distinct model configurations and an actual model-proposed revision cohort. Native and generated evidence and reused observations require separate interpretation.
 2. **Process instantiation:** an auditable separation between supplier testimony, policy-selected tests, a trusted test runner and reserved outcome tests. This makes the known evidence-selection threat measurable. Call it an implementation contribution unless a closer-prior comparison supports more.
 3. **Policy extension:** an input- and edit-conditioned randomized policy that responds to gaps in supplied witnesses, retains a uniform sampling component and outperforms uniform, fixed and strong edit-aware selection at equal cost. The score and finite-pool bound are simple; their existence is not evidence of novel theory.
 

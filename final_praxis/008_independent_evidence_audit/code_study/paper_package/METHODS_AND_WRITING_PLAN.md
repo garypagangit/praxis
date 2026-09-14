@@ -2,7 +2,7 @@
 
 **Working title:** *Selective Truthful Test Evidence and Code Revision Decisions: A Controlled Study of Independent Verification.*
 
-This document translates the current [MODEL_STUDY_PREREG.md](../MODEL_STUDY_PREREG.md) and implementation into a paper-development plan. It contains no guessed experiment results and does not replace the frozen protocol. The title describes the question without asserting an effective or novel defense. The root study coordinator will bind the final source freeze and measured results before completing an abstract or contribution claim.
+This document translates the original [MODEL_STUDY_PREREG.md](../MODEL_STUDY_PREREG.md), frozen at `162d2ab2dc0e0bebf1f62e98f1f2d22d022d9edc`, and the prospective [V2 technical extension](../technical_extension/PREREG_V2.md) into the paper methods. Section 8a separates the original run from the schema-constrained Qwen configuration and exact record reuse. The substantive methods and conditional interpretation plan were written before heldout scientific inspection; the only diagnosis available then concerned development formatting. Both studies have now completed. See [the final summary](FINAL_RESULTS_SUMMARY.md), [results](RESULTS_AND_INVESTMENT.md), and [abstract and chapter plan](MANUSCRIPT_STARTER.md) for the subsequent observations. Neither protocol nor its frozen source was changed after results.
 
 ## 1. Research question and admissible contribution
 
@@ -34,7 +34,7 @@ Exact URLs, source licenses, blob hashes and artifact byte counts are in [SOURCE
 
 Map `Python/n` to `HumanEval/n` for `n=0..163`, retaining every task in the flow. Entry-point names and AST callable signatures, defaults, annotations and return annotations must align. A native pair is eligible only if the HumanEvalPack canonical program passes its original suite and all reserved outcomes, the EvalPlus reference completes every reserved outcome, and the buggy program has a demonstrated reserved failure. Missing or infrastructure-failed cases do not establish that failure. Empty reserved pools are ineligible.
 
-The qualification gate requires at least **100 eligible pairs overall and 60 heldout pairs**. Failure halts model inference and produces a measurement/qualification report. It does not authorize outcome-based substitution, a new split, or increasingly favorable task selection. Qualification counts are to be filled from the signed result flow, not from source alignment alone.
+The qualification gate requires at least **100 eligible pairs overall and 60 heldout pairs**. Failure halts model inference and produces a measurement/qualification report. It does not authorize outcome-based substitution, a new split, or increasingly favorable task selection. Qualification counts are to be filled from the verified result flow, not from source alignment alone.
 
 ## 3. Task split and information boundaries
 
@@ -68,7 +68,7 @@ flowchart LR
     H[Reserved H outcomes] --> F
 ```
 
-H is withheld from experimental interfaces, not guaranteed unseen during model pretraining. The trusted evaluator's access to a public pre-existing test bank is an explicit resource assumption. This study does not solve the general problem of producing a trustworthy oracle for an arbitrary new software task.
+H is withheld from experimental interfaces, not guaranteed unseen during model pretraining. The specifications, code pairs and test bank are public; hiding task IDs does not remove recognizable code or establish an uncontaminated benchmark. A heldout task here means excluded from this study's development decisions, not newly authored, private, temporally fresh or demonstrably unseen by the provider. The trusted evaluator's access to a public pre-existing test bank is an explicit resource assumption. This study does not solve the general problem of producing a trustworthy oracle for an arbitrary new software task. Reusing development tasks to qualify the V2 serialization repair does not turn them into a fresh validation set.
 
 ## 4. Programs, proposal cohorts and execution
 
@@ -157,7 +157,13 @@ For valid model decision D, reviewer-only acceptance is `1[D=accept]`; invalid o
 | Useful repair retention | `accept(hybrid) - accept(uniform_a)` among useful revisions | Enforced decisions; prospective noninferiority margin -0.05. |
 | Static edit comparison | `accept(edit) - accept(hybrid)` among harmful revisions | Separate directional comparator; confidence interval also reported. |
 
-For each primary paired contrast let n+ be favorable discordant task pairs and n- unfavorable pairs. Under the paired sign/McNemar null, `p = sum_{j=n+}^{n++n-} choose(n++n-,j) / 2^(n++n-)`. Zero discordances give p=1. There are exactly **four primary hypotheses**, two contrasts by two reviewers. Apply Holm step-down adjustment across all four; missing/non-estimable comparisons retain p=1 in that family. Repeated calls, proposals or two model observations from one task cannot become independent sign-test trials.
+For each primary paired contrast let n+ count favorable discordant task pairs, n- unfavorable pairs, and n=n+ + n-. Under the paired sign/McNemar null:
+
+\[
+p=2^{-n}\sum_{j=n_+}^{n}\binom{n}{j}.
+\]
+
+Zero discordances give p=1. There are exactly **four primary hypotheses**, two contrasts by two reviewers. Apply Holm step-down adjustment across all four; absent, unpairable or non-estimable contrasts retain p=1 in that family. Explicit missing-call placeholders remain abstentions in the operational paired estimand, while blocking a complete-data recommendation. Repeated calls, proposals or two model observations from one task cannot become independent sign-test trials.
 
 Confidence intervals use 5,000 percentile bootstrap draws over underlying source tasks, preserving the task's paired arms and directions together; model reviewers remain separate. The base seed is `praxis008-analysis-v1`, with deterministic contrast/reviewer derivation. Conditional harmful/useful rates keep invalid model responses as abstention in their assigned denominators; valid-call-only rates are separately descriptive. Only explicitly eligible cases enter correctness-conditioned primary contrasts; full assigned flows retain exclusions and unknowns. Missing expected rows materialize as abstention for operational accounting and block a complete-data recommendation. [Model analysis](../analysis.py)
 
@@ -169,7 +175,7 @@ Generated contrasts are secondary and separated by proposer/intent; honest and d
 
 Execute eligible development assignments before heldout inference. Each reviewer requires at least 95% terminal valid review responses, complete assigned-output accounting and no hash/schema/leakage error. Proposal admission rate is descriptive and cannot trigger prompt modification. No effect-size or required positive/negative-decision threshold chooses whether heldout proceeds. A technical failure stops the affected model; engineering amendments require a separately documented run without recycled heldout confirmation. Because Qwen is also proposer, heldout proposal inference requires its development reviewer gates in both native and generated cohorts; otherwise all heldout proposal assignments remain not-run technical-gate placeholders.
 
-The frozen limits are a shared **$30 API ledger**, **$100 total incremental envelope**, an existing **eight-hour host window**, a six-hour supervisor cap, at most eight concurrent API requests, durable per-request/proposal/decision receipts and periodic S3 synchronization. The protocol records Bedrock rates checked on 2026-09-14: Qwen input/output $0.50/$1.20 and Devstral $0.40/$2.00 per million tokens. These are ledger inputs for cost estimates, not an invoice or a fresh price quote from this writing task. [Registered cost policy](../MODEL_STUDY_PREREG.md), [AWS pricing source](https://aws.amazon.com/bedrock/pricing/)
+The original run's frozen limits are a shared **$30 API ledger**, **$100 total incremental envelope**, an existing **eight-hour host window**, a six-hour supervisor cap, at most eight concurrent API requests, durable per-request/proposal/decision receipts and periodic S3 synchronization. The V2 extension adds a separate $30 phase ledger within the same $100 total envelope and host window; its accounting is specified below. The protocol records Bedrock rates checked on 2026-09-14: Qwen input/output $0.50/$1.20 and Devstral $0.40/$2.00 per million tokens. These are ledger inputs for cost estimates, not an invoice or a fresh price quote from this writing task. [Registered cost policy](../MODEL_STUDY_PREREG.md), [AWS pricing source](https://aws.amazon.com/bedrock/pricing/)
 
 Report three distinct resources: actual qualification/full-vector program executions, logical m/k acquisition budgets per experimental condition, and actual model input/output usage and provider attempts. Reusing precomputed vectors does not make the initial full-vector computation free; shared W/B0-like components must not be charged repeatedly as independent cloud invoices. Equal test counts or requests do not imply equal tokens, latency or money. Keep EC2 elapsed time, retained storage, transferred artifacts and other studies separate from the API estimate. Unknown provider-attempt costs remain reserved in the ledger rather than silently treated as zero.
 
@@ -177,14 +183,42 @@ Managed model IDs, request IDs, timestamps, token counts, exact prompts and raw 
 
 The current source pipeline finalizes `public_results/MODEL_RESULTS.json`, `ACQUISITION_RESULTS.json`, corresponding Markdown reports, `FLOW_AND_COSTS.json`, full assigned decision/offline tables, and `RESULTS_RECEIPT.json`. The latter binds outputs and source-input receipts. Interpret process completion only after the independent artifact review confirms coverage and provenance. [Runner](../run_study.sh), [finalization](../finalize_results.py)
 
+## 8a. Prospective V2 schema extension and mixed record lineage
+
+The original native-development Qwen gate returned **430/532 valid reviews (80.83%)**, below the registered 95% minimum. The released development-only diagnosis classifies all **102 invalid reviews as malformed JSON after a normal `end_turn`**, including missing braces and unescaped quotes. These observations motivate a schema constraint, not an increased token cap. Devstral passed **530/532 (99.62%)**. Preserve both counts, the original strict parser and the original gate failure. Under V1, Qwen heldout reviews and heldout proposal generation are not run; their placeholders are technical non-execution, not measured refusal or resistance to harmful revisions. [V2 reason and access boundary](../technical_extension/PREREG_V2.md)
+
+The sole decision-generation change is provider-constrained JSON on **Qwen review calls**: an object with required `decision` in `{accept, keep}` and `reason` as a string, with no additional properties. The system/user messages, task/code/evidence inputs, temperature zero, 1,024-token cap and strict terminal parser remain unchanged. Qwen proposal generation retains its original prompt and 2,048-token cap without this constraint. Devstral's interface remains unchanged. This is a distinct decoding configuration that may change substantive decisions; it is not postprocessing that proves the original response would have been equivalent. Original malformed responses are never repaired or relabeled. [Adapter](../technical_extension/adapter.py), [assembly runner](../technical_extension/run_extension.py)
+
+AWS documents `outputConfig.textFormat` for Converse structured output and lists support for Qwen3 Coder Next on `bedrock-runtime`. Its documentation describes compilation latency for a new schema. The prospective extension therefore logs one synthetic warmup with the exact schema/system and 1,024-token cap before benchmark calls, allowing a 600-second read timeout for that warmup while retaining 120 seconds for benchmark requests. The warmup must terminate with valid schema; its substantive accept/keep decision is not a gate. It is excluded from experiment denominators and included in API usage. Failure closes the extension without a new schema/parser search. [AWS structured-output documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/structured-output.html), [Qwen model feature documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-qwen-qwen3-coder-next.html)
+
+| Record class | Prospective V2 treatment | Independence and exposure interpretation |
+|---|---|---|
+| V1 development proposals for both intents, including invalid/rejected/ineligible placeholders | Exact reuse of aggregate and per-proposal artifacts; the existing isolated development execution artifacts remain the evaluation source. | Same proposals and exposed development tasks, not another generation attempt or a new validation sample. |
+| V1 Devstral native development and native heldout decisions | Exact per-decision byte reuse after assignment-hash and aggregate/per-record consistency checks. | Same original calls, even when included in both reports; no fresh Devstral native replication. |
+| V1 Devstral generated-development decisions | Exact reuse under the same proposal/evaluation assignments. | No new review or independent observation. |
+| V1 Qwen decisions in any cohort | No reuse; retain them in the unchanged V1 archive. | Malformed V1 outputs remain invalid in V1; there is no retrospective score correction. |
+| Qwen native and generated development reviews | New schema-constrained calls for every eligible assignment; retain all ineligible placeholders. | Same development tasks under a declared new interface. Each cohort must independently meet the unchanged 95% validity gate. |
+| Qwen native heldout reviews and heldout proposal generation | Previously unrun; proceed only if both Qwen development review gates pass. Original proposal prompt/admission/execution rules apply. | Fresh experimental calls on public heldout source tasks; not guaranteed contamination-free tasks. |
+| Generated-heldout reviews by both models | New calls on the newly generated, admitted heldout proposals, subject to each model's gates. | Generated transfer remains secondary and intent-specific. It does not add independent source tasks. |
+
+The original run must finish and its archive be preserved before imports. The wrapper assembles **one row per existing frozen assignment identity**, targeting the original 9,456 review assignments, 328 generated proposal assignments, 656 native/generated proposal directions and 131,200 offline rows. These are design totals, not completed-call counts. Source exclusions and qualification are retained rather than selected from review decisions. The current V2 protocol records 135 eligible native pairs, including 101 heldout; this writing update has not independently read their outcome artifacts and final reporting must bind that flow to the qualification receipt.
+
+The assembled V2 analysis retains the unchanged core analysis, four H1/H2 tests with Holm correction, task-cluster bootstrap, minimum 40 harmful and 40 useful tasks, five-point practical harm margin and useful-retention requirements. It compares schema-constrained Qwen with the declared unchanged Devstral interface; use model-plus-configuration labels in paper tables. Do not concatenate V1 and V2 Qwen rows, pool reused Devstral records as replications, double task counts, or choose the favorable version after seeing heldout results. Report V1's original operational accounting separately, prominently marking unrun Qwen heldout inference. A V2 technical pass permits the planned measurements; it is neither a positive H1/H2 result nor a new defense contribution.
+
+`EXTENSION_SOURCE_FREEZE.json` must bind the new protocol, adapter and wrapper to `MODEL_SOURCE_FREEZE.json`; the parent core stays byte-identical. Imports retain source/destination hashes and original raw-request provenance. The runner checks each imported Devstral assignment hash, exact source per-call record against its aggregate, and imported record count against the prespecified jobs. New Qwen review requests use the `v2-review-` namespace. New proposal and Devstral calls retain their normal ID form **inside the separate V2 receipt directory**; directory/phase plus model/configuration is therefore part of provenance, not the request prefix alone. The assembly receipt binds both result receipts, import manifests, warmup and phase estimates. The independent automated audit must verify these links and reconstruction, not infer reuse merely from filenames.
+
+Costs are **two immutable phase ledgers**, each capped at $30, for a combined API ceiling of $60 within the original $100 total incremental envelope. The warmup and genuinely new Qwen/Devstral/proposal requests belong to V2 usage. Reused calls retain V1 costs and are not charged again as new API work; logical m/k acquisition accounting still describes each analyzed condition. Report V1 actual/estimated usage, V2 additional usage, and their sum alongside the single shared host window and storage. The extension uses no new host, disk or endpoint, keeps the existing 08:18:30 UTC stop watchdog and requires its supervisor to fit the remaining window. These are prospective limits, not a statement that the campaign incurred the ceiling or that the host is currently stopped.
+
+At this writing snapshot, extension source is available for review, but no extension freeze, gate pass, completion or heldout scientific result is asserted. Record the coordinator-confirmed source freeze and execution receipts before promoting this section's prospective tense. The development-format diagnosis was the only study observation used to design this amendment; this document has not inspected heldout decisions, effect sizes or policy comparisons.
+
 ## 9. Five-chapter Praxis writing plan
 
 | Chapter | Content to write | Figures/tables and evidence needed |
 |---|---|---|
 | **1. Introduction** | Problem of selective truthful evidence; why authenticity does not guarantee representative checking; bounded threat and RQ1–RQ3; practical decision under test. | Actor/information-boundary diagram; precise scope of native, repair and deliberate-corruption cohorts. Do not write a success claim into the abstract. |
 | **2. Literature review** | Public repair/evaluation bases; selective-evidence/query contracts; critic-induced revision; regression, preservation and differential testing; candidate selection; remaining empirical question. | Closest-prior matrix and contribution boundary. Retain the incomplete detailed Rothermel–Harrold theorem comparison; no claim of exhaustive novelty certification. |
-| **3. Methodology** | Sources and qualification; split and W/A/H assignment; models/admission/isolation; m/w/k and arms; feature policy; finite-pool derivation; statistical estimands, missingness, gates and budget. | Source-pin table; study flow; control matrix; fixed gate table; exact scripts/hashes in reproducibility appendix. This document supplies the prospective content. |
-| **4. Results and discussion** | Populate only after frozen replay: qualification, complete flow, supplier feasibility, model proposal yield, H1/H2, useful retention, edit/component controls, generated transfer, stability, costs and exclusions. | Per-reviewer paired count/effect/CI tables; all-assigned denominators; informative-task flow; harm-versus-recovery plot; k=4 sensitivity separate. Explain failed/sparse gates without retuning them. |
+| **3. Methodology** | Sources and qualification; split and W/A/H assignment; models/admission/isolation; m/w/k and arms; feature policy; finite-pool derivation; statistical estimands, missingness, gates and budget; prospective V2 decoding change and fixed reuse policy. | Source-pin table; study flow; control matrix; fixed gate table; V1/V2 record-lineage and cost table; exact scripts/hashes in reproducibility appendix. This document supplies the prospective content. |
+| **4. Results and discussion** | Populate only after frozen replay: qualification, complete flow, supplier feasibility, model proposal yield, H1/H2, useful retention, edit/component controls, generated transfer, stability, costs and exclusions. Preserve V1's technical stop separately from the V2 assembled result. | Per-model/configuration paired count/effect/CI tables; all-assigned and reused/new denominators; informative-task flow; harm-versus-recovery plot; k=4 sensitivity separate. Explain failed/sparse gates without retuning them. |
 | **5. Conclusions and future work** | Answer each RQ at the demonstrated scope; distinguish hypothesis evidence, process contribution and policy recommendation; finite oracle, contamination, API and adversary limitations. | Claim/evidence checklist below; concrete next study only if justified by the measured limitation. No automatic larger sweep or new method claim from a negative result. |
 
 Appendices hold source/runtime manifests, schema and feature definitions, raw-trace custody and automated review, non-primary results, amendments, and [earlier portfolio status](PORTFOLIO_STATUS_DRAFT.md). The old experiments are design history, not pooled replications of the current hypothesis. FalseCite-Code's local paper artifact is not an externally verified publication.
@@ -206,8 +240,30 @@ Write Chapters 1–3 now from the frozen specification. Generate Chapter 4 table
 | More checks/replicates increased evidence. | Task-level sample sizes and bootstrap units, separate seed/stability diagnostics. | Extra rows are repeated measurements, not additional independent tasks. |
 | A theorem proves the defense works. | Not an available claim: the finite-pool inequality is standard and conditional on fixed oracle/completed observations. | State a standard exploration bound and its assumptions; empirical feature value is tested separately. |
 | The study is reproducible. | Public source/data pins, image/dependency receipts, scripts, selection/output hashes, complete flow and independent automated audit. | State the missing artifact or managed-API reproducibility limit precisely. |
+| V2 is a defensible technical extension. | Separate prospective protocol/source freeze, development-only diagnosis, unchanged core, schema routing, exact allowed reuse and separate ledgers; verified access chronology. | Proposed extension or incomplete technical run. Neither schema validity nor repeated records establish scientific improvement or replication. |
 | The experiment cost a particular amount. | Token/attempt ledger plus separate EC2/storage/time receipts. | Label estimates, reservations and exclusions; never call an estimate an AWS invoice. |
 | The work is ready for paper development. | Measurement/flow validity, all registered feasible work accounted for, independent review, truthful claims and completed methods/results package. | Framework or negative-result package only, with the actual remaining evidence task. |
 | The work is published or establishes novelty. | External publication evidence or a justified final contribution comparison, respectively. | Local draft/package and targeted literature assessment only. Neither process completion nor a favorable p-value certifies publication or novelty. |
 
 No row in this checklist predicts the study's result. Final conclusions must cite the completed receipts and preserve unsuccessful, infeasible, unknown and technically stopped assignments.
+
+## Writing-source snapshot
+
+These local-byte hashes identify the protocol and core methods read for this plan. They are a writing provenance snapshot, not a substitute for the coordinator's final study source-freeze receipt. If the protocol is legitimately amended, update this plan's affected methods and retain the amendment lineage.
+
+| File | SHA256 |
+|---|---|
+|`MODEL_STUDY_PREREG.md`|`11b620786e74a374158c93181024e1bfec216fc8edfa3c4178bbd12bd234610a`|
+|`policies.py`|`86021bfc83fe3a345e9a0518b04da0f76cc8441c6f34ea7d7fa43e8159af8765`|
+|`analysis.py`|`cbbd1210844666d42c24d11cd21cc6ef9d1920bc7a1e6f55205e2683fc058ecc`|
+|`offline_analysis.py`|`86b91c50e33a09292be4112295cde210cc6b2db4a25f319b2acf743b6bc3f447`|
+
+V2 writing-source snapshot, before coordinator confirmation of its final freeze:
+
+| File | SHA256 |
+|---|---|
+|`technical_extension/PREREG_V2.md`|`194de934dd037d2c2e8917dd8b083c3680ac60d545ca6ca74188233afea3da95`|
+|`technical_extension/run_extension.py`|`5c61355cc74cb5ccfc7dd011effd59c45a5fb897732b752cb16801c2e7eb89dd`|
+|`technical_extension/adapter.py`|`6ae612a87441d50100827417e8ed36abee7ea01872562460843b06964f9cd9b4`|
+
+These extension hashes describe source read for writing, not a completed run or immutable preregistration receipt. The coordinator must reconcile any authorized pre-call source changes with the final freeze.

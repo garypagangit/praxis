@@ -1,9 +1,21 @@
 # Praxis008: truthful selective evidence in code revision
 
-This directory contains the prospective experiment, not a claim that its candidate
-policy is effective. Read MODEL_STUDY_PREREG.md for the research questions, closest
-prior work, assignments, budget and decision rules. Qualification and model outcomes
-are separate phases. Earlier AutoDC work remains in ../oracle_repair/ unchanged.
+The original experiment and its prospective schema extension have completed.
+The result supports an empirical paper about **selective disclosure of executed
+tests**: schema-constrained Qwen accepted 12/101 harmful native revisions with
+selected testimony versus 4/101 with uniform testimony (+7.92 percentage points;
+Holm-adjusted p=.015625). Devstral's corresponding contrast is unsupported.
+The proposed hybrid verification policy failed its success criteria, and neither
+model showed a disclosure contrast in the smaller generated-harm cohort.
+
+Start with the [final results and portfolio summary](paper_package/FINAL_RESULTS_SUMMARY.md),
+[manuscript starter](paper_package/MANUSCRIPT_STARTER.md), and
+[detailed results](paper_package/RESULTS_AND_INVESTMENT.md).
+The [automated readiness receipt](paper_package/PAPER_READINESS.md) records evidence
+closure separately from scientific support. The complete treatment includes
+withholding failures and possibly showing no records; it does not isolate a
+geometric selection heuristic. The original and extension protocols retain all
+research questions, assignments and decision rules.
 
 The base is public HumanEvalPack/HumanEvalFix from OctoPack plus pinned HumanEvalPlus
 inputs and evaluator predicates. qualification/SOURCE_MANIFEST.json binds releases;
@@ -53,9 +65,14 @@ outputs remain distinct from completed calls. Summary JSON/Markdown and flow/cos
 receipts are written to study/public_results; bulky vectors and raw inference
 receipts belong in archived artifacts rather than ordinary Git text files.
 
-Paper-development material is in paper_package/. Its methods and historical status
-can be drafted before results, but conclusions, recommendation and readiness require
-the final independent artifact review. Public benchmark pretraining exposure,
+Public compressed result packages are in completed_models/; use the
+[reproduction guide](paper_package/REPRODUCTION_GUIDE.md) to reproduce both versions
+without AWS inference. Full source/evidence audits, accounting, and a disclosed
+secondary floating-point [erratum](postrun_review/roundoff_amendment/README.md)
+are in postrun_review/. The original result bytes and initial failed audit are
+preserved; the correction changes no primary result or overall recommendation.
+
+Paper-development material is in paper_package/. Public benchmark pretraining exposure,
 bounded execution, supplied/intentional bugs and missing strong coverage-testing
 baselines constrain all claims. Passing a finite outcome suite is not a proof of
 semantic correctness or venue acceptance.

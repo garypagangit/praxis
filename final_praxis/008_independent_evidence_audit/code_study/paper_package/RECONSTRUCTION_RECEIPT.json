@@ -1,0 +1,92 @@
+{
+  "schema": "praxis008-offline-data-reconstruction-v1",
+  "started_utc": "2026-09-14T01:34:50.390278+00:00",
+  "completed_utc": "2026-09-14T01:35:01.653500+00:00",
+  "reconstruction_pass": true,
+  "preparation_return_code": 0,
+  "preparation_elapsed_seconds": 10.03200000000652,
+  "mode": "copied_frozen_preparer_separate_source_and_private_cache_offline",
+  "frozen_source_manifest_sha256": "72e8c60cd9e1666cf2c5df564c2ddbf432019bedd0f0d9c1dc8c8d976c96ec98",
+  "preparer_sha256": "d33ca4b07f444c42cb12ca10e5b2c99333fd998f2dcc9149c3abb99ac3105928",
+  "reconstruction_driver_sha256": "88adb4b5bc29c07af8021d9365b3b1088ebea90671147a58f2364e848ffa6ff6",
+  "python_version": "3.11.9",
+  "python_implementation": "CPython",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "pyarrow_version": "24.0.0",
+  "command": [
+    "python",
+    "reconstruction_check/source/fetch_prepare.py",
+    "--private-dir",
+    "reconstruction_check/private",
+    "--offline"
+  ],
+  "comparisons": {
+    "SOURCE_MANIFEST.json": {
+      "original_sha256": "134b54282b064ad16d1934d15710542a6c35046445a0833a3437b1181796b49c",
+      "reconstructed_sha256": "134b54282b064ad16d1934d15710542a6c35046445a0833a3437b1181796b49c",
+      "byte_identical": true,
+      "parsed_content_identical": true
+    },
+    "TASK_IDENTITY.json": {
+      "original_sha256": "a0258a8264bb606a821275656a5c8ab7401c0f71df8b5181f5b5e95ec1f9b20f",
+      "reconstructed_sha256": "a0258a8264bb606a821275656a5c8ab7401c0f71df8b5181f5b5e95ec1f9b20f",
+      "byte_identical": true,
+      "parsed_content_identical": true
+    },
+    "SPLIT_MANIFEST.json": {
+      "original_sha256": "52d2c298817c57865be82a53a1a1d6f0b365e19d59eec1d448d48136f127b1fd",
+      "reconstructed_sha256": "52d2c298817c57865be82a53a1a1d6f0b365e19d59eec1d448d48136f127b1fd",
+      "byte_identical": true,
+      "parsed_content_identical": true
+    },
+    "INPUT_SPLITS.jsonl.gz": {
+      "original_sha256": "e3e4f3996e0367971f0825e0a47fa4fc1cc54316ae78e14e9690e37ffc14c591",
+      "reconstructed_sha256": "e3e4f3996e0367971f0825e0a47fa4fc1cc54316ae78e14e9690e37ffc14c591",
+      "byte_identical": true,
+      "decompressed_content_identical": true
+    },
+    "PREPARATION_SUMMARY.json": {
+      "original_sha256": "1062e707b67f92de843e24b3c21eb575e3baca413809b7586c810798122caff7",
+      "reconstructed_sha256": "1062e707b67f92de843e24b3c21eb575e3baca413809b7586c810798122caff7",
+      "byte_identical": true,
+      "parsed_content_identical": true
+    },
+    "data/tasks.jsonl": {
+      "original_sha256": "2dd1ce24af0d3a9365d9fe6ac40cf7a2b1b994812e10b986e6f85ec451c2b5df",
+      "reconstructed_sha256": "2dd1ce24af0d3a9365d9fe6ac40cf7a2b1b994812e10b986e6f85ec451c2b5df",
+      "byte_identical": true
+    }
+  },
+  "bundle_file_hash_manifest_identical": true,
+  "bundle_manifest_different_file_keys": [],
+  "frozen_qualification_files_unchanged": true,
+  "source_and_copied_cache_unchanged": true,
+  "pinned_cache_file_count": 20,
+  "pinned_cache_hash_manifest_sha256": "018762229e3d7b28bc3448285a5079739effca5eb340d7e53a9fa316cb161f79",
+  "summary": {
+    "tasks": 164,
+    "signature_aligned": 164,
+    "syntax_error_counts": {},
+    "base_input_occurrences": 1570,
+    "plus_input_occurrences": 122683,
+    "unique_inputs": 123981,
+    "tool_inputs": 32090,
+    "reserved_outcome_inputs": 91891,
+    "failure_symptoms": {
+      "incorrect output": 160,
+      "stackoverflow": 1,
+      "infinite loop": 3
+    },
+    "tasks_payload_sha256": "2dd1ce24af0d3a9365d9fe6ac40cf7a2b1b994812e10b986e6f85ec451c2b5df",
+    "task_split_seed": "praxis008-code-study-v1",
+    "downloaded_programs_executed": false
+  },
+  "benchmark_programs_executed": false,
+  "model_calls": 0,
+  "network_fetches_by_reconstruction": 0,
+  "limitations": [
+    "This checks reconstruction from a copied, hash-pinned existing public-source cache; it does not test fresh network acquisition or current upstream availability.",
+    "No benchmark/reference/model-generated program was executed; this verifies data/source identity and partition serialization, not independent runtime qualification.",
+    "Compressed tar archive byte identity is not required because packaging records file metadata; every bundled file hash and the bundle file manifest are compared."
+  ]
+}

@@ -25,6 +25,14 @@ comparison. These commands make no model requests and execute no candidate code.
 Reexecuting the same implementation is distinct from the separate artifact and
 statistical checks in `postrun_review/`.
 
+Both commands have passed on the retained public packages, also using Python
+3.11.9/NumPy 2.4.4. Reproduction intentionally retains an archived secondary
+floating-point flag: its exact mathematical effect is zero. Consult the
+[numerical erratum](../postrun_review/roundoff_amendment/NUMERICAL_ERRATUM.json)
+when interpreting that flag. Exact reproduction of historical output is not an
+endorsement of interpreting roundoff as benefit. The amended full audit checks
+the machine reduction and records the exact-arithmetic correction separately.
+
 Original Qwen heldout placeholders must remain in the inventory; they are
 non-execution after the development gate, not measured model safety. V2 reuses
 exactly the specified Devstral records and development proposals. The two versions
@@ -35,11 +43,21 @@ are not independent replications and must not be pooled to enlarge the sample.
 The base is [HumanEvalPack from OctoPack](https://arxiv.org/abs/2308.07124) and the
 [EvalPlus test expansion](https://arxiv.org/abs/2305.01210). Official inputs and
 implementation revisions are pinned in `qualification/SOURCE_MANIFEST.json`.
-`qualification/fetch_prepare.py --private-dir DIRECTORY` fetches and reconstructs
-the task bundle without executing downloaded programs. The qualification protocol,
+Run a separate working copy of
+`qualification/fetch_prepare.py --private-dir DIRECTORY` to fetch and reconstruct
+the task bundle without executing downloaded programs. Preparation requires
+PyArrow; the preparation environment has PyArrow 24.0.0. The script writes
+manifests beside itself, so keep the archived frozen source tree intact and compare
+the reconstructed task-payload hash with `qualification/PREPARATION_SUMMARY.json`.
+The private directory must be outside that working copy. The qualification protocol,
 split manifest, original-test compatibility exclusions and complete qualification
 receipt define the included cohort; retain all 164 source-task identities even
 though only 135 qualified.
+
+The [reconstruction receipt](RECONSTRUCTION_RECEIPT.json) records an offline rebuild
+from pinned cached source data: all six target artifacts and the complete bundle
+file manifest matched byte for byte. This is a cache-based reconstruction check;
+it is not a claim that fresh network downloads were reverified at closeout.
 
 Run actual program evaluation only through the registered isolated Docker worker
 and coordinator. The image, Python/NumPy versions, resource limits and comparison

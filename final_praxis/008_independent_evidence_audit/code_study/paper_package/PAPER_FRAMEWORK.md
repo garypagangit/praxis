@@ -1,10 +1,10 @@
 # Paper framework and claim boundaries
 
-**Current state: framework only; no new code-study results or primary-paper claim are asserted here.** The earlier campaign supplies feasibility lessons and reproducible negative results. It is not a pooled test of the present hypothesis.
+The experiments have measured outcomes. Start with [results and investment](RESULTS_AND_INVESTMENT.md), [manuscript starter](MANUSCRIPT_STARTER.md), and the final `PAPER_READINESS.md` receipt. This framework supplies the writing structure; earlier campaigns are design history, not pooled replications.
 
 Working question: Can a controller's independently acquired, task- and edit-dependent checks reduce acceptance of harmful code revisions supported by selectively disclosed truthful evidence while preserving useful repairs under the same checking budget?
 
-The title, abstract and contribution list must be written after the actual acquisition policy and its closest-prior distinction are frozen. Do not promise a new defense merely from the existence of hidden failing tests. The intended artifact can distinguish a reproducibility package, a benchmark-qualification result and a hypothesis-supported research paper; these have different readiness requirements.
+The title and abstract in the manuscript starter follow the frozen policy and completed results: a bounded positive selective-disclosure finding for Qwen, failed hybrid superiority and an unconfirmed generated-cohort transfer. The reproducibility package, qualification, hypothesis results and publication claim remain separate decisions.
 
 ## Proposed manuscript structure
 
@@ -25,13 +25,13 @@ Their samples, models, interventions and measurement protocols differ. Do not po
 
 The appendix evidence inventory records each study's exact artifact hash, source branch, outcome and admissible interpretation. Its function is transparent research provenance, not a sequence of independent replications or a proof that the final hypothesis was prespecified before the earlier trials.
 
-## Results placeholders that must remain empty until measured
+## Measured evidence to use in the manuscript
 
-- Qualified problem counts by bug category and split.
-- Honest generated-repair yield and useful correct-to-wrong / wrong-to-correct opportunities.
-- Adversary screening cost, truthful-witness eligibility and baseline attack acceptance.
-- Primary policy's paired harm reduction and repair-retention difference at a fixed budget.
-- Closest-prior and component ablation comparisons.
-- Automatic review verdict, remaining limitations and paper-development readiness.
+- Qualification: 135 included native pairs, with 101 heldout source tasks; all 164 source identities retained.
+- Generated heldout directions: 34 harmful, 90 useful and 69 other admitted proposals; do not count these as 193 new source problems.
+- Qwen H1: harmful acceptance 4/101 under uniform testimony and 12/101 under selected disclosure; retain the maximum-two-record and withholding interpretation.
+- H2: hybrid fails the uniform/static-control recommendation; show the useful-retention results alongside harm.
+- Closest prior: use the direct-citation matrix and claim boundaries; no new-theorem or first-threat claim.
+- Audit and readiness: use exact receipts rather than replacing them with narrative assurances.
 
 A failed or underpowered study can still support a precise negative-results report if the question and measurement are worthwhile. It must not be relabeled as successful evidence for a novel defense to satisfy a desired paper outcome.
