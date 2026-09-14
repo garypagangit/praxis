@@ -1,0 +1,161 @@
+{
+  "schema_version": "px055-e1-e4-source-manifest-v3",
+  "experiment_id": "PX-055",
+  "purpose": "fresh complete R3 execution of all registered E1-E4 model-condition cells after administrative Gemma access restoration and full cross-Gram principal-angle repair",
+  "generated_utc": "2026-09-02T01:47:13.3236741Z",
+  "freeze_status": "FROZEN_BEFORE_R3_OUTCOME_EXPOSURE",
+  "run_id": "px055-e1e4-7df9f1e2-20260901-r3",
+  "instance_type": "g5.xlarge",
+  "expected_gpu": "NVIDIA A10G",
+  "server_side_encryption": "AES256",
+  "bucket_versioning_required": "Enabled",
+  "r2_boundary": {
+    "run_id": "px055-e1e4-ac705630-20260831-r2",
+    "terminal_status": "INCOMPLETE_SCOPE",
+    "immutable": true,
+    "append_or_resume_allowed": false,
+    "closeout_manifest_sha256": "2d2ca4d3e791e089cbbf4daff80374653a9264ff5b9a2e1b93b7f027f6f0dd7c"
+  },
+  "scientific_protocol": {
+    "frozen_config_sha256": "202ccb2c626324056488ebe4d5fc5f02bd50c697de318fee61a61cd92398ea68",
+    "frozen_scientific_protocol_unchanged": true,
+    "implementation_version": "px055-e1-e4-implementation-v1.2-full-cross-gram",
+    "principal_angle_method": "all singular values of the complete compatible 2D left_basis @ right_basis.T cross-Gram matrix, clipped to [0,1] only after SVD",
+    "models": [
+      "Qwen/Qwen2.5-7B-Instruct@a09a35458c702b33eeacc393d103063234e8bc28",
+      "meta-llama/Llama-3.1-8B-Instruct@0e9e39f249a16976918f6564b8830bc894c89659",
+      "google/gemma-2-9b-it@11c9b309abf73637e4b6f9a3fa1e92e615547819"
+    ],
+    "conditions": [
+      "fp16",
+      "bnb_int8",
+      "bnb_nf4"
+    ],
+    "required_cells": 9,
+    "attention_implementation": {
+      "qwen": "sdpa",
+      "llama": "sdpa",
+      "gemma": "eager"
+    },
+    "gemma_attention_softcap_preserved": true,
+    "model_substitution_allowed": false,
+    "partial_scope_adjudication_allowed": false,
+    "local_files_only_during_science": true
+  },
+  "administrative_preflight": {
+    "gemma_access": {
+      "result": "PASS",
+      "receipt_sha256": "51f61df27fdf29195e9532a32962d5f35111e80502b6b4ae9b72609e743e279d",
+      "exact_revision_resolved": true,
+      "scientific_outcomes_observed": false
+    },
+    "fresh_s3_prefix": {
+      "result": "PASS",
+      "receipt_sha256": "818d401fb8d299aed4315a4cac9b6188868cb99b3ed6471237c2edecb06bc47e",
+      "versions": 0,
+      "delete_markers": 0,
+      "scientific_outcomes_observed": false
+    }
+  },
+  "production_files": {
+    "code/run_px055_e1_e4_r3.py": {
+      "source": "cloud_jobs/px055_e1_e4_20260831/run_px055_e1_e4_r3.py",
+      "bytes": 103496,
+      "sha256": "7df9f1e2480f077c22edc2d70cd7657e08c963ae5356d7ef92a55d846bc80908"
+    },
+    "code/px055_e1_e4_frozen_20260831.json": {
+      "source": "configs/px055_e1_e4_frozen_20260831.json",
+      "bytes": 24060,
+      "sha256": "202ccb2c626324056488ebe4d5fc5f02bd50c697de318fee61a61cd92398ea68"
+    },
+    "code/safe_prompt_source.py": {
+      "source": "reports/refusal_direction_quantization/e1_e4_20260831/closeout_r2/cloud_receipt/code/safe_prompt_source.py",
+      "bytes": 33406,
+      "sha256": "4b341eeac434bfdafb68274ea83c73267077c1463f6797e0476d0f25c03c910a"
+    },
+    "code/xstest_prompts.csv": {
+      "source": "reports/refusal_direction_quantization/e1_e4_20260831/closeout_r2/cloud_receipt/code/xstest_prompts.csv",
+      "bytes": 38719,
+      "sha256": "11783fb294ed017473ee53c207d71f2161c7672c8d0b037501e78387f801cb5a"
+    },
+    "code/requirements.txt": {
+      "source": "cloud_jobs/px055_e1_e4_20260831/requirements.txt",
+      "bytes": 152,
+      "sha256": "c843f5c22f89c84f4dd16cdad0afb4d6cd4dc6163b19e638a503e9bb9eae2403"
+    },
+    "code/prefetch_px055_r3_access_gate.py": {
+      "source": "cloud_jobs/px055_e1_e4_20260831/prefetch_px055_r3_access_gate.py",
+      "bytes": 22982,
+      "sha256": "bb57862a02b4869e1c69332fefd3f48dfc1a50ca58d62cccfc251b36185e54f2"
+    },
+    "code/gate_px055_r3_gemma_runtime.py": {
+      "source": "cloud_jobs/px055_e1_e4_20260831/gate_px055_r3_gemma_runtime.py",
+      "bytes": 27190,
+      "sha256": "8e53536f72d270bbcdf5716b0ad3035336948164c71b5092ea91292133a7f24e"
+    },
+    "code/run_on_instance_r3.sh": {
+      "source": "cloud_jobs/px055_e1_e4_20260831/run_on_instance_r3.sh",
+      "bytes": 23198,
+      "sha256": "333931b1ae1d4f43fb5938433067bfe0114b8b00d77fedb11ab703230fd2b4d1"
+    }
+  },
+  "provenance_files": {
+    "provenance/PX055_E1_E4_EXECUTION_AMENDMENT_R3_20260901.md": {
+      "source": "reports/refusal_direction_quantization/PX055_E1_E4_EXECUTION_AMENDMENT_R3_20260901.md",
+      "bytes": 6428,
+      "sha256": "1d2546e438f077f64da0ad72df5d36ec1afda6d400d6d2a1f2ff80f75f74b649"
+    },
+    "provenance/gemma_access_receipt.json": {
+      "source": "reports/refusal_direction_quantization/e1_e4_20260831/r3_preflight_20260901/gemma_access_receipt.json",
+      "bytes": 1519,
+      "sha256": "51f61df27fdf29195e9532a32962d5f35111e80502b6b4ae9b72609e743e279d"
+    },
+    "provenance/s3_empty_prefix_receipt.json": {
+      "source": "reports/refusal_direction_quantization/e1_e4_20260831/r3_preflight_20260901/s3_empty_prefix_receipt.json",
+      "bytes": 563,
+      "sha256": "818d401fb8d299aed4315a4cac9b6188868cb99b3ed6471237c2edecb06bc47e"
+    },
+    "provenance/runner_self_test_summary.json": {
+      "source": "reports/refusal_direction_quantization/e1_e4_20260831/r3_preflight_20260901/runner_self_test/self_test_summary.json",
+      "bytes": 1482,
+      "sha256": "a52f0457555a33e879feebad132434fb59b7c316b03e954706565ce377212ab0"
+    },
+    "provenance/independent_prelaunch_audit_receipt.json": {
+      "source": "reports/refusal_direction_quantization/e1_e4_20260831/r3_preflight_20260901/independent_prelaunch_audit_receipt.json",
+      "bytes": 1709,
+      "sha256": "3c2d1b8a3be8c1b4b95a2a4a3bae6c8565c54b548af890ba3deb7371e26dec27"
+    },
+    "provenance/probe_px055_gemma_access.py": {
+      "source": "scripts/probe_px055_gemma_access.py",
+      "sha256": "d061100cd709de49f1c3af754850e33d1c3200c4c4ddc8435140f517ced022c2"
+    },
+    "provenance/adjudicate_px055_e1_e4_r3.py": {
+      "source": "scripts/adjudicate_px055_e1_e4_r3.py",
+      "bytes": 99668,
+      "sha256": "51902d40b98f38bc101ff8aac50fb933c1b577849feae1e201b04e421e2c08bd"
+    }
+  },
+  "verification": {
+    "runner_synthetic_self_test": "SELF_TEST_PASS",
+    "runner_self_test_checks": 12,
+    "pytest": "96 passed, 1 skipped",
+    "wrapper_bash_syntax": "PASS",
+    "python_compile": "PASS",
+    "ruff": "PASS",
+    "r2_runner_and_wrapper_byte_immutable": true,
+    "independent_prelaunch_audit": {
+      "decision": "GO",
+      "receipt_sha256": "3c2d1b8a3be8c1b4b95a2a4a3bae6c8565c54b548af890ba3deb7371e26dec27",
+      "status_only_manifest_change_revalidation": "PENDING"
+    }
+  },
+  "launch_policy": {
+    "start_instance_only_after_independent_prelaunch_go": true,
+    "credentialed_phase": "exact-revision model prefetch only",
+    "token_storage": "AWS Secrets Manager; read into prefetch process memory only",
+    "runtime_gate": "all three Gemma conditions must capture 116/116 finite hook rows, prove the registered quantized loads, eager attention, and matching softcap before science",
+    "science_phase": "offline, cache-only, fresh full nine-cell execution",
+    "failure_policy": "fail closed, upload sanitized receipts/log/output only, stop instance, do not adjudicate incomplete evidence as complete"
+  },
+  "scientific_outcomes_observed": false
+}

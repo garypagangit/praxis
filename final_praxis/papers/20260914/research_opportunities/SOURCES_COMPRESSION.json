@@ -1,0 +1,733 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-14",
+  "review_type": "Primary-source literature and artifact inspection; no experiments",
+  "user_reference_resolved": {
+    "name": "Soup",
+    "author": "Alpamys Makazhan",
+    "repository": "https://github.com/MakazhanAlpamys/Soup",
+    "website": "https://trysoup.dev/",
+    "separate_souptraining_repository_verified": false,
+    "search_scope": "Author public repository listing, including empty second page, and exact-name web search",
+    "distinction": "Layer-streamed LoRA fine-tuning framework, not Wortsman model-soup averaging"
+  },
+  "scope_limits": [
+    "Public access, a declared license, a complete artifact release, and successful independent reproduction are separate properties.",
+    "Null license means unverified or absent declaration, not permission to redistribute.",
+    "No downloaded research code, model checkpoint, notebook, or dataset program was executed.",
+    "Current repository commits can differ materially from benchmarked releases.",
+    "Candidate hypotheses and thresholds in the memo are proposals, not preregistered results."
+  ],
+  "sources": [
+    {
+      "id": "soup_code",
+      "title": "Soup: fine-tuning and layer-streaming framework",
+      "author": "Alpamys Makazhan",
+      "source_type": "author_repository",
+      "url": "https://github.com/MakazhanAlpamys/Soup",
+      "commit": "e2c13ffc866c3c5f91f5b0d7fba2b35a27dcbe32",
+      "created_at": "2026-02-20T11:05:01Z",
+      "license": "Apache-2.0",
+      "license_evidence": "https://github.com/MakazhanAlpamys/Soup/blob/e2c13ffc866c3c5f91f5b0d7fba2b35a27dcbe32/LICENSE",
+      "verified": [
+        "Source tree",
+        "README",
+        "license metadata",
+        "layer_stream.py",
+        "stream_probe.py",
+        "benchmark records"
+      ],
+      "limits": [
+        "No local execution",
+        "Historical harness collection incomplete",
+        "Latest release performance not established by historical benchmark"
+      ]
+    },
+    {
+      "id": "soup_preprint",
+      "title": "Exact Layer Streaming: LoRA Fine-Tuning of an 8B Model on a 4 GB Laptop GPU",
+      "first_author": "Alpamys Makazhan",
+      "source_type": "preprint",
+      "url": "https://doi.org/10.5281/zenodo.21918325",
+      "current_record_date": "2026-08-13",
+      "concept_doi": "10.5281/zenodo.21771064",
+      "reviewed_v2_doi": "10.5281/zenodo.21877316",
+      "reviewed_v2_date": "2026-08-10",
+      "reviewed_v2_pdf": "https://zenodo.org/api/records/21877316/files/exact_layer_streaming_v2.pdf/content",
+      "reviewed_v2_pdf_md5": "e89a8d93882b1a70df6a85edae75ae31",
+      "license": "CC-BY-4.0",
+      "publication_status": "Zenodo preprint; peer-reviewed acceptance not verified",
+      "base_dataset": "dair-ai/emotion",
+      "limits": [
+        "Current record metadata and v2 full text reviewed; later code benchmark corrections take precedence for current implementation",
+        "Downstream quality panel has limited resolution and uncontrolled adapter initialization in the historical comparison"
+      ]
+    },
+    {
+      "id": "soup_nf4_benchmark",
+      "title": "v0.72.2 NF4 streaming gate",
+      "source_type": "author_measurement_record",
+      "url": "https://github.com/MakazhanAlpamys/Soup/blob/e2c13ffc866c3c5f91f5b0d7fba2b35a27dcbe32/benchmarks/gate-v0.72.2-nf4.md",
+      "reported_configuration": {
+        "model": "Llama-3.1-8B-Instruct",
+        "gpu": "RTX 3050 Laptop 4 GB",
+        "host_ram_gb_reported": 16.9,
+        "batch": 1,
+        "sequence_length": 512,
+        "quantization": "NF4",
+        "training_tokens_per_second": 119.6,
+        "peak_vram_gb": 3.32,
+        "pinned_decoder_store_gb": 3.6
+      },
+      "limits": [
+        "Training throughput, not autoregressive inference decode rate",
+        "Store bytes are not total host memory",
+        "Predates v0.73 repair; no new 4-GB-card measurement implied",
+        "Author measurement, not reproduced here"
+      ]
+    },
+    {
+      "id": "soup_correctness",
+      "title": "H100 validation and NF4 buffer-lifetime repair ledger",
+      "source_type": "author_measurement_record",
+      "url": "https://github.com/MakazhanAlpamys/Soup/blob/e2c13ffc866c3c5f91f5b0d7fba2b35a27dcbe32/benchmarks/gate-h100-validation.md",
+      "claims_used": [
+        "Forward agreement did not establish backward agreement",
+        "Historical defect affected larger NF4 layer sizes; 8B and 14B controls were already exact",
+        "Repaired 32B and 72B backward controls documented"
+      ],
+      "limits": [
+        "Do not generalize a gradient defect to ordinary non-streamed QLoRA",
+        "Earlier transfer-bound explanation is corrected by later probes"
+      ]
+    },
+    {
+      "id": "soup_september_probe",
+      "title": "RTX 5070 streaming bottleneck probe",
+      "date": "2026-09-12",
+      "source_type": "author_measurement_record",
+      "url": "https://github.com/MakazhanAlpamys/Soup/blob/e2c13ffc866c3c5f91f5b0d7fba2b35a27dcbe32/benchmarks/probe-rtx5070-what-bounds-streaming.md",
+      "claims_used": [
+        "Warm-cache disk path slower than RAM path",
+        "Synchronous mapped reads implicated",
+        "Main RAM condition compute/dequantization bound",
+        "Cold larger-than-RAM measurements use synthetic 70B-shaped store"
+      ],
+      "limits": [
+        "Synthetic capacity workload is not trained model quality",
+        "No promise asynchronous prefetch is itself novel",
+        "No experiment executed in this review"
+      ]
+    },
+    {
+      "id": "soup_m1",
+      "title": "M1 8-GB MLX SFT feasibility record",
+      "url": "https://github.com/MakazhanAlpamys/Soup/blob/e2c13ffc866c3c5f91f5b0d7fba2b35a27dcbe32/benchmarks/run-m1-8gb-mlx-sft.md",
+      "source_type": "author_measurement_record",
+      "claims_used": [
+        "Separate MLX backend",
+        "Reported 5.154-GB peak and paging pressure",
+        "Short feasibility run"
+      ],
+      "limits": [
+        "Not CUDA layer-streaming equivalence",
+        "Not evidence of sustained performance without swap"
+      ]
+    },
+    {
+      "id": "metakv",
+      "title": "MetaKV: Adaptive KV Cache Compression for Constrained LLM Inference",
+      "authors": [
+        "Michael Wang",
+        "Keith Li",
+        "Roozbeh Bostandoost"
+      ],
+      "first_submitted": "2026-09-07",
+      "version": "2609.07966v1",
+      "publication_status": "preprint",
+      "url": "https://arxiv.org/abs/2609.07966",
+      "full_text": "https://arxiv.org/html/2609.07966v1",
+      "repository": "https://github.com/MichaelWang0505/MetaKV",
+      "commit": "df8d56fc5f6c98ea81b31d4f5341a9add13f8d61",
+      "paper_license": "CC-BY-4.0",
+      "code_license": null,
+      "data": [
+        "GSM8K",
+        "HellaSwag",
+        "ARC-Challenge",
+        "SQuAD 1.1"
+      ],
+      "verified_artifacts": [
+        "Profiling CSVs",
+        "Three trained LightGBM objects listed in tree",
+        "Training/evaluation notebooks; source inspected only"
+      ],
+      "unverified_or_missing": [
+        "Code license",
+        "Original LLM profiling engine",
+        "Independent replay"
+      ],
+      "important_limit": "One Llama-3.1-8B on one 96-GB server GPU; budgeted memory is KV memory",
+      "explicit_future_work": "Reduce target-hardware/model re-profiling through transfer or lightweight online calibration"
+    },
+    {
+      "id": "kronq",
+      "title": "KronQ: LLM Quantization via Kronecker-Factored Hessian",
+      "authors": [
+        "Donghyun Lee",
+        "Yuhang Li",
+        "Ruokai Yin",
+        "Priyadarshini Panda"
+      ],
+      "first_submitted": "2026-07-08",
+      "latest_revision_reviewed": "2026-08-08",
+      "version": "2607.07964v2",
+      "publication_status": "Authors mark COLM 2026; independent proceedings confirmation not obtained",
+      "url": "https://arxiv.org/abs/2607.07964",
+      "repository": "https://github.com/Intelligent-Computing-Lab-Panda/KronQ",
+      "commit": "c1f84d2f556a2906bd8ac8e0faebe42a9faaf10b",
+      "code_license": "Apache-2.0",
+      "paper_license": "CC-BY-4.0",
+      "verified_artifacts": [
+        "Quantization source",
+        "Dataset loaders",
+        "Packed inference runtime",
+        "Checkpoint card"
+      ],
+      "base_datasets": [
+        "WikiText-2",
+        "C4",
+        "PTB; other paper zero-shot tasks"
+      ],
+      "important_limits": [
+        "Real packed CUDA and fake-quantization paths are distinct",
+        "Checkpoint licenses are inherited from base models",
+        "No reproduction performed"
+      ]
+    },
+    {
+      "id": "decision_quantization",
+      "title": "Which Decisions Low-Bit Quantization Breaks, and How to Predict Them",
+      "authors": [
+        "Zekun Wu",
+        "Swati Dhiman",
+        "Adriano Koshiyama"
+      ],
+      "first_submitted": "2026-08-06",
+      "latest_revision_reviewed": "2026-08-13",
+      "version": "2608.06564v3",
+      "url": "https://arxiv.org/html/2608.06564v3",
+      "publication_status": "Under review at UncertaiNLP at EMNLP 2026, non-archival track, per paper",
+      "paper_license": "CC-BY-NC-SA-4.0",
+      "artifact_status": "Reproducibility statement says code, test sets and result matrix will be released; complete public artifact not verified",
+      "novelty_constraints": [
+        "Decision-margin degradation and tool-call inaction already studied",
+        "Important-weight repair compared against cost-matched controls",
+        "One extra bit is an essential baseline",
+        "Severe compression breaks forced-choice measurement validity"
+      ]
+    },
+    {
+      "id": "kv_alignment",
+      "title": "Alignment Collapse Under KV Cache Quantization: Diagnosis and Mitigation",
+      "authors": [
+        "Bruce Changlong Xu",
+        "Adarsh Kumarappan",
+        "Mu Zhou"
+      ],
+      "first_submitted": "2026-06-01",
+      "latest_revision_reviewed": "2026-08-08",
+      "version": "2606.09864v2",
+      "publication_status": "preprint",
+      "url": "https://arxiv.org/abs/2606.09864",
+      "repository": "https://github.com/Adarsh321123/kv-quantization-alignment",
+      "commit": "682b9f6143234a69de6bae95fbad6f8a9e2d2afd",
+      "code_license": "README declares MIT; no standalone license file in inspected tree",
+      "artifact_status": "Public source and reproduction instructions; not run here",
+      "novelty_constraints": [
+        "Refusal-direction KV sensitivity and per-channel mitigation already studied",
+        "Refusal classification is distinct from action correctness"
+      ]
+    },
+    {
+      "id": "quality_not_safety",
+      "title": "Quality Is Not a Safety Proxy Under Quantization",
+      "first_author": "Sahil Kadadekar",
+      "first_submitted": "2026-06-08",
+      "version": "2606.10154v1",
+      "publication_status": "preprint",
+      "url": "https://arxiv.org/html/2606.10154v1",
+      "paper_license": "CC-BY-4.0",
+      "artifact_status": "Release described, but full publicly accessible reproduction package not verified",
+      "limitations_used": [
+        "Model-based judges",
+        "Internal behavioral-screen calibration",
+        "No established family-held-out generalization"
+      ]
+    },
+    {
+      "id": "uncertainty_compression",
+      "title": "Does Compression Preserve Uncertainty? A Unified Benchmark for Quantized and Sparse LLMs via Conformal Prediction",
+      "authors": [
+        "Yujia Tong",
+        "Yuxi Wang",
+        "Yunyang Wan",
+        "Tian Zhang",
+        "Junhao Dong",
+        "Jingling Yuan"
+      ],
+      "first_submitted": "2026-06-01",
+      "publication_status": "preprint",
+      "url": "https://arxiv.org/abs/2606.01850",
+      "artifact_status": "Complete executable release and licenses not verified",
+      "role": "Closest-prior warning against claiming uncertainty-aware compression evaluation is new"
+    },
+    {
+      "id": "semkv",
+      "title": "SemKV: Semantic Mixed-Precision KV Cache Quantization Guided by the Quality Cliff for Long-Context LLM Inference",
+      "authors": [
+        "Daeha Lee",
+        "Do-Hyung Kim",
+        "Jae-Hong Kim"
+      ],
+      "first_submitted": "2026-08-28",
+      "version": "2608.28911v1",
+      "publication_status": "preprint",
+      "url": "https://arxiv.org/abs/2608.28911",
+      "paper_license": "arXiv perpetual non-exclusive license",
+      "artifact_status": "Public benchmark datasets LongBench and MT-Eval; code/configuration on reasonable request",
+      "role": "Same-budget random/fractional-precision interpolation control; no immediate complete public implementation verified"
+    },
+    {
+      "id": "sherry",
+      "title": "Sherry: Hardware-Efficient 1.25-Bit Ternary Quantization via Fine-grained Sparsification",
+      "first_author": "Hong Huang",
+      "publication_status": "Published ACL 2026 long paper",
+      "publication_date_range": "2026-07-02/2026-07-07",
+      "url": "https://aclanthology.org/2026.acl-long.513/",
+      "doi": "10.18653/v1/2026.acl-long.513",
+      "repository": "https://github.com/Tencent/AngelSlim",
+      "repository_commit": "ee8ddb2b43e20800bcfdda1e9ac34ea2aab5de5d",
+      "code_license": "Apache-2.0 except declared third-party components",
+      "artifact_status": "Umbrella repository verified; exact complete Sherry checkpoint/kernel/training release not established",
+      "explicit_future_work": "Compose weight compression with activation and KV-cache compression"
+    },
+    {
+      "id": "turboquant",
+      "title": "TurboQuant: Online Vector Quantization with Near-optimal Distortion Rate",
+      "authors": [
+        "Amir Zandieh",
+        "Majid Daliri",
+        "Majid Hadian",
+        "Vahab Mirrokni"
+      ],
+      "first_submitted": "2025-04-28",
+      "publication_status": "ICLR 2026",
+      "url": "https://arxiv.org/abs/2504.19874",
+      "conference_pdf": "https://openreview.net/pdf?id=tO3ASKZlok",
+      "author_explanation": "https://research.google/blog/turboquant-redefining-ai-efficiency-with-extreme-compression/",
+      "author_explanation_date": "2026-03-24",
+      "limits": [
+        "Vector/KV compression, not a universal model-weight reduction",
+        "Kernel speedup is not full application speedup",
+        "A complete official Google implementation was not verified in this review"
+      ]
+    },
+    {
+      "id": "vllm_turboquant",
+      "title": "A First Comprehensive Study of TurboQuant: Accuracy and Performance",
+      "authors": [
+        "Eldar Kurtic",
+        "Michael Goin",
+        "Alexandre Marques"
+      ],
+      "date": "2026-05-11",
+      "source_type": "maintainer_implementation_evaluation",
+      "url": "https://vllm-project.github.io/2026/05/11/turboquant.html",
+      "role": "Primary implementation evidence that cache storage savings can trade off against hardware-native FP8 latency and throughput"
+    },
+    {
+      "id": "autoquantize",
+      "title": "AutoQuantize: A Fast Automatic Mixed-Precision Assignment",
+      "author": "NVIDIA Model Optimizer Team",
+      "date": "2026-08-24",
+      "source_type": "author_technical_documentation",
+      "url": "https://nvidia.github.io/Model-Optimizer/announcements/autoquantize.html",
+      "repository": "https://github.com/NVIDIA/Model-Optimizer",
+      "code_license": "Apache-2.0",
+      "role": "Strong mixed-precision baseline, subject to supported checkpoint/backend"
+    },
+    {
+      "id": "safety_invariance",
+      "title": "Safety Invariance research repository",
+      "author_identity": "GitHub user abdulm5; publication authorship not established",
+      "source_type": "author_research_artifact",
+      "positioning_date": "2026-06-21",
+      "url": "https://github.com/abdulm5/safety-invariance",
+      "positioning": "https://github.com/abdulm5/safety-invariance/blob/main/docs/RESEARCH_POSITIONING.md",
+      "code_license": null,
+      "publication_status": "Repository describes pilot; peer-reviewed paper not verified",
+      "role": "Blocks generic novelty claim for paired executable tool-agent safety flips under quantization"
+    },
+    {
+      "id": "kivi",
+      "title": "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache",
+      "first_author": "Zirui Liu",
+      "first_submitted": "2024-02-05",
+      "publication_status": "ICML 2024",
+      "url": "https://arxiv.org/abs/2402.02750",
+      "repository": "https://github.com/jy-yuan/KIVI",
+      "code_license": "MIT",
+      "base_data": [
+        "GSM8K",
+        "CoQA",
+        "TruthfulQA",
+        "LongBench"
+      ],
+      "role": "Older reproducible KV runtime foundation; requires backend/hardware qualification"
+    },
+    {
+      "id": "bitnet",
+      "title": "BitNet b1.58 2B4T Technical Report and runtime",
+      "url": "https://arxiv.org/abs/2504.12285",
+      "repository": "https://github.com/microsoft/BitNet",
+      "code_license": "MIT",
+      "checkpoint": "https://huggingface.co/microsoft/bitnet-b1.58-2B-4T",
+      "checkpoint_revision": "04c3b9ad9361b824064a1f25ea60a8be9599b127",
+      "checkpoint_license": "MIT",
+      "model_parameters_reported": "2.4B",
+      "recent_development": "July 2026 embedding releases; January 2026 CPU optimization",
+      "limits": [
+        "Native ternary model, not arbitrary 8B post-training conversion",
+        "Efficiency claims are specific to benchmark/hardware",
+        "Pretraining reconstruction not qualified here"
+      ]
+    },
+    {
+      "id": "bitnet_embedding",
+      "title": "BitNet-embedding-0.6B",
+      "source_type": "author_model_card",
+      "url": "https://huggingface.co/microsoft/BitNet-embedding-0.6B",
+      "revision": "16176d108561b62e3d6f2b558587afe1140b413f",
+      "repository_created": "2026-07-15",
+      "release_announcement": "2026-07-20 per BitNet README",
+      "license": "MIT",
+      "role": "Recent small native-low-bit retrieval alternative; not a general 8B conversational model"
+    },
+    {
+      "id": "soups_foundation",
+      "title": "Model soups: averaging weights of multiple fine-tuned models improves accuracy without increasing inference time",
+      "first_author": "Mitchell Wortsman",
+      "publication_status": "ICML 2022",
+      "url": "https://proceedings.mlr.press/v162/wortsman22a.html",
+      "role": "Terminology disambiguation only; not the user-identified Soup project"
+    },
+    {
+      "id": "additional_close_priors",
+      "entries": [
+        {
+          "title": "Towards Understanding and Improving Refusal in Compressed Models via Mechanistic Interpretability",
+          "url": "https://arxiv.org/abs/2504.04215",
+          "role": "Existing PX055 novelty blocker"
+        },
+        {
+          "title": "Safety-preserving PTQ via contrastive alignment loss",
+          "url": "https://arxiv.org/abs/2511.07842",
+          "role": "Safety-sensitive quantization objectives already exist; title has changed across versions"
+        },
+        {
+          "title": "Q-ReAlign: Piggybacking Realignment on Quantization for Safe and Efficient LLM Deployment",
+          "url": "https://arxiv.org/abs/2601.08089",
+          "role": "Quantization-time realignment prior"
+        },
+        {
+          "title": "MegaTrain: Full Precision Training of 100B+ Parameter Large Language Models on a Single GPU",
+          "url": "https://arxiv.org/abs/2604.05091",
+          "role": "Recent training offload/pipelining prior; generic asynchronous streaming is not novel"
+        }
+      ],
+      "limits": "Not all implementations or licenses qualified; these are required comparison-screen items, not promised runnable baselines"
+    },
+    {
+      "id": "colibri",
+      "title": "Colibr? inference engine",
+      "author": "JustVugg (GitHub identity)",
+      "url": "https://github.com/JustVugg/colibri",
+      "website": "https://justvugg.github.io/colibri/",
+      "created_at": "2026-07-01T12:27:49Z",
+      "commit": "f028d26b422144ed4a69ad9aeaee2553ce0f9572",
+      "code_license": "Apache-2.0",
+      "publication_status": "Software/research artifact; peer-reviewed paper not verified",
+      "benchmark_url": "https://github.com/JustVugg/colibri/blob/f028d26b422144ed4a69ad9aeaee2553ce0f9572/docs/benchmarks.md",
+      "original_reported_glm52_configuration": {
+        "host_ram_gb_approx": 25,
+        "container_gb_approx": 372,
+        "cold_generated_tokens_per_second": [
+          0.05,
+          0.1
+        ]
+      },
+      "explicit_open_hypothesis": "Learned hot-expert placement versus LRU on held-out cross-session coding/chat/multilingual/long-context workloads",
+      "limits": [
+        "Small runtime binary is not the weight container",
+        "Higher GPU-resident benchmark rates do not describe original 25-GB CPU host",
+        "Placement preserves selected quantized model semantics, not unquantized model quality",
+        "Benchmark data terms and exact harness source must be pinned before execution"
+      ]
+    },
+    {
+      "id": "moe_caching_lin_2025",
+      "title": "In-depth Analysis on Caching and Pre-fetching in Mixture of Experts Offloading",
+      "authors": [
+        "Shuning Lin",
+        "Yifan He",
+        "Yitong Chen"
+      ],
+      "first_public_date": "2025-11-08",
+      "status": "arXiv preprint; publication not verified",
+      "paper": "https://arxiv.org/html/2511.05814v1",
+      "artifact_status": "Own code and machine-readable trace release not verified; paper links upstream dvmazur/mixtral-offloading",
+      "s2_limit": "LFU and popularity/inactivity are prior; predicted prefetch was not executed."
+    },
+    {
+      "id": "cacheable_by_design_2026",
+      "title": "Cacheable by Design? Training Mixture-of-Experts Routers for Locality Against the Edge Memory-Bandwidth Wall: A Pre-Registered Negative Result with a Systems Measurement Study",
+      "authors": [
+        "Shriniwas Ramesh Suram"
+      ],
+      "first_public_date": "2026-08-18",
+      "status": "arXiv preprint; publication not verified",
+      "paper": "https://arxiv.org/html/2608.18261v1",
+      "repository": "https://github.com/Shriniwas410/cacheable-by-design",
+      "commit": "03366ef1cb986a7ac6067c840f8ac58d8e5c8595",
+      "code_license": "MIT",
+      "artifact_status": "Public code and traces; checkpoints and corpus excluded; no reproduction executed",
+      "s2_limit": "Domain-priming negative baseline; priming-count simulation is not measured SSD latency."
+    },
+    {
+      "id": "fiddler_iclr2025",
+      "title": "Fiddler: CPU-GPU Orchestration for Fast Inference of Mixture-of-Experts Models",
+      "paper": "https://arxiv.org/abs/2402.07033",
+      "status": "Author repository identifies ICLR 2025",
+      "repository": "https://github.com/efeslab/fiddler",
+      "commit": "227715bfd6e8c731b29548eab01d9919c4fe9564",
+      "code_license": "Apache-2.0",
+      "role": "S2 CPU/GPU orchestration baseline screen; compatibility not qualified"
+    },
+    {
+      "id": "moe_infinity_2024",
+      "title": "MoE-Infinity",
+      "paper": "https://arxiv.org/abs/2401.14361",
+      "repository": "https://github.com/EfficientMoE/MoE-Infinity",
+      "commit": "e51dd67392ff2c165788a9a5439d908bf132c1ba",
+      "code_license": "Apache-2.0",
+      "role": "S2 expert offload baseline screen",
+      "artifact_limit": "Current implementation differs from original paper; backend compatibility not qualified"
+    }
+  ],
+  "assets": [
+    {
+      "id": "qwen3_8b",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "license": "Apache-2.0",
+      "gated": false,
+      "config_url": "https://huggingface.co/Qwen/Qwen3-8B/blob/main/config.json",
+      "layers": 36,
+      "kv_heads": 8,
+      "head_dim": 128
+    },
+    {
+      "id": "llama3_1_8b",
+      "url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
+      "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "license": "Llama 3.1 Community License",
+      "gated": "manual"
+    },
+    {
+      "id": "kronq_packed_7b",
+      "url": "https://huggingface.co/donghyunli/Llama-2-7b-KronQ-W4A16",
+      "revision": "25e16bcdbae93a196784d4289ddabb6d4449f97c",
+      "license": "Llama 2",
+      "gated": false
+    },
+    {
+      "id": "bfcl",
+      "url": "https://huggingface.co/datasets/gorilla-llm/Berkeley-Function-Calling-Leaderboard",
+      "revision": "61fc0608cfd831fcfbbaa676ebdfef0ed963eeda",
+      "license": "Apache-2.0",
+      "evidence": "Author dataset-card metadata"
+    },
+    {
+      "id": "wikitext",
+      "url": "https://huggingface.co/datasets/Salesforce/wikitext",
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "license": [
+        "CC-BY-SA-3.0",
+        "GFDL"
+      ],
+      "evidence": "Author dataset-card metadata"
+    },
+    {
+      "id": "gsm8k",
+      "url": "https://huggingface.co/datasets/openai/gsm8k",
+      "revision": "740312add88f781978c0658806c59bc2815b9866",
+      "license": "MIT",
+      "evidence": "Author dataset-card metadata"
+    },
+    {
+      "id": "arc",
+      "url": "https://huggingface.co/datasets/allenai/ai2_arc",
+      "revision": "210d026faf9955653af8916fad021475a3f00453",
+      "license": "CC-BY-SA-4.0",
+      "evidence": "Author dataset-card metadata"
+    },
+    {
+      "id": "squad",
+      "url": "https://huggingface.co/datasets/rajpurkar/squad",
+      "revision": "7b6d24c440a36b6815f21b70d25016731768db1f",
+      "license": "CC-BY-SA-4.0",
+      "evidence": "Author dataset-card metadata"
+    },
+    {
+      "id": "hellaswag",
+      "url": "https://huggingface.co/datasets/Rowan/hellaswag",
+      "revision": "218ec52e09a7e7462a5400043bb9a69a41d06b76",
+      "license": null,
+      "related_code_license": "MIT at https://github.com/rowanz/hellaswag",
+      "limit": "Dataset card has no license field; do not silently inherit a code license for source text"
+    },
+    {
+      "id": "mbpp",
+      "url": "https://huggingface.co/datasets/google-research-datasets/mbpp",
+      "license": "CC-BY-4.0",
+      "evidence": "Dataset README metadata; google/mbpp alias returned unavailable"
+    },
+    {
+      "id": "humanevalpack",
+      "url": "https://huggingface.co/datasets/bigcode/humanevalpack",
+      "revision": "9a41762f73a8cb23bb5811b73d5aab164efcf378",
+      "license": "MIT",
+      "limit": "Existing Praxis 008 Python tasks are already exposed; development-only in a new study"
+    },
+    {
+      "id": "evalplus",
+      "url": "https://github.com/evalplus/evalplus",
+      "license": "Apache-2.0",
+      "limit": "Code license does not replace upstream benchmark-data terms"
+    },
+    {
+      "id": "emotion",
+      "url": "https://huggingface.co/datasets/dair-ai/emotion",
+      "revision": "cab853a1dbdf4c42c2b3ef2173804746df8825fe",
+      "license": "other",
+      "gated": false,
+      "limit": "Public access verified, redistribution terms unresolved; base-paper quality dataset for Soup"
+    },
+    {
+      "id": "llama_cpp",
+      "url": "https://github.com/ggml-org/llama.cpp",
+      "license": "MIT"
+    },
+    {
+      "id": "mlx_lm",
+      "url": "https://github.com/ml-explore/mlx-lm",
+      "license": "MIT"
+    },
+    {
+      "id": "optional_miniguard",
+      "url": "https://huggingface.co/prem-research/MiniGuard-v0.1",
+      "revision": "f341bc82ad85ee81a2ce5ae4ee50dd2fe9d1852e",
+      "license": "MIT",
+      "date": "2025-12-12",
+      "limit": "Different project; optional distillation comparator, not the identified Soup"
+    },
+    {
+      "id": "optional_miniguard_data",
+      "url": "https://huggingface.co/datasets/nvidia/Nemotron-Safety-Guard-Dataset-v3",
+      "revision": "a3f7ecb3433d1933701a83f18de16c36934a7f51",
+      "license": "CC-BY-4.0",
+      "limit": "Exact MiniGuard synthetic/traces/training reconstruction not qualified"
+    },
+    {
+      "id": "colibri_glm52_container",
+      "url": "https://huggingface.co/mastouri/GLM-5.2-colibri-int4-g64-with-int8-mtp",
+      "revision": "6bbb01ed3e515a8730b694dfae73aadfd6774581",
+      "license": "MIT",
+      "gated": false
+    },
+    {
+      "id": "glm52_upstream",
+      "url": "https://huggingface.co/zai-org/GLM-5.2",
+      "revision": "cf457fa734ab149ffef225f80893eb38c6ff5cdc",
+      "license": "MIT",
+      "gated": false
+    }
+  ],
+  "memory_calculations": {
+    "assumption": "Exactly 8,000,000,000 parameters; payload only",
+    "weight_bytes": {
+      "fp32": 32000000000,
+      "fp16_bf16": 16000000000,
+      "int8": 8000000000,
+      "int4": 4000000000,
+      "int2": 2000000000
+    },
+    "kv_formula": "2 * layers * cached_tokens * kv_heads * head_dim * bytes_per_value * batch",
+    "qwen3_8b_bf16_batch1_bytes_per_token": 147456,
+    "qwen3_8b_bf16_8192_tokens_gib": 1.125,
+    "qwen3_8b_bf16_32768_tokens_gib": 4.5,
+    "exclusions": [
+      "Quantizer metadata",
+      "Unquantized tensors",
+      "Runtime/activation buffers",
+      "Allocator overhead",
+      "OS and other applications"
+    ]
+  },
+  "candidate_designs": [
+    {
+      "id": "S1",
+      "name": "Bounded asynchronous disk streaming with gradient correctness",
+      "base": "Soup",
+      "primary_gate": "Complete current-source baseline, dataset terms, and broader offload novelty screen"
+    },
+    {
+      "id": "S2",
+      "name": "Change-aware expert-cache placement across held-out sessions",
+      "base": "Colibri profiling and quality harnesses",
+      "primary_gate": "First establish representative latency headroom after LRU warms; then beat LFU/popularity-inactivity/domain-primed and strong cost-aware baselines with unchanged routing and all physical I/O charged. Generic frequency-recency is not novel."
+    },
+    {
+      "id": "C1",
+      "name": "Compression by selective truthful evidence interaction",
+      "base": "BFCL plus source-disjoint MBPP/EvalPlus extension of Praxis 008 methods",
+      "primary_gate": "Paired interaction beyond generic quantization decision flips; fresh outcome tasks"
+    },
+    {
+      "id": "C2",
+      "name": "Cheap calibrated transfer of KV selection across hardware",
+      "base": "MetaKV; KIVI runtime",
+      "primary_gate": "License/profiling completeness and gain versus full target profiling at matched cost"
+    },
+    {
+      "id": "C3",
+      "name": "Distribution-sensitive mixed precision for consequential decisions",
+      "base": "KronQ",
+      "primary_gate": "Novelty beyond existing safety PTQ; beat same-byte random allocation and next-bit baselines in real packed execution"
+    }
+  ],
+  "local_history": {
+    "px055_prereg": "C:/w/praxis_papers/reports/refusal_direction_quantization/PX055_REFUSAL_DIRECTION_QUANTIZATION_PREREG_20260711.md",
+    "px055_source_gate": "C:/w/praxis_papers/reports/refusal_direction_quantization/gate0_20260711/PX055_GATE0_SOURCE_CLEARANCE_20260711.md",
+    "px055_preflight": "C:/w/praxis_papers/reports/refusal_direction_quantization/hook_preflight_20260711/PX055_LOCAL_HOOK_PREFLIGHT_20260711.md",
+    "interpretation": "Historical source rescope and environment-blocked local preflight; no scientific result established by those files"
+  },
+  "colobri_reference": {
+    "identified_project": "Colibri",
+    "canonical_repository": "https://github.com/JustVugg/colibri",
+    "source_type": "author inference engine and research platform",
+    "not_verified": "Peer-reviewed Colibri paper",
+    "role": "MoE expert inference across SSD/RAM/VRAM; distinct from Soup training"
+  }
+}

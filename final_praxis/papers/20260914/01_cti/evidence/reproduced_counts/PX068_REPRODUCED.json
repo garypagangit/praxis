@@ -1,0 +1,4086 @@
+{
+  "analysis_version": "px068-source-compatibility-router-v1",
+  "bootstrap_replicates": 20000,
+  "models": {
+    "llama-3-1-8b-instruct": {
+      "gates": {
+        "gate_0_integrity": true,
+        "gate_1_source_compatibility": false,
+        "gate_2_complete_corpus_benefit": true,
+        "gate_3_eligible_benefit": true,
+        "gate_4_wrong_domain_safety": true,
+        "gate_5_ungated_harm_mitigation": false
+      },
+      "oracle_policy_is_diagnostic_only": true,
+      "primary_gate_scopes": [
+        "all_primary",
+        "eligible",
+        "ineligible",
+        "non_attack",
+        "other_attack_page_types"
+      ],
+      "scopes": {
+        "all_primary": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.11444778111444778,
+              "both_correct": 417,
+              "both_wrong": 2203,
+              "control": "vanilla",
+              "control_only": 17,
+              "discordant_rows": 377,
+              "mcnemar_exact_p": 8.343237553777091e-85,
+              "paired_bootstrap_ci95": [
+                0.10243576910243576,
+                0.12679346012679346
+              ],
+              "paired_rows": 2997,
+              "treatment": "oracle_policy",
+              "treatment_only": 360
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.04270937604270938,
+              "both_correct": 1085,
+              "both_wrong": 1700,
+              "control": "relationship_evidence",
+              "control_only": 170,
+              "discordant_rows": 212,
+              "mcnemar_exact_p": 1.8642329859048196e-19,
+              "paired_bootstrap_ci95": [
+                -0.05238571905238572,
+                -0.0333667000333667
+              ],
+              "paired_rows": 2997,
+              "treatment": "routed_policy",
+              "treatment_only": 42
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.23123123123123124,
+              "both_correct": 383,
+              "both_wrong": 1819,
+              "control": "vanilla",
+              "control_only": 51,
+              "cross_model_holm_p": 1.0697072397934238e-158,
+              "discordant_rows": 795,
+              "mcnemar_exact_p": 1.0697072397934238e-158,
+              "paired_bootstrap_ci95": [
+                0.21454788121454788,
+                0.24791458124791457
+              ],
+              "paired_rows": 2997,
+              "treatment": "routed_policy",
+              "treatment_only": 744
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.25925925925925924,
+              "accuracy_ci95": [
+                0.2438851042891393,
+                0.2752497717775599
+              ],
+              "correct": 777,
+              "invalid": 2111,
+              "invalid_rate": 0.704371037704371,
+              "rows": 2997
+            },
+            "relationship_evidence": {
+              "accuracy": 0.4187520854187521,
+              "accuracy_ci95": [
+                0.4012041182541955,
+                0.43650806791661695
+              ],
+              "correct": 1255,
+              "invalid": 1545,
+              "invalid_rate": 0.5155155155155156,
+              "rows": 2997
+            },
+            "routed_policy": {
+              "accuracy": 0.3760427093760427,
+              "accuracy_ci95": [
+                0.3588697054996044,
+                0.3935330754550439
+              ],
+              "correct": 1127,
+              "invalid": 1712,
+              "invalid_rate": 0.5712379045712379,
+              "rows": 2997
+            },
+            "vanilla": {
+              "accuracy": 0.1448114781448115,
+              "accuracy_ci95": [
+                0.1326669932307045,
+                0.1578653360458047
+              ],
+              "correct": 434,
+              "invalid": 2472,
+              "invalid_rate": 0.8248248248248248,
+              "rows": 2997
+            }
+          },
+          "rows": 2997,
+          "scope": "all_primary"
+        },
+        "attack_path_type=assets": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 0,
+              "both_wrong": 12,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 12,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": 0.0,
+              "both_correct": 1,
+              "both_wrong": 11,
+              "control": "relationship_evidence",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 12,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.08333333333333333,
+              "both_correct": 0,
+              "both_wrong": 11,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.25
+              ],
+              "paired_rows": 12,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                2.7755575615628914e-17,
+                0.24249400665524085
+              ],
+              "correct": 0,
+              "invalid": 12,
+              "invalid_rate": 1.0,
+              "rows": 12
+            },
+            "relationship_evidence": {
+              "accuracy": 0.08333333333333333,
+              "accuracy_ci95": [
+                0.014865094404917095,
+                0.35387991114111694
+              ],
+              "correct": 1,
+              "invalid": 9,
+              "invalid_rate": 0.75,
+              "rows": 12
+            },
+            "routed_policy": {
+              "accuracy": 0.08333333333333333,
+              "accuracy_ci95": [
+                0.014865094404917095,
+                0.35387991114111694
+              ],
+              "correct": 1,
+              "invalid": 10,
+              "invalid_rate": 0.8333333333333334,
+              "rows": 12
+            },
+            "vanilla": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                2.7755575615628914e-17,
+                0.24249400665524085
+              ],
+              "correct": 0,
+              "invalid": 12,
+              "invalid_rate": 1.0,
+              "rows": 12
+            }
+          },
+          "rows": 12,
+          "scope": "attack_path_type=assets"
+        },
+        "attack_path_type=campaigns": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 4,
+              "both_wrong": 35,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 39,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.02564102564102564,
+              "both_correct": 21,
+              "both_wrong": 17,
+              "control": "relationship_evidence",
+              "control_only": 1,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                -0.07692307692307693,
+                0.0
+              ],
+              "paired_rows": 39,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.4358974358974359,
+              "both_correct": 3,
+              "both_wrong": 17,
+              "control": "vanilla",
+              "control_only": 1,
+              "discordant_rows": 19,
+              "mcnemar_exact_p": 7.62939453125e-05,
+              "paired_bootstrap_ci95": [
+                0.2564102564102564,
+                0.6153846153846154
+              ],
+              "paired_rows": 39,
+              "treatment": "routed_policy",
+              "treatment_only": 18
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.10256410256410256,
+              "accuracy_ci95": [
+                0.04061331344668381,
+                0.23578854462856527
+              ],
+              "correct": 4,
+              "invalid": 35,
+              "invalid_rate": 0.8974358974358975,
+              "rows": 39
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5641025641025641,
+              "accuracy_ci95": [
+                0.40975691648669477,
+                0.7069524612431037
+              ],
+              "correct": 22,
+              "invalid": 15,
+              "invalid_rate": 0.38461538461538464,
+              "rows": 39
+            },
+            "routed_policy": {
+              "accuracy": 0.5384615384615384,
+              "accuracy_ci95": [
+                0.3856944827051576,
+                0.6843311439327215
+              ],
+              "correct": 21,
+              "invalid": 16,
+              "invalid_rate": 0.41025641025641024,
+              "rows": 39
+            },
+            "vanilla": {
+              "accuracy": 0.10256410256410256,
+              "accuracy_ci95": [
+                0.04061331344668381,
+                0.23578854462856527
+              ],
+              "correct": 4,
+              "invalid": 35,
+              "invalid_rate": 0.8974358974358975,
+              "rows": 39
+            }
+          },
+          "rows": 39,
+          "scope": "attack_path_type=campaigns"
+        },
+        "attack_path_type=datasources": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 4,
+              "both_wrong": 52,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 56,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.05357142857142857,
+              "both_correct": 11,
+              "both_wrong": 42,
+              "control": "relationship_evidence",
+              "control_only": 3,
+              "discordant_rows": 3,
+              "mcnemar_exact_p": 0.25,
+              "paired_bootstrap_ci95": [
+                -0.125,
+                0.0
+              ],
+              "paired_rows": 56,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.125,
+              "both_correct": 2,
+              "both_wrong": 43,
+              "control": "vanilla",
+              "control_only": 2,
+              "discordant_rows": 11,
+              "mcnemar_exact_p": 0.0654296875,
+              "paired_bootstrap_ci95": [
+                0.017857142857142856,
+                0.23214285714285715
+              ],
+              "paired_rows": 56,
+              "treatment": "routed_policy",
+              "treatment_only": 9
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.07142857142857142,
+              "accuracy_ci95": [
+                0.028126036578876953,
+                0.16975448060863452
+              ],
+              "correct": 4,
+              "invalid": 50,
+              "invalid_rate": 0.8928571428571429,
+              "rows": 56
+            },
+            "relationship_evidence": {
+              "accuracy": 0.25,
+              "accuracy_ci95": [
+                0.15517054688270684,
+                0.376926421476675
+              ],
+              "correct": 14,
+              "invalid": 39,
+              "invalid_rate": 0.6964285714285714,
+              "rows": 56
+            },
+            "routed_policy": {
+              "accuracy": 0.19642857142857142,
+              "accuracy_ci95": [
+                0.11338595674323658,
+                0.31844607626458404
+              ],
+              "correct": 11,
+              "invalid": 43,
+              "invalid_rate": 0.7678571428571429,
+              "rows": 56
+            },
+            "vanilla": {
+              "accuracy": 0.07142857142857142,
+              "accuracy_ci95": [
+                0.028126036578876953,
+                0.16975448060863452
+              ],
+              "correct": 4,
+              "invalid": 50,
+              "invalid_rate": 0.8928571428571429,
+              "rows": 56
+            }
+          },
+          "rows": 56,
+          "scope": "attack_path_type=datasources"
+        },
+        "attack_path_type=groups": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 33,
+              "both_wrong": 153,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 186,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.016129032258064516,
+              "both_correct": 105,
+              "both_wrong": 76,
+              "control": "relationship_evidence",
+              "control_only": 4,
+              "discordant_rows": 5,
+              "mcnemar_exact_p": 0.375,
+              "paired_bootstrap_ci95": [
+                -0.043010752688172046,
+                0.005376344086021506
+              ],
+              "paired_rows": 186,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.3924731182795699,
+              "both_correct": 27,
+              "both_wrong": 74,
+              "control": "vanilla",
+              "control_only": 6,
+              "discordant_rows": 85,
+              "mcnemar_exact_p": 2.441642201786159e-17,
+              "paired_bootstrap_ci95": [
+                0.3118279569892473,
+                0.4731182795698925
+              ],
+              "paired_rows": 186,
+              "treatment": "routed_policy",
+              "treatment_only": 79
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.1774193548387097,
+              "accuracy_ci95": [
+                0.1292133449118426,
+                0.2386802609135299
+              ],
+              "correct": 33,
+              "invalid": 144,
+              "invalid_rate": 0.7741935483870968,
+              "rows": 186
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5860215053763441,
+              "accuracy_ci95": [
+                0.5141947016159343,
+                0.6543670034972997
+              ],
+              "correct": 109,
+              "invalid": 59,
+              "invalid_rate": 0.3172043010752688,
+              "rows": 186
+            },
+            "routed_policy": {
+              "accuracy": 0.5698924731182796,
+              "accuracy_ci95": [
+                0.49803726077721194,
+                0.6389191246272907
+              ],
+              "correct": 106,
+              "invalid": 62,
+              "invalid_rate": 0.3333333333333333,
+              "rows": 186
+            },
+            "vanilla": {
+              "accuracy": 0.1774193548387097,
+              "accuracy_ci95": [
+                0.1292133449118426,
+                0.2386802609135299
+              ],
+              "correct": 33,
+              "invalid": 144,
+              "invalid_rate": 0.7741935483870968,
+              "rows": 186
+            }
+          },
+          "rows": 186,
+          "scope": "attack_path_type=groups"
+        },
+        "attack_path_type=mitigations": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 7,
+              "both_wrong": 103,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 110,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.05454545454545454,
+              "both_correct": 41,
+              "both_wrong": 63,
+              "control": "relationship_evidence",
+              "control_only": 6,
+              "discordant_rows": 6,
+              "mcnemar_exact_p": 0.03125,
+              "paired_bootstrap_ci95": [
+                -0.1,
+                -0.01818181818181818
+              ],
+              "paired_rows": 110,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.3090909090909091,
+              "both_correct": 5,
+              "both_wrong": 67,
+              "control": "vanilla",
+              "control_only": 2,
+              "discordant_rows": 38,
+              "mcnemar_exact_p": 5.398760549724102e-09,
+              "paired_bootstrap_ci95": [
+                0.21818181818181817,
+                0.4
+              ],
+              "paired_rows": 110,
+              "treatment": "routed_policy",
+              "treatment_only": 36
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.06363636363636363,
+              "accuracy_ci95": [
+                0.031164518014477616,
+                0.125557461882102
+              ],
+              "correct": 7,
+              "invalid": 101,
+              "invalid_rate": 0.9181818181818182,
+              "rows": 110
+            },
+            "relationship_evidence": {
+              "accuracy": 0.42727272727272725,
+              "accuracy_ci95": [
+                0.3388228926127975,
+                0.520630770703299
+              ],
+              "correct": 47,
+              "invalid": 56,
+              "invalid_rate": 0.509090909090909,
+              "rows": 110
+            },
+            "routed_policy": {
+              "accuracy": 0.37272727272727274,
+              "accuracy_ci95": [
+                0.28809596287362066,
+                0.46594794792954836
+              ],
+              "correct": 41,
+              "invalid": 62,
+              "invalid_rate": 0.5636363636363636,
+              "rows": 110
+            },
+            "vanilla": {
+              "accuracy": 0.06363636363636363,
+              "accuracy_ci95": [
+                0.031164518014477616,
+                0.125557461882102
+              ],
+              "correct": 7,
+              "invalid": 101,
+              "invalid_rate": 0.9181818181818182,
+              "rows": 110
+            }
+          },
+          "rows": 110,
+          "scope": "attack_path_type=mitigations"
+        },
+        "attack_path_type=non_attack": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 178,
+              "both_wrong": 776,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 954,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.08490566037735849,
+              "both_correct": 150,
+              "both_wrong": 649,
+              "control": "relationship_evidence",
+              "control_only": 118,
+              "discordant_rows": 155,
+              "mcnemar_exact_p": 4.688383481085751e-11,
+              "paired_bootstrap_ci95": [
+                -0.11006289308176101,
+                -0.06079664570230608
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 37
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.009433962264150943,
+              "both_correct": 174,
+              "both_wrong": 763,
+              "control": "vanilla",
+              "control_only": 4,
+              "discordant_rows": 17,
+              "mcnemar_exact_p": 0.049041748046875,
+              "paired_bootstrap_ci95": [
+                0.0010482180293501049,
+                0.01781970649895178
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 13
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.18658280922431866,
+              "accuracy_ci95": [
+                0.16313638268581648,
+                0.21254317838030745
+              ],
+              "correct": 178,
+              "invalid": 743,
+              "invalid_rate": 0.7788259958071279,
+              "rows": 954
+            },
+            "relationship_evidence": {
+              "accuracy": 0.2809224318658281,
+              "accuracy_ci95": [
+                0.2533243826376657,
+                0.31027771857577885
+              ],
+              "correct": 268,
+              "invalid": 608,
+              "invalid_rate": 0.6373165618448637,
+              "rows": 954
+            },
+            "routed_policy": {
+              "accuracy": 0.1960167714884696,
+              "accuracy_ci95": [
+                0.17206601114723005,
+                0.22240580393362594
+              ],
+              "correct": 187,
+              "invalid": 724,
+              "invalid_rate": 0.7589098532494759,
+              "rows": 954
+            },
+            "vanilla": {
+              "accuracy": 0.18658280922431866,
+              "accuracy_ci95": [
+                0.16313638268581648,
+                0.21254317838030745
+              ],
+              "correct": 178,
+              "invalid": 743,
+              "invalid_rate": 0.7788259958071279,
+              "rows": 954
+            }
+          },
+          "rows": 954,
+          "scope": "attack_path_type=non_attack"
+        },
+        "attack_path_type=other": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 0,
+              "both_wrong": 2,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 2,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": 0.0,
+              "both_correct": 1,
+              "both_wrong": 1,
+              "control": "relationship_evidence",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 2,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.5,
+              "both_correct": 0,
+              "both_wrong": 1,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                1.0
+              ],
+              "paired_rows": 2,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                0.0,
+                0.6576197724933469
+              ],
+              "correct": 0,
+              "invalid": 2,
+              "invalid_rate": 1.0,
+              "rows": 2
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5,
+              "accuracy_ci95": [
+                0.09453120573423074,
+                0.9054687942657693
+              ],
+              "correct": 1,
+              "invalid": 1,
+              "invalid_rate": 0.5,
+              "rows": 2
+            },
+            "routed_policy": {
+              "accuracy": 0.5,
+              "accuracy_ci95": [
+                0.09453120573423074,
+                0.9054687942657693
+              ],
+              "correct": 1,
+              "invalid": 1,
+              "invalid_rate": 0.5,
+              "rows": 2
+            },
+            "vanilla": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                0.0,
+                0.6576197724933469
+              ],
+              "correct": 0,
+              "invalid": 2,
+              "invalid_rate": 1.0,
+              "rows": 2
+            }
+          },
+          "rows": 2,
+          "scope": "attack_path_type=other"
+        },
+        "attack_path_type=software": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 111,
+              "both_wrong": 529,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 640,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.025,
+              "both_correct": 337,
+              "both_wrong": 287,
+              "control": "relationship_evidence",
+              "control_only": 16,
+              "discordant_rows": 16,
+              "mcnemar_exact_p": 3.0517578125e-05,
+              "paired_bootstrap_ci95": [
+                -0.0375,
+                -0.0140625
+              ],
+              "paired_rows": 640,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.353125,
+              "both_correct": 88,
+              "both_wrong": 280,
+              "control": "vanilla",
+              "control_only": 23,
+              "discordant_rows": 272,
+              "mcnemar_exact_p": 4.261733883444211e-49,
+              "paired_bootstrap_ci95": [
+                0.3109375,
+                0.3953125
+              ],
+              "paired_rows": 640,
+              "treatment": "routed_policy",
+              "treatment_only": 249
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.1734375,
+              "accuracy_ci95": [
+                0.14607499174805663,
+                0.20469685701477605
+              ],
+              "correct": 111,
+              "invalid": 508,
+              "invalid_rate": 0.79375,
+              "rows": 640
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5515625,
+              "accuracy_ci95": [
+                0.5128380816297976,
+                0.5896716264602814
+              ],
+              "correct": 353,
+              "invalid": 242,
+              "invalid_rate": 0.378125,
+              "rows": 640
+            },
+            "routed_policy": {
+              "accuracy": 0.5265625,
+              "accuracy_ci95": [
+                0.48783677405178766,
+                0.5649712573885562
+              ],
+              "correct": 337,
+              "invalid": 258,
+              "invalid_rate": 0.403125,
+              "rows": 640
+            },
+            "vanilla": {
+              "accuracy": 0.1734375,
+              "accuracy_ci95": [
+                0.14607499174805663,
+                0.20469685701477605
+              ],
+              "correct": 111,
+              "invalid": 508,
+              "invalid_rate": 0.79375,
+              "rows": 640
+            }
+          },
+          "rows": 640,
+          "scope": "attack_path_type=software"
+        },
+        "attack_path_type=techniques": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.343687374749499,
+              "both_correct": 80,
+              "both_wrong": 541,
+              "control": "vanilla",
+              "control_only": 17,
+              "discordant_rows": 377,
+              "mcnemar_exact_p": 8.343237553777091e-85,
+              "paired_bootstrap_ci95": [
+                0.312625250501002,
+                0.375751503006012
+              ],
+              "paired_rows": 998,
+              "treatment": "oracle_policy",
+              "treatment_only": 360
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.018036072144288578,
+              "both_correct": 418,
+              "both_wrong": 554,
+              "control": "relationship_evidence",
+              "control_only": 22,
+              "discordant_rows": 26,
+              "mcnemar_exact_p": 0.0005335211753845215,
+              "paired_bootstrap_ci95": [
+                -0.028056112224448898,
+                -0.008016032064128256
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 4
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.3256513026052104,
+              "both_correct": 84,
+              "both_wrong": 563,
+              "control": "vanilla",
+              "control_only": 13,
+              "discordant_rows": 351,
+              "mcnemar_exact_p": 7.136164259134247e-83,
+              "paired_bootstrap_ci95": [
+                0.29458917835671344,
+                0.3557114228456914
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 338
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.4408817635270541,
+              "accuracy_ci95": [
+                0.4103635316882365,
+                0.47185336105355274
+              ],
+              "correct": 440,
+              "invalid": 516,
+              "invalid_rate": 0.5170340681362725,
+              "rows": 998
+            },
+            "relationship_evidence": {
+              "accuracy": 0.4408817635270541,
+              "accuracy_ci95": [
+                0.4103635316882365,
+                0.47185336105355274
+              ],
+              "correct": 440,
+              "invalid": 516,
+              "invalid_rate": 0.5170340681362725,
+              "rows": 998
+            },
+            "routed_policy": {
+              "accuracy": 0.4228456913827655,
+              "accuracy_ci95": [
+                0.3925496757665934,
+                0.4537333876421825
+              ],
+              "correct": 422,
+              "invalid": 536,
+              "invalid_rate": 0.5370741482965932,
+              "rows": 998
+            },
+            "vanilla": {
+              "accuracy": 0.09719438877755511,
+              "accuracy_ci95": [
+                0.08033116554207624,
+                0.11714664602062437
+              ],
+              "correct": 97,
+              "invalid": 877,
+              "invalid_rate": 0.8787575150300602,
+              "rows": 998
+            }
+          },
+          "rows": 998,
+          "scope": "attack_path_type=techniques"
+        },
+        "eligible": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.343687374749499,
+              "both_correct": 80,
+              "both_wrong": 541,
+              "control": "vanilla",
+              "control_only": 17,
+              "discordant_rows": 377,
+              "mcnemar_exact_p": 8.343237553777091e-85,
+              "paired_bootstrap_ci95": [
+                0.312625250501002,
+                0.375751503006012
+              ],
+              "paired_rows": 998,
+              "treatment": "oracle_policy",
+              "treatment_only": 360
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.018036072144288578,
+              "both_correct": 418,
+              "both_wrong": 554,
+              "control": "relationship_evidence",
+              "control_only": 22,
+              "discordant_rows": 26,
+              "mcnemar_exact_p": 0.0005335211753845215,
+              "paired_bootstrap_ci95": [
+                -0.028056112224448898,
+                -0.008016032064128256
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 4
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.3256513026052104,
+              "both_correct": 84,
+              "both_wrong": 563,
+              "control": "vanilla",
+              "control_only": 13,
+              "cross_model_holm_p": 7.136164259134247e-83,
+              "discordant_rows": 351,
+              "mcnemar_exact_p": 7.136164259134247e-83,
+              "paired_bootstrap_ci95": [
+                0.29458917835671344,
+                0.3557114228456914
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 338
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.4408817635270541,
+              "accuracy_ci95": [
+                0.4103635316882365,
+                0.47185336105355274
+              ],
+              "correct": 440,
+              "invalid": 516,
+              "invalid_rate": 0.5170340681362725,
+              "rows": 998
+            },
+            "relationship_evidence": {
+              "accuracy": 0.4408817635270541,
+              "accuracy_ci95": [
+                0.4103635316882365,
+                0.47185336105355274
+              ],
+              "correct": 440,
+              "invalid": 516,
+              "invalid_rate": 0.5170340681362725,
+              "rows": 998
+            },
+            "routed_policy": {
+              "accuracy": 0.4228456913827655,
+              "accuracy_ci95": [
+                0.3925496757665934,
+                0.4537333876421825
+              ],
+              "correct": 422,
+              "invalid": 536,
+              "invalid_rate": 0.5370741482965932,
+              "rows": 998
+            },
+            "vanilla": {
+              "accuracy": 0.09719438877755511,
+              "accuracy_ci95": [
+                0.08033116554207624,
+                0.11714664602062437
+              ],
+              "correct": 97,
+              "invalid": 877,
+              "invalid_rate": 0.8787575150300602,
+              "rows": 998
+            }
+          },
+          "rows": 998,
+          "scope": "eligible"
+        },
+        "ineligible": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 337,
+              "both_wrong": 1662,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 1999,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.05502751375687844,
+              "both_correct": 667,
+              "both_wrong": 1146,
+              "control": "relationship_evidence",
+              "control_only": 148,
+              "cross_model_holm_p": 1.5640123681933458e-16,
+              "discordant_rows": 186,
+              "mcnemar_exact_p": 1.5640123681933458e-16,
+              "paired_bootstrap_ci95": [
+                -0.06853426713356678,
+                -0.04202101050525263
+              ],
+              "paired_rows": 1999,
+              "treatment": "routed_policy",
+              "treatment_only": 38
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.18409204602301152,
+              "both_correct": 299,
+              "both_wrong": 1256,
+              "control": "vanilla",
+              "control_only": 38,
+              "discordant_rows": 444,
+              "mcnemar_exact_p": 7.249830621147147e-79,
+              "paired_bootstrap_ci95": [
+                0.16508254127063532,
+                0.2031015507753877
+              ],
+              "paired_rows": 1999,
+              "treatment": "routed_policy",
+              "treatment_only": 406
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.16858429214607304,
+              "accuracy_ci95": [
+                0.1528114596127004,
+                0.1856284382810741
+              ],
+              "correct": 337,
+              "invalid": 1595,
+              "invalid_rate": 0.7978989494747374,
+              "rows": 1999
+            },
+            "relationship_evidence": {
+              "accuracy": 0.407703851925963,
+              "accuracy_ci95": [
+                0.386358939246476,
+                0.4294028134499789
+              ],
+              "correct": 815,
+              "invalid": 1029,
+              "invalid_rate": 0.5147573786893447,
+              "rows": 1999
+            },
+            "routed_policy": {
+              "accuracy": 0.35267633816908456,
+              "accuracy_ci95": [
+                0.33203160081441063,
+                0.37388621040025594
+              ],
+              "correct": 705,
+              "invalid": 1176,
+              "invalid_rate": 0.5882941470735368,
+              "rows": 1999
+            },
+            "vanilla": {
+              "accuracy": 0.16858429214607304,
+              "accuracy_ci95": [
+                0.1528114596127004,
+                0.1856284382810741
+              ],
+              "correct": 337,
+              "invalid": 1595,
+              "invalid_rate": 0.7978989494747374,
+              "rows": 1999
+            }
+          },
+          "rows": 1999,
+          "scope": "ineligible"
+        },
+        "non_attack": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 178,
+              "both_wrong": 776,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 954,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.08490566037735849,
+              "both_correct": 150,
+              "both_wrong": 649,
+              "control": "relationship_evidence",
+              "control_only": 118,
+              "discordant_rows": 155,
+              "mcnemar_exact_p": 4.688383481085751e-11,
+              "paired_bootstrap_ci95": [
+                -0.11006289308176101,
+                -0.059748427672955975
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 37
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.009433962264150943,
+              "both_correct": 174,
+              "both_wrong": 763,
+              "control": "vanilla",
+              "control_only": 4,
+              "discordant_rows": 17,
+              "mcnemar_exact_p": 0.049041748046875,
+              "paired_bootstrap_ci95": [
+                0.0010482180293501049,
+                0.01781970649895178
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 13
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.18658280922431866,
+              "accuracy_ci95": [
+                0.16313638268581648,
+                0.21254317838030745
+              ],
+              "correct": 178,
+              "invalid": 743,
+              "invalid_rate": 0.7788259958071279,
+              "rows": 954
+            },
+            "relationship_evidence": {
+              "accuracy": 0.2809224318658281,
+              "accuracy_ci95": [
+                0.2533243826376657,
+                0.31027771857577885
+              ],
+              "correct": 268,
+              "invalid": 608,
+              "invalid_rate": 0.6373165618448637,
+              "rows": 954
+            },
+            "routed_policy": {
+              "accuracy": 0.1960167714884696,
+              "accuracy_ci95": [
+                0.17206601114723005,
+                0.22240580393362594
+              ],
+              "correct": 187,
+              "invalid": 724,
+              "invalid_rate": 0.7589098532494759,
+              "rows": 954
+            },
+            "vanilla": {
+              "accuracy": 0.18658280922431866,
+              "accuracy_ci95": [
+                0.16313638268581648,
+                0.21254317838030745
+              ],
+              "correct": 178,
+              "invalid": 743,
+              "invalid_rate": 0.7788259958071279,
+              "rows": 954
+            }
+          },
+          "rows": 954,
+          "scope": "non_attack"
+        },
+        "other_attack_page_types": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 159,
+              "both_wrong": 886,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 1045,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.027751196172248804,
+              "both_correct": 517,
+              "both_wrong": 497,
+              "control": "relationship_evidence",
+              "control_only": 30,
+              "discordant_rows": 31,
+              "mcnemar_exact_p": 2.9802322387695312e-08,
+              "paired_bootstrap_ci95": [
+                -0.03827751196172249,
+                -0.01818181818181818
+              ],
+              "paired_rows": 1045,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.3435406698564593,
+              "both_correct": 125,
+              "both_wrong": 493,
+              "control": "vanilla",
+              "control_only": 34,
+              "discordant_rows": 427,
+              "mcnemar_exact_p": 1.5085394466612916e-78,
+              "paired_bootstrap_ci95": [
+                0.31100478468899523,
+                0.37607655502392345
+              ],
+              "paired_rows": 1045,
+              "treatment": "routed_policy",
+              "treatment_only": 393
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.1521531100478469,
+              "accuracy_ci95": [
+                0.13165318652583557,
+                0.17520106309790562
+              ],
+              "correct": 159,
+              "invalid": 852,
+              "invalid_rate": 0.815311004784689,
+              "rows": 1045
+            },
+            "relationship_evidence": {
+              "accuracy": 0.523444976076555,
+              "accuracy_ci95": [
+                0.4931326695905556,
+                0.5535855446713931
+              ],
+              "correct": 547,
+              "invalid": 421,
+              "invalid_rate": 0.4028708133971292,
+              "rows": 1045
+            },
+            "routed_policy": {
+              "accuracy": 0.49569377990430624,
+              "accuracy_ci95": [
+                0.46545107062648783,
+                0.5259680328764195
+              ],
+              "correct": 518,
+              "invalid": 452,
+              "invalid_rate": 0.4325358851674641,
+              "rows": 1045
+            },
+            "vanilla": {
+              "accuracy": 0.1521531100478469,
+              "accuracy_ci95": [
+                0.13165318652583557,
+                0.17520106309790562
+              ],
+              "correct": 159,
+              "invalid": 852,
+              "invalid_rate": 0.815311004784689,
+              "rows": 1045
+            }
+          },
+          "rows": 1045,
+          "scope": "other_attack_page_types"
+        },
+        "source_type=capec_catalog": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 24,
+              "both_wrong": 128,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 152,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.06578947368421052,
+              "both_correct": 22,
+              "both_wrong": 110,
+              "control": "relationship_evidence",
+              "control_only": 15,
+              "discordant_rows": 20,
+              "mcnemar_exact_p": 0.04138946533203125,
+              "paired_bootstrap_ci95": [
+                -0.125,
+                -0.013157894736842105
+              ],
+              "paired_rows": 152,
+              "treatment": "routed_policy",
+              "treatment_only": 5
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.019736842105263157,
+              "both_correct": 23,
+              "both_wrong": 124,
+              "control": "vanilla",
+              "control_only": 1,
+              "discordant_rows": 5,
+              "mcnemar_exact_p": 0.375,
+              "paired_bootstrap_ci95": [
+                -0.006578947368421052,
+                0.05263157894736842
+              ],
+              "paired_rows": 152,
+              "treatment": "routed_policy",
+              "treatment_only": 4
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.15789473684210525,
+              "accuracy_ci95": [
+                0.10846006761932553,
+                0.22419505004317747
+              ],
+              "correct": 24,
+              "invalid": 120,
+              "invalid_rate": 0.7894736842105263,
+              "rows": 152
+            },
+            "relationship_evidence": {
+              "accuracy": 0.24342105263157895,
+              "accuracy_ci95": [
+                0.18207230530870683,
+                0.3174190329381704
+              ],
+              "correct": 37,
+              "invalid": 107,
+              "invalid_rate": 0.7039473684210527,
+              "rows": 152
+            },
+            "routed_policy": {
+              "accuracy": 0.17763157894736842,
+              "accuracy_ci95": [
+                0.12504731833828087,
+                0.24610846561292388
+              ],
+              "correct": 27,
+              "invalid": 114,
+              "invalid_rate": 0.75,
+              "rows": 152
+            },
+            "vanilla": {
+              "accuracy": 0.15789473684210525,
+              "accuracy_ci95": [
+                0.10846006761932553,
+                0.22419505004317747
+              ],
+              "correct": 24,
+              "invalid": 120,
+              "invalid_rate": 0.7894736842105263,
+              "rows": 152
+            }
+          },
+          "rows": 152,
+          "scope": "source_type=capec_catalog"
+        },
+        "source_type=cisa_csa": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 1,
+              "both_wrong": 19,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 20,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.05,
+              "both_correct": 4,
+              "both_wrong": 15,
+              "control": "relationship_evidence",
+              "control_only": 1,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                -0.15,
+                0.0
+              ],
+              "paired_rows": 20,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.15,
+              "both_correct": 1,
+              "both_wrong": 16,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 3,
+              "mcnemar_exact_p": 0.25,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.3
+              ],
+              "paired_rows": 20,
+              "treatment": "routed_policy",
+              "treatment_only": 3
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.05,
+              "accuracy_ci95": [
+                0.008881448800795402,
+                0.23613119344674205
+              ],
+              "correct": 1,
+              "invalid": 19,
+              "invalid_rate": 0.95,
+              "rows": 20
+            },
+            "relationship_evidence": {
+              "accuracy": 0.25,
+              "accuracy_ci95": [
+                0.11186170140766569,
+                0.468700877618744
+              ],
+              "correct": 5,
+              "invalid": 14,
+              "invalid_rate": 0.7,
+              "rows": 20
+            },
+            "routed_policy": {
+              "accuracy": 0.2,
+              "accuracy_ci95": [
+                0.08065766257979806,
+                0.41601743225189364
+              ],
+              "correct": 4,
+              "invalid": 16,
+              "invalid_rate": 0.8,
+              "rows": 20
+            },
+            "vanilla": {
+              "accuracy": 0.05,
+              "accuracy_ci95": [
+                0.008881448800795402,
+                0.23613119344674205
+              ],
+              "correct": 1,
+              "invalid": 19,
+              "invalid_rate": 0.95,
+              "rows": 20
+            }
+          },
+          "rows": 20,
+          "scope": "source_type=cisa_csa"
+        },
+        "source_type=cisa_ics": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 63,
+              "both_wrong": 275,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 338,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.08875739644970414,
+              "both_correct": 55,
+              "both_wrong": 235,
+              "control": "relationship_evidence",
+              "control_only": 39,
+              "discordant_rows": 48,
+              "mcnemar_exact_p": 1.5221826110689562e-05,
+              "paired_bootstrap_ci95": [
+                -0.12721893491124261,
+                -0.05029585798816568
+              ],
+              "paired_rows": 338,
+              "treatment": "routed_policy",
+              "treatment_only": 9
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.0029585798816568047,
+              "both_correct": 60,
+              "both_wrong": 271,
+              "control": "vanilla",
+              "control_only": 3,
+              "discordant_rows": 7,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                -0.011834319526627219,
+                0.01775147928994083
+              ],
+              "paired_rows": 338,
+              "treatment": "routed_policy",
+              "treatment_only": 4
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.1863905325443787,
+              "accuracy_ci95": [
+                0.14848305901854292,
+                0.23134640715747112
+              ],
+              "correct": 63,
+              "invalid": 263,
+              "invalid_rate": 0.7781065088757396,
+              "rows": 338
+            },
+            "relationship_evidence": {
+              "accuracy": 0.2781065088757396,
+              "accuracy_ci95": [
+                0.23303636194164698,
+                0.3281637320508156
+              ],
+              "correct": 94,
+              "invalid": 204,
+              "invalid_rate": 0.6035502958579881,
+              "rows": 338
+            },
+            "routed_policy": {
+              "accuracy": 0.1893491124260355,
+              "accuracy_ci95": [
+                0.15116147086422443,
+                0.23451866072522343
+              ],
+              "correct": 64,
+              "invalid": 255,
+              "invalid_rate": 0.7544378698224852,
+              "rows": 338
+            },
+            "vanilla": {
+              "accuracy": 0.1863905325443787,
+              "accuracy_ci95": [
+                0.14848305901854292,
+                0.23134640715747112
+              ],
+              "correct": 63,
+              "invalid": 263,
+              "invalid_rate": 0.7781065088757396,
+              "rows": 338
+            }
+          },
+          "rows": 338,
+          "scope": "source_type=cisa_ics"
+        },
+        "source_type=cwe_catalog": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 76,
+              "both_wrong": 302,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 378,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.082010582010582,
+              "both_correct": 57,
+              "both_wrong": 250,
+              "control": "relationship_evidence",
+              "control_only": 51,
+              "discordant_rows": 71,
+              "mcnemar_exact_p": 0.00030316341355849296,
+              "paired_bootstrap_ci95": [
+                -0.12433862433862433,
+                -0.03968253968253968
+              ],
+              "paired_rows": 378,
+              "treatment": "routed_policy",
+              "treatment_only": 20
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.0026455026455026454,
+              "both_correct": 76,
+              "both_wrong": 301,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.007936507936507936
+              ],
+              "paired_rows": 378,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.20105820105820105,
+              "accuracy_ci95": [
+                0.16375341508366517,
+                0.24437790544398466
+              ],
+              "correct": 76,
+              "invalid": 289,
+              "invalid_rate": 0.7645502645502645,
+              "rows": 378
+            },
+            "relationship_evidence": {
+              "accuracy": 0.2857142857142857,
+              "accuracy_ci95": [
+                0.2425073135174772,
+                0.3332328365952629
+              ],
+              "correct": 108,
+              "invalid": 245,
+              "invalid_rate": 0.6481481481481481,
+              "rows": 378
+            },
+            "routed_policy": {
+              "accuracy": 0.2037037037037037,
+              "accuracy_ci95": [
+                0.16617825478898518,
+                0.24719084166319877
+              ],
+              "correct": 77,
+              "invalid": 288,
+              "invalid_rate": 0.7619047619047619,
+              "rows": 378
+            },
+            "vanilla": {
+              "accuracy": 0.20105820105820105,
+              "accuracy_ci95": [
+                0.16375341508366517,
+                0.24437790544398466
+              ],
+              "correct": 76,
+              "invalid": 289,
+              "invalid_rate": 0.7645502645502645,
+              "rows": 378
+            }
+          },
+          "rows": 378,
+          "scope": "source_type=cwe_catalog"
+        },
+        "source_type=mitre_attack": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.1678903573176701,
+              "both_correct": 239,
+              "both_wrong": 1427,
+              "control": "vanilla",
+              "control_only": 17,
+              "discordant_rows": 377,
+              "mcnemar_exact_p": 8.343237553777091e-85,
+              "paired_bootstrap_ci95": [
+                0.15075868820362212,
+                0.18502202643171806
+              ],
+              "paired_rows": 2043,
+              "treatment": "oracle_policy",
+              "treatment_only": 360
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.023005384238864415,
+              "both_correct": 935,
+              "both_wrong": 1051,
+              "control": "relationship_evidence",
+              "control_only": 52,
+              "discordant_rows": 57,
+              "mcnemar_exact_p": 6.401865149108232e-11,
+              "paired_bootstrap_ci95": [
+                -0.030347528144884978,
+                -0.01566324033284386
+              ],
+              "paired_rows": 2043,
+              "treatment": "routed_policy",
+              "treatment_only": 5
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.33480176211453744,
+              "both_correct": 209,
+              "both_wrong": 1056,
+              "control": "vanilla",
+              "control_only": 47,
+              "discordant_rows": 778,
+              "mcnemar_exact_p": 9.462625043045419e-159,
+              "paired_bootstrap_ci95": [
+                0.3122858541360744,
+                0.3573176700930005
+              ],
+              "paired_rows": 2043,
+              "treatment": "routed_policy",
+              "treatment_only": 731
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.29319627998042097,
+              "accuracy_ci95": [
+                0.2738593262823302,
+                0.3133094813658918
+              ],
+              "correct": 599,
+              "invalid": 1368,
+              "invalid_rate": 0.6696035242290749,
+              "rows": 2043
+            },
+            "relationship_evidence": {
+              "accuracy": 0.4831130690161527,
+              "accuracy_ci95": [
+                0.46149622145592384,
+                0.504793302482215
+              ],
+              "correct": 987,
+              "invalid": 937,
+              "invalid_rate": 0.4586392559960842,
+              "rows": 2043
+            },
+            "routed_policy": {
+              "accuracy": 0.4601076847772883,
+              "accuracy_ci95": [
+                0.43859060115922716,
+                0.48177450611492695
+              ],
+              "correct": 940,
+              "invalid": 988,
+              "invalid_rate": 0.4836025452765541,
+              "rows": 2043
+            },
+            "vanilla": {
+              "accuracy": 0.12530592266275087,
+              "accuracy_ci95": [
+                0.11164957387903642,
+                0.1403687036469136
+              ],
+              "correct": 256,
+              "invalid": 1729,
+              "invalid_rate": 0.8463044542339696,
+              "rows": 2043
+            }
+          },
+          "rows": 2043,
+          "scope": "source_type=mitre_attack"
+        },
+        "source_type=others": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 14,
+              "both_wrong": 52,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 66,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.13636363636363635,
+              "both_correct": 12,
+              "both_wrong": 39,
+              "control": "relationship_evidence",
+              "control_only": 12,
+              "discordant_rows": 15,
+              "mcnemar_exact_p": 0.03515625,
+              "paired_bootstrap_ci95": [
+                -0.25757575757575757,
+                -0.030303030303030304
+              ],
+              "paired_rows": 66,
+              "treatment": "routed_policy",
+              "treatment_only": 3
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.015151515151515152,
+              "both_correct": 14,
+              "both_wrong": 51,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.045454545454545456
+              ],
+              "paired_rows": 66,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.21212121212121213,
+              "accuracy_ci95": [
+                0.13077985107923806,
+                0.3251307120497705
+              ],
+              "correct": 14,
+              "invalid": 52,
+              "invalid_rate": 0.7878787878787878,
+              "rows": 66
+            },
+            "relationship_evidence": {
+              "accuracy": 0.36363636363636365,
+              "accuracy_ci95": [
+                0.25806983094770897,
+                0.48420359369234767
+              ],
+              "correct": 24,
+              "invalid": 38,
+              "invalid_rate": 0.5757575757575758,
+              "rows": 66
+            },
+            "routed_policy": {
+              "accuracy": 0.22727272727272727,
+              "accuracy_ci95": [
+                0.14285229563373036,
+                0.34169455364638307
+              ],
+              "correct": 15,
+              "invalid": 51,
+              "invalid_rate": 0.7727272727272727,
+              "rows": 66
+            },
+            "vanilla": {
+              "accuracy": 0.21212121212121213,
+              "accuracy_ci95": [
+                0.13077985107923806,
+                0.3251307120497705
+              ],
+              "correct": 14,
+              "invalid": 52,
+              "invalid_rate": 0.7878787878787878,
+              "rows": 66
+            }
+          },
+          "rows": 66,
+          "scope": "source_type=others"
+        }
+      },
+      "source_and_attack_path_subgroups_are_descriptive": true
+    },
+    "qwen2-5-7b-instruct": {
+      "gates": {
+        "gate_0_integrity": true,
+        "gate_1_source_compatibility": false,
+        "gate_2_complete_corpus_benefit": true,
+        "gate_3_eligible_benefit": true,
+        "gate_4_wrong_domain_safety": true,
+        "gate_5_ungated_harm_mitigation": false
+      },
+      "oracle_policy_is_diagnostic_only": true,
+      "primary_gate_scopes": [
+        "all_primary",
+        "eligible",
+        "ineligible",
+        "non_attack",
+        "other_attack_page_types"
+      ],
+      "scopes": {
+        "all_primary": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.19452786119452786,
+              "both_correct": 59,
+              "both_wrong": 2349,
+              "control": "vanilla",
+              "control_only": 3,
+              "discordant_rows": 589,
+              "mcnemar_exact_p": 3.3617348436077335e-170,
+              "paired_bootstrap_ci95": [
+                0.18018018018018017,
+                0.20887554220887555
+              ],
+              "paired_rows": 2997,
+              "treatment": "oracle_policy",
+              "treatment_only": 586
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.18485151818485152,
+              "both_correct": 1102,
+              "both_wrong": 1327,
+              "control": "relationship_evidence",
+              "control_only": 561,
+              "discordant_rows": 568,
+              "mcnemar_exact_p": 7.643907182216916e-156,
+              "paired_bootstrap_ci95": [
+                -0.19886553219886552,
+                -0.1708375041708375
+              ],
+              "paired_rows": 2997,
+              "treatment": "routed_policy",
+              "treatment_only": 7
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.34934934934934936,
+              "both_correct": 53,
+              "both_wrong": 1879,
+              "control": "vanilla",
+              "control_only": 9,
+              "cross_model_holm_p": 4.791688566511729e-299,
+              "discordant_rows": 1065,
+              "mcnemar_exact_p": 2.3958442832558647e-299,
+              "paired_bootstrap_ci95": [
+                0.3319986653319987,
+                0.36670003336670004
+              ],
+              "paired_rows": 2997,
+              "treatment": "routed_policy",
+              "treatment_only": 1056
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.21521521521521522,
+              "accuracy_ci95": [
+                0.2008711610555423,
+                0.23028839088198755
+              ],
+              "correct": 645,
+              "invalid": 2285,
+              "invalid_rate": 0.7624290957624291,
+              "rows": 2997
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5548882215548883,
+              "accuracy_ci95": [
+                0.537036504388946,
+                0.5725994109083901
+              ],
+              "correct": 1663,
+              "invalid": 968,
+              "invalid_rate": 0.32298965632298965,
+              "rows": 2997
+            },
+            "routed_policy": {
+              "accuracy": 0.3700367033700367,
+              "accuracy_ci95": [
+                0.35292772785787907,
+                0.3874784179882461
+              ],
+              "correct": 1109,
+              "invalid": 1718,
+              "invalid_rate": 0.5732399065732399,
+              "rows": 2997
+            },
+            "vanilla": {
+              "accuracy": 0.020687354020687353,
+              "accuracy_ci95": [
+                0.016171502950994683,
+                0.026430367416037222
+              ],
+              "correct": 62,
+              "invalid": 2930,
+              "invalid_rate": 0.9776443109776443,
+              "rows": 2997
+            }
+          },
+          "rows": 2997,
+          "scope": "all_primary"
+        },
+        "attack_path_type=assets": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 0,
+              "both_wrong": 12,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 12,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": 0.0,
+              "both_correct": 4,
+              "both_wrong": 8,
+              "control": "relationship_evidence",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 12,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.3333333333333333,
+              "both_correct": 0,
+              "both_wrong": 8,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 4,
+              "mcnemar_exact_p": 0.125,
+              "paired_bootstrap_ci95": [
+                0.08333333333333333,
+                0.5833333333333334
+              ],
+              "paired_rows": 12,
+              "treatment": "routed_policy",
+              "treatment_only": 4
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                2.7755575615628914e-17,
+                0.24249400665524085
+              ],
+              "correct": 0,
+              "invalid": 12,
+              "invalid_rate": 1.0,
+              "rows": 12
+            },
+            "relationship_evidence": {
+              "accuracy": 0.3333333333333333,
+              "accuracy_ci95": [
+                0.13812009109121315,
+                0.6093779111272004
+              ],
+              "correct": 4,
+              "invalid": 8,
+              "invalid_rate": 0.6666666666666666,
+              "rows": 12
+            },
+            "routed_policy": {
+              "accuracy": 0.3333333333333333,
+              "accuracy_ci95": [
+                0.13812009109121315,
+                0.6093779111272004
+              ],
+              "correct": 4,
+              "invalid": 8,
+              "invalid_rate": 0.6666666666666666,
+              "rows": 12
+            },
+            "vanilla": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                2.7755575615628914e-17,
+                0.24249400665524085
+              ],
+              "correct": 0,
+              "invalid": 12,
+              "invalid_rate": 1.0,
+              "rows": 12
+            }
+          },
+          "rows": 12,
+          "scope": "attack_path_type=assets"
+        },
+        "attack_path_type=campaigns": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 2,
+              "both_wrong": 37,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 39,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.07692307692307693,
+              "both_correct": 23,
+              "both_wrong": 13,
+              "control": "relationship_evidence",
+              "control_only": 3,
+              "discordant_rows": 3,
+              "mcnemar_exact_p": 0.25,
+              "paired_bootstrap_ci95": [
+                -0.1794871794871795,
+                0.0
+              ],
+              "paired_rows": 39,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.5384615384615384,
+              "both_correct": 2,
+              "both_wrong": 16,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 21,
+              "mcnemar_exact_p": 9.5367431640625e-07,
+              "paired_bootstrap_ci95": [
+                0.38461538461538464,
+                0.6923076923076923
+              ],
+              "paired_rows": 39,
+              "treatment": "routed_policy",
+              "treatment_only": 21
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.05128205128205128,
+              "accuracy_ci95": [
+                0.014177955415274113,
+                0.16885640047613612
+              ],
+              "correct": 2,
+              "invalid": 37,
+              "invalid_rate": 0.9487179487179487,
+              "rows": 39
+            },
+            "relationship_evidence": {
+              "accuracy": 0.6666666666666666,
+              "accuracy_ci95": [
+                0.5097739439934599,
+                0.7936704381040163
+              ],
+              "correct": 26,
+              "invalid": 12,
+              "invalid_rate": 0.3076923076923077,
+              "rows": 39
+            },
+            "routed_policy": {
+              "accuracy": 0.5897435897435898,
+              "accuracy_ci95": [
+                0.43418622882896973,
+                0.7292068999927483
+              ],
+              "correct": 23,
+              "invalid": 15,
+              "invalid_rate": 0.38461538461538464,
+              "rows": 39
+            },
+            "vanilla": {
+              "accuracy": 0.05128205128205128,
+              "accuracy_ci95": [
+                0.014177955415274113,
+                0.16885640047613612
+              ],
+              "correct": 2,
+              "invalid": 37,
+              "invalid_rate": 0.9487179487179487,
+              "rows": 39
+            }
+          },
+          "rows": 39,
+          "scope": "attack_path_type=campaigns"
+        },
+        "attack_path_type=datasources": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 2,
+              "both_wrong": 54,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 56,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.07142857142857142,
+              "both_correct": 26,
+              "both_wrong": 26,
+              "control": "relationship_evidence",
+              "control_only": 4,
+              "discordant_rows": 4,
+              "mcnemar_exact_p": 0.125,
+              "paired_bootstrap_ci95": [
+                -0.14285714285714285,
+                -0.017857142857142856
+              ],
+              "paired_rows": 56,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.42857142857142855,
+              "both_correct": 2,
+              "both_wrong": 30,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 24,
+              "mcnemar_exact_p": 1.1920928955078125e-07,
+              "paired_bootstrap_ci95": [
+                0.30357142857142855,
+                0.5535714285714286
+              ],
+              "paired_rows": 56,
+              "treatment": "routed_policy",
+              "treatment_only": 24
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.03571428571428571,
+              "accuracy_ci95": [
+                0.00984942514823639,
+                0.12118780180490107
+              ],
+              "correct": 2,
+              "invalid": 54,
+              "invalid_rate": 0.9642857142857143,
+              "rows": 56
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5357142857142857,
+              "accuracy_ci95": [
+                0.40704181935661177,
+                0.6598014708777623
+              ],
+              "correct": 30,
+              "invalid": 18,
+              "invalid_rate": 0.32142857142857145,
+              "rows": 56
+            },
+            "routed_policy": {
+              "accuracy": 0.4642857142857143,
+              "accuracy_ci95": [
+                0.34019852912223775,
+                0.5929581806433883
+              ],
+              "correct": 26,
+              "invalid": 23,
+              "invalid_rate": 0.4107142857142857,
+              "rows": 56
+            },
+            "vanilla": {
+              "accuracy": 0.03571428571428571,
+              "accuracy_ci95": [
+                0.00984942514823639,
+                0.12118780180490107
+              ],
+              "correct": 2,
+              "invalid": 54,
+              "invalid_rate": 0.9642857142857143,
+              "rows": 56
+            }
+          },
+          "rows": 56,
+          "scope": "attack_path_type=datasources"
+        },
+        "attack_path_type=groups": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 1,
+              "both_wrong": 185,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 186,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.026881720430107527,
+              "both_correct": 92,
+              "both_wrong": 89,
+              "control": "relationship_evidence",
+              "control_only": 5,
+              "discordant_rows": 5,
+              "mcnemar_exact_p": 0.0625,
+              "paired_bootstrap_ci95": [
+                -0.053763440860215055,
+                -0.005376344086021506
+              ],
+              "paired_rows": 186,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.489247311827957,
+              "both_correct": 1,
+              "both_wrong": 94,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 91,
+              "mcnemar_exact_p": 8.077935669463161e-28,
+              "paired_bootstrap_ci95": [
+                0.41935483870967744,
+                0.5591397849462365
+              ],
+              "paired_rows": 186,
+              "treatment": "routed_policy",
+              "treatment_only": 91
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.005376344086021506,
+              "accuracy_ci95": [
+                0.000949688025281158,
+                0.029820507573623305
+              ],
+              "correct": 1,
+              "invalid": 185,
+              "invalid_rate": 0.9946236559139785,
+              "rows": 186
+            },
+            "relationship_evidence": {
+              "accuracy": 0.521505376344086,
+              "accuracy_ci95": [
+                0.45000965251757175,
+                0.5921307737607368
+              ],
+              "correct": 97,
+              "invalid": 73,
+              "invalid_rate": 0.3924731182795699,
+              "rows": 186
+            },
+            "routed_policy": {
+              "accuracy": 0.4946236559139785,
+              "accuracy_ci95": [
+                0.42361142875294205,
+                0.5658534646774809
+              ],
+              "correct": 92,
+              "invalid": 79,
+              "invalid_rate": 0.42473118279569894,
+              "rows": 186
+            },
+            "vanilla": {
+              "accuracy": 0.005376344086021506,
+              "accuracy_ci95": [
+                0.000949688025281158,
+                0.029820507573623305
+              ],
+              "correct": 1,
+              "invalid": 185,
+              "invalid_rate": 0.9946236559139785,
+              "rows": 186
+            }
+          },
+          "rows": 186,
+          "scope": "attack_path_type=groups"
+        },
+        "attack_path_type=mitigations": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 4,
+              "both_wrong": 106,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 110,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.1,
+              "both_correct": 66,
+              "both_wrong": 33,
+              "control": "relationship_evidence",
+              "control_only": 11,
+              "discordant_rows": 11,
+              "mcnemar_exact_p": 0.0009765625,
+              "paired_bootstrap_ci95": [
+                -0.16363636363636364,
+                -0.045454545454545456
+              ],
+              "paired_rows": 110,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.5636363636363636,
+              "both_correct": 3,
+              "both_wrong": 43,
+              "control": "vanilla",
+              "control_only": 1,
+              "discordant_rows": 64,
+              "mcnemar_exact_p": 7.047314121155779e-18,
+              "paired_bootstrap_ci95": [
+                0.4636363636363636,
+                0.6545454545454545
+              ],
+              "paired_rows": 110,
+              "treatment": "routed_policy",
+              "treatment_only": 63
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.03636363636363636,
+              "accuracy_ci95": [
+                0.014230310826517947,
+                0.08978679281359792
+              ],
+              "correct": 4,
+              "invalid": 106,
+              "invalid_rate": 0.9636363636363636,
+              "rows": 110
+            },
+            "relationship_evidence": {
+              "accuracy": 0.7,
+              "accuracy_ci95": [
+                0.6088013903272275,
+                0.7777010355535067
+              ],
+              "correct": 77,
+              "invalid": 24,
+              "invalid_rate": 0.21818181818181817,
+              "rows": 110
+            },
+            "routed_policy": {
+              "accuracy": 0.6,
+              "accuracy_ci95": [
+                0.5065704511305059,
+                0.6866807618098613
+              ],
+              "correct": 66,
+              "invalid": 37,
+              "invalid_rate": 0.33636363636363636,
+              "rows": 110
+            },
+            "vanilla": {
+              "accuracy": 0.03636363636363636,
+              "accuracy_ci95": [
+                0.014230310826517947,
+                0.08978679281359792
+              ],
+              "correct": 4,
+              "invalid": 106,
+              "invalid_rate": 0.9636363636363636,
+              "rows": 110
+            }
+          },
+          "rows": 110,
+          "scope": "attack_path_type=mitigations"
+        },
+        "attack_path_type=non_attack": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 22,
+              "both_wrong": 932,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 954,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.46540880503144655,
+              "both_correct": 42,
+              "both_wrong": 456,
+              "control": "relationship_evidence",
+              "control_only": 450,
+              "discordant_rows": 456,
+              "mcnemar_exact_p": 1.3160368062977852e-124,
+              "paired_bootstrap_ci95": [
+                -0.4979035639412998,
+                -0.4329140461215933
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 6
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.027253668763102725,
+              "both_correct": 21,
+              "both_wrong": 905,
+              "control": "vanilla",
+              "control_only": 1,
+              "discordant_rows": 28,
+              "mcnemar_exact_p": 2.1606683731079102e-07,
+              "paired_bootstrap_ci95": [
+                0.016771488469601678,
+                0.03878406708595388
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 27
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.023060796645702306,
+              "accuracy_ci95": [
+                0.015277594604342028,
+                0.03466956353975951
+              ],
+              "correct": 22,
+              "invalid": 929,
+              "invalid_rate": 0.9737945492662474,
+              "rows": 954
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5157232704402516,
+              "accuracy_ci95": [
+                0.48401140773234946,
+                0.5473090156255374
+              ],
+              "correct": 492,
+              "invalid": 258,
+              "invalid_rate": 0.27044025157232704,
+              "rows": 954
+            },
+            "routed_policy": {
+              "accuracy": 0.050314465408805034,
+              "accuracy_ci95": [
+                0.03815772674331435,
+                0.06607816522112425
+              ],
+              "correct": 48,
+              "invalid": 886,
+              "invalid_rate": 0.9287211740041929,
+              "rows": 954
+            },
+            "vanilla": {
+              "accuracy": 0.023060796645702306,
+              "accuracy_ci95": [
+                0.015277594604342028,
+                0.03466956353975951
+              ],
+              "correct": 22,
+              "invalid": 929,
+              "invalid_rate": 0.9737945492662474,
+              "rows": 954
+            }
+          },
+          "rows": 954,
+          "scope": "attack_path_type=non_attack"
+        },
+        "attack_path_type=other": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 0,
+              "both_wrong": 2,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 2,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": 0.0,
+              "both_correct": 1,
+              "both_wrong": 1,
+              "control": "relationship_evidence",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 2,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.5,
+              "both_correct": 0,
+              "both_wrong": 1,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                1.0
+              ],
+              "paired_rows": 2,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                0.0,
+                0.6576197724933469
+              ],
+              "correct": 0,
+              "invalid": 2,
+              "invalid_rate": 1.0,
+              "rows": 2
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5,
+              "accuracy_ci95": [
+                0.09453120573423074,
+                0.9054687942657693
+              ],
+              "correct": 1,
+              "invalid": 0,
+              "invalid_rate": 0.0,
+              "rows": 2
+            },
+            "routed_policy": {
+              "accuracy": 0.5,
+              "accuracy_ci95": [
+                0.09453120573423074,
+                0.9054687942657693
+              ],
+              "correct": 1,
+              "invalid": 0,
+              "invalid_rate": 0.0,
+              "rows": 2
+            },
+            "vanilla": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                0.0,
+                0.6576197724933469
+              ],
+              "correct": 0,
+              "invalid": 2,
+              "invalid_rate": 1.0,
+              "rows": 2
+            }
+          },
+          "rows": 2,
+          "scope": "attack_path_type=other"
+        },
+        "attack_path_type=software": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 11,
+              "both_wrong": 629,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 640,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.0421875,
+              "both_correct": 306,
+              "both_wrong": 307,
+              "control": "relationship_evidence",
+              "control_only": 27,
+              "discordant_rows": 27,
+              "mcnemar_exact_p": 1.4901161193847656e-08,
+              "paired_bootstrap_ci95": [
+                -0.0578125,
+                -0.028125
+              ],
+              "paired_rows": 640,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.4609375,
+              "both_correct": 6,
+              "both_wrong": 329,
+              "control": "vanilla",
+              "control_only": 5,
+              "discordant_rows": 305,
+              "mcnemar_exact_p": 6.639561688344555e-82,
+              "paired_bootstrap_ci95": [
+                0.4203125,
+                0.5015625
+              ],
+              "paired_rows": 640,
+              "treatment": "routed_policy",
+              "treatment_only": 300
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.0171875,
+              "accuracy_ci95": [
+                0.00962383509076711,
+                0.03051253461122005
+              ],
+              "correct": 11,
+              "invalid": 628,
+              "invalid_rate": 0.98125,
+              "rows": 640
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5203125,
+              "accuracy_ci95": [
+                0.48160154468629734,
+                0.5587810675916125
+              ],
+              "correct": 333,
+              "invalid": 243,
+              "invalid_rate": 0.3796875,
+              "rows": 640
+            },
+            "routed_policy": {
+              "accuracy": 0.478125,
+              "accuracy_ci95": [
+                0.4396708208185896,
+                0.516840212112892
+              ],
+              "correct": 306,
+              "invalid": 273,
+              "invalid_rate": 0.4265625,
+              "rows": 640
+            },
+            "vanilla": {
+              "accuracy": 0.0171875,
+              "accuracy_ci95": [
+                0.00962383509076711,
+                0.03051253461122005
+              ],
+              "correct": 11,
+              "invalid": 628,
+              "invalid_rate": 0.98125,
+              "rows": 640
+            }
+          },
+          "rows": 640,
+          "scope": "attack_path_type=software"
+        },
+        "attack_path_type=techniques": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.5841683366733467,
+              "both_correct": 17,
+              "both_wrong": 392,
+              "control": "vanilla",
+              "control_only": 3,
+              "discordant_rows": 589,
+              "mcnemar_exact_p": 3.3617348436077335e-170,
+              "paired_bootstrap_ci95": [
+                0.5531062124248497,
+                0.6152304609218436
+              ],
+              "paired_rows": 998,
+              "treatment": "oracle_policy",
+              "treatment_only": 586
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.06012024048096192,
+              "both_correct": 542,
+              "both_wrong": 394,
+              "control": "relationship_evidence",
+              "control_only": 61,
+              "discordant_rows": 62,
+              "mcnemar_exact_p": 2.7321894746634712e-17,
+              "paired_bootstrap_ci95": [
+                -0.07515030060120241,
+                -0.045090180360721446
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.5240480961923848,
+              "both_correct": 18,
+              "both_wrong": 453,
+              "control": "vanilla",
+              "control_only": 2,
+              "discordant_rows": 527,
+              "mcnemar_exact_p": 6.3334441381296e-154,
+              "paired_bootstrap_ci95": [
+                0.49298597194388777,
+                0.5561122244488977
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 525
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.6042084168336673,
+              "accuracy_ci95": [
+                0.5735248526674342,
+                0.6340928279233099
+              ],
+              "correct": 603,
+              "invalid": 332,
+              "invalid_rate": 0.33266533066132264,
+              "rows": 998
+            },
+            "relationship_evidence": {
+              "accuracy": 0.6042084168336673,
+              "accuracy_ci95": [
+                0.5735248526674342,
+                0.6340928279233099
+              ],
+              "correct": 603,
+              "invalid": 332,
+              "invalid_rate": 0.33266533066132264,
+              "rows": 998
+            },
+            "routed_policy": {
+              "accuracy": 0.5440881763527055,
+              "accuracy_ci95": [
+                0.5130780014656026,
+                0.574760248015097
+              ],
+              "correct": 543,
+              "invalid": 397,
+              "invalid_rate": 0.39779559118236474,
+              "rows": 998
+            },
+            "vanilla": {
+              "accuracy": 0.02004008016032064,
+              "accuracy_ci95": [
+                0.013009775481121507,
+                0.030751099490355094
+              ],
+              "correct": 20,
+              "invalid": 977,
+              "invalid_rate": 0.9789579158316634,
+              "rows": 998
+            }
+          },
+          "rows": 998,
+          "scope": "attack_path_type=techniques"
+        },
+        "eligible": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.5841683366733467,
+              "both_correct": 17,
+              "both_wrong": 392,
+              "control": "vanilla",
+              "control_only": 3,
+              "discordant_rows": 589,
+              "mcnemar_exact_p": 3.3617348436077335e-170,
+              "paired_bootstrap_ci95": [
+                0.5531062124248497,
+                0.6152304609218436
+              ],
+              "paired_rows": 998,
+              "treatment": "oracle_policy",
+              "treatment_only": 586
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.06012024048096192,
+              "both_correct": 542,
+              "both_wrong": 394,
+              "control": "relationship_evidence",
+              "control_only": 61,
+              "discordant_rows": 62,
+              "mcnemar_exact_p": 2.7321894746634712e-17,
+              "paired_bootstrap_ci95": [
+                -0.07515030060120241,
+                -0.04609218436873747
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.5240480961923848,
+              "both_correct": 18,
+              "both_wrong": 453,
+              "control": "vanilla",
+              "control_only": 2,
+              "cross_model_holm_p": 1.26668882762592e-153,
+              "discordant_rows": 527,
+              "mcnemar_exact_p": 6.3334441381296e-154,
+              "paired_bootstrap_ci95": [
+                0.49298597194388777,
+                0.5551102204408818
+              ],
+              "paired_rows": 998,
+              "treatment": "routed_policy",
+              "treatment_only": 525
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.6042084168336673,
+              "accuracy_ci95": [
+                0.5735248526674342,
+                0.6340928279233099
+              ],
+              "correct": 603,
+              "invalid": 332,
+              "invalid_rate": 0.33266533066132264,
+              "rows": 998
+            },
+            "relationship_evidence": {
+              "accuracy": 0.6042084168336673,
+              "accuracy_ci95": [
+                0.5735248526674342,
+                0.6340928279233099
+              ],
+              "correct": 603,
+              "invalid": 332,
+              "invalid_rate": 0.33266533066132264,
+              "rows": 998
+            },
+            "routed_policy": {
+              "accuracy": 0.5440881763527055,
+              "accuracy_ci95": [
+                0.5130780014656026,
+                0.574760248015097
+              ],
+              "correct": 543,
+              "invalid": 397,
+              "invalid_rate": 0.39779559118236474,
+              "rows": 998
+            },
+            "vanilla": {
+              "accuracy": 0.02004008016032064,
+              "accuracy_ci95": [
+                0.013009775481121507,
+                0.030751099490355094
+              ],
+              "correct": 20,
+              "invalid": 977,
+              "invalid_rate": 0.9789579158316634,
+              "rows": 998
+            }
+          },
+          "rows": 998,
+          "scope": "eligible"
+        },
+        "ineligible": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 42,
+              "both_wrong": 1957,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 1999,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.24712356178089045,
+              "both_correct": 560,
+              "both_wrong": 933,
+              "control": "relationship_evidence",
+              "control_only": 500,
+              "cross_model_holm_p": 4.372737221808252e-139,
+              "discordant_rows": 506,
+              "mcnemar_exact_p": 2.186368610904126e-139,
+              "paired_bootstrap_ci95": [
+                -0.2661330665332666,
+                -0.22811405702851426
+              ],
+              "paired_rows": 1999,
+              "treatment": "routed_policy",
+              "treatment_only": 6
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.2621310655327664,
+              "both_correct": 35,
+              "both_wrong": 1426,
+              "control": "vanilla",
+              "control_only": 7,
+              "discordant_rows": 538,
+              "mcnemar_exact_p": 5.606066464234528e-147,
+              "paired_bootstrap_ci95": [
+                0.24262131065532766,
+                0.28214107053526766
+              ],
+              "paired_rows": 1999,
+              "treatment": "routed_policy",
+              "treatment_only": 531
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.021010505252626314,
+              "accuracy_ci95": [
+                0.015581329820249533,
+                0.028277088645092506
+              ],
+              "correct": 42,
+              "invalid": 1953,
+              "invalid_rate": 0.9769884942471235,
+              "rows": 1999
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5302651325662832,
+              "accuracy_ci95": [
+                0.5083496451154265,
+                0.5520645226995572
+              ],
+              "correct": 1060,
+              "invalid": 636,
+              "invalid_rate": 0.3181590795397699,
+              "rows": 1999
+            },
+            "routed_policy": {
+              "accuracy": 0.2831415707853927,
+              "accuracy_ci95": [
+                0.2638223850038797,
+                0.3032926274292543
+              ],
+              "correct": 566,
+              "invalid": 1321,
+              "invalid_rate": 0.6608304152076038,
+              "rows": 1999
+            },
+            "vanilla": {
+              "accuracy": 0.021010505252626314,
+              "accuracy_ci95": [
+                0.015581329820249533,
+                0.028277088645092506
+              ],
+              "correct": 42,
+              "invalid": 1953,
+              "invalid_rate": 0.9769884942471235,
+              "rows": 1999
+            }
+          },
+          "rows": 1999,
+          "scope": "ineligible"
+        },
+        "non_attack": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 22,
+              "both_wrong": 932,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 954,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.46540880503144655,
+              "both_correct": 42,
+              "both_wrong": 456,
+              "control": "relationship_evidence",
+              "control_only": 450,
+              "discordant_rows": 456,
+              "mcnemar_exact_p": 1.3160368062977852e-124,
+              "paired_bootstrap_ci95": [
+                -0.4979035639412998,
+                -0.4329140461215933
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 6
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.027253668763102725,
+              "both_correct": 21,
+              "both_wrong": 905,
+              "control": "vanilla",
+              "control_only": 1,
+              "discordant_rows": 28,
+              "mcnemar_exact_p": 2.1606683731079102e-07,
+              "paired_bootstrap_ci95": [
+                0.016771488469601678,
+                0.03878406708595388
+              ],
+              "paired_rows": 954,
+              "treatment": "routed_policy",
+              "treatment_only": 27
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.023060796645702306,
+              "accuracy_ci95": [
+                0.015277594604342028,
+                0.03466956353975951
+              ],
+              "correct": 22,
+              "invalid": 929,
+              "invalid_rate": 0.9737945492662474,
+              "rows": 954
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5157232704402516,
+              "accuracy_ci95": [
+                0.48401140773234946,
+                0.5473090156255374
+              ],
+              "correct": 492,
+              "invalid": 258,
+              "invalid_rate": 0.27044025157232704,
+              "rows": 954
+            },
+            "routed_policy": {
+              "accuracy": 0.050314465408805034,
+              "accuracy_ci95": [
+                0.03815772674331435,
+                0.06607816522112425
+              ],
+              "correct": 48,
+              "invalid": 886,
+              "invalid_rate": 0.9287211740041929,
+              "rows": 954
+            },
+            "vanilla": {
+              "accuracy": 0.023060796645702306,
+              "accuracy_ci95": [
+                0.015277594604342028,
+                0.03466956353975951
+              ],
+              "correct": 22,
+              "invalid": 929,
+              "invalid_rate": 0.9737945492662474,
+              "rows": 954
+            }
+          },
+          "rows": 954,
+          "scope": "non_attack"
+        },
+        "other_attack_page_types": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 20,
+              "both_wrong": 1025,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 1045,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.04784688995215311,
+              "both_correct": 518,
+              "both_wrong": 477,
+              "control": "relationship_evidence",
+              "control_only": 50,
+              "discordant_rows": 50,
+              "mcnemar_exact_p": 1.7763568394002505e-15,
+              "paired_bootstrap_ci95": [
+                -0.06124401913875598,
+                -0.0354066985645933
+              ],
+              "paired_rows": 1045,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.47655502392344495,
+              "both_correct": 14,
+              "both_wrong": 521,
+              "control": "vanilla",
+              "control_only": 6,
+              "discordant_rows": 510,
+              "mcnemar_exact_p": 1.432786706278589e-140,
+              "paired_bootstrap_ci95": [
+                0.4449760765550239,
+                0.508133971291866
+              ],
+              "paired_rows": 1045,
+              "treatment": "routed_policy",
+              "treatment_only": 504
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.019138755980861243,
+              "accuracy_ci95": [
+                0.012423076111325934,
+                0.029376815046665644
+              ],
+              "correct": 20,
+              "invalid": 1024,
+              "invalid_rate": 0.9799043062200957,
+              "rows": 1045
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5435406698564593,
+              "accuracy_ci95": [
+                0.5132361278929332,
+                0.5735262700221144
+              ],
+              "correct": 568,
+              "invalid": 378,
+              "invalid_rate": 0.3617224880382775,
+              "rows": 1045
+            },
+            "routed_policy": {
+              "accuracy": 0.49569377990430624,
+              "accuracy_ci95": [
+                0.46545107062648783,
+                0.5259680328764195
+              ],
+              "correct": 518,
+              "invalid": 435,
+              "invalid_rate": 0.41626794258373206,
+              "rows": 1045
+            },
+            "vanilla": {
+              "accuracy": 0.019138755980861243,
+              "accuracy_ci95": [
+                0.012423076111325934,
+                0.029376815046665644
+              ],
+              "correct": 20,
+              "invalid": 1024,
+              "invalid_rate": 0.9799043062200957,
+              "rows": 1045
+            }
+          },
+          "rows": 1045,
+          "scope": "other_attack_page_types"
+        },
+        "source_type=capec_catalog": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 3,
+              "both_wrong": 149,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 152,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.4342105263157895,
+              "both_correct": 11,
+              "both_wrong": 73,
+              "control": "relationship_evidence",
+              "control_only": 67,
+              "discordant_rows": 68,
+              "mcnemar_exact_p": 4.675621868843738e-19,
+              "paired_bootstrap_ci95": [
+                -0.5131578947368421,
+                -0.35526315789473684
+              ],
+              "paired_rows": 152,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.05921052631578947,
+              "both_correct": 2,
+              "both_wrong": 139,
+              "control": "vanilla",
+              "control_only": 1,
+              "discordant_rows": 11,
+              "mcnemar_exact_p": 0.01171875,
+              "paired_bootstrap_ci95": [
+                0.019736842105263157,
+                0.10526315789473684
+              ],
+              "paired_rows": 152,
+              "treatment": "routed_policy",
+              "treatment_only": 10
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.019736842105263157,
+              "accuracy_ci95": [
+                0.006734651887011962,
+                0.05641580175457883
+              ],
+              "correct": 3,
+              "invalid": 149,
+              "invalid_rate": 0.9802631578947368,
+              "rows": 152
+            },
+            "relationship_evidence": {
+              "accuracy": 0.5131578947368421,
+              "accuracy_ci95": [
+                0.43435881801844656,
+                0.5913082928406881
+              ],
+              "correct": 78,
+              "invalid": 51,
+              "invalid_rate": 0.3355263157894737,
+              "rows": 152
+            },
+            "routed_policy": {
+              "accuracy": 0.07894736842105263,
+              "accuracy_ci95": [
+                0.045735835972808184,
+                0.13291661653488784
+              ],
+              "correct": 12,
+              "invalid": 138,
+              "invalid_rate": 0.9078947368421053,
+              "rows": 152
+            },
+            "vanilla": {
+              "accuracy": 0.019736842105263157,
+              "accuracy_ci95": [
+                0.006734651887011962,
+                0.05641580175457883
+              ],
+              "correct": 3,
+              "invalid": 149,
+              "invalid_rate": 0.9802631578947368,
+              "rows": 152
+            }
+          },
+          "rows": 152,
+          "scope": "source_type=capec_catalog"
+        },
+        "source_type=cisa_csa": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 0,
+              "both_wrong": 20,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 20,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.1,
+              "both_correct": 3,
+              "both_wrong": 15,
+              "control": "relationship_evidence",
+              "control_only": 2,
+              "discordant_rows": 2,
+              "mcnemar_exact_p": 0.5,
+              "paired_bootstrap_ci95": [
+                -0.25,
+                0.0
+              ],
+              "paired_rows": 20,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.15,
+              "both_correct": 0,
+              "both_wrong": 17,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 3,
+              "mcnemar_exact_p": 0.25,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.3
+              ],
+              "paired_rows": 20,
+              "treatment": "routed_policy",
+              "treatment_only": 3
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                0.0,
+                0.16112515805281938
+              ],
+              "correct": 0,
+              "invalid": 20,
+              "invalid_rate": 1.0,
+              "rows": 20
+            },
+            "relationship_evidence": {
+              "accuracy": 0.25,
+              "accuracy_ci95": [
+                0.11186170140766569,
+                0.468700877618744
+              ],
+              "correct": 5,
+              "invalid": 10,
+              "invalid_rate": 0.5,
+              "rows": 20
+            },
+            "routed_policy": {
+              "accuracy": 0.15,
+              "accuracy_ci95": [
+                0.052368745896216595,
+                0.36041886474075696
+              ],
+              "correct": 3,
+              "invalid": 15,
+              "invalid_rate": 0.75,
+              "rows": 20
+            },
+            "vanilla": {
+              "accuracy": 0.0,
+              "accuracy_ci95": [
+                0.0,
+                0.16112515805281938
+              ],
+              "correct": 0,
+              "invalid": 20,
+              "invalid_rate": 1.0,
+              "rows": 20
+            }
+          },
+          "rows": 20,
+          "scope": "source_type=cisa_csa"
+        },
+        "source_type=cisa_ics": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 5,
+              "both_wrong": 333,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 338,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.3076923076923077,
+              "both_correct": 17,
+              "both_wrong": 215,
+              "control": "relationship_evidence",
+              "control_only": 105,
+              "discordant_rows": 106,
+              "mcnemar_exact_p": 2.6377536518327582e-30,
+              "paired_bootstrap_ci95": [
+                -0.35798816568047337,
+                -0.257396449704142
+              ],
+              "paired_rows": 338,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.038461538461538464,
+              "both_correct": 5,
+              "both_wrong": 320,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 13,
+              "mcnemar_exact_p": 0.000244140625,
+              "paired_bootstrap_ci95": [
+                0.020710059171597635,
+                0.05917159763313609
+              ],
+              "paired_rows": 338,
+              "treatment": "routed_policy",
+              "treatment_only": 13
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.014792899408284023,
+              "accuracy_ci95": [
+                0.006334759605734605,
+                0.03415611259111726
+              ],
+              "correct": 5,
+              "invalid": 331,
+              "invalid_rate": 0.9792899408284024,
+              "rows": 338
+            },
+            "relationship_evidence": {
+              "accuracy": 0.3609467455621302,
+              "accuracy_ci95": [
+                0.3115727252350945,
+                0.41344600033351553
+              ],
+              "correct": 122,
+              "invalid": 114,
+              "invalid_rate": 0.33727810650887574,
+              "rows": 338
+            },
+            "routed_policy": {
+              "accuracy": 0.05325443786982249,
+              "accuracy_ci95": [
+                0.03394817658712486,
+                0.0826013459843668
+              ],
+              "correct": 18,
+              "invalid": 305,
+              "invalid_rate": 0.9023668639053254,
+              "rows": 338
+            },
+            "vanilla": {
+              "accuracy": 0.014792899408284023,
+              "accuracy_ci95": [
+                0.006334759605734605,
+                0.03415611259111726
+              ],
+              "correct": 5,
+              "invalid": 331,
+              "invalid_rate": 0.9792899408284024,
+              "rows": 338
+            }
+          },
+          "rows": 338,
+          "scope": "source_type=cisa_ics"
+        },
+        "source_type=cwe_catalog": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 13,
+              "both_wrong": 365,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 378,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.6005291005291006,
+              "both_correct": 9,
+              "both_wrong": 134,
+              "control": "relationship_evidence",
+              "control_only": 231,
+              "discordant_rows": 235,
+              "mcnemar_exact_p": 4.5647499802206254e-63,
+              "paired_bootstrap_ci95": [
+                -0.6507936507936508,
+                -0.5476190476190477
+              ],
+              "paired_rows": 378,
+              "treatment": "routed_policy",
+              "treatment_only": 4
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.0,
+              "both_correct": 13,
+              "both_wrong": 365,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 378,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.03439153439153439,
+              "accuracy_ci95": [
+                0.020206873768401322,
+                0.05794456351360198
+              ],
+              "correct": 13,
+              "invalid": 364,
+              "invalid_rate": 0.9629629629629629,
+              "rows": 378
+            },
+            "relationship_evidence": {
+              "accuracy": 0.6349206349206349,
+              "accuracy_ci95": [
+                0.585253912309508,
+                0.6818726598417297
+              ],
+              "correct": 240,
+              "invalid": 68,
+              "invalid_rate": 0.17989417989417988,
+              "rows": 378
+            },
+            "routed_policy": {
+              "accuracy": 0.03439153439153439,
+              "accuracy_ci95": [
+                0.020206873768401322,
+                0.05794456351360198
+              ],
+              "correct": 13,
+              "invalid": 364,
+              "invalid_rate": 0.9629629629629629,
+              "rows": 378
+            },
+            "vanilla": {
+              "accuracy": 0.03439153439153439,
+              "accuracy_ci95": [
+                0.020206873768401322,
+                0.05794456351360198
+              ],
+              "correct": 13,
+              "invalid": 364,
+              "invalid_rate": 0.9629629629629629,
+              "rows": 378
+            }
+          },
+          "rows": 378,
+          "scope": "source_type=cwe_catalog"
+        },
+        "source_type=mitre_attack": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.285364659813999,
+              "both_correct": 37,
+              "both_wrong": 1417,
+              "control": "vanilla",
+              "control_only": 3,
+              "discordant_rows": 589,
+              "mcnemar_exact_p": 3.3617348436077335e-170,
+              "paired_bootstrap_ci95": [
+                0.2657856093979442,
+                0.30494371023005384
+              ],
+              "paired_rows": 2043,
+              "treatment": "oracle_policy",
+              "treatment_only": 586
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.05384238864415076,
+              "both_correct": 1060,
+              "both_wrong": 871,
+              "control": "relationship_evidence",
+              "control_only": 111,
+              "discordant_rows": 112,
+              "mcnemar_exact_p": 4.352601674315153e-32,
+              "paired_bootstrap_ci95": [
+                -0.06363191385217817,
+                -0.04405286343612335
+              ],
+              "paired_rows": 2043,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.4997552618697993,
+              "both_correct": 32,
+              "both_wrong": 974,
+              "control": "vanilla",
+              "control_only": 8,
+              "discordant_rows": 1037,
+              "mcnemar_exact_p": 4.418371861909296e-293,
+              "paired_bootstrap_ci95": [
+                0.4777288301517376,
+                0.521781693587861
+              ],
+              "paired_rows": 2043,
+              "treatment": "routed_policy",
+              "treatment_only": 1029
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.30494371023005384,
+              "accuracy_ci95": [
+                0.28536180513114967,
+                0.32525776847314963
+              ],
+              "correct": 623,
+              "invalid": 1356,
+              "invalid_rate": 0.6637298091042585,
+              "rows": 2043
+            },
+            "relationship_evidence": {
+              "accuracy": 0.573176700930005,
+              "accuracy_ci95": [
+                0.5516112861428741,
+                0.5944674434585244
+              ],
+              "correct": 1171,
+              "invalid": 710,
+              "invalid_rate": 0.3475281448849731,
+              "rows": 2043
+            },
+            "routed_policy": {
+              "accuracy": 0.5193343122858541,
+              "accuracy_ci95": [
+                0.4976533213060097,
+                0.540942730996701
+              ],
+              "correct": 1061,
+              "invalid": 832,
+              "invalid_rate": 0.40724424865394027,
+              "rows": 2043
+            },
+            "vanilla": {
+              "accuracy": 0.01957905041605482,
+              "accuracy_ci95": [
+                0.014411180525444723,
+                0.026550203395809303
+              ],
+              "correct": 40,
+              "invalid": 2001,
+              "invalid_rate": 0.9794419970631424,
+              "rows": 2043
+            }
+          },
+          "rows": 2043,
+          "scope": "source_type=mitre_attack"
+        },
+        "source_type=others": {
+          "comparisons": {
+            "oracle_vs_vanilla_diagnostic": {
+              "accuracy_difference": 0.0,
+              "both_correct": 1,
+              "both_wrong": 65,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 0,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.0
+              ],
+              "paired_rows": 66,
+              "treatment": "oracle_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_ungated": {
+              "accuracy_difference": -0.6818181818181818,
+              "both_correct": 2,
+              "both_wrong": 19,
+              "control": "relationship_evidence",
+              "control_only": 45,
+              "discordant_rows": 45,
+              "mcnemar_exact_p": 5.684341886080802e-14,
+              "paired_bootstrap_ci95": [
+                -0.7878787878787878,
+                -0.5757575757575758
+              ],
+              "paired_rows": 66,
+              "treatment": "routed_policy",
+              "treatment_only": 0
+            },
+            "routed_vs_vanilla": {
+              "accuracy_difference": 0.015151515151515152,
+              "both_correct": 1,
+              "both_wrong": 64,
+              "control": "vanilla",
+              "control_only": 0,
+              "discordant_rows": 1,
+              "mcnemar_exact_p": 1.0,
+              "paired_bootstrap_ci95": [
+                0.0,
+                0.045454545454545456
+              ],
+              "paired_rows": 66,
+              "treatment": "routed_policy",
+              "treatment_only": 1
+            }
+          },
+          "conditions": {
+            "oracle_policy": {
+              "accuracy": 0.015151515151515152,
+              "accuracy_ci95": [
+                0.0026796405439821064,
+                0.08095920262066399
+              ],
+              "correct": 1,
+              "invalid": 65,
+              "invalid_rate": 0.9848484848484849,
+              "rows": 66
+            },
+            "relationship_evidence": {
+              "accuracy": 0.7121212121212122,
+              "accuracy_ci95": [
+                0.5936275059135345,
+                0.8072805002019328
+              ],
+              "correct": 47,
+              "invalid": 15,
+              "invalid_rate": 0.22727272727272727,
+              "rows": 66
+            },
+            "routed_policy": {
+              "accuracy": 0.030303030303030304,
+              "accuracy_ci95": [
+                0.008349910198653748,
+                0.10392521911709715
+              ],
+              "correct": 2,
+              "invalid": 64,
+              "invalid_rate": 0.9696969696969697,
+              "rows": 66
+            },
+            "vanilla": {
+              "accuracy": 0.015151515151515152,
+              "accuracy_ci95": [
+                0.0026796405439821064,
+                0.08095920262066399
+              ],
+              "correct": 1,
+              "invalid": 65,
+              "invalid_rate": 0.9848484848484849,
+              "rows": 66
+            }
+          },
+          "rows": 66,
+          "scope": "source_type=others"
+        }
+      },
+      "source_and_attack_path_subgroups_are_descriptive": true
+    }
+  },
+  "oracle_policy_role": "diagnostic_upper_bound_only_not_a_confirmatory_gate",
+  "portfolio_status": "FAIL_ROUTER_CONFIRMATION",
+  "router_gate_pass": false,
+  "router_metrics": {
+    "balanced_accuracy": 0.6902744959654176,
+    "false_positive_rate": 0.5252626313156579,
+    "false_positive_rate_ci95": [
+      0.5033445778561196,
+      0.5470837770968833
+    ],
+    "fn": 94,
+    "fp": 1050,
+    "precision": 0.4626407369498465,
+    "precision_ci95": [
+      0.440628092022325,
+      0.48479998626142773
+    ],
+    "recall": 0.905811623246493,
+    "recall_ci95": [
+      0.8861017837781642,
+      0.9224093762146375
+    ],
+    "rows": 2997,
+    "specificity": 0.4747373686843422,
+    "specificity_ci95": [
+      0.45291622290311684,
+      0.49665542214388037
+    ],
+    "tn": 949,
+    "tp": 904,
+    "treatment_coverage": 0.6519853186519853
+  }
+}

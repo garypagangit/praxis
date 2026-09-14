@@ -1,0 +1,78 @@
+{
+  "audit_id": "px068-terminal-completeness-audit-v3-20260801",
+  "analysis_path": "reports/relationship_evidence_cti_compliance/px068_source_compatibility_router_20260731/terminal_analysis_primary_only_recovery_v3_20260801/analysis.json",
+  "analysis_bytes": 137111,
+  "analysis_sha256": "e4d7f5ce29d4bffc69300d27b9b690c9d860d929fc49c26ebaf7e3827520af77",
+  "analysis_version": "px068-source-compatibility-router-v1",
+  "bootstrap_replicates": 20000,
+  "bootstrap_replicates_match_freeze": true,
+  "model_set_exact": true,
+  "registered_scope_set_complete": true,
+  "scope_row_counts_match": true,
+  "paired_comparison_row_counts_match": true,
+  "prediction_hashes_match_sealed_evidence": true,
+  "router_gate_recomputed_without_mismatch": true,
+  "model_gates_recomputed_without_mismatch": true,
+  "portfolio_status_recomputed_without_mismatch": true,
+  "portfolio_status": "FAIL_ROUTER_CONFIRMATION",
+  "router_gate_pass": false,
+  "models": {
+    "llama-3-1-8b-instruct": {
+      "prediction_sha256": "bb7bd205baf077519ade4fb8081817f0594496045691974d15ecf347b5e9889e",
+      "gates": {
+        "gate_0_integrity": true,
+        "gate_1_source_compatibility": false,
+        "gate_2_complete_corpus_benefit": true,
+        "gate_3_eligible_benefit": true,
+        "gate_4_wrong_domain_safety": true,
+        "gate_5_ungated_harm_mitigation": false
+      }
+    },
+    "qwen2-5-7b-instruct": {
+      "prediction_sha256": "9bde75797ffb7c8c291a3de5c35d33150af7febd6fa71eae01fd2416b0c70e90",
+      "gates": {
+        "gate_0_integrity": true,
+        "gate_1_source_compatibility": false,
+        "gate_2_complete_corpus_benefit": true,
+        "gate_3_eligible_benefit": true,
+        "gate_4_wrong_domain_safety": true,
+        "gate_5_ungated_harm_mitigation": false
+      }
+    }
+  },
+  "registered_primary_scopes": {
+    "all_primary": 2997,
+    "eligible": 998,
+    "ineligible": 1999,
+    "non_attack": 954,
+    "other_attack_page_types": 1045
+  },
+  "schema_sensitivity": {
+    "status": "NOT_ESTIMABLE_AS_FROZEN",
+    "rows_retained": 3,
+    "reason": "athena_ckt_1384 has no valid A-E truth label in either released answer field",
+    "two_row_substitute_computed": false,
+    "label_imputed": false,
+    "analyzer_patched": false,
+    "confirmatory_gate_impact": "none; appendix was prospectively descriptive and excluded from every primary gate"
+  },
+  "no_selection_audit": {
+    "all_registered_gates_reported": true,
+    "failed_gates_retained": true,
+    "thresholds_changed": false,
+    "rows_dropped_after_outcome_access": false,
+    "alternate_parser_used": false,
+    "alternate_seed_or_bootstrap_count_used": false
+  },
+  "claim_limiter": {
+    "status": "STRONG_OUTPUT_FORMAT_CONFOUND",
+    "registered_absolute_validity_floor_existed": false,
+    "invalid_rate_role": "relative routed-minus-vanilla safety subcondition in Gate 4 only",
+    "frozen_analyzer_validity_defect_found": true,
+    "defect": "inherited four-option helper counts parser-valid E as invalid unless the truth label is E",
+    "gate_4_recomputed_with_correct_A_to_E_validity": true,
+    "gate_4_decision_unchanged": true,
+    "semantic_accuracy_gain_established": false,
+    "permitted_interpretation": "strict end-to-end exact-parser accuracy only"
+  }
+}

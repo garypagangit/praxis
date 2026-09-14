@@ -1,0 +1,37 @@
+{
+  "schema_version": "px055-r3-independent-prelaunch-audit-v1",
+  "experiment_id": "PX-055",
+  "run_id": "px055-e1e4-7df9f1e2-20260901-r3",
+  "generated_utc": "2026-09-02T01:55:00Z",
+  "decision": "GO",
+  "scope": "read-only independent prelaunch audit before S3 staging or GPU start",
+  "audited_manifest": {
+    "path": "reports/refusal_direction_quantization/e1_e4_20260831/source_manifest_r3.json",
+    "sha256_before_status_recording": "328001ce5c03f269fe0e3cfcfd6c80d88a7149415f123c409963671f9bf336d2",
+    "declared_artifacts_checked": 14,
+    "artifact_hash_or_size_mismatches": 0
+  },
+  "verification": {
+    "pytest": "96 passed, 1 skipped",
+    "skipped_reason": "bash unavailable to the pytest host",
+    "git_bash_syntax": "PASS",
+    "ruff": "PASS",
+    "runner_full_cross_gram_repair": "PASS",
+    "unequal_rank_self_test": "PASS",
+    "nine_cell_freshness_and_completion_contract": "PASS",
+    "gemma_eager_attention_and_softcap_contract": "PASS",
+    "credential_isolation_and_offline_science_contract": "PASS",
+    "fail_closed_wrapper_contract": "PASS",
+    "r2_immutability": "PASS",
+    "r2_closeout_objects_checked": 40,
+    "r2_closeout_object_mismatches": 0
+  },
+  "launch_blockers": [],
+  "conditions": [
+    "Preserve every audited scientific, gate, wrapper, amendment, config, and adjudicator byte.",
+    "Record this GO in the source manifest and revalidate that status-only manifest change before staging.",
+    "Recheck the frozen S3 prefix remains free of versions and delete markers immediately before staging.",
+    "Do not start paid compute until the final source-manifest hash and exact staged object versions are recorded."
+  ],
+  "scientific_outcomes_observed": false
+}

@@ -1,0 +1,61 @@
+{
+  "status": "frozen_before_outcome_inspection",
+  "frozen_at_utc": "2026-07-31T13:36:32Z",
+  "published_cti_mcq_rows": 2500,
+  "fixed_strata": {
+    "attack_technique_eligible": 1578,
+    "non_attack_domain_mismatch": 922
+  },
+  "artifacts": {
+    "ctibench_parquet": {
+      "path": "tmp/sec_lord/cti_mcq_test.parquet",
+      "sha256": "42f8cb0c1d804945cbdcf890411ca6ede3a1e0222fb91966804fed7dc1a19acb"
+    },
+    "attack_19_1_multidomain": {
+      "path": "runs/px003-px034-confirmatory-20260731/attack_19_1_multidomain.json",
+      "sha256": "bca81a8d69218ace1f7b5c706c605d22ad77d64425375b3d7804fdaf87c2ded9"
+    },
+    "source_pointer_prompts": {
+      "path": "runs/px003-px034-confirmatory-20260731/ctibench_2500_multidomain_v19_1_builder/relationship_evidence_prompts.jsonl",
+      "sha256": "c52550f1a7c690ffdd7700bfb46a6a8f7cef48cb4f22edac7b2cc21ac0627d12"
+    },
+    "query_only_prompts": {
+      "path": "runs/px003-px034-confirmatory-20260731/ctibench_2500_query_only.jsonl",
+      "sha256": "75d87d944cc2bcbe623ba3248a55a7c7e859111b08a52a7f06d42223f7f594c8"
+    },
+    "preregistration": {
+      "path": "reports/relationship_evidence_cti_compliance/confirmatory_closeout_20260731/PX003_PX034_FULL_2500_PREREGISTRATION_20260731.md",
+      "sha256": "696a433af46aaf0ec58108841a1dacb09e9c2e6c408743ca8f5c386c9dc3a81f"
+    },
+    "runner": {
+      "path": "cloud_jobs/sec_lord_relationship_evidence_20260517/run_sec_lord_relationship_evidence_cloud.py",
+      "sha256": "cd94f3da527c0e35ce2c408b2d03865d62cb195c608656eb11a08ccc187178f9"
+    },
+    "source_pointer_builder": {
+      "path": "scripts/build_sec_lord_relationship_evidence_gate.py",
+      "sha256": "5a825420ec6d30af986e1282626ac0101c42ab2c3f753b2e6d1ccaaaac3d6754"
+    },
+    "query_only_builder": {
+      "path": "scripts/build_px003_query_only_prompts.py",
+      "sha256": "658e60eb38a661c07a6e0bbcc248f5fbb510547d69b7c909fbd0966c00b372db"
+    },
+    "shard_manifest": {
+      "path": "cloud_jobs/px003_px034_full_2500_20260731/shard_manifest.json",
+      "sha256": "b4d1afe527f064fcc54072a183b4f46c5ff8c95f1b583ed5adcf6f1fcb09a5f7"
+    }
+  },
+  "query_only_disclosures": {
+    "label_invariance_failures": 0,
+    "eligible_source_technique_top1": 813,
+    "eligible_source_technique_top6": 1105,
+    "eligible_correct_option_phrase_present": 785,
+    "mismatch_correct_option_phrase_present": 94,
+    "indexed_vs_exhaustive_500_output_sha256": "2d3cbb0d5f76d26a7f81477ae42d13983edde6d128799288d7004900a2824e81"
+  },
+  "models": {
+    "Qwen/Qwen2.5-7B-Instruct": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "meta-llama/Llama-3.1-8B-Instruct": "0e9e39f249a16976918f6564b8830bc894c89659"
+  },
+  "registered_prediction_rows": 40000,
+  "tests": "11 PX-003/PX-034 tests passed before freeze"
+}

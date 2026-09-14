@@ -1,0 +1,114 @@
+{
+  "review_status": "PASS",
+  "reviewed_at_utc": "2026-09-14T04:40:19.821814+00:00",
+  "reviewer": "Separate package-review subagent",
+  "scope": "Independent inspection of public package reproduction boundary and manuscript numeric consistency; same-implementation statistical reproduction executed.",
+  "source_sha256": {
+    "reproduce.py": "fcac93504043528d6260190e4cdd033b4f064540c3ea7b23c180079ab355ec31",
+    "test_reproduce.py": "dfbf1b02bdb774b7dd3ae569585ba1736dd7d8f062550a48671e4e1904749cb4",
+    "PAPER.md": "29b46a299dae21704be38261a19787882c75337996923204290b8d7da907978f",
+    "README.md": "63e3fe93537f63838b2358cfbf6a5c55bc46fcc343eb73fbd4edb64f384a8473",
+    "PROVENANCE.json": "f9ff9c089095c1f822403533dd108eb76839f4be53b6e1db8aec13c1348f4e95",
+    "frozen/scripts/analyze_px003_confirmatory.py": "5e3c6c9d4c91074af3ebbe42c817610d1def68302f4355b4cc5457e572e70177",
+    "frozen/scripts/analyze_px003_full_2500.py": "cad2b09429b863c7443305a5397739ee1f06515ac8c51a176437791fe9860b13",
+    "frozen/scripts/analyze_px068_source_router.py": "75b3fd11e2f5fe42180abeaa044d23e3fcf8ab92b74d7518240faf0bb92d7b02",
+    "frozen/inference/run_sec_lord_relationship_evidence_cloud.py": "cd94f3da527c0e35ce2c408b2d03865d62cb195c608656eb11a08ccc187178f9",
+    "evidence/FULL_2500_ANALYSIS.json": "c6a949b82adfe00abb3b3f1acbe04dc9277bda3b2d062a42e89a29d6cce3e181",
+    "evidence/PX068_ANALYSIS.json": "e4d7f5ce29d4bffc69300d27b9b690c9d860d929fc49c26ebaf7e3827520af77",
+    "evidence/PX068_TERMINAL_AUDIT.json": "d9cc050ae5c01cc08ce957cac09797c3ca2ef2f5adf8e761c46b66c68bd487a5",
+    "evidence/STUDY_STATUS.json": "cb361088785d07688c342d3148f0f9911f470e545b06c03031d2c120e6b8c1f3"
+  },
+  "synthetic_tests": {
+    "tests_run": 8,
+    "failures": 0,
+    "errors": 0,
+    "method": "unittest suite test_reproduce loaded and run with Python -B; hash mutation uses self-cleaning OS temporary fixture"
+  },
+  "quick_reproduction": {
+    "all_bootstrap_requests_accounted": true,
+    "all_nonbootstrap_statistics_recomputed": true,
+    "archived_files_hash_verified": 31,
+    "athena_correctness_from_raw_independently_recomputed": false,
+    "athena_derived_policy_rows_verified": 23976,
+    "athena_raw_text_or_answers_redistributed": false,
+    "athena_unique_questions": 2997,
+    "bootstrap_intervals_explicitly_taken_from_archive": 156,
+    "bootstrap_intervals_recomputed": 0,
+    "bootstrap_mode": "none",
+    "bootstrap_replicates": 20000,
+    "cti_raw_parser_and_correctness_rows_verified": 40000,
+    "cti_status": "PASS_SOURCE_KNOWN_ONLY",
+    "cti_unique_questions": 2500,
+    "frozen_code_modified": false,
+    "full2500_statistical_payload_equal": true,
+    "implementation_independence_claimed": false,
+    "limits": "Statistical reproduction of archived observations, not independent model replication, benchmark-label validation, or causal mechanism identification. Athena raw-to-indicator derivation is authenticated by source hashes and terminal audit, not rerun from restricted raw corpus here.",
+    "network_calls": 0,
+    "new_inference_calls": 0,
+    "px068_statistical_payload_equal": true,
+    "px068_status": "FAIL_ROUTER_CONFIRMATION",
+    "python": "3.11.9",
+    "reproduce_sha256": "fcac93504043528d6260190e4cdd033b4f064540c3ea7b23c180079ab355ec31",
+    "runtime_seconds": 2.12,
+    "status": "PASS"
+  },
+  "quick_output_handling": "Path.mkdir and Path.write_text mocked to capture the four main() outputs in memory; no reproduction output files created by reviewer.",
+  "additional_checks": {
+    "actual_bootstrap_seed_calls": 156,
+    "unique_bootstrap_seed_calls": 156,
+    "seed_set_equals_archive_registry": true,
+    "principal_interval_count": 14,
+    "cross_model_athena_id_and_route_metadata_equal": true,
+    "paper_tables_1_through_6_match_archived_machine_counts_and_rounded_intervals": true,
+    "adjacent_primary_paired_cells_p_values_and_negative_status_manually_checked": true,
+    "cti_status_preserved": "PASS_SOURCE_KNOWN_ONLY",
+    "px068_status_preserved": "FAIL_ROUTER_CONFIRMATION",
+    "athena_source_prediction_hashes_match_archive_and_terminal_audit": {
+      "llama-3-1-8b-instruct": {
+        "match": true,
+        "prediction_sha256": "bb7bd205baf077519ade4fb8081817f0594496045691974d15ecf347b5e9889e"
+      },
+      "qwen2-5-7b-instruct": {
+        "match": true,
+        "prediction_sha256": "9bde75797ffb7c8c291a3de5c35d33150af7febd6fa71eae01fd2416b0c70e90"
+      }
+    }
+  },
+  "nonblocking_hardening_observations": [
+    {
+      "file": "reproduce.py",
+      "topic": "complete_intervals",
+      "finding": "Current receipt uses total request count to establish accounting. Actual reviewed execution has 156 unique seeds exactly covering the registry. For future changes, require set equality and uniqueness explicitly."
+    },
+    {
+      "file": "reproduce.py",
+      "topic": "cross-model router metadata",
+      "finding": "Driver compares aggregate router metrics between projections. Direct reviewer check confirms all 2997 per-ID eligibility, route, source, and attack-path metadata records match. Future hardening could assert the per-ID maps directly."
+    }
+  ],
+  "limits": [
+    "No bootstrap interval was independently regenerated by this reviewer; all 156 were inherited explicitly in --bootstrap none.",
+    "Statistical functions are the archived implementation, so a separate reviewer does not confer independent statistical implementation.",
+    "Athena correctness and validity are supplied indicators; restricted raw-to-indicator derivation was not rerun. Internal A/empty sentinels faithfully encode legacy validity and explicit Boolean correctness overrides them.",
+    "The historical PX068 integrity gate is preserved, not re-established from upstream raw artifacts by this package.",
+    "Independent model replication, raw Athena correctness, benchmark-label adjudication, and PDF/DOCX visual quality are outside this review.",
+    "No network, model, cloud, Git, core-code, or manuscript mutations performed."
+  ],
+  "release_assembly_note": "README referenced MANIFEST.json before it was present during review; final manifest generation/verification remains the release assembler responsibility.",
+  "full_receipt_followup_verification": {
+    "checked_at_utc": "2026-09-14T04:42:11.907530+00:00",
+    "receipt": "evidence/reproduced_full/REPRODUCTION_RECEIPT.json",
+    "receipt_sha256": "a4d1c511f78191f6fe6298a8ddc3dd8fbaf90d6ad3d9724a04e71a3fad7cfe45",
+    "reported_status": "PASS",
+    "reported_bootstrap_intervals_recomputed": 156,
+    "reported_bootstrap_intervals_inherited": 0,
+    "reported_runtime_seconds": 888.48,
+    "receipt_source_code_hash_matches_reviewed_code": true,
+    "written_full_outputs_semantically_equal_archived_reports": true,
+    "previous_review_source_hashes_except_updated_readme_unchanged": true,
+    "readme_completed_receipt_paragraph_consistent": true,
+    "artifact_count_explanation": "The completed full receipt records 25 verified artifacts at launch; the reviewer quick receipt records 31 final artifacts. README discloses the six later inspection/license additions.",
+    "reviewer_independently_reran_full_bootstrap": false,
+    "scope": "Inspection of completed parent-run receipt and generated output equality only; bootstrap computation was not rerun by this reviewer."
+  }
+}
