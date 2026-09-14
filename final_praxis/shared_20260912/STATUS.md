@@ -1,30 +1,53 @@
-# Praxis campaign status - 14 September 2026 UTC
+# Praxis campaign closeout — 14 September 2026 UTC
 
-**Investment decision:** Experiments 001–007 remain closed. The new 008 code study has completed qualification and its original model run. A separately registered Qwen schema extension is now running to complete work skipped by the original development-format gate. The historical FalseCite-Code result remains a separate bounded positive. Final investment advice awaits the extension and automated artifact review.
+**Experiments complete; ready for bounded Praxis paper development.** Invest in
+008's selective-disclosure empirical finding. The hybrid verification proposal
+failed its registered criteria; 001–007 remain closed. No experiment processing,
+manual-review assignment, permission request or additional paid run is pending.
 
-**Completed qualification:** 135 eligible public-benchmark pairs, including 101 heldout pairs. All 7,075 integrity checks and 31 isolated generated-execution controls passed. The original model study finished at 01:11:31 UTC with all 9,456 assigned review records accounted for; gated records are explicitly distinguished from actual calls. Original API estimate: $4.5862494.
+Qwen accepted 12/101 harmful native revisions under selected disclosure versus
+4/101 under uniform disclosure: +7.92 percentage points, 95% interval [2.97,13.86],
+Holm-four p=.015625. Both arms have 101 valid completed decisions. Seven of eight
+selected-only flips withheld a failure; two selected messages had no test records.
+This is a complete selective-disclosure effect, not an isolated pairing heuristic.
+Devstral's 3/101 versus 1/101 result is unsupported. Neither model showed an H1
+contrast in the smaller 34-harmful generated cohort.
 
-**Current cloud execution (14 September UTC):** Extension protocol/source were frozen and pushed at commit 43b7d26 before any heldout scientific-outcome inspection. Qwen receives the registered JSON schema; Devstral and development proposal reuse is exact and fixed by model/cohort/split. All 45 adapter/runner controls passed independent review. The schema warmup passed and development processing is active. Separate new API ledger: $30; combined API ceilings: $60; total job envelope remains $100. Host i-07178e293e8df2a60 is active, with external stop watchdog at 08:18:30 UTC; the other campaign host remains stopped.
+| Numbered branch | Final disposition |
+|---|---|
+| 001 Outcome-State Verification | Closed: utility/format gates failed; retain completed negative report. |
+| 002 Cascade Containment | Closed: invalid actions reduced, but clean completion 51/60 missed the 90% floor. |
+| 003 Adaptive Stopping | Closed: 138/400 correct versus fixed-long 217/400; resource savings did not offset accuracy loss. |
+| 004 Specialist Revision | Closed scaffold: no initially successful repairs; 0/4 valid final candidates in follow-up. |
+| 005 Defense Distillation | Closed: no measured erosion/replay advantage. Automated review complete, 26 consensus and two uncertain; original human criterion remains unmet. |
+| 006 Cognitive Expert Containment | Closed configuration: logic contribution observed, completion/format gates failed. |
+| 007 Overthinking Revision | Closed gate: recovery/utility comparisons failed on both 128-question model cohorts. |
+| 008 Independent Evidence Audit | Primary writing focus: bounded positive Qwen disclosure effect, failed hybrid intervention, limited generated transfer. AutoDC remains a regression fixture, not the paid-study base. |
 
-| Your option | Numbered Git branch | Completed evidence | Closeout decision |
-|---|---|---|---|
-| **1: specialist feedback and repair corruption** | [004 Specialist Revision](https://github.com/garypagangit/praxis/tree/Final-Praxis-004-Specialist-Revision) | Official BASE/GOLD controls passed all four issues. Initial repairs resolved 0/4; source-access follow-up produced 0/4 valid final candidates. | **Close this scaffold; pause investment.** Preservation cannot be measured without initially correct repairs. A new attempt would need a capable repository-agent baseline and new protocol. |
-| **2: defense retention during adaptation/distillation** | [005 Defense Distillation](https://github.com/garypagangit/praxis/tree/Final-Praxis-005-Defense-Distillation) | Three 32-step LoRA adaptations, 800 responses and 1,280 judge assessments completed. ER unsafe labels stayed 1/64 (Qwen), 0/64 (MD); benign refusal stayed 60/64 before and 59/64 after. Replay showed no measured safety advantage. | **Close and deprioritize this generic retention hypothesis.** No measured erosion to solve, substantial refusals and prior-art overlap. Automated review completed all 28 cases: 26 consensus, two retained harmfulness disagreements. |
-| **3: cognitive expert containment** | [006 Cognitive Expert Containment](https://github.com/garypagangit/praxis/tree/Final-Praxis-006-Cognitive-Expert-Containment) | Latest FP32 logic qualification completed 816/816 cells. Intact 80/256 (31.25%), logic ablated 13/256 (5.08%), social ablated 91/256 (35.55%). Logic loss 26.17 percentage points, paired 95% interval [20.31,32.03]. All technical/integrity checks passed. Intact capped responses 48/256 (18.75%) failed the <=10% gate. | **Closed after the fixed completion-format follow-up also failed:** chat7/32 capped versus the allowed3. No fresh256 test, automatic prompt/checkpoint search or longer cap. Useful logic contribution is preserved as a separate observation; no containment or publication claim is validated. |
-| **4: overthinking and selective revision under peer advice** | [007 Overthinking Revision](https://github.com/garypagangit/praxis/tree/Final-Praxis-007-Overthinking-Revision) | Devstral and Qwen each completed 128 held-out questions. Both failed the registered harm/recovery tradeoff against majority and unanimity verification. Devstral recovered 22/44 errors versus 30/44 and 27/44; Qwen 11/51 versus 16/51 and 12/51. | **Close this gate without scaling/training.** Reduced revision also rejected useful corrections; a wrong Qwen update passed the label checks. |
+Historical FalseCite-Code/PX-004 remains a separate bounded positive with a local
+manuscript, based on a small reused panel. No external acceptance was verified.
+The dedicated Final-Praxis-001 through Final-Praxis-008 branches all exist.
 
-**Why006 closes now.** The preregistered chat candidate used the same32 unused training questions as its raw diagnostic. Both were scored with the fixed parser and budget. Passing extraction and completed-correct gates does not offset failing completion. The raw arm cannot be selected posthoc because it happens to meet the small-pilot cap threshold. The previous256-question raw study already failed its own completion gate. Its substantial logic-ablation effect remains valid within the stated scoring protocol, but neither study qualifies the implementation for the proposed next test.
+Qualification passed 7,075 integrity checks and 31 isolated coordinator controls,
+admitting 135 native pairs including 101 heldout source tasks. Both versions retain
+all 9,456 assigned review identities and 131,200 offline rows. V2 completed 7,512
+eligible review responses; 1,944 ineligible assignments remain explicit. Reused
+records are not new trials or duplicate costs.
 
-**Closed earlier 006 attempts.** The tiny-model selector matched random/permanent controls at 14/32 for negation corruption. On a held-out permutation fault it intervened zero times and scored 9/32, versus random 11/32 and permanent 14/32. Empathy qualification was 32/64 with and without social, always choosing empathy; its held-out phase was not run. The subsequent BF16 logic attempt failed a frozen numerical check before any GSM8K inference. These remain negative findings; the larger FP32 logic contribution is a separate prerequisite result.
+Original and extension public compressed packages reproduce all frozen statistical
+fields exactly, including 5,000-draw bootstrap results. Original artifact audit:
+918,245/918,245. Amended V2 artifact audit: 1,099,300/1,099,300, with a
+disclosed secondary roundoff correction (exact zero means no directional benefit).
+The initial failed audit and immutable original result are preserved. No primary
+result or overall recommendation changes. Automated readiness: 15/15 PASS.
 
-**Automated review is finished.** The 005 original human-validation criterion remains unmet; automation is not relabeled as human adjudication. The first reviewer attempt failed qualification. The strict qualified V2 endpoint resolved 23/28. A separately recorded posthoc mechanical citation shortening changed no labels and made no new calls, yielding the final 26 consensus/two uncertain dispositions. No further manual task is assigned. Across both passes: 240 successful provider calls, estimated $0.14245228; these are API estimates, not the full campaign invoice.
+Both campaign EC2 hosts were verified **stopped** at 2026-09-14T02:30:26.985135+00:00. The API estimate is **$11.8626**; host compute through verified stop is at most **$2.2115** by the recorded rate/time estimate. The known API-plus-compute subtotal is **$14.0742**; including the disclosed $5 incidental storage/transfer allowance gives **$19.0742**, within the $100 envelope. These are incremental usage/rate estimates, not an invoice or total account spending.
 
-**New candidate008: independent evidence selection.** A compromised specialist may supply evidence that is true but selectively chosen to support a damaging revision. The prospective question is whether a controller that chooses its own task- and edit-dependent checks can preserve correct outcomes while retaining useful corrections at a fixed budget. This is a hypothesis, not established novelty. PBRC already discusses cherry-picked evidence and query-policy contracts; June2026 work already combines a code-executing critic with evidence-backed revision. Generic evidence gating and mandatory counter-queries are insufficient distinctions. [Candidate008 and source review](https://github.com/garypagangit/praxis/tree/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit).
+[Final results summary](https://github.com/garypagangit/praxis/blob/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study/paper_package/FINAL_RESULTS_SUMMARY.md),
+[manuscript starter](https://github.com/garypagangit/praxis/blob/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study/paper_package/MANUSCRIPT_STARTER.md),
+[automated readiness](https://github.com/garypagangit/praxis/blob/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study/paper_package/PAPER_READINESS.md),
+[reproduction guide](https://github.com/garypagangit/praxis/blob/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study/paper_package/REPRODUCTION_GUIDE.md),
+[numerical erratum](https://github.com/garypagangit/praxis/blob/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study/postrun_review/roundoff_amendment/README.md).
 
-The AutoDCWorkflow oracle repair and replay are now complete. All 103 independent comparator controls pass; all 141 finite reference identities and deliberately wrong controls pass, while reference104 remains explicitly invalid. Source review froze 40 provisionally aligned, 61 invalid and 41 ambiguous task contracts before output scoring. Saved-answer accounting covers 1,562 cells (1,509 present); fresh archived-table replay covers 852 cells, with 282 valid raw/clean return-value controls matching and two nonfinite controls invalid. On the 40 provisional tasks, raw tables match 9 references; Gemma matches 19, Llama 14, Mistral 10 and Gemma-base 9. No corruption intervention was tested. Independent result review found zero count/transition mismatches. [Completed008 results](https://github.com/garypagangit/praxis/blob/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/oracle_repair/RESULTS.md). A new committed cloud qualification is running against pinned HumanEvalPack/HumanEvalPlus. The full model protocol is being frozen before inference; its efficacy remains unestablished. Source: [008 code study](https://github.com/garypagangit/praxis/tree/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study).
-
-**Cost and custody.** The completion-format run's supervisor elapsed time was960.57seconds; active response generation totaled678.67seconds. Its planned host bound was two hours/$15 incremental. These times are not the EC2 bill or proof of shutdown. Retained campaign gp3 disks total250GB, approximately$20/month, plus existing roots and other storage. The earlier007 API ledgers total5,632+2,816 successful calls, estimated$1.3891592. Experiment outputs, failed gates and parser/review amendments remain preserved; these partial estimates are not an account invoice.
-
-Detailed results: [004 repairs](https://github.com/garypagangit/praxis/blob/Final-Praxis-004-Specialist-Revision/final_praxis/004_specialist_revision/RESULTS.md), [005 retention](https://github.com/garypagangit/praxis/blob/Final-Praxis-005-Defense-Distillation/final_praxis/005_defense_distillation/RESULTS.md), [005 automated review](https://github.com/garypagangit/praxis/blob/Final-Praxis-005-Defense-Distillation/final_praxis/005_defense_distillation/automated_review_v2/completion/COMPLETION.md), [006 FP32 final audit](https://github.com/garypagangit/praxis/blob/Final-Praxis-006-Cognitive-Expert-Containment/final_praxis/006_cognitive_expert_containment/logic_qualification_fp32/completed/RESULTS.md), [006 completion-format study](https://github.com/garypagangit/praxis/tree/Final-Praxis-006-Cognitive-Expert-Containment/final_praxis/006_cognitive_expert_containment/completion_format_pilot), [007 final combined closeout](https://github.com/garypagangit/praxis/blob/Final-Praxis-007-Overthinking-Revision/final_praxis/007_overthinking_revision/selective_update_inline/RESULTS_INLINE.md).
-
-[Next action and decision rules](NEXT_ACTION.md). Failed studies, parser amendments, interrupted setup and negative reviews remain preserved. Small feasibility studies and automated labels do not establish generality, semantic correctness or publication acceptance.
+[Next writing action](NEXT_ACTION.md). Technical closure does not certify novelty,
+universal program correctness, institutional approval or publication acceptance.

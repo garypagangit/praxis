@@ -1,9 +1,21 @@
-# Active work: complete 008 and the Praxis evidence package
+# Next action: develop the 008 Praxis paper
 
-Qualification and the original model run are complete. The registered schema extension at commit 43b7d26 is running, with independent artifact review and deterministic statistical reanalysis in parallel. No manual-review or permission task is pending.
+Experiment processing, full artifact review, reproduction, cost reconciliation
+and AWS shutdown are complete. Automated paper readiness passed 15/15.
+No additional paid experiment or manual-review task is pending.
 
-Next: complete both development gates, run allowed heldout Qwen reviews and previously unrun generated proposals, finish all-assignment accounting, preserve exact reused-record lineage, audit both versions, and publish the final results and paper-development recommendation. Failed or unsupported hypotheses remain reported as such.
+Develop **Selective Disclosure of Executed Tests in Language-Model Code Revision**
+from the [manuscript starter](https://github.com/garypagangit/praxis/blob/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study/paper_package/MANUSCRIPT_STARTER.md).
+Use the completed methods, result tables, figures and exact evidence links.
+Lead with the Qwen native disclosure effect; report the unsupported Devstral
+contrast, failed hybrid policy and lack of observed generated transfer alongside it.
+Describe passing-only disclosure and omission accurately. Incorporate the disclosed
+secondary exact-zero correction while retaining the original analysis bytes.
 
-The active AWS host has an external stop watchdog at 14 September 08:18:30 UTC. Stop early after results and archives are secured. Separate API ceilings are $30 per version, $60 combined; total incremental job envelope remains $100.
+Complete the literature and discussion chapters around the measured empirical
+distinction. Prior work already recognizes selective evidence and executable
+critics; do not claim a new threat, theorem or successful defense. Stronger
+baselines, isolated disclosure mechanisms and fresh tasks belong in future work.
 
-[Current portfolio status](STATUS.md). [008 protocols and results](https://github.com/garypagangit/praxis/tree/Final-Praxis-008-Independent-Evidence-Audit/final_praxis/008_independent_evidence_audit/code_study).
+Keep 001–007 closed. Historical FalseCite-Code is a separate small-panel positive,
+not a replication of 008. [Full portfolio status](STATUS.md).
