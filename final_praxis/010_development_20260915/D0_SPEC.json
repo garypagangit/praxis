@@ -1,0 +1,112 @@
+{
+  "phase": "D0 prospective mechanism screen",
+  "status": "PLAN_ONLY_NOT_RUN_RUNTIME_NOT_FROZEN",
+  "research_question": "Does corruption of one channel cause practically measurable forecast displacement and harm on unchanged channels, beyond simple preprocessing?",
+  "model": {
+    "source_revision": "8cb0628371af142e16b8c232cc9fbf667ffb12f9",
+    "name": "google/timesfm-3.0-pytorch",
+    "revision": "43046b85ec22d584a13f8098c2ed39c889e129c2",
+    "weights_sha256": "a7592b0a8432baee54483254e5647856911ce69e09d09a9bb65904b2d98f17da",
+    "horizon": 1,
+    "context_length": 128,
+    "per_core_batch_size": 1,
+    "use_symmetric_averaging": false,
+    "use_znorm": false,
+    "make_positive": false,
+    "sort_quantiles": true,
+    "return_quantiles": true,
+    "use_variate_attention": true,
+    "padding_mode": "none",
+    "joint_univariate_option": false,
+    "independent_univariate_option": true
+  },
+  "data": {
+    "file": "001_NAB_id_1_Facility_tr_1007_1st_2014.csv",
+    "tsbad_tree": "6beac72e11d1155ade40870492c00d0d1cfdcaaf",
+    "file_sha256": "e3e67660bbaa840ef24e70b38f0b384d41c7e2bce71bf0edbab65565a40a7584",
+    "permitted_value_row_indices_inclusive": [0, 1006],
+    "commissioning_row_indices_inclusive": [0, 255],
+    "labels_used": false,
+    "fresh_confirmation_set": false,
+    "semisynthetic_multivariate_construction": true,
+    "noise_rng": "numpy.random.Generator(numpy.random.PCG64(20260915))",
+    "noise_shape_time_major": [1007, 3],
+    "noise_standard_deviation": 0.01,
+    "origin_formula": "384 + floor(j*622/31), j in range(32)",
+    "origins": 32,
+    "independent_incident_claim": false,
+    "hai_access_allowed": false
+  },
+  "perturbations": {
+    "modified_input_channels": [0],
+    "unchanged_channels": [1, 2],
+    "future_targets_modified": false,
+    "last_context_positions": 64,
+    "families": ["positive_step", "inclusive_linear_ramp_from_zero"],
+    "amplitudes_standardized_units": [1, 3, 6],
+    "variants": 6,
+    "adaptive_queries": false
+  },
+  "pipelines": [
+    "joint_native3",
+    "independent_native3",
+    "joint_channel0_clip_minus3_plus3",
+    "joint_channel0_causal_sma5"
+  ],
+  "accounting": {
+    "clean_evaluations_per_pipeline_origin": 1,
+    "perturbed_evaluations_per_pipeline_origin": 6,
+    "extra_clean_repeats_per_pipeline_origin": 1,
+    "total_pipeline_evaluations": 1024,
+    "each_pipeline_uses_its_own_clean_reference": true,
+    "save_all_forecasts_and_quantiles": true,
+    "save_exact_input_and_target_arrays_and_hashes": true,
+    "report_actual_forward_calls_and_sequence_counts": true,
+    "equal_compute_efficacy_claim": false
+  },
+  "gates": {
+    "nonfinite_or_commissioning_sd_below": 0.000001,
+    "maximum_clean_repeat_discrepancy": 0.00001,
+    "numerical_floor": "max(1e-5, 10*maximum_clean_repeat_discrepancy)",
+    "independent_channel_spillover_must_not_exceed_numerical_floor": true,
+    "practical_spillover_threshold": 0.05,
+    "hypothesis_pipeline": "joint_native3",
+    "variant_mean_error_inflation_context_denominator": 32,
+    "clean_off_channel_mae_scalar_target_denominator": 64,
+    "means_conditioned_on_high_spillover_cases": false,
+    "minimum_contexts_per_qualifying_variant": 8,
+    "mean_error_inflation_threshold_same_variant": 0.02,
+    "minimum_qualifying_variants": 2,
+    "simple_control_error_inflation_ceiling_all_qualifying_variants": 0.005,
+    "simple_control_clean_mae_increase_ceiling": 0.01,
+    "simple_control_suffices_action": "HOLD_COMPLEX_DEFENSE",
+    "hypothesis_not_supported_action": "HOLD_CROSS_CHANNEL_HARM_SCALE_UP",
+    "hypothesis_supported_simple_controls_insufficient_action": "ELIGIBLE_FOR_SEPARATE_D1_DESIGN_ONLY",
+    "statistical_confirmation_claim": false
+  },
+  "numerics": {
+    "construction_perturbation_preprocessing_dtype": "float64",
+    "final_model_input_cast": "once_to_float32_after_preprocessing",
+    "target_dtype": "float64",
+    "metric_arithmetic": "convert_saved_forecasts_to_float64",
+    "exact_package_and_model_execution_dtypes": "required_in_later_executable_runtime_freeze"
+  },
+  "planned_compute": {
+    "maximum_hosts": 1,
+    "maximum_total_host_minutes": 30,
+    "combined_reserve_usd": 10,
+    "paid_inference_apis": false,
+    "requires_committed_worker_and_runtime_freeze": true,
+    "requires_source_bound_controls": true,
+    "requires_external_stop_and_verified_shutdown": true,
+    "cloud_started_for_this_plan": false,
+    "model_calls_for_this_plan": 0
+  },
+  "limitations": [
+    "Generic context gating is prior art, including GITCO.",
+    "Semisynthetic channels are not measured industrial sensor relationships.",
+    "Overlapping contexts from one previously inspected series do not establish independent cyber replication.",
+    "D0 does not test attack detection, persistent retention, benign recovery or a novel defense.",
+    "HAI Q1-D1 timestamp-access history must remain disclosed in any later HAI protocol."
+  ]
+}
