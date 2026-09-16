@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-09-16 21:18:18 UTC",
+  "status": "PASS_INDEPENDENT_RAW_EVIDENCE_REVIEW",
+  "review_method": "Read-only NumPy 2.2.6 calculations directly from saved NPZ arrays and JSONL rows, with no import of the worker or auditor implementations. Source-module hashes checked directly against the pinned ZIP.",
+  "evidence_directory_reviewed": "C:/w/praxis_private/010_d0_20260916/early_review/collected/output",
+  "hashes": {
+    "output_archive_sha256": "119ed5a294260acb2ce188a721e23759a49e778a357c9a44af66f564ffc20e36",
+    "output_archive_hash_verification": "Transport verification supplied by the root agent before this independent review; distinct from the model source ZIP.",
+    "model_source_zip_sha256": "ecb62c7cc793937991bbaf4a481d60ac74e84724db3e9d6ea457b2b350f11692",
+    "canonical_source_csv_sha256": "e3e67660bbaa840ef24e70b38f0b384d41c7e2bce71bf0edbab65565a40a7584",
+    "reconstructed_inputs_raw_bytes_sha256": "1dee39c6e6c7bb3757fbe2c4f3871ace04ae04a16edf1dd7344c0085b898add9",
+    "reconstructed_targets_raw_bytes_sha256": "bf9950ff0639da7ca766c9253d2cb2a187400981dbf9cbbadde7d7c411f1f21f",
+    "array_hash_scope": "Independent canonical-source reconstruction established these input/target hashes before inference; the completed audit records the same hashes. This review additionally checked every observation input/target hash directly against the saved arrays."
+  },
+  "accounting": {
+    "observations": 1024,
+    "unique_pipeline_origin_state_identities": 1024,
+    "completed_evaluations": 1024,
+    "native_forward_calls": 1536,
+    "tensor_channel_sequences": 3072,
+    "pinned_python_source_files_checked": 100,
+    "loaded_model_modules_checked": 11
+  },
+  "checks": {
+    "all_forecasts_and_quantiles_finite": true,
+    "every_observation_input_hash_matches_saved_input": true,
+    "every_observation_target_hash_matches_saved_target": true,
+    "protected_input_channels_byte_identical_across_conditions": true,
+    "clean_and_repeat_input_bytes_identical": true,
+    "all_actual_native_decode_input_hashes_and_shapes_match_assigned_pipeline": true,
+    "all_native_forward_shapes_match_joint_or_independent_routing": true,
+    "all_recorded_python_source_hashes_match_pinned_zip_bytes": true,
+    "all_loaded_module_hashes_match_pinned_zip_bytes": true,
+    "all_variant_error_inflation_means_include_every_origin": true,
+    "frozen_source_code_changed_during_review": false,
+    "additional_model_or_cloud_calls_during_review": 0
+  },
+  "runtime_observed": {
+    "source_revision": "8cb0628371af142e16b8c232cc9fbf667ffb12f9",
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "torch": "2.6.0+cu124",
+    "model_parameter_dtypes": [
+      "torch.float32"
+    ],
+    "model_parameter_devices": [
+      "cuda:0"
+    ],
+    "native_variate_attention": true
+  },
+  "numerical_controls": {
+    "maximum_clean_repeat_point_discrepancy": 0,
+    "maximum_clean_repeat_quantile_discrepancy": 0,
+    "independent_maximum_protected_scalar_displacement": 0,
+    "point_repeat_numerical_floor": 0.00001,
+    "operational_control_failure": false
+  },
+  "raw_joint_variant_results": [
+    {
+      "variant": "step1",
+      "contexts_with_spillover_at_least_0_05": 6,
+      "mean_spillover": 0.0353810895467177,
+      "mean_error_inflation": -0.007942247884642175
+    },
+    {
+      "variant": "step3",
+      "contexts_with_spillover_at_least_0_05": 8,
+      "mean_spillover": 0.044682624109555036,
+      "mean_error_inflation": -0.006083820171482706
+    },
+    {
+      "variant": "step6",
+      "contexts_with_spillover_at_least_0_05": 11,
+      "mean_spillover": 0.04501318954862654,
+      "mean_error_inflation": -0.007083947727937341
+    },
+    {
+      "variant": "ramp1",
+      "contexts_with_spillover_at_least_0_05": 22,
+      "mean_spillover": 0.07392757380148396,
+      "mean_error_inflation": -0.017815747361900038
+    },
+    {
+      "variant": "ramp3",
+      "contexts_with_spillover_at_least_0_05": 23,
+      "mean_spillover": 0.08025619416730478,
+      "mean_error_inflation": -0.013413696269373216
+    },
+    {
+      "variant": "ramp6",
+      "contexts_with_spillover_at_least_0_05": 23,
+      "mean_spillover": 0.07915776158915833,
+      "mean_error_inflation": -0.00898588793245963
+    }
+  ],
+  "decision": {
+    "status": "HOLD_CROSS_CHANNEL_HARM_SCALE_UP",
+    "qualifying_raw_joint_variants": [],
+    "variant_mean_error_inflation_context_denominator": 32,
+    "same_variant_required_context_count": 8,
+    "required_mean_error_inflation": 0.02,
+    "simple_control_investment_gate": "NOT_REACHED",
+    "simple_control_interpretation": "No raw-joint variant qualifies; the empty adequate-simple-controls list is not evidence that clipping or smoothing failed.",
+    "d1_eligible_from_this_screen": false,
+    "strongest_supported_claim": "The fixed screen demonstrated cross-channel forecast influence, but no tested raw-joint perturbation increased mean protected-channel forecast error. All six variant means were negative.",
+    "action": "Close this fixed screen without scale-up or a D1 launch based on these outcomes; retain every variant and the unfavorable mechanism decision."
+  },
+  "limitations": [
+    "One previously inspected public series, semisynthetic channels and overlapping origins.",
+    "Descriptive within-series findings do not establish independent incident replication.",
+    "Negative mean error inflation does not imply absence of individual harmful cases or universal model robustness.",
+    "This screen does not demonstrate a novel defense, attack detection, persistent retention or recovery.",
+    "Shutdown and cost verification belong to separate root-agent closeout receipts."
+  ]
+}
