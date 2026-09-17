@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "candidate": "CTI",
+  "title": "CTI: useful evidence, failed applicability control",
+  "status": "Completed bounded empirical study; contribution/advisor review pending",
+  "headline": "Source access matters: compatible evidence helps; mismatch evidence hurts.",
+  "chart": {
+    "type": "grouped_bar",
+    "units": "percentage_points",
+    "categories": [
+      "Source-known eligible",
+      "Query-only eligible",
+      "Query-only mismatch"
+    ],
+    "series": [
+      {
+        "name": "Llama",
+        "values": [
+          23.067173637515843,
+          18.187579214195186,
+          -14.967462039045554
+        ]
+      },
+      {
+        "name": "Qwen",
+        "values": [
+          19.581749049429657,
+          13.878326996197718,
+          -17.462039045553148
+        ]
+      }
+    ],
+    "denominators": [
+      1578,
+      1578,
+      922
+    ],
+    "evidence_claim_ids": [
+      "C03_Llama_source_known",
+      "C03_Qwen_source_known",
+      "C04_Llama_query",
+      "C04_Qwen_query"
+    ]
+  },
+  "callouts": [
+    {
+      "text": "2,500 question units;40,000 repeated-condition response records",
+      "evidence_claim_ids": [
+        "C01_population",
+        "C02_exposure_accounting"
+      ]
+    },
+    {
+      "text": "External router precision46.26%;false-positive rate52.53%;confirmation failed",
+      "evidence_claim_ids": [
+        "C07_external_router"
+      ]
+    },
+    {
+      "text": "Statistical reproduction PASS;no successful deployment defense",
+      "evidence_claim_ids": [
+        "C05_Llama_gates",
+        "C05_Qwen_gates",
+        "C10_final_status",
+        "C11_fresh_reproduction"
+      ]
+    }
+  ],
+  "limitations": [
+    "Source-known access advantage;500 prior-exposed items",
+    "Query retrieval sees all option text",
+    "External format failures;PX071 unfinished"
+  ],
+  "next_decision": "Author/advisor resolves originality and applied-contribution fit;no new inference required for this closure.",
+  "local_evidence": "final_praxis/final_three_20260917/01_cti/EVIDENCE.json",
+  "primary_citations": [
+    {
+      "label": "TechniqueRAG(2025)",
+      "url": "https://aclanthology.org/2025.findings-acl.1076.pdf"
+    },
+    {
+      "label": "Beyond RAG(2026)",
+      "url": "https://arxiv.org/html/2604.11419v1"
+    },
+    {
+      "label": "Ahlert(2026)",
+      "url": "https://arxiv.org/html/2609.08790v1"
+    }
+  ],
+  "speaker_note": "All effects are paired accuracy percentage-point differences versus each matching vanilla condition. This visual does not assert equal model compute or successful routing. Zero fresh inference during closure."
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "candidate": "008",
+  "title": "Selective disclosure of genuine test results",
+  "takeaway": "Qwen accepted eight additional harmful revisions under the complete selective-disclosure policy.",
+  "status": "Bounded empirical candidate; author/advisor review pending",
+  "chart": {
+    "type": "paired_counts",
+    "denominator": 101,
+    "measure": "Harmful native revisions accepted by schema-constrained Qwen",
+    "categories": [
+      "Uniform disclosure",
+      "Selected disclosure"
+    ],
+    "numerators": [
+      4,
+      12
+    ],
+    "rates": [
+      0.039603960396039604,
+      0.1188118811881188
+    ],
+    "effect_percentage_points": 7.920792079207921,
+    "ci95_percentage_points": [
+      2.9702970297029703,
+      13.861386138613861
+    ],
+    "holm4_adjusted_one_sided_p": 0.015625,
+    "raw_one_sided_exact_p": 0.00390625,
+    "paired_cells": {
+      "both_accept": 4,
+      "selected_only": 8,
+      "uniform_only": 0,
+      "neither_accept": 89
+    }
+  },
+  "supporting_points": [
+    "7 of the 8 selected-only cases omit a failure visible under uniform disclosure; 2 of those cases disclose no tests.",
+    "Devstral 3/101 vs 1/101: unsupported (Holm p=.75).",
+    "Hybrid defense failed both primary recommendation gates; generated harmful disclosure contrast was 4/34 vs 4/34 (Qwen) and 1/34 vs 1/34 (Devstral)."
+  ],
+  "essential_limits": [
+    "Filtering, omission, and record count form one compound intervention.",
+    "Finite reserved-test labels; function-level public benchmark.",
+    "Devstral native observations reused from V1; no independent second replication."
+  ],
+  "suggested_speaker_note": "The threat finding is specific to one schema-constrained reviewer. It establishes neither an isolated pairing mechanism nor a successful defense. Empty disclosure cases are part of the failure-omission count, so seven and two must not be added.",
+  "source_references": [
+    {
+      "evidence_id": "E07",
+      "repository_path": "final_praxis/008_independent_evidence_audit/code_study/completed_models/schema_extension_v2/MODEL_RESULTS.json",
+      "sha256": "c788309c29d591d0d27bc41517671a15d2df12af9ee7020e12b44454f5f0783f",
+      "json_pointer": "/primary_hypotheses/0"
+    },
+    {
+      "evidence_id": "E08",
+      "repository_path": "final_praxis/008_independent_evidence_audit/code_study/postrun_review/completed_extension_v2/H1_MECHANISM_DIAGNOSTIC.json",
+      "sha256": "0beafe96a23f1a9a267c695e65fda9bed017462b9d64d8719359db31a1634fe9",
+      "json_pointer": "/discordant_witness_mechanisms/qwen.qwen3-coder-next"
+    },
+    {
+      "evidence_id": "E07",
+      "repository_path": "final_praxis/008_independent_evidence_audit/code_study/completed_models/schema_extension_v2/MODEL_RESULTS.json",
+      "sha256": "c788309c29d591d0d27bc41517671a15d2df12af9ee7020e12b44454f5f0783f",
+      "json_pointer": "/policy_gates"
+    }
+  ],
+  "closest_prior_sources": [
+    {
+      "title": "Preregistered Belief Revision Contracts",
+      "url": "https://arxiv.org/html/2604.15558v1#S9.SS2"
+    },
+    {
+      "title": "When Helping Hurts and How to Fix It",
+      "url": "https://arxiv.org/html/2606.02866v1#S7"
+    }
+  ],
+  "citation_footer": "008 frozen V2 results: E07?E09; N=101 paired native tasks. 95% task-bootstrap CI; Holm family of four."
+}

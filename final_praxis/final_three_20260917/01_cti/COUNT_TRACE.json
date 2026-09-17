@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-17T05:02:37.890916+00:00",
+  "status": "PASS",
+  "method": "Independent grouping by question ID and condition from packaged gzip JSONL. Correctness computed as saved parsed_answer equals released expected_output, checked against each correct field. No import of frozen analyzer or reproduction driver. Parser reimplementation not claimed; all raw/parser outcomes were separately verified by the archived reproduction command.",
+  "new_model_inference_calls": 0,
+  "traces": [
+    {
+      "model": "Llama",
+      "cell": "source_pointer",
+      "stratum": "attack_technique_eligible",
+      "source_repo_path": "final_praxis/papers/20260914/01_cti/data/full2500_llama_source_pointer.jsonl.gz",
+      "source_sha256": "00f5d0447326cc28e7c82ec119ff0661b74fce97b7d8238861430e52f908a333",
+      "jsonl_selector": {
+        "dataset_stratum": "attack_technique_eligible",
+        "condition": [
+          "vanilla",
+          "relationship_evidence"
+        ]
+      },
+      "all_file_rows_read": 15000,
+      "paired_questions": 1578,
+      "both_correct": 898,
+      "treatment_only": 436,
+      "control_only": 72,
+      "both_wrong": 172,
+      "control_correct": 970,
+      "treatment_correct": 1334,
+      "accuracy_difference": 0.23067173637515842,
+      "percentage_point_difference": 23.067173637515843,
+      "archived_comparison_json_pointer": "/models/Llama/source_pointer/strata/attack_technique_eligible/comparisons/0",
+      "archived_counts_match": true
+    },
+    {
+      "model": "Llama",
+      "cell": "query_only",
+      "stratum": "non_attack_domain_mismatch",
+      "source_repo_path": "final_praxis/papers/20260914/01_cti/data/full2500_llama_query_only.jsonl.gz",
+      "source_sha256": "9b06731808c76215583abf1c1c3e760e5353ce353118a4884ba79a7025da89ff",
+      "jsonl_selector": {
+        "dataset_stratum": "non_attack_domain_mismatch",
+        "condition": [
+          "vanilla",
+          "relationship_evidence"
+        ]
+      },
+      "all_file_rows_read": 5000,
+      "paired_questions": 922,
+      "both_correct": 467,
+      "treatment_only": 43,
+      "control_only": 181,
+      "both_wrong": 231,
+      "control_correct": 648,
+      "treatment_correct": 510,
+      "accuracy_difference": -0.14967462039045554,
+      "percentage_point_difference": -14.967462039045554,
+      "archived_comparison_json_pointer": "/models/Llama/query_only/strata/non_attack_domain_mismatch/comparisons/0",
+      "archived_counts_match": true
+    }
+  ]
+}

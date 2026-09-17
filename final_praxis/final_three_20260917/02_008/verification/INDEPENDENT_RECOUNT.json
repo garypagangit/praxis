@@ -1,0 +1,129 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-09-17T05:02:13.195298+00:00",
+  "independent_of_study_analysis_imports": true,
+  "model_calls": 0,
+  "candidate_programs_executed": 0,
+  "python": "3.11.9",
+  "primary": [
+    {
+      "hypothesis": "H1",
+      "reviewer": "qwen.qwen3-coder-next",
+      "left": "selected_w",
+      "right": "uniform_w",
+      "layer": "reviewer_only",
+      "tasks": 101,
+      "left_accepts": 12,
+      "right_accepts": 4,
+      "paired_cells": {
+        "both_accept": 4,
+        "left_only_accept": 8,
+        "right_only_accept": 0,
+        "neither_accept": 89
+      },
+      "exact_effect": "8/101",
+      "effect": 0.07920792079207921,
+      "exact_one_sided_p": "1/256",
+      "raw_one_sided_p": 0.00390625,
+      "holm4_adjusted_p": 0.015625
+    },
+    {
+      "hypothesis": "H2",
+      "reviewer": "qwen.qwen3-coder-next",
+      "left": "uniform_a",
+      "right": "hybrid",
+      "layer": "enforced",
+      "tasks": 101,
+      "left_accepts": 3,
+      "right_accepts": 4,
+      "paired_cells": {
+        "both_accept": 3,
+        "left_only_accept": 0,
+        "right_only_accept": 1,
+        "neither_accept": 97
+      },
+      "exact_effect": "-1/101",
+      "effect": -0.009900990099009901,
+      "exact_one_sided_p": "1",
+      "raw_one_sided_p": 1.0,
+      "holm4_adjusted_p": 1.0
+    },
+    {
+      "hypothesis": "H1",
+      "reviewer": "mistral.devstral-2-123b",
+      "left": "selected_w",
+      "right": "uniform_w",
+      "layer": "reviewer_only",
+      "tasks": 101,
+      "left_accepts": 3,
+      "right_accepts": 1,
+      "paired_cells": {
+        "both_accept": 1,
+        "left_only_accept": 2,
+        "right_only_accept": 0,
+        "neither_accept": 98
+      },
+      "exact_effect": "2/101",
+      "effect": 0.019801980198019802,
+      "exact_one_sided_p": "1/4",
+      "raw_one_sided_p": 0.25,
+      "holm4_adjusted_p": 0.75
+    },
+    {
+      "hypothesis": "H2",
+      "reviewer": "mistral.devstral-2-123b",
+      "left": "uniform_a",
+      "right": "hybrid",
+      "layer": "enforced",
+      "tasks": 101,
+      "left_accepts": 0,
+      "right_accepts": 0,
+      "paired_cells": {
+        "both_accept": 0,
+        "left_only_accept": 0,
+        "right_only_accept": 0,
+        "neither_accept": 101
+      },
+      "exact_effect": "0",
+      "effect": 0.0,
+      "exact_one_sided_p": "1",
+      "raw_one_sided_p": 1.0,
+      "holm4_adjusted_p": 1.0
+    }
+  ],
+  "generated_harmful_disclosure": [
+    {
+      "reviewer": "qwen.qwen3-coder-next",
+      "harmful_tasks": 34,
+      "selected_accepts": 4,
+      "uniform_accepts": 4,
+      "discordances": 0
+    },
+    {
+      "reviewer": "mistral.devstral-2-123b",
+      "harmful_tasks": 34,
+      "selected_accepts": 1,
+      "uniform_accepts": 1,
+      "discordances": 0
+    }
+  ],
+  "generated_heldout": {
+    "admitted_proposals": 193,
+    "source_tasks": 100,
+    "directions": {
+      "harmful": 34,
+      "other": 69,
+      "useful": 90
+    }
+  },
+  "native_two_passing_witnesses_feasible": {
+    "numerator": 60,
+    "denominator": 101
+  },
+  "input_sha256": {
+    "final_praxis/008_independent_evidence_audit/code_study/completed_models/schema_extension_v2/DECISIONS.jsonl.gz": "a0a5ccad23860f9632d07800f34643d72c0adaf3ce45cf27801f150a3a9a27f1",
+    "final_praxis/008_independent_evidence_audit/code_study/completed_models/schema_extension_v2/MODEL_RESULTS.json": "c788309c29d591d0d27bc41517671a15d2df12af9ee7020e12b44454f5f0783f"
+  },
+  "script_sha256": "fbe2c96d99656ef99c66de1fe6e128fb9436226afa0bcf70be680a30088bc2ba",
+  "limitations": "Recounts retained observations, not new inference, bootstrap intervals, prompt replay, or semantic reexecution."
+}

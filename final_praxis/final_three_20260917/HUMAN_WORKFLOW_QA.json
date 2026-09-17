@@ -1,0 +1,323 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-17T05:13:48.658445+00:00",
+  "status": "PASS",
+  "purpose": "Synthetic software and visual QA only; this receipt is not a human review, an authorship attestation, or academic approval.",
+  "reviewer": "AI assistant independent subagent d0_audit",
+  "received_human_review_records": 0,
+  "actual_human_decisions_recorded": 0,
+  "institutional_acceptance_inferred": false,
+  "tests": {
+    "total": 35,
+    "passed": 35,
+    "failed": 0,
+    "in_memory_validation": 30,
+    "scratch_cli": 3,
+    "cases": [
+      {
+        "name": "author_pending_unable_to_assess",
+        "kind": "in_memory_validation",
+        "expected_accept": true,
+        "observed_accept": true,
+        "status": "PASS",
+        "detail": "Accepted without modifying submitted data"
+      },
+      {
+        "name": "advisor_accept_after_evidence_review",
+        "kind": "in_memory_validation",
+        "expected_accept": true,
+        "observed_accept": true,
+        "status": "PASS",
+        "detail": "Accepted without modifying submitted data"
+      },
+      {
+        "name": "author_self_verifies",
+        "kind": "in_memory_validation",
+        "expected_accept": true,
+        "observed_accept": true,
+        "status": "PASS",
+        "detail": "Accepted without modifying submitted data"
+      },
+      {
+        "name": "confirmed_policy_with_text_reference",
+        "kind": "in_memory_validation",
+        "expected_accept": true,
+        "observed_accept": true,
+        "status": "PASS",
+        "detail": "Accepted without modifying submitted data"
+      },
+      {
+        "name": "specified_valid_due_date",
+        "kind": "in_memory_validation",
+        "expected_accept": true,
+        "observed_accept": true,
+        "status": "PASS",
+        "detail": "Accepted without modifying submitted data"
+      },
+      {
+        "name": "reject_unknown_schema",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Unsupported review schema"
+      },
+      {
+        "name": "reject_blank_reviewer",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing reviewer_name"
+      },
+      {
+        "name": "reject_non_text_reviewer",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing reviewer_name"
+      },
+      {
+        "name": "reject_unknown_role",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Invalid reviewer role"
+      },
+      {
+        "name": "reject_unknown_scope_selection",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Invalid scope_selection"
+      },
+      {
+        "name": "reject_unknown_ai_policy_status",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Invalid ai_policy_status"
+      },
+      {
+        "name": "reject_unknown_due_date_status",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Invalid due_date_status"
+      },
+      {
+        "name": "reject_unknown_author_understanding",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Invalid author_understanding"
+      },
+      {
+        "name": "reject_confirmed_policy_blank_reference",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Confirmed requirements need a policy or approval reference"
+      },
+      {
+        "name": "reject_confirmed_policy_boolean_reference",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Confirmed requirements need a policy or approval reference"
+      },
+      {
+        "name": "reject_confirmed_policy_container_reference",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Confirmed requirements need a policy or approval reference"
+      },
+      {
+        "name": "reject_advisor_author_self_verification",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Only an author can attest their own understanding"
+      },
+      {
+        "name": "reject_invalid_review_date",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: day is out of range for month"
+      },
+      {
+        "name": "reject_specified_missing_due_date",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Specified due date is missing"
+      },
+      {
+        "name": "reject_invalid_due_date",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: day is out of range for month"
+      },
+      {
+        "name": "reject_unattested_review",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Reviewer must attest this records their own review"
+      },
+      {
+        "name": "reject_non_boolean_attestation",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Reviewer must attest this records their own review"
+      },
+      {
+        "name": "reject_unknown_decision",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing decision or reason for cti"
+      },
+      {
+        "name": "reject_unknown_evidence_state",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing evidence review state for 008"
+      },
+      {
+        "name": "reject_accept_with_partial_evidence",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Acceptance of cti requires reported evidence review"
+      },
+      {
+        "name": "reject_accept_without_evidence",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Acceptance of 010 requires reported evidence review"
+      },
+      {
+        "name": "reject_blank_reason",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing decision or reason for 008"
+      },
+      {
+        "name": "reject_boolean_reason",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing decision or reason for cti"
+      },
+      {
+        "name": "reject_numeric_reason",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing decision or reason for 010"
+      },
+      {
+        "name": "reject_missing_experiment",
+        "kind": "in_memory_validation",
+        "expected_accept": false,
+        "observed_accept": false,
+        "status": "PASS",
+        "detail": "ValueError: Missing decision or reason for 010"
+      },
+      {
+        "name": "cli_preserves_original_bytes_hash_and_nonapproval_flags",
+        "kind": "scratch_cli",
+        "status": "PASS"
+      },
+      {
+        "name": "cli_repeat_import_is_idempotent",
+        "kind": "scratch_cli",
+        "status": "PASS"
+      },
+      {
+        "name": "cli_rejects_invalid_record_before_output_write",
+        "kind": "scratch_cli",
+        "status": "PASS"
+      },
+      {
+        "name": "cti_release_render_matches_all_nine_visually_reviewed_pages",
+        "kind": "render_hash_comparison",
+        "status": "PASS"
+      },
+      {
+        "name": "package_contains_zero_received_human_review_records",
+        "kind": "filesystem_observation",
+        "status": "PASS"
+      }
+    ]
+  },
+  "reviewed_sources": {
+    "code/record_human_review.py": {
+      "sha256": "1c5d103f6947dd13bc9980b0f9b33ce2e2a2b8721c78e48b9827538bdeede2e1"
+    },
+    "REVIEW_FORM.html": {
+      "sha256": "9c3463d398120aedd81d793638e88dc03ce91a2eb807a9f30dfaeff06ee0c2f9"
+    }
+  },
+  "scratch": {
+    "path": "C:\\Users\\garyp\\AppData\\Local\\Temp\\codex-presentations\\manual-20260917\\praxis-three\\tmp\\synthetic-human-workflow-qa-vgmqicve",
+    "all_saved_records_are_synthetic": true,
+    "outside_repository": true
+  },
+  "cti_visual_qa": {
+    "status": "PASS",
+    "pages_individually_inspected_at_original_resolution": 9,
+    "inspected_render": "qa_final/CTI",
+    "release_render": "qa_release/CTI",
+    "release_hashes_match_inspected_render": true,
+    "changed_pages": [],
+    "page_sha256": {
+      "page-1.png": "3508de44a922fa6812ee0e2556b99e740e94643360109c1bff2086603b89f776",
+      "page-2.png": "a5367c7b87a1b103bac350f723d2cd7c2f46a0044c6f4881213f70736fd96f5d",
+      "page-3.png": "3e9175750565a38f0235c92aa9bc7352247c785059872e20eacf4306e79fd8a7",
+      "page-4.png": "71be14ca8a74078d842626908b62b8c0a2dcbbc9f4a55fe614cb304c3e0a2390",
+      "page-5.png": "de6a40818c1ea721c4393a92612bba560b990762cf0bf92313374831814022fc",
+      "page-6.png": "f6493720edb74dcd6562d6bbde67647052589a63a7562ed565f2196f34da02dd",
+      "page-7.png": "6777ea1c1cd663f15878b26c366f1fe187404d68109397881ec35c173a492f3e",
+      "page-8.png": "c9062f338db3a017543511215a9fb64452062b765f481aac35b95ca89bea96c2",
+      "page-9.png": "458af7a19c4d38f01e645287e7d670084b41530cd78ca123a3f6eca203d90209"
+    },
+    "findings": "No clipping, overlap, orphan headings, unreadable tables or references, or observed inconsistency with PAPER.md. All six references render on dedicated page 9."
+  },
+  "limitations": [
+    "No reviewer identity is authenticated by this workflow.",
+    "Policy references and evidence-review statements remain self-reported.",
+    "Actual browser interaction/export testing is performed separately by the root agent and is not claimed by this receipt.",
+    "Software validation does not constitute author, advisor, committee, originality, or institutional approval."
+  ]
+}
