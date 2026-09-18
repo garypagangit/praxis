@@ -1,0 +1,220 @@
+{
+  "status": "PASS_INPUT_INTEGRITY_AND_CANONICAL_COUNT_CHECKS",
+  "created_at_utc": "2026-09-18T20:02:11.071019+00:00",
+  "warning": "RETROSPECTIVE EXPLORATORY DATA, NOT FRESH CONFIRMATION. All 2500 questions previously contributed to PX068 training and existing outcome analyses; excluding the 500 earlier development-exposed items does not make the remainder newly unseen.",
+  "new_inference_calls": 0,
+  "rows": 2500,
+  "eligible": 1578,
+  "mismatch": 922,
+  "previously_exposed": 500,
+  "exact_source_url_groups": 1013,
+  "source_groups": 834,
+  "largest_source_groups": [
+    [
+      "attack_technique_family:T1218",
+      59
+    ],
+    [
+      "attack_technique_family:T1059",
+      54
+    ],
+    [
+      "manual",
+      45
+    ],
+    [
+      "attack_technique_family:T1553",
+      36
+    ],
+    [
+      "named_source:nist security incident handling",
+      35
+    ],
+    [
+      "attack_technique_family:T1546",
+      34
+    ],
+    [
+      "attack_technique_family:T1583",
+      29
+    ],
+    [
+      "attack_technique_family:T1071",
+      26
+    ],
+    [
+      "named_source:diamond model of intrusion analysis",
+      24
+    ],
+    [
+      "attack_technique_family:T1110",
+      23
+    ]
+  ],
+  "grouping": "Parent ATT&CK technique family Txxxx combines all subtechnique URLs. Other sources preserve full URL path/query/fragment with lowercased scheme/host and trailing slash removed. Named-document sources normalize case/whitespace and remove _partN.txt or .txt to keep all parts of the same document together. All Manual entries remain one group.",
+  "allowed_feature_fields": [
+    "question",
+    "options",
+    "evidence"
+  ],
+  "metadata_never_features": [
+    "id",
+    "source_group",
+    "eligible",
+    "previously_exposed",
+    "outcomes"
+  ],
+  "excluded_inherited_source_aware_fields": [
+    "option_support_scores",
+    "technique_id",
+    "technique_only_evidence",
+    "source_pointer_relationship_evidence",
+    "random_facts_evidence",
+    "source_url",
+    "dataset_stratum",
+    "expected_output"
+  ],
+  "outcome_meaning": "Boolean correctness of archived answer, separately per model and condition; validity means frozen parser returned one of A/B/C/D. Selecting an archived response evaluates routing, not new answer generation.",
+  "checks": {
+    "joined_metadata_equal": 40000,
+    "raw_output_correctness_recomputed": 10000,
+    "rendered_prompt_contains_frozen_prompt": 10000,
+    "published_count_equal": 36
+  },
+  "canonical_counts": {
+    "llama": {
+      "all_2500": {
+        "relationship_evidence": {
+          "rows": 2500,
+          "correct": 1767,
+          "invalid": 1
+        },
+        "vanilla": {
+          "rows": 2500,
+          "correct": 1618,
+          "invalid": 0
+        }
+      },
+      "attack_technique_eligible": {
+        "relationship_evidence": {
+          "rows": 1578,
+          "correct": 1257,
+          "invalid": 1
+        },
+        "vanilla": {
+          "rows": 1578,
+          "correct": 970,
+          "invalid": 0
+        }
+      },
+      "non_attack_domain_mismatch": {
+        "relationship_evidence": {
+          "rows": 922,
+          "correct": 510,
+          "invalid": 0
+        },
+        "vanilla": {
+          "rows": 922,
+          "correct": 648,
+          "invalid": 0
+        }
+      }
+    },
+    "qwen": {
+      "all_2500": {
+        "relationship_evidence": {
+          "rows": 2500,
+          "correct": 1629,
+          "invalid": 2
+        },
+        "vanilla": {
+          "rows": 2500,
+          "correct": 1571,
+          "invalid": 1
+        }
+      },
+      "attack_technique_eligible": {
+        "relationship_evidence": {
+          "rows": 1578,
+          "correct": 1189,
+          "invalid": 2
+        },
+        "vanilla": {
+          "rows": 1578,
+          "correct": 970,
+          "invalid": 1
+        }
+      },
+      "non_attack_domain_mismatch": {
+        "relationship_evidence": {
+          "rows": 922,
+          "correct": 440,
+          "invalid": 0
+        },
+        "vanilla": {
+          "rows": 922,
+          "correct": 601,
+          "invalid": 0
+        }
+      }
+    }
+  },
+  "sources": [
+    {
+      "path": "C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\\PROVENANCE.json",
+      "sha256": "f9ff9c089095c1f822403533dd108eb76839f4be53b6e1db8aec13c1348f4e95",
+      "bytes": 17659,
+      "kind": "package provenance registry"
+    },
+    {
+      "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\runs\\px003-px034-confirmatory-20260731\\ctibench_2500_query_only.jsonl",
+      "sha256": "75d87d944cc2bcbe623ba3248a55a7c7e859111b08a52a7f06d42223f7f594c8",
+      "bytes": 31042319,
+      "kind": "frozen query-only prompts"
+    },
+    {
+      "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\runs\\px003-px034-confirmatory-20260731\\cloud_output_500\\qwen2-5-7b-instruct\\v19-1-query-only\\predictions.jsonl",
+      "sha256": "1d74be3dee646d8cbbe174c3b15d8f1e1021b64062d1a4793bb6e8d81a4f696e",
+      "bytes": 1788374,
+      "kind": "historical development-exposed ID inventory"
+    },
+    {
+      "path": "C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\\frozen\\inference\\run_sec_lord_relationship_evidence_cloud.py",
+      "sha256": "cd94f3da527c0e35ce2c408b2d03865d62cb195c608656eb11a08ccc187178f9",
+      "bytes": 25057,
+      "kind": "frozen parser source"
+    },
+    {
+      "path": "C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\\evidence\\FULL_2500_ANALYSIS.json",
+      "sha256": "c6a949b82adfe00abb3b3f1acbe04dc9277bda3b2d062a42e89a29d6cce3e181",
+      "bytes": 47230,
+      "kind": "published canonical analysis"
+    },
+    {
+      "path": "C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\\data\\full2500_llama_query_only.jsonl.gz",
+      "sha256": "9b06731808c76215583abf1c1c3e760e5353ce353118a4884ba79a7025da89ff",
+      "bytes": 1368673,
+      "kind": "canonical paired query-only predictions",
+      "uncompressed_sha256": "d5e758ed285616f028f9283e717b8fef814d157fa62ac085acc098af436ad6d5",
+      "uncompressed_bytes": 10729823
+    },
+    {
+      "path": "C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\\data\\full2500_qwen_query_only.jsonl.gz",
+      "sha256": "a73e6fc31b4a3c814bbc5e108f08c7461918d99b61b7f7face4cb1ae9ae9255e",
+      "bytes": 1346906,
+      "kind": "canonical paired query-only predictions",
+      "uncompressed_sha256": "aa40ef3b9134bfee9548238b64456918928f4ae82ee0073299414d80cff06ebf",
+      "uncompressed_bytes": 9947975
+    }
+  ],
+  "prepared_data": {
+    "file": "data.jsonl",
+    "sha256": "c810ea0b3afd4980aedcab75bf4956644a54831f7ef98aba07372537057e2907",
+    "bytes": 5371513
+  },
+  "preparation_script": {
+    "file": "prepare_data.py",
+    "sha256": "13ba18dfd0246837f85692746169c1226f46eb821866b18e8e9685d3a2dff6ad"
+  },
+  "reproduce": "python \"C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\\prepare_data.py\" --workspace \"C:\\Users\\garyp\\OneDrive\\Documents\\codex\" --package \"C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\" --output \"C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\""
+}

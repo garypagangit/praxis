@@ -1,0 +1,39 @@
+{
+  "status": "PASS_PENDING_REAL_OUTPUTS",
+  "reviewed_utc": "2026-09-18T20:46:07.212371+00:00",
+  "reviewer": "independent data/audit agent",
+  "fresh_scientific_outcomes_inspected": false,
+  "test_results": {
+    "command": "python -m unittest discover -s reports/cti_external_validation_20260918 -p test_analysis.py -v",
+    "tests_run": 11,
+    "passed": 11,
+    "failed": 0,
+    "data": "handconstructed synthetic examples and temporary receipt fixtures only; no scientific results created"
+  },
+  "reviewed_sha256": {
+    "PROTOCOL.md": "9a0c05350f62c1021a6c8a03965df507cadc5969877cef8b3e70222ed4fdb978",
+    "analyze_external.py": "a13e04afa608dc0850a261b2d4be2ce9402e846dc742ea2b52af57d663492936",
+    "test_analysis.py": "2227e56d11a63e3f95dbdc7148ba7c1fa80d734652b0dc916a4c2685b0312e99",
+    "inference_worker.py": "3538f34a4902bb28b75d486b45f287f4e1cee51b2b10d4aab96c31cc151d3a39",
+    "frozen_inference.py": "cd94f3da527c0e35ce2c408b2d03865d62cb195c608656eb11a08ccc187178f9",
+    "HUMAN_REVIEW.md": "918e9c5f18b874f0e1c3a1a58a419beb2b809387b112aaff337abef540310684"
+  },
+  "checks": {
+    "dataset_inventory_and_source_cohorts": "1247 questions; 287 attack_source, 960 other_source, 809 previously absent broad-source items; explicit shared source and coarse-label limits",
+    "model_and_condition_alignment": "llama/qwen revisions match worker; exactly4988 unique test assignments and32 unique qualification assignments required",
+    "retrieval_protocol_alignment": "question plus every displayed option, six actual facts; no source pointer or answer label input",
+    "receipt_integrity": "essential scientific-file bindings required; input/worker/helper/output hashes; qualification digest; decoding specification; model revision and unrendered prompt assignment; full inventories; parser/validity recomputation; runtime count reconciliation",
+    "accuracy_and_harm_arithmetic": "paired selection reconstructs chosen answers; tests distinguish net-zero effect from simultaneous recoveries and induced errors; always/never evidence boundary cases pass",
+    "matched_comparison": "equal candidate evidence count, descending score and ascending ID ties; no outcome-dependent matching; malformed score/inventory cases rejected",
+    "bootstrap": "5000 fixed-seed question resamples within coarse-source counts; shared weights preserve generator pairing; not source-cluster inference",
+    "decision_gates": "overall>=3pp for each generator; positive ATTACK candidate gain retains half a positive always-evidence gain; other-source loss>=-2pp and lowerCI>-5pp; each of4matchedcomparators requires>=1pp in each generator and positive mean lowerCI",
+    "partial_result_rejection": "incomplete runtime and falsely COMPLETE runtime with missing prediction inventory both fail before scientific result files are written",
+    "human_review_alignment": "two separate independent 50-item reviews before unblinding; third reviewer adjudicates; actual completed human reviews remain zero"
+  },
+  "known_limits": [
+    "Rendered chat-prompt hashes are checked for proper digest form but are not independently re-tokenized locally. Each unrendered input-prompt hash must match the frozen prompt assignment; worker and frozen renderer hashes are exact.",
+    "These checks validate implementation and pre-inference specifications, not actual fresh answer outcomes. Real runtime and output receipts still require verification after completion.",
+    "Released-label benchmark agreement is not independently verified security truth; source-version drift, shared ATTACK/CWE source content and model pretraining exposure remain possible.",
+    "Human review is pending; no generated or automated review is treated as a human sign-off."
+  ]
+}

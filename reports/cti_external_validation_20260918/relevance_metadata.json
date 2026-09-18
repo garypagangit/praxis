@@ -1,0 +1,57 @@
+{
+  "status": "COMPLETE",
+  "started_utc": "2026-09-18T20:40:46.975364+00:00",
+  "input_path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_external_validation_20260918\\test_inputs.jsonl",
+  "input_sha256": "a5d1362b1cd2aa18705e89cd5783f1053348e0223ef613711ba8b242df7ae591",
+  "spec_sha256": "9cf23d1af48313725961316066748b287cd2ff34396f6c3fc36e7a56877c5201",
+  "spec": {
+    "model_id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "model_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+    "question_input": "question text only; no answer options, labels, source identifiers or outcomes",
+    "document_input": "one original evidence text per pair, input order preserved",
+    "score": "raw sequence-classification logit; no sigmoid or calibration",
+    "max_length": 512,
+    "truncation": "longest_first",
+    "padding": "longest in batch",
+    "device": "cpu",
+    "dtype": "float32",
+    "torch_threads": 4,
+    "batch_size": 32,
+    "aggregation": [
+      "max",
+      "mean",
+      "population_std",
+      "min"
+    ],
+    "timing": "inference/tokenization batch time divided equally over its pairs; excludes model load",
+    "implementation_sha256": "28ab58bb3bf56d2bcaa96e70a971b42b792f80e100decca06f45cc1e4feb8a3d"
+  },
+  "model_snapshot": "C:\\w\\cti_checker_model_cache_20260918\\models--cross-encoder--ms-marco-MiniLM-L6-v2\\snapshots\\233902d25c440f23af6f7d6e94d2946bac0bee0a",
+  "model_file_sha256": {
+    "config.json": "380e02c93f431831be65d99a4e7e5f67c133985bf2e77d9d4eba46847190bacc",
+    "model.safetensors": "821d1aa69520101d6e0737f78a042ae25b19e5cb9160701909d10434f4aeb0ae",
+    "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+    "tokenizer_config.json": "a5c2e5a7b1a29a0702cd28c08a399b5ecc110c263009d17f7e3b415f25905fd8",
+    "special_tokens_map.json": "3c3507f36dff57bce437223db3b3081d1e2b52ec3e56ee55438193ecb2c94dd6",
+    "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+  },
+  "versions": {
+    "torch": "2.13.0+cpu",
+    "transformers": "4.57.6",
+    "huggingface_hub": "0.36.2"
+  },
+  "questions_total": 1247,
+  "questions_previously_completed": 0,
+  "pairs_total": 7482,
+  "elapsed_model_setup_seconds": 36.75940059998538,
+  "limitations": "Published general relevance model; not CRAG/CoRM, utility probability, CTI-trained verifier or new answer generation.",
+  "finished_utc": "2026-09-18T20:46:43.768143+00:00",
+  "questions_completed": 1247,
+  "new_pairs_scored": 7482,
+  "this_run_inference_seconds": 356.7856509999838,
+  "this_run_total_seconds": 393.55123779998394,
+  "all_rows_allocated_inference_seconds": 356.4933079998592,
+  "pairs_truncated": 0,
+  "tokens_truncated": 0,
+  "output_sha256": "154435553a7ba8c6e7a4a6d7e58b5cbfa77a10e425b39d8f6801eb04113a2bcb"
+}

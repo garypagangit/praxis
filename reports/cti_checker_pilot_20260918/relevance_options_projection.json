@@ -1,0 +1,20 @@
+{
+  "purpose": "Pre-fitting input-access parity sensitivity for the published relevance comparator",
+  "source_input": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\\data.jsonl",
+  "source_input_sha256": "c810ea0b3afd4980aedcab75bf4956644a54831f7ef98aba07372537057e2907",
+  "transformed_input": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\\data_relevance_options.jsonl",
+  "transformed_input_sha256": "9febc1ad97eecf9e39c51334f39c447d4cb00e0291013cf104ac36e4f4851de7",
+  "transform": "question + newline + newline.join(letter + '. ' + displayed_option for letter in sorted(options))",
+  "questions": 2500,
+  "only_question_field_changed": true,
+  "original_scorer_sha256": "28ab58bb3bf56d2bcaa96e70a971b42b792f80e100decca06f45cc1e4feb8a3d",
+  "options_scorer_sha256": "e19fa8397dae2c6c8150edaeedb13c654721098cda22003a52b3f47dd4802d6f",
+  "scorer_changes": {
+    "\"question text only; no answer options, labels, source identifiers or outcomes\"": "\"original question plus all displayed options sorted by letter; no answer keys, labels, source identifiers or outcomes\"",
+    "here / \"data.jsonl\"": "here / \"data_relevance_options.jsonl\"",
+    "here / \"relevance_scores.jsonl\"": "here / \"relevance_options_scores.jsonl\"",
+    "here / \"relevance_metadata.json\"": "here / \"relevance_options_metadata.json\""
+  },
+  "preparation_code_sha256": "0fec9d22656ce2cc65f4731ebc1fc112d93e122975ab0ac05b1c7e12842a3bf6",
+  "interpretation": "All displayed choices enter relevance scoring, never the correct-choice key. This is an explicit adaptation of the published question/passage input format."
+}
