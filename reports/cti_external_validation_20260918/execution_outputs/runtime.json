@@ -1,0 +1,90 @@
+{
+  "status": "COMPLETE",
+  "started_utc": "2026-09-18T20:59:03.419078+00:00",
+  "deadline_epoch": 1789767886.0,
+  "inputs_sha256": "dba93ba7835b7aaf56478b76c23e24a9bc38d5402812fb72cf9fdae34b9c19c3",
+  "qualification_sha256": "36e6f8ac99c88c1061b3fd559caba7f4e7d5e9ef74044a00f470a6fa67e6616f",
+  "worker_sha256": "3538f34a4902bb28b75d486b45f287f4e1cee51b2b10d4aab96c31cc151d3a39",
+  "frozen_inference_sha256": "cd94f3da527c0e35ce2c408b2d03865d62cb195c608656eb11a08ccc187178f9",
+  "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]",
+  "gpu": "NVIDIA A10G",
+  "versions": {
+    "torch": "2.5.1+cu121",
+    "transformers": "4.57.6",
+    "accelerate": "0.34.2",
+    "huggingface-hub": "0.36.2"
+  },
+  "decoding": {
+    "batch_size": 2,
+    "dtype": "float16",
+    "do_sample": false,
+    "max_input_tokens": 4096,
+    "max_new_tokens": 8
+  },
+  "loads": [
+    {
+      "model": "qwen",
+      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "snapshot": "/opt/dlami/nvme/praxis-cti-3dc936a8453b4ee89c2ae27915a8965b/extracted/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+      "origin": "downloaded_pinned_snapshot",
+      "config_sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+      "load_seconds": 129.557212713,
+      "device": "cuda",
+      "dtype": "torch.float16"
+    },
+    {
+      "model": "llama",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "snapshot": "/opt/dlami/nvme/praxis-cti-3dc936a8453b4ee89c2ae27915a8965b/extracted/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+      "origin": "downloaded_pinned_snapshot",
+      "config_sha256": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+      "load_seconds": 144.30833381899998,
+      "device": "cuda",
+      "dtype": "torch.float16"
+    },
+    {
+      "model": "qwen",
+      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "snapshot": "/opt/dlami/nvme/praxis-cti-3dc936a8453b4ee89c2ae27915a8965b/extracted/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+      "origin": "existing_complete_pinned_snapshot",
+      "config_sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+      "load_seconds": 46.36888960800002,
+      "device": "cuda",
+      "dtype": "torch.float16"
+    }
+  ],
+  "qualification": {
+    "qwen": {
+      "records": 16,
+      "valid": 16,
+      "invalid": 0,
+      "elapsed_seconds": 4.940542300999994
+    },
+    "llama": {
+      "records": 16,
+      "valid": 16,
+      "invalid": 0,
+      "elapsed_seconds": 4.702082934000032
+    }
+  },
+  "test": {
+    "llama": {
+      "records": 2494,
+      "valid": 2494,
+      "invalid": 0,
+      "elapsed_seconds": 738.884704782
+    },
+    "qwen": {
+      "records": 2494,
+      "valid": 2494,
+      "invalid": 0,
+      "elapsed_seconds": 729.1857729889998
+    }
+  },
+  "finished_utc": "2026-09-18T21:29:06.374524+00:00",
+  "predictions_sha256": "602ed7dbfc0f3eedcf74e73d2e8fdf352a5786aa11393e4aa5fa4b1fb650f159",
+  "qualification_outputs_sha256": "ccaea71e1a459289591bcd4c7f57eb714f4f2b7dfa6a93e8fb202589d848885d"
+}

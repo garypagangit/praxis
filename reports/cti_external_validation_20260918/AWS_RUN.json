@@ -1,0 +1,128 @@
+{
+  "schema": "cti-external-operational-closeout-v1",
+  "created_utc": "2026-09-18T21:39:20.855439+00:00",
+  "status": "COMPLETED_INFERENCE_STOPPED_EVIDENCE_RECOVERED",
+  "cloud_inference_attempts": 1,
+  "ssm_worker_commands": 1,
+  "additional_inference_for_collection_repair": false,
+  "cloud_restart_for_recovery": false,
+  "force_stop_used": false,
+  "connection": {
+    "verified_utc": "2026-09-18T20:42:46.252581+00:00",
+    "authentication": "Existing AWS IAM Identity Center temporary SSO session",
+    "region": "us-east-1",
+    "source_receipt_sha256": "15e63727bd2b8d9557e7fc96d742cdab4d8370b766cd34c9dceec257ffb89aac",
+    "credentials_recorded": false,
+    "setup_and_renewal_reference": "AWS_CONNECTION.md"
+  },
+  "compute": {
+    "instance_type": "g5.xlarge",
+    "number_of_instances": 1,
+    "initial_required_state": "stopped",
+    "final_verified_state": "stopped",
+    "start_request_utc": "2026-09-18T20:58:27.558876+00:00",
+    "normal_stop_request_utc": "2026-09-18T21:29:21.515265+00:00",
+    "stopped_observed_utc": "2026-09-18T21:33:35.907775+00:00",
+    "elapsed_to_stopped_observation_seconds": 2108.348899,
+    "elapsed_to_stopped_observation_minutes": 35.13914831666667,
+    "host_cap_seconds": 3600,
+    "host_time_cap_observed": true,
+    "watchdog_scheduled_utc": "2026-09-18T21:54:27.558876+00:00",
+    "watchdog_cleanup": "deleted_own_schedule_after_stopped",
+    "gate_failed": false
+  },
+  "cost_estimate": {
+    "usd_per_hour": 1.006,
+    "conservative_compute_usd": 0.5891663867761111,
+    "incidental_allowance_usd": 5.0,
+    "compute_estimate_plus_allowance_usd": 5.589166386776111,
+    "total_reserve_usd": 10,
+    "within_reserve": true,
+    "is_invoice": false,
+    "allowance_is_recorded_spend": false,
+    "rate_source": "AWS Pricing API verified 2026-09-16; effective 2026-09-01; Linux Shared us-east-1 g5.xlarge; estimate, not invoice",
+    "method": "Full elapsed start-request to stopped-observation interval times recorded hourly rate; conservatively includes boot and stopping."
+  },
+  "immutable_run": {
+    "source_commit": "e00c27390cc6e64df3b8241fe1f9f9f450b28615",
+    "identities": {
+      "protocol": {
+        "path": "reports/cti_external_validation_20260918/PROTOCOL.md",
+        "sha256": "9a0c05350f62c1021a6c8a03965df507cadc5969877cef8b3e70222ed4fdb978",
+        "commit": "e00c27390cc6e64df3b8241fe1f9f9f450b28615"
+      },
+      "freeze": {
+        "path": "reports/cti_external_validation_20260918/FREEZE.json",
+        "sha256": "aea7239b57cfbf87c49223c76fb6a9b357159d9841d8dc86fa391d4c103393fe",
+        "commit": "e00c27390cc6e64df3b8241fe1f9f9f450b28615"
+      }
+    },
+    "runtime_bundle_sha256": "ad87167c79a6c6c2f6ce95944376c58f4ac4f0266aa0124419b3a705a78e84c1",
+    "runtime_bundle_bytes": 879041
+  },
+  "original_collection": {
+    "status": "HOLD_COLLECTION_FAILED",
+    "error_type": "FileExistsError",
+    "original_launch_stage": "HOLD_INCOMPLETE",
+    "original_overall_operational_pass": false,
+    "receipt": {
+      "path": "AWS_LAUNCH_ATTEMPT_SANITIZED.json",
+      "sha256": "848141c9e401ba6d8d390d6101a1b4d8cbbc3e7ea941536a1d228b5db843ecd4"
+    }
+  },
+  "local_recovery": {
+    "status": "RECOVERED_LOCAL_CASE_COLLISION_BYTES_VERIFIED",
+    "source_archive_sha256": "7cf1cfb38383eaf9febadd1efcb37517c34996b640239abf581cf458714b96b4",
+    "source_archive_bytes": 507499,
+    "mapping": {
+      "outputs/RUNTIME.json": "outputs/environment_runtime.json"
+    },
+    "archive_members": 12,
+    "regular_files_byte_verified": 11,
+    "original_attempt_unchanged": true,
+    "original_partial_collection_unchanged": true,
+    "receipt": {
+      "path": "COLLECTION_RECOVERY.json",
+      "sha256": "a336e850c85da478eeeec3948ff96595d4df7ed63eff88dffa752525dc6ce3dd"
+    },
+    "helper": {
+      "path": "recover_windows_collection.py",
+      "sha256": "c82e33f8510c89a2672f5f4bb58d088a0e2b5b9789e29c6efe33cfcf157a44b7"
+    }
+  },
+  "recovered_execution": {
+    "supervisor_exit": "0",
+    "worker_status": "COMPLETE",
+    "fresh_prediction_records": 4988,
+    "qualification_records": 32,
+    "fresh_records_per_model_condition": {
+      "llama/vanilla": 1247,
+      "llama/relationship_evidence": 1247,
+      "qwen/vanilla": 1247,
+      "qwen/relationship_evidence": 1247
+    },
+    "qualification_records_per_model_condition": {
+      "qwen/vanilla": 8,
+      "qwen/relationship_evidence": 8,
+      "llama/vanilla": 8,
+      "llama/relationship_evidence": 8
+    },
+    "prediction_sha256": "602ed7dbfc0f3eedcf74e73d2e8fdf352a5786aa11393e4aa5fa4b1fb650f159",
+    "qualification_outputs_sha256": "ccaea71e1a459289591bcd4c7f57eb714f4f2b7dfa6a93e8fb202589d848885d",
+    "runtime_prediction_hash_matches": true,
+    "runtime_qualification_output_hash_matches": true
+  },
+  "finalize_receipt": {
+    "path": "AWS_FINALIZE_SANITIZED.json",
+    "sha256": "8d626ed4f610f4c789257c1e0b80f2abe83ee73f513400a4e10cfa90d5c3c995"
+  },
+  "scope": "Operational identity, transport, inventory and shutdown only. Scientific accuracy and decision audits are separate.",
+  "archive_provenance": {
+    "path": "execution_archives/ARCHIVE_MANIFEST.json",
+    "sha256": "fce10870dc04de871a608b6bdd00ef33cfd3e0f9af62feb9cf97e5bcff7b5aa3"
+  },
+  "public_artifact_credential_review": {
+    "path": "PUBLIC_ARTIFACT_REVIEW.json",
+    "sha256": "88a112b4bfb34047beec48c540bdf9f1d8016799dc000fafbeb4707c2fdc9a5b"
+  }
+}
