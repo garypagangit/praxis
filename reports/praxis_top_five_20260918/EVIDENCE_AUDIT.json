@@ -1,0 +1,259 @@
+{
+  "audit_date": "2026-09-18",
+  "status": "PASS_SAVED_ARTIFACT_RECOUNT",
+  "scope": "Independent arithmetic and receipt inspection; no fresh inference, human judgment, exhaustive literature review, or academic approval.",
+  "recommended_order": [
+    {
+      "rank": 1,
+      "title": "Reliable review of AI code changes",
+      "internal_id": "Final-008",
+      "evidence_kind": "completed_positive_risk_finding_defense_failed"
+    },
+    {
+      "rank": 2,
+      "title": "Checking whether security evidence applies",
+      "internal_id": "CTI",
+      "evidence_kind": "bounded_positive_evidence_effect_external_checker_failed"
+    },
+    {
+      "rank": 3,
+      "title": "Verifying software references before trusting them",
+      "internal_id": "PX-004",
+      "evidence_kind": "small_bounded_working_guard"
+    },
+    {
+      "rank": 4,
+      "title": "Checking model and dataset references before use",
+      "internal_id": "PX-056",
+      "evidence_kind": "positive_live_pilot_incomplete_validation"
+    },
+    {
+      "rank": 5,
+      "title": "Checking what model compression preserves",
+      "internal_id": "PX-055",
+      "evidence_kind": "positive_geometry_replication_reserve_novelty_hold"
+    }
+  ],
+  "code_disclosure": {
+    "independently_recounted_source": {
+      "hypothesis": "H1",
+      "reviewer": "qwen.qwen3-coder-next",
+      "left": "selected_w",
+      "right": "uniform_w",
+      "layer": "reviewer_only",
+      "tasks": 101,
+      "left_accepts": 12,
+      "right_accepts": 4,
+      "paired_cells": {
+        "both_accept": 4,
+        "left_only_accept": 8,
+        "right_only_accept": 0,
+        "neither_accept": 89
+      },
+      "exact_effect": "8/101",
+      "effect": 0.07920792079207921,
+      "exact_one_sided_p": "1/256",
+      "raw_one_sided_p": 0.00390625,
+      "holm4_adjusted_p": 0.015625
+    },
+    "primary_ci95": [
+      0.0297029702970297,
+      0.13861386138613863
+    ],
+    "defense_status": "BOTH_PRIMARY_HYBRID_RECOMMENDATION_GATES_FAILED"
+  },
+  "cti_external": {
+    "status": "EXTERNAL_TRANSPORT_CRITERIA_NOT_MET",
+    "n": 1247,
+    "fresh_outputs": 4988,
+    "baseline_correct": [
+      1079,
+      1086
+    ],
+    "candidate_correct": [
+      1075,
+      1088
+    ],
+    "model_order": [
+      "llama",
+      "qwen"
+    ],
+    "useful_signal": false,
+    "added_value": false
+  },
+  "falsecite_strict_holdout": {
+    "n": 15,
+    "fabricated": 7,
+    "valid": 8,
+    "base_fabricated_accepted": 6,
+    "guard_fabricated_accepted": 0,
+    "metadata_prompt_fabricated_accepted": 0,
+    "guard_valid_accepted": 8,
+    "metadata_prompt_valid_accepted": 8
+  },
+  "registry_pilot": {
+    "outputs": 378,
+    "identifier_occurrences": 1282,
+    "actions": {
+      "review": 116,
+      "allow": 934,
+      "block": 232
+    },
+    "statuses": {
+      "gated_or_private_review": 116,
+      "exists": 934,
+      "nonexistent": 232
+    },
+    "known_missing_escapes": 0,
+    "physical_registry_missing": 2,
+    "physical_registry_verified": 33,
+    "package_missing": 206,
+    "package_verified": 1016,
+    "null_control_extractions": 5
+  },
+  "source_locked_citations": {
+    "n_pairs": 500,
+    "n_generations": 250,
+    "archived_confusion": {
+      "supported|supported": 202,
+      "hallucinated|hallucinated": 250,
+      "supported|hallucinated": 48
+    },
+    "archived_correct": 452,
+    "posthoc_identity_only_correct": 488,
+    "posthoc_metadata_only_correct": 500,
+    "posthoc_rule": "supported iff source_id_match and year_match and title_similarity >= 0.90; otherwise hallucinated",
+    "interpretation": "The obvious metadata-only comparator exceeds the archived verifier on the constructed source-swapping labels. This retrospective diagnostic does not change the original primary PASS and does not independently validate a new method."
+  },
+  "quantization_geometry": {
+    "complete_cells": 9,
+    "max_principal_angle_degrees": 15.426647135285068,
+    "minimum_directional_ratio": 0.975,
+    "status": "BOUNDED_GEOMETRY_POSITIVE_RESTORATION_UNPROVEN_NOVELTY_HOLD"
+  },
+  "tta_external": {
+    "criteria": {
+      "canonical_macro_bootstrap_lower_bound": {
+        "observed": -0.027371181862095133,
+        "pass": false
+      },
+      "mean_macro_f1_delta": {
+        "observed": -0.017344131657017613,
+        "pass": false
+      },
+      "mean_override_rate": {
+        "observed": 0.07053150658310256,
+        "pass": false
+      },
+      "mean_protected_f1_delta": {
+        "observed": -0.027973492218582564,
+        "pass": false
+      },
+      "mean_target_f1_delta": {
+        "observed": -0.029922475784412362,
+        "pass": false
+      },
+      "positive_macro_seeds": {
+        "observed": 0,
+        "pass": false
+      }
+    },
+    "determination": "NOT REPLICATED UNDER PREREGISTERED UNSW-NB15 PROTOCOL",
+    "passed": 0,
+    "total": 6
+  },
+  "source_manifest": [
+    {
+      "path": "reports/cti_external_validation_20260918/RESULTS.json",
+      "snapshot_path": "evidence/cti/EXTERNAL_RESULTS.json",
+      "sha256": "4211fb59742b0765dd4f7b21adba2e62821fd41d7504eb577f8193f705f3b947"
+    },
+    {
+      "path": "reports/cti_external_validation_20260918/DECISION.md",
+      "snapshot_path": "evidence/cti/EXTERNAL_DECISION.md",
+      "sha256": "05f56c86b40873524b81bd50273390abdec1848a0e97d899a1fd4dce02832904"
+    },
+    {
+      "path": "reports/falsecite_code/FALSECITE_CODE_MODEL_GATE_SUMMARY_20260624.json",
+      "snapshot_path": "evidence/software_references/MODEL_GATE.json",
+      "sha256": "109413490ca455d9a9f01d2560f04a10beba12da3f8468c0ae9482fa9f21f276"
+    },
+    {
+      "path": "reports/model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/summary.json",
+      "snapshot_path": "evidence/registry/PILOT_SUMMARY.json",
+      "sha256": "03a6770c400d149ab574e0001d5db8cb94eac68c83db6852f36d13eef874e77e"
+    },
+    {
+      "path": "reports/model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/scored_identifiers_sanitized.csv",
+      "snapshot_path": "evidence/registry/scored_identifiers_sanitized.csv",
+      "sha256": "bbc4ab147301602322c2a9523d17b47cb9f93393a025688703e127c21c77a22c"
+    },
+    {
+      "path": "reports/halluhard_source_verifier/halluhard_constrained_qwen25_7b_20260701_r2/summary.json",
+      "snapshot_path": "evidence/source_locked_citations/SUMMARY.json",
+      "sha256": "de912f3cffd16b41569599db4ea1476f0b5fe52c3e5c54e0b7d8f602245b3b75"
+    },
+    {
+      "path": "reports/halluhard_source_verifier/halluhard_constrained_qwen25_7b_20260701_r2/halluhard_constrained_rows.jsonl",
+      "snapshot_path": "evidence/source_locked_citations/rows.jsonl",
+      "sha256": "553149b926290a6b4291030d88fcb24af2a6b73b27a5a07055ac2a68409c7ce4"
+    },
+    {
+      "path": "cloud_jobs/halluhard_constrained_20260701/run_halluhard_constrained_gate.py",
+      "snapshot_path": "evidence/source_locked_citations/ORIGINAL_RUNNER.py",
+      "sha256": "092fea162151edd176f880abbfd3bb52e5ff9970ae6c0f8e6b7ba62109f4da07"
+    },
+    {
+      "path": "reports/refusal_direction_quantization/e1_e4_20260831/closeout_r3/PX055_R3_INDEPENDENT_ADJUDICATION.json",
+      "snapshot_path": "evidence/compression/INDEPENDENT_ADJUDICATION.json",
+      "sha256": "f0864e5a4afedfa51740952f0364a73f623e3ed1b1d3202a2352d40494b03b21"
+    },
+    {
+      "path": "reports/praxis_top_three_decision_20260915/04_PX055_DISPOSITION.md",
+      "snapshot_path": "evidence/compression/LATEST_DISPOSITION.md",
+      "sha256": "fc9715be7934621d958fac0c9faa12cab7d3c2fa98d709086e88ba0a89691dc8"
+    },
+    {
+      "path": "reports/tta_streaming_apt/px001_r2_unsw_independent_20260731/aws_full_retry1/px001_r2_unsw_independent_20260731/preregistered_adjudication.json",
+      "snapshot_path": "evidence/other_candidates/TTA_EXTERNAL_ADJUDICATION.json",
+      "sha256": "48934a9745817c53ca6ced71eea828d3253783cb4ff4bc19aeb37a1989a0af74"
+    },
+    {
+      "path": "reports/px057_novelty_review_20260918/EXPERIMENT_AUDIT.md",
+      "snapshot_path": "evidence/other_candidates/STOPPING_LATEST_AUDIT.md",
+      "sha256": "f99d060c69e079ebb6b5b02c9b3873e9ea82f05bb5ad125ccd512b4431e1e26b"
+    },
+    {
+      "path": "reports/praxis_paper_008_20260914/PORTFOLIO_REVIEW.md",
+      "snapshot_path": "evidence/other_candidates/SEPT14_PORTFOLIO_REVIEW.md",
+      "sha256": "a2b801035c6122bdc9108a06966edc3662717acef0e8a47d3f3d45c5783f6187"
+    },
+    {
+      "path": "reports/moe_standing_committee/MOE_STANDING_COMMITTEE_SHORT_PAPER_20260628.md",
+      "snapshot_path": "evidence/other_candidates/MOE_PAPER.md",
+      "sha256": "8e738b922267a6afe387746c79b07e68c1d05c6782aaa058c3542515ea2770ee"
+    }
+  ],
+  "completed_paper_sources": [
+    {
+      "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_top_five_20260918\\evidence\\cti\\ORIGINAL_PAPER.md",
+      "sha256": "8fee5c899573bf30cc50b0690fb84cdbbf8874abb36746eb3294f2f2ad386b23"
+    },
+    {
+      "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_top_five_20260918\\evidence\\cti\\ORIGINAL_METRICS.json",
+      "sha256": "4f162f495c71d159fc6943bf15dc24543ab03a03c5e4eca3f4cc2cc0c6815f28"
+    },
+    {
+      "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_top_five_20260918\\evidence\\code_review\\PAPER.md",
+      "sha256": "ae9d36da213fd8607d0f5ba23c1d0b6bce3aea5814ff398e3fee190855551631"
+    },
+    {
+      "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_top_five_20260918\\evidence\\code_review\\PRIMARY_METRICS.json",
+      "sha256": "37aa5cbf209e4e96916a8072191112641c9cfa78cc00116af05e23a34ed48f3b"
+    },
+    {
+      "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\praxis_top_five_20260918\\evidence\\other_candidates\\FORECAST_D0_PAPER.md",
+      "sha256": "5f6eaa82604c0684da6b6ddec3af7471f18e41fe08ceeb97721ff6233708e8e8"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "always_supported_baseline": {
+    "accuracy": 0.5,
+    "macro_f1": 0.3333333333333333,
+    "per_label": {
+      "hallucinated": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "supported": {
+        "f1": 0.6666666666666666,
+        "precision": 0.5,
+        "recall": 1.0
+      }
+    }
+  },
+  "claim_boundary": "Research_questions lane only. Source-locked schema and metadata are controlled by the retrieval pipeline; the model generates only an extractive abstract phrase. This does not support broad HalluHard or freeform citation-generation claims.",
+  "decision": "Promote PX-011 as a bounded source-locked verifier pipeline positive. Do not claim a freeform HalluHard solution.",
+  "evaluation_pairs": 500,
+  "extraction_valid": 250,
+  "extraction_valid_rate": 1.0,
+  "field_presence_baseline": {
+    "accuracy": 0.5,
+    "macro_f1": 0.3333333333333333,
+    "per_label": {
+      "hallucinated": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "supported": {
+        "f1": 0.6666666666666666,
+        "precision": 0.5,
+        "recall": 1.0
+      }
+    }
+  },
+  "gate_checks": {
+    "beats_always_supported": true,
+    "beats_field_presence": true,
+    "extraction_valid_rate": true,
+    "macro_f1": true,
+    "minimum_generations": true,
+    "supported_rate": true
+  },
+  "generated_utc": "2026-07-01T01:02:31+00:00",
+  "generations": 250,
+  "label_counts": {
+    "hallucinated": 250,
+    "supported": 250
+  },
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "rows": 250,
+  "status": "PASS - SOURCE-LOCKED HALLUHARD VERIFIER POSITIVE",
+  "supported_claims": 202,
+  "supported_rate": 0.808,
+  "verifier_metrics": {
+    "accuracy": 0.904,
+    "macro_f1": 0.9031070344293004,
+    "per_label": {
+      "hallucinated": {
+        "f1": 0.9124087591240876,
+        "precision": 0.8389261744966443,
+        "recall": 1.0
+      },
+      "supported": {
+        "f1": 0.8938053097345133,
+        "precision": 1.0,
+        "recall": 0.808
+      }
+    }
+  },
+  "verifier_prediction_counts": {
+    "hallucinated": 298,
+    "supported": 202
+  },
+  "wall_seconds": 256.7656002044678
+}

@@ -1,0 +1,482 @@
+{
+  "status": "PASS_INDEPENDENT_POINT_AND_POLICY_AUDIT",
+  "completed_utc": "2026-09-18T22:39:52.678440+00:00",
+  "auditor_sha256": "0a305440208a67750a7e2037ff025806701a59ac1477f2173fe0083e52c39ce8",
+  "policy_freeze_sha256": "4dc887336a10f224b2bf177782204dfb4ce1a4a6f9c80d01261cbdfbf1bb7375",
+  "results_sha256": "366ebebfa6b00116a9c76b85ff88a3a05e75c9e6ec51ecc78649bec7460a437d",
+  "decision_file_sha256": "68d3933287bf4e87c790eb4543c5f8772a9d105e81ca536bdb3c31322c6281e1",
+  "imports_production_analysis_or_scorer": false,
+  "uses_standard_library_only": true,
+  "fresh_model_calls": 0,
+  "calibration_candidates": 21,
+  "selected_policy": {
+    "always_baseline": false,
+    "support": 0,
+    "margin": 0.1
+  },
+  "calibration_inventory": {
+    "questions": 500,
+    "scored_questions": 280,
+    "pairs": 3720,
+    "truncated": 0
+  },
+  "external_inventory": {
+    "questions": 1247,
+    "scored_questions": 234,
+    "pairs": 2904,
+    "truncated": 0
+  },
+  "external_decision_identities": 12470,
+  "policy_frozen_before_external_scoring_receipt": true,
+  "verified_source_locations": {
+    "C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\\data\\full2500_llama_query_only.jsonl.gz": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_revision_20260918\\source_archives\\full2500_llama_query_only.jsonl.gz",
+    "C:\\w\\px_final_20260917\\final_praxis\\papers\\20260914\\01_cti\\data\\full2500_qwen_query_only.jsonl.gz": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_revision_20260918\\source_archives\\full2500_qwen_query_only.jsonl.gz",
+    "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\\data.jsonl": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\\data.jsonl",
+    "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\\SPLITS.json": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_checker_pilot_20260918\\SPLITS.json",
+    "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_external_validation_20260918\\test_inputs.jsonl": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_external_validation_20260918\\test_inputs.jsonl",
+    "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_external_validation_20260918\\sealed_labels.jsonl": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_external_validation_20260918\\sealed_labels.jsonl",
+    "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_external_validation_20260918\\execution_outputs\\predictions.jsonl": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\reports\\cti_external_validation_20260918\\execution_outputs\\predictions.jsonl"
+  },
+  "all_sources_resolved_within_checkout": true,
+  "reproduced_point_metrics": {
+    "all": {
+      "baseline": {
+        "models": {
+          "llama": {
+            "correct": 1079,
+            "evidence_routes": 0,
+            "accepted_answer_changes": 0,
+            "recoveries": 0,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 42,
+            "prevented_errors": 71,
+            "accuracy_pct": 86.52766639935847,
+            "delta_vs_baseline_pp": 0.0
+          },
+          "qwen": {
+            "correct": 1086,
+            "evidence_routes": 0,
+            "accepted_answer_changes": 0,
+            "recoveries": 0,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 55,
+            "prevented_errors": 78,
+            "accuracy_pct": 87.08901363271852,
+            "delta_vs_baseline_pp": 0.0
+          }
+        },
+        "mean_accuracy_pct": 86.80834001603849,
+        "mean_delta_vs_baseline_pp": 0.0
+      },
+      "always_evidence": {
+        "models": {
+          "llama": {
+            "correct": 1050,
+            "evidence_routes": 1247,
+            "accepted_answer_changes": 128,
+            "recoveries": 42,
+            "induced_errors": 71,
+            "rejected_useful_corrections": 0,
+            "prevented_errors": 0,
+            "accuracy_pct": 84.20208500400962,
+            "delta_vs_baseline_pp": -2.3255813953488373
+          },
+          "qwen": {
+            "correct": 1063,
+            "evidence_routes": 1247,
+            "accepted_answer_changes": 150,
+            "recoveries": 55,
+            "induced_errors": 78,
+            "rejected_useful_corrections": 0,
+            "prevented_errors": 0,
+            "accuracy_pct": 85.24458700882117,
+            "delta_vs_baseline_pp": -1.8444266238973537
+          }
+        },
+        "mean_accuracy_pct": 84.7233360064154,
+        "mean_delta_vs_baseline_pp": -2.0850040096230957
+      },
+      "previous_utility": {
+        "models": {
+          "llama": {
+            "correct": 1075,
+            "evidence_routes": 85,
+            "accepted_answer_changes": 16,
+            "recoveries": 5,
+            "induced_errors": 9,
+            "rejected_useful_corrections": 37,
+            "prevented_errors": 62,
+            "accuracy_pct": 86.20689655172413,
+            "delta_vs_baseline_pp": -0.32076984763432237
+          },
+          "qwen": {
+            "correct": 1088,
+            "evidence_routes": 85,
+            "accepted_answer_changes": 18,
+            "recoveries": 8,
+            "induced_errors": 6,
+            "rejected_useful_corrections": 47,
+            "prevented_errors": 72,
+            "accuracy_pct": 87.24939855653568,
+            "delta_vs_baseline_pp": 0.16038492381716118
+          }
+        },
+        "mean_accuracy_pct": 86.7281475541299,
+        "mean_delta_vs_baseline_pp": -0.08019246190858059
+      },
+      "previous_relevance": {
+        "models": {
+          "llama": {
+            "correct": 1076,
+            "evidence_routes": 130,
+            "accepted_answer_changes": 18,
+            "recoveries": 6,
+            "induced_errors": 9,
+            "rejected_useful_corrections": 36,
+            "prevented_errors": 62,
+            "accuracy_pct": 86.28708901363272,
+            "delta_vs_baseline_pp": -0.24057738572574178
+          },
+          "qwen": {
+            "correct": 1095,
+            "evidence_routes": 130,
+            "accepted_answer_changes": 16,
+            "recoveries": 12,
+            "induced_errors": 3,
+            "rejected_useful_corrections": 43,
+            "prevented_errors": 75,
+            "accuracy_pct": 87.81074578989575,
+            "delta_vs_baseline_pp": 0.7217321571772253
+          }
+        },
+        "mean_accuracy_pct": 87.04891740176424,
+        "mean_delta_vs_baseline_pp": 0.24057738572574175
+      },
+      "answer_change_nli": {
+        "models": {
+          "llama": {
+            "correct": 1082,
+            "evidence_routes": 8,
+            "accepted_answer_changes": 8,
+            "recoveries": 5,
+            "induced_errors": 2,
+            "rejected_useful_corrections": 37,
+            "prevented_errors": 69,
+            "accuracy_pct": 86.7682437850842,
+            "delta_vs_baseline_pp": 0.24057738572574178
+          },
+          "qwen": {
+            "correct": 1085,
+            "evidence_routes": 8,
+            "accepted_answer_changes": 8,
+            "recoveries": 3,
+            "induced_errors": 4,
+            "rejected_useful_corrections": 52,
+            "prevented_errors": 74,
+            "accuracy_pct": 87.00882117080995,
+            "delta_vs_baseline_pp": -0.08019246190858059
+          }
+        },
+        "mean_accuracy_pct": 86.88853247794708,
+        "mean_delta_vs_baseline_pp": 0.08019246190858059
+      }
+    },
+    "attack_source": {
+      "baseline": {
+        "models": {
+          "llama": {
+            "correct": 251,
+            "evidence_routes": 0,
+            "accepted_answer_changes": 0,
+            "recoveries": 0,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 19,
+            "prevented_errors": 13,
+            "accuracy_pct": 87.45644599303137,
+            "delta_vs_baseline_pp": 0.0
+          },
+          "qwen": {
+            "correct": 247,
+            "evidence_routes": 0,
+            "accepted_answer_changes": 0,
+            "recoveries": 0,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 23,
+            "prevented_errors": 15,
+            "accuracy_pct": 86.06271777003485,
+            "delta_vs_baseline_pp": 0.0
+          }
+        },
+        "mean_accuracy_pct": 86.7595818815331,
+        "mean_delta_vs_baseline_pp": 0.0
+      },
+      "always_evidence": {
+        "models": {
+          "llama": {
+            "correct": 257,
+            "evidence_routes": 287,
+            "accepted_answer_changes": 34,
+            "recoveries": 19,
+            "induced_errors": 13,
+            "rejected_useful_corrections": 0,
+            "prevented_errors": 0,
+            "accuracy_pct": 89.54703832752612,
+            "delta_vs_baseline_pp": 2.0905923344947737
+          },
+          "qwen": {
+            "correct": 255,
+            "evidence_routes": 287,
+            "accepted_answer_changes": 43,
+            "recoveries": 23,
+            "induced_errors": 15,
+            "rejected_useful_corrections": 0,
+            "prevented_errors": 0,
+            "accuracy_pct": 88.85017421602788,
+            "delta_vs_baseline_pp": 2.7874564459930316
+          }
+        },
+        "mean_accuracy_pct": 89.19860627177701,
+        "mean_delta_vs_baseline_pp": 2.439024390243903
+      },
+      "previous_utility": {
+        "models": {
+          "llama": {
+            "correct": 253,
+            "evidence_routes": 20,
+            "accepted_answer_changes": 4,
+            "recoveries": 3,
+            "induced_errors": 1,
+            "rejected_useful_corrections": 16,
+            "prevented_errors": 12,
+            "accuracy_pct": 88.15331010452961,
+            "delta_vs_baseline_pp": 0.6968641114982579
+          },
+          "qwen": {
+            "correct": 249,
+            "evidence_routes": 20,
+            "accepted_answer_changes": 8,
+            "recoveries": 4,
+            "induced_errors": 2,
+            "rejected_useful_corrections": 19,
+            "prevented_errors": 13,
+            "accuracy_pct": 86.7595818815331,
+            "delta_vs_baseline_pp": 0.6968641114982579
+          }
+        },
+        "mean_accuracy_pct": 87.45644599303137,
+        "mean_delta_vs_baseline_pp": 0.6968641114982579
+      },
+      "previous_relevance": {
+        "models": {
+          "llama": {
+            "correct": 253,
+            "evidence_routes": 73,
+            "accepted_answer_changes": 12,
+            "recoveries": 6,
+            "induced_errors": 4,
+            "rejected_useful_corrections": 13,
+            "prevented_errors": 9,
+            "accuracy_pct": 88.15331010452961,
+            "delta_vs_baseline_pp": 0.6968641114982579
+          },
+          "qwen": {
+            "correct": 255,
+            "evidence_routes": 73,
+            "accepted_answer_changes": 11,
+            "recoveries": 9,
+            "induced_errors": 1,
+            "rejected_useful_corrections": 14,
+            "prevented_errors": 14,
+            "accuracy_pct": 88.85017421602788,
+            "delta_vs_baseline_pp": 2.7874564459930316
+          }
+        },
+        "mean_accuracy_pct": 88.50174216027874,
+        "mean_delta_vs_baseline_pp": 1.7421602787456447
+      },
+      "answer_change_nli": {
+        "models": {
+          "llama": {
+            "correct": 254,
+            "evidence_routes": 3,
+            "accepted_answer_changes": 3,
+            "recoveries": 3,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 16,
+            "prevented_errors": 13,
+            "accuracy_pct": 88.50174216027874,
+            "delta_vs_baseline_pp": 1.0452961672473868
+          },
+          "qwen": {
+            "correct": 250,
+            "evidence_routes": 3,
+            "accepted_answer_changes": 3,
+            "recoveries": 3,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 20,
+            "prevented_errors": 15,
+            "accuracy_pct": 87.10801393728222,
+            "delta_vs_baseline_pp": 1.0452961672473868
+          }
+        },
+        "mean_accuracy_pct": 87.8048780487805,
+        "mean_delta_vs_baseline_pp": 1.0452961672473868
+      }
+    },
+    "other_source": {
+      "baseline": {
+        "models": {
+          "llama": {
+            "correct": 828,
+            "evidence_routes": 0,
+            "accepted_answer_changes": 0,
+            "recoveries": 0,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 23,
+            "prevented_errors": 58,
+            "accuracy_pct": 86.25,
+            "delta_vs_baseline_pp": 0.0
+          },
+          "qwen": {
+            "correct": 839,
+            "evidence_routes": 0,
+            "accepted_answer_changes": 0,
+            "recoveries": 0,
+            "induced_errors": 0,
+            "rejected_useful_corrections": 32,
+            "prevented_errors": 63,
+            "accuracy_pct": 87.39583333333333,
+            "delta_vs_baseline_pp": 0.0
+          }
+        },
+        "mean_accuracy_pct": 86.82291666666667,
+        "mean_delta_vs_baseline_pp": 0.0
+      },
+      "always_evidence": {
+        "models": {
+          "llama": {
+            "correct": 793,
+            "evidence_routes": 960,
+            "accepted_answer_changes": 94,
+            "recoveries": 23,
+            "induced_errors": 58,
+            "rejected_useful_corrections": 0,
+            "prevented_errors": 0,
+            "accuracy_pct": 82.60416666666667,
+            "delta_vs_baseline_pp": -3.6458333333333335
+          },
+          "qwen": {
+            "correct": 808,
+            "evidence_routes": 960,
+            "accepted_answer_changes": 107,
+            "recoveries": 32,
+            "induced_errors": 63,
+            "rejected_useful_corrections": 0,
+            "prevented_errors": 0,
+            "accuracy_pct": 84.16666666666667,
+            "delta_vs_baseline_pp": -3.229166666666667
+          }
+        },
+        "mean_accuracy_pct": 83.38541666666667,
+        "mean_delta_vs_baseline_pp": -3.4375
+      },
+      "previous_utility": {
+        "models": {
+          "llama": {
+            "correct": 822,
+            "evidence_routes": 65,
+            "accepted_answer_changes": 12,
+            "recoveries": 2,
+            "induced_errors": 8,
+            "rejected_useful_corrections": 21,
+            "prevented_errors": 50,
+            "accuracy_pct": 85.625,
+            "delta_vs_baseline_pp": -0.625
+          },
+          "qwen": {
+            "correct": 839,
+            "evidence_routes": 65,
+            "accepted_answer_changes": 10,
+            "recoveries": 4,
+            "induced_errors": 4,
+            "rejected_useful_corrections": 28,
+            "prevented_errors": 59,
+            "accuracy_pct": 87.39583333333333,
+            "delta_vs_baseline_pp": 0.0
+          }
+        },
+        "mean_accuracy_pct": 86.51041666666667,
+        "mean_delta_vs_baseline_pp": -0.3125
+      },
+      "previous_relevance": {
+        "models": {
+          "llama": {
+            "correct": 823,
+            "evidence_routes": 57,
+            "accepted_answer_changes": 6,
+            "recoveries": 0,
+            "induced_errors": 5,
+            "rejected_useful_corrections": 23,
+            "prevented_errors": 53,
+            "accuracy_pct": 85.72916666666667,
+            "delta_vs_baseline_pp": -0.5208333333333333
+          },
+          "qwen": {
+            "correct": 840,
+            "evidence_routes": 57,
+            "accepted_answer_changes": 5,
+            "recoveries": 3,
+            "induced_errors": 2,
+            "rejected_useful_corrections": 29,
+            "prevented_errors": 61,
+            "accuracy_pct": 87.5,
+            "delta_vs_baseline_pp": 0.10416666666666667
+          }
+        },
+        "mean_accuracy_pct": 86.61458333333333,
+        "mean_delta_vs_baseline_pp": -0.2083333333333333
+      },
+      "answer_change_nli": {
+        "models": {
+          "llama": {
+            "correct": 828,
+            "evidence_routes": 5,
+            "accepted_answer_changes": 5,
+            "recoveries": 2,
+            "induced_errors": 2,
+            "rejected_useful_corrections": 21,
+            "prevented_errors": 56,
+            "accuracy_pct": 86.25,
+            "delta_vs_baseline_pp": 0.0
+          },
+          "qwen": {
+            "correct": 835,
+            "evidence_routes": 5,
+            "accepted_answer_changes": 5,
+            "recoveries": 0,
+            "induced_errors": 4,
+            "rejected_useful_corrections": 32,
+            "prevented_errors": 59,
+            "accuracy_pct": 86.97916666666666,
+            "delta_vs_baseline_pp": -0.4166666666666667
+          }
+        },
+        "mean_accuracy_pct": 86.61458333333333,
+        "mean_delta_vs_baseline_pp": -0.20833333333333334
+      }
+    }
+  },
+  "verified_result_status": "EXPOSED_DIAGNOSTIC_MIXED_OR_NO_GAIN",
+  "checks": {
+    "assertions": 101746,
+    "intervals_structure_only": 57
+  },
+  "bootstrap_draws_independently_repeated": false,
+  "ci_audit_scope": "Interval shape, finite ordered bounds, declared sampling scope, and point estimates checked; NumPy bootstrap draws and percentile endpoints not independently recomputed.",
+  "limitations": [
+    "The same exposed external questions remain development diagnostics, not confirmation.",
+    "Byte and arithmetic checks do not validate the NLI question template, released answer labels, semantic applicability, or novelty.",
+    "Raw NLI probabilities and original generator outputs are not regenerated.",
+    "Original parsed generator answers are checked against preserved predictions and gold; parser logic is not independently reimplemented."
+  ]
+}
