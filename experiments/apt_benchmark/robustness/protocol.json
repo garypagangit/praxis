@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "date": "2026-09-20",
+  "purpose": "Pre-fit frozen development ablations; not a confirmatory novelty or operational reliability claim",
+  "experiments": {
+    "E1": "Generic event text versus semantic event text versus semantic event plus bounded prior entity context",
+    "E2": "Random record loss, contiguous support loss and removal of command-record types; compare ordinary versus dropout-augmented training",
+    "E3": "Delayed command records at shared 0, 30 and 120 second deadlines; measure accuracy and coverage at each deadline"
+  },
+  "datasets": {
+    "ait": {"targets": ["escalate"], "role": "Previously exposed eight-run development data; regrouped audit-event task"},
+    "casino": {"targets": ["T1068", "T1548", "T1105"], "role": "Recent RAID2025 second source; technique versus other annotated technique, not benign detection", "prediction_unit": "First observed audit event per source process-technique annotation and host; deduplicate event IDs and union overlapping labels. Other events can provide prior context but are not eligible training/scoring targets. This annotation-onset proxy is not independently established malicious-action onset."}
+  },
+  "models": ["generic_event", "semantic_event", "entity_context", "context_dropout"],
+  "classifier": {"type": "LogisticRegression", "C": 1.0, "class_weight": "balanced", "solver": "liblinear", "max_iter": 2000, "random_state": 20260920},
+  "text_features": {"hash_dimensions_per_block": 32768, "ngram_range": [1, 2], "alternate_sign": false, "norm": "l2", "vocabulary_fit": "none; fixed feature hashing"},
+  "history": {"seconds": 120, "max_events": 32, "require_strictly_earlier_event_timestamp": true, "entity_keys": "Only keys explicitly present in currently visible target and prior fragments; run and host scoped. No label inputs."},
+  "metadata_features": "Only observed record counts, record types, context count and context age; no true deletion mask or attacker identifiers",
+  "dropout_training": {"views": ["clean", "random_25", "random_50"], "seed": 20260920, "sample_weight_per_view": "1 divided by number of views, preserving total clean training weight and effective regularization", "include_empty_view_labels_in_training": true, "empty_view_prediction": "forced no alarm in every arm"},
+  "seeds": [20260920, 20260921, 20260922],
+  "conditions": [
+    {"name": "clean", "kind": "clean", "deadline": 0},
+    {"name": "random_25", "kind": "random", "drop_probability": 0.25, "deadline": 0},
+    {"name": "random_50", "kind": "random", "drop_probability": 0.50, "deadline": 0},
+    {"name": "random_75", "kind": "random", "drop_probability": 0.75, "deadline": 0},
+    {"name": "support_burst_60", "kind": "support_burst", "seconds": 60, "deadline": 0},
+    {"name": "command_records_absent", "kind": "channel_absent", "channels": ["EXECVE", "PROCTITLE"], "deadline": 0},
+    {"name": "delay_30_deadline_0", "kind": "delay", "channels": ["EXECVE", "PROCTITLE"], "delay_seconds": 30, "deadline": 0},
+    {"name": "delay_30_deadline_30", "kind": "delay", "channels": ["EXECVE", "PROCTITLE"], "delay_seconds": 30, "deadline": 30},
+    {"name": "delay_120_deadline_0", "kind": "delay", "channels": ["EXECVE", "PROCTITLE"], "delay_seconds": 120, "deadline": 0},
+    {"name": "delay_120_deadline_30", "kind": "delay", "channels": ["EXECVE", "PROCTITLE"], "delay_seconds": 120, "deadline": 30},
+    {"name": "delay_120_deadline_120", "kind": "delay", "channels": ["EXECVE", "PROCTITLE"], "delay_seconds": 120, "deadline": 120}
+  ],
+  "perturbation_scope": "Random removal applies consistently to current and prior record fragments. Support burst removes only preceding 60 seconds at each target query, a targeted stress test rather than a shared physical outage. Channel removal is audit record-type removal, not a whole sensor outage.",
+  "decision_time": "Target event timestamp plus common deadline. Only fragments whose simulated availability <= deadline and source timestamp <= target event time; no later source events. Native fragment arrival times are not measured.",
+  "delay_interpretation": "At deadline >= injected deterministic delay, the clean view is restored by construction. Recovery is a buffering/replay control with a latency cost, not evidence of a learned robustness improvement.",
+  "empty_targets": "Retain target in denominators, score 0, force no alarm, report observed-target coverage. Offline source-event roster is evaluator knowledge, not a deployable event trigger.",
+  "calibration": {"negative_label_fpr_budget": 0.01, "source": "Clean calibration only, separately for each model and target; frozen across perturbations", "interpretation": "Other-label event flag rate, not verified benign false alarms or a population bound"},
+  "metrics": ["fixed_0.5_precision_recall_f1", "calibrated_precision_recall_f1", "roc_auc", "average_precision", "negative_label_flag_rate", "target_observation_coverage", "runwise_metrics", "runtime"],
+  "target_support": "Require both classes in fit, calibration and test; otherwise report unsupported without training target. Counts are correlated events, not independent attacks.",
+  "success_interpretation": "Report paired per-run changes and actual flag burden at each common deadline. Three removal seeds characterize perturbation variability only. No significance claim from row resampling; no cherry-picked seed or target; absence of improvement closes the tested control, not all context methods.",
+  "novelty": "Representation repair, event grouping, history features and dropout are existing controls. A distinct research contribution requires a further mechanism and external confirmation."
+}
