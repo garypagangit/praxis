@@ -26,3 +26,13 @@ The original `qualification_20260920` attempt is retained. Its four underpowered
 ## Review blinding refinement before any human review
 
 The first G0 packet hid the `Label` field but still showed derived `attack_type` and `kill_chain_all` annotations. The final packet also hides those annotations and common ground-truth aliases, reducing the risk of circular label agreement. The same 50 case IDs and answer key are retained; source counts and eligibility are unchanged. The original receipt remains archived and a v2 receipt binds the final packet. No human reviewed either packet before this correction. Use only `human_review_v2/REVIEW.html` for the study.
+
+## Section 12 amendment: release a score-only exploratory pilot
+
+**2026-09-20, before real-data scorer fitting or performance inspection.** The user's follow-up explicitly requested a workaround rather than holding all modeling for full evidence-gate acceptance. [PILOT_PROTOCOL.json](PILOT_PROTOCOL.json) now releases local SecAlertBench score-only exploration: fixed SVM, deterministic four-role split, one representative per IPv4-normalized feature family, reserved human-review families, and documented mixed-label exclusions. Exact/normalized grouping counts and split class counts were inspected; no model results informed the choices. Model text is unchanged by grouping-only address normalization. All outcomes will be retained.
+
+The earlier registration remains an immutable record of the startup stage. This amendment changes which exploratory work can proceed; it does not mark missing terms, human review, independent attack support or raw-event provenance as resolved. It does not release original confirmatory H1-H3 or assert published-scorer reproduction. Empirical benefit may justify continued study but cannot establish an operational population certificate from unverified independent units.
+
+Tier3 is separately opened for a small offline PCAP-to-alert provenance pilot. Published scenario labels stay at scenario level; they are not automatically labels for every derived alert. Network captures do not supply authenticated user identities or complete enterprise incident membership. A supported network-only predicate contract would be an explicit revised design, not silently described as the original full gate. No favorable or certified result is promised.
+
+Gary may perform the proposal's real50-case audit himself with relevant experience disclosed; an external reviewer was not required. A single-rater result has that limitation and must actually meet45/50agreement. The audit remains pending and is not replaced by automated checks. External correspondence remains a prepared draft, not a prerequisite for this exploratory pilot or a message already sent.
