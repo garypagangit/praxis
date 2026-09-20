@@ -1,0 +1,93 @@
+{
+  "scope": "LOCAL_OFFLINE_PCAP_RUNTIME_NO_SERVICE_DRIVER_INSTALL",
+  "downloads": [
+    {
+      "url": "https://www.openinfosecfoundation.org/downloads/windows/Suricata-8.0.7-windivert-1-64bit.msi",
+      "file": "Suricata-8.0.7-windivert-1-64bit.msi",
+      "bytes": 36818944,
+      "sha256": "3242e1a5a01a13908f841cdee27cb5cf2138cbd3ae3c0b61a0c2dcf12d67cfc6"
+    },
+    {
+      "url": "https://github.com/activescott/lessmsi/releases/download/v2.12.9/lessmsi-v2.12.9.zip",
+      "file": "lessmsi-v2.12.9.zip",
+      "bytes": 740956,
+      "sha256": "5b4e187e74b184ad3a63ccf06c3d17dae2b8c4b6c298a996dbd51a9f6db29d21"
+    }
+  ],
+  "libpcap_package": {
+    "url": "https://mirror.msys2.org/mingw/mingw64/mingw-w64-x86_64-libpcap-1.10.6-3-any.pkg.tar.zst",
+    "sha256": "bb03660e1accb11b0e331f6b27ab179a6f703ebf388b36a8d9a6859c89dc0a70",
+    "primary_manifest": "https://packages.msys2.org/packages/mingw-w64-x86_64-libpcap",
+    "adaptation": "Extracted libpcap.dll is supplied as local wpcap.dll to satisfy the offline engine dependency. No system DLL replaced."
+  },
+  "rules": {
+    "url": "https://rules.emergingthreats.net/open/suricata-8.0.0/emerging.rules.tar.gz",
+    "bytes": 5611125,
+    "sha256": "8004ed9bfaa518d8aa5418c49e935201236f213c83232889c174c9bd03c3d1da",
+    "rule_files": [
+      "rules/botcc.portgrouped.rules",
+      "rules/botcc.rules",
+      "rules/ciarmy.rules",
+      "rules/compromised.rules",
+      "rules/drop.rules",
+      "rules/dshield.rules",
+      "rules/emerging-activex.rules",
+      "rules/emerging-adware_pup.rules",
+      "rules/emerging-attack_response.rules",
+      "rules/emerging-chat.rules",
+      "rules/emerging-coinminer.rules",
+      "rules/emerging-current_events.rules",
+      "rules/emerging-deleted.rules",
+      "rules/emerging-dns.rules",
+      "rules/emerging-dos.rules",
+      "rules/emerging-dyn_dns.rules",
+      "rules/emerging-exploit.rules",
+      "rules/emerging-exploit_kit.rules",
+      "rules/emerging-file_sharing.rules",
+      "rules/emerging-ftp.rules",
+      "rules/emerging-games.rules",
+      "rules/emerging-hunting.rules",
+      "rules/emerging-icmp.rules",
+      "rules/emerging-imap.rules",
+      "rules/emerging-inappropriate.rules",
+      "rules/emerging-info.rules",
+      "rules/emerging-ja3.rules",
+      "rules/emerging-malware.rules",
+      "rules/emerging-misc.rules",
+      "rules/emerging-mobile_malware.rules",
+      "rules/emerging-netbios.rules",
+      "rules/emerging-p2p.rules",
+      "rules/emerging-phishing.rules",
+      "rules/emerging-pop3.rules",
+      "rules/emerging-remote_access.rules",
+      "rules/emerging-retired.rules",
+      "rules/emerging-rpc.rules",
+      "rules/emerging-scada.rules",
+      "rules/emerging-scan.rules",
+      "rules/emerging-shellcode.rules",
+      "rules/emerging-smtp.rules",
+      "rules/emerging-snmp.rules",
+      "rules/emerging-sql.rules",
+      "rules/emerging-ta_abused_services.rules",
+      "rules/emerging-telnet.rules",
+      "rules/emerging-tftp.rules",
+      "rules/emerging-user_agents.rules",
+      "rules/emerging-voip.rules",
+      "rules/emerging-web_client.rules",
+      "rules/emerging-web_server.rules",
+      "rules/emerging-web_specific_apps.rules",
+      "rules/emerging-worm.rules",
+      "rules/threatview_CS_c2.rules",
+      "rules/tor.rules"
+    ],
+    "other_configuration": [
+      "rules/classification.config"
+    ]
+  },
+  "runtime_bindings": "results/tier3_instrumentation_20260920_v2_utc/GENERATION_FREEZE.json",
+  "extraction": "lessmsi x <official MSI> <new private directory ending in Windows backslash>; no MSI install actions executed",
+  "auxiliary_ssl": "Existing Git OpenSSL DLLs copied into private runtime directory; exact hashes in generation freeze",
+  "actual_engine_version": "8.0.7 RELEASE",
+  "timezone": "TZ=UTC0 in the Suricata subprocess only",
+  "limitations": "Windows build lacks libmagic;9 ET rules failed in preserved natural-rule attempt. Instrumentation uses2 explicit non-security diagnostic rules."
+}

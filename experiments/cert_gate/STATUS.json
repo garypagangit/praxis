@@ -1,7 +1,7 @@
 {
   "research_date": "2026-09-20",
   "branch": "cert-gate",
-  "overall": "STARTUP_EXECUTED_FULL_REAL_DATA_STUDY_GATED",
+  "overall": "EXPLORATORY_SCORE_ONLY_POSITIVE_PACKET_PROVENANCE_EXECUTED_FULL_GATE_UNCONFIRMED",
   "candidate": "Certified suppression gate for SOC alert triage",
   "stages": {
     "G0_artifact_audit": "EXECUTED_REQUIREMENTS_UNMET",
@@ -12,7 +12,10 @@
     "G2_real_calibration": "NOT_RELEASED_NOT_RUN",
     "G3_workload_benefit": "NOT_RELEASED_NOT_RUN",
     "G4_adversarial_efficacy": "NOT_RELEASED_NOT_RUN",
-    "G5_real_drift": "NOT_RELEASED_NOT_RUN"
+    "G5_real_drift": "NOT_RELEASED_NOT_RUN",
+    "exploratory_score_only_pilot": "COMPLETE_POSITIVE_OBSERVED_BENCHMARK",
+    "tier3_natural_ET_alerts": "COMPLETE_ZERO_ALERTS_NINE_RULE_FAILURES",
+    "tier3_instrumentation_linkage": "COMPLETE_4778_OF4784_VERIFIED_NOT_THREAT_DETECTION"
   },
   "facts": {
     "real_alerts_audited": 8322,
@@ -24,21 +27,38 @@
     "minimum_independent_attack_calibration_units_single_certificate": 299,
     "artificial_replay_calibration_rows": 400,
     "artificial_replay_test_rows": 200,
-    "real_alerts_model_scored": 0,
+    "real_alerts_model_scored": 7958,
     "qwen_inference_runs": 0,
     "human_reviews_completed": 0,
     "cloud_resources_launched": 0,
-    "background_jobs_running": false
+    "background_jobs_running": false,
+    "real_models_fitted": 1,
+    "primary_test_representatives": 1614,
+    "primary_test_attacks": 491,
+    "primary_test_nonattacks": 1123,
+    "pac_primary_attack_suppressed": 1,
+    "pac_primary_nonattack_suppressed": 1076,
+    "pcap_files_replayed": 2,
+    "pcap_packets": 10185,
+    "instrumentation_events": 4784,
+    "instrumentation_field_verified": 4778,
+    "instrumentation_rejected": 6,
+    "aws_session_checked_valid": true
   },
-  "interpretation": "Zero eligibility is missing-data feasibility evidence; no positive SOC utility, attack-robustness or novelty result exists.",
-  "next_gate": "Obtain supported raw/context joins, data terms and independent units; complete real label review; register matched model-specific protocol or narrow/stop the full-gate claim.",
+  "interpretation": "Positive exploratory score-only suppression observed on one grouped benchmark. Added full-checker benefit, independence, operational certification, human label review and novelty remain unconfirmed. Diagnostic packet events are not security detections.",
+  "next_gate": "Complete reserved human review; preregister harder rule/template-family generalization; define supported network-only evidence contract and obtain validated natural alert labels before checker efficacy comparisons.",
   "results": {
     "g0": "results/g0_20260920_v2/ELIGIBILITY_AND_REVIEW.json",
     "qualification": "results/qualification_20260920_v2/RESULTS.json",
     "replay": "results/replay_fixture_20260920/run/RESULTS.json",
     "verification": "results/verification_20260920/TEST_RECEIPT.json",
-    "summary": "docs/STARTUP_REPORT.md",
-    "human_actions": "docs/HUMAN_REQUIREMENTS.md"
+    "summary": "docs/PILOT_REPORT.md",
+    "human_actions": "docs/HUMAN_REQUIREMENTS.md",
+    "pilot": "results/score_only_pilot_20260920/RESULTS.json",
+    "pilot_audit": "docs/PILOT_RESULT_AUDIT.md",
+    "packet_linkage": "results/tier3_instrumentation_20260920_v2_utc/RESULTS.json",
+    "packet_audit": "docs/TIER3_RUNTIME_AUDIT.md",
+    "latest_verification": "results/workaround_verification_20260920/TEST_RECEIPT.json"
   },
   "private_human_review_form": "C:/w/cert_gate_data_20260920/human_review_v2/REVIEW.html",
   "old_attempts_preserved": true,

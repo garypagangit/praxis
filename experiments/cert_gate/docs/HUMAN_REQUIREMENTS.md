@@ -2,7 +2,9 @@
 
 **Prepared; no review or author correspondence completed.** These study requirements come from the supplied proposal and [registration](../REGISTRATION.json). They do not prevent the completed software and artifact checks.
 
-## 1. Resolve data availability first
+**Update:** the amended [score-only pilot](PILOT_REPORT.md) has now run while these stronger validation requirements remain open. Email and the human audit did not block that exploratory run. Gary may perform the audit himself with relevant experience and single-rater limitations documented; an external reviewer is not required.
+
+## 1. Resolve missing evidence for full-gate confirmation
 
 SecAlertBench's processed records omit the full raw evidence, capture time, severity and incident context required by this gate. Label review cannot supply missing fields. Its 2,496 attack-labeled rows also do not establish 2,496 independent attack episodes.
 

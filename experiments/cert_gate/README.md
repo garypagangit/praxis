@@ -2,9 +2,11 @@
 
 **Branch: `cert-gate`. Built and started September 20, 2026.** Offline research; no live alert is suppressed.
 
+**Update: a real-data score-only pilot is now complete.** The calibrated cutoff removed 1,076/1,123 benign test representatives (95.81%) and 1/491 attacks (0.20%). A separate packet-provenance prototype also ran. [Current results and next steps](docs/PILOT_REPORT.md), [prospective pilot protocol](PILOT_PROTOCOL.json).
+
 The program evaluates how much benign-alert workload can be removed while controlling the fraction of actual attacks suppressed. Useful suppression is an empirical question. Statistical risk control, integrity checks and novelty are separate requirements.
 
-Start with the [plain-language results](docs/STARTUP_REPORT.md) and [next human/data actions](docs/HUMAN_REQUIREMENTS.md).
+The [startup report](docs/STARTUP_REPORT.md) records the earlier software-only stage. [Human/data actions](docs/HUMAN_REQUIREMENTS.md) remain relevant to stronger validation.
 
 ## Evidence from completed startup runs
 
@@ -15,9 +17,9 @@ Start with the [plain-language results](docs/STARTUP_REPORT.md) and [next human/
 - [Independent results review](docs/STARTUP_INDEPENDENT_REVIEW.md)
 - [Literature and novelty](docs/LITERATURE_REVIEW.md), [statistical contract](docs/STATISTICAL_CONTRACT.md)
 
-The first-attempt G0 and qualification folders remain as audit history. Use the linked **v2** receipts and `human_review_v2` packet. No human review has been completed. No real-data performance result is claimed.
+The first-attempt G0 and qualification folders remain as audit history. Use the linked **v2** receipts and `human_review_v2` packet. No human review has been completed. The later score-only pilot reports real-data exploratory performance; full-gate efficacy and operational certification remain unproven.
 
-The [registration](REGISTRATION.json) currently releases G0 and software qualification. [Amendments](AMENDMENTS.md) explain why the original draft cannot be executed literally. Real-data model reproduction and confirmatory G2-G5 remain gated on actual data support, reviewed labels and a model-specific frozen protocol. No human review, literature reproduction, workload benefit or novelty is asserted by constructing this harness.
+The original [registration](REGISTRATION.json) released G0 and software qualification. The new [pilot protocol](PILOT_PROTOCOL.json) releases a fixed exploratory score-only benchmark and compact packet-linkage checks. [Amendments](AMENDMENTS.md) preserve that sequence. Published-model reproduction and confirmatory G2-G5 remain gated; exploratory success is not a pass for those stages.
 
 ## Risk contract
 
@@ -52,4 +54,16 @@ The [manifest](data_manifest/G0_DATASET_RECEIPT.json) pins source commits, hashe
 
 `scorers.py` implements character-TFIDF/linear SVM, a Qwen JSON adapter requiring an immutable revision, and learned fusion of two score columns. Higher scores mean more benign. Training requires a declared fitting role; actual split integrity remains the caller's responsibility. Feature serialization excludes labels and derived attack tags.
 
-SVM/fusion tests use artificial examples only. Qwen has not been downloaded or run for this study; its inference path needs qualification after an exact model/runtime is frozen. No published-model reproduction is claimed. [Why G1-G5 remain unreleased](docs/HUMAN_REQUIREMENTS.md).
+SVM unit tests use artificial examples; the later pilot fits the fixed SVM to real fitting representatives. Fusion remains fixture-tested only. Qwen has not been downloaded or run for this study. No published-model reproduction is claimed.
+
+## Reproduce the exploratory pilot
+
+Commit the operative files and protocol first; the runner checks their bytes before fitting. Use new output folders and the pinned source/audit:
+
+```powershell
+python experiments/cert_gate/exploratory_benchmark.py --source 'C:/w/cert_gate_data_20260920/access_review/SecAlertBench/0x02. Processed SecAlertBench Dataset/secalertbench.json' --protocol experiments/cert_gate/PILOT_PROTOCOL.json --audit experiments/cert_gate/results/g0_20260920_v2/ELIGIBILITY_AND_REVIEW.json --private-output 'C:/w/cert_gate_data_20260920/my_pilot_repeat' --output experiments/cert_gate/results/my_pilot_repeat
+```
+
+Primary and all-row secondary results, resampling bands, timing and private hashes are in [the pilot receipt](results/score_only_pilot_20260920/RESULTS.json). A repeat on the same test data is a reproducibility check, not fresh confirmation.
+
+For packet replay, see [the acquisition memo](docs/TIER3_FEASIBILITY.md), [runtime audit](docs/TIER3_RUNTIME_AUDIT.md), and the exact command/configuration and binary/rule hashes in [the generation freeze](results/tier3_instrumentation_20260920_v2_utc/GENERATION_FREEZE.json). The diagnostic rules exercise packet links and make no attack judgment.

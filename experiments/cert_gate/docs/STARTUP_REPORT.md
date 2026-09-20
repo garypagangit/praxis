@@ -1,5 +1,7 @@
 # Can evidence checks make automated alert closure safer and useful?
 
+**Historical startup snapshot.** A subsequent authorized workaround released and completed a real score-only pilot. Read the [current pilot report](PILOT_REPORT.md) for updated results; the statements below describe the earlier stage.
+
 **September 20, 2026: built and started; no positive cybersecurity-performance result yet.**
 
 This implements the detailed **Certified Suppression Gate, G0–G5** proposal in the attachment. Its earlier graph-ablation proposal remains historical context. Branch `cert-gate` is separate from existing `APT-final` experiments.
