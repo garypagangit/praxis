@@ -1,0 +1,51 @@
+{"stage": "fit", "dataset": "cadets", "seed": 101}
+{"stage": "evaluate", "dataset": "cadets", "drop_rate": 0.0, "mask_seed": null, "name": "clean"}
+{"stage": "evaluate", "dataset": "cadets", "drop_rate": 0.5, "mask_seed": 20260920, "name": "drop_0.5_mask_20260920"}
+{"stage": "bank_and_calibration", "dataset": "cadets", "seed": 101}
+{"stage": "evaluate", "dataset": "cadets", "seed": 101, "drop_rate": 0.0, "mask_seed": null, "name": "clean"}
+{"stage": "evaluate", "dataset": "cadets", "seed": 101, "drop_rate": 0.5, "mask_seed": 20260920, "name": "drop_0.5_mask_20260920"}
+test_cpu_device_qualification_uses_both_frozen_model_paths (test_apt_embedding_engine.FrozenEmbeddingTests.test_cpu_device_qualification_uses_both_frozen_model_paths) ... ok
+test_directed_edge_reversal_changes_gin_but_not_mlp (test_apt_embedding_engine.FrozenEmbeddingTests.test_directed_edge_reversal_changes_gin_but_not_mlp) ... ok
+test_expected_arm_seed_and_width_are_enforced (test_apt_embedding_engine.FrozenEmbeddingTests.test_expected_arm_seed_and_width_are_enforced) ... ok
+test_gin_keeps_context_across_requested_batch_boundaries (test_apt_embedding_engine.FrozenEmbeddingTests.test_gin_keeps_context_across_requested_batch_boundaries) ... ok
+test_hash_tampering_refused_before_torch_deserialization (test_apt_embedding_engine.FrozenEmbeddingTests.test_hash_tampering_refused_before_torch_deserialization) ... ok
+test_hook_removed_on_forward_failure (test_apt_embedding_engine.FrozenEmbeddingTests.test_hook_removed_on_forward_failure) ... ok
+test_invalid_endpoint_and_nonfinite_feature_are_refused (test_apt_embedding_engine.FrozenEmbeddingTests.test_invalid_endpoint_and_nonfinite_feature_are_refused) ... ok
+test_loaded_parameters_cannot_change_before_extraction (test_apt_embedding_engine.FrozenEmbeddingTests.test_loaded_parameters_cannot_change_before_extraction) ... ok
+test_loading_frozen_weights_does_not_advance_cpu_rng (test_apt_embedding_engine.FrozenEmbeddingTests.test_loading_frozen_weights_does_not_advance_cpu_rng) ... ok
+test_mlp_batching_preserves_representations (test_apt_embedding_engine.FrozenEmbeddingTests.test_mlp_batching_preserves_representations) ... ok
+test_nonfinite_or_mismatched_state_is_refused_even_with_current_hash (test_apt_embedding_engine.FrozenEmbeddingTests.test_nonfinite_or_mismatched_state_is_refused_even_with_current_hash) ... ok
+test_redecoded_bottleneck_matches_original_full_model (test_apt_embedding_engine.FrozenEmbeddingTests.test_redecoded_bottleneck_matches_original_full_model) ... ok
+test_changed_array_bytes_are_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_changed_array_bytes_are_refused) ... ok
+test_changed_checkpoint_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_changed_checkpoint_is_refused) ... ok
+test_changed_manifest_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_changed_manifest_is_refused) ... ok
+test_changed_prior_calibration_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_changed_prior_calibration_is_refused) ... ok
+test_changed_prior_predictions_are_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_changed_prior_predictions_are_refused) ... ok
+test_configuration_tampering_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_configuration_tampering_is_refused) ... ok
+test_duplicate_graph_manifest_path_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_duplicate_graph_manifest_path_is_refused) ... ok
+test_escaping_graph_manifest_path_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_escaping_graph_manifest_path_is_refused) ... ok
+test_escaping_predecessor_path_is_refused_before_reading (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_escaping_predecessor_path_is_refused_before_reading) ... ok
+test_exact_committed_sources_and_bound_prior_artifacts_verify (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_exact_committed_sources_and_bound_prior_artifacts_verify) ... ok
+test_extra_unregistered_array_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_extra_unregistered_array_is_refused) ... ok
+test_hand_editing_hash_cannot_bypass_committed_source_binding (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_hand_editing_hash_cannot_bypass_committed_source_binding) ... ok
+test_hand_editing_prior_receipt_cannot_replace_predecessor_binding (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_hand_editing_prior_receipt_cannot_replace_predecessor_binding) ... ok
+test_missing_source_binding_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_missing_source_binding_is_refused) ... ok
+test_new_runtime_module_invalidates_source_inventory (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_new_runtime_module_invalidates_source_inventory) ... ok
+test_register_does_not_overwrite_existing_receipt (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_register_does_not_overwrite_existing_receipt) ... ok
+test_register_refuses_uncommitted_protocol (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_register_refuses_uncommitted_protocol) ... ok
+test_remote_marker_does_not_bypass_changed_code (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_remote_marker_does_not_bypass_changed_code) ... ok
+test_remote_verification_requires_external_bundle_marker (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_remote_verification_requires_external_bundle_marker) ... ok
+test_source_tampering_is_refused (test_apt_embedding_provenance.EmbeddingProvenanceTests.test_source_tampering_is_refused) ... ok
+test_direct_run_missing_registration_refuses_before_output (test_apt_embedding_runner.EmbeddingRunnerTests.test_direct_run_missing_registration_refuses_before_output) ... ok
+test_full_synthetic_prior_and_embedding_comparison (test_apt_embedding_runner.EmbeddingRunnerTests.test_full_synthetic_prior_and_embedding_comparison) ... ok
+test_bank_cap_larger_than_population_preserves_all_original_row_ids (test_apt_embedding_scoring.ExactScoringTests.test_bank_cap_larger_than_population_preserves_all_original_row_ids) ... ok
+test_bank_scaler_frozen_and_inputs_not_mutated (test_apt_embedding_scoring.ExactScoringTests.test_bank_scaler_frozen_and_inputs_not_mutated) ... ok
+test_chunk_size_and_query_dedup_do_not_change_scores_or_order (test_apt_embedding_scoring.ExactScoringTests.test_chunk_size_and_query_dedup_do_not_change_scores_or_order) ... ok
+test_exact_distances_match_brute_force_with_ties_and_duplicate_reference (test_apt_embedding_scoring.ExactScoringTests.test_exact_distances_match_brute_force_with_ties_and_duplicate_reference) ... ok
+test_finite_shapes_parameters_and_small_bank_are_guarded (test_apt_embedding_scoring.ExactScoringTests.test_finite_shapes_parameters_and_small_bank_are_guarded) ... ok
+test_global_uniform_bank_sampling_is_reproducible_and_not_per_graph_balanced (test_apt_embedding_scoring.ExactScoringTests.test_global_uniform_bank_sampling_is_reproducible_and_not_per_graph_balanced) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 29.053s
+
+OK
