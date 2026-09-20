@@ -18,3 +18,7 @@ Version 1.1 registers G0 and software qualification after literature, schema and
 12. **No unearned cross-paper comparisons.** A published average over16 LLMs is not a target for a newly trained SVM. FPR, attack miss rate, fraction of benign alerts suppressed and workload removed use different denominators. No alerts-per-analyst-day claim is derived from an unrelated SOC's volume.
 
 No G1-G5 efficacy results existed when these changes were recorded. The original draft's H2 target remains the planned utility goal. A frozen model/data-specific release must resolve G0, the exact scorer and comparator, split roles, uncertainty units and attack specification before confirmatory runs.
+
+## Qualification reporting correction after the first software run
+
+The original `qualification_20260920` attempt is retained. Its four underpowered settings used an analytical keep-all result and one API check each, but the output misleadingly called the length of a placeholder array 10,000 independent calibration samples. The corrected runner reports zero Monte Carlo samples for those settings and null empirical frequencies/intervals. It records 40,000 actual independent simulated calibration sets across the four nontrivial settings. A second attempt uses the same seed and mathematical code; thresholds, risks and all substantive findings must remain identical. This is a reporting correction, not a changed hypothesis or a rerun to improve an outcome.
