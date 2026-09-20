@@ -205,6 +205,79 @@ class ChainAuditTests(unittest.TestCase):
         with self.assertRaisesRegex(audit.AuditFailure, "shutdown is not verified"):
             audit.check_shutdown(self.execution_path, self.stop_path, self.reuse["created_utc"])
 
+    def timeout_evidence(self, archived_exit=124):
+        """Build an interrupted synthetic attempt without changing reused state."""
+        source = audit.read(self.prior / "RUN_STATUS.json")
+        source["status"] = "NORMAL_PHASE_RUNNING"
+        save(self.prior / "RUN_STATUS.json", source)
+        (self.prior / "WORKER_EXIT.txt").write_text(str(archived_exit) + "\n", encoding="ascii")
+        with tarfile.open(self.archive, "w:gz") as archive:
+            archive.add(self.prior, arcname="outputs")
+        stop = audit.read(self.stop_path)
+        stop["gate_failed"] = True
+        save(self.stop_path, stop)
+        execution = audit.read(self.execution_path)
+        execution["finalize"]["gate_failed"] = True
+        execution["last_poll"] = {"status": "Failed", "response_code": 124}
+        execution["collection"]["transport_sha256"] = audit.digest(self.archive)
+        save(self.execution_path, execution)
+        self.members["outputs/RUN_STATUS.json"] = audit.digest(self.prior / "RUN_STATUS.json")
+        self.reuse["source_output_receipts"]["RUN_STATUS.json"] = self.members["outputs/RUN_STATUS.json"]
+        self.reuse["transport_receipt_sha256"] = audit.digest(self.execution_path)
+        self.reuse["transport"].update(archive_sha256=audit.digest(self.archive), archive_bytes=self.archive.stat().st_size,
+                                       verified_member_sha256=self.members)
+        save(self.reuse_dir / "REUSE_MANIFEST.json", self.reuse)
+        self.receipt["reuse_manifest_sha256"] = audit.digest(self.reuse_dir / "REUSE_MANIFEST.json")
+        save(self.output / "CONTINUATION_RECEIPT.json", self.receipt)
+        self.partial["reuse_manifest_sha256"] = self.receipt["reuse_manifest_sha256"]
+        save(self.output / "REUSE_DECISIONS.partial.json", self.partial)
+
+    def test_expected_worker_timeout_passes_and_preserves_true_gate_failed_flag(self):
+        self.timeout_evidence()
+        before = {path: path.read_bytes() for path in (self.execution_path, self.stop_path, self.reuse_dir / "REUSE_MANIFEST.json")}
+        result = self.full_audit()
+        self.assertEqual(result["status"], "PASS_CONTINUATION_CHAIN")
+        shutdown = result["prior_shutdown"]
+        self.assertTrue(shutdown["gate_failed"])
+        self.assertEqual(shutdown["worker_failure_classification"], "EXPECTED_BOUNDED_WORKER_TIMEOUT")
+        self.assertEqual(shutdown["bounded_timeout_evidence"]["worker_exit_code"], 124)
+        self.assertTrue(shutdown["worker_exit_verified_against_archive"])
+        self.assertEqual(result["source_transport"]["verified_required_members"], 23)
+        for path, content in before.items():
+            self.assertEqual(path.read_bytes(), content)
+
+    def test_other_worker_failures_missing_exit_and_completed_science_are_refused(self):
+        self.timeout_evidence()
+        execution = audit.read(self.execution_path)
+        for label, status, code, exit_code, phase in (
+            ("other failure", "Failed", 1, 1, "NORMAL_PHASE_RUNNING"),
+            ("wrong status", "Success", 124, 124, "NORMAL_PHASE_RUNNING"),
+            ("missing exit", "Failed", 124, None, "NORMAL_PHASE_RUNNING"),
+            ("wrong exit", "Failed", 124, 137, "NORMAL_PHASE_RUNNING"),
+            ("already complete", "Failed", 124, 124, "COMPLETE_FIXED_FAMILY_DEVELOPMENT"),
+        ):
+            execution["last_poll"] = {"status": status, "response_code": code}
+            save(self.execution_path, execution)
+            with self.subTest(label=label), self.assertRaises(audit.AuditFailure):
+                audit.check_shutdown(self.execution_path, self.stop_path, self.reuse["created_utc"],
+                                     source_status={"status": phase}, worker_exit_code=exit_code)
+
+    def test_timeout_cannot_override_resource_bounds(self):
+        self.timeout_evidence()
+        stop, execution = audit.read(self.stop_path), audit.read(self.execution_path)
+        stop["within_reserve"] = execution["finalize"]["within_reserve"] = False
+        save(self.stop_path, stop)
+        save(self.execution_path, execution)
+        with self.assertRaisesRegex(audit.AuditFailure, "resource bound failed"):
+            audit.check_shutdown(self.execution_path, self.stop_path, self.reuse["created_utc"],
+                                 source_status={"status": "NORMAL_PHASE_RUNNING"}, worker_exit_code=124)
+
+    def test_local_timeout_exit_must_match_the_archived_exit_bytes(self):
+        self.timeout_evidence(archived_exit=1)
+        (self.prior / "WORKER_EXIT.txt").write_text("124\n", encoding="ascii")
+        with self.assertRaisesRegex(audit.AuditFailure, "differs from archived bytes"):
+            self.full_audit()
+
     def full_audit(self):
         with mock.patch.object(audit, "bind_registrations", return_value=(self.config, self.original, self.continuation, self.manifest, self.reuse)):
             return audit.audit(self.config_path, self.data, self.original_registration, self.continuation_registration, self.reuse_dir,

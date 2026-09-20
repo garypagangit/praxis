@@ -100,20 +100,40 @@ def check_archive(archive_path, expected_sha, expected_members):
             "verified_required_members": len(found), "total_members": len(seen), "uncompressed_bytes": total}
 
 
-def check_shutdown(execution_path, stop_receipt_path, reuse_created_utc):
+def check_shutdown(execution_path, stop_receipt_path, reuse_created_utc, *, source_status=None, worker_exit_code=None):
     execution, stop = read(execution_path), read(stop_receipt_path)
     need(execution["finalize"]["status"] == stop["status"] == "CLOSED_VERIFIED_STOPPED"
          and execution["finalize"]["instance_state"] == stop["instance_state"] == "stopped", "Prior host shutdown is not verified")
     need(stop["action"] == "finalize" and stop["host_time_cap_observed"] is True
-         and stop["within_reserve"] is True and stop["gate_failed"] is False, "Prior attempt resource gate failed")
+         and stop["within_reserve"] is True, "Prior attempt resource bound failed")
     need(Path(execution["finalize"]["receipt"]).resolve() == Path(stop_receipt_path).resolve(), "Stop receipt is not the execution-linked receipt")
     for key in ("host_time_cap_observed", "within_reserve", "gate_failed"):
         need(execution["finalize"][key] == stop[key], "Execution and detailed stop receipt disagree")
     need(timestamp(stop["stopped_observed_utc"]) <= timestamp(stop["recorded_utc"]) <= timestamp(reuse_created_utc),
          "Checkpoint staging preceded verified shutdown")
+    # The controller's general gate_failed flag also records SSM worker errors.
+    # GNU timeout exits 124 at the deliberately bounded worker deadline, even
+    # when the host/resource gates passed. Preserve that original flag and
+    # accept only this narrowly evidenced runtime exhaustion case.
+    need(type(stop["gate_failed"]) is bool, "Prior gate_failed flag is not boolean")
+    classification = "NO_RECORDED_GATE_FAILURE"
+    evidence = None
+    if stop["gate_failed"]:
+        poll = execution.get("last_poll", {})
+        need(poll.get("status") == "Failed" and poll.get("response_code") == 124
+             and type(worker_exit_code) is int and worker_exit_code == 124,
+             "Prior worker failure is not the documented bounded timeout")
+        need(isinstance(source_status, dict)
+             and source_status.get("status") in {"NORMAL_PHASE_RUNNING", "ATTACK_REPLAY_RUNNING"},
+             "Bounded timeout requires an incomplete scientific phase")
+        classification = "EXPECTED_BOUNDED_WORKER_TIMEOUT"
+        evidence = {"ssm_status": poll["status"], "ssm_response_code": poll["response_code"],
+                    "worker_exit_code": worker_exit_code, "scientific_phase": source_status["status"]}
     return execution, {"status": "CLOSED_VERIFIED_STOPPED", "execution_sha256": digest(execution_path),
                        "stop_receipt_sha256": digest(stop_receipt_path), "host_time_cap_observed": True,
-                       "within_reserve": True, "stopped_before_staging": True}
+                       "within_reserve": True, "stopped_before_staging": True,
+                       "gate_failed": stop["gate_failed"], "worker_failure_classification": classification,
+                       "bounded_timeout_evidence": evidence}
 
 
 def check_qualification(qualification, expected_device):
@@ -222,7 +242,19 @@ def audit(config_path, data_dir, original_registration_path, continuation_regist
          "Continuation scientific order changed")
     need(reuse["source_device"] == results["device"], "Continuation changes the numerical device")
     current_qualification = check_qualification(qualification, results["device"])
-    execution, shutdown = check_shutdown(prior_execution, prior_stop_receipt, reuse["created_utc"])
+    source_status = read(prior_output / "RUN_STATUS.json")
+    worker_exit_path = prior_output / "WORKER_EXIT.txt"
+    worker_exit_code, worker_exit_sha = None, None
+    if worker_exit_path.is_file():
+        exit_bytes = worker_exit_path.read_bytes()
+        need(0 < len(exit_bytes) <= 32, "Invalid worker exit receipt size")
+        exit_text = exit_bytes.decode("ascii").strip()
+        need(exit_text.isdecimal() and str(int(exit_text)) == exit_text and 0 <= int(exit_text) <= 255,
+             "Invalid worker exit receipt")
+        worker_exit_code = int(exit_text)
+        worker_exit_sha = hashlib.sha256(exit_bytes).hexdigest()
+    execution, shutdown = check_shutdown(prior_execution, prior_stop_receipt, reuse["created_utc"],
+                                        source_status=source_status, worker_exit_code=worker_exit_code)
     need(reuse["transport_receipt_sha256"] == digest(prior_execution) and reuse["transport_receipt_filename"] == prior_execution.name,
          "Reuse is not bound to the completed prior execution/collection receipt")
     transport = reuse["transport"]
@@ -231,14 +263,21 @@ def audit(config_path, data_dir, original_registration_path, continuation_regist
          and transport["selected_checkpoint_bytes_compared_to_archive_members"] is True, "Prior transport receipt differs")
     need(timestamp(reuse["created_utc"]) <= timestamp(continuation["created_utc"]) <= timestamp(results["started_utc"]),
          "Continuation ran before its reuse/registration freeze")
-    source_status = read(prior_output / "RUN_STATUS.json")
     for key, expected in (("config_sha256", digest(config_path)), ("registration_sha256", digest(original_registration_path)),
                            ("source_commit", original["git_commit"]), ("data_manifest_sha256", original["data_manifest_sha256"]),
                            ("device", reuse["source_device"])):
         need(source_status[key] == expected, "Prior source attempt does not match original science")
     expected, reused, skipped, members = check_reuse_content(config, manifest, reuse, reuse_dir, prior_output, output)
     need(transport["verified_member_sha256"] == members, "Reuse archive member binding is incomplete or includes prior scores")
-    archive = check_archive(prior_archive, execution["collection"]["transport_sha256"], members)
+    # WORKER_EXIT need not be part of the earlier operative reuse manifest; it
+    # is additional independent evidence checked directly against the already
+    # bound archive. This does not change prior manifests or controller flags.
+    archive_members = dict(members)
+    if worker_exit_sha is not None:
+        archive_members["outputs/WORKER_EXIT.txt"] = worker_exit_sha
+    archive = check_archive(prior_archive, execution["collection"]["transport_sha256"], archive_members)
+    shutdown["worker_exit_sha256"] = worker_exit_sha
+    shutdown["worker_exit_verified_against_archive"] = worker_exit_sha is not None
     counts = check_decisions(receipt, read(output / "REUSE_DECISIONS.partial.json"), expected, reused, output)
     return {"status": "PASS_CONTINUATION_CHAIN", "scope": "POST_RESULT_DEVELOPMENT", "created_utc": datetime.now(timezone.utc).isoformat(),
             "auditor_sha256": digest(Path(__file__)), "original_source_commit": original["git_commit"], "continuation_source_commit": continuation["git_commit"],
