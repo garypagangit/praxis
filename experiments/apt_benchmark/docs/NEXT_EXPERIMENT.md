@@ -1,5 +1,7 @@
 # Next decision: what information resolves escalation-stage mistakes?
 
+**Latest completed follow-up:** [structured-loss controls and separate-source proxy results](../results/robustness_v2/SUMMARY.md) are complete and audited. All four AIT/Casino primary development targets fail the full frozen screen. Mixed training reduces some incorrect flags but introduces clean/random-loss harm; the visible-record router does not resolve the weakness. CAM-LDS is qualified only for manifestation-window membership with padded global labels. The next gate is to match supervision to host/process-local evidence or a defensible multi-host window target before selecting a further mechanism. Earlier recommendations below are preserved as research history, not the latest completion status.
+
 **September 20 update:** The subsequent [missing/delayed-log suite is complete](../results/robustness_v1/SUMMARY.md). It provides positive random-loss results on CasinoLimit, structured-loss failures and no consistent AIT augmentation benefit. The next gate is source-type-aware evidence handling with independent confirmation. [S-DAPT-2026 is registered conditionally](../sdapt2026/README.md), with source/correction and data-access issues documented. The earlier pilot rationale below is retained as development history.
 
 

@@ -1,0 +1,40 @@
+{
+  "status": "REQUIRES_CAM_ONLY_FIXED_HOST_MASK_REPAIR_BEFORE_FIT",
+  "events": 691563,
+  "fragments": 2843778,
+  "sha256": "95ccab6ee76963940fbf2835680b121f5e1ca56dbd967f2b7739e855eaebf19c",
+  "source_manifest_hash_match": true,
+  "feature_fields_scanned": [
+    "text",
+    "baseline_text"
+  ],
+  "note": "V2 uses text only; baseline_text scanned for completeness. A lexical host-token match may be a legitimate command term, not a host identifier. No model scores inspected.",
+  "matches": {
+    "known_host_token/text": 17,
+    "known_host_token/baseline_text": 3
+  },
+  "tokens": {
+    "known_host_token/text": {
+      "client": 15,
+      "linuxshare": 8
+    },
+    "known_host_token/baseline_text": {
+      "client": 3
+    }
+  },
+  "runtime_seconds": 216.18087363243103,
+  "scanner_sha256": "09e7588d27bb7896c9fc5a6d72eaef20be8529f7c8e4f2cf1f9c3055d0daa806",
+  "scanner_provenance": "Saved reproducibility copy of the inline Python scanner executed before any CAM fit; source and all pattern definitions preserved.",
+  "contextual_review": {
+    "raw_technique_ids": 0,
+    "explicit_scenario_paths": 0,
+    "full_run_ids": 0,
+    "source_step_ids": 0,
+    "testbed_domains": 0,
+    "generic_client_term_fragments_used_text": 9,
+    "generic_client_term_fragments_unused_baseline": 3,
+    "fixed_linuxshare_host_variable_fragments_used_text": 8,
+    "decision": "The fixed LINUXSHARE testbed host variable survives CAM-only masking; repair before model fitting and rebuild bound artifacts. CLIENT shell variables and rsh-client package names are ordinary semantics, not direct host identities."
+  },
+  "scope": "Known direct identifier patterns in text and baseline_text only. Does not claim all semantic shortcuts or latent dataset identity are removed. Bare numeric identifiers would require contextual evidence; none matched. No model scores or performance inspected."
+}

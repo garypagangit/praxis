@@ -1,0 +1,342 @@
+{
+  "version": "2.0-structured-loss-frozen-development",
+  "date": "2026-09-20",
+  "purpose": "Repair observed structured command-record loss failures with existing controls; exposed development on AIT/Casino and conditional family-held-out CAM-LDS interval-state check.",
+  "experiments": {
+    "E1": "Reproduce semantic-event, entity-context and random-dropout controls on unchanged splits",
+    "E2": "Compare type-dropout and mixed-dropout against random-dropout under frozen record-loss conditions",
+    "E3": "Secondary visible-record-state router with unique-event support gates and mixed-model fallback",
+    "E4": "Conditional family-held-out CAM-LDS T1105 interval-state recognition with frozen method"
+  },
+  "datasets": {
+    "ait": {
+      "targets": [
+        "escalate"
+      ],
+      "role": "Previously exposed eight-run development data; regrouped audit-event task"
+    },
+    "casino": {
+      "targets": [
+        "T1068",
+        "T1548",
+        "T1105"
+      ],
+      "role": "Previously exposed RAID2025 development source; unchanged v1 cohort and annotation-onset proxy",
+      "prediction_unit": "First observed audit event per source process-technique annotation and host; deduplicate event IDs and union overlapping labels. Other events can provide prior context but are not eligible training/scoring targets. This annotation-onset proxy is not independently established malicious-action onset.",
+      "cohort": {
+        "instances": 114,
+        "selection": "All author-annotated instances, SHA256(casino-robustness-v1:instance) sorted order",
+        "split_sizes": {
+          "fit": 60,
+          "development": 18,
+          "calibration": 18,
+          "test": 18
+        },
+        "reason": "The initial24-instance feasibility sample had no T1068 and one T1548 test annotation. Expanded before any Casino model fit or outcome inspection, using all available annotated instances rather than selecting favorable cases.",
+        "source_annotation_counts_before_event_join": {
+          "fit": {
+            "T1068": 78,
+            "T1548": 88,
+            "T1105": 124
+          },
+          "development": {
+            "T1068": 44,
+            "T1548": 48,
+            "T1105": 34
+          },
+          "calibration": {
+            "T1068": 23,
+            "T1548": 38,
+            "T1105": 87
+          },
+          "test": {
+            "T1068": 14,
+            "T1548": 39,
+            "T1105": 17
+          }
+        },
+        "support_note": "These are annotation inventory counts, not final deduplicated event targets or independent attacks."
+      }
+    },
+    "camlds": {
+      "targets": [
+        "T1105"
+      ],
+      "role": "Conditional external family-held-out interval-state recognition, not exact malicious-event onset or benign discrimination",
+      "split_rule": "Sort positive-bearing family IDs1,2,3,4,6 by SHA256(camlds-robustness-v2:+ID); first2 fit,next development,next calibration,last test; remaining families context reserve",
+      "prediction_unit": "First observed audit event per host per fixed10-second UTC bin chosen without labels; score only known author step intervals; preserve all underlying events as strictly prior context",
+      "qualification": "Both target and other-technique labels required in fit/calibration/test; report actual overlap/support and temporal-label limitations"
+    }
+  },
+  "models": [
+    "semantic_event",
+    "entity_context",
+    "random_dropout",
+    "type_dropout",
+    "mixed_dropout",
+    "observed_router"
+  ],
+  "classifier": {
+    "type": "LogisticRegression",
+    "C": 1.0,
+    "class_weight": "balanced",
+    "solver": "liblinear",
+    "max_iter": 2000,
+    "random_state": 20260920
+  },
+  "text_features": {
+    "hash_dimensions_per_block": 32768,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "alternate_sign": false,
+    "norm": "l2",
+    "vocabulary_fit": "none; fixed feature hashing"
+  },
+  "history": {
+    "seconds": 120,
+    "max_events": 32,
+    "require_strictly_earlier_event_timestamp": true,
+    "entity_keys": "Only keys explicitly present in currently visible target and prior fragments; run and host scoped. No label inputs."
+  },
+  "metadata_features": "Only observed record counts, record types, context count and context age; no true deletion mask or attacker identifiers",
+  "dropout_training": {
+    "views": [
+      "clean",
+      "random_25",
+      "random_50"
+    ],
+    "seed": 20260920,
+    "sample_weight_per_view": "1 divided by number of views, preserving total clean training weight and effective regularization",
+    "include_empty_view_labels_in_training": true,
+    "empty_view_prediction": "forced no alarm in every arm",
+    "views_by_arm": "Use arms[name].views; keep1/number_of_views sample weight per row; single-view arms unweighted"
+  },
+  "seeds": [
+    20260920,
+    20260921,
+    20260922
+  ],
+  "conditions": [
+    {
+      "name": "clean",
+      "kind": "clean",
+      "deadline": 0
+    },
+    {
+      "name": "random_25",
+      "kind": "random",
+      "drop_probability": 0.25,
+      "deadline": 0
+    },
+    {
+      "name": "random_50",
+      "kind": "random",
+      "drop_probability": 0.5,
+      "deadline": 0
+    },
+    {
+      "name": "random_75",
+      "kind": "random",
+      "drop_probability": 0.75,
+      "deadline": 0
+    },
+    {
+      "name": "support_burst_60",
+      "kind": "support_burst",
+      "seconds": 60,
+      "deadline": 0
+    },
+    {
+      "name": "command_records_absent",
+      "kind": "channel_absent",
+      "channels": [
+        "EXECVE",
+        "PROCTITLE"
+      ],
+      "deadline": 0
+    },
+    {
+      "name": "delay_30_deadline_0",
+      "kind": "delay",
+      "channels": [
+        "EXECVE",
+        "PROCTITLE"
+      ],
+      "delay_seconds": 30,
+      "deadline": 0
+    },
+    {
+      "name": "delay_30_deadline_30",
+      "kind": "delay",
+      "channels": [
+        "EXECVE",
+        "PROCTITLE"
+      ],
+      "delay_seconds": 30,
+      "deadline": 30
+    },
+    {
+      "name": "delay_120_deadline_0",
+      "kind": "delay",
+      "channels": [
+        "EXECVE",
+        "PROCTITLE"
+      ],
+      "delay_seconds": 120,
+      "deadline": 0
+    },
+    {
+      "name": "delay_120_deadline_30",
+      "kind": "delay",
+      "channels": [
+        "EXECVE",
+        "PROCTITLE"
+      ],
+      "delay_seconds": 120,
+      "deadline": 30
+    },
+    {
+      "name": "delay_120_deadline_120",
+      "kind": "delay",
+      "channels": [
+        "EXECVE",
+        "PROCTITLE"
+      ],
+      "delay_seconds": 120,
+      "deadline": 120
+    },
+    {
+      "name": "execve_absent",
+      "kind": "channel_absent",
+      "channels": [
+        "EXECVE"
+      ],
+      "deadline": 0
+    },
+    {
+      "name": "proctitle_absent",
+      "kind": "channel_absent",
+      "channels": [
+        "PROCTITLE"
+      ],
+      "deadline": 0
+    },
+    {
+      "name": "syscall_absent",
+      "kind": "channel_absent",
+      "channels": [
+        "SYSCALL"
+      ],
+      "deadline": 0
+    },
+    {
+      "name": "path_absent",
+      "kind": "channel_absent",
+      "channels": [
+        "PATH"
+      ],
+      "deadline": 0
+    }
+  ],
+  "perturbation_scope": "Random removal applies consistently to current and prior record fragments. Support burst removes only preceding 60 seconds at each target query, a targeted stress test rather than a shared physical outage. Channel removal is audit record-type removal, not a whole sensor outage.",
+  "decision_time": "Target event timestamp plus common deadline. Only fragments whose simulated availability <= deadline and source timestamp <= target event time; no later source events. Native fragment arrival times are not measured.",
+  "delay_interpretation": "At deadline >= injected deterministic delay, the clean view is restored by construction. Recovery is a buffering/replay control with a latency cost, not evidence of a learned robustness improvement.",
+  "empty_targets": "Retain target in denominators, score 0, force no alarm, report observed-target coverage. Offline source-event roster is evaluator knowledge, not a deployable event trigger.",
+  "calibration": {
+    "negative_label_fpr_budget": 0.01,
+    "source": "Clean calibration only, separately for each model and target; frozen across perturbations",
+    "interpretation": "Other-label event flag rate, not verified benign false alarms or a population bound"
+  },
+  "metrics": [
+    "fixed_0.5_precision_recall_f1",
+    "calibrated_precision_recall_f1",
+    "roc_auc",
+    "average_precision",
+    "negative_label_flag_rate",
+    "target_observation_coverage",
+    "runwise_metrics",
+    "runtime"
+  ],
+  "target_support": "Require both classes in fit, calibration and test; otherwise report unsupported without training target. Counts are correlated events, not independent attacks.",
+  "success_interpretation": "Report paired per-run changes and actual flag burden at each common deadline. Three removal seeds characterize perturbation variability only. No significance claim from row resampling; no cherry-picked seed or target; absence of improvement closes the tested control, not all context methods.",
+  "novelty": "Type dropout, mixtures of experts and observed-input routing are existing methods. This is a feasibility/control experiment; no novel algorithm or APT detection claim is established.",
+  "arms": {
+    "semantic_event": {
+      "family": "semantic_event",
+      "views": [
+        "clean"
+      ]
+    },
+    "entity_context": {
+      "family": "entity_context",
+      "views": [
+        "clean"
+      ]
+    },
+    "random_dropout": {
+      "family": "entity_context",
+      "views": [
+        "clean",
+        "random_25",
+        "random_50"
+      ]
+    },
+    "type_dropout": {
+      "family": "entity_context",
+      "views": [
+        "clean",
+        "execve_absent",
+        "proctitle_absent",
+        "command_records_absent"
+      ]
+    },
+    "mixed_dropout": {
+      "family": "entity_context",
+      "views": [
+        "clean",
+        "random_25",
+        "random_50",
+        "execve_absent",
+        "proctitle_absent",
+        "command_records_absent"
+      ]
+    },
+    "observed_router": {
+      "family": "entity_context",
+      "views": [
+        "clean",
+        "random_25",
+        "random_50",
+        "execve_absent",
+        "proctitle_absent",
+        "command_records_absent"
+      ]
+    }
+  },
+  "router": {
+    "state": "Current visible EXECVE bit plus2 times current visible PROCTITLE bit; metadata indices2 and3 after two text blocks",
+    "minimum_unique_positive_targets": 5,
+    "minimum_unique_negative_targets": 25,
+    "support_count": "Unique underlying fit event IDs with observed evidence, never augmented row count",
+    "empty_rows": "Exclude fully unobserved views from specialists; retain1/6 weights for remaining rows",
+    "fallback": "Already-fitted mixed_dropout single model for insufficient route support",
+    "capacity_note": "Up to4 additional logistic regressions; secondary descriptive control, not equal parameter budget",
+    "forbidden": "True deletion mask, condition names, hidden full-event channels, history channel state, future events"
+  },
+  "primary_comparison": {
+    "candidate": "mixed_dropout",
+    "baseline": "random_dropout",
+    "point": "calibrated",
+    "per_target_gates": {
+      "command_records_absent_f1_delta_min": 0.05,
+      "command_records_absent_recall_delta_min": -0.02,
+      "command_records_absent_flag_rate_delta_max": 0.005,
+      "clean_f1_delta_min": -0.02,
+      "random_50_mean_f1_delta_min": -0.02
+    },
+    "interpretation": "All five descriptive gates required; no significance/population noninferiority guarantee. Secondary arms remain secondary irrespective of results."
+  },
+  "freeze": "No target/condition/arm/threshold/gate changes after fit. AIT/Casino exposed development; CAM method frozen before CAM outcomes. Preserve negative results and baseline reproduction checks."
+}

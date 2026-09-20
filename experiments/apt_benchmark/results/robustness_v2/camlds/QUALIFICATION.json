@@ -1,0 +1,815 @@
+{
+  "status": "QUALIFIED_MANIFESTATION_WINDOW_PROXY_NOT_MALICIOUS_EVENT_GOLD",
+  "dataset": "camlds",
+  "events_sha256": "17bbb1a7cf7b55ff5f8bf72a88fd8cc9c54f563d0f368441a1a626537356620a",
+  "events": 691563,
+  "eligible_targets": 6524,
+  "selection": {
+    "frozen_before_label_join_counts": true,
+    "family_splits": {
+      "3": "fit",
+      "6": "fit",
+      "2": "development",
+      "4": "calibration",
+      "1": "test"
+    },
+    "reserved_zero_T1105_families": [
+      "5",
+      "7"
+    ],
+    "runs": [
+      "1_autostart_localaccount",
+      "1_autostart_pam",
+      "1_autostart_sshkey",
+      "1_cron_localaccount",
+      "1_cron_pam",
+      "1_cron_sshkey",
+      "1_pwnkit_localaccount",
+      "1_pwnkit_pam",
+      "1_pwnkit_sshkey",
+      "1_racecondition_localaccount",
+      "1_racecondition_pam",
+      "1_racecondition_sshkey",
+      "1_sudo_localaccount",
+      "1_sudo_pam",
+      "1_sudo_sshkey",
+      "1_validaccount_localaccount",
+      "1_validaccount_pam",
+      "1_validaccount_sshkey",
+      "2_cron",
+      "2_rootkit",
+      "3_ssh_apt",
+      "3_ssh_healthcheck",
+      "3_ssh_puppet",
+      "3_vnc_apt",
+      "3_vnc_healthcheck",
+      "3_vnc_puppet",
+      "4",
+      "6_macro_binary",
+      "6_macro_cron",
+      "6_plugin",
+      "6_screensharing_binary",
+      "6_screensharing_cron"
+    ],
+    "split_rule": "SHA256(camlds-robustness-v2:family), first2 fit, next development/calibration/test",
+    "query_rule": "First event by (timestamp,event_id) per host per fixed10-second UTC bin; choose before annotation lookup",
+    "target_semantics": "Author-designated technique manifestation-window membership at query timestamp; not literal active-step time or individual-event maliciousness",
+    "annotated_interval_join": "Author start <= source timestamp < end endpoints; union overlaps is a local convention, not author-extractor equivalence",
+    "source_window_construction": "Command timestamp minus2 seconds to output completion plus4 seconds, with manual start/end shifts and sleep-based end extensions in pinned author extraction script",
+    "author_source_commit": "44028d8bd40a4a1d8bbbc6ee33261d47cb433827",
+    "labels_sha256": "cc27fee6d78b6de3d5d2172b334269bbcd9747dac80b6882e8982229b2540afe",
+    "attack_times_sha256": "e300f508c5611e11a835d2dea575b152e85c9eed08ac3e945ec7f42cc0433d81",
+    "adapter_sha256": "c60f664cb364eedaeede8c43c50fb149d3fe82470521f8246a6bc0ba89b5ef2a",
+    "shared_fragment_adapter_sha256": "e2dc9571bb40543c3c53016064f71f53dacd3e3d51ddf4a6bfb27397b625fe7b",
+    "pre_fit_text_repair": {
+      "reason": "Pre-fit source review found fixed cross-host LINUXSHARE identifiers in lexical feature text",
+      "added_fixed_hostnames": [
+        "linuxshare",
+        "corpdns",
+        "reposerver"
+      ],
+      "permitted_mutations": [
+        "fragments[].text",
+        "fragments[].baseline_text"
+      ],
+      "prior_events_sha256": "95ccab6ee76963940fbf2835680b121f5e1ca56dbd967f2b7739e855eaebf19c",
+      "prior_manifest_sha256": "4298418aaca0031f7b44130c109142b80e8329b1d75424db61f4e493796b31e5",
+      "prior_selection_sha256": "0f272017a07fbe2a7689d9d2dcd808afd01a88b2d940e7df3b5f6fc543829fa8",
+      "prior_adapter_sha256": "59ff1066474c5cbced08c35305b1f3f47321a71ca024c9ad7a7807ed1c932c0c",
+      "adapter_sha256": "c60f664cb364eedaeede8c43c50fb149d3fe82470521f8246a6bc0ba89b5ef2a",
+      "repair_code_sha256": "2fdee26f0dc39aca34811f2a850ce450928014109a41f5cb2e21a5f37c0a4c7c",
+      "raw_logs_reparsed": false,
+      "models_fit_or_scored_by_repair": false
+    }
+  },
+  "selection_sha256": "f12939fb51dd8d495829d26f9792866bc8f1c5c221a1899f628c89160017093b",
+  "source_record": "https://zenodo.org/records/18861762",
+  "license": "CC-BY-4.0",
+  "paper": "https://doi.org/10.1007/s10207-026-01318-x",
+  "support": {
+    "T1068": {
+      "fit": {
+        "n": 2060,
+        "positive": 0,
+        "negative": 2060,
+        "runs": 11,
+        "families": [
+          "3",
+          "6"
+        ],
+        "positive_bearing_runs": 0
+      },
+      "development": {
+        "n": 187,
+        "positive": 0,
+        "negative": 187,
+        "runs": 2,
+        "families": [
+          "2"
+        ],
+        "positive_bearing_runs": 0
+      },
+      "calibration": {
+        "n": 68,
+        "positive": 0,
+        "negative": 68,
+        "runs": 1,
+        "families": [
+          "4"
+        ],
+        "positive_bearing_runs": 0
+      },
+      "test": {
+        "n": 4209,
+        "positive": 3,
+        "negative": 4206,
+        "runs": 18,
+        "families": [
+          "1"
+        ],
+        "positive_bearing_runs": 2
+      }
+    },
+    "T1548": {
+      "fit": {
+        "n": 2060,
+        "positive": 0,
+        "negative": 2060,
+        "runs": 11,
+        "families": [
+          "3",
+          "6"
+        ],
+        "positive_bearing_runs": 0
+      },
+      "development": {
+        "n": 187,
+        "positive": 0,
+        "negative": 187,
+        "runs": 2,
+        "families": [
+          "2"
+        ],
+        "positive_bearing_runs": 0
+      },
+      "calibration": {
+        "n": 68,
+        "positive": 8,
+        "negative": 60,
+        "runs": 1,
+        "families": [
+          "4"
+        ],
+        "positive_bearing_runs": 1
+      },
+      "test": {
+        "n": 4209,
+        "positive": 8,
+        "negative": 4201,
+        "runs": 18,
+        "families": [
+          "1"
+        ],
+        "positive_bearing_runs": 3
+      }
+    },
+    "T1105": {
+      "fit": {
+        "n": 2060,
+        "positive": 214,
+        "negative": 1846,
+        "runs": 11,
+        "families": [
+          "3",
+          "6"
+        ],
+        "positive_bearing_runs": 9
+      },
+      "development": {
+        "n": 187,
+        "positive": 6,
+        "negative": 181,
+        "runs": 2,
+        "families": [
+          "2"
+        ],
+        "positive_bearing_runs": 2
+      },
+      "calibration": {
+        "n": 68,
+        "positive": 8,
+        "negative": 60,
+        "runs": 1,
+        "families": [
+          "4"
+        ],
+        "positive_bearing_runs": 1
+      },
+      "test": {
+        "n": 4209,
+        "positive": 100,
+        "negative": 4109,
+        "runs": 18,
+        "families": [
+          "1"
+        ],
+        "positive_bearing_runs": 18
+      }
+    }
+  },
+  "family_qualified_target": "T1105",
+  "unqualified_targets": [
+    "T1068",
+    "T1548"
+  ],
+  "limits": [
+    "Only one calibration and one test scenario family; variants are correlated repetitions",
+    "Scenario manifestation windows apply across all defender hosts; unrelated or idle host activity can inherit window membership",
+    "Author windows are padded and manually shifted, with sleep extensions; window membership is not a literal active-step or early-warning label",
+    "No ordinary benign-user workload; other technique intervals are not benign ground truth",
+    "Interval labels can include idle activity and delayed manifestations across boundaries",
+    "Event time substitutes for native record availability; injected delays are synthetic",
+    "Fixed-bin source-event roster is retained under missingness; hidden targets remain misses",
+    "Only audit records are used; this is not whole18-source sensor evaluation",
+    "No attacker execution logs, interval boundaries, scenario names, labels or step IDs enter feature text"
+  ],
+  "private_manifest_sha256": "3596db41fd7aef1c999d589042f14985631a3dd20aad0d68455e9f6ba515313b",
+  "runs": [
+    {
+      "run_id": "1_autostart_localaccount",
+      "family": "1",
+      "split": "test",
+      "events": 12679,
+      "eligible_targets": 220,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 9
+      },
+      "source_acquisition_sha256": "e8c642b5763876fc0d3fa36a6629541804d94e4fc559dce2fc3af8d2fc903879",
+      "source_anchor_validation": {
+        "chronology_records": 53,
+        "verified_label_anchors": 28,
+        "chronology_sha256": "f7c4fcced2dff909fa4aa70a4369e72d7c0b947765053e487deb9ddd213f3504"
+      }
+    },
+    {
+      "run_id": "1_autostart_pam",
+      "family": "1",
+      "split": "test",
+      "events": 12725,
+      "eligible_targets": 228,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 10
+      },
+      "source_acquisition_sha256": "67db831315219a4cbe6a6b8289355886e5aa877925f3f96a605adcb8afb0b273",
+      "source_anchor_validation": {
+        "chronology_records": 53,
+        "verified_label_anchors": 28,
+        "chronology_sha256": "b9f7f77387c6b71150797fb5bb71baa4e364d730ed5f68d274cb201da2482a65"
+      }
+    },
+    {
+      "run_id": "1_autostart_sshkey",
+      "family": "1",
+      "split": "test",
+      "events": 12682,
+      "eligible_targets": 230,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 7
+      },
+      "source_acquisition_sha256": "f07b93a6213b0a0c6ab5874f5e6910650c48e11f8976cada64f99919c71ac90d",
+      "source_anchor_validation": {
+        "chronology_records": 53,
+        "verified_label_anchors": 28,
+        "chronology_sha256": "a0ac46834070aec418cb790ebdcf9382b399efdc4257c50a7e119e3824c669ac"
+      }
+    },
+    {
+      "run_id": "1_cron_localaccount",
+      "family": "1",
+      "split": "test",
+      "events": 10171,
+      "eligible_targets": 260,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 8
+      },
+      "source_acquisition_sha256": "0c35f64ac33b526a7e9317d97a1c0e15fe6f742f16edc6ccddf888d38d9a95f3",
+      "source_anchor_validation": {
+        "chronology_records": 49,
+        "verified_label_anchors": 30,
+        "chronology_sha256": "715f4da4b06ebee63b5bef81f03efa2ada6b1499f02da666cc63e0e42bb41e42"
+      }
+    },
+    {
+      "run_id": "1_cron_pam",
+      "family": "1",
+      "split": "test",
+      "events": 10148,
+      "eligible_targets": 282,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 8
+      },
+      "source_acquisition_sha256": "ea1491dfcbcff10f1c9f21785835048b9fb64e63937381b26afff916a38732fa",
+      "source_anchor_validation": {
+        "chronology_records": 49,
+        "verified_label_anchors": 30,
+        "chronology_sha256": "2c73c801bd696914ecc4cb71504f13997b5e900f4f093f227526bcc5a412a4d0"
+      }
+    },
+    {
+      "run_id": "1_cron_sshkey",
+      "family": "1",
+      "split": "test",
+      "events": 10537,
+      "eligible_targets": 251,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 6
+      },
+      "source_acquisition_sha256": "05e4b364cb691b73d0341c6eae497edd890d2f821df5102692bc7d78749be8e1",
+      "source_anchor_validation": {
+        "chronology_records": 49,
+        "verified_label_anchors": 30,
+        "chronology_sha256": "99b80fec06f6d2f039ee5a6506a5254898d08cc8c23f0ae672e218ca22da6630"
+      }
+    },
+    {
+      "run_id": "1_pwnkit_localaccount",
+      "family": "1",
+      "split": "test",
+      "events": 9648,
+      "eligible_targets": 168,
+      "positive_targets": {
+        "T1068": 1,
+        "T1548": 0,
+        "T1105": 3
+      },
+      "source_acquisition_sha256": "b01760f7423d2a6458cfa19e856ee8731a0474960deb9b151c64c0852d05cf09",
+      "source_anchor_validation": {
+        "chronology_records": 39,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "514dcc125335603f8e8c43d1386b439878091c5616d833bf82cda076948437ac"
+      }
+    },
+    {
+      "run_id": "1_pwnkit_pam",
+      "family": "1",
+      "split": "test",
+      "events": 9462,
+      "eligible_targets": 164,
+      "positive_targets": {
+        "T1068": 2,
+        "T1548": 0,
+        "T1105": 4
+      },
+      "source_acquisition_sha256": "ce4f892cc2e4fbcd7da6fda2843a5ecb581408dad811020268286bc54156bd3b",
+      "source_anchor_validation": {
+        "chronology_records": 39,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "b8c72a8295463fdf7a4c1885e48d02462f31938378505996a4fc39691ee89910"
+      }
+    },
+    {
+      "run_id": "1_pwnkit_sshkey",
+      "family": "1",
+      "split": "test",
+      "events": 9465,
+      "eligible_targets": 154,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 2
+      },
+      "source_acquisition_sha256": "2bc1b11e7f3cfe788d322bddf2956ea608a8b0ed5f884b26c50debb0ef1f973a",
+      "source_anchor_validation": {
+        "chronology_records": 39,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "97620f0173c341e21d22e4ed423c006a656c422664872798351c16ad1d634809"
+      }
+    },
+    {
+      "run_id": "1_racecondition_localaccount",
+      "family": "1",
+      "split": "test",
+      "events": 10780,
+      "eligible_targets": 417,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 11
+      },
+      "source_acquisition_sha256": "d7b6bd445bd35434ccb8cba65340e5dc4d9abe97a3282cbff8f7afff29c5aef6",
+      "source_anchor_validation": {
+        "chronology_records": 53,
+        "verified_label_anchors": 34,
+        "chronology_sha256": "97fa062280f76ee29998a60e6ef11cfc949ca40ebd951867cce9a6ab6cb7c7a5"
+      }
+    },
+    {
+      "run_id": "1_racecondition_pam",
+      "family": "1",
+      "split": "test",
+      "events": 10900,
+      "eligible_targets": 435,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 9
+      },
+      "source_acquisition_sha256": "3723a4340ee3129937ea8b13822c108543ec1d32b375427e1129c0431b736805",
+      "source_anchor_validation": {
+        "chronology_records": 53,
+        "verified_label_anchors": 34,
+        "chronology_sha256": "54778d12977fe3dc6362e0d4f696761c92f0c6f6bda2a0c9d127850ad8dab820"
+      }
+    },
+    {
+      "run_id": "1_racecondition_sshkey",
+      "family": "1",
+      "split": "test",
+      "events": 10817,
+      "eligible_targets": 419,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 8
+      },
+      "source_acquisition_sha256": "d7328b08c89681b9bcd26e2fdcabf6d3cb615d81355011719c9193f3e7b83b4c",
+      "source_anchor_validation": {
+        "chronology_records": 54,
+        "verified_label_anchors": 34,
+        "chronology_sha256": "58787e9b5a551d9cf718b1516185159b7bfda45a89de237e8b3abf7f4a9bd23e"
+      }
+    },
+    {
+      "run_id": "1_sudo_localaccount",
+      "family": "1",
+      "split": "test",
+      "events": 9528,
+      "eligible_targets": 169,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 2,
+        "T1105": 3
+      },
+      "source_acquisition_sha256": "b1c3a8d44825070e4b886d7dce29bfc1bad312d07be0b2473d249e39ab13d8ee",
+      "source_anchor_validation": {
+        "chronology_records": 38,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "2605654884b046514d4e02bd90a9d59a22672ee208473bddb5ef8c4c04a0fed3"
+      }
+    },
+    {
+      "run_id": "1_sudo_pam",
+      "family": "1",
+      "split": "test",
+      "events": 9541,
+      "eligible_targets": 169,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 3,
+        "T1105": 1
+      },
+      "source_acquisition_sha256": "3b6b1b2c0684a80cd4250998dd30813975e8df7bd65055ec78a8e0e21b5d9118",
+      "source_anchor_validation": {
+        "chronology_records": 38,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "c1c28e5001eb31b5951eb37f7b1901f5b13367c173366f65a3c478e5a8d7837a"
+      }
+    },
+    {
+      "run_id": "1_sudo_sshkey",
+      "family": "1",
+      "split": "test",
+      "events": 9544,
+      "eligible_targets": 164,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 3,
+        "T1105": 2
+      },
+      "source_acquisition_sha256": "8cd5872d83a851ea3506f3a6063fffec9e8ba6c33436f14054db34f3d5ed7be9",
+      "source_anchor_validation": {
+        "chronology_records": 38,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "f3aff8b17d29546880b877e46d80aefe419c5d79ad8ee722a439d3a0a1767222"
+      }
+    },
+    {
+      "run_id": "1_validaccount_localaccount",
+      "family": "1",
+      "split": "test",
+      "events": 9590,
+      "eligible_targets": 164,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 3
+      },
+      "source_acquisition_sha256": "3ee6c3c7c3952957d91958162cfc4bbe67a801c7b9df3ea83cefa0be7194a37e",
+      "source_anchor_validation": {
+        "chronology_records": 38,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "a1a1674f6622d8f2a419c95877ff04511549b0e5c4fa000b4359522a4b6839a3"
+      }
+    },
+    {
+      "run_id": "1_validaccount_pam",
+      "family": "1",
+      "split": "test",
+      "events": 9633,
+      "eligible_targets": 156,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 4
+      },
+      "source_acquisition_sha256": "c275682bde8c3c3813445e04dfa06e8e2cdf976fc6c5a4356c988463251ad4b2",
+      "source_anchor_validation": {
+        "chronology_records": 38,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "95942d534b862d566fd6583f5aa54e310679865a9587a4fb20d63aa562298c17"
+      }
+    },
+    {
+      "run_id": "1_validaccount_sshkey",
+      "family": "1",
+      "split": "test",
+      "events": 9618,
+      "eligible_targets": 159,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 2
+      },
+      "source_acquisition_sha256": "7770844618ed58e24668bc87c98fbe24dcb9f278f7a2e00e7df2b908557a7439",
+      "source_anchor_validation": {
+        "chronology_records": 38,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "0f2b25c8ad5851791755c93b4418767c8960c012bc1ec047291023a049080479"
+      }
+    },
+    {
+      "run_id": "2_cron",
+      "family": "2",
+      "split": "development",
+      "events": 1164,
+      "eligible_targets": 158,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 2
+      },
+      "source_acquisition_sha256": "8281836270f10f82d00d5932ec5f7163427f085968c9e69ee690c130592fc88a",
+      "source_anchor_validation": {
+        "chronology_records": 29,
+        "verified_label_anchors": 21,
+        "chronology_sha256": "a3ecc2ed061e134771372228a60f8d90c0663a55e9c77e21db12bd494741a455"
+      }
+    },
+    {
+      "run_id": "2_rootkit",
+      "family": "2",
+      "split": "development",
+      "events": 1081,
+      "eligible_targets": 29,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 4
+      },
+      "source_acquisition_sha256": "31cd46f38917ad26303a18837b94124bc98b6db9afd58b015842ec031a0c05b4",
+      "source_anchor_validation": {
+        "chronology_records": 43,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "1acce6874de30abe3a0e0228ca01ea5235c3096b71e42034a38114d97f51b0ba"
+      }
+    },
+    {
+      "run_id": "3_ssh_apt",
+      "family": "3",
+      "split": "fit",
+      "events": 14547,
+      "eligible_targets": 84,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 4
+      },
+      "source_acquisition_sha256": "c4f409a6ae4d54bbb16c3e5dffc3a051f311a10e0f61eba1e8648795fa149701",
+      "source_anchor_validation": {
+        "chronology_records": 55,
+        "verified_label_anchors": 32,
+        "chronology_sha256": "bc115fb2c2f105fe80906fb4ae84c0aa1782d7ab3de25f214b65e86f0ce183d1"
+      }
+    },
+    {
+      "run_id": "3_ssh_healthcheck",
+      "family": "3",
+      "split": "fit",
+      "events": 10971,
+      "eligible_targets": 83,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 1
+      },
+      "source_acquisition_sha256": "0dc5b4158f03c361193dedfadeeab7eaecb4a7f773536883767d93a34cdb68e9",
+      "source_anchor_validation": {
+        "chronology_records": 41,
+        "verified_label_anchors": 26,
+        "chronology_sha256": "7acac219c6a3e070fb7a0d28e599d1a56bf04535465843a8865786630f9a4f99"
+      }
+    },
+    {
+      "run_id": "3_ssh_puppet",
+      "family": "3",
+      "split": "fit",
+      "events": 2664,
+      "eligible_targets": 67,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 32
+      },
+      "source_acquisition_sha256": "81da236eabe4230035633d229586fcf539b6eccc5491bcc25274d853ca30891b",
+      "source_anchor_validation": {
+        "chronology_records": 39,
+        "verified_label_anchors": 25,
+        "chronology_sha256": "4d0539094dcc91fb7c0fcaef0c1ab00001e67d03f49e385b6de187a5d5a3fae9"
+      }
+    },
+    {
+      "run_id": "3_vnc_apt",
+      "family": "3",
+      "split": "fit",
+      "events": 11043,
+      "eligible_targets": 117,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 3
+      },
+      "source_acquisition_sha256": "0d3bd92498199007a6189e2b02c7995836e787eff9ab743e1c4269bab6058b44",
+      "source_anchor_validation": {
+        "chronology_records": 77,
+        "verified_label_anchors": 28,
+        "chronology_sha256": "f23c0feb662e73b33d6cde975e8f2e50f2b0668357d622cb58810c230357b89c"
+      }
+    },
+    {
+      "run_id": "3_vnc_healthcheck",
+      "family": "3",
+      "split": "fit",
+      "events": 10367,
+      "eligible_targets": 133,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 0
+      },
+      "source_acquisition_sha256": "1290b7029bb6543520e7b55e03f7d3e1e072fe6d68316247331165c45ee297e8",
+      "source_anchor_validation": {
+        "chronology_records": 64,
+        "verified_label_anchors": 25,
+        "chronology_sha256": "d25421acf26fef8eeed399a6500bdd6bb6c80b1446c936f27a9f733b0e8c5adf"
+      }
+    },
+    {
+      "run_id": "3_vnc_puppet",
+      "family": "3",
+      "split": "fit",
+      "events": 1562,
+      "eligible_targets": 114,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 11
+      },
+      "source_acquisition_sha256": "bc4c6eecead9b0c8db9bff08c82751e4e9c04d35799809f2e22f4c25ead4e435",
+      "source_anchor_validation": {
+        "chronology_records": 67,
+        "verified_label_anchors": 22,
+        "chronology_sha256": "3eb70467db4fd80bb1c4f2a868bf4ff272f3e289b572c37ab0dbda1afaf6ecc9"
+      }
+    },
+    {
+      "run_id": "4",
+      "family": "4",
+      "split": "calibration",
+      "events": 3477,
+      "eligible_targets": 68,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 8,
+        "T1105": 8
+      },
+      "source_acquisition_sha256": "9c1e42497db70ecf75388078ecf91e496bb6924fce342e4ce8154282f1daae4d",
+      "source_anchor_validation": {
+        "chronology_records": 46,
+        "verified_label_anchors": 22,
+        "chronology_sha256": "1d51160952ac632b6d99373e992da941f8adda63c9ea5a85460dee3b649df7f4"
+      }
+    },
+    {
+      "run_id": "6_macro_binary",
+      "family": "6",
+      "split": "fit",
+      "events": 1617,
+      "eligible_targets": 71,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 10
+      },
+      "source_acquisition_sha256": "33082f279d8b6ba17b3644b51d581232436446b37552dffe09d58868aec84593",
+      "source_anchor_validation": {
+        "chronology_records": 51,
+        "verified_label_anchors": 23,
+        "chronology_sha256": "3a4d9d215ba7fcd014511c22baa13cc726aa97cadb146728fea89c9e3359ef4c"
+      }
+    },
+    {
+      "run_id": "6_macro_cron",
+      "family": "6",
+      "split": "fit",
+      "events": 2109,
+      "eligible_targets": 191,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 8
+      },
+      "source_acquisition_sha256": "0d232d1b11529ff31f24fc8f5475e795b02d3f686753be9c7ba79edd1d8bbaa9",
+      "source_anchor_validation": {
+        "chronology_records": 51,
+        "verified_label_anchors": 21,
+        "chronology_sha256": "52471fdd0daea14abf526ba05d2708d0b721204bbf19a4475c5008c97bf45a83"
+      }
+    },
+    {
+      "run_id": "6_plugin",
+      "family": "6",
+      "split": "fit",
+      "events": 7477,
+      "eligible_targets": 101,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 0
+      },
+      "source_acquisition_sha256": "fbc7fd3f6e4fe3662e84f6b2b28200b3ca856224e51b2c8430866c44c64756bd",
+      "source_anchor_validation": {
+        "chronology_records": 56,
+        "verified_label_anchors": 13,
+        "chronology_sha256": "fb7999db3036c7828bd4de24e3ac6c902acb2b79abc551b517501b1a75fdb4d1"
+      }
+    },
+    {
+      "run_id": "6_screensharing_binary",
+      "family": "6",
+      "split": "fit",
+      "events": 224059,
+      "eligible_targets": 521,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 64
+      },
+      "source_acquisition_sha256": "21e340f0ba28c23417dee6d68b8478d90f853c1747351b964b93cb0174f5a055",
+      "source_anchor_validation": {
+        "chronology_records": 178,
+        "verified_label_anchors": 39,
+        "chronology_sha256": "188be4bcb5df53495643095575bb91ef37dfcbd83f3217a7d1c9476710863ff6"
+      }
+    },
+    {
+      "run_id": "6_screensharing_cron",
+      "family": "6",
+      "split": "fit",
+      "events": 211957,
+      "eligible_targets": 578,
+      "positive_targets": {
+        "T1068": 0,
+        "T1548": 0,
+        "T1105": 81
+      },
+      "source_acquisition_sha256": "dd4a95bebcf1b3274321dbe5a27700645b5defdfd07e0a85b575bbdd17922798",
+      "source_anchor_validation": {
+        "chronology_records": 165,
+        "verified_label_anchors": 34,
+        "chronology_sha256": "f7b5663e429a58b0b2dee53b1e7f2ae418113ac0cfbe1bd05ea8cc7b38ac5386"
+      }
+    }
+  ]
+}
