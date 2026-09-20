@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "study": "APT investigation identity and evidence selection headroom screen",
+  "scope": "DEVELOPMENT_BASELINE_SCREEN_NOT_LLM_OR_ATTACK_DETECTION_EVALUATION",
+  "source_archive_sha256": "98a073140860560d70080ace9142961be4f64b4862bae892d62d0f254d0fdbe5",
+  "source_repository_commit": "d9d40ef123d2c87d5d3df28c96bcab4f0faccc87",
+  "source_json_records_expected": 196081,
+  "source_creation_identities_expected": 447,
+  "source_network_records_expected": 1229,
+  "sampling_salt": "apt-investigation-headroom-v1-20260920",
+  "sampling": "Ascending SHA256(salt + pipe + stratum + pipe + source_event_ref), then source_event_ref",
+  "cohorts": [
+    {"name": "natural_parent", "n": 20, "population": "All valid Sysmon process creations with nonzero parent GUID"},
+    {"name": "natural_network", "n": 20, "population": "All valid Sysmon network events with nonzero owning process GUID"},
+    {"name": "ambiguous_parent", "n": 20, "population": "Parent anchors whose same-host parent basename matches at least two distinct recorded creation GUIDs, excluding natural_parent anchors"}
+  ],
+  "question": "Return the recorded creation event for the parent/owning process: its image, UTC creation time and exact source reference. If absent or conflicting in this capture, report insufficient evidence or ambiguity.",
+  "gold": "Independent source-table scan by host and normalized target GUID; equivalent records allow multiple acceptable references, conflicting metadata requires ambiguity. Never infer creation time from event collection time.",
+  "anchors": "Methods receive the unmodified normalized source anchor including GUIDs; identifiers are never synthetically removed from mandatory baselines.",
+  "methods": ["name_nearest_time", "name_time_abstain", "exact_guid_join", "compact_guid_join"],
+  "weak_baselines": ["name_nearest_time", "name_time_abstain"],
+  "strong_baselines": ["exact_guid_join", "compact_guid_join"],
+  "evidence_record_budgets": [2, 4],
+  "evidence_accounting": "Count anchor plus unique returned creation events. Explicit absence/conflict is an index result, with lookup work reported separately. Charge compact aliases and their maps in serialized bytes.",
+  "primary_endpoint": "Incorrect or unsupported identity answers among answered questions, with correct supported recovery and answered coverage reported separately",
+  "secondary_endpoints": ["correct abstentions", "wrong abstentions", "retrieved source records", "records inspected", "index lookups", "UTF8 serialized bytes", "whole-batch latency"],
+  "latency_repetitions": 31,
+  "decision": "NO_GO_NO_HEADROOM if either strong baseline recovers every available creation answer with zero unsupported answers and correct abstention on every unavailable/conflicting case. Stop before an LLM/new selector experiment. Otherwise diagnose the natural remaining error before freezing a separate Stage B protocol.",
+  "future_stage_b_gate": "Only after natural headroom: primary >=30% relative reduction in wrong links at matched answered coverage and <=2 percentage-point reduction in correct recovery versus strongest comparator. Evidence-cost reduction is secondary and cannot rescue a failed primary endpoint.",
+  "limitations": [
+    "One exposed APT29 emulation day, not independent campaigns or a blind confirmation set.",
+    "Direct recorded-identity retrieval is intentionally a cheap screen; exact joins are expected to be strong.",
+    "Twenty difficult cases are deliberately enriched; pooled error rate is not population prevalence.",
+    "No model efficacy, malicious intent, APT actor attribution or human time saving is measured.",
+    "No invented missing data, renamings, attack labels, clock corrections or synthetic attacks.",
+    "No label-based case selection or retuning; related process families remain dependent observations."
+  ]
+}
