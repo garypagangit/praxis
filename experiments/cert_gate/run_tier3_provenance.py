@@ -4,6 +4,7 @@ from collections import Counter
 from datetime import datetime, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -87,6 +88,7 @@ def run(suricata_dir, rules_archive, pcaps, private, output, instrumentation_onl
               "portable_runtime_sha256": {p.name: sha(p) for p in sorted(suricata_dir.iterdir()) if p.is_file() and p.suffix.lower() in (".exe", ".dll")},
               "portable_runtime_note": "Official MSI extracted without installation. Missing wpcap.dll supplied by MSYS2 libpcap1.10.6-3 under the required DLL name, plus existing Git OpenSSL libraries; exact binaries pinned. Offline -r only; no service or capture driver installed.",
               "checksum_policy": "-k none: explicit offline capture-offload accommodation; no detection-accuracy claim",
+              "process_timezone": "TZ=UTC0; process-local deterministic UTC rendering, not an offset correction to evidence",
               "scenario_label_policy": "Existing SIABench labels describe original Snort scenarios; never propagate them to all packets or regenerated Suricata alerts."}
     write(output/"GENERATION_FREEZE.json", freeze)
     runs = {}
@@ -96,7 +98,10 @@ def run(suricata_dir, rules_archive, pcaps, private, output, instrumentation_onl
         run_dir.mkdir()
         command = [str(binary), "-c", str(config_path), "-r", str(capture), "-l", str(run_dir), "--runmode", "single", "-k", "none"]
         started = time.perf_counter()
-        completed = subprocess.run(command, cwd=suricata_dir, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        execution_environment = dict(os.environ)
+        execution_environment["TZ"] = "UTC0"
+        completed = subprocess.run(command, cwd=suricata_dir, env=execution_environment,
+                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                    text=True, errors="replace", timeout=180)
         (run_dir/"EXECUTION.txt").write_text(completed.stdout, encoding="utf-8")
         rule_counts = re.search(r"(\d+) rules successfully loaded, (\d+) rules failed, (\d+) rules skipped", completed.stdout)
