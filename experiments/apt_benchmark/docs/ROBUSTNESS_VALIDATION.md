@@ -3,12 +3,21 @@
 Validated September 20, 2026, before the full CasinoLimit model comparison.
 
 - `python -m unittest discover -s experiments/apt_benchmark/tests -v`:
-  **80 tests passed** in 17.963 seconds.
+  **88 tests passed** in 24.852 seconds after the faster history lookup was integrated.
 - A private synthetic end-to-end integration run compared the original and
   cached execution paths. All saved prediction arrays, target rosters,
   calibration thresholds and reported metrics were exactly equal. It also
   exercised an unsupported target. These synthetic scores are software checks,
   not research evidence and are not published as dataset performance.
+- A second synthetic end-to-end check compared the faster streamed path with
+  the original uncached model run. Prediction arrays, thresholds, metrics and
+  unsupported-target handling were exactly equal. Its independent result audit
+  passed all 40 reported comparisons and reproduced eight calibration thresholds.
+- Eight added FastReplay tests cover dense histories, all declared loss/delay
+  conditions, multiple/tied entity keys, missing linkage and long runs of hidden
+  recent events. The optimization uses an ordinary lazy heap merge to avoid
+  sorting every candidate; it is an implementation improvement, not a new
+  attack-recognition method. The original Replay remains the comparison reference.
 - Cache tests compare every scheduled feature/observation view to the same
   causal Replay implementation, including lowercase source channels, unlabeled
   context, arbitrary row order, missing records and delays. Complete source

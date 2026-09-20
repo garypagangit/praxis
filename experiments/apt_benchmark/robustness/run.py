@@ -136,6 +136,7 @@ def run(events_path, manifest_path, dataset, output, protocol_path, feature_cach
     code_files = [Path(__file__), Path(__file__).with_name("replay.py"), Path(__file__).parents[1] / "models.py"]
     if feature_cache is not None:
         code_files.append(Path(__file__).with_name("feature_cache.py"))
+        code_files.append(Path(__file__).with_name("replay_fast.py"))
         result["feature_cache_manifest_sha256"] = sha256(Path(feature_cache) / "MANIFEST.json")
     receipt = {"frozen_before_fit": True, "input_sha256": result["input_sha256"],
                "protocol": protocol, "protocol_sha256": result["protocol_sha256"],

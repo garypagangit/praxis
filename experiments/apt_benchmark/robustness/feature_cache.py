@@ -20,7 +20,7 @@ import sqlite3
 import numpy as np
 from scipy import sparse
 
-from .replay import Replay
+from .replay_fast import FastReplay
 
 
 ROLES = ("fit", "development", "calibration", "test")
@@ -141,7 +141,7 @@ def _process_run(events, role, ordinal, output, protocol, jobs):
             stream.write(_canonical(value) + "\n")
     chunks = {}
     if len(indices) and jobs[role]:
-        replay = Replay(events, protocol["history"]["seconds"], protocol["history"]["max_events"])
+        replay = FastReplay(events, protocol["history"]["seconds"], protocol["history"]["max_events"])
         for key, specification in jobs[role].items():
             matrix, observed = replay.matrix(indices, specification["condition"], specification["seed"],
                                               specification["family"], specification["dimensions"])
@@ -170,6 +170,7 @@ def prepare(events_path, manifest_path, protocol_path, output_dir):
     jobs = _jobs(protocol)
     manifest_sha, protocol_sha = _sha(manifest_path), _sha(protocol_path)
     replay_sha, code_sha = _sha(Path(__file__).with_name("replay.py")), _sha(Path(__file__))
+    fast_replay_sha = _sha(Path(__file__).with_name("replay_fast.py"))
     output.mkdir(parents=True)
     digest = hashlib.sha256()
     summaries, seen_runs = [], set()
@@ -217,7 +218,8 @@ def prepare(events_path, manifest_path, protocol_path, output_dir):
     if not summaries or digest.hexdigest() != expected_events_sha:
         raise ValueError("Empty source or streamed event hash differs from source manifest")
     if (_sha(manifest_path) != manifest_sha or _sha(protocol_path) != protocol_sha
-            or _sha(Path(__file__).with_name("replay.py")) != replay_sha or _sha(Path(__file__)) != code_sha):
+            or _sha(Path(__file__).with_name("replay.py")) != replay_sha or _sha(Path(__file__)) != code_sha
+            or _sha(Path(__file__).with_name("replay_fast.py")) != fast_replay_sha):
         raise ValueError("Source metadata/protocol/feature implementation changed during preparation")
     # Only eligible metadata and sparse target matrices are combined, never
     # complete source events from prior runs. Canonical ordering matches Replay.
@@ -269,12 +271,12 @@ def prepare(events_path, manifest_path, protocol_path, output_dir):
         "created_utc": datetime.now(timezone.utc).isoformat(), "events_sha256": digest.hexdigest(),
         "source_manifest_sha256": manifest_sha, "protocol_sha256": protocol_sha,
         "protocol_canonical_sha256": _value_sha(protocol), "protocol": protocol,
-        "replay_sha256": replay_sha, "cache_code_sha256": code_sha,
+        "replay_sha256": replay_sha, "fast_replay_sha256": fast_replay_sha, "cache_code_sha256": code_sha,
         "source_event_count": source_count, "target_count": target_count,
         "source_id_uniqueness_sha256": _sha(identity_path),
         "targets_file": "TARGETS.jsonl", "targets_sha256": _sha(target_path),
         "ordering": "run_id lexical, then timestamp/event_id; exact original load_events eligible-target order",
-        "feature_generation": "Original frozen Replay.matrix on all per-run context; no model fit/inference",
+        "feature_generation": "Exact-equivalent FastReplay views with the original frozen Replay.matrix feature builder; no model fit/inference",
         "memory_policy": "One full source run at a time, released after its target chunks; combined matrices contain eligible rows only",
         "role_mapping": role_mapping, "runs": summaries, "matrices": matrices}
     _write(output / "MANIFEST.json", result)
@@ -294,6 +296,7 @@ class CachedReplay:
         if manifest["protocol_canonical_sha256"] != _value_sha(manifest["protocol"]):
             raise ValueError("Cache embedded protocol is inconsistent")
         if (manifest["replay_sha256"] != _sha(Path(__file__).with_name("replay.py"))
+                or manifest["fast_replay_sha256"] != _sha(Path(__file__).with_name("replay_fast.py"))
                 or manifest["cache_code_sha256"] != _sha(Path(__file__))):
             raise ValueError("Runtime replay/cache implementation differs from prepared cache")
         target_path = self._checked_file(manifest["targets_file"], manifest["targets_sha256"])
