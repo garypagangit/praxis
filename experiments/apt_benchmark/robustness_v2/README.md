@@ -25,7 +25,7 @@ The router can contain five logistic regressions, including its fallback, so its
 ## Data and claim limits
 
 - AIT escalation and CasinoLimit T1068/T1548/T1105 are exposed development tasks. Existing v1 source bytes, splits and results are preserved.
-- CAM-LDS T1105 is a conditional external family-held-out check using a different interval-state proxy. First events in fixed ten-second host bins are chosen without labels, then scored only inside author-labeled step intervals. Complete audit-event history remains available subject to the same causal horizon. This is not exact malicious-event onset, verified benign discrimination, or all-stage APT detection.
+- CAM-LDS T1105 is a conditional external family-held-out check using author-designated manifestation-window membership. First events in fixed ten-second host bins are chosen without labels, then scored only inside those windows. Complete audit-event history remains available subject to the same causal horizon. This is not exact malicious-event onset, verified benign discrimination, or all-stage APT detection.
 - Calibration and test positives are correlated events, often from few executions. A 1% calibration other-label flag budget can fail under shift; actual test rates must be shown.
 - Removing audit record types simulates missing records, not a whole sensor outage. Full-delay recovery is a buffering control by construction.
 - S-DAPT-2026 remains [conditionally registered](../sdapt2026/README.md), pending qualified raw data and corrected source evidence.
