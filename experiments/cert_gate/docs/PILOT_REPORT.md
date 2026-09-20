@@ -1,5 +1,7 @@
 # The workaround produced a positive exploratory benchmark
 
+**Historical pilot.** The later [final automated continuation](FINAL_REPORT.md) found no added benefit from the proposed checker and substantial concentration in the harder test. Use that report for the current praxis decision; the pilot below is preserved unchanged as earlier evidence.
+
 **September 20, 2026.** We separated score-only triage from the unavailable full evidence gate, registered that change before model fitting, and ran a real SecAlertBench experiment. This keeps the project moving without claiming that the original G0 requirements passed.
 
 ## What the experiment shows

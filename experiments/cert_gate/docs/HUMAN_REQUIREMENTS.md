@@ -1,6 +1,6 @@
 # Completing the outstanding human and data work
 
-**Prepared; no review or author correspondence completed.** These study requirements come from the supplied proposal and [registration](../REGISTRATION.json). They do not prevent the completed software and artifact checks.
+**Historical human-review requirements; no human review or author correspondence completed.** The user subsequently requested an automated substitute for the exploratory work. The [bot review and final checker comparison](FINAL_REPORT.md) complete that amended automated scope. These original requirements are preserved for stronger confirmation; they did not block the automated continuation and are not falsely marked satisfied by a bot.
 
 **Update:** the amended [score-only pilot](PILOT_REPORT.md) has now run while these stronger validation requirements remain open. Email and the human audit did not block that exploratory run. Gary may perform the audit himself with relevant experience and single-rater limitations documented; an external reviewer is not required.
 

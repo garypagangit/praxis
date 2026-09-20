@@ -2,7 +2,9 @@
 
 **Branch: `cert-gate`. Built and started September 20, 2026.** Offline research; no live alert is suppressed.
 
-**Update: a real-data score-only pilot is now complete.** The calibrated cutoff removed 1,076/1,123 benign test representatives (95.81%) and 1/491 attacks (0.20%). A separate packet-provenance prototype also ran. [Current results and next steps](docs/PILOT_REPORT.md), [prospective pilot protocol](PILOT_PROTOCOL.json).
+**Final automated continuation: the added checker showed no benefit.** On the harder unseen-rule test, the calibrated full scorer and checker both cleared 1,610/1,696 benign-labeled representatives (94.93%) and 0/412 attack-labeled representatives. Their per-row decisions were identical across all six test settings. One component contains 87.62% of benign examples, so the high aggregate clearance rate is not evidence of broad reliability. [Final report](docs/FINAL_REPORT.md), [all benchmark results](results/final_generalization_20260920/RESULTS.json), [frozen continuation protocol](FINAL_PROTOCOL.json).
+
+A pinned Qwen bot also completed the 50-case automated review: **10 agreements, 24 disagreements and 16 unusable responses**. Its 20% agreement failed the 45/50 benchmark. See [bot results](results/automated_review_20260920/RESULTS.json), [confusion-table recount](results/automated_review_20260920/RECOUNT.json), and [reusable bot instructions](docs/AUTOMATED_REVIEW.md). This is automated review, not fulfillment of the historical human-review criterion. AWS is verified stopped. The [earlier score-only pilot](docs/PILOT_REPORT.md) and packet-provenance attempts remain as history.
 
 The program evaluates how much benign-alert workload can be removed while controlling the fraction of actual attacks suppressed. Useful suppression is an empirical question. Statistical risk control, integrity checks and novelty are separate requirements.
 
@@ -19,7 +21,7 @@ The [startup report](docs/STARTUP_REPORT.md) records the earlier software-only s
 
 The first-attempt G0 and qualification folders remain as audit history. Use the linked **v2** receipts and `human_review_v2` packet. No human review has been completed. The later score-only pilot reports real-data exploratory performance; full-gate efficacy and operational certification remain unproven.
 
-The original [registration](REGISTRATION.json) released G0 and software qualification. The new [pilot protocol](PILOT_PROTOCOL.json) releases a fixed exploratory score-only benchmark and compact packet-linkage checks. [Amendments](AMENDMENTS.md) preserve that sequence. Published-model reproduction and confirmatory G2-G5 remain gated; exploratory success is not a pass for those stages.
+The original [registration](REGISTRATION.json) released G0 and software qualification. The [pilot protocol](PILOT_PROTOCOL.json) released score-only exploration and compact packet-linkage checks; [FINAL_PROTOCOL.json](FINAL_PROTOCOL.json) released the completed automated continuation. [Amendments](AMENDMENTS.md) preserve that sequence. Published-model reproduction and confirmatory G2-G5 remain uncompleted; the original full gate is not declared validated.
 
 ## Risk contract
 
@@ -31,7 +33,7 @@ Raw downloaded corpora and human-review excerpts stay outside Git. Committed man
 
 ## Reproduce software checks
 
-Use Python 3.11 and [requirements.txt](requirements.txt). From the repository root, use direct script paths; these modules are not packaged for `python -m` invocation:
+Use Python 3.11 and [requirements.txt](requirements.txt). From the repository root, use the direct paths below for the older runners. The new bot modules also support `python -m experiments.cert_gate...` invocation:
 
 ```powershell
 python -m unittest discover -s experiments/cert_gate/tests -v
@@ -40,7 +42,7 @@ python experiments/cert_gate/make_fixture.py --output experiments/cert_gate/resu
 python experiments/cert_gate/replay.py --input experiments/cert_gate/results/my_fixture/INPUT.json --output experiments/cert_gate/results/my_fixture/run
 ```
 
-Output paths must be new; runners preserve attempts. The tested local interpreter is `C:/w/cti_checker_env_20260918/Scripts/python.exe`. No GPU is needed. Replay accepts only explicitly declared software fixtures until the real-data protocol is released. A scope label does not authenticate data provenance.
+Output paths must be new; runners preserve attempts. The tested local interpreter is `C:/w/cti_checker_env_20260918/Scripts/python.exe`. The SVM benchmarks and software checks need no GPU; the completed Qwen audit used the existing authorized AWS GPU host. Fixture replay remains explicitly separate from the real-data benchmark. A scope label does not authenticate data provenance.
 
 To repeat G0 against the acquired artifact, use new private/output folders:
 
@@ -54,7 +56,7 @@ The [manifest](data_manifest/G0_DATASET_RECEIPT.json) pins source commits, hashe
 
 `scorers.py` implements character-TFIDF/linear SVM, a Qwen JSON adapter requiring an immutable revision, and learned fusion of two score columns. Higher scores mean more benign. Training requires a declared fitting role; actual split integrity remains the caller's responsibility. Feature serialization excludes labels and derived attack tags.
 
-SVM unit tests use artificial examples; the later pilot fits the fixed SVM to real fitting representatives. Fusion remains fixture-tested only. Qwen has not been downloaded or run for this study. No published-model reproduction is claimed.
+SVM unit tests use artificial examples; the pilot and final comparison fit fixed SVMs to real fitting representatives. Fusion remains fixture-tested only. The separate [automated reviewer](auto_review.py) ran pinned Qwen3-4B-Instruct-2507 on 50 blinded cases; the older QwenJSONScorer adapter was not used as a benchmark arm. No published-model reproduction is claimed.
 
 ## Reproduce the exploratory pilot
 
@@ -67,3 +69,13 @@ python experiments/cert_gate/exploratory_benchmark.py --source 'C:/w/cert_gate_d
 Primary and all-row secondary results, resampling bands, timing and private hashes are in [the pilot receipt](results/score_only_pilot_20260920/RESULTS.json). A repeat on the same test data is a reproducibility check, not fresh confirmation.
 
 For packet replay, see [the acquisition memo](docs/TIER3_FEASIBILITY.md), [runtime audit](docs/TIER3_RUNTIME_AUDIT.md), and the exact command/configuration and binary/rule hashes in [the generation freeze](results/tier3_instrumentation_20260920_v2_utc/GENERATION_FREEZE.json). The diagnostic rules exercise packet links and make no attack judgment.
+
+## Reproduce the final comparison
+
+Use fresh output directories and the same pinned source. The runner verifies committed operative bytes, fits four models across two split regimes, freezes all cutoffs, and evaluates eight arms under three conditions:
+
+```powershell
+python experiments/cert_gate/generalization_benchmark.py --source 'C:/w/cert_gate_data_20260920/access_review/SecAlertBench/0x02. Processed SecAlertBench Dataset/secalertbench.json' --protocol experiments/cert_gate/FINAL_PROTOCOL.json --audit experiments/cert_gate/results/g0_20260920_v2/ELIGIBILITY_AND_REVIEW.json --private-output 'C:/w/cert_gate_data_20260920/my_generalization_repeat' --output experiments/cert_gate/results/my_generalization_repeat
+```
+
+The final software suite passed **93 tests**. [Verification receipt](results/final_verification_20260920/TEST_RECEIPT.json), [AI-assisted code and saved-results audit](docs/FINAL_SOFTWARE_AUDIT.md). Repeating this observed test does not create independent confirmation.
