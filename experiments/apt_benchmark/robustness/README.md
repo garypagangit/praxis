@@ -73,9 +73,14 @@ python -m unittest discover -s experiments/apt_benchmark/tests -v
 python -m experiments.apt_benchmark.robustness.ait_events --source-root C:/w/apt_benchmark_data_20260920/ait/partial_lds --protocol experiments/apt_benchmark/protocol.json --output C:/w/apt_benchmark_data_20260920/robustness_new/ait
 python -m experiments.apt_benchmark.robustness.run --events C:/w/apt_benchmark_data_20260920/robustness_new/ait/EVENTS.jsonl --manifest C:/w/apt_benchmark_data_20260920/robustness_new/ait/MANIFEST.json --dataset ait --output C:/w/apt_benchmark_data_20260920/robustness_new/ait_run
 python -m experiments.apt_benchmark.robustness.casino_events --root C:/w/apt_benchmark_data_20260920/robustness_new/casino --acquire --output C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.jsonl
-python -m experiments.apt_benchmark.robustness.run --events C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.jsonl --manifest C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.receipt.json --dataset casino --protocol experiments/apt_benchmark/robustness/casino_protocol.json --output C:/w/apt_benchmark_data_20260920/robustness_new/casino_run
+python -m experiments.apt_benchmark.robustness.feature_cache --events C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.jsonl --manifest C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.receipt.json --protocol experiments/apt_benchmark/robustness/casino_protocol.json --output C:/w/apt_benchmark_data_20260920/robustness_new/casino_features
+python -m experiments.apt_benchmark.robustness.run --events C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.jsonl --manifest C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.receipt.json --dataset casino --protocol experiments/apt_benchmark/robustness/casino_protocol.json --feature-cache C:/w/apt_benchmark_data_20260920/robustness_new/casino_features --output C:/w/apt_benchmark_data_20260920/robustness_new/casino_run
 ```
 
 See the operative [protocol](protocol.json), [replay](replay.py), [runner](run.py)
 and per-run pre-fit receipts. The development split is reserved; no search over
 its results selected a favorable model or corruption seed in this suite.
+
+The full Casino corpus is processed one execution at a time. The feature cache
+uses the same causal replay and binds its input/protocol/code/matrix hashes; it
+changes memory use without changing the experiment's information or target set.

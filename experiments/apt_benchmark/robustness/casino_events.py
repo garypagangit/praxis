@@ -12,12 +12,13 @@ from __future__ import annotations
 import argparse
 from bisect import bisect_left
 from collections import Counter, defaultdict
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 import hashlib
 import ipaddress
 import json
 from pathlib import Path, PurePosixPath
 import re
+import shutil
 import struct
 import zipfile
 import zlib
@@ -128,6 +129,8 @@ def _fetch_audit(reader: RangeReader, url: str, size: int, item: dict, root: Pat
 
 
 def acquire(root: Path) -> dict:
+    if (root / "FROZEN_EVENT_STREAM.json").exists():
+        raise ValueError("Completed event evidence is immutable; use a fresh acquisition directory")
     root.mkdir(parents=True, exist_ok=True)
     response = requests.get(f"https://zenodo.org/api/records/{RECORD}", timeout=60)
     response.raise_for_status()
@@ -184,8 +187,11 @@ def decode_value(value: str) -> str:
     return value
 
 
-def fragment(raw: str, run: str, host: str, timestamp: float, identities: set[str] | None = None) -> dict:
+def fragment(raw: str, run: str, host: str, timestamp: float) -> dict:
     fields = dict(FIELD.findall(raw))
+    local_identities = {value.casefold() for value in re.findall(
+        r'(?<!\w)(?:AUID|UID|EUID|SUID|FSUID|acct)="([^"\n]+)"', raw)
+        if value not in ("root", "unset", "?", "(unknown)") and not value.isdigit()}
     kind = fields.get("type", "UNKNOWN")
     keys = []
     for name, prefix in (("pid", "proc"), ("ppid", "proc"), ("ses", "session")):
@@ -201,10 +207,11 @@ def fragment(raw: str, run: str, host: str, timestamp: float, identities: set[st
             decoded = re.sub(r"\b(?:start|meetingcam|bastion|intranet)(?:[-.]\w+)*\b", "HOST", decoded)
             decoded = re.sub(r"\b(?:tbenedict|danny|rusty|linus|casino\w*)\b", "USER", decoded, flags=re.I)
             decoded = re.sub(r"/home/[^/\s]+", "/home/USER", decoded)
+            decoded = re.sub(r"\b[A-Za-z_][\w.-]*@", "USER@", decoded)
+            decoded = re.sub(r"((?:^|\s)(?:-u|--user|-l)(?:=|\s+))[A-Za-z_][\w.-]*", r"\1USER", decoded)
             decoded = re.sub(r"\b(?:flag|ctf|breizh)[a-z0-9_{}-]*\b", "CHALLENGE_MARKER", decoded, flags=re.I)
-            identity_set = identities or set()
             decoded = re.sub(r"[A-Za-z0-9_][A-Za-z0-9_.-]*", lambda m: "IDENTITY" if
-                             m[0].casefold() == run.casefold() or m[0].casefold() in identity_set else m[0], decoded)
+                             m[0].casefold() == run.casefold() or m[0].casefold() in local_identities else m[0], decoded)
             def mask_ipv6(match):
                 try:
                     ipaddress.IPv6Address(match[0])
@@ -247,16 +254,10 @@ def host_events(path: Path, run: str, host: str, role: str, labels: dict, lookba
     earliest = {}
     earliest_keys = {}
     seen_ids = {}
-    identities = set()
     lines = 0
     with path.open(encoding="utf-8", errors="replace") as f:
         for raw in f:
             lines += 1
-            # Identity masking uses source identity fields solely to remove
-            # identifiers; it cannot add predictive tokens or labels.
-            for name in re.findall(r'(?<!\w)(?:AUID|UID|EUID|SUID|FSUID|acct)="([^"\n]+)"', raw):
-                if name not in ("root", "unset", "?", "(unknown)") and not name.isdigit():
-                    identities.add(name.casefold())
             match = AUDIT.search(raw)
             if not match:
                 continue
@@ -322,7 +323,7 @@ def host_events(path: Path, run: str, host: str, role: str, labels: dict, lookba
                                "labels": source_labels, "target_eligible": eligible,
                                "label_status": "source_annotated" if source_labels else "unlabeled_unknown",
                                "fragments": []}
-            events[key]["fragments"].append(fragment(raw.rstrip(), run, host, timestamp, identities))
+            events[key]["fragments"].append(fragment(raw.rstrip(), run, host, timestamp))
     for event in events.values():
         event["entity_keys"] = sorted({key for frag in event["fragments"] for key in frag["entity_keys"]})
     stats = {"source_lines": lines, "annotated_audit_event_ids": len(lookup),
@@ -332,51 +333,82 @@ def host_events(path: Path, run: str, host: str, role: str, labels: dict, lookba
     return sorted(events.values(), key=lambda e: (e["timestamp"], e["event_id"])), stats
 
 
-def build(root: Path, destination: Path) -> dict:
+def _build_run(job: tuple) -> dict:
+    root, run, role, members, staging = job
+    with zipfile.ZipFile(root / "output.zip") as output, zipfile.ZipFile(root / "syslogs_labels.zip") as source_labels:
+        labels = json.loads(source_labels.read(f"system_labels/{run}.json"))
+        richer = json.loads(output.read(f"output/system_labels/{run}.json"))
+    if not set(labels).issubset(richer):
+        raise ValueError("Exported annotation IDs have no source process annotation")
+    for annotation in labels:
+        if labels[annotation]["technique"] != richer[annotation]["technique"]:
+            raise ValueError("Exported technique disagrees with process annotation")
+    doubtful = sum(bool(v.get("doubt")) for v in richer.values())
+    labels = {k: v for k, v in labels.items() if not richer.get(k, {}).get("doubt", False)}
+    events = []
+    totals, counts, source_techniques = Counter(), Counter(), Counter()
+    for item in members:
+        parts = item["name"].split("/")
+        path = root / item["name"]
+        if sha256(path) != item["sha256"]:
+            raise ValueError("Acquired source member changed")
+        found, stats = host_events(path, run, machine_name(parts[2]), role, labels)
+        totals.update(stats)
+        events.extend(found)
+    part = staging / (run + ".jsonl")
+    with part.open("w", encoding="utf-8", newline="\n") as stream:
+        for event in sorted(events, key=lambda e: (e["timestamp"], e["event_id"])):
+            stream.write(json.dumps(event, ensure_ascii=False) + "\n")
+            counts["all_events"] += 1
+            if event["target_eligible"]:
+                counts["target_events"] += 1
+                for label in event["labels"]:
+                    source_techniques[label] += 1
+                    counts[label.split(":", 1)[0]] += 1
+    result = {"run": run, "split": role, "counts": dict(counts), "totals": dict(totals),
+              "source_techniques": dict(source_techniques), "doubtful": doubtful,
+              "part": str(part), "part_sha256": sha256(part), "part_bytes": part.stat().st_size}
+    part.with_suffix(".stats.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    return result
+
+
+def build(root: Path, destination: Path, workers: int = 2) -> dict:
+    if destination.with_suffix(".receipt.json").exists() or (root / "FROZEN_EVENT_STREAM.json").exists():
+        raise ValueError("Completed event evidence is immutable; use a fresh output and acquisition directory")
     acquisition = json.loads((root / "ACQUISITION.json").read_text(encoding="utf-8"))
     roles = acquisition["splits"]
-    output = zipfile.ZipFile(root / "output.zip")
-    source_labels = zipfile.ZipFile(root / "syslogs_labels.zip")
+    if workers not in (1, 2):
+        raise ValueError("Use one or two bounded build workers")
     totals = Counter()
     split_counts = defaultdict(Counter)
     source_techniques = Counter()
     doubtful = 0
     destination.parent.mkdir(parents=True, exist_ok=True)
+    staging = root / "EVENT_BUILD_PARTS"
+    staging.mkdir(exist_ok=True)
+    jobs = [(root, run, role, [item for item in acquisition["members"] if item["name"].split("/")[1] == run], staging)
+            for run, role in roles.items()]
     pending = destination.with_suffix(destination.suffix + ".part")
-    with pending.open("w", encoding="utf-8", newline="\n") as stream:
-        for run, role in roles.items():
-            labels = json.loads(source_labels.read(f"system_labels/{run}.json"))
-            richer = json.loads(output.read(f"output/system_labels/{run}.json"))
-            if not set(labels).issubset(richer):
-                raise ValueError("Exported annotation IDs have no source process annotation")
-            for annotation in labels:
-                if labels[annotation]["technique"] != richer[annotation]["technique"]:
-                    raise ValueError("Exported technique disagrees with process annotation")
-            doubtful += sum(bool(v.get("doubt")) for v in richer.values())
-            # Source-doubt is excluded from targets, not silently promoted to
-            # ground truth. It remains unknown context if referenced by logs.
-            labels = {k: v for k, v in labels.items() if not richer.get(k, {}).get("doubt", False)}
-            events = []
-            for item in acquisition["members"]:
-                parts = item["name"].split("/")
-                if parts[1] != run:
-                    continue
-                path = root / item["name"]
-                if sha256(path) != item["sha256"]:
-                    raise ValueError("Acquired source member changed")
-                found, stats = host_events(path, run, machine_name(parts[2]), role, labels)
-                totals.update(stats)
-                events.extend(found)
-            for event in sorted(events, key=lambda e: (e["timestamp"], e["event_id"])):
-                stream.write(json.dumps(event, ensure_ascii=False) + "\n")
-                split_counts[role]["all_events"] += 1
-                if event["target_eligible"]:
-                    split_counts[role]["target_events"] += 1
-                    for label in event["labels"]:
-                        source_techniques[label] += 1
-                        split_counts[role][label.split(":", 1)[0]] += 1
-            print(json.dumps({"run_complete": run, "split": role, "events": len(events),
-                              "targets": sum(e["target_eligible"] for e in events)}), flush=True)
+    pool = ProcessPoolExecutor(max_workers=workers) if workers == 2 else None
+    results = pool.map(_build_run, jobs) if pool else map(_build_run, jobs)
+    try:
+        with pending.open("wb") as stream:
+            for result in results:
+                part = Path(result["part"])
+                if sha256(part) != result["part_sha256"]:
+                    raise ValueError("Completed worker part changed")
+                with part.open("rb") as source:
+                    shutil.copyfileobj(source, stream, 1024 * 1024)
+                totals.update(result["totals"])
+                split_counts[result["split"]].update(result["counts"])
+                source_techniques.update(result["source_techniques"])
+                doubtful += result["doubtful"]
+                print(json.dumps({"run_complete": result["run"], "split": result["split"],
+                                  "events": result["counts"].get("all_events", 0),
+                                  "targets": result["counts"].get("target_events", 0)}), flush=True)
+    finally:
+        if pool:
+            pool.shutdown(wait=True, cancel_futures=True)
     pending.replace(destination)
     receipt = {"dataset": "CasinoLimit", "record": RECORD, "paper_doi": "10.1109/RAID67961.2025.00039",
                "dataset_url": f"https://zenodo.org/records/{RECORD}", "license": "CC-BY-4.0",
@@ -390,7 +422,7 @@ def build(root: Path, destination: Path) -> dict:
                "target_ids_frozen": list(TARGET_IDS), "splits": roles,
                "availability": "All audit fragments use source event epoch; no arrival time. This is idealized complete-event availability, with synthetic perturbation only.",
                "causal_context": "Consumer must use strictly earlier source timestamps and fragment-specific visible entity keys; event-wide keys metadata only.",
-               "feature_policy": "Casino retains lexical command/path arguments after masking source identity names, run IDs, addresses, numbers, long hex and technique/challenge markers. It differs from AIT fixed vocabulary; absolute scores are not directly comparable and shared challenge-template shortcuts remain possible.",
+               "feature_policy": "Casino retains lexical command/path arguments after fixed syntax and fragment-local identity masking, plus run IDs, addresses, numbers, long hex and technique/challenge markers. No full-file identity dictionary. It differs from AIT fixed vocabulary; absolute scores are not directly comparable and shared challenge-template shortcuts or unrecognized identity syntax remain possible.",
                "annotation_join": "Exact label IDs and technique strings verified between direct event export and richer process annotations; source-doubt annotations excluded.",
                "limitations": ["One repeated CTF challenge; collected May2024, published2025.",
                                "Instance-held-out only: repeated players may cross splits; player mapping unavailable.",
@@ -399,6 +431,11 @@ def build(root: Path, destination: Path) -> dict:
                                "No natural collection/arrival timestamps; missing and delayed telemetry are controlled simulations.",
                                "Technique recognition and within-dataset replication; no named APT actor attribution or cross-dataset transfer claim."]}
     destination.with_suffix(".receipt.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    (root / "FROZEN_EVENT_STREAM.json").write_text(json.dumps({
+        "event_path": str(destination.resolve()), "events_sha256": receipt["events_sha256"],
+        "event_receipt_sha256": sha256(destination.with_suffix(".receipt.json")),
+        "acquisition_sha256": receipt["acquisition_sha256"],
+        "adapter_sha256": receipt["adapter_sha256"]}, indent=2) + "\n", encoding="utf-8")
     return receipt
 
 
@@ -407,11 +444,12 @@ def main():
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--acquire", action="store_true")
+    parser.add_argument("--workers", type=int, choices=(1, 2), default=2)
     args = parser.parse_args()
     if args.acquire:
         acquire(args.root)
     if args.output:
-        result = build(args.root, args.output)
+        result = build(args.root, args.output, args.workers)
         print(json.dumps({"complete": True, "totals": result["totals"], "split_counts": result["split_counts"]}), flush=True)
 
 

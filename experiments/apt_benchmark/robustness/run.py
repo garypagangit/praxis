@@ -98,33 +98,50 @@ def report(result):
     return "\n".join(lines) + "\n"
 
 
-def run(events_path, manifest_path, dataset, output, protocol_path):
+def run(events_path, manifest_path, dataset, output, protocol_path, feature_cache=None):
     start = time.perf_counter()
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     protocol = json.loads(Path(protocol_path).read_text(encoding="utf-8"))
     manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
-    events = load_events(events_path)
+    input_hash = sha256(events_path)
+    if manifest.get("events_sha256") != input_hash:
+        raise ValueError("Source manifest does not bind this event corpus")
+    if feature_cache is not None:
+        from .feature_cache import CachedReplay
+        replay = CachedReplay(feature_cache, protocol, input_hash)
+        if replay.manifest["source_manifest_sha256"] != sha256(manifest_path):
+            raise ValueError("Feature cache source manifest differs from the fitted dataset manifest")
+        events = replay.events
+        source_event_count = replay.source_event_count
+    else:
+        events = load_events(events_path)
+        replay = Replay(events, protocol["history"]["seconds"], protocol["history"]["max_events"])
+        source_event_count = len(events)
     eligible = np.asarray([i for i, e in enumerate(events) if e.get("target_eligible", True)], dtype=int)
     indices = {split: np.asarray([i for i in eligible if events[i]["split"] == split], dtype=int)
                for split in ("fit", "development", "calibration", "test")}
-    replay = Replay(events, protocol["history"]["seconds"], protocol["history"]["max_events"])
     clean = protocol["conditions"][0]
     seed = protocol["classifier"]["random_state"]
     dimensions = protocol["text_features"]["hash_dimensions_per_block"]
     result = {
         "status": "RUNNING", "dataset": dataset,
-        "events": len(events), "eligible_targets": len(eligible),
-        "input_sha256": sha256(events_path), "manifest_sha256": sha256(manifest_path),
+        "events": source_event_count, "eligible_targets": len(eligible),
+        "input_sha256": input_hash, "manifest_sha256": sha256(manifest_path),
         "protocol_sha256": sha256(protocol_path),
         "python": platform.python_version(), "sklearn": sklearn.__version__,
         "targets": {}, "no_population_guarantee": True,
         "private_manifest_status": manifest.get("status", "see private manifest"),
     }
     code_files = [Path(__file__), Path(__file__).with_name("replay.py"), Path(__file__).parents[1] / "models.py"]
+    if feature_cache is not None:
+        code_files.append(Path(__file__).with_name("feature_cache.py"))
+        result["feature_cache_manifest_sha256"] = sha256(Path(feature_cache) / "MANIFEST.json")
     receipt = {"frozen_before_fit": True, "input_sha256": result["input_sha256"],
                "protocol": protocol, "protocol_sha256": result["protocol_sha256"],
                "code_sha256": {p.name: sha256(p) for p in code_files}}
+    if feature_cache is not None:
+        receipt["feature_cache_manifest_sha256"] = result["feature_cache_manifest_sha256"]
     save_json(output / "PRE_FIT_RECEIPT.json", receipt)
     save_json(output / "RESULTS.partial.json", result)
     # Matrices depend on inputs, never targets. Cache only the clean fit/cal views.
@@ -217,5 +234,6 @@ if __name__ == "__main__":
     parser.add_argument("--dataset", choices=("ait", "casino"), required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--protocol", type=Path, default=Path(__file__).with_name("protocol.json"))
+    parser.add_argument("--feature-cache", type=Path, help="Precomputed per-run causal features for corpora too large to materialize")
     args = parser.parse_args()
-    run(args.events, args.manifest, args.dataset, args.output, args.protocol)
+    run(args.events, args.manifest, args.dataset, args.output, args.protocol, args.feature_cache)

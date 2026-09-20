@@ -29,6 +29,7 @@ def publish(run_dir, manifest_path, events_path, destination):
         "adapter_sha256", "baseline_normalizer_sha256", "totals", "split_counts",
         "source_techniques_on_targets", "doubtful_annotations_excluded", "selection",
         "prediction_unit", "target_ids_frozen", "causal_context", "splits", "label_scope",
+        "feature_policy", "annotation_join", "prefit_amendment",
     }
     qualification = {k: v for k, v in manifest.items() if k in public_fields}
     qualification["source_manifest_sha256"] = result["manifest_sha256"]
