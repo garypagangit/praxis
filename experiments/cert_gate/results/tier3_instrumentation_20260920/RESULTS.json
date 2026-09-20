@@ -1,0 +1,135 @@
+{
+  "status": "INSTRUMENTATION_PACKET_LINKAGE_ONLY_NOT_THREAT_DETECTION",
+  "created_utc": "2026-09-20T16:18:50.004950+00:00",
+  "freeze_sha256": "a309efbae6db4adef95dcca9c712b8e56a5c863b784f2acec168b8fa7531499c",
+  "runs": {
+    "s2": {
+      "command": [
+        "C:\\w\\cert_gate_data_20260920\\tier3_tools\\suricata_portable\\SourceDir\\PFiles\\Suricata\\suricata.exe",
+        "-c",
+        "C:\\w\\cert_gate_data_20260920\\tier3_instrumentation_v1\\suricata.yaml",
+        "-r",
+        "C:\\w\\cert_gate_data_20260920\\tier3_compact\\pcaps\\s2\\capture.pcap",
+        "-l",
+        "C:\\w\\cert_gate_data_20260920\\tier3_instrumentation_v1\\s2",
+        "--runmode",
+        "single",
+        "-k",
+        "none"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.36469259997829795,
+      "rule_loading": {
+        "loaded": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      "events": {
+        "alert": 4424,
+        "flow": 2226,
+        "stats": 1
+      },
+      "alert_signature_counts": {
+        "9900001": 4338,
+        "9900002": 86
+      },
+      "alert_severity_counts": {
+        "3": 4424
+      },
+      "eve_sha256": "992fc0513dc4921b6e1d60445175fe0dba44c8aaf9a683c2904d759b8026b002",
+      "execution_log_sha256": "d8e132e3f69a800a8102913b2d44bb0e54b85685aa90c9c369371966403f2fbc",
+      "linkage": {
+        "status": "PROVENANCE_DIAGNOSTIC_ONLY_NO_ATTACK_LABEL_OR_CERTIFICATE",
+        "capture_packets": 5185,
+        "decodable_packets": 5154,
+        "event_type_counts": {
+          "alert": 4424,
+          "flow": 2226,
+          "stats": 1
+        },
+        "alert_status_counts": {
+          "MISMATCH": 4424
+        },
+        "alert_reason_counts": {
+          "pcap_filename_mismatch": 1,
+          "timestamp_mismatch": 4423
+        },
+        "timestamp_tolerance_microseconds": 1,
+        "pcap_sha256": "a540ea3c71406e881051706cde8433a9f7c38dfce58c591a64037b10934b86c1",
+        "eve_sha256": "992fc0513dc4921b6e1d60445175fe0dba44c8aaf9a683c2904d759b8026b002",
+        "code_sha256": "bd4c516595873ab3d81b439665a01783cdc813e183a1d5adb93e17451fcf71d7",
+        "scope": "Exact wire orientation; independent incident count and attack truth are not established"
+      }
+    },
+    "fs1": {
+      "command": [
+        "C:\\w\\cert_gate_data_20260920\\tier3_tools\\suricata_portable\\SourceDir\\PFiles\\Suricata\\suricata.exe",
+        "-c",
+        "C:\\w\\cert_gate_data_20260920\\tier3_instrumentation_v1\\suricata.yaml",
+        "-r",
+        "C:\\w\\cert_gate_data_20260920\\tier3_compact\\pcaps\\fs1\\capture.pcap",
+        "-l",
+        "C:\\w\\cert_gate_data_20260920\\tier3_instrumentation_v1\\fs1",
+        "--runmode",
+        "single",
+        "-k",
+        "none"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.31373290001647547,
+      "rule_loading": {
+        "loaded": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      "events": {
+        "alert": 360,
+        "flow": 197,
+        "stats": 1
+      },
+      "alert_signature_counts": {
+        "9900001": 161,
+        "9900002": 199
+      },
+      "alert_severity_counts": {
+        "3": 360
+      },
+      "eve_sha256": "9c250ad1cb9a05bc5d2c781ad5bee168b7a4b5f2095d06aef3f19c2a9640515d",
+      "execution_log_sha256": "65ec4dc3586a891e1593599401c55896ad597834992573622523bf984f0e1491",
+      "linkage": {
+        "status": "PROVENANCE_DIAGNOSTIC_ONLY_NO_ATTACK_LABEL_OR_CERTIFICATE",
+        "capture_packets": 5000,
+        "decodable_packets": 4152,
+        "event_type_counts": {
+          "alert": 360,
+          "flow": 197,
+          "stats": 1
+        },
+        "alert_status_counts": {
+          "MISMATCH": 355,
+          "UNVERIFIABLE": 5
+        },
+        "alert_reason_counts": {
+          "timestamp_mismatch": 355,
+          "non_ipv4": 5
+        },
+        "timestamp_tolerance_microseconds": 1,
+        "pcap_sha256": "ce7e03921cf52174d874251a279c96c20db7e6155e3636b04a11bf14cf295658",
+        "eve_sha256": "9c250ad1cb9a05bc5d2c781ad5bee168b7a4b5f2095d06aef3f19c2a9640515d",
+        "code_sha256": "bd4c516595873ab3d81b439665a01783cdc813e183a1d5adb93e17451fcf71d7",
+        "scope": "Exact wire orientation; independent incident count and attack truth are not established"
+      }
+    }
+  },
+  "attack_alert_truth_derived": false,
+  "suppression_evaluated": false,
+  "population_certificate": false,
+  "cloud_used": false,
+  "instrumentation_only": true,
+  "limitations": [
+    "Two author-selected scenario captures, not independent attack calibration evidence",
+    "Packet linkage proves field agreement, not benign intent or LLM injection resistance",
+    "No authenticated user identity or complete enterprise incident state is derived",
+    "Rules and engine differ from original scenario labeling; new alert labels require validation"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "status": "FROZEN_BEFORE_TEST_SCORING",
+  "created_utc": "2026-09-20T16:15:18.271418+00:00",
+  "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+  "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+  "protocol_sha256": "cad970b7947385ce68665a5115d01500015f6ee0675df6604fcfa44a0b1fd67c",
+  "git_commit": "873dc0abae91339bf11dac9ccd50acf2ba4f4604",
+  "committed_file_sha256": {
+    "experiments/cert_gate/exploratory_benchmark.py": "615dbf36ff0ba2bd4b5b5344154718808d688681f69984c9f6a2c5d6a11dd435",
+    "experiments/cert_gate/feature_grouping.py": "094e28a6ae23d8774a0774eb07067d2199f1adff2dc0ecdbd945283c3381dcc9",
+    "experiments/cert_gate/scorers.py": "0690da7844bd7b5db3d48279a366bcd083f8a7c75b8645193f94b639d7c8c039",
+    "experiments/cert_gate/calibration.py": "e269e5c2c012107942088df33b429b5375d235b2a5efb2bc4fe0f3cdcdd09a3c",
+    "experiments/cert_gate/PILOT_PROTOCOL.json": "cad970b7947385ce68665a5115d01500015f6ee0675df6604fcfa44a0b1fd67c"
+  },
+  "scorer": {
+    "status": "INTERFACE_ONLY_G0_INCOMPLETE_NO_EFFICACY_OR_REPRODUCTION_CLAIM",
+    "config": {
+      "kind": "char_tfidf_linear_svm",
+      "seed": 20260920,
+      "features": [
+        "rule_name",
+        "proto",
+        "method",
+        "host",
+        "uri",
+        "parameter",
+        "req_header",
+        "req_body",
+        "rsp_header",
+        "rsp_body",
+        "rsp_status"
+      ],
+      "analyzer": "char",
+      "ngram_range": [
+        3,
+        5
+      ],
+      "max_features": 50000,
+      "min_df": 2,
+      "sublinear_tf": true,
+      "lowercase": true,
+      "C": 1.0,
+      "class_weight": "balanced",
+      "max_iter": 10000,
+      "label_1": "attack",
+      "score": "negative_decision_function"
+    },
+    "config_sha256": "058dfc0c2610491d1edce2f710652359b830d66d004649d7e16d6f58d86df6ca",
+    "fit_sha256": "42acd8e06defbe457ba34058dc78b6ed9ea5fb1c3ee033e4fd5e89ed4a40a8da",
+    "libraries": {
+      "scikit-learn": "1.9.0",
+      "numpy": "2.4.6"
+    }
+  },
+  "scorer_execution": "FITTED_FIXED_RECIPE_ON_FIT_REPRESENTATIVES",
+  "fit_warnings": [],
+  "model_artifact_sha256": "7da39e387cb3fe8e70d321be32f68c38c50dd3c5f6b9b6084f85d9557b767610",
+  "split_manifest_sha256": "660b803316845f6967e93944afe3729dbcc6a40f5ee996c8de43a606d89d1934",
+  "pac_formula": {
+    "schema": "cert-gate-order-statistic-v1",
+    "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+    "comparison": "strict_greater_than",
+    "alpha": 0.01,
+    "delta": 0.05,
+    "n_attack": 727,
+    "n_eligible_attack": 727,
+    "allowed_exceedances": 2,
+    "order_rank": 725,
+    "observed_exceedances": 2,
+    "violation_bound": 0.02366922590775486,
+    "mode": "CALIBRATED",
+    "threshold": {
+      "kind": "finite",
+      "value": 0.4234546585183297
+    },
+    "metadata": {
+      "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+      "calibration_scores_sha256": "ae8cc4a15e33640d0dcfe33414e92c66cf2cac4e503c225d59ad61ca4bedf3e3",
+      "eligibility": "ALL_TRUE_SCORE_ONLY; full operational predicates are not applied",
+      "protocol_sha256": "cad970b7947385ce68665a5115d01500015f6ee0675df6604fcfa44a0b1fd67c",
+      "purpose": "EXPLORATORY_SCORE_ONLY_NOT_OPERATIONAL_CERTIFICATION",
+      "scorer_fit_sha256": "42acd8e06defbe457ba34058dc78b6ed9ea5fb1c3ee033e4fd5e89ed4a40a8da",
+      "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3"
+    }
+  },
+  "marginal_formula": {
+    "mode": "MARGINAL_EXPECTATION_ONLY",
+    "threshold": {
+      "kind": "finite",
+      "value": 0.12548790833048035
+    },
+    "n_attack": 727,
+    "alpha": 0.01,
+    "order_rank": 721,
+    "expectation_bound_under_assumptions": 0.009615384615384616
+  },
+  "selection_used_for_tuning": false,
+  "operational_certification": false
+}

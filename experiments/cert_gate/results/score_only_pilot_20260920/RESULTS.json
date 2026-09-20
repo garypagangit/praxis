@@ -1,0 +1,551 @@
+{
+  "status": "EXPLORATORY_SCORE_ONLY_COMPLETE_NO_OPERATIONAL_CERTIFICATION",
+  "created_utc": "2026-09-20T16:15:40.386567+00:00",
+  "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+  "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+  "protocol_sha256": "cad970b7947385ce68665a5115d01500015f6ee0675df6604fcfa44a0b1fd67c",
+  "git_commit": "873dc0abae91339bf11dac9ccd50acf2ba4f4604",
+  "committed_file_sha256": {
+    "experiments/cert_gate/exploratory_benchmark.py": "615dbf36ff0ba2bd4b5b5344154718808d688681f69984c9f6a2c5d6a11dd435",
+    "experiments/cert_gate/feature_grouping.py": "094e28a6ae23d8774a0774eb07067d2199f1adff2dc0ecdbd945283c3381dcc9",
+    "experiments/cert_gate/scorers.py": "0690da7844bd7b5db3d48279a366bcd083f8a7c75b8645193f94b639d7c8c039",
+    "experiments/cert_gate/calibration.py": "e269e5c2c012107942088df33b429b5375d235b2a5efb2bc4fe0f3cdcdd09a3c",
+    "experiments/cert_gate/PILOT_PROTOCOL.json": "cad970b7947385ce68665a5115d01500015f6ee0675df6604fcfa44a0b1fd67c"
+  },
+  "operational_certification": false,
+  "full_g0_satisfied": false,
+  "human_review_completed": false,
+  "published_model_reproduction": false,
+  "novelty_claim": false,
+  "interpretation": "Observed benchmark separability and suppression fractions only. Unknown dependence and label validity prevent a deployment risk certificate. Full provenance/severity/incident predicates remain unsupported; all-true eligibility here is an explicitly different score-only experiment.",
+  "grouping": "ipv4_normalized_feature_groups_v1",
+  "grouping_implementation_version": "serialized-features-valid-ipv4-v1",
+  "split_summary": {
+    "source_rows": 8322,
+    "normalized_feature_groups": 7913,
+    "exact_feature_groups": 7946,
+    "held_review_rows": 50,
+    "excluded_groups_union": 53,
+    "excluded_rows_union": 80,
+    "exclusion_reason_counts": {
+      "mixed_labels": {
+        "groups": 3,
+        "rows": 6
+      },
+      "held_human_review": {
+        "groups": 50,
+        "rows": 74
+      }
+    },
+    "retained_groups": 7860,
+    "retained_rows": 8242,
+    "grouping_is_not_incident_or_campaign_independence": true,
+    "splits": {
+      "fit": {
+        "groups": 3157,
+        "rows": 3336,
+        "attack_groups": 937,
+        "nonattack_groups": 2220,
+        "attack_rows": 979,
+        "nonattack_rows": 2357
+      },
+      "selection": {
+        "groups": 734,
+        "rows": 744,
+        "attack_groups": 218,
+        "nonattack_groups": 516,
+        "attack_rows": 226,
+        "nonattack_rows": 518
+      },
+      "calibration": {
+        "groups": 2355,
+        "rows": 2450,
+        "attack_groups": 727,
+        "nonattack_groups": 1628,
+        "attack_rows": 758,
+        "nonattack_rows": 1692
+      },
+      "test": {
+        "groups": 1614,
+        "rows": 1712,
+        "attack_groups": 491,
+        "nonattack_groups": 1123,
+        "attack_rows": 516,
+        "nonattack_rows": 1196
+      }
+    }
+  },
+  "scorer": {
+    "status": "INTERFACE_ONLY_G0_INCOMPLETE_NO_EFFICACY_OR_REPRODUCTION_CLAIM",
+    "config": {
+      "kind": "char_tfidf_linear_svm",
+      "seed": 20260920,
+      "features": [
+        "rule_name",
+        "proto",
+        "method",
+        "host",
+        "uri",
+        "parameter",
+        "req_header",
+        "req_body",
+        "rsp_header",
+        "rsp_body",
+        "rsp_status"
+      ],
+      "analyzer": "char",
+      "ngram_range": [
+        3,
+        5
+      ],
+      "max_features": 50000,
+      "min_df": 2,
+      "sublinear_tf": true,
+      "lowercase": true,
+      "C": 1.0,
+      "class_weight": "balanced",
+      "max_iter": 10000,
+      "label_1": "attack",
+      "score": "negative_decision_function"
+    },
+    "config_sha256": "058dfc0c2610491d1edce2f710652359b830d66d004649d7e16d6f58d86df6ca",
+    "fit_sha256": "42acd8e06defbe457ba34058dc78b6ed9ea5fb1c3ee033e4fd5e89ed4a40a8da",
+    "libraries": {
+      "scikit-learn": "1.9.0",
+      "numpy": "2.4.6"
+    }
+  },
+  "scorer_execution": "FITTED_FIXED_RECIPE_ON_FIT_REPRESENTATIVES",
+  "fit_warnings": [],
+  "selection_used_for_tuning": false,
+  "classifier": {
+    "fit": {
+      "n": 3157,
+      "TP": 935,
+      "FP": 21,
+      "FN": 2,
+      "TN": 2199,
+      "F1": 0.9878499735868991,
+      "TPR": 0.9978655282817502,
+      "FPR": 0.00945945945945946,
+      "precision": 0.9780334728033473,
+      "decision": "attack iff benignness score < 0; zero margin is classifier non-attack"
+    },
+    "selection": {
+      "n": 734,
+      "TP": 215,
+      "FP": 10,
+      "FN": 3,
+      "TN": 506,
+      "F1": 0.9706546275395034,
+      "TPR": 0.9862385321100917,
+      "FPR": 0.01937984496124031,
+      "precision": 0.9555555555555556,
+      "decision": "attack iff benignness score < 0; zero margin is classifier non-attack"
+    },
+    "calibration": {
+      "n": 2355,
+      "TP": 716,
+      "FP": 31,
+      "FN": 11,
+      "TN": 1597,
+      "F1": 0.9715061058344641,
+      "TPR": 0.984869325997249,
+      "FPR": 0.019041769041769043,
+      "precision": 0.9585006693440429,
+      "decision": "attack iff benignness score < 0; zero margin is classifier non-attack"
+    },
+    "test_primary_unique_groups": {
+      "n": 1614,
+      "TP": 488,
+      "FP": 24,
+      "FN": 3,
+      "TN": 1099,
+      "F1": 0.9730807577268196,
+      "TPR": 0.9938900203665988,
+      "FPR": 0.0213713268032057,
+      "precision": 0.953125,
+      "decision": "attack iff benignness score < 0; zero margin is classifier non-attack"
+    },
+    "test_secondary_all_rows": {
+      "n": 1712,
+      "TP": 513,
+      "FP": 24,
+      "FN": 3,
+      "TN": 1172,
+      "F1": 0.9743589743589743,
+      "TPR": 0.9941860465116279,
+      "FPR": 0.020066889632107024,
+      "precision": 0.9553072625698324,
+      "decision": "attack iff benignness score < 0; zero margin is classifier non-attack"
+    }
+  },
+  "suppression": {
+    "primary_unique_groups": {
+      "KEEP_ALL": {
+        "n": 1614,
+        "attack_alerts": 491,
+        "nonattack_alerts": 1123,
+        "attack_alerts_suppressed": 0,
+        "nonattack_alerts_suppressed": 0,
+        "attack_suppression_fraction": 0.0,
+        "nonattack_suppression_fraction": 0.0,
+        "all_alert_suppression_fraction": 0.0
+      },
+      "ZERO_MARGIN": {
+        "n": 1614,
+        "attack_alerts": 491,
+        "nonattack_alerts": 1123,
+        "attack_alerts_suppressed": 3,
+        "nonattack_alerts_suppressed": 1099,
+        "attack_suppression_fraction": 0.006109979633401222,
+        "nonattack_suppression_fraction": 0.9786286731967943,
+        "all_alert_suppression_fraction": 0.6827757125154895
+      },
+      "PAC_SCORE_ONLY": {
+        "n": 1614,
+        "attack_alerts": 491,
+        "nonattack_alerts": 1123,
+        "attack_alerts_suppressed": 1,
+        "nonattack_alerts_suppressed": 1076,
+        "attack_suppression_fraction": 0.002036659877800407,
+        "nonattack_suppression_fraction": 0.9581478183437222,
+        "all_alert_suppression_fraction": 0.6672862453531598
+      },
+      "MARGINAL_CRC_FORMULA": {
+        "n": 1614,
+        "attack_alerts": 491,
+        "nonattack_alerts": 1123,
+        "attack_alerts_suppressed": 2,
+        "nonattack_alerts_suppressed": 1094,
+        "attack_suppression_fraction": 0.004073319755600814,
+        "nonattack_suppression_fraction": 0.9741763134461264,
+        "all_alert_suppression_fraction": 0.6790582403965304
+      }
+    },
+    "secondary_all_rows": {
+      "KEEP_ALL": {
+        "n": 1712,
+        "attack_alerts": 516,
+        "nonattack_alerts": 1196,
+        "attack_alerts_suppressed": 0,
+        "nonattack_alerts_suppressed": 0,
+        "attack_suppression_fraction": 0.0,
+        "nonattack_suppression_fraction": 0.0,
+        "all_alert_suppression_fraction": 0.0
+      },
+      "ZERO_MARGIN": {
+        "n": 1712,
+        "attack_alerts": 516,
+        "nonattack_alerts": 1196,
+        "attack_alerts_suppressed": 3,
+        "nonattack_alerts_suppressed": 1172,
+        "attack_suppression_fraction": 0.005813953488372093,
+        "nonattack_suppression_fraction": 0.979933110367893,
+        "all_alert_suppression_fraction": 0.6863317757009346
+      },
+      "PAC_SCORE_ONLY": {
+        "n": 1712,
+        "attack_alerts": 516,
+        "nonattack_alerts": 1196,
+        "attack_alerts_suppressed": 1,
+        "nonattack_alerts_suppressed": 1148,
+        "attack_suppression_fraction": 0.001937984496124031,
+        "nonattack_suppression_fraction": 0.959866220735786,
+        "all_alert_suppression_fraction": 0.6711448598130841
+      },
+      "MARGINAL_CRC_FORMULA": {
+        "n": 1712,
+        "attack_alerts": 516,
+        "nonattack_alerts": 1196,
+        "attack_alerts_suppressed": 2,
+        "nonattack_alerts_suppressed": 1166,
+        "attack_suppression_fraction": 0.003875968992248062,
+        "nonattack_suppression_fraction": 0.9749163879598662,
+        "all_alert_suppression_fraction": 0.6822429906542056
+      }
+    }
+  },
+  "pac_formula": {
+    "schema": "cert-gate-order-statistic-v1",
+    "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+    "comparison": "strict_greater_than",
+    "alpha": 0.01,
+    "delta": 0.05,
+    "n_attack": 727,
+    "n_eligible_attack": 727,
+    "allowed_exceedances": 2,
+    "order_rank": 725,
+    "observed_exceedances": 2,
+    "violation_bound": 0.02366922590775486,
+    "mode": "CALIBRATED",
+    "threshold": {
+      "kind": "finite",
+      "value": 0.4234546585183297
+    },
+    "metadata": {
+      "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+      "calibration_scores_sha256": "ae8cc4a15e33640d0dcfe33414e92c66cf2cac4e503c225d59ad61ca4bedf3e3",
+      "eligibility": "ALL_TRUE_SCORE_ONLY; full operational predicates are not applied",
+      "protocol_sha256": "cad970b7947385ce68665a5115d01500015f6ee0675df6604fcfa44a0b1fd67c",
+      "purpose": "EXPLORATORY_SCORE_ONLY_NOT_OPERATIONAL_CERTIFICATION",
+      "scorer_fit_sha256": "42acd8e06defbe457ba34058dc78b6ed9ea5fb1c3ee033e4fd5e89ed4a40a8da",
+      "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3"
+    }
+  },
+  "marginal_formula": {
+    "mode": "MARGINAL_EXPECTATION_ONLY",
+    "threshold": {
+      "kind": "finite",
+      "value": 0.12548790833048035
+    },
+    "n_attack": 727,
+    "alpha": 0.01,
+    "order_rank": 721,
+    "expectation_bound_under_assumptions": 0.009615384615384616
+  },
+  "bootstrap": {
+    "method": "percentile resampling of the finite empirical normalized-feature-group distribution",
+    "interpretation": "Descriptive resampling variability only; not an incident/population confidence interval or an operational risk certificate. Zero observed errors can give a zero-width empirical band.",
+    "repetitions": 10000,
+    "seed": 20260920,
+    "groups": 1614,
+    "bands": {
+      "primary_unique_groups__KEEP_ALL__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.0
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "primary_unique_groups__KEEP_ALL__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.0
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "primary_unique_groups__ZERO_MARGIN__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.014084507042253521
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "primary_unique_groups__ZERO_MARGIN__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.9699379369593554,
+          0.9867024221208751
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "primary_unique_groups__PAC_SCORE_ONLY__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.006382978723404255
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "primary_unique_groups__PAC_SCORE_ONLY__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.9462272333044233,
+          0.9693976277124116
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "primary_unique_groups__MARGINAL_CRC_FORMULA__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.010460251046025104
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "primary_unique_groups__MARGINAL_CRC_FORMULA__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.9646853232782833,
+          0.9831264844342247
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__KEEP_ALL__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.0
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__KEEP_ALL__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.0
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__ZERO_MARGIN__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.013409961685823755
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__ZERO_MARGIN__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.9716191022893045,
+          0.9876034886272216
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__PAC_SCORE_ONLY__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.006097560975609756
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__PAC_SCORE_ONLY__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.947986577181208,
+          0.9708578148600816
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__MARGINAL_CRC_FORMULA__attack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.0,
+          0.009921127993941108
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      },
+      "secondary_all_rows__MARGINAL_CRC_FORMULA__nonattack_suppression_fraction": {
+        "percentiles_2_5_and_97_5": [
+          0.9652476107732406,
+          0.9837883959044369
+        ],
+        "defined_resamples": 10000,
+        "undefined_resamples": 0
+      }
+    }
+  },
+  "timing": {
+    "fit_seconds": 11.629809200007003,
+    "scoring": {
+      "fit": {
+        "rows_actually_scored": 3157,
+        "elapsed_seconds": 20.055015399993863,
+        "per_row_latency_seconds": {
+          "mean": 0.006347463129500254,
+          "median": 0.004962700011674315,
+          "p95": 0.015238580014556644,
+          "min": 0.0008830999722704291,
+          "max": 0.0651493999757804
+        }
+      },
+      "selection": {
+        "rows_actually_scored": 734,
+        "elapsed_seconds": 5.5279382999869995,
+        "per_row_latency_seconds": {
+          "mean": 0.007525547956416577,
+          "median": 0.0062621000106446445,
+          "p95": 0.015110004990128802,
+          "min": 0.0012897999840788543,
+          "max": 0.05746529996395111
+        }
+      },
+      "calibration": {
+        "rows_actually_scored": 2355,
+        "elapsed_seconds": 18.330978800018784,
+        "per_row_latency_seconds": {
+          "mean": 0.007778265944339983,
+          "median": 0.006406800006516278,
+          "p95": 0.01672669001272877,
+          "min": 0.0011918999953195453,
+          "max": 0.06057590001728386
+        }
+      },
+      "test_all_rows": {
+        "rows_actually_scored": 1712,
+        "elapsed_seconds": 15.583651199995074,
+        "per_row_latency_seconds": {
+          "mean": 0.009088399123611793,
+          "median": 0.006169800035422668,
+          "p95": 0.01961135499877851,
+          "min": 0.0011796000180765986,
+          "max": 0.6222554999985732
+        }
+      }
+    },
+    "elapsed_seconds": 80.09752790001221,
+    "meaning": "Descriptive single-run CPU timing including per-row scoring calls; no speed superiority claim"
+  },
+  "memory": {
+    "before_fit_process_peak": {
+      "bytes": 262631424,
+      "method": "Windows process-lifetime PeakWorkingSetSize"
+    },
+    "final_process_peak": {
+      "bytes": 649691136,
+      "method": "Windows process-lifetime PeakWorkingSetSize"
+    },
+    "meaning": "Process-lifetime OS peak, includes imports/data and may include earlier work if called inside a long-lived process"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "public_freeze_sha256": "401bcacc3657ba8b1bba6e01066f808675e7ce1894252a2ce84faa91f75762e6",
+  "private_artifacts": {
+    "BOOTSTRAP_DRAWS.npz": {
+      "sha256": "6485ffc6100a261feaa92c5b4fa7e081b16739a7b229b77bf9d78f5fd1a54bed",
+      "bytes": 346245
+    },
+    "MODEL.joblib": {
+      "sha256": "7da39e387cb3fe8e70d321be32f68c38c50dd3c5f6b9b6084f85d9557b767610",
+      "bytes": 2111554
+    },
+    "SCORES_calibration.npz": {
+      "sha256": "ae8cc4a15e33640d0dcfe33414e92c66cf2cac4e503c225d59ad61ca4bedf3e3",
+      "bytes": 33953
+    },
+    "SCORES_fit.npz": {
+      "sha256": "9c484e8857dc5429bcc623c75accd8d2a684435cb245f30faa5455a4f8448a98",
+      "bytes": 44902
+    },
+    "SCORES_selection.npz": {
+      "sha256": "5fbb77958ac1c4b18dd9420e61db3e17a44dc3626392bb30c4b2c89c6bd61688",
+      "bytes": 11358
+    },
+    "SCORES_test_all_rows.npz": {
+      "sha256": "0a84ce4622f991c3b0479d200752d2b1423c9e735ce84bb72014f8ddb6094a01",
+      "bytes": 24562
+    },
+    "SPLIT_MANIFEST.json": {
+      "sha256": "660b803316845f6967e93944afe3729dbcc6a40f5ee996c8de43a606d89d1934",
+      "bytes": 2904384
+    },
+    "TEST_PREDICTIONS.npz": {
+      "sha256": "7af4becc6e4d5928d25a9ebd82f9864895a8d99f0f4fd52ae1905e9c0c8af686",
+      "bytes": 23645
+    }
+  },
+  "limitations": [
+    "Dataset labels are unreviewed; 50 human-review cases and their groups were excluded, not adjudicated.",
+    "Normalized duplicate groups are not independent incidents or campaigns.",
+    "Mixed-label groups were excluded by a fixed pre-fit rule; this changes the evaluated population.",
+    "Lowest-ordinal group representatives define primary metrics; all retained test rows are a separate secondary denominator.",
+    "The selection split is scored for transparency but never selects a model, threshold, seed or feature recipe.",
+    "Study terms and full G0 requirements remain unresolved; exploratory access is not a claim of permission for redistribution or deployment.",
+    "Both calibration formulas are named by their mathematical assumptions; those assumptions have not been established for this dataset."
+  ]
+}
