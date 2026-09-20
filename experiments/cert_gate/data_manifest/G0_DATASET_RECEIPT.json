@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "research_date": "2026-09-20",
+  "stage": "G0_READ_ONLY_ACCESS_AND_SCHEMA",
+  "scope": {
+    "scorer_training": false,
+    "model_inference": false,
+    "efficacy_scoring": false,
+    "cloud_compute": false,
+    "external_messages_sent": false,
+    "datasets_redistributed": false
+  },
+  "overall_status": "HOLD_FOR_PRIMARY_EXPERIMENT_DATA_REQUIREMENTS",
+  "datasets": [
+    {
+      "id": "secalertbench",
+      "repository": "https://github.com/Dxsssu/SecAlertBench",
+      "commit": "42a84889fda912ca432c994924a1ccd4b9df6274",
+      "license_status": "NO_LICENSE_FOUND",
+      "license_scope_checked": [
+        "GitHub repository metadata",
+        "complete pinned tree",
+        "README.md"
+      ],
+      "paper_status": "AUTHOR_REPOSITORY_ABSTRACT_VERIFIED_SEPARATE_PAPER_NOT_LOCATED",
+      "actual_bytes_acquired": true,
+      "artifacts": [
+        {
+          "path": "README.md",
+          "bytes": 9679,
+          "sha256": "e7be19b79d551afb52b9bdcb646eba5fa12a158900e8a5fe7bb0fc8375693351"
+        },
+        {
+          "path": "0x02. Processed SecAlertBench Dataset/secalertbench.json",
+          "bytes": 21719558,
+          "sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3"
+        },
+        {
+          "path": "0x01. Representative Raw SOC Alert Examples/enterprise_a_examples.json",
+          "bytes": 11193,
+          "sha256": "87c81af210d4cdbc4ffaf971c1f096afdccee3306af6179e0524a2805a4e3ccb"
+        },
+        {
+          "path": "0x01. Representative Raw SOC Alert Examples/enterprise_b_examples.json",
+          "bytes": 4467,
+          "sha256": "79147b6f8a04062a6616a44561601ddbda2283bb0175b61154e1ceac1fdb0e28"
+        },
+        {
+          "path": "0x01. Representative Raw SOC Alert Examples/enterprise_c_examples.json",
+          "bytes": 4816,
+          "sha256": "6dd662386c3ef4d456961c6248ae372a332f83d55bf9109bea300c2584206ae9"
+        }
+      ],
+      "schema_counts": {
+        "rows": 8322,
+        "labels": {
+          "Attack": 2496,
+          "Non-Attack": 5826
+        },
+        "field_presence": {
+          "attack_type": 8322,
+          "dip": 8322,
+          "host": 8322,
+          "method": 8322,
+          "rule_name": 8322,
+          "rsp_body": 8322,
+          "kill_chain_all": 8322,
+          "proto": 8322,
+          "xff": 8322,
+          "dport": 8322,
+          "rsp_status": 8322,
+          "parameter": 8322,
+          "sip": 8322,
+          "rsp_header": 8322,
+          "uri": 8322,
+          "req_header": 8322,
+          "req_body": 8322,
+          "sport": 8322,
+          "Label": 8322
+        },
+        "rule_name_distinct": 241,
+        "attack_type_distinct": 23,
+        "status": "SCHEMA_AND_COUNTS_ONLY_NO_SCORER"
+      },
+      "raw_examples_per_enterprise": 3,
+      "raw_examples_total": 9,
+      "release_train_cal_test_split": false,
+      "timestamps_removed": true,
+      "ips_randomized": true,
+      "enterprise_id_per_processed_record": false,
+      "incident_or_campaign_id": false,
+      "severity_per_processed_record": false,
+      "independent_raw_log_pointers": false,
+      "positive_alert_rows": 2496,
+      "independent_positive_units": "UNKNOWN",
+      "near_duplicate_diagnostic": {
+        "removed_fields": [
+          "Label",
+          "dip",
+          "dport",
+          "sip",
+          "sport"
+        ],
+        "distinct_content_groups": 7946,
+        "extra_rows": 376,
+        "groups_with_attack_label": 2394,
+        "mixed_label_groups": 1,
+        "does_not_establish_independence": true
+      },
+      "g0_status": "HOLD_LICENSE_LABEL_AUDIT_RAW_EVIDENCE_AND_INDEPENDENCE",
+      "private_data_path": "C:\\w\\cert_gate_data_20260920\\access_review\\SecAlertBench\\0x02. Processed SecAlertBench Dataset\\secalertbench.json"
+    },
+    {
+      "id": "cortex_soc_workflows",
+      "paper_url": "https://arxiv.org/abs/2510.00311",
+      "paper_version": "v1",
+      "paper_date": "2025-09-30",
+      "paper_verified": true,
+      "reported_metrics": {
+        "single_tool_agent_actionable_f1": 0.66,
+        "cortex_actionable_f1": 0.78,
+        "single_tool_agent_reported_fpr_percent": 24.9,
+        "cortex_reported_fpr_percent": 14.2,
+        "our_replication": false,
+        "metric_denominator_needs_code_verification": true
+      },
+      "actual_dataset_bytes_acquired": false,
+      "dataset_url_located": false,
+      "license_status": "DATASET_LICENSE_NOT_LOCATED_PAPER_LICENSE_IS_SEPARATE",
+      "access_status": "UNLOCATED_NOT_PROVEN_REQUEST_GATED",
+      "positive_alert_rows": null,
+      "independent_positive_units": null,
+      "g0_status": "HOLD_NO_DATASET_ARTIFACT"
+    },
+    {
+      "id": "siabench",
+      "github_repository": "https://github.com/llmslayer/SIABench",
+      "github_commit": "99327f02d4c0eb9902b4df00881e527255d14ca6",
+      "github_license_status": "NO_LICENSE_FILE_FOUND",
+      "huggingface_repository": "https://huggingface.co/datasets/SIABench/SIA_Dataset",
+      "huggingface_commit": "ec48d6049811c48273a23c77e3000124e238cb64",
+      "huggingface_license_declaration": "apache-2.0",
+      "huggingface_gated": false,
+      "artifacts": [
+        {
+          "path": "README.md",
+          "bytes": 2268,
+          "sha256": "53375caf5f843b8347288b9dcb82fb41c46c56759fcd580e211aa1a658b06b7f"
+        },
+        {
+          "path": "data/alert_triaging_cic_test.jsonl",
+          "bytes": 41201,
+          "sha256": "269d08d214edc0e0cfc529205b2d5689980576740c99daf8d658aa119d66f3fd"
+        },
+        {
+          "path": "data/alert_triaging_tii_fp.jsonl",
+          "bytes": 51414,
+          "sha256": "184cf2737e798ae9c8009a77822ee211924b322ccfb42bac02bf5a3a8b1c51c5"
+        },
+        {
+          "path": "data/alert_triaging_tii_tp.jsonl",
+          "bytes": 102748,
+          "sha256": "7a2281cae880dcd7cbd75fd6acff9449d16ec2543de7b357db039ec71140e983"
+        },
+        {
+          "path": "data/sia_dataset_test.jsonl",
+          "bytes": 105165,
+          "sha256": "a6d303ffb8726fd9d89d3e2657476d7376814940d9410924d9325f097f3b2f1d"
+        }
+      ],
+      "schema_counts": {
+        "alert_triaging_cic_test.jsonl": {
+          "rows": 35,
+          "labels": {
+            "False": 30,
+            "True": 5
+          },
+          "unique_scenarios": 35,
+          "unique_exact_records": 35,
+          "unique_alert_strings": 35,
+          "alert_types": {
+            "SERVER-WEBAPP Cisco HTTP double-percent DOS attempt": 1,
+            "INDICATOR-COMPROMISE Invalid URL": 2,
+            "PROTOCOL-ICMP traceroute": 1,
+            "INDICATOR-SHELLCODE x86 setgid 0": 1,
+            "SERVER-WEBAPP redirect access": 1,
+            "SERVER-IIS encoding access": 1,
+            "SERVER-WEBAPP /doc/ access": 1,
+            "SERVER-IIS ping.asp access": 1,
+            "INDICATOR-SHELLCODE x86 NOOP": 3,
+            "(port_scan) UDP filtered portsweep": 2,
+            "OS-LINUX Linux Kernel Challenge ACK provocation attempt": 1,
+            "(port_scan) TCP portsweep": 3,
+            "(ssl) invalid client HELLO after server HELLO detected": 1,
+            "(port_scan) TCP portscan": 5,
+            "INDICATOR-SHELLCODE x86 inc ecx NOOP": 4,
+            "INDICATOR-COMPROMISE 403 Forbidden": 2,
+            "INDICATOR-SHELLCODE x86 inc ebx NOOP": 1,
+            "PROTOCOL-FTP Bad login": 1,
+            "INDICATOR-SHELLCODE ssh CRC32 overflow filler": 1,
+            "SERVER-ORACLE misparsed login response": 1,
+            "SERVER-WEBAPP wrap access": 1
+          },
+          "scenario_name_max_multiplicity": 1,
+          "duplicated_scenario_count": 0
+        },
+        "alert_triaging_tii_fp.jsonl": {
+          "rows": 50,
+          "labels": {
+            "False": 50
+          },
+          "unique_scenarios": 50,
+          "unique_exact_records": 50,
+          "unique_alert_strings": 50,
+          "alert_types": {
+            "SURICATA Ethertype unknown": 36,
+            "SURICATA STREAM Packet with invalid timestamp": 1,
+            "SURICATA STREAM excessive retransmissions": 9,
+            "SURICATA UDPv6 invalid checksum": 2,
+            "INDICATOR-SHELLCODE x86 setgid 0": 1,
+            "INDICATOR-SHELLCODE x86 NOOP": 1
+          },
+          "scenario_name_max_multiplicity": 1,
+          "duplicated_scenario_count": 0
+        },
+        "alert_triaging_tii_tp.jsonl": {
+          "rows": 100,
+          "labels": {
+            "True": 100
+          },
+          "unique_scenarios": 100,
+          "unique_exact_records": 100,
+          "unique_alert_strings": 100,
+          "alert_types": {
+            "PROTOCOL-FTP Bad login": 5,
+            "ET SCAN Potential FTP Brute-Force attempt response": 5,
+            "INDICATOR-SHELLCODE ssh CRC32 overflow filler": 5,
+            "ET SCAN Potential SSH Scan OUTBOUND": 5,
+            "ET SCAN Potential SSH Scan": 5,
+            "PROTOCOL-TELNET login incorrect": 34,
+            "GPL TELNET Bad Login": 41
+          },
+          "scenario_name_max_multiplicity": 1,
+          "duplicated_scenario_count": 0
+        }
+      },
+      "documented_count_discrepancy": {
+        "paper_alert_scenarios": 135,
+        "github_readme_tii_tp": 50,
+        "github_readme_tii_fp": 50,
+        "actual_hf_tii_tp": 100,
+        "actual_hf_tii_fp": 50,
+        "actual_hf_cic_tp": 5,
+        "actual_hf_cic_fp": 30
+      },
+      "raw_pcap_probes": [
+        {
+          "dataset": "cic",
+          "url": "https://drive.google.com/uc?export=download&id=1a06-pXmFRuCPMQtbt6lqk1Vc7UGnG40m",
+          "resolved_url": "https://drive.usercontent.google.com/download?id=1a06-pXmFRuCPMQtbt6lqk1Vc7UGnG40m&export=download",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "inspected_prefix_bytes": 2426,
+          "prefix_sha256": "94788dd56977d2a517540c54c31f9b289424e6d080fd89b0cb0a59a0da3ed310",
+          "archive_acquired": false
+        },
+        {
+          "dataset": "tii",
+          "url": "https://drive.google.com/uc?export=download&id=1tcWJyJf61-aox8hS7q_CgzyXBKc-ustI",
+          "resolved_url": "https://drive.usercontent.google.com/download?id=1tcWJyJf61-aox8hS7q_CgzyXBKc-ustI&export=download",
+          "http_status": 200,
+          "content_type": "application/octet-stream",
+          "inspected_prefix_bytes": 16384,
+          "prefix_sha256": "c9ed31405bcc3e73408ed310b44e28900e4b7ca53ba517231a982a2603446f1d",
+          "archive_acquired": true,
+          "archive_content": "150_JSON_SCENARIOS_ZERO_PCAPS",
+          "raw_pcaps_acquired": false,
+          "complete_archive_receipt_field": "tii_linked_archive"
+        }
+      ],
+      "tii_linked_archive": {
+        "url": "https://drive.google.com/uc?export=download&id=1tcWJyJf61-aox8hS7q_CgzyXBKc-ustI",
+        "bytes": 124517,
+        "sha256": "b704207165a9a7b4a8cd0a3f0e9b07dce79590fdd837c1483a57a8cf8210743b",
+        "entries": 153,
+        "uncompressed_bytes": 227512,
+        "suffix_counts": {
+          ".json": 150
+        }
+      },
+      "tii_linked_archive_contains_pcaps": false,
+      "independent_positive_units": "UNKNOWN; scenario IDs are not independent campaigns",
+      "g0_status": "DIAGNOSTIC_ONLY_INSUFFICIENT_POSITIVE_SUPPORT_AND_RAW_LINK_GAPS"
+    },
+    {
+      "id": "cic_ids2017_regenerated_alerts",
+      "primary_dataset_url": "https://www.unb.ca/cic/datasets/ids-2017.html",
+      "license_faq_url": "https://www.unb.ca/cic/datasets/",
+      "license_status": "PRIMARY_SOURCE_PERMITS_REUSE_WITH_DATASET_AND_PAPER_CITATION",
+      "actual_full_pcaps_acquired": false,
+      "flow_labels_acquired": false,
+      "regenerated_alerts": false,
+      "independent_unit_warning": "Five recording days; many alert rows can arise from the same attack. No unlimited independent positive sample claim.",
+      "g0_status": "NOT_YET_BUILT_JOIN_AND_LABEL_VALIDATION_REQUIRED"
+    }
+  ],
+  "positive_sample_size_illustration": {
+    "method": "One-sided exact binomial zero-miss upper bound for one fixed rule under independent Bernoulli positive units; illustrative, not certification",
+    "alpha": 0.01,
+    "delta": 0.05,
+    "min_independent_positive_units_zero_misses": 299,
+    "upper_bound_with_100_positive_units": 0.029513049607039932,
+    "upper_bound_with_5_positive_units": 0.4507197283469412,
+    "adaptive_selection_or_dependence_may_require_more": "yes"
+  },
+  "primary_source_receipts": [
+    {
+      "name": "cortex_arxiv_v1.html",
+      "url": "https://arxiv.org/html/2510.00311v1",
+      "bytes": 466811,
+      "sha256": "2a3dc4b151bee2853d144fd31d7739a9f8d9461b2fb6cd416fded6d3d5cdd88b"
+    },
+    {
+      "name": "cic_ids2017.html",
+      "url": "https://www.unb.ca/cic/datasets/ids-2017.html",
+      "bytes": 75847,
+      "sha256": "7bec2e72649fff7a0b301f2958ff91cdccb9161131534fafafee2b2ce8087521"
+    },
+    {
+      "name": "cic_dataset_license_faq.html",
+      "url": "https://www.unb.ca/cic/datasets/",
+      "bytes": 108784,
+      "sha256": "32829a8f57779c49981c530dc198a8ea68e872edb1ea4eb1a7a00b4ea20ec463"
+    }
+  ]
+}
