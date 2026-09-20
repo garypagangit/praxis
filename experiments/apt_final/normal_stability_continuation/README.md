@@ -1,5 +1,7 @@
 # Finish the same experiment after a worker time limit
 
+**Completed and independently audited.** The final continuation reused all 24 verified sets (504 files), rebuilt all banks/calibration/scores, and matched all earlier completed metrics exactly. The unchanged scientific decision is no-go for the fixed family. All four AWS attempts are verified stopped. See the [final report](../normal_stability/results/gpu_stability_20260920/REPORT.md), [chain audit](../normal_stability/results/gpu_stability_20260920/CONTINUATION_CHAIN_AUDIT.json), and [closeout](../normal_stability/results/gpu_stability_20260920/AWS_CLOSEOUT.md). Instructions below preserve the execution history and reproduction path.
+
 This is a runtime continuation for [normal stability](../normal_stability/README.md). It preserves every scientific setting and candidate. It saves work by reusing only completed encoder training and normal graph representations from that same registered experiment.
 
 Every reference bank, calibration score, normal-validation result, and attack result is recomputed by the unchanged original runner. Cases lacking a completion manifest train normally. A present but invalid completion manifest aborts preparation; corrupt completed evidence is never silently replaced. Earlier scores do not choose what is reused.

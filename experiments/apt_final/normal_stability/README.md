@@ -1,6 +1,6 @@
 # Can better normal examples prevent false alerts when relationships disappear?
 
-This development experiment tests whether a detector mistakes missing information for malicious behavior. It compares three fixed ways to choose normal examples and calibrate alert scores, then reaches a go/no-go decision for that candidate family. No outcome is asserted here.
+This development experiment tests whether a detector mistakes missing information for malicious behavior. It compares three fixed ways to choose normal examples and calibrate alert scores, then reaches a go/no-go decision for that candidate family. **Completed and independently audited: no-go for this fixed family.** Zero of nine variants passed the complete detection requirements on either dataset. The [final report](results/gpu_stability_20260920/REPORT.md), [full results](results/gpu_stability_20260920/FULL_RESULTS.md), and [verified AWS closeout](results/gpu_stability_20260920/AWS_CLOSEOUT.md) contain the evidence. The specification below is preserved for reproduction.
 
 ## What changes
 

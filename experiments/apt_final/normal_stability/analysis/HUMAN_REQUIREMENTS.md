@@ -2,9 +2,9 @@
 
 **Status:** requirements documented; no human review or new source evidence is claimed. This document does not block completion of the registered experiment or require reopening the Unraveled dataset work.
 
-## What can be finished now
+## Completed development work
 
-The existing graphs support running every registered candidate, checking numerical evidence independently, recording AWS shutdown, and issuing the fixed-family go/no-go result. No new human labels are required for that development comparison. Results must say **annotated malicious entities**, retain the upstream filtered-benign assumption, and acknowledge previous test exposure.
+Every registered candidate ran, numerical evidence passed independent checks, AWS shutdown was verified, and the [fixed-family no-go result](../results/gpu_stability_20260920/REPORT.md) is complete. No new human labels were required for that development comparison. Results must say **annotated malicious entities**, retain the upstream filtered-benign assumption, and acknowledge previous test exposure.
 
 ## What requires outside evidence for broader claims
 
@@ -33,4 +33,4 @@ Reason and evidence location:
 Unresolved limitations:
 ```
 
-**Documented result today:** the access/review steps and recording form are ready; none of the external findings above has been supplied or verified through this document. The current experiment can still close honestly with its measured development result.
+**Documented result today:** the access/review steps and recording form are ready; none of the external findings above has been supplied or verified through this document. The current experiment has closed with its independently audited development no-go result.

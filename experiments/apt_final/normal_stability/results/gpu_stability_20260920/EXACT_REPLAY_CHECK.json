@@ -1,0 +1,56 @@
+{
+  "status": "PASS_EXACT_REPLAY_OF_COMPLETED_RECORDS",
+  "compared_identity_fields": [
+    "dataset",
+    "fold",
+    "encoder_seed",
+    "bank_seed",
+    "strategy",
+    "representation",
+    "condition"
+  ],
+  "matched_binding_fields": [
+    "source_commit",
+    "registration_sha256",
+    "config_sha256",
+    "data_manifest_sha256",
+    "device",
+    "knn_device"
+  ],
+  "numeric_comparison": "Exact finite values, zero tolerance; numeric JSON spelling and int-vs-float representation ignored.",
+  "metrics_compared": "Every nested metrics field, including counts, by-type rates, FPR, recall, precision, F1 and average precision where present.",
+  "ignored_metadata": [
+    "record order",
+    "timestamps and elapsed/scoring durations",
+    "paths and artifact inventories",
+    "phase-specific status/label progress",
+    "continuation-only receipts",
+    "final decision: interrupted attempt1 has no completed decision"
+  ],
+  "limits": "Aggregate equality does not re-audit scores, predictions, inference, registration or transport; those require their separate audits.",
+  "independent_new_experiment": false,
+  "phases": {
+    "normal": {
+      "attempt1_completed_records": 1296,
+      "candidate_records": 1296,
+      "exactly_equal_overlapping_records": 1296,
+      "new_final_records_without_attempt1_comparator": 0,
+      "duplicate_local_records_compared_not_independent": 288
+    },
+    "attack": {
+      "attempt1_completed_records": 108,
+      "candidate_records": 1296,
+      "exactly_equal_overlapping_records": 108,
+      "new_final_records_without_attempt1_comparator": 1188,
+      "duplicate_local_records_compared_not_independent": 18
+    }
+  },
+  "created_utc": "2026-09-20T07:20:02.955770+00:00",
+  "helper_sha256": "237ac3c53b2557c3109b01fb1b801fc277d25e525b4726d2046b55ec8f7ea07f",
+  "input_sha256": {
+    "attempt1_normal": "aa6853770fb93d626142f3b78a2bf7c74a353900de168802f90f70f18290384c",
+    "attempt1_attack_partial": "609390db4d141fde51bb4996b143dc4fa35cd9da4a028f0b174b829bbe6bfd70",
+    "config": "cc902c0309250d64d4fd690d83fbc816f6f5c28ea60f03a7278a26e02273c58e",
+    "final_results": "641db8528ffd1f4e2adaf8dd5595767baf5c74a0f442637dd4ccde8defb6ec01"
+  }
+}

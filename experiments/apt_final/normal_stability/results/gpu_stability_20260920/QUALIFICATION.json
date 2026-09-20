@@ -1,0 +1,105 @@
+{
+  "status": "PASS",
+  "scope": "SOFTWARE_AND_SYNTHETIC_QUALIFICATION_ONLY",
+  "date": "2026-09-20",
+  "total_tests": 170,
+  "groups": {
+    "new_engine": 7,
+    "new_scoring": 9,
+    "new_provenance_launch_worker": 28,
+    "new_runner_end_to_end_and_gates": 8,
+    "reused_embedding_extraction": 12,
+    "reused_exact_knn": 6,
+    "independent_result_auditor": 13,
+    "descriptive_factor_variability": 6,
+    "runtime_continuation_equivalence": 9,
+    "runtime_continuation_provenance_worker": 27,
+    "independent_continuation_chain_auditor": 13,
+    "runtime_stable_storage_bootstrap": 20,
+    "exact_partial_replay_equivalence": 6,
+    "sanitized_operational_closeout": 6
+  },
+  "runner_synthetic": {
+    "datasets": 1,
+    "folds": 4,
+    "encoder_seeds": 2,
+    "bank_seeds": 2,
+    "strategies": 3,
+    "representations": 3,
+    "conditions": 2,
+    "logged_records_per_phase": 288,
+    "unique_records_per_phase": 240,
+    "registration_verifier_mocked": true,
+    "registration_verifier_separately_tested": true,
+    "normal_labels_never_opened": true,
+    "test_label_access_guarded_by_completed_global_normal_freeze": true
+  },
+  "python_compile": "PASS",
+  "bash_syntax": "PASS",
+  "whitespace_check": "PASS",
+  "real_data_efficacy_claim": false,
+  "independent_auditor_synthetic": {
+    "status": "PASS",
+    "logged_records_per_phase": 288,
+    "unique_records_per_phase": 240,
+    "distance_batches": 576,
+    "sampled_unique_queries": 4472,
+    "source_binding_mocked_for_synthetic_only": true,
+    "production_source_data_binding_separately_passed": true
+  },
+  "continuation_combined_run": {
+    "tests": 45,
+    "seconds": 159.25,
+    "status": "PASS",
+    "log_sha256": "ac9af26a86c19d3da6cc7111feb1d11832f64d7dddd6d7f850d3589f93fa24a7"
+  },
+  "test_files_sha256": {
+    "tests/test_apt_stability_continuation.py": "f1044104f28633a35a24781578c697147ee70e5583dced9cabd66f4d32dd4dc3",
+    "tests/test_apt_stability_continuation_audit.py": "d2de790f5f08925358329224b32367984294ce97fc4ea08a57fe70981e98cd4e",
+    "tests/test_apt_stability_continuation_provenance.py": "4b23bb7eec166effd21fb5959b6819fc35747ec826f6975a0bad6550374ec461",
+    "tests/test_apt_stability_engine.py": "c8eb7aae950c904de16e8ff8ba674281339750a1de02f775be2e02152bfe4e52",
+    "tests/test_apt_stability_provenance.py": "684da63456166d64ff307e76d4dba62a30362cfffb96c8e5b58a66d1aba271b2",
+    "tests/test_apt_stability_result_audit.py": "8cc09703adee02c32c6f8d687e5b6835c394d07ed5ea3849249659f09044ac87",
+    "tests/test_apt_stability_runner.py": "b2a39c7efbebc041fb0099eac1f40c010bc808bbefa91b27c27f233002e34fb3",
+    "tests/test_apt_stability_variability.py": "86a5d672469e632baaea4f3806f349c304fd2db6fb86030021a11c4258235b8b",
+    "tests/test_apt_normal_stability_scoring.py": "1fd411b4e2abbb1216106298a9fcc1dc4567afbb624a6255ec23b4c2e4cec220",
+    "tests/test_apt_embedding_engine.py": "f1bfb8a9fddc8a73c84cbb43d91f4f27834cb33fc8496ad041387ea41ac1aae8",
+    "tests/test_apt_embedding_scoring.py": "aa38daca5aa2f672a5fc5fe663680cf0245a60707aa1255cfcee98a440c9f503",
+    "tests/test_apt_stability_storage_bootstrap.py": "b937d71c8540788f9926aa595723456eb65f5068c0f08addef902de01a176052",
+    "tests/test_apt_stability_replay_equivalence.py": "14ea4b4fd12dcc97bf11e15ba65437b8d667cdcbc3ccd1f73687a6e80db6ef3a",
+    "tests/test_apt_stability_operational_closeout.py": "3cf2bd8dc7eaaa2ab7b79172fb612c9ea110e6f8a7d5e663d9034cbeff4e73ae"
+  },
+  "subsequent_chain_timeout_qualification": {
+    "tests": 13,
+    "status": "PASS",
+    "reason": "Controller gate_failed includes expected worker timeout; require archived124 exit, matching Failed124 poll, incomplete scientific phase and verified resource bounds.",
+    "auditor_sha256": "6b26ada640750a8f86693b446ee4b96ea4221172d96478b9638bf5d44e5016e5"
+  },
+  "storage_bootstrap_qualification": {
+    "status": "PASS",
+    "tests": 13,
+    "skipped": 0,
+    "seconds": 8.469,
+    "independent_review": "PASS",
+    "scope": "Runtime storage only; production shell functions exercised with mocked Linux metadata and real filesystem operations; no science changes."
+  },
+  "dedicated_ebs_storage_qualification": {
+    "status": "PASS",
+    "tests": 20,
+    "skipped": 0,
+    "seconds": 15.063,
+    "scope": "Existing dedicated EBS exact-mount identity and capacity guard, stable directories, private temporary/pip storage; original science unchanged.",
+    "independent_review": "PASS"
+  },
+  "partial_replay_helper_qualification": {
+    "status": "PASS",
+    "tests": 6,
+    "scope": "Exact nested metric and identity comparison, mutation rejection; original1296normal/108partialattack self-check is explicitly not new science."
+  },
+  "operational_closeout_qualification": {
+    "status": "PASS",
+    "tests": 6,
+    "independent_review": "PASS",
+    "scope": "Referenced stopped proof, exact cost/time arithmetic, pending final rejection, privacy and archive/receipt tamper rejection; no scientific efficacy inference."
+  }
+}

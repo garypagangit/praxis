@@ -1,14 +1,14 @@
-# APT final: what Gary needs to do next
+# APT final: completed comparison and optional next work
 
-**Current status:** The [scoring follow-up](embedding_baseline/README.md) completed and passed its independent audit. THEIA detection improved substantially; CADETS instability and false positives prevented the declared readiness gates from passing. The degree checker discarded useful sparse-entity detections. Read the [latest results](embedding_baseline/results/gpu_scoring_20260920/REPORT.md).
+**Current status: complete and independently audited; no-go for this fixed repair family.** All nine detector variants failed the declared detection requirements on each dataset. Pooled calibration sharply reduced false alerts but also lost attack sensitivity. The strongest THEIA graph-model average improved without satisfying the required reliability checks. Read the [final report](normal_stability/results/gpu_stability_20260920/REPORT.md) and [full comparison](normal_stability/results/gpu_stability_20260920/FULL_RESULTS.md).
 
-**Gary has no immediate dataset-acquisition or manual matching task for this route.** The next technical step is to separate reference-bank variation from encoder variation, then validate normal-score stability under an explicit fit/calibration/validation graph split. A new protocol must be frozen before that experiment. [Follow-up literature and design](embedding_baseline/results/gpu_scoring_20260920/FOLLOWUP_LITERATURE_AND_DESIGN.md).
+**Gary has no immediate action required to finish this study.** All configured cases ran, the scientific and continuation audits passed, exact replay matched earlier results, and all four AWS attempts are verified stopped. [AWS closeout](normal_stability/results/gpu_stability_20260920/AWS_CLOSEOUT.md) records approximately $1.631 in compute for this comparison, excluding storage and transfer.
 
-AWS sign-in was completed and the existing GPU host was used for both pilots; see [latest AWS closeout](embedding_baseline/results/gpu_scoring_20260920/AWS_CLOSEOUT.json) and [connection history](cloud/README.md).
+**Recommendation:** rule out this tested calibration/reference repair as a demonstrated successful praxis method. Preserve the measured gains and failures together as development evidence. The broader graph-learning direction remains unresolved; no new architecture, threshold search, or checker experiment is pending under this study. The [literature assessment](embedding_baseline/results/gpu_scoring_20260920/FOLLOWUP_LITERATURE_AND_DESIGN.md) and [human/source-evidence plan](normal_stability/analysis/HUMAN_REQUIREMENTS.md) document what broader claims would require.
 
 ## Optional Gary actions: reopening the original Unraveled track
 
-These tasks are not prerequisites for the active native graph experiment.
+These tasks apply only if the original Unraveled track is reopened; they are not prerequisites for the completed comparison.
 
 ### 1. Send this clarification request to the dataset authors
 
@@ -37,14 +37,14 @@ Ask an adviser or colleague familiar with network records and Linux/Windows logs
 
 > Could you independently review a prepared sample for my APT research? You would see network and computer-log records side by side and mark whether each pair describes the same event, different events, or is uncertain, with a brief reason. I will provide instructions and the sample before you commit to the review workload.
 
-The assistant will prepare the sample and instructions. The packet must include plausible matches, nonmatches, and ambiguous cases; it is not ready yet. The current experiment protocol calls for independent review, with uncertain cases escalated to another reviewer. Gary does not need to reconcile the full dataset or fill technical manifest fields manually.
+The assistant will prepare the sample and instructions. The packet must include plausible matches, nonmatches, and ambiguous cases; it is not ready yet. The optional original Unraveled protocol calls for independent review, with uncertain cases escalated to another reviewer. Gary does not need to reconcile the full dataset or fill technical manifest fields manually.
 
-## Work assigned to the assistant
+## Completed assistant work
 
-1. Freeze a diagnostic that varies encoder and reference-bank seeds independently, preserving the current alert rule.
-2. Reserve separate normal graphs for fit, calibration and validation; retrain when required so encoder-exposed graphs are not described as untouched validation.
-3. Test normal-score stability with missing relationships before judging a stronger encoder or checker. Compare simple pooled augmentation and strong fixed controls. Existing related methods prevent an automatic novelty claim.
-4. Preserve the existing audit, negative results, and GPU receipts. GPU support, live device qualification, the first real pilot, and shutdown are completed.
-5. If Unraveled is reopened, investigate its source schemas, clocks, identities, labels and campaign independence, then prepare the review packet and qualify a separate data-release validator.
+1. Froze and ran the diagnostic with separate model and reference-bank seeds, and distinct normal fit/calibration/validation graph roles.
+2. Completed all nine fixed candidates on clean and 50%-masked relationships: 1,296 records per phase, 1,008 after removing identical local-feature copies.
+3. Independently verified metrics, reference selections, source/data hashes, all 504 reused files, and exact agreement with the earlier completed records. All 170 documented software tests passed.
+4. Preserved the previous studies, the initial bounded timeout, two bootstrap failures, and the final successful continuation. Verified shutdown for all four attempts and published sanitized operational evidence.
+5. Documented concrete external-review steps without inventing an author response, completed human review, source mapping, independent campaign split, or novelty claim.
 
-The original E0 hold and CPU development registration remain unchanged. The native graph pilot has its own registration and real GPU results. No author response, completed human review, validated Unraveled join, independent campaign split, or comparative GPU speedup is claimed.
+The original Unraveled E0 hold remains unchanged. Reopening it is optional and separate from this completed study.

@@ -2,14 +2,17 @@
 
 This is the new APT experiment program on Git branch **`APT-final`**. It preserves the two supplied proposals and keeps their claims separate from measured results.
 
-The [frozen-encoder scoring follow-up](embedding_baseline/README.md) is **completed and independently audited**. Read the [latest results](embedding_baseline/results/gpu_scoring_20260920/REPORT.md), [AWS closeout](embedding_baseline/results/gpu_scoring_20260920/AWS_CLOSEOUT.json), and [next actions](NEXT_ACTIONS.md).
+The [normal-reference stability comparison](normal_stability/README.md) is **completed and independently audited: NO-GO for the fixed repair family**. None of the nine variants met all declared detection and false-alert requirements on either CADETS or THEIA. Read the [final report](normal_stability/results/gpu_stability_20260920/REPORT.md), [complete results](normal_stability/results/gpu_stability_20260920/FULL_RESULTS.md), [AWS closeout](normal_stability/results/gpu_stability_20260920/AWS_CLOSEOUT.md), and [closure/next actions](NEXT_ACTIONS.md).
 
-Changing the anomaly score recovered a strong THEIA signal: mean recall 90.334% and F1 0.8324. CADETS remained unstable, and no new fixed detector passed all declared readiness gates. The next step is reference/calibration stability on normal graphs before another checker. The [initial negative pilot](native_graph/results/gpu_pilot_20260920/REPORT.md), original Unraveled hold, and all earlier registrations remain preserved.
+Pooled calibration lowered masked normal false alerts from about 50% to below 1%, but MLP malicious-entity recall fell to 0.079% on CADETS and 0.030% on THEIA. A THEIA graph-model average improved, yet repeated-case and cross-dataset reliability still failed. The family is closed; no extra checker or threshold variant is pending. All four attempts are verified stopped, with approximately $1.631 in compute for this comparison, excluding storage and transfer.
+
+The [earlier scoring follow-up](embedding_baseline/results/gpu_scoring_20260920/REPORT.md), [initial negative pilot](native_graph/results/gpu_pilot_20260920/REPORT.md), original Unraveled hold, and previous registrations remain preserved. No novelty, independent campaign confirmation, or APT actor identification is established.
 
 ## What is built
 
 | Component | Purpose | Scientific status |
 |---|---|---|
+| Normal-reference stability | Separate normal fitting/calibration/validation; crossed model/bank seeds; missing-relationship repairs | Completed, audited, and closed: zero of nine candidates passed on either dataset. |
 | Frozen embedding scoring | Exact normal-reference nearest-neighbor scores using unchanged trained encoders | Completed and audited; strong THEIA signal, failed cross-dataset readiness and robustness. |
 | Native graph GPU pilot | Benign-trained detectors and fixed selectors on CADETS/THEIA with missing relationships | Completed on AWS; independently audited development result. Poor recall and no useful checker gain. |
 | Three-candidate registry | Local LLM deployment; prediction stability; structural/semantic/hybrid stage representations | Proposed tracks with literature and data prerequisites. Not three implemented or successful detectors. |
@@ -76,11 +79,10 @@ python experiments/apt_final/run.py register --output "C:/w/apt_development_regi
 
 It records a **development configuration freeze**, not a completed confirmatory preregistration. The initial E4 margin, verified exposure, independent units, and data-release adapter are not ready. Only after those gates are resolved should a separate real-data run use `run --stage E1` with registered configuration, normalized rows/edges, and a verified E0 receipt. Run `--help` for complete stage arguments. E2 and E3 bind upstream artifacts; E4 requires an additional policy-bound readiness receipt and compatible separate confirmation files.
 
-## What must happen next
+## Closure and broader work
 
-1. Freeze a normal-data stability diagnostic that separates encoder and reference-bank variability, with explicit fit/calibration/validation graph roles.
-2. Evaluate reference coverage and missing-relationship controls before judging a stronger encoder or checker. Keep calibration separate from attack labels and compare against strong fixed controls.
-3. Treat further evaluation on these already examined graphs as development; establish a separate confirmation design before deployment or generalization claims.
-4. Reopen the Unraveled campaign/identity/time/link review only if that original track is pursued. Its author clarification and human review tasks are optional for the active native graph route.
+The fixed normal-reference stability study, its independent audits, exact replay check, public evidence package, and verified cloud shutdown are complete. No immediate dataset purchase, manual labeling, or AWS task is required from Gary to close it. See the [final decision](normal_stability/results/gpu_stability_20260920/FINAL_DECISION.json).
 
-Nothing has been sent to dataset authors. The initial Unraveled branch setup used no AWS instance; the later native graph pilot ran on the existing AWS GPU host and completed with verified shutdown. No paid model API was used. Original research results remain unchanged.
+A broader graph-learning praxis remains a separate research decision. The completed method should not be advanced as a demonstrated successful or novel checker. Any different method or independent confirmation would need its own stated contribution, data evidence, and new frozen comparison; it is not an unfinished step of this study.
+
+The original Unraveled campaign/identity/time/link review remains optional unless that track is reopened. Concrete external-review steps and an evidence-recording form are in [human requirements](normal_stability/analysis/HUMAN_REQUIREMENTS.md). No dataset-author message or independent human review was performed. No paid model API or comparative GPU speedup is claimed.
