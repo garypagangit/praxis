@@ -20,7 +20,7 @@ Local relationship counts are recomputed after removal for every arm. Fit and ca
 
 ## Reproduction
 
-The original archives remain outside Git. Use Python with NumPy for the data adapter; the model also requires PyTorch and scikit-learn. The output captures actual versions. Cloud execution uses the existing CUDA environment without changing its packages.
+The original archives remain outside Git. Use Python with NumPy for the data adapter; the model also requires PyTorch and scikit-learn. The output captures actual versions. Cloud execution inherits existing CUDA PyTorch into an isolated per-run environment and installs the pinned numerical packages there, preserving existing host environments.
 
 ```powershell
 python -m experiments.apt_final.native_graph.data --help

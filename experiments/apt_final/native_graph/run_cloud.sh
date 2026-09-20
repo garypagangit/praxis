@@ -58,12 +58,26 @@ for candidate in \
  /opt/praxis/venvs/sec-lord-relationship-evidence-defense-qwen25-7b-20260630/bin/python \
  /opt/praxis/venvs/falsecite-code-generation-gate-20260625/bin/python \
  /opt/pytorch/bin/python; do
-  if test -x "$candidate" && "$candidate" -c 'import sys,numpy,scipy,sklearn,torch; assert sys.version_info >= (3,10); assert torch.cuda.is_available()' >/dev/null 2>&1; then
+  printf 'Checking %s\n' "$candidate" >> outputs/ENV_SELECTION.log
+  if test -x "$candidate" && timeout 45 "$candidate" -c 'import sys,torch; assert sys.version_info >= (3,10); assert torch.cuda.is_available()' >> outputs/ENV_SELECTION.log 2>&1; then
     python_bin="$candidate"
     break
   fi
 done
 test -n "$python_bin"
+torch_site=$($python_bin -c 'import pathlib,torch; print(pathlib.Path(torch.__file__).resolve().parent.parent)')
+timeout 90 "$python_bin" -m venv --system-site-packages "$run_dir/venv" > outputs/VENV_SETUP.log 2>&1
+python_bin="$run_dir/venv/bin/python"
+"$python_bin" - "$torch_site" <<'PY'
+import pathlib,sys,sysconfig
+source=pathlib.Path(sys.argv[1]).resolve(strict=True)
+target=pathlib.Path(sysconfig.get_paths()['purelib'])/'praxis_existing_torch.pth'
+target.write_text(str(source)+'\n')
+PY
+timeout 240 "$python_bin" -m pip install --only-binary=:all: --no-input --disable-pip-version-check \
+  numpy==1.26.4 scipy==1.14.1 scikit-learn==1.5.2 joblib==1.4.2 threadpoolctl==3.5.0 \
+  > outputs/DEPENDENCIES.log 2>&1
+"$python_bin" -c 'import numpy,scipy,sklearn,torch; assert torch.cuda.is_available()'
 printf '%s\n' "$python_bin" > outputs/PYTHON.txt
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv > outputs/GPU.txt
 "$python_bin" - <<'PY' > outputs/ENVIRONMENT.json

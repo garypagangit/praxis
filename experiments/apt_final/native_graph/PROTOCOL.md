@@ -53,6 +53,8 @@ Use the existing authorized AWS g5.xlarge only after source/config/data registra
 
 The worker must check CUDA and record device/runtime details, use explicit device placement and synchronized timings, and fail rather than silently skip an unsupported deterministic operation. Verify repeatable synthetic CPU/GPU predictions within declared tolerances before real execution. A hardware test or synthetic success is not research evidence. Use a fresh output directory and persist partial status if the bounded job cannot finish. Do not claim a measured GPU speedup without a paired timing benchmark.
 
+Runtime revision: the first cloud attempt ended during environment selection before any model fitting. Preserve that failed attempt and its stop receipt. The replacement runtime creates an isolated per-run environment inheriting existing CUDA PyTorch, with NumPy1.26.4, SciPy1.14.1, scikit-learn1.5.2, joblib1.4.2 and threadpoolctl3.5.0 installed as binary wheels under a240-second install limit. It does not change the host's existing packages. Use a new registration and attempt directory; no detector settings or data splits changed in this repair. Publish both attempts and aggregate observed compute estimates.
+
 ## Literature context
 
 - MAGIC establishes benign-trained provenance representation learning: [USENIX Security 2024](https://www.usenix.org/conference/usenixsecurity24/presentation/jia-zian), [author code/data](https://github.com/FDUDSDE/MAGIC).
