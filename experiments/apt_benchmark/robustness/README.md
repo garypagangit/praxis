@@ -84,3 +84,22 @@ its results selected a favorable model or corruption seed in this suite.
 The full Casino corpus is processed one execution at a time. The feature cache
 uses the same causal replay and binds its input/protocol/code/matrix hashes; it
 changes memory use without changing the experiment's information or target set.
+
+### Audit and summarize a completed run
+
+The audit recomputes saved prediction metrics and reproduces the frozen
+calibration thresholds. It loads verified saved models for calibration-only
+inference; it does not refit them or generate new test predictions. This is a
+software audit, not independent human adjudication of source labels.
+
+```powershell
+python -m experiments.apt_benchmark.robustness.audit_results --run C:/w/apt_benchmark_data_20260920/robustness_new/casino_run --events C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.jsonl --manifest C:/w/apt_benchmark_data_20260920/robustness_new/casino/casino_events.receipt.json --feature-cache C:/w/apt_benchmark_data_20260920/robustness_new/casino_features --output C:/w/apt_benchmark_data_20260920/robustness_new/casino_audit
+python -m experiments.apt_benchmark.robustness.compare_results --result C:/w/apt_benchmark_data_20260920/robustness_new/ait_run/RESULTS.json --result C:/w/apt_benchmark_data_20260920/robustness_new/casino_run/RESULTS.json --output C:/w/apt_benchmark_data_20260920/robustness_new/comparison
+```
+
+The comparison keeps datasets and targets separate, shows both operating
+points, and includes every declared condition. Seed ranges describe sensitivity
+to the three removal patterns; they are not population confidence intervals.
+Use `robustness.publish` for the fixed aggregate-only publication allowlist.
+Raw logs, fitted models, feature matrices and row-level predictions remain
+outside Git.

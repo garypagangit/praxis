@@ -1,5 +1,8 @@
 # Next decision: what information resolves escalation-stage mistakes?
 
+**September 20 update:** The subsequent [missing/delayed-log suite is complete](../results/robustness_v1/SUMMARY.md). It provides positive random-loss results on CasinoLimit, structured-loss failures and no consistent AIT augmentation benefit. The next gate is source-type-aware evidence handling with independent confirmation. [S-DAPT-2026 is registered conditionally](../sdapt2026/README.md), with source/correction and data-access issues documented. The earlier pilot rationale below is retained as development history.
+
+
 Decision date: September 20, 2026. This is the next development experiment design; no new model comparison has run under it.
 
 Evidence: [targeted source and representation diagnostic](../results/diagnostic_v1/README.md), including aggregate counts, scope limits and input hashes.

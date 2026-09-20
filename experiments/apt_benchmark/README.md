@@ -2,9 +2,11 @@
 
 Research environment created September20,2026. This branch builds a fair way to discover a useful praxis contribution. A high score on an emulation, or changing the name of a model, does not establish a new contribution.
 
-**Missing/delayed-log experiments:** the [three-experiment suite](robustness/README.md) and [recent literature review](docs/ROBUSTNESS_LITERATURE.md) are implemented. The [AIT event-level results](results/robustness_v1/ait/REPORT.md) and [independent metric audit](results/robustness_v1/ait/AUDIT.md) are complete. This event task differs from the earlier source-line pilot below.
+**Completed missing/delayed-log experiments:** [read the plain-language results](results/robustness_v1/SUMMARY.md). Three experiments, two datasets, sixteen fitted models and 272 audited condition/model/seed results are complete. CasinoLimit shows improved F1 from missing-record training under random loss, but losing command-record types can worsen two targets. Broad reliability and novelty remain unestablished. [Full comparisons](results/robustness_v1/comparison/COMPARISONS.md) and [recent literature](docs/ROBUSTNESS_LITERATURE.md) are available.
 
-**Completed:** [first real-data comparison and stage scores](results/pilot_v1/REPORT.md), four binary models plus a separate 12-label step classifier, 1,768,861 source lines across eight runs, and 41 passing qualification tests. The development pilot used CPU; AWS authentication was verified and the existing GPU host remained stopped. See [full machine-readable dataset catalog](DATASET_CATALOG.json).
+**S-DAPT-2026 added:** [source review and proposed evaluations](sdapt2026/README.md), [machine-readable plan](sdapt2026/EVALUATION_PLAN.json), and an unsent source request are prepared. Its January preprint was withdrawn; a later SSRN posting exists, but correction status, raw artifact and license remain unqualified. It has not been fitted or counted as an evaluation-ready dataset.
+
+**Earlier completed pilot:** [first real-data comparison and stage scores](results/pilot_v1/REPORT.md), four binary models plus a separate 12-label step classifier, and 1,768,861 source lines across eight runs. The current environment has 88 passing qualification tests. The development runs used CPU; AWS authentication was verified and the existing GPU host remained stopped. See [full machine-readable dataset catalog](DATASET_CATALOG.json).
 
 An [independent calculation audit](docs/PILOT_AUDIT.md) verified the pilot's metrics and provenance. A separate fixed-model check on 48,838 additional author-rule-nonmatch lines flagged 0.860% with logistic regression, 12.267% with random forest and 8.940% with gradient boosting. These are additional covered files from the same two test runs; no thresholds or models were refitted. Unknown-clock lines were excluded, and the rule-nonmatch labels do not establish independently verified benignness. See [supplemental counts and receipts](results/pilot_v1/background_check_v1.json).
 
@@ -22,7 +24,8 @@ APT-inspired emulations support behavior tests. They do not establish attributio
 |---|---|---|
 | AIT-LDSv2.1 | Primary enterprise-log detection/step pilot; eight held-out-run units, simulated normal users | Exact source/label-pair acquisition and CPU runner implemented. See results for completion. Data captured2022;2026 packaging is not a new capture. |
 | cAPTure, Computer Networks2026 | Conditional network-packet and early-warning replication | Two reduced tables acquired, about1.59GB and2.57million packets. Qualification implemented; causal/reduction provenance remains unresolved. Not fitted in this milestone. |
-| CasinoLimit, RAID2025 | Optional stage/technique transfer across execution instances | Annotation and milestone inventory inspected.114 labeled executions of one challenge; raw event adapter not implemented. No realistic benign-user baseline. |
+| CasinoLimit, RAID2025 | Completed technique robustness across execution instances | All114 executions adapted;3,758,674 retained events and8,240 eligible targets. Three target techniques fitted and audited. One challenge, no realistic benign-user baseline. |
+| S-DAPT-2026 | Conditional synthetic alert/campaign stress tests | Candidate plan prepared. January paper withdrawn; later preprint correction status, raw files and license need qualification. No fitting. |
 
 AIT-ADS is another observation view of AIT-LDS, not a fourth independent dataset. CAM-LDS, Windows-APT2025, CICAPT-IIoT2024, DEDALE and other alternatives are compared in the two source-backed reviews:
 
@@ -79,4 +82,4 @@ The [next-experiment decision](docs/NEXT_EXPERIMENT.md) now prioritizes source-l
 
 Build a precise arrival-aware memory or evidence-handling mechanism only after simple baselines and prefix replay are qualified. Compare ordinary updates, lateness buffering, missingness indicators and dropout training before claiming value from a new mechanism. Measure clean operation as well as held-out outages/delay bursts. This is a candidate question, not a novelty or positive-result claim. cAPTure already studies latency/FPR, and recent PIDS frameworks already compare many architectures; a leaderboard alone is insufficient.
 
-The next scientific gate is an attainable, predeclared improvement over a strong baseline on qualified early-warning evidence and an additional independent data source. Pilot outcomes may guide that choice but cannot be reused as untouched confirmation.
+The completed robustness suite narrows the next gate: compare source-type-aware training and evidence handling against random dropout, with clean-performance and alert-burden tradeoffs preserved. Qualify independent CAM-LDS scenarios before confirmation. The registered S-DAPT candidate can supply a separate synthetic alert-level check only after its source and shortcut controls pass. Development outcomes cannot be reused as untouched confirmation.

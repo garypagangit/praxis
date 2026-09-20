@@ -2,6 +2,10 @@
 
 Checked September 20, 2026. This is a bounded primary-source review and design audit, not a claim that a novel method has been established. Publication date, collection date, and artifact release date are different facts.
 
+**Completed evidence:** [three-experiment results](../results/robustness_v1/SUMMARY.md) now cover AIT and CasinoLimit. Random-record dropout helps Casino under random loss but can harm recognition when command-record types disappear.
+
+**Added at the user's request:** [S-DAPT-2026 source review and evaluation plan](../sdapt2026/README.md). The [January dataset paper](https://arxiv.org/abs/2601.06690) and [E-HiDNet companion](https://arxiv.org/abs/2601.06734) were withdrawn on April 1 for analysis errors affecting conclusions. A later [April 18 SSRN posting](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6603942) exists; correction and peer-review status remain unverified. Treat it as a conditional synthetic alert-level supplement, not a qualified peer-reviewed benchmark or a validated performance reference. Its prior proposal of incomplete-observation stage inference also prevents calling that general idea unexamined.
+
 ## Research question
 
 Can a detector retain useful recognition of dangerous attack steps when some supporting observations disappear or arrive late, at a declared decision deadline and alert burden?

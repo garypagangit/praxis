@@ -39,3 +39,19 @@ They do not certify the authors' labels, independent campaigns, operational
 benign false-positive rates, or novelty. The original AIT run binds its own
 pre-fit code at commit `174cbea`; the later cached path has a separate Casino
 pre-fit receipt rather than silently changing the AIT evidence.
+
+## Completed Casino run
+
+The corrected adapter completed all 114 executions, producing 3,758,674 retained
+events and 8,240 eligible targets. Every one of the 4,896,255 annotated audit IDs
+matched a source record. Streamed feature preparation completed and bound its
+source/protocol/code/matrix hashes. Twelve models were fitted without a
+convergence failure; all 204 condition/model/seed results completed.
+
+The [Casino calculation audit](../results/robustness_v1/casino/AUDIT.md) passed
+all result rows, pooled and per run, at both operating points, and reproduced
+twelve calibration thresholds. Root executed the independently implemented
+auditor after the reviewer agent hit its account usage limit. This did not
+change the frozen experiment or substitute a human review. The [combined
+summary](../results/robustness_v1/SUMMARY.md) reports positive and negative
+findings and the full comparisons preserve every declared condition.

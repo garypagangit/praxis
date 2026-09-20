@@ -1,0 +1,196 @@
+{
+  "schema_version": "sdapt-intake-plan-v1",
+  "checked_at": "2026-09-20",
+  "dataset": "S-DAPT-2026",
+  "status": "REGISTERED_CANDIDATE_AWAITING_QUALIFIED_SOURCE",
+  "evaluation_ready": false,
+  "model_fitted": false,
+  "raw_bytes_acquired": false,
+  "adapter_implemented": false,
+  "synthetic_replacement_generated": false,
+  "source_records": [
+    {
+      "url": "https://arxiv.org/abs/2601.06690",
+      "submitted": "2026-01-10",
+      "latest_version": "v2",
+      "latest_version_date": "2026-04-01",
+      "status": "WITHDRAWN",
+      "reason": "Authors report analysis errors affecting main conclusions."
+    },
+    {
+      "url": "https://arxiv.org/abs/2601.06734",
+      "role": "Companion E-HiDNet stage-prediction method",
+      "status": "WITHDRAWN",
+      "latest_version_date": "2026-04-01"
+    },
+    {
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6603942",
+      "doi": "10.2139/ssrn.6603942",
+      "posted": "2026-04-18",
+      "status": "LATER_PREPRINT_METADATA_FOUND",
+      "full_text_retrieval": "HTTP_403",
+      "correction_status": "UNVERIFIED",
+      "peer_review": "UNVERIFIED"
+    }
+  ],
+  "artifact": {
+    "url": null,
+    "sha256": null,
+    "license": null,
+    "reported_raw_filename": "S_DAPT_2026_dataset.csv",
+    "reported_preprocessed_filename": "apt_dataset_120k_preprocessed.csv",
+    "reported_rows": 120000,
+    "reported_rows_verified": false,
+    "observed_rows": null,
+    "actual_header": null,
+    "generator_revision": null
+  },
+  "readiness_gates": [
+    {
+      "id": "G0",
+      "requirement": "Authoritative release and correction status documented",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "G1",
+      "requirement": "Raw bytes, generator/configuration, dataset-use terms and checksums acquired",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "G2",
+      "requirement": "Actual schema, labels, time semantics and alert-to-stage mapping qualified",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "G3",
+      "requirement": "Campaign/template groups and background grouping support leakage-resistant splits",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "G4",
+      "requirement": "Field availability and prefix invariance established; actual adapter tested",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "G5",
+      "requirement": "Nontrivial task survives type-lookup and forbidden-field controls",
+      "status": "NOT_RUN"
+    }
+  ],
+  "intake_contract": {
+    "reported_observable_candidates": [
+      "alert_type",
+      "timestamp",
+      "src_ip",
+      "src_port",
+      "dest_ip",
+      "dest_port"
+    ],
+    "conditional_join_fields": [
+      "infected_host",
+      "scanned_host"
+    ],
+    "conditional_join_rule": "Exclude until provenance establishes the field is observed at the decision time, not generator-only truth.",
+    "evaluator_only": [
+      "ground_truth_stage",
+      "campaign_identifier",
+      "generator_seed",
+      "scenario_template",
+      "scenario_label",
+      "completed_sequence_membership"
+    ],
+    "forbidden_prediction_inputs": [
+      "ground_truth_stage",
+      "campaign_identifier",
+      "campaign_identifier_missingness",
+      "scenario_label",
+      "full_window_correlation_index",
+      "future_stage",
+      "full_campaign_duration",
+      "future_derived_summary"
+    ],
+    "raw_identity_policy": "Use qualified observed identities for within-stream joins only; mask direct identity memorization.",
+    "stage_mapping": null,
+    "ground_truth_group_mapping": null,
+    "split_mapping": null,
+    "preprocessing": "Fit transformations on training groups only; recompute context causally; do not import unqualified preprocessed columns.",
+    "separate_tracks": "Synthetic alert-level evidence; never relabel as raw logs, packet observations, verified enterprise benign data or real APT actor attribution."
+  },
+  "proposed_experiments": [
+    {
+      "id": "S0",
+      "name": "Shortcut audit",
+      "models": [
+        "majority",
+        "alert_type_lookup",
+        "prefix_linear"
+      ],
+      "status": "DESIGN_PREPARED_NOT_RUN"
+    },
+    {
+      "id": "S1",
+      "name": "Missing alert robustness",
+      "models": [
+        "event_only",
+        "past_context",
+        "random_dropout",
+        "alert_type_dropout"
+      ],
+      "random_loss": [
+        0.25,
+        0.5,
+        0.75
+      ],
+      "seeds": [
+        20260920,
+        20260921,
+        20260922
+      ],
+      "type_loss": "Declare qualified alert classes before fitting",
+      "status": "DESIGN_PREPARED_NOT_RUN"
+    },
+    {
+      "id": "S2",
+      "name": "Delayed stage progression",
+      "models": [
+        "immediate_prefix",
+        "bounded_buffer",
+        "past_only_HMM_filter"
+      ],
+      "deadlines": "Choose from training-only timeline scales and freeze before scoring",
+      "status": "DESIGN_PREPARED_NOT_RUN"
+    },
+    {
+      "id": "S3",
+      "name": "Observed graph contribution",
+      "models": [
+        "causal_mutual_knn",
+        "equal_history_sequence",
+        "proposed_incremental_graph"
+      ],
+      "status": "DESIGN_PREPARED_NOT_RUN"
+    }
+  ],
+  "evaluation_rules": {
+    "holdout": "Whole campaigns/generator realizations and templates where available; never random alert rows.",
+    "thresholds": "Clean calibration groups only; frozen during perturbations.",
+    "corruption": "Paired, label-blind loss/delay schedules; no true corruption mask in model inputs.",
+    "denominators": "Preserve original targets and missed/censored campaigns.",
+    "metrics": [
+      "per_stage_f1",
+      "macro_f1",
+      "precision",
+      "recall",
+      "supported_ovr_roc_auc",
+      "average_precision",
+      "observation_coverage",
+      "false_stage_claims",
+      "qualified_campaign_warning_delay"
+    ],
+    "no_current_stage_novelty_from_type_lookup": true,
+    "no_population_reliability_claim_from_synthetic_only": true
+  },
+  "novelty": "Unestablished; kNN alert correlation, HMM partial-observation inference, graph history and dropout are prior ideas. Withdrawn performance claims are not validated evidence.",
+  "search_scope": "Primary arXiv records and historical HTML; later SSRN primary metadata; exact dataset/raw/preprocessed filename searches and publisher/repository searches. No author-controlled downloadable dataset found in checked sources; this is not proof none exists.",
+  "next_action": "Obtain source materials described in DATA_REQUEST.md; the draft is prepared and has not been sent."
+}

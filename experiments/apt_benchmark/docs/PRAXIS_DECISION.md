@@ -1,5 +1,8 @@
 # Praxis opportunity revealed by the first comparison
 
+**September 20 update:** The subsequent [missing/delayed-log suite is complete](../results/robustness_v1/SUMMARY.md). It provides positive random-loss results on CasinoLimit, structured-loss failures and no consistent AIT augmentation benefit. The next gate is source-type-aware evidence handling with independent confirmation. [S-DAPT-2026 is registered conditionally](../sdapt2026/README.md), with source/correction and data-access issues documented. The earlier pilot rationale below is retained as development history.
+
+
 ## Plain-language problem
 
 A detector can look almost perfect by catching large volumes of familiar scanning while still confusing the less common steps where an attacker gains control. Analysts need to know both **whether an attack is happening** and **what dangerous action is happening next**.
