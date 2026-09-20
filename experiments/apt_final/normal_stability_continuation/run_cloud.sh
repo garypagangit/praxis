@@ -10,12 +10,81 @@ deadline_epoch="$5"
 [[ "$run_id" =~ ^[a-zA-Z0-9_-]+$ ]]
 [[ "$bundle_sha" =~ ^[0-9a-f]{64}$ ]]
 [[ "$deadline_epoch" =~ ^[0-9]+$ ]]
-test -d /opt/dlami/nvme
-run_dir="/opt/dlami/nvme/$run_id"
-test ! -e "$run_dir"
-mkdir "$run_dir"
+# BEGIN_STABLE_STORAGE_GUARDS
+# These functions are qualified separately without downloading or running science.
+storage_error() { printf 'STORAGE GUARD: %s\n' "$*" >&2; return 1; }
+root_filesystem_path() {
+  local target="$1" mounted_on device
+  mounted_on=$(findmnt -rn -o TARGET -T "$target") || return 1
+  device=$(findmnt -rn -o MAJ:MIN -T "$target") || return 1
+  [[ "$mounted_on" == / && "$device" == "$storage_root_device" ]] ||
+    storage_error "Path is no longer on the verified root filesystem: $target"
+}
+prepare_run_storage() {
+  local base="$1" parent_name="$2" requested_id="$3"
+  local canonical root_sysfs root_block backing_disks parent
+  [[ "$parent_name" =~ ^[a-zA-Z0-9_-]+$ && "$requested_id" =~ ^[a-zA-Z0-9_-]+$ ]] ||
+    { storage_error 'Invalid storage directory identifier'; return 1; }
+  [[ "$base" == /* && -d "$base" && ! -L "$base" ]] ||
+    { storage_error 'Storage base must be an existing absolute non-symlink directory'; return 1; }
+  canonical=$(readlink -f -- "$base") || return 1
+  [[ "$canonical" == "$base" ]] ||
+    { storage_error 'Storage base must contain no symlink components'; return 1; }
+  storage_root_device=$(findmnt -rn -o MAJ:MIN -T /) || return 1
+  [[ "$storage_root_device" =~ ^[0-9]+:[0-9]+$ ]] ||
+    { storage_error 'Cannot identify root block device'; return 1; }
+  root_filesystem_path "$base" || return 1
+  storage_root_stat=$(stat -Lc '%d' -- /) || return 1
+  [[ "$(stat -Lc '%d' -- "$base")" == "$storage_root_stat" ]] ||
+    { storage_error 'Storage base device differs from root'; return 1; }
+  # Resolve aliases such as /dev/root through sysfs; lsblk -s follows partition
+  # and device-mapper ancestry. NVMe names are valid for both EBS and instance store.
+  root_sysfs=$(readlink -f -- "/sys/dev/block/$storage_root_device") || return 1
+  [[ -d "$root_sysfs" ]] ||
+    { storage_error 'Root block device has no sysfs entry'; return 1; }
+  root_block="/dev/${root_sysfs##*/}"
+  backing_disks=$(lsblk -sn -o TYPE,MODEL -- "$root_block") || return 1
+  printf '%s\n' "$backing_disks" | awk '
+    $1 == "disk" { count++; $1=""; gsub(/[[:space:]]/, ""); if ($0 != "AmazonElasticBlockStore") bad=1 }
+    END { exit (count == 0 || bad) }
+  ' || { storage_error 'Root backing disks are not all verified Amazon EBS'; return 1; }
+  storage_free_bytes=$(df -PB1 -- "$base" | awk 'NR==2 {print $4}') || return 1
+  [[ "$storage_free_bytes" =~ ^[0-9]+$ ]] &&
+    (( storage_free_bytes >= 10737418240 )) ||
+    { storage_error 'Root EBS needs at least 10 GiB free before creating the run directory'; return 1; }
+  parent="$base/$parent_name"
+  [[ ! -L "$parent" ]] || { storage_error 'Storage parent is a symlink'; return 1; }
+  if [[ ! -e "$parent" ]]; then mkdir -- "$parent" || return 1; fi
+  [[ -d "$parent" && "$(readlink -f -- "$parent")" == "$parent" ]] ||
+    { storage_error 'Storage parent is not a canonical directory'; return 1; }
+  root_filesystem_path "$parent" || return 1
+  run_dir="$parent/$requested_id"
+  [[ ! -e "$run_dir" && ! -L "$run_dir" ]] ||
+    { storage_error 'Refusing an existing run directory'; return 1; }
+  mkdir -- "$run_dir" || return 1
+  mkdir -- "$run_dir/outputs" || return 1
+  storage_run_identity=$(stat -Lc '%d:%i' -- "$run_dir") || return 1
+  storage_outputs_identity=$(stat -Lc '%d:%i' -- "$run_dir/outputs") || return 1
+  assert_run_storage || return 1
+  printf 'Verified root EBS storage: path=%s root_device=%s free_bytes_before_run=%s run_identity=%s outputs_identity=%s\n' \
+    "$run_dir" "$storage_root_device" "$storage_free_bytes" "$storage_run_identity" "$storage_outputs_identity" \
+    >> "$run_dir/outputs/ENV_SELECTION.log" || return 1
+}
+assert_run_storage() {
+  [[ -d "$run_dir" && ! -L "$run_dir" && -d "$run_dir/outputs" && ! -L "$run_dir/outputs" ]] ||
+    { storage_error 'Run or output directory disappeared or became a symlink'; return 1; }
+  [[ "$(readlink -f -- "$run_dir")" == "$run_dir" ]] ||
+    { storage_error 'Run path canonical identity changed'; return 1; }
+  root_filesystem_path "$run_dir" && root_filesystem_path "$run_dir/outputs" || return 1
+  [[ "$(stat -Lc '%d:%i' -- "$run_dir")" == "$storage_run_identity" &&
+     "$(stat -Lc '%d:%i' -- "$run_dir/outputs")" == "$storage_outputs_identity" ]] ||
+    { storage_error 'Run or output directory device/inode changed'; return 1; }
+  [[ "$(stat -Lc '%d' -- "$run_dir")" == "$storage_root_stat" ]] ||
+    { storage_error 'Run directory device no longer matches verified root'; return 1; }
+}
+# END_STABLE_STORAGE_GUARDS
+prepare_run_storage /var/tmp praxis-apt-final "$run_id"
 cd "$run_dir"
-mkdir outputs
 export AWS_DEFAULT_REGION=us-east-1
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
 export OMP_NUM_THREADS=4
@@ -24,17 +93,27 @@ export APT_FROZEN_BUNDLE_SHA256="$bundle_sha"
 publish() {
   rc=$?
   trap - EXIT
-  cd "$run_dir"
-  printf '%s\n' "$rc" > outputs/WORKER_EXIT.txt
-  tar -czf result.tar.gz outputs
-  sha256sum result.tar.gz | cut -d ' ' -f1 > result.sha256
-  timeout 120 aws s3 cp result.tar.gz "${output_uri}/result.tar.gz" --only-show-errors &&
-    timeout 30 aws s3 cp result.sha256 "${output_uri}/result.sha256" --only-show-errors || rc=91
+  set +e
+  if ! assert_run_storage; then
+    printf 'PUBLICATION FAILED: storage identity changed; original exit=%s. Evidence path was not recreated.\n' "$rc" >&2
+    if [[ "$rc" -eq 0 ]]; then rc=91; fi
+    exit "$rc"
+  fi
+  if ! { printf '%s\n' "$rc" > "$run_dir/outputs/WORKER_EXIT.txt" &&
+    tar -czf "$run_dir/result.tar.gz" -C "$run_dir" outputs &&
+    sha256sum "$run_dir/result.tar.gz" | cut -d ' ' -f1 > "$run_dir/result.sha256" &&
+    assert_run_storage &&
+    timeout 120 aws s3 cp "$run_dir/result.tar.gz" "${output_uri}/result.tar.gz" --only-show-errors &&
+    timeout 30 aws s3 cp "$run_dir/result.sha256" "${output_uri}/result.sha256" --only-show-errors; }; then
+    printf 'PUBLICATION FAILED: archive, checksum, or upload failed; original exit=%s.\n' "$rc" >&2
+    rc=91
+  fi
   exit "$rc"
 }
 trap publish EXIT
-timeout 180 aws s3 cp "$bundle_uri" bundle.tar.gz --only-show-errors
-printf '%s  bundle.tar.gz\n' "$bundle_sha" | sha256sum -c -
+timeout 180 aws s3 cp "$bundle_uri" "$run_dir/bundle.tar.gz" --only-show-errors
+assert_run_storage
+printf '%s  %s\n' "$bundle_sha" "$run_dir/bundle.tar.gz" | sha256sum -c -
 python3 - <<'PY'
 from pathlib import Path
 import tarfile
@@ -89,6 +168,7 @@ print(json.dumps({'python':sys.version,'executable':sys.executable,'platform':pl
 PY
 remaining=$((deadline_epoch - $(date +%s) - 240))
 test "$remaining" -ge 120
+assert_run_storage
 cd repo
 timeout --signal=TERM --kill-after=20s "${remaining}s" "$python_bin" -u \
   -m experiments.apt_final.normal_stability_continuation.worker \

@@ -4,6 +4,12 @@ This is a runtime continuation for [normal stability](../normal_stability/README
 
 Every reference bank, calibration score, normal-validation result, and attack result is recomputed by the unchanged original runner. Cases lacking a completion manifest train normally. A present but invalid completion manifest aborts preparation; corrupt completed evidence is never silently replaced. Earlier scores do not choose what is reused.
 
+## Bootstrap repair
+
+Cloud attempt 2 failed before starting the worker: the download command reported success, then its bundle and previously created output directory were absent. A startup mount/path change is suspected but unconfirmed. The repair uses `/var/tmp/praxis-apt-final/<run_id>` on verified root EBS storage, requires 10 GiB free space, rejects reused or symlinked paths, and checks directory identities after download and before execution/publication. Failure diagnostics also go to stderr so losing an output directory cannot hide the reason.
+
+Keep the failed attempt and the original `REGISTRATION.json`. Freeze the runtime amendment under **`REGISTRATION_RUNTIME_FIX.json`**; it binds the same 24 verified encoder/cache sets and unchanged science. The commands below show that amended registration and a new attempt directory. The launcher stores the selected receipt under the canonical registration filename inside its private bundle.
+
 ## Required preparation
 
 1. Collect and verify the interrupted attempt; retain its original archive, receipts, and output directory. Confirm the host stopped. An interruption is incomplete evidence, not a scientific failure.
@@ -20,13 +26,13 @@ Example preparation from the repository root, using the collected original attem
 Then register after committing the source:
 
 ```powershell
-& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.provenance register --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION.json
+& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.provenance register --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION_RUNTIME_FIX.json
 ```
 
 Create a new private cloud attempt directory and settings file. Preserve the approved host, account, bucket, profile, stop role, and price fields; use a distinct S3 prefix such as `apt-normal-stability-continuation-20260920/<unique-attempt>/`. Do not copy old execution receipts into that directory.
 
 ```powershell
-& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.launch --settings C:/w/apt_stability_20260920/cloud_attempt2/settings.json --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION.json
+& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.launch --settings C:/w/apt_stability_20260920/cloud_attempt3/settings.json --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION_RUNTIME_FIX.json
 ```
 
 The launcher verifies and bundles both source chains, original data, and staged checkpoint files. The worker calls the wrapper once. Input and output archives are limited to 2,000 members and 4 GB. The existing one-hour/$10 controller and independent shutdown protection remain active.

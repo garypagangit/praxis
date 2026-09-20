@@ -2,7 +2,7 @@
   "status": "PASS",
   "scope": "SOFTWARE_AND_SYNTHETIC_QUALIFICATION_ONLY",
   "date": "2026-09-20",
-  "total_tests": 138,
+  "total_tests": 151,
   "groups": {
     "new_engine": 7,
     "new_scoring": 9,
@@ -14,7 +14,8 @@
     "descriptive_factor_variability": 6,
     "runtime_continuation_equivalence": 9,
     "runtime_continuation_provenance_worker": 27,
-    "independent_continuation_chain_auditor": 13
+    "independent_continuation_chain_auditor": 13,
+    "runtime_stable_storage_bootstrap": 13
   },
   "runner_synthetic": {
     "datasets": 1,
@@ -61,12 +62,21 @@
     "tests/test_apt_stability_variability.py": "86a5d672469e632baaea4f3806f349c304fd2db6fb86030021a11c4258235b8b",
     "tests/test_apt_normal_stability_scoring.py": "1fd411b4e2abbb1216106298a9fcc1dc4567afbb624a6255ec23b4c2e4cec220",
     "tests/test_apt_embedding_engine.py": "f1bfb8a9fddc8a73c84cbb43d91f4f27834cb33fc8496ad041387ea41ac1aae8",
-    "tests/test_apt_embedding_scoring.py": "aa38daca5aa2f672a5fc5fe663680cf0245a60707aa1255cfcee98a440c9f503"
+    "tests/test_apt_embedding_scoring.py": "aa38daca5aa2f672a5fc5fe663680cf0245a60707aa1255cfcee98a440c9f503",
+    "tests/test_apt_stability_storage_bootstrap.py": "2c04063abe5d97925f0b6211789469872b1bdd163560a9ea029600e0e75ebc76"
   },
   "subsequent_chain_timeout_qualification": {
     "tests": 13,
     "status": "PASS",
     "reason": "Controller gate_failed includes expected worker timeout; require archived124 exit, matching Failed124 poll, incomplete scientific phase and verified resource bounds.",
     "auditor_sha256": "6b26ada640750a8f86693b446ee4b96ea4221172d96478b9638bf5d44e5016e5"
+  },
+  "storage_bootstrap_qualification": {
+    "status": "PASS",
+    "tests": 13,
+    "skipped": 0,
+    "seconds": 8.469,
+    "independent_review": "PASS",
+    "scope": "Runtime storage only; production shell functions exercised with mocked Linux metadata and real filesystem operations; no science changes."
   }
 }
