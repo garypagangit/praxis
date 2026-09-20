@@ -25,6 +25,14 @@ SEED = "camlds-robustness-v2:"
 BIN_SECONDS = 10
 TARGETS = ("T1068", "T1548", "T1105")
 ROLES = ("fit", "development", "calibration", "test")
+FIXED_HOST_NAMES = ("videoserver", "inetfw", "lanfw", "wazuh", "attacker", "repositoryserver",
+                    "fileserver", "workstation", "linuxshare", "corpdns", "reposerver")
+FIXED_HOST_PATTERN = re.compile(r"\b(?:" + "|".join(FIXED_HOST_NAMES) + r")\b", re.I)
+
+
+def mask_fixed_hostnames(text):
+    """Fixed testbed names only; generic CLIENT variables/package terms remain."""
+    return FIXED_HOST_PATTERN.sub("HOST", text)
 
 
 def family_splits():
@@ -81,8 +89,7 @@ def fragment(raw, run, host, timestamp):
     value = audit_fragment(raw, run, host, timestamp)
     for field in ("text", "baseline_text"):
         value[field] = re.sub(r"\b[\w.-]*attackbed\.[a-z]+\b", "HOST", value[field], flags=re.I)
-        value[field] = re.sub(r"\b(?:videoserver|inetfw|lanfw|wazuh|attacker|repositoryserver|fileserver|workstation)\b",
-                              "HOST", value[field], flags=re.I)
+        value[field] = mask_fixed_hostnames(value[field])
         value[field] = re.sub(r"\b" + re.escape(host) + r"\b", "HOST", value[field], flags=re.I)
         value[field] = re.sub(r"\bT\d{4}(?:\.\d{3})?\b", "TECHNIQUE_MARKER", value[field], flags=re.I)
         value[field] = re.sub(r"\bscenario_\w+\b", "SCENARIO_MARKER", value[field], flags=re.I)

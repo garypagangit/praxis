@@ -34,6 +34,8 @@ The router can contain five logistic regressions, including its fallback, so its
 
 The [CAM-specific protocol](camlds_protocol.json) corrects supervision wording after inspection of the pinned author extractor: source intervals are padded and manually adjusted manifestation windows. The target is whether the query belongs to an author-designated T1105 manifestation window, not whether a specific event transfers a tool or the technique is literally executing. Unrelated and idle host events can inherit the scenario-window label. This narrows CAM to a separate-source exploratory proxy; it cannot directly confirm Casino onset recognition. Model arms, parameters, splits, perturbations, calibration, and gates remain unchanged. The base protocol and completed AIT/Casino receipts are preserved.
 
+A subsequent independent input scan, still before the first CAM fit, found eight text fragments retaining the fixed host variable `LINUXSHARE`. The [final CAM protocol](camlds_masked_protocol.json) records a CAM-only fixed-name masking repair and new source/cache artifacts. Only fragment text fields are remasked; labels, event identities, chronology, links, and split assignments are checked unchanged. The original stream/cache and previous protocol remain preserved. This source correction does not change model or success settings.
+
 ## Reproduction and audit
 
 Run from the repository root using the pinned benchmark environment. The feature cache streams one source execution at a time; optional `--base-cache` reuses only hash-verified unchanged v1 chunks. No model fitting happens during cache preparation.
