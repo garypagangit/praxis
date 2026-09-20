@@ -1,0 +1,41 @@
+{
+  "version": "1.1-G0-and-software-qualification",
+  "source_proposal_sha256": "7b5ce9e793c1caf24d7b90325601d8aeaa47f710a481bb827c8e1fcececc1f01",
+  "scope": "OFFLINE_RESEARCH_NO_LIVE_ALERT_SUPPRESSION",
+  "registered_now": ["G0 artifact and contract audit", "synthetic calibration qualification", "human-review packet generation"],
+  "not_yet_released": ["G1 scorer reproduction", "G2 real-data calibration", "G3 workload confirmation", "G4 adversarial efficacy", "G5 real-data drift"],
+  "pre_registration_exposure": "User proposal, current primary literature, public artifact schemas and aggregate class counts were inspected. No scorer has been fitted or scored under this study. No human audit has occurred. This registration cannot retroactively make the supplied draft preregistered.",
+  "primary_risk": "P(suppress alert | alert is a true attack)",
+  "alpha": 0.01,
+  "delta": 0.05,
+  "guarantee": "Per frozen scorer/predicate certificate: with probability at least1-delta over IID attack calibration units, population attack-suppression risk is at most alpha. A temporal/adversarial shift is outside this theorem.",
+  "calibration_method": "One-sided binomial order-statistic tolerance bound; maximum r with BinomCDF(r,n,alpha)<=delta; strict greater-than suppression above ascending order statistic n-r",
+  "effective_score": "Frozen benignness score on eligible examples, negative infinity otherwise; n counts all attack calibration units, not only eligible attacks",
+  "insufficient_data_action": "KEEP_ALL",
+  "minimum_attack_calibration_units_at_primary_parameters": 299,
+  "required_scorer_roles": ["fit", "development_or_selection", "risk_calibration", "locked_test"],
+  "multiplicity": "No simultaneous guarantee or best-of-scorers selection claim without a prospective delta allocation or fresh independent calibration after selection",
+  "hypotheses_retained_for_future_release": {
+    "H2": "At least20% non-attack alert suppression and lower95% group-aware CI above10%, on at leasttwo qualified datasets; useful suppression is not guaranteed",
+    "H1": "Evaluate population-risk uncertainty and explicitly account for finite test uncertainty; a test fraction abovealpha is not automatically certificate failure",
+    "H3": "Pending qualified attacker-controlled fields and a new pre-efficacy registration; no zero-denominator ratios or claimed arbitrary-shift certification"
+  },
+  "g0_dataset_requirements": ["documented research-use terms", "label/schema/provenance audit", "honest split and dependence unit", "sufficient attack calibration and evaluation support", "50-case human label review with >=90% agreement", "predicates supported by released evidence"],
+  "human_review": {"sample_size": 50,"minimum_agreement": 0.9,"sampling_salt": "cert-gate-human-audit-v1-20260920","status": "PENDING_REAL_REVIEWER","no_ai_substitution": true},
+  "g0_predicates": {
+    "P1": "Trusted independent raw-event reference and exact agreement on host/user/rule/time; a copy of the same processed row is not independent evidence",
+    "P2": "Known noncritical severity and frozen eligible rule-class list; missing severity/list membership is not eligible",
+    "P3": "Explicit complete incident-context lookup says unclustered at decision time; missing cluster data is not a no-cluster result",
+    "P4": "Required fields are present and correctly typed"
+  },
+  "synthetic_qualification": {
+    "seed": 20260920,
+    "independent_replications": 10000,
+    "attack_calibration_sizes": [100, 200, 250, 298, 299, 500, 1000, 2000],
+    "score_distribution": "IID continuous Uniform(0,1) attack benignness; exact population tail known",
+    "cases": ["uniform", "tied_scores", "all_ineligible", "invalid_inputs", "insufficient_n", "finite_test_fraction_counterexample", "clean_to_adversarial_score_shift_counterexample", "source_consistent_injection_predicate_counterexample"],
+    "monte_carlo_comparison": "Report true population-risk violation frequency and exact binomial upper limit separately from finite-test fluctuations; simulations verify software, not cybersecurity effectiveness"
+  },
+  "author_published_metrics": "Reference context only until exact matched model, prompt, split, label mapping and denominator are verified; cross-paper FPR is not workload suppression",
+  "no_positive_or_novelty_claim": true
+}

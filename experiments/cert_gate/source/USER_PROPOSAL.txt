@@ -1,0 +1,238 @@
+
+Claude finished the response
+Drafting edge-ablation and telemetry-degradation experiment designs.
+Here's the development experiment sequence, written so each one gates the next and every claim you'd make at defense traces to a pre-registered decision rule. Five experiments, E0 through E4, in dependency order.
+
+E0. Dataset verification (prerequisite, ~1 week)
+Purpose: establish that Unraveled's flow and host logs can be joined with acceptable integrity and that campaign-independent splits exist, before any modeling claim depends on them. Procedure: quantify join success rate between network flows and host events on shared keys (host, timestamp window, session identifiers), measure timestamp skew distribution between sources, and verify that attack campaigns can be partitioned so no campaign appears in both train and test. Deliverable is a data quality memo with three numbers: join rate, label coverage per lifecycle stage, and minimum positive-class counts per stage per split. Decision rule: any stage with fewer than roughly 30 positive test samples is excluded from hypothesis testing (this is the lesson of the three-exfiltration-sample problem; document the exclusion rather than repeating it). If joins fail integrity checks, fall back to DARPA TC/OpTC via the PIDSMAKER pre-processed releases and reframe E2 to E4 on that data. E0 has no hypothesis; it is pass/fail infrastructure.
+
+E1. Edge-information ablation (the decisive diagnostic, ~2 weeks)
+Purpose: determine whether your constructed graph edges carry detection signal beyond node features. This settles whether "graph context" is even a real quantity to gate.
+
+Design: hold features, splits, preprocessing, and training budget identical across four arms. Arm A: MLP on node features alone. Arm B: your best prior GNN (GATv2, with GIN as secondary) on real edges. Arm C: same GNN on degree-preserving shuffled edges (rewire while preserving degree sequence, so any advantage from graph statistics alone is controlled). Arm D: same GNN on self-loops only. Ten seeds per arm minimum.
+
+Metrics: macro-F1 over included stages, per-stage F1, PR-AUC, with paired bootstrap confidence intervals on the seed-level differences.
+
+Hypotheses. H1a: Arm B exceeds Arm C by a margin whose 95% CI excludes zero (edges carry structural signal). H1b: Arm B exceeds Arm A (graph modeling beats a plain classifier at matched budget). Decision rule, pre-registered: if H1a fails, the praxis narrative becomes "graph context adds nothing under these telemetry conditions, and a gate should say so," which is a legitimate and defensible finding; if H1a holds but H1b fails, edges have signal the architecture isn't exploiting, which motivates the gate operating point analysis in E3; if both hold, the gate's job is deciding when the advantage persists. All three outcomes feed E3, which is why this experiment is safe to run first and impossible to waste.
+
+E2. Telemetry degradation characterization (~3 weeks)
+Purpose: map where graph advantage lives and dies as a function of observable telemetry quality. This produces the empirical curve the gate policy will be built on.
+
+Design: starting from the E1 winner configurations, inject controlled degradation into the test-time telemetry along four independent axes: uniform log drop (0, 5, 10, 25, 50 percent), source-specific outage (host logs absent, flow logs absent), ingestion delay (shift a fraction of events by minutes to hours, breaking temporal edges), and edge-type-specific loss (drop one relation type at a time). Evaluate Arm A (MLP) and Arm B (GNN) at every grid point, five seeds each.
+
+Metrics: macro-F1 and recall at a fixed false-positive budget (set the budget in alerts per day terms up front and hold it constant everywhere).
+
+Hypothesis H2: there exists a degradation regime in which the MLP matches or exceeds the GNN, i.e., the performance curves cross. The location of that crossover, expressed in observable quantities, is a finding in itself. Secondary output: for each degradation axis, record the candidate observable indicators (arrival rate vs baseline, join success rate, edge density drift, timestamp skew) so E3 has a measured feature set rather than a guessed one.
+
+E3. The gate policy (core contribution, ~6 weeks)
+Purpose: demonstrate that a deterministic policy over observable telemetry quality selects between classifier and graph context to improve the detection, false-alert, and cost trade-off. This is the praxis claim.
+
+Design: five arms evaluated on identical degraded-and-clean test streams from the E2 grid plus held-out mixed conditions. MLP-only and GNN-only as the fixed baselines. Oracle switch, which picks the better model per window using test labels, as the upper bound. Random switch at the oracle's switching rate as the floor control. Then the gate itself, in two versions: a static threshold rule over the E2 indicators (fully deterministic, auditable, the version that matches your thesis language), and a small frozen learned policy (shallow tree or logistic model trained on E2 outputs, then locked). The two-version design lets you show how much a learned policy buys over hand-set thresholds, which preempts the Mowst comparison: your novelty sits in the telemetry-quality signal and the security-operations cost framing, not in switching as a mechanism, so say that in the writeup and cite Mowst yourself.
+
+Metrics: macro-F1 and stage-level recall at the fixed alert budget, alerts per day, mean compute cost per window, and fraction of oracle gap closed. Ten seeds, CIs on all deltas.
+
+Hypotheses. H3a: the gate meets or exceeds the better single arm at equal false-alert and compute budget. H3b: the gate closes a pre-specified fraction (I'd register 50 percent) of the gap between the best single arm and the oracle. H3c: the static rule captures a substantial share (register a number, e.g., 80 percent) of the learned policy's benefit, supporting the deployability argument that a fully auditable gate is sufficient.
+
+E4. Cross-environment generalization (~3 weeks)
+Purpose: show the gate is a transferable engineering artifact, not a dataset artifact. Design: freeze the E3 policy (thresholds and all), then evaluate on a campaign split never touched during development, and ideally on a second dataset entirely (one DARPA engagement via PIDSMAKER is the strongest choice since its baselines and ground truth are community-standard). No refitting permitted; report the frozen policy first and a recalibrated variant second, clearly labeled. Hypothesis H4: the frozen gate retains its H3a property, or degrades within a registered bound, on the unseen environment. Metrics identical to E3.
+
+Cross-cutting standards (apply to every experiment)
+Temporal or campaign-based splits only, never random row splits, to avoid the data snooping failure the USENIX critique documented. All thresholds, margins, and sample-size exclusions written down before the run, in the repo, with the config committed, so the pre-registration is verifiable at defense. Report variance everywhere; a point estimate without seeds is inadmissible under your own framing. Keep excluded stages excluded in every table. And log compute (wall time, memory) per arm from day one, because the cost leg of your trade-off claim needs the same rigor as the detection leg.
+
+One parallel non-experiment task for the same period: the METANOIA and CAPTAIN collision check against your safety-gated TTA paper's claims, since that's a reading task you can do while E0 runs.
+
+Total is roughly 15 to 16 weeks of development with E0 and E1 front-loaded as cheap kill-or-confirm steps. Want me to put this in a document you can drop into the praxis repo, or draft the E1 config skeleton (arms, seeds, metrics as a runnable spec) first?
+
+Searched the web
+Let me push back gently on one thing first, because it matters for how we design the next move: the suggestions haven't failed, they've been telling you something consistent. Every time we test "does a fancier model beat a simpler one," the answer comes back no or barely. That's not bad luck, it's the shape of the contribution type. Any praxis whose headline claim is "my model detects better than X" is a coin flip you don't control. The fix isn't a better model idea, it's a different contribution type: one where the headline claim succeeds by construction and the only open empirical question is the size of the benefit, not its existence. There is a well-lit place in the current literature to do exactly that, and it sits dead center in your portfolio.
+
+The idea: a certified suppression gate for SOC alert triage.
+
+Here's the gap, from the last twelve months of literature. LLM triage of security alerts is exploding because the baseline is atrocious: SOCs face tens of thousands of alerts daily with false-positive rates approaching 99%, and systems like CORTEX use collaborative LLM agents to cut false positives substantially. But two published problems make raw LLM suppression un-deployable. First, reliability: a 2026 evaluation found that while several LLMs achieved strong classification recall, prioritization showed consistently low precision, and lightweight models like a Linear SVM actually achieved the highest F1, so LLM judgment alone can't be trusted with suppression decisions. Second, security: injection payloads targeting risk-based alerting achieve false-negative injection rates exceeding 85% without mitigation, and there's a documented "Triage Paradox" where models optimized for low false positives are the most susceptible to manipulation, with the proposed defense being dual-LLM verification. Even the practitioner literature reviewing deployed triage systems flags one essential caveat: watching what gets suppressed.
+
+So the field has an automation everyone wants, a suppression risk everyone names, and a proposed fix (a second LLM checking the first) that is itself a probabilistic component. Nobody has put a deterministic, statistically certified gate on the suppression decision. That is your thesis, verbatim: an ML component becomes deployable only when wrapped in deterministic gates and external verification. And you already have certified-stopping machinery in your portfolio (your PX-057 line), so this is a transfer of methods you've already built, not a new discipline.
+
+Why the positive result is near-guaranteed. The design uses conformal risk control or a comparable distribution-free calibration: you calibrate a suppression threshold on held-out labeled alerts such that the true-positive suppression rate is bounded below a chosen level (say 1%) with high probability. That bound holds by theorem, not by experiment. The experiments then measure the one thing that can vary: how much analyst workload gets removed at the certified risk level. Against a no-triage baseline of roughly 99% false positives, any nonzero certified suppression fraction is a positive, publishable result. Twenty percent workload reduction with a certified miss bound is a win; sixty percent is a strong win; there is no plausible outcome where you're stuck writing up a null.
+
+Problem statement. LLM-based alert triage demonstrably reduces SOC workload but cannot be deployed for automated suppression because its errors are unbounded and adversarially inducible; existing mitigations verify probabilistic components with more probabilistic components. No published system provides a deterministic gate with a statistical guarantee on suppressed true positives.
+
+RQ. Can a deterministic, calibration-based gate over an arbitrary triage scorer (LLM or classical) certify a bounded true-positive suppression rate while removing an operationally meaningful fraction of false-positive alert volume, and does the gate hold under prompt-injection perturbation?
+
+H1. The gate maintains its certified bound on suppressed true positives on held-out data (succeeds by construction; the experiment demonstrates validity). H2. At a 1% certified miss bound, the gate suppresses at least a pre-registered fraction (register something modest, 20%) of false-positive volume. H3. Under injection perturbations replicated from the published attack settings, the gated pipeline's miss rate stays within its bound while the ungated LLM's does not. H3 is your showpiece: the ungated arm failing is literally what the literature already reports, so you're demonstrating a fix for a documented vulnerability.
+
+Data, justified. Three public options, use two: the CORTEX team released a dataset of fine-grained SOC investigations from production environments capturing step-by-step analyst actions, which is as ecologically valid as public triage data gets; alert streams you generate yourself by running Suricata with standard rulesets over public pcaps (CIC-IDS2017, DARPA TC), which gives you unlimited labeled alerts and full reproducibility; and the SIABENCH-style alert sets used in recent LLM evaluations. The justification writes itself: production-derived data for validity, generated data for volume and control.
+
+Experiment layout. One: build the scorer-agnostic harness, with three interchangeable scorers (a local Qwen-class LLM, a Linear SVM per the literature's own strong baseline, and score fusion). Two: calibrate the gate per conformal risk control on a calibration split, pre-registering the risk level. Three: validate H1/H2 on held-out alerts, ten seeds, report suppression fraction with CIs and workload in alerts-per-analyst-day units. Four: the adversarial arm for H3, injecting manipulated alert content per the published attack patterns into gated and ungated pipelines. Five: ablation on calibration set size, since "how much labeled data does the guarantee cost" is the practical adoption question. Every step has a determinate outcome; nothing hinges on beating anyone.
+
+Two quick alternates if this doesn't land for you: a measurement praxis benchmarking cost, latency, and injection robustness of published LLM-triage architectures under one harness (positive by construction, the instrument is the contribution, but less exciting), or porting the same certified-gate design onto detector output in your existing APT-final pipeline instead of SOC alerts (keeps your data investment, but inherits the E0 data problems, which the SOC-alert version cleanly escapes).
+
+The honest caveat, so it's said once: "near-guaranteed" means the guarantee claim and the demonstration succeed by design; the effect size is the only unknown, and even a modest one clears the bar because the comparison is against uncertified automation, not against a rival detector. If you want, I'll write this up as a full praxis proposal with the literature matrix and the calibration math spelled out, so you can put it in front of your advisor next to the telemetry-gate option and pick with both on the table.
+
+ok make me a experiment plan, and show what data sets we need to use to ensure that results can compare against proven literature based data...
+
+Searched the web
+Two dataset finds from this sweep materially strengthen the comparability story, so let me lead with the data strategy and then give you the plan built on it.
+
+Dataset strategy: three tiers, each anchored to published numbers
+Tier 1, primary benchmark: SecAlertBench. This is the anchor you want and it barely existed until recently: a benchmark built from alerts collected from the SOCs of three large enterprises, containing 8,322 alert logs spanning 241 alert types with binary Attack/Non-Attack labels, with a systematic evaluation of 16 LLMs already published against it, reporting an average TPR of 79.71%, average F1 of 70.92%, and average FPR of 44.13%. The artifact is on GitHub. Comparability is direct: you run your scorers on the same alerts and can place your numbers next to their published table, and their headline finding, a substantial trade-off between attack detection and false-positive control that makes standalone LLM deployment unreliable, is literally the problem your gate solves. Your praxis becomes the answer to their stated conclusion.
+
+Tier 2, production validity: the CORTEX SOC workflow dataset. Several thousand fine-grained investigation traces from production environments with step-by-step analyst actions, labeled Actionable or Non-actionable with false-positive subclasses (Logic, Data, Benign Positive), spanning Azure AD, AWS, SaaS, and endpoint sources. The CORTEX paper's own results, cutting false positives from 24.9% to 14.2% while raising decision F1 from 0.66 to 0.78, give you a published uncertified-automation reference point: their improvement has no statistical guarantee attached, yours does, and that contrast is the contribution sentence.
+
+Tier 3, controlled volume for the adversarial arm: self-generated Suricata alerts over CIC-IDS2017 pcaps. CIC-IDS2017 is among the most-benchmarked IDS datasets in existence, and recent LLM-triage evaluations (the SIABENCH line) already used CIC-IDS2017-derived alert sets with published per-model accuracies, so even your generated tier has literature reference points. You need this tier because Tiers 1 and 2 are fixed corpora: for injection experiments you must control alert content precisely, and for calibration-size ablations you need unlimited labeled volume.
+
+The justification paragraph for the committee writes itself: enterprise-real data with published multi-model baselines (Tier 1), production investigation traces with a published system to compare against (Tier 2), and a fully reproducible generated corpus on the field's most-cited pcaps (Tier 3). Nobody can ask "why this data" and land a punch.
+
+The experiment plan: G0 through G5
+G0. Acquisition, license, and label audit (~1 week). Pull all three artifacts; for Tier 3, run Suricata with the standard ET Open ruleset over CIC-IDS2017 and label alerts by intersecting with the dataset's ground-truth attack windows and flows. Acceptance criteria, registered before looking: per-dataset class counts sufficient for a calibration/validation/test three-way split with at least ~200 true positives in every evaluation split; a hand-audit of 50 randomly sampled labels per dataset with at least 90% agreement on re-inspection; documented licenses permitting academic use. Any dataset failing drops out with a memo; the design survives on any two tiers.
+
+G1. Harness validity: reproduce published scorer baselines (~2 weeks). Before any gate exists, prove your harness produces numbers the literature recognizes. Run three scorers on SecAlertBench: a local Qwen-class LLM (matching one of the 16 evaluated model families where possible), a lightweight classical baseline (Linear SVM, chosen deliberately because the 2026 SOC evaluation found it achieved the highest F1, beating the LLMs), and a score-fusion variant. Success criterion: your reproduced metrics fall within a registered tolerance (say ±5 points F1) of the corresponding published values. This experiment has no hypothesis; it is the calibration of your instrument, and at defense it converts "trust my pipeline" into "my pipeline reproduces their table."
+
+G2. Gate calibration and guarantee validity, H1 (~3 weeks). Implement the gate as two stacked components: deterministic eligibility predicates (an alert is suppression-eligible only if machine-checkable conditions hold, e.g., its fields verify against the underlying raw log and its rule class is on a registered eligible list), then a split-conformal risk-control threshold over the scorer's output, calibrated so the true-positive suppression rate is bounded at a registered level α (register α = 1%, confidence δ = 0.05). Validation: across 100 random calibration/test resamplings per dataset per scorer, measure the realized TP-suppression rate distribution. H1: the empirical rate exceeds α in no more than the theoretically permitted fraction of resamplings. This is the succeeds-by-construction result; the experiment demonstrates the theorem holds in your implementation, and any violation is a bug, not a finding.
+
+G3. Workload reduction at certified risk, H2 (~3 weeks). The headline empirical result. At the certified bound, measure suppression fraction of the non-attack alert volume per dataset per scorer, converted to operational units (alerts per analyst-day removed, using the alert-volume figures from the SOC literature for the conversion). H2, registered modestly: at least 20% of false-positive volume suppressed at α = 1% on at least two of three tiers. Report the full risk-coverage curve (suppression fraction as a function of α from 0.5% to 5%) so the committee sees the trade-off surface, not one point. Comparison row: your certified suppression next to CORTEX's uncertified 24.9→14.2 FPR improvement and SecAlertBench's ungated 44.13% average FPR, making the certified-versus-uncertified contrast visual.
+
+G4. Adversarial robustness, H3 (~3 weeks). On Tier 3 (content-controlled) plus a perturbed SecAlertBench subset, replicate the published injection patterns targeting risk-based alerting thresholds, which achieve false-negative injection rates exceeding 85% ungated. Arms: ungated LLM triage (expected to collapse, per the literature), score-threshold-only gate, and full gate with deterministic predicates. The honest technical point to build into the design: conformal guarantees assume exchangeability, which adversarial shift violates, so the claim is not "the statistical bound survives attack" but "the deterministic predicate layer bounds the blast radius, because injected text can manipulate the score but cannot forge the machine-checkable evidence conditions." H3: gated miss rate under attack stays within a registered multiple of the clean-data bound while the ungated arm exceeds it by an order of magnitude. This arm is where your gates thesis earns its keep, and the dual-LLM defense from the injection literature is your comparison foil: their verifier is itself injectable in principle, yours is not.
+
+G5. Calibration cost and drift (~2 weeks). Ablate calibration set size (100, 250, 500, 1000, 2000 labeled alerts) against achievable bound tightness and suppression fraction, answering the adoption question every practitioner asks: how much labeling does the guarantee cost. Then a temporal split where metadata allows (calibrate on earlier alerts, test on later) to characterize guarantee degradation under drift, with recalibration cadence as the practical recommendation.
+
+Cross-cutting standards
+Same discipline as the APT-final branch: all α, δ, tolerances, margins, and minimum-count exclusions committed to the repo before runs; ten seeds minimum wherever a scorer is stochastic, with bootstrap CIs on every delta; temporal splits preferred over random wherever timestamps exist; compute and latency logged per arm from day one, since per-alert inference cost was itself a reported metric in the SOC LLM evaluation literature and belongs in your trade-off claim. Total is roughly 14 weeks, with G0 and G1 as the cheap kill-or-confirm front end, and G2's result banked early because it cannot fail if the implementation is correct, which means you have a publishable core by roughly week 9 and everything after G3 strengthens rather than rescues.
+
+Sequencing note relative to your other thread: G0 and G1 here can run while the Unraveled data-mapping questions on APT-final are being resolved, and nothing in this plan depends on that resolution, which is exactly the property you asked for.
+
+Want me to write this up as the pre-registration document (acceptance criteria, registered thresholds, and split protocol in repo-ready form) so it can go into a new branch the same way APT-final did?
+
+yes
+
+Ran a command, created a file, shared files
+The pre-registration document is below, ready to drop into a new branch alongside APT-final. A few notes on choices I baked in, so you can adjust before committing:
+
+The registered thresholds are deliberately conservative where it protects you (H2's 20% floor with a 10% CI lower bound means even a modest result clears cleanly) and deliberately explicit where committees probe (the H3 claim language pre-commits you to attributing adversarial containment to the predicate layer, not to the conformal bound surviving distribution shift, which closes off the one theoretically vulnerable claim before anyone can raise it). The gate is also specified as suppression-only with critical-severity classes never eligible, which makes the risk surface one-sided and gives you a clean answer to "what if the gate is wrong."
+
+Two things need your input before this is truly registered: the predicate set in Section 6 is marked as frozen at end of G0, so review P1 through P4 against what's actually checkable in each dataset's schema, and the eligible rule-class list is yours to define. And Section 11 points to a references.bib that doesn't exist yet; I'd populate it as the first commit after this file.
+
+One process suggestion: have your advisor initial this before the registration commit, not after G1. A pre-registration your advisor saw before data contact is worth more at defense than one they saw after, and it costs you one email.
+
+
+Preregistration certified suppression gate
+Document·MD 
+
+
+Fable uses your usage credits and draws down usage much faster than Opus.
+Write a message…
+
+
+Claude is AI and can make mistakes.
+
+
+Preregistration certified suppression gate · MD
+Pre-Registration: Certified Suppression Gate for SOC Alert Triage
+Document status: REGISTERED - commit this file to the repository before any G1-G5 run. Edits after registration are permitted only through the Amendment Log (Section 12).
+
+Version: 1.0 (draft for advisor review) Registration date: [set on commit] Branch: cert-gate (proposed) Author: Gary Pagan, D.Eng. candidate, George Washington University Related work in portfolio: deterministic verification gates (PX series); certified stopping (PX-057 v2)
+
+1. Purpose and Scope
+This pre-registration fixes the hypotheses, decision thresholds, dataset acceptance criteria, split protocol, and analysis plan for the experiment series G0 through G5 before any experiment is executed. Its purpose is to make the evidentiary standard verifiable at defense: every threshold in this document was chosen before contact with the evaluation data.
+
+The study develops and evaluates a suppression gate for security alert triage. The gate is a deterministic wrapper around an arbitrary triage scorer (LLM or classical). It permits automated suppression of an alert only when (a) deterministic eligibility predicates hold and (b) the scorer output clears a threshold calibrated by conformal risk control to bound the true-positive suppression rate. The claimed contribution is the gate design, its statistical guarantee, its measured workload benefit, and its behavior under adversarial perturbation. The study makes no claim of improved attack detection over any published detector.
+
+2. Thesis Statement, Research Question, Hypotheses
+Thesis. A deterministic, calibration-based suppression gate over an arbitrary alert-triage scorer can certify a bounded true-positive suppression rate while removing an operationally meaningful fraction of false-positive alert volume, and its deterministic predicate layer limits degradation under prompt-injection attack.
+
+RQ. Can such a gate (1) hold its certified bound empirically, (2) suppress a meaningful share of false-positive volume at that bound, and (3) constrain attack-induced misses that defeat ungated LLM triage?
+
+H1 (guarantee validity). Across repeated calibration/test resamplings, the realized true-positive suppression rate exceeds the registered bound alpha in no more than the theoretically permitted fraction of resamplings at confidence delta. Decision rule: H1 is supported if the empirical violation frequency is consistent with the conformal risk-control guarantee at (alpha, delta) as registered in Section 3, on every dataset tier and scorer that passes G0/G1. Any excess violation is treated first as an implementation defect and triaged; if the defect analysis exonerates the implementation, H1 is reported as unsupported for that configuration.
+
+H2 (workload benefit). At the registered bound, the gate suppresses at least the registered minimum fraction of non-attack (false-positive) alert volume. Decision rule: H2 is supported if suppression fraction >= 20% of FP volume at alpha = 0.01 on at least two of three dataset tiers, for at least one scorer, with the 95% bootstrap CI lower bound above 10%.
+
+H3 (adversarial containment). Under registered injection perturbations, the fully gated pipeline's true-positive miss rate remains within a registered multiple of its clean-data bound, while the ungated LLM triage arm exceeds that multiple. Decision rule: H3 is supported if (i) gated miss rate under attack <= 3x the clean-data realized rate, and (ii) ungated miss rate under attack >= 10x the gated rate, on the Tier 3 controlled corpus. The exchangeability caveat in Section 7 (G4) governs the claim language: the statistical bound is not asserted to survive adversarial distribution shift; the containment claim rests on the deterministic predicate layer.
+
+Registered secondary outcomes (reported, not hypothesis-tested): risk-coverage curves over alpha in {0.005, 0.01, 0.02, 0.05}; per-alert inference cost and latency per arm; calibration-set-size versus bound-tightness curves; temporal drift degradation.
+
+3. Registered Parameters
+Parameter	Value	Rationale
+TP-suppression risk bound alpha	0.01	1% certified miss ceiling on suppressed volume
+Guarantee confidence delta	0.05	standard 95% confidence on the risk bound
+H2 minimum suppression fraction	0.20 of FP volume	modest, pre-registered floor; effect size reported regardless
+H2 CI floor	0.10 (lower 95% CI)	protects against a point estimate barely clearing the floor
+H3 gated containment multiple	3x clean realized rate	graceful-degradation ceiling
+H3 ungated separation multiple	>= 10x gated rate	replicates the order-of-magnitude collapse reported in the injection literature
+G1 reproduction tolerance	+/- 5 points F1 (and TPR) vs published values	harness validity margin
+Resamplings for H1	100 calibration/test splits per (dataset, scorer)	empirical validation of the guarantee distribution
+Seeds per stochastic arm	10 minimum	variance reporting is mandatory
+Minimum true positives per evaluation split	200	excludes underpowered comparisons
+Label audit sample and agreement	50 alerts per dataset, >= 90% agreement	G0 acceptance criterion
+Calibration ablation grid	{100, 250, 500, 1000, 2000} labeled alerts	G5
+Alpha grid for risk-coverage curves	{0.005, 0.01, 0.02, 0.05}	secondary outcome
+No parameter in this table may be changed after registration except through Section 12.
+
+4. Datasets and Acceptance Criteria
+Three tiers. The design survives on any two; a tier that fails G0 is dropped with a written memo, not patched silently.
+
+Tier 1 (primary benchmark): SecAlertBench. Enterprise SOC alert benchmark: 8,322 alert logs, 241 alert types, binary Attack / Non-Attack labels, drawn from three large-enterprise SOCs, with published evaluations of 16 LLMs (reported averages: TPR 79.71%, F1 70.92%, FPR 44.13%). Role: primary evaluation corpus and the literature comparability anchor for scorer performance.
+
+Tier 2 (production validity): CORTEX SOC workflow dataset. Several thousand fine-grained production investigation traces with step-level analyst actions; labels Actionable / Non-actionable with FP subclasses (Logic, Data, Benign Positive); coverage across Azure AD, AWS, SaaS, and endpoint sources. Role: ecological validity and the uncertified-automation comparison point (CORTEX reports FPR 24.9% -> 14.2% and decision F1 0.66 -> 0.78 without a statistical guarantee).
+
+Tier 3 (controlled corpus): generated Suricata alerts over CIC-IDS2017. Suricata with the ET Open ruleset over CIC-IDS2017 pcaps; alert labels derived by intersecting alerts with the dataset's ground-truth attack flows and time windows. Role: unlimited labeled volume for calibration ablation, and full content control for the injection arm. Comparability note: CIC-IDS2017-derived alert sets appear in published LLM-triage evaluations (SIABENCH line), providing reference points even for this generated tier.
+
+Acceptance criteria (all tiers, checked in G0 before any modeling):
+
+License and terms permit academic research use; record the license text or link in the repo.
+Class counts support a three-way calibration/validation/test split with >= 200 true positives in every evaluation split (after any exclusions).
+Label audit: 50 uniformly sampled alerts re-inspected by hand; >= 90% agreement with the provided label. Disagreements documented.
+For Tier 3 only: the Suricata rule version, ruleset hash, and generation command are committed so the corpus is exactly regenerable.
+Any alert category with fewer than 30 true positives in test is excluded from hypothesis testing and listed in the exclusions table.
+Fallback rule (registered): if Tier 1 or Tier 2 fails acceptance, the study proceeds on the remaining tiers and the failure memo becomes part of the praxis narrative. If Tier 3 generation fails integrity checks, substitute Suricata over the DARPA TC-derived pcaps with the same acceptance procedure.
+
+5. Split Protocol
+Each tier is partitioned once, before G1, into calibration / validation / test. Where usable timestamps exist, splits are temporal (calibrate on earlier alerts, test on later, with a buffer gap of at least one hour of alert time); otherwise stratified random splits are used and the choice is documented per tier. Target proportions 40 / 20 / 40 (calibration / validation / test), adjusted only to satisfy the minimum-count criteria in Section 4. The test partition is touched exactly twice per configuration: once for the primary H1-H3 runs and once for the registered secondary outcomes. All split indices are committed to the repo. H1's 100 resamplings draw only from the union of calibration and validation partitions except for the final registered confirmation, which uses the held-out test partition once.
+
+6. Gate Specification
+The gate has two stacked components, applied in order. Suppression occurs only if both pass; every non-suppressed alert reaches the analyst queue unchanged. The gate never escalates, blocks, or modifies alerts; its only action is suppression, which makes its risk surface one-sided and auditable.
+
+Component 1: deterministic eligibility predicates. An alert is suppression-eligible only if all registered predicates hold. Initial predicate set (finalized and frozen at the end of G0, before G1): (P1) the alert's referenced entities (host, user, rule ID, timestamps) verify against the underlying raw log record by exact match; (P2) the alert's rule class is on the registered eligible list (severity-capped: no critical-severity class is ever eligible); (P3) the alert is not part of a correlated multi-alert incident cluster at evaluation time; (P4) required fields are present and schema-valid. Predicates are pure functions of the alert and its source record; no model output participates in eligibility.
+
+Component 2: conformal risk-control threshold. For eligible alerts, the scorer emits a benignness score. Split-conformal risk control on the calibration partition selects the suppression threshold such that the expected true-positive suppression rate is bounded by alpha with confidence delta. Calibration uses only calibration-partition labels; the procedure, including tie handling and the exact risk-control variant, is implemented once in a shared library and unit-tested against synthetic distributions with known ground truth before first use on real data.
+
+Scorers (fixed set): (S1) a locally hosted Qwen-class LLM prompted for triage scoring, matching an evaluated model family from the Tier 1 literature where possible; (S2) Linear SVM on engineered alert features, chosen because the published SOC evaluation found lightweight classical models competitive with or superior to LLMs at binary triage; (S3) a score fusion of S1 and S2. No additional scorers may be added to hypothesis tests after registration.
+
+7. Experiment Protocols
+G0. Acquisition, license, and label audit (target: 1 week). Execute Section 4 acceptance checks on all tiers; generate Tier 3; produce the data quality memo (class counts per split, audit agreement, exclusions table, license records); freeze the predicate set and eligible rule-class list. G0 has no hypothesis; it is pass/fail per tier.
+
+G1. Harness validity: reproduce published scorer baselines (target: 2 weeks). Run S1, S2, S3 ungated on Tier 1 and report TPR, FPR, F1 next to the published multi-model table. Success: reproduced metrics within the registered tolerance of the corresponding published values for the matched model family; the SVM arm establishes the classical reference. If reproduction fails tolerance, debug and document; no gate experiment starts until G1 passes or the deviation is logged with cause. G1 has no hypothesis; it calibrates the instrument.
+
+G2. Gate calibration and guarantee validity, tests H1 (target: 3 weeks). For each (tier, scorer): 100 calibration/test resamplings from the non-test partitions; per resampling, calibrate the threshold at (alpha, delta) and record the realized TP-suppression rate on the resampling's held-out portion. Evaluate H1 per its decision rule; then run the single registered confirmation on the true test partition. Deliverables: violation-frequency table, realized-risk distributions, unit-test evidence for the calibration library.
+
+G3. Workload reduction at certified risk, tests H2 (target: 3 weeks). On the test partition per (tier, scorer): suppression fraction of FP volume at alpha = 0.01, with 95% bootstrap CIs over seeds and resamples; conversion to alerts-per-analyst-day using alert-volume figures cited from the SOC workload literature (conversion factors recorded in the repo); full risk-coverage curves over the registered alpha grid. Comparison exhibit (reported, not tested): certified suppression alongside the published uncertified references (CORTEX FPR improvement; Tier 1 published FPR averages).
+
+G4. Adversarial containment, tests H3 (target: 3 weeks). Corpus: Tier 3 plus a perturbed Tier 1 subset. Perturbations: prompt-injection payloads embedded in attacker-controllable alert text fields, replicating the published attack patterns against risk-based alerting thresholds; the payload set is fixed and committed before the first G4 run. Arms: (A) ungated LLM triage with automated suppression; (B) conformal threshold without predicates; (C) full gate. Measure TP miss rates per arm under clean and attacked conditions. Evaluate H3 per its decision rule. Claim-language constraint (registered): conformal guarantees assume exchangeability, which adversarial shift violates; the containment claim is attributed to the deterministic predicate layer (injected text can move a score but cannot forge exact-match evidence verification), not to survival of the statistical bound under attack.
+
+G5. Calibration cost and drift (target: 2 weeks). Calibration-set-size ablation over the registered grid, reporting achievable bound tightness and suppression fraction per size. Temporal drift: where timestamps allow, calibrate on the earliest temporal block and evaluate on later blocks without recalibration; report guarantee degradation and derive a recalibration-cadence recommendation. Secondary outcomes only; no hypothesis test.
+
+8. Statistical Analysis Plan
+Primary analyses follow the decision rules in Section 2 verbatim. Uncertainty: bootstrap 95% CIs (10,000 resamples) on all fractions and deltas; seed-level variance reported for every stochastic arm; no point estimate is reported without dispersion. Multiplicity: H1-H3 are three registered confirmatory tests; secondary outcomes are exploratory and labeled as such. Exclusions: only those defined in Section 4, applied identically across arms. Negative and null results are reported in full; no configuration is dropped for underperformance.
+
+9. Compute, Cost, and Latency Logging
+From the first G1 run, every arm logs wall time, per-alert inference latency, peak memory, and (for LLM arms) token counts per alert. Per-alert cost is a registered secondary outcome because the deployment argument requires the cost leg of the trade-off to meet the same evidentiary standard as the detection leg.
+
+10. Reproducibility Requirements
+All configurations, split indices, seeds, ruleset hashes, payload sets, and this document are version-controlled in the experiment branch. Every reported number must be regenerable from a committed config plus a committed data snapshot or exact regeneration recipe. The calibration library ships with unit tests against synthetic known-truth distributions. Synthetic-data pipeline validation (the G-series equivalent of the APT-final 32-test suite) is completed and documented before G1 touches real data, and is reported as software verification, never as a detection result.
+
+11. Literature Comparability Anchors
+Anchor	Published reference point	Where it appears in this study
+SecAlertBench 16-LLM evaluation	avg TPR 79.71%, F1 70.92%, FPR 44.13%	G1 reproduction target; G3 ungated reference
+CORTEX (multi-agent triage)	FPR 24.9% -> 14.2%; decision F1 0.66 -> 0.78 (uncertified)	G3 comparison exhibit (Tier 2)
+SOC LLM evaluation (2026)	Linear SVM competitive with or superior to LLMs at binary triage	motivates S2; G1 classical reference
+Injection studies vs risk-based alerting	FNIR > 85% ungated; dual-LLM defense proposed	G4 attack replication target and comparison foil
+SIABENCH-line CIC-IDS2017 alert sets	published per-model triage accuracies	Tier 3 comparability note
+SOC workload literature	FP rates approaching 99%; tens of thousands of alerts/day	H2 operational-unit conversion
+Full citations are maintained in references.bib in the branch; this table is the crosswalk from each registered comparison to its source.
+
+12. Deviations Policy and Amendment Log
+Any change to Sections 2 through 7 after registration requires an amendment entry: date, what changed, why, and whether any data had been observed that could have influenced the change. Amendments made after contact with evaluation data are permitted only for implementation defects and force majeure (dataset withdrawal, license change) and must be flagged in the praxis writeup. Analyses not covered by this document are reported as exploratory.
+
+Date	Section	Change	Reason	Data observed?
+-	-	-	-	-
+End of pre-registration. Commit hash of this file at registration constitutes the timestamp of record.
+
+
