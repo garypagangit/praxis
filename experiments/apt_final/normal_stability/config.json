@@ -1,0 +1,41 @@
+{
+  "scope": "DEVELOPMENT_ONLY",
+  "program": "Normal-reference stability and missing-relationship repairs",
+  "datasets": ["cadets", "theia"],
+  "folds": [
+    {"name":"A", "fit":["train0","train1"], "calibration":"train2", "validation":"train3"},
+    {"name":"B", "fit":["train1","train2"], "calibration":"train3", "validation":"train0"},
+    {"name":"C", "fit":["train2","train3"], "calibration":"train0", "validation":"train1"},
+    {"name":"D", "fit":["train3","train0"], "calibration":"train1", "validation":"train2"}
+  ],
+  "encoder_seeds": [101,211,307],
+  "bank_seeds": [3011,4013,5011],
+  "representations": ["local_knn","mlp_knn","gin_knn"],
+  "strategies": {
+    "clean": {"reference":"clean", "calibration":"clean"},
+    "pooled_calibration": {"reference":"clean", "calibration":"pooled"},
+    "pooled_reference_calibration": {"reference":"pooled", "calibration":"pooled"}
+  },
+  "conditions": {"clean":0.0,"masked":0.5},
+  "mask_seeds": {"train0":2026092000,"train1":2026092001,"train2":2026092002,"train3":2026092003,"test0":2026092099},
+  "evaluation_graph": "test0",
+  "hidden_dim":32,
+  "bottleneck_dim":8,
+  "epochs":10,
+  "learning_rate":0.001,
+  "weight_decay":0.0001,
+  "feature_mask_rate":0.15,
+  "max_loss_nodes":8192,
+  "cpu_threads":4,
+  "embedding_batch_size":32768,
+  "bank_size":8192,
+  "neighbors":10,
+  "scale_floor":0.001,
+  "query_chunk_size":4096,
+  "calibration_fpr":0.01,
+  "readiness_max_fpr":0.02,
+  "readiness_min_recall":0.5,
+  "minimum_mean_f1_improvement":0.05,
+  "confirmation_claim":false,
+  "conditional_checker_in_candidate_family":false
+}
