@@ -1,10 +1,14 @@
 # APT final
 
-## Active continuation: published MAGIC baseline
+## Latest completed result: normal-only calibrated MAGIC
 
-Gary selected **build and test the strongest next APT approach** on September 20, 2026. A separately frozen [MAGIC source reproduction](magic_reproduction/README.md) is being qualified on the available THEIA and CADETS graphs. It tests the original edge-aware architecture and training objective, records implementation differences, and labels test-selected thresholds as descriptive oracles. This is a baseline prerequisite, not an established novel method or deployment-ready detector.
+The stronger published graph model has now been trained and evaluated in **all six registered cases: two datasets, three training runs each**. Alert thresholds were fixed using a separate normal graph before any attack evaluation. The method **did not pass the declared development gates**: 0 of six cases passed individually. Read the [plain-language final report](magic_calibrated/results/gpu_calibrated_20260920/REPORT.md), [all measured outcomes](magic_calibrated/results/gpu_calibrated_20260920/RESULTS.json), and [AWS closeout](magic_calibrated/results/gpu_calibrated_20260920/AWS_CLOSEOUT.json).
 
-The [literature correction](docs/LITERATURE_CORRECTION_20260920.md) records that S-DAPT-2026 was withdrawn and updates SCVIC licensing/access evidence. The frozen original candidate registry remains an historical record; the addendum governs current use of those sources.
+The [earlier MAGIC reproduction](magic_compact/results/gpu_reproduction_20260920/REPORT.md) completed both original 50-epoch evaluations with high scores, but selected thresholds using attack labels. The new study directly tests whether normal-only calibration supplies a useful operating point. It also reserves one graph for calibration, so it has three fitting graphs and 150 optimizer updates versus four graphs and 200 updates; this is not a threshold-only causal comparison.
+
+All six new cases and the earlier reproduction are independently audited, and all four MAGIC AWS attempts are verified stopped. Gary has no immediate action required to finish these runs. The results are development evidence on previously exposed prepared graphs; they do not establish a novel checker, independent campaign generalization, actor attribution or deployment readiness.
+
+The [current novelty review](docs/MAGIC_CALIBRATION_NOVELTY_BOUNDARY_20260920.md) identifies direct prior work on benign-only calibration and model-update reliability. The [literature correction](docs/LITERATURE_CORRECTION_20260920.md) records the S-DAPT-2026 withdrawal and corrected SCVIC access/license evidence. Frozen registrations and negative results remain preserved.
 
 ## Completed stability comparison
 
@@ -20,6 +24,8 @@ The [earlier scoring follow-up](embedding_baseline/results/gpu_scoring_20260920/
 
 | Component | Purpose | Scientific status |
 |---|---|---|
+| Normal-only calibrated MAGIC | Three normal fitting graphs, separate normal calibration, six fresh runs | Complete and audited; 0/6 cases passed; see final report. |
+| Published MAGIC reproduction | Original author model with exact full-reference multiplicities | Complete and audited; strong label-selected oracle scores, no operational threshold claim. |
 | Normal-reference stability | Separate normal fitting/calibration/validation; crossed model/bank seeds; missing-relationship repairs | Completed, audited, and closed: zero of nine candidates passed on either dataset. |
 | Frozen embedding scoring | Exact normal-reference nearest-neighbor scores using unchanged trained encoders | Completed and audited; strong THEIA signal, failed cross-dataset readiness and robustness. |
 | Native graph GPU pilot | Benign-trained detectors and fixed selectors on CADETS/THEIA with missing relationships | Completed on AWS; independently audited development result. Poor recall and no useful checker gain. |
@@ -91,6 +97,6 @@ It records a **development configuration freeze**, not a completed confirmatory 
 
 The fixed normal-reference stability study, its independent audits, exact replay check, public evidence package, and verified cloud shutdown are complete. No immediate dataset purchase, manual labeling, or AWS task is required from Gary to close it. See the [final decision](normal_stability/results/gpu_stability_20260920/FINAL_DECISION.json).
 
-A broader graph-learning praxis remains a separate research decision. The completed method should not be advanced as a demonstrated successful or novel checker. Any different method or independent confirmation would need its own stated contribution, data evidence, and new frozen comparison; it is not an unfinished step of this study.
+A broader graph-learning praxis remains a separate research decision. The completed fixed normal-reference repair family should not be advanced as a demonstrated successful or novel checker. Any different method or independent confirmation would need its own stated contribution, data evidence, and new frozen comparison; it is not an unfinished step of this study.
 
 The original Unraveled campaign/identity/time/link review remains optional unless that track is reopened. Concrete external-review steps and an evidence-recording form are in [human requirements](normal_stability/analysis/HUMAN_REQUIREMENTS.md). No dataset-author message or independent human review was performed. No paid model API or comparative GPU speedup is claimed.

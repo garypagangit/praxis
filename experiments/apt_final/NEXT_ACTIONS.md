@@ -1,10 +1,23 @@
 # APT final: current work and completed studies
 
-## Active continuation: published MAGIC baseline
+## Latest completed result: normal-only calibrated MAGIC
 
-Gary selected **build and test the strongest next APT approach** on September 20, 2026. A separately frozen [MAGIC source reproduction](magic_reproduction/README.md) is being qualified on the available THEIA and CADETS graphs. It tests the original edge-aware architecture and training objective, records implementation differences, and labels test-selected thresholds as descriptive oracles. This is a baseline prerequisite, not an established novel method or deployment-ready detector.
+The stronger published graph model has now been trained and evaluated in **all six registered cases: two datasets, three training runs each**. Alert thresholds were fixed using a separate normal graph before any attack evaluation. The method **did not pass the declared development gates**: 0 of six cases passed individually. Read the [plain-language final report](magic_calibrated/results/gpu_calibrated_20260920/REPORT.md), [all measured outcomes](magic_calibrated/results/gpu_calibrated_20260920/RESULTS.json), and [AWS closeout](magic_calibrated/results/gpu_calibrated_20260920/AWS_CLOSEOUT.json).
 
-The [literature correction](docs/LITERATURE_CORRECTION_20260920.md) records that S-DAPT-2026 was withdrawn and updates SCVIC licensing/access evidence. The frozen original candidate registry remains an historical record; the addendum governs current use of those sources.
+The [earlier MAGIC reproduction](magic_compact/results/gpu_reproduction_20260920/REPORT.md) completed both original 50-epoch evaluations with high scores, but selected thresholds using attack labels. The new study directly tests whether normal-only calibration supplies a useful operating point. It also reserves one graph for calibration, so it has three fitting graphs and 150 optimizer updates versus four graphs and 200 updates; this is not a threshold-only causal comparison.
+
+All six new cases and the earlier reproduction are independently audited, and all four MAGIC AWS attempts are verified stopped. Gary has no immediate action required to finish these runs. The results are development evidence on previously exposed prepared graphs; they do not establish a novel checker, independent campaign generalization, actor attribution or deployment readiness.
+
+The [current novelty review](docs/MAGIC_CALIBRATION_NOVELTY_BOUNDARY_20260920.md) identifies direct prior work on benign-only calibration and model-update reliability. The [literature correction](docs/LITERATURE_CORRECTION_20260920.md) records the S-DAPT-2026 withdrawal and corrected SCVIC access/license evidence. Frozen registrations and negative results remain preserved.
+
+## What remains for a defensible praxis contribution
+
+The registered experiment is closed. Do not retune its threshold, select the best seed, or label resource completion as a positive efficacy result. A follow-on would be a new study with a new registration.
+
+1. Treat this version as no-go. THEIA retained high recall but exceeded the false-alert gate; CADETS lost attack recall and had poor ranking. The saved CADETS scores mathematically cannot meet the declared gate through cutoff changes alone. A new controlled comparison must diagnose fitting-data coverage and representation/scoring behavior before relying on a threshold checker; the current comparison cannot isolate which changed component caused the drop.
+2. Define one specific checker or representation change with a mechanism tied to the measured failure mode. Compare it with published alternatives; normal calibration, local Qwen substitution and exact duplicate compression are not novelty claims on their own.
+3. Qualify independent evidence before confirmation. Current data do not provide verified independent campaigns, entity UUIDs or time mappings. The original Unraveled author-request template remains below for that separate data track.
+4. Bring the final evidence and a precise contribution statement to adviser review. No human review or new dataset was fabricated; those broader research requirements remain explicit.
 
 ## Completed stability comparison
 
@@ -47,7 +60,7 @@ Ask an adviser or colleague familiar with network records and Linux/Windows logs
 
 The assistant will prepare the sample and instructions. The packet must include plausible matches, nonmatches, and ambiguous cases; it is not ready yet. The optional original Unraveled protocol calls for independent review, with uncertain cases escalated to another reviewer. Gary does not need to reconcile the full dataset or fill technical manifest fields manually.
 
-## Completed assistant work
+## Completed normal-reference stability work
 
 1. Froze and ran the diagnostic with separate model and reference-bank seeds, and distinct normal fit/calibration/validation graph roles.
 2. Completed all nine fixed candidates on clean and 50%-masked relationships: 1,296 records per phase, 1,008 after removing identical local-feature copies.

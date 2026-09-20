@@ -1,5 +1,7 @@
 # Choosing cyberattack alerts using normal activity alone
 
+**Complete and independently audited: 0/6 cases passed the declared gates.** All six runs finished and AWS is stopped. See the [final report](results/gpu_calibrated_20260920/REPORT.md) and [complete results](results/gpu_calibrated_20260920/RESULTS.json).
+
 This separately registered development experiment asks whether the stronger published MAGIC graph model can choose a useful alert threshold without consulting attack labels.
 
 Train fresh models on normal graphs 0–2, choose the threshold on normal graph 3, then evaluate the fixed detector on test graph 0. Run all three declared seeds on both THEIA and CADETS. All six normal calibrations must finish and be frozen before any attack evaluation.
@@ -14,4 +16,4 @@ This study uses previously exposed development data and established methods. It 
 
 The registration binds the new runtime, both frozen parent runtimes, author source and input data. The worker saves full fit, calibration and test arrays, first/final checkpoints, every epoch record, threshold freezes and measured outcomes. An independent auditor checks the saved evidence without rerunning neural training.
 
-The existing qualified AWS controller enforces the host deadline and verifies shutdown. Raw arrays, models, logs and cloud identifiers stay in the private evidence directory; sanitized reports and receipts are published here after completion.
+The existing qualified AWS controller enforces the host deadline and verifies shutdown. Raw arrays, models, logs and cloud identifiers stay in the private evidence directory; sanitized reports and receipts are published with the completed result. [Prelaunch software checks](SOFTWARE_QUALIFICATION.json) and [independent-auditor qualification](AUDITOR_QUALIFICATION.json) record the verification scope.
