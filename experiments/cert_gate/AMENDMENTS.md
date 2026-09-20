@@ -22,3 +22,7 @@ No G1-G5 efficacy results existed when these changes were recorded. The original
 ## Qualification reporting correction after the first software run
 
 The original `qualification_20260920` attempt is retained. Its four underpowered settings used an analytical keep-all result and one API check each, but the output misleadingly called the length of a placeholder array 10,000 independent calibration samples. The corrected runner reports zero Monte Carlo samples for those settings and null empirical frequencies/intervals. It records 40,000 actual independent simulated calibration sets across the four nontrivial settings. A second attempt uses the same seed and mathematical code; thresholds, risks and all substantive findings must remain identical. This is a reporting correction, not a changed hypothesis or a rerun to improve an outcome.
+
+## Review blinding refinement before any human review
+
+The first G0 packet hid the `Label` field but still showed derived `attack_type` and `kill_chain_all` annotations. The final packet also hides those annotations and common ground-truth aliases, reducing the risk of circular label agreement. The same 50 case IDs and answer key are retained; source counts and eligibility are unchanged. The original receipt remains archived and a v2 receipt binds the final packet. No human reviewed either packet before this correction. Use only `human_review_v2/REVIEW.html` for the study.

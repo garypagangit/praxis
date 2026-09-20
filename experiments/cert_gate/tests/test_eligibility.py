@@ -197,11 +197,15 @@ class ReviewPacketTests(unittest.TestCase):
         cases = [{
             "case_id": "fixture-case-1",
             "alert": {"Label": "Attack", "message": "Attack is quoted evidence text.",
-                      "rule_name": "Fixture rule"},
+                      "rule_name": "Fixture rule", "attack_type": "derived category",
+                      "kill_chain_all": "derived analyst finding", "Ground_Truth": "Attack"},
         }]
         before = copy.deepcopy(cases)
         payload = ReviewPageParser(packet_html(cases)).payload()
         self.assertNotIn("Label", payload[0]["alert"])
+        self.assertNotIn("attack_type", payload[0]["alert"])
+        self.assertNotIn("kill_chain_all", payload[0]["alert"])
+        self.assertNotIn("Ground_Truth", payload[0]["alert"])
         self.assertEqual(payload[0]["alert"]["message"], cases[0]["alert"]["message"])
         self.assertEqual(payload[0]["alert"]["rule_name"], "Fixture rule")
         self.assertEqual(cases, before, "Blinding must not destroy the separate answer key")

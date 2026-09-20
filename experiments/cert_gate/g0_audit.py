@@ -15,6 +15,7 @@ from eligibility import check_eligibility
 
 EXPECTED_SHA = "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3"
 LABELS = {"Attack", "Non-Attack"}
+HIDDEN_REVIEW_FIELDS = {"label", "ground_truth", "true_label", "expected", "attack_type", "kill_chain_all"}
 
 
 def digest(value):
@@ -27,7 +28,7 @@ def canonical(value):
 
 def packet_html(cases):
     cases = [{"case_id": c["case_id"], "alert": {k: v for k, v in c["alert"].items()
-              if k.casefold() not in {"label", "ground_truth", "true_label", "expected"}}} for c in cases]
+              if k.casefold() not in HIDDEN_REVIEW_FIELDS}} for c in cases]
     # Escape '<' in embedded JSON: alert bodies cannot terminate this script tag.
     payload = json.dumps(cases, ensure_ascii=True).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
     template = '''<!doctype html><html lang="en"><meta charset="utf-8"><title>SOC alert review</title>
@@ -77,7 +78,7 @@ def run(source, private, output):
         rank = digest(f"{registration['human_review']['sampling_salt']}|{case_id}".encode())
         sample_order.append((rank, case_id, ordinal, content_sha))
     selected = sorted(sample_order)[:registration["human_review"]["sample_size"]]
-    cases = [{"case_id": cid, "alert": {k: v for k, v in rows[ordinal].items() if k != "Label"}}
+    cases = [{"case_id": cid, "alert": {k: v for k, v in rows[ordinal].items() if k.casefold() not in HIDDEN_REVIEW_FIELDS}}
              for _, cid, ordinal, _ in selected]
     key = {cid: rows[ordinal]["Label"] for _, cid, ordinal, _ in selected}
     (private / "REVIEW_CASES.json").write_text(json.dumps(cases, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -96,7 +97,8 @@ def run(source, private, output):
         "mixed_label_content_groups": sum(len(set(v)) > 1 for v in groups.values()),
         "sample": [{"case_id": cid, "source_row_zero_based": ordinal, "input_content_sha256": csha} for _, cid, ordinal, csha in selected],
         "human_review": {"status": "PENDING", "cases": len(cases), "reviewer": None, "agreement": None,
-                         "qualification": "Visible-alert review only; independent raw provenance unavailable"},
+                         "qualification": "Visible-alert review only; independent raw provenance unavailable",
+                         "hidden_fields": sorted(HIDDEN_REVIEW_FIELDS)},
         "private_review_files": {p.name: {"sha256": digest(p.read_bytes()), "bytes": p.stat().st_size} for p in private.iterdir() if p.is_file()},
         "no_scorer_fitted": True, "no_efficacy_hypothesis_tested": True,
         "release_constraints": ["Research-use license not located in inspected SecAlertBench release", "No alert timestamps or enterprise/campaign IDs", "No complete independent raw logs", "No severity or complete incident-cluster state", "No completed human label audit", "Independent attack calibration unit not established"],
