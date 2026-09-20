@@ -1,0 +1,565 @@
+{
+  "status": "BOTH_REGIMES_FROZEN_BEFORE_ANY_TEST_SCORING",
+  "created_utc": "2026-09-20T16:46:11.782011+00:00",
+  "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+  "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+  "protocol_sha256": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f",
+  "git_commit": "abf8a18f7d32a31b43a44fed60e092e69e848f47",
+  "committed_file_sha256": {
+    "experiments/cert_gate/generalization_benchmark.py": "31a34e7ca2da2c1fac9474d495e6b72974fd278b01fc80a83528c89f03e73137",
+    "experiments/cert_gate/evidence_checker.py": "88e6658565cd995aadaff7ef88136b5809ac9a9edb70f5d47c3b8e29f5f31db2",
+    "experiments/cert_gate/exploratory_benchmark.py": "615dbf36ff0ba2bd4b5b5344154718808d688681f69984c9f6a2c5d6a11dd435",
+    "experiments/cert_gate/feature_grouping.py": "094e28a6ae23d8774a0774eb07067d2199f1adff2dc0ecdbd945283c3381dcc9",
+    "experiments/cert_gate/scorers.py": "0690da7844bd7b5db3d48279a366bcd083f8a7c75b8645193f94b639d7c8c039",
+    "experiments/cert_gate/calibration.py": "e269e5c2c012107942088df33b429b5375d235b2a5efb2bc4fe0f3cdcdd09a3c",
+    "experiments/cert_gate/FINAL_PROTOCOL.json": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f"
+  },
+  "regimes": {
+    "content_families": {
+      "models": {
+        "full": {
+          "metadata": {
+            "status": "INTERFACE_ONLY_G0_INCOMPLETE_NO_EFFICACY_OR_REPRODUCTION_CLAIM",
+            "config": {
+              "kind": "char_tfidf_linear_svm",
+              "seed": 20260920,
+              "features": [
+                "rule_name",
+                "proto",
+                "method",
+                "host",
+                "uri",
+                "parameter",
+                "req_header",
+                "req_body",
+                "rsp_header",
+                "rsp_body",
+                "rsp_status"
+              ],
+              "analyzer": "char",
+              "ngram_range": [
+                3,
+                5
+              ],
+              "max_features": 50000,
+              "min_df": 2,
+              "sublinear_tf": true,
+              "lowercase": true,
+              "C": 1.0,
+              "class_weight": "balanced",
+              "max_iter": 10000,
+              "label_1": "attack",
+              "score": "negative_decision_function"
+            },
+            "config_sha256": "058dfc0c2610491d1edce2f710652359b830d66d004649d7e16d6f58d86df6ca",
+            "fit_sha256": "bf5c505662e7a9afd0a526075b25b8e261f9a7b19f0b96c39e6f53c20a8fcae5",
+            "libraries": {
+              "scikit-learn": "1.9.0",
+              "numpy": "2.4.6"
+            }
+          },
+          "view": "full",
+          "fit_warnings": [],
+          "artifact_sha256": "62a61958926d47901227afe3e6d86523eb46b8bee4032842bc5bc164ec241cc5"
+        },
+        "evidence": {
+          "metadata": {
+            "status": "INTERFACE_ONLY_G0_INCOMPLETE_NO_EFFICACY_OR_REPRODUCTION_CLAIM",
+            "config": {
+              "kind": "char_tfidf_linear_svm",
+              "seed": 20260920,
+              "features": [
+                "rule_name",
+                "proto",
+                "method",
+                "host",
+                "uri",
+                "parameter",
+                "req_header",
+                "req_body",
+                "rsp_header",
+                "rsp_body",
+                "rsp_status"
+              ],
+              "analyzer": "char",
+              "ngram_range": [
+                3,
+                5
+              ],
+              "max_features": 50000,
+              "min_df": 2,
+              "sublinear_tf": true,
+              "lowercase": true,
+              "C": 1.0,
+              "class_weight": "balanced",
+              "max_iter": 10000,
+              "label_1": "attack",
+              "score": "negative_decision_function"
+            },
+            "config_sha256": "058dfc0c2610491d1edce2f710652359b830d66d004649d7e16d6f58d86df6ca",
+            "fit_sha256": "e072d1304b13e9cf530bb3f8a59ab2a3da361d3b120263295b4fc07b98e4f2dc",
+            "libraries": {
+              "scikit-learn": "1.9.0",
+              "numpy": "2.4.6"
+            }
+          },
+          "view": "evidence",
+          "fit_warnings": [],
+          "artifact_sha256": "0e37cdf9fef176a44e3e150354341a7608ffad96e84a51bb509a23af19d6617e"
+        }
+      },
+      "full_pac": {
+        "schema": "cert-gate-order-statistic-v1",
+        "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+        "comparison": "strict_greater_than",
+        "alpha": 0.01,
+        "delta": 0.05,
+        "n_attack": 659,
+        "n_eligible_attack": 659,
+        "allowed_exceedances": 2,
+        "order_rank": 657,
+        "observed_exceedances": 2,
+        "violation_bound": 0.03958102279656032,
+        "mode": "CALIBRATED",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.32506026430253027
+        },
+        "metadata": {
+          "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+          "calibration_artifact_sha256": "02180dc045a5d4fc10b14737f6272cfc61ca78beb8fc65deccef256f036b3ad5",
+          "protocol_sha256": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f",
+          "regime": "content_families",
+          "scope": "EXPLORATORY_FORMULA_NO_OPERATIONAL_CERTIFICATION",
+          "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+          "view": "full"
+        }
+      },
+      "evidence_pac": {
+        "schema": "cert-gate-order-statistic-v1",
+        "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+        "comparison": "strict_greater_than",
+        "alpha": 0.01,
+        "delta": 0.05,
+        "n_attack": 659,
+        "n_eligible_attack": 659,
+        "allowed_exceedances": 2,
+        "order_rank": 657,
+        "observed_exceedances": 2,
+        "violation_bound": 0.03958102279656032,
+        "mode": "CALIBRATED",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.38737648903395716
+        },
+        "metadata": {
+          "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+          "calibration_artifact_sha256": "02180dc045a5d4fc10b14737f6272cfc61ca78beb8fc65deccef256f036b3ad5",
+          "protocol_sha256": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f",
+          "regime": "content_families",
+          "scope": "EXPLORATORY_FORMULA_NO_OPERATIONAL_CERTIFICATION",
+          "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+          "view": "evidence"
+        }
+      },
+      "gate_pac": {
+        "schema": "cert-gate-order-statistic-v1",
+        "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+        "comparison": "strict_greater_than",
+        "alpha": 0.01,
+        "delta": 0.05,
+        "n_attack": 659,
+        "n_eligible_attack": 6,
+        "allowed_exceedances": 2,
+        "order_rank": 657,
+        "observed_exceedances": 2,
+        "violation_bound": 0.03958102279656032,
+        "mode": "CALIBRATED",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.32506026430253027
+        },
+        "metadata": {
+          "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+          "calibration_artifact_sha256": "02180dc045a5d4fc10b14737f6272cfc61ca78beb8fc65deccef256f036b3ad5",
+          "protocol_sha256": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f",
+          "regime": "content_families",
+          "scope": "EXPLORATORY_FORMULA_NO_OPERATIONAL_CERTIFICATION",
+          "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+          "view": "full_with_evidence_eligibility"
+        }
+      },
+      "full_marginal": {
+        "mode": "MARGINAL_EXPECTATION_ONLY",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.12622226719874388
+        },
+        "n_attack": 659,
+        "alpha": 0.01,
+        "order_rank": 654,
+        "expectation_bound_under_assumptions": 0.00909090909090909
+      },
+      "matched_utility": {
+        "threshold": {
+          "kind": "finite",
+          "value": 0.308786959467254
+        },
+        "selection_nonattack_examples": 510,
+        "target_nonattack_suppressed": 497,
+        "achieved_nonattack_suppressed": 497,
+        "tie_shortfall": 0,
+        "certificate_claim": false,
+        "selection_rule": "Strict threshold gives at most target count; target zero keeps all; target all suppresses all finite scores"
+      },
+      "split_summary": {
+        "source_rows": 8322,
+        "normalized_full_view_groups": 7913,
+        "dual_view_duplicate_families": 7633,
+        "components_before_exclusions": 7633,
+        "held_review_rows": 50,
+        "no_meaningful_evidence_rows": 5,
+        "excluded_groups_union": 56,
+        "excluded_rows_union": 89,
+        "exclusion_scope": "Dual-view duplicate families only; remaining rule-component members retain their fixed role",
+        "exclusion_reason_counts": {
+          "mixed_labels": {
+            "groups": 6,
+            "rows": 12
+          },
+          "held_human_review": {
+            "groups": 50,
+            "rows": 77
+          }
+        },
+        "retained_groups": 7577,
+        "retained_rows": 8233,
+        "rule_components_are_not_verified_independent_incidents": true,
+        "splits": {
+          "fit": {
+            "components": 3034,
+            "groups": 3034,
+            "rows": 3332,
+            "attack_groups": 822,
+            "nonattack_groups": 2212,
+            "attack_rows": 979,
+            "nonattack_rows": 2353,
+            "attack_bearing_components": 822,
+            "nonattack_bearing_components": 2212
+          },
+          "selection": {
+            "components": 704,
+            "groups": 704,
+            "rows": 732,
+            "attack_groups": 194,
+            "nonattack_groups": 510,
+            "attack_rows": 219,
+            "nonattack_rows": 513,
+            "attack_bearing_components": 194,
+            "nonattack_bearing_components": 510
+          },
+          "calibration": {
+            "components": 2287,
+            "groups": 2287,
+            "rows": 2458,
+            "attack_groups": 659,
+            "nonattack_groups": 1628,
+            "attack_rows": 761,
+            "nonattack_rows": 1697,
+            "attack_bearing_components": 659,
+            "nonattack_bearing_components": 1628
+          },
+          "test": {
+            "components": 1552,
+            "groups": 1552,
+            "rows": 1711,
+            "attack_groups": 432,
+            "nonattack_groups": 1120,
+            "attack_rows": 514,
+            "nonattack_rows": 1197,
+            "attack_bearing_components": 432,
+            "nonattack_bearing_components": 1120
+          }
+        }
+      },
+      "split_manifest_sha256": "86054098b08eec7262c44510ccc203c83e467c3df1722ab39d9ac8641476b6c8",
+      "selection_role": "Used only for the preregistered utility-matched comparator; no model/seed/feature selection",
+      "calibration_attack_representatives": 659,
+      "calibration_attack_bearing_components": 659
+    },
+    "rule_components": {
+      "models": {
+        "full": {
+          "metadata": {
+            "status": "INTERFACE_ONLY_G0_INCOMPLETE_NO_EFFICACY_OR_REPRODUCTION_CLAIM",
+            "config": {
+              "kind": "char_tfidf_linear_svm",
+              "seed": 20260920,
+              "features": [
+                "rule_name",
+                "proto",
+                "method",
+                "host",
+                "uri",
+                "parameter",
+                "req_header",
+                "req_body",
+                "rsp_header",
+                "rsp_body",
+                "rsp_status"
+              ],
+              "analyzer": "char",
+              "ngram_range": [
+                3,
+                5
+              ],
+              "max_features": 50000,
+              "min_df": 2,
+              "sublinear_tf": true,
+              "lowercase": true,
+              "C": 1.0,
+              "class_weight": "balanced",
+              "max_iter": 10000,
+              "label_1": "attack",
+              "score": "negative_decision_function"
+            },
+            "config_sha256": "058dfc0c2610491d1edce2f710652359b830d66d004649d7e16d6f58d86df6ca",
+            "fit_sha256": "858146adb21b4fe92db3d5c39f255bf63dd5a754e0e446baee77d18bd5c2ab16",
+            "libraries": {
+              "scikit-learn": "1.9.0",
+              "numpy": "2.4.6"
+            }
+          },
+          "view": "full",
+          "fit_warnings": [],
+          "artifact_sha256": "e31c2b81d844ef935439aa1a01616e6cb2a1d6a2527a1584a6a435cd8a441823"
+        },
+        "evidence": {
+          "metadata": {
+            "status": "INTERFACE_ONLY_G0_INCOMPLETE_NO_EFFICACY_OR_REPRODUCTION_CLAIM",
+            "config": {
+              "kind": "char_tfidf_linear_svm",
+              "seed": 20260920,
+              "features": [
+                "rule_name",
+                "proto",
+                "method",
+                "host",
+                "uri",
+                "parameter",
+                "req_header",
+                "req_body",
+                "rsp_header",
+                "rsp_body",
+                "rsp_status"
+              ],
+              "analyzer": "char",
+              "ngram_range": [
+                3,
+                5
+              ],
+              "max_features": 50000,
+              "min_df": 2,
+              "sublinear_tf": true,
+              "lowercase": true,
+              "C": 1.0,
+              "class_weight": "balanced",
+              "max_iter": 10000,
+              "label_1": "attack",
+              "score": "negative_decision_function"
+            },
+            "config_sha256": "058dfc0c2610491d1edce2f710652359b830d66d004649d7e16d6f58d86df6ca",
+            "fit_sha256": "916a566979606ed7d16c61f89f7aee2772f24de7d0c5c572055ed36044906965",
+            "libraries": {
+              "scikit-learn": "1.9.0",
+              "numpy": "2.4.6"
+            }
+          },
+          "view": "evidence",
+          "fit_warnings": [],
+          "artifact_sha256": "477b0a193f9ce76fdfdb8695584dfc51cad7c4f9371bec2fb6edc4fe8002d0da"
+        }
+      },
+      "full_pac": {
+        "schema": "cert-gate-order-statistic-v1",
+        "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+        "comparison": "strict_greater_than",
+        "alpha": 0.01,
+        "delta": 0.05,
+        "n_attack": 1153,
+        "n_eligible_attack": 1153,
+        "allowed_exceedances": 5,
+        "order_rank": 1148,
+        "observed_exceedances": 5,
+        "violation_bound": 0.026677094718500743,
+        "mode": "CALIBRATED",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.3140751279099605
+        },
+        "metadata": {
+          "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+          "calibration_artifact_sha256": "3d60362eefd1410061ccaaa255fd3b9273562f48604fbc0ad00f2f0959987974",
+          "protocol_sha256": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f",
+          "regime": "rule_components",
+          "scope": "EXPLORATORY_FORMULA_NO_OPERATIONAL_CERTIFICATION",
+          "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+          "view": "full"
+        }
+      },
+      "evidence_pac": {
+        "schema": "cert-gate-order-statistic-v1",
+        "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+        "comparison": "strict_greater_than",
+        "alpha": 0.01,
+        "delta": 0.05,
+        "n_attack": 1153,
+        "n_eligible_attack": 1153,
+        "allowed_exceedances": 5,
+        "order_rank": 1148,
+        "observed_exceedances": 5,
+        "violation_bound": 0.026677094718500743,
+        "mode": "CALIBRATED",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.3050206800562645
+        },
+        "metadata": {
+          "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+          "calibration_artifact_sha256": "3d60362eefd1410061ccaaa255fd3b9273562f48604fbc0ad00f2f0959987974",
+          "protocol_sha256": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f",
+          "regime": "rule_components",
+          "scope": "EXPLORATORY_FORMULA_NO_OPERATIONAL_CERTIFICATION",
+          "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+          "view": "evidence"
+        }
+      },
+      "gate_pac": {
+        "schema": "cert-gate-order-statistic-v1",
+        "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+        "comparison": "strict_greater_than",
+        "alpha": 0.01,
+        "delta": 0.05,
+        "n_attack": 1153,
+        "n_eligible_attack": 27,
+        "allowed_exceedances": 5,
+        "order_rank": 1148,
+        "observed_exceedances": 5,
+        "violation_bound": 0.026677094718500743,
+        "mode": "CALIBRATED",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.3140751279099605
+        },
+        "metadata": {
+          "audit_sha256": "1d5230afb42470405de91ad303da916606f285be5046456282ca4e0bc89a621a",
+          "calibration_artifact_sha256": "3d60362eefd1410061ccaaa255fd3b9273562f48604fbc0ad00f2f0959987974",
+          "protocol_sha256": "50d35f060ac9490413540ea0026ff02f68e248e369080923582de125d5bbf38f",
+          "regime": "rule_components",
+          "scope": "EXPLORATORY_FORMULA_NO_OPERATIONAL_CERTIFICATION",
+          "source_sha256": "33f95305d1c42f8e615e4f94066119570859dee7eb086dff7c2273536c932ea3",
+          "view": "full_with_evidence_eligibility"
+        }
+      },
+      "full_marginal": {
+        "mode": "MARGINAL_EXPECTATION_ONLY",
+        "threshold": {
+          "kind": "finite",
+          "value": 0.1678054012593666
+        },
+        "n_attack": 1153,
+        "alpha": 0.01,
+        "order_rank": 1143,
+        "expectation_bound_under_assumptions": 0.009532062391681109
+      },
+      "matched_utility": {
+        "threshold": {
+          "kind": "finite",
+          "value": 0.3067767152607528
+        },
+        "selection_nonattack_examples": 133,
+        "target_nonattack_suppressed": 38,
+        "achieved_nonattack_suppressed": 38,
+        "tie_shortfall": 0,
+        "certificate_claim": false,
+        "selection_rule": "Strict threshold gives at most target count; target zero keeps all; target all suppresses all finite scores"
+      },
+      "split_summary": {
+        "source_rows": 8322,
+        "normalized_full_view_groups": 7913,
+        "dual_view_duplicate_families": 7633,
+        "components_before_exclusions": 188,
+        "held_review_rows": 50,
+        "no_meaningful_evidence_rows": 5,
+        "excluded_groups_union": 56,
+        "excluded_rows_union": 89,
+        "exclusion_scope": "Dual-view duplicate families only; remaining rule-component members retain their fixed role",
+        "exclusion_reason_counts": {
+          "mixed_labels": {
+            "groups": 6,
+            "rows": 12
+          },
+          "held_human_review": {
+            "groups": 50,
+            "rows": 77
+          }
+        },
+        "retained_groups": 7577,
+        "retained_rows": 8233,
+        "rule_components_are_not_verified_independent_incidents": true,
+        "splits": {
+          "fit": {
+            "components": 76,
+            "groups": 3333,
+            "rows": 3621,
+            "attack_groups": 377,
+            "nonattack_groups": 2956,
+            "attack_rows": 438,
+            "nonattack_rows": 3183,
+            "attack_bearing_components": 65,
+            "nonattack_bearing_components": 21
+          },
+          "selection": {
+            "components": 19,
+            "groups": 298,
+            "rows": 337,
+            "attack_groups": 165,
+            "nonattack_groups": 133,
+            "attack_rows": 201,
+            "nonattack_rows": 136,
+            "attack_bearing_components": 16,
+            "nonattack_bearing_components": 6
+          },
+          "calibration": {
+            "components": 57,
+            "groups": 1838,
+            "rows": 2148,
+            "attack_groups": 1153,
+            "nonattack_groups": 685,
+            "attack_rows": 1417,
+            "nonattack_rows": 731,
+            "attack_bearing_components": 48,
+            "nonattack_bearing_components": 18
+          },
+          "test": {
+            "components": 36,
+            "groups": 2108,
+            "rows": 2127,
+            "attack_groups": 412,
+            "nonattack_groups": 1696,
+            "attack_rows": 417,
+            "nonattack_rows": 1710,
+            "attack_bearing_components": 33,
+            "nonattack_bearing_components": 9
+          }
+        }
+      },
+      "split_manifest_sha256": "536c5da3e4c408578fa9016e0f63ea9ed8d123690a6bff07a141b812178c6ca9",
+      "selection_role": "Used only for the preregistered utility-matched comparator; no model/seed/feature selection",
+      "calibration_attack_representatives": 1153,
+      "calibration_attack_bearing_components": 48
+    }
+  },
+  "operational_certification": false,
+  "multiplicity": "Separate formula calibrations; no joint PAC guarantee across arms, regimes or shifts"
+}
