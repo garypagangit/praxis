@@ -1,5 +1,11 @@
 # APT final: current work and completed studies
 
+## New pivot research: investigation and behavior extraction
+
+The September 20 [research shortlist](docs/APT_PIVOT_SHORTLIST_20260920.md) recommends a small evidence-selection failure audit, with actor-invariant technique extraction as the alternative and a graph-robustness idea held in reserve. Public OTRF APT29 logs were downloaded, hash-checked and parsed: 196,081 records, four hosts and 447 process identities. This establishes data access, not a positive method result. Current literature substantially overlaps with generic verification, stable IDs, Qwen substitution and graph augmentation; novelty remains unestablished.
+
+No new efficacy experiment or GPU run is underway. The next experiment must beat simple identifier joins and compact evidence retrieval before a more elaborate model is justified. The completed negative studies below remain closed and unchanged.
+
 ## Latest completed result: normal-only calibrated MAGIC
 
 The stronger published graph model has now been trained and evaluated in **all six registered cases: two datasets, three training runs each**. Alert thresholds were fixed using a separate normal graph before any attack evaluation. The method **did not pass the declared development gates**: 0 of six cases passed individually. Read the [plain-language final report](magic_calibrated/results/gpu_calibrated_20260920/REPORT.md), [all measured outcomes](magic_calibrated/results/gpu_calibrated_20260920/RESULTS.json), and [AWS closeout](magic_calibrated/results/gpu_calibrated_20260920/AWS_CLOSEOUT.json).
