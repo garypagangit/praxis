@@ -71,6 +71,8 @@ The AIT acquirer uses bounded byte ranges, respects rate limits, verifies select
 
 The [praxis decision memo](docs/PRAXIS_DECISION.md) explains the observed weakness: source-step identification of privilege escalation has 73.958% F1 even though overall binary detection exceeds 99.9% F1.
 
+The [next-experiment decision](docs/NEXT_EXPERIMENT.md) now prioritizes source-label scope and event/context representation: a targeted error review found opposite-labeled events with identical normalized inputs. Qualification and stronger simple inputs precede GPU architecture comparisons.
+
 **Candidate:** Can a detector preserve earlier attack-stage warnings when a telemetry source arrives late or disappears, without increasing analyst false alerts?
 
 Build a precise arrival-aware memory or evidence-handling mechanism only after simple baselines and prefix replay are qualified. Compare ordinary updates, lateness buffering, missingness indicators and dropout training before claiming value from a new mechanism. Measure clean operation as well as held-out outages/delay bursts. This is a candidate question, not a novelty or positive-result claim. cAPTure already studies latency/FPR, and recent PIDS frameworks already compare many architectures; a leaderboard alone is insufficient.

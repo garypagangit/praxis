@@ -1,0 +1,231 @@
+{
+  "status": "POSTHOC_EXPLORATORY_SOURCE_AND_REPRESENTATION_DIAGNOSTIC",
+  "review_date": "2026-09-20",
+  "target": "Secondary source-step classifier: escalate",
+  "no_new_model_fit_or_model_inference": true,
+  "no_label_adjudication": true,
+  "scope": {
+    "data_roles": [
+      "test"
+    ],
+    "runs": 2,
+    "test_rows": 865259,
+    "stage_positive_lines": 81,
+    "predicted_positive_lines": 111,
+    "selected_union_lines": 121,
+    "all_test_audit_auth_lines_scanned": 7146,
+    "audit_auth_error_lines_checked_for_representation_ambiguity": 31,
+    "training_records_or_training_collision_rates_checked": false,
+    "all_source_hash_collision_claim": false
+  },
+  "confusion": {
+    "tp": 71,
+    "fp": 40,
+    "fn": 10,
+    "tn": 865138
+  },
+  "by_error": {
+    "FP": {
+      "rows": 40,
+      "by_run": {
+        "wilson": 30,
+        "harrison": 10
+      },
+      "by_source": {
+        "apache_access": 17,
+        "audit": 23
+      },
+      "author_scope": {
+        "author_unannotated_closed_world_negative": 23,
+        "other_attack_step_dirb": 12,
+        "other_attack_step_webshell_cmd": 5
+      },
+      "audit_types": {
+        "LOGIN": 10,
+        "SERVICE_START": 5,
+        "CRED_REFR": 2,
+        "USER_START": 2,
+        "USER_END": 2,
+        "CRED_DISP": 2
+      }
+    },
+    "FN": {
+      "rows": 10,
+      "by_run": {
+        "wilson": 9,
+        "harrison": 1
+      },
+      "by_source": {
+        "apache_access": 2,
+        "audit": 7,
+        "auth": 1
+      },
+      "audit_types": {
+        "USER_ACCT": 1,
+        "CRED_ACQ": 1,
+        "USER_START": 1,
+        "USER_CMD": 2,
+        "SYSCALL": 1,
+        "PROCTITLE": 1
+      },
+      "long_hex_command_semantics_masked_lines": 1,
+      "input_truncated_lines": 0
+    }
+  },
+  "positive_line_units": {
+    "by_run": {
+      "wilson": 38,
+      "harrison": 43
+    },
+    "by_source": {
+      "apache_access": 8,
+      "audit": 46,
+      "auth": 27
+    },
+    "distinct_audit_event_keys": 44,
+    "audit_event_key_definition": "Run plus audit epoch timestamp plus audit serial, within selected intranet host",
+    "audit_event_counts_by_run": {
+      "wilson": 20,
+      "harrison": 24
+    },
+    "audit_rows_per_event_distribution": {
+      "1": 43,
+      "3": 1
+    },
+    "audit_events_with_any_FN": 6,
+    "audit_events_all_FN": 5,
+    "one_three_line_event": {
+      "correctly_detected_fragments": 1,
+      "missed_fragments": 2,
+      "missed_record_types": [
+        "SYSCALL",
+        "PROCTITLE"
+      ]
+    },
+    "independent_attack_episodes_not_established": true
+  },
+  "representation_equivalence": {
+    "FP_audit_lines_with_exact_normalized_positive_match": 23,
+    "FN_audit_auth_lines_with_exact_normalized_negative_match": 1,
+    "FN_PROCTITLE_matching_opposite_label_lines": 4,
+    "extra_opposite_label_matches_from_hash_only_collision_among_checked_error_lines": 0,
+    "mixed_label_normalized_patterns": 7,
+    "rows_in_these_patterns": 52,
+    "positive_rows": 25,
+    "negative_rows": 27,
+    "minimum_errors_for_any_deterministic_unchanged_normalized_line_classifier_on_these_patterns": 13,
+    "floor_method": "Sum min(number positive, number negative) within each identical normalized text group",
+    "scope_note": "This is a finite subset representation floor, not a population bound or a count of independent incidents. It does not imply all24 currently affected errors are unavoidable."
+  },
+  "raw_pair_comparison": {
+    "pairs": 23,
+    "pair_policy": "For each audit FP, first matching normalized-text positive in the same run in saved source order",
+    "cross_run_pairs": 0,
+    "changed_field_counts": {
+      "audit_timestamp_or_serial": 23,
+      "pid": 18,
+      "auid": 8,
+      "ses": 8,
+      "systemd_unit": 5
+    },
+    "changed_action_field_counts": {},
+    "checked_action_fields": [
+      "type",
+      "op",
+      "exe",
+      "comm",
+      "res",
+      "success",
+      "acct",
+      "terminal",
+      "cmd",
+      "proctitle",
+      "syscall",
+      "exit"
+    ],
+    "host_field_differences": 0,
+    "uid_field_differences": 0,
+    "identical_after_only_clock_and_serial_removal": 0,
+    "interpretation": "Differences removed by normalization include linkage/context identifiers. The checked action fields match; this does not determine which source label reflects real malicious intent."
+  },
+  "masked_command_example": {
+    "source_type": "audit",
+    "record_type": "PROCTITLE",
+    "encoded_bytes": 35,
+    "decoded_executable_basename": "modprobe",
+    "interpretation": "A hex-encoded command was replaced by LONG_HEX, removing command semantics. Executable identity alone does not establish maliciousness."
+  },
+  "recommendation_order": [
+    "Review source-label scope and exact event linkage without silently relabeling",
+    "Preserve genuine semantic fields and decode supported command encodings; compare stronger line features as a control",
+    "Reassemble audit event fragments and compare all methods on a common event target and availability time",
+    "Only then test bounded prior entity/session context; use identifiers for linkage rather than arbitrary numeric-ID memorization",
+    "Consider TCN/Transformer/GNN only if simpler context controls leave a supported gap"
+  ],
+  "limitations": [
+    "Post-hoc analysis of already-exposed test runs; cannot serve as new confirmation",
+    "17 escalation false positives are other malicious-step lines, not benign alerts",
+    "31 audit/auth error rows were checked against all7146 test audit/auth lines; Apache hash-only ambiguity and training populations were not exhaustively checked",
+    "Source labels remain author annotations, not independently adjudicated attack truth",
+    "Audit event IDs are not independent attack episodes; cross-channel records may represent the same actions",
+    "No thresholds, model weights, original labels or frozen results changed"
+  ],
+  "input_sha256": {
+    "results.json": "00e96d1a1d19caa726c074770534e17f4d037b09e38948e42ff7fd5a2009437e",
+    "qualification.json": "ef4e78190297c806b2b459b4bd7ee6781f98eeeaff2317129d96fd4504e177f9",
+    "pre_fit_code_receipt.json": "f36fc6eee9849dfcf1b7ac976f56093fc6541f5be90e3d32f849a40c25761abb",
+    "stage_private_predictions.npz": "a88c56db2548b78103954ef99d286283b30a66206b80025ad02e67eb64f9f790"
+  },
+  "normalizer_sha256": "3a0da0e3e41e69fbe88bcec416733680f71fc51c624825c7c5ef0d4a2347d7ef",
+  "source_inventory_basis": "Qualification receipt binds32 source/label pairs; this diagnostic uses the two test runs only",
+  "test_source_pair_hashes": [
+    {
+      "scenario": "wilson",
+      "source_type": "apache_access",
+      "source_sha256": "6b294fa8b73ff300a9badc41ea4f366bb6a43a8e4c1742f9997abaae0f8407e1",
+      "labels_sha256": "09c204e07e81f0e31d94a0fa05b818848a8447c70e748d19be2eac9ba5f762dd"
+    },
+    {
+      "scenario": "wilson",
+      "source_type": "apache_error",
+      "source_sha256": "275903b3a15a52d905d6ca09b87be8a93db65c464f0c7b76d6ff1cf76134c262",
+      "labels_sha256": "02819820eb35a1f3bb76f82318e31158743c3a84c5558e7bc1152ec7a7c834c5"
+    },
+    {
+      "scenario": "wilson",
+      "source_type": "audit",
+      "source_sha256": "b171438ed4cbc3f6447838a2efd253de4b10f671d2426c9cf95f73916d1f6ab7",
+      "labels_sha256": "66130d04f84227d4d0eab08d0251c12848afb1f2f2239d6157b26d77abfb89c7"
+    },
+    {
+      "scenario": "wilson",
+      "source_type": "auth",
+      "source_sha256": "aff486bcfcc77a7ee4eb969eafc0b4e8c92ec0ec86e79cbae4b37cbd43f7a912",
+      "labels_sha256": "4a3780280aeed2dc0229b2d2281d9aff4ddf71cebdb6822326060f9535553685"
+    },
+    {
+      "scenario": "harrison",
+      "source_type": "apache_access",
+      "source_sha256": "d011ae04101ae9dd684ea05af992a3439cb669d98485e4bee083e1fce2b5f262",
+      "labels_sha256": "52a741661d8df3eb1dc0606ecc06c86faee7bcc20878516d73cb0a2f9bed7501"
+    },
+    {
+      "scenario": "harrison",
+      "source_type": "apache_error",
+      "source_sha256": "7d023cfceae93c619323e2a85422026d1ed8736c1ea27f7dade51e536163fb88",
+      "labels_sha256": "e20589e227dc6ea7a4bbb3b2794259e2f5823b4688ddc94ebf136c04445f4b29"
+    },
+    {
+      "scenario": "harrison",
+      "source_type": "audit",
+      "source_sha256": "de4cba5a916434b74e0a86e122e5f4a830f56cc126a4af72c7b87acc2a49199e",
+      "labels_sha256": "bb5bb8ed21799d4a6c03055fd967da403f36e7459c436e72fc4afdcac847f769"
+    },
+    {
+      "scenario": "harrison",
+      "source_type": "auth",
+      "source_sha256": "8ae7338e0ba79512c1ffe7db6ee337fc79adea5332f8824825d7d68e0910d3e2",
+      "labels_sha256": "cfe08997c24768f1e748202e50dee89eaf856007f3aec41246de4ec079bdc11a"
+    }
+  ]
+}

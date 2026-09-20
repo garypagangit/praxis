@@ -34,10 +34,13 @@ There is a plausible applied research direction, but no established novelty or p
 - [TREC, CCS2024](https://doi.org/10.1145/3658644.3690221) already studies tactic/technique recognition from provenance. Graph-based stage recognition alone is not new.
 - [cAPTure, Computer Networks2026](https://doi.org/10.1016/j.comnet.2026.112570) already studies detection time against false positives and supplies timestamp-jitter variants. Timing robustness alone is not a new contribution.
 - [Kairos, IEEE S&P2024](https://tfjmp.org/publications/2024-sp.pdf) already uses temporal provenance context for detection and reconstruction.
-- [Learning the APT Kill Chain, March2026 preprint](https://arxiv.org/abs/2603.07560) is direct stage-estimation overlap; a peer-reviewed venue was not verified in this review.
+- [StageFinder / Learning the APT Kill Chain, author v2](https://arxiv.org/abs/2603.07560v2) combines fused provenance graphs and an LSTM for stage recognition. Rechecked September 20, 2026: the author record reports acceptance to IEEE GLOBECOM 2026; a publisher proceedings entry was not independently verified. This is direct overlap, not an open generic graph-plus-history idea.
+- [IMPROV / Minding the Gap, PRISM 2026](https://www.ndss-symposium.org/wp-content/uploads/prism2026-23.pdf) addresses missing provenance context, identity problems and event ordering using collection-time OS information. The [official accepted-paper list](https://www.ndss-symposium.org/ndss2026/co-located-events/prism/accepted-papers/) confirms its workshop status. Generic missing/late-event handling is also occupied; any proposed mechanism needs a narrower contribution and comparison.
 
 A defensible contribution would require a clearly different treatment of missing/late evidence, a reproducible benefit over these relevant controls, and validation beyond the original easy/repeated patterns. Simply substituting Qwen, a Transformer or a GNN is insufficient evidence of novelty.
 
 ## Decision now
 
 **Continue with the benchmark and the rare-step/context question.** It has a measurable weakness to address and accessible source data. The current result establishes working infrastructure and a model tradeoff. It does not yet establish a completed positive praxis experiment.
+
+**Diagnostic update, September 20:** the targeted error review found 23 wrong escalation assignments whose normalized text is identical to escalation-positive lines, plus one missed command-fragment line sharing normalized text with opposite-labeled records. The next gate is to audit source-label scope and restore meaningful event/context information before an architecture comparison. See [the ordered next experiment](NEXT_EXPERIMENT.md). This finding narrows the next test; it is not a new-method improvement result.
