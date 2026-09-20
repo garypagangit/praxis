@@ -4,7 +4,15 @@ Research date: **20 September 2026**. Final results of the user-authorized autom
 
 ## Main finding
 
-**The added checker provided no benefit over the simpler calibrated model.** On the harder test with unseen exact rule names, both cleared **1,610/1,696 benign-labeled examples (94.93%)** and **0/412 attack-labeled examples**. Their decisions were identical on every actual test row in both split regimes and all three text conditions. The frozen decision is **NO-GO for this fixed checker comparison**.
+**The added checker provided no measured benefit over the simpler calibrated model on this benchmark.** On the harder test with unseen exact rule names, both cleared **1,610/1,696 benign-labeled examples (94.93%)** and **0/412 attack-labeled examples**. Their decisions were identical on every actual test row in both split regimes and all three text conditions. The frozen program reported **NO-GO**, but a subsequent design audit found that its practical pass criterion was unattainable at the observed baselines. The identical decisions support the narrow negative observation independently of that flawed pass rule.
+
+## Post-run correction: the practical pass rule had a ceiling problem
+
+The fixed rule required either a one-percentage-point reduction in attack suppression or a five-percentage-point increase in benign suppression against both calibrated baselines. Both baselines already had zero observed attack suppression, making the first route require a negative error rate. The evidence-only baseline cleared 1,615/1,696 benign examples (95.224%); the second route therefore required at least **100.224%**. Even a perfect checker could not pass this criterion on the observed test.
+
+**This is an experiment-design flaw.** Passing software tests and reproducing the programmed verdict do not validate the scientific success criterion. The original protocol, predictions, thresholds and machine verdict remain unchanged for audit history; their pass/fail flag must not be used as independent evidence that the broader checker hypothesis failed. [Arithmetic design review](../results/final_generalization_20260920/DESIGN_REVIEW.json).
+
+The actual checker still changed zero decisions, so an attainable improvement criterion would not create a measured advantage in these saved outputs. Separately, the original gate using independent raw-event evidence was never evaluated for efficacy because those data were unavailable. Its hypothesis remains unresolved. Any revised criterion or reviewer needs development qualification followed by a prospectively frozen evaluation on unexposed cases.
 
 This is baseline evidence and a negative result for the proposed addition. It does not establish a novel praxis contribution, zero future attack loss, independent incident-level calibration or production readiness. **One component contains 1,486/1,696 benign examples (87.62%), and all of those were cleared.** Benign examples occur in only nine harder-test components, and the whole-component empirical band for the aggregate 94.93% is **22.12%–99.10%**. The high aggregate number therefore needs considerable caution.
 
@@ -33,7 +41,7 @@ There were **2,108 primary representatives** in **36 connected components of exa
 
 “Calibrated” identifies the specified cutoff procedure; its mathematical assumptions have not been established for deployment. The marginal and high-confidence formulas have different risk contracts. All counts use the existing dataset labels, whose independent correctness has not been established by this experiment.
 
-Against the calibrated full model, the checker's paired differences were exactly zero. Against the calibrated evidence-only model it cleared five fewer benign examples and the same number of attacks; the benign difference was **−0.295 percentage points**, with a component-resampling band of **−8.80 to +1.09 points**. The checker failed the registered added-value criterion.
+Against the calibrated full model, the checker's paired differences were exactly zero. Against the calibrated evidence-only model it cleared five fewer benign examples and the same number of attacks; the benign difference was **−0.295 percentage points**, with a component-resampling band of **−8.80 to +1.09 points**. These observed comparisons show no added benefit; the registered pass criterion has the ceiling flaw described above.
 
 A **post-result diagnostic**, giving each of the nine benign-bearing components equal weight, puts average benign clearance at **48.80%** for the full model/checker and **52.51%** for the evidence-only model. Individual component rates range from 0% to 100%. This diagnostic explains concentration; it does not replace the frozen primary metric or change the no-go criterion after observing results.
 
@@ -96,6 +104,6 @@ Raw alerts, model outputs, quotations, per-record predictions, models and cloud 
 
 ## Conclusion for the praxis decision
 
-**Close this tested checker version as a negative contribution result, and reject this bot run as adequate label validation.** The checker adds computation but catches no extra mistakes beyond the cautious full-model baseline. The strong-looking aggregate baseline result remains limited by concentrated rule support, unknown incident independence, unverified labels and reuse of a single corpus.
+**Record a narrow negative result for this checker version and a failed qualification run for this bot.** The checker adds computation but changes no decisions beyond the cautious full-model baseline. The practical success criterion needs repair, and the bot's completion/citation behavior should have been qualified on separate development examples before its frozen audit. The strong-looking aggregate baseline result remains limited by concentrated rule support, unknown incident independence, unverified labels and reuse of a single corpus. These findings do not reject the broader independent-evidence checker hypothesis.
 
 Current literature already covers certified SOC closure, conservative evidence gates and separate correctness checkers; see the [dated primary-literature review](FINAL_CHECKER_DESIGN_REVIEW.md). Changing the model name or adding this redundant second opinion is not enough for novelty. A future proposal would need a distinct mechanism and evidence that helps precisely where the baseline fails—such as independently linked events or evaluated behavior under genuinely new incident conditions—plus appropriate comparison to that literature. No such improvement is claimed here.

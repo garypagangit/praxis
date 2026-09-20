@@ -129,3 +129,9 @@ For context, zero-threshold full-score attack errors occur in components 2 (**1/
 | [GLOBAL_CALIBRATION_FREEZE.json](../results/final_generalization_20260920/GLOBAL_CALIBRATION_FREEZE.json) | `bb613d448d1e9904c8c8ccec22d6ca2376e324eca50b452e91ba1f9d9623a04d` |
 
 **Final audit conclusion:** the saved experiment is internally consistent and the fixed added checker has a negative result against the registered strong comparators. This closes the proposed benefit claim for this specific checker comparison. It does not prove that every checker will fail, establish operational certification, or provide an APT-attribution result.
+
+## Subsequent design audit: qualify the programmed no-go verdict
+
+The earlier audit established that the software correctly implemented and reported the frozen criterion. A subsequent review identified a flaw in that criterion's attainable range. Against the evidence-only baseline, route B requires `1615/1696 + 0.05 = 1.002240566`, above the maximum possible benign-suppression rate of one. Route A requires an attack-suppression rate no greater than `0 - 0.01 = -0.01`. Because one route must beat both baselines, neither route can pass, even for a perfect checker on this observed test.
+
+Root and the benchmark reviewer independently confirmed this arithmetic. It is a scientific criterion-design problem, not an inconsistency between the implementation and its specification. The no-go flag cannot independently support rejection of the hypothesis. The actual identical per-row decisions still establish no added measured benefit for this specific checker on these data. The original independent-raw-evidence gate was not evaluated for efficacy, so that broader hypothesis remains unresolved. Frozen artifacts are preserved; no new criterion is used to relabel this run positive.
