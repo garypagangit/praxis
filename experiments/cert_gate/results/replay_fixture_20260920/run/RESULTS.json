@@ -1,0 +1,128 @@
+{
+  "scope": "SOFTWARE_FIXTURE_NOT_SOC_EVIDENCE",
+  "status": "SOFTWARE_REPLAY_COMPLETE_NO_EFFICACY_CLAIM",
+  "binding": {
+    "scope": "SOFTWARE_FIXTURE_NOT_SOC_EVIDENCE",
+    "input_canonical_sha256": "3f23ff2cd332d775b738a4d4012f2a7da5574774ae06525ee9bcd3852a6088a1",
+    "scorer_contract_sha256": "9881add735c4d8bc456bdf191a90f1fffab6074f07e7248d9a30044bbd32b25e",
+    "predicate_contract_sha256": "11d0d7be173f3a22c8aac867a36ba9e16591c4f3dfdb065424f08c165f897791"
+  },
+  "alpha": 0.01,
+  "delta_per_pac_arm": 0.05,
+  "simultaneous_certification": false,
+  "calibration_records": 400,
+  "calibration_attack_records": 300,
+  "certificates": {
+    "pac_score_only": {
+      "schema": "cert-gate-order-statistic-v1",
+      "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+      "comparison": "strict_greater_than",
+      "alpha": 0.01,
+      "delta": 0.05,
+      "n_attack": 300,
+      "n_eligible_attack": 300,
+      "allowed_exceedances": 0,
+      "order_rank": 300,
+      "observed_exceedances": 0,
+      "violation_bound": 0.049040894071285854,
+      "mode": "CALIBRATED",
+      "threshold": {
+        "kind": "finite",
+        "value": 0.9985390603495157
+      },
+      "metadata": {
+        "input_canonical_sha256": "3f23ff2cd332d775b738a4d4012f2a7da5574774ae06525ee9bcd3852a6088a1",
+        "predicate_contract_sha256": "11d0d7be173f3a22c8aac867a36ba9e16591c4f3dfdb065424f08c165f897791",
+        "scope": "SOFTWARE_FIXTURE_NOT_SOC_EVIDENCE",
+        "scorer_contract_sha256": "9881add735c4d8bc456bdf191a90f1fffab6074f07e7248d9a30044bbd32b25e"
+      }
+    },
+    "pac_score_and_predicates": {
+      "schema": "cert-gate-order-statistic-v1",
+      "scope": "PER_FIXED_SCORER_AND_ELIGIBILITY",
+      "comparison": "strict_greater_than",
+      "alpha": 0.01,
+      "delta": 0.05,
+      "n_attack": 300,
+      "n_eligible_attack": 219,
+      "allowed_exceedances": 0,
+      "order_rank": 300,
+      "observed_exceedances": 0,
+      "violation_bound": 0.049040894071285854,
+      "mode": "CALIBRATED",
+      "threshold": {
+        "kind": "finite",
+        "value": 0.9985390603495157
+      },
+      "metadata": {
+        "input_canonical_sha256": "3f23ff2cd332d775b738a4d4012f2a7da5574774ae06525ee9bcd3852a6088a1",
+        "predicate_contract_sha256": "11d0d7be173f3a22c8aac867a36ba9e16591c4f3dfdb065424f08c165f897791",
+        "scope": "SOFTWARE_FIXTURE_NOT_SOC_EVIDENCE",
+        "scorer_contract_sha256": "9881add735c4d8bc456bdf191a90f1fffab6074f07e7248d9a30044bbd32b25e"
+      }
+    }
+  },
+  "marginal_comparator": {
+    "k": 3,
+    "threshold": 0.9966004860412704,
+    "keep_all": false,
+    "reference": "https://doi.org/10.3390/electronics15184084",
+    "claim": "FORMULA_ONLY_NOT_PAPER_REPRODUCTION_OR_PAC_GUARANTEE"
+  },
+  "metrics": {
+    "keep_all": {
+      "test_attack_count": 100,
+      "test_non_attack_count": 100,
+      "suppressed_attack_count": 0,
+      "suppressed_non_attack_count": 0,
+      "empirical_attack_suppression_fraction": 0.0,
+      "empirical_non_attack_suppression_fraction": 0.0,
+      "empirical_total_alert_suppression_fraction": 0.0,
+      "population_risk_validation": "NOT_ESTABLISHED_BY_THIS_FINITE_FIXTURE_TEST"
+    },
+    "marginal_order_statistic_formula_only": {
+      "test_attack_count": 100,
+      "test_non_attack_count": 100,
+      "suppressed_attack_count": 2,
+      "suppressed_non_attack_count": 1,
+      "empirical_attack_suppression_fraction": 0.02,
+      "empirical_non_attack_suppression_fraction": 0.01,
+      "empirical_total_alert_suppression_fraction": 0.015,
+      "population_risk_validation": "NOT_ESTABLISHED_BY_THIS_FINITE_FIXTURE_TEST"
+    },
+    "pac_score_only": {
+      "test_attack_count": 100,
+      "test_non_attack_count": 100,
+      "suppressed_attack_count": 1,
+      "suppressed_non_attack_count": 1,
+      "empirical_attack_suppression_fraction": 0.01,
+      "empirical_non_attack_suppression_fraction": 0.01,
+      "empirical_total_alert_suppression_fraction": 0.01,
+      "population_risk_validation": "NOT_ESTABLISHED_BY_THIS_FINITE_FIXTURE_TEST"
+    },
+    "pac_score_and_predicates": {
+      "test_attack_count": 100,
+      "test_non_attack_count": 100,
+      "suppressed_attack_count": 1,
+      "suppressed_non_attack_count": 0,
+      "empirical_attack_suppression_fraction": 0.01,
+      "empirical_non_attack_suppression_fraction": 0.0,
+      "empirical_total_alert_suppression_fraction": 0.005,
+      "population_risk_validation": "NOT_ESTABLISHED_BY_THIS_FINITE_FIXTURE_TEST"
+    }
+  },
+  "limitations": [
+    "Artificial examples do not establish cybersecurity performance",
+    "No arm is selected from these evaluation outcomes",
+    "Input hashes bind bytes, not the truth of upstream provenance",
+    "Distinct group IDs do not prove independent attacks",
+    "No confidence interval is computed from potentially correlated alert rows"
+  ],
+  "created_utc": "2026-09-20T15:42:38.241930+00:00",
+  "input_file_sha256": "5825a82f1dbea23d930b79cdb79c250110213704c383ee41b37f589d0a609e7e",
+  "code_sha256": {
+    "replay.py": "be228afe36cdaa7ecbf3daf0c1a117270a21cd87cb5181e459b6463add87bf2e",
+    "calibration.py": "e269e5c2c012107942088df33b429b5375d235b2a5efb2bc4fe0f3cdcdd09a3c"
+  },
+  "decisions_sha256": "9945ea6c9b283d9b24ceafd0bcd455107472cba6a2b4e143a2f79741f9203d8b"
+}
