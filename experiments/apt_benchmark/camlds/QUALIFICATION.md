@@ -1,6 +1,6 @@
 # CAM-LDS qualification completed
 
-**Status:** raw audit acquisition and preparation are complete. T1105 passes the declared two-class support gate for the family-separated experiment. This note reports data qualification, not model performance. See the [frozen adapter design](README.md) and [CAM protocol](../robustness_v2/camlds_protocol.json).
+**Status:** raw audit acquisition and preparation are complete. T1105 passes the declared two-class support gate for the family-separated experiment. This note reports data qualification, not model performance. See the [frozen adapter design](README.md) and [corrected CAM protocol](../robustness_v2/camlds_masked_protocol.json).
 
 ## What the dataset can test
 
@@ -55,14 +55,24 @@ T1068 and T1548 are **unsupported for this family-separated design** because eac
 
 ## Reproducibility and resource bounds
 
-Nine adapter tests cover interval endpoints, overlapping windows, repeated source identifiers, source-anchor validation, attacker/config exclusion, label-blind query selection, duplicate handling, identity masking, and invariance of earlier features when future records change. The root project separately runs the broader robustness test suite.
+Fourteen adapter/repair tests cover interval endpoints, overlapping windows, repeated source identifiers, source-anchor validation, attacker/config exclusion, label-blind query selection, duplicate handling, identity masking, earlier-feature invariance, preservation of generic command semantics, and rejection of unbound repair inputs. The root project separately runs the broader robustness test suite.
 
-The prepared JSONL is **1,998,701,121 bytes**. Its two largest per-run blocks are 574,139,823 bytes / 224,059 events and 533,370,632 bytes / 211,957 events. Preparation completed successfully; feature extraction should process one run at a time.
+The corrected prepared JSONL is **1,998,701,073 bytes**. Its two largest per-run blocks are unchanged at 574,139,823 bytes / 224,059 events and 533,370,632 bytes / 211,957 events. Preparation completed successfully; feature extraction should process one run at a time.
+
+### Source-quality correction before CAM fitting
+
+An independent feature-text scan found eight fragments retaining the fixed cross-host name `LINUXSHARE`. The CAM-only static host mask was extended to include `linuxshare`, `corpdns`, and `reposerver`; generic `CLIENT` command variables and `rsh-client` package names remain intact. No CAM model score was inspected before making this correction.
+
+The reproducible streaming repair changed **eight `text` fields across six calibration-family events**, and no `baseline_text` fields. All **691,563 events** passed complete nontext-structure equality checks; **691,557 events** were also preserved byte for byte. Labels, split membership, event order, timestamps, source references, query eligibility, and entity linkage remain identical. Every qualification count above is therefore unchanged. The old source corpus and cache remain preserved. The corrected input is `prepared_masked_v2`; it requires a fresh feature cache and an independent paired-input verification before model fitting.
 
 | Evidence binding | SHA256 |
 |---|---|
-| EVENTS.jsonl | `95ccab6ee76963940fbf2835680b121f5e1ca56dbd967f2b7739e855eaebf19c` |
-| MANIFEST.json | `4298418aaca0031f7b44130c109142b80e8329b1d75424db61f4e493796b31e5` |
-| Frozen adapter events.py | `59ff1066474c5cbced08c35305b1f3f47321a71ca024c9ad7a7807ed1c932c0c` |
+| Corrected EVENTS.jsonl | `17bbb1a7cf7b55ff5f8bf72a88fd8cc9c54f563d0f368441a1a626537356620a` |
+| Corrected MANIFEST.json | `3596db41fd7aef1c999d589042f14985631a3dd20aad0d68455e9f6ba515313b` |
+| Corrected adapter events.py | `c60f664cb364eedaeede8c43c50fb149d3fe82470521f8246a6bc0ba89b5ef2a` |
+| Repair code remask.py | `2fdee26f0dc39aca34811f2a850ce450928014109a41f5cb2e21a5f37c0a4c7c` |
+| REPAIR.json | `d142dfd07faad1c2020f1531ecdbabf5ba4286fc50f9a90cb4fa584f670ce57b` |
+
+The correction receipt also binds the unchanged original corpus SHA256 `95ccab6ee76963940fbf2835680b121f5e1ca56dbd967f2b7739e855eaebf19c` and original manifest SHA256 `4298418aaca0031f7b44130c109142b80e8329b1d75424db61f4e493796b31e5`.
 
 Private source and prepared files remain under `C:/w/apt_benchmark_data_20260920/camlds_v1`. Git contains this aggregate qualification note and the adapter, not raw logs or attacker chronology. Source preparation did not fit a model or establish a positive improvement.

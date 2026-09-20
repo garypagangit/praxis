@@ -50,6 +50,28 @@ python -m experiments.apt_benchmark.camlds.events --source C:/w/apt_benchmark_da
 python -m unittest experiments.apt_benchmark.tests.test_camlds -v
 ```
 
+### Pre-fit cross-host name correction
+
+An independent scan of the initial prepared feature text found eight fragments
+containing the fixed cross-host identifier `LINUXSHARE`. The CAM-only static
+mask now also includes `linuxshare`, `corpdns`, and `reposerver`. Generic `CLIENT`
+variables and package names such as `rsh-client` are preserved. This source
+quality correction occurred before CAM model fitting or score inspection.
+
+To derive the corrected corpus efficiently from the frozen initial preparation:
+
+```powershell
+python -m experiments.apt_benchmark.camlds.remask --source C:/w/apt_benchmark_data_20260920/camlds_v1/prepared --output C:/w/apt_benchmark_data_20260920/camlds_v1/prepared_masked_v2
+```
+
+The streaming repair verifies the prior input and metadata hashes, compares every
+event's complete nontext structure before and after masking, and records new
+event, selection, adapter, and repair-code hashes. Only fragment `text` and
+`baseline_text` may change. Labels, splits, timestamps, event order, query
+eligibility, source references, and entity links remain identical. The prior
+corpus and cache remain preserved; the corrected corpus needs a fresh cache.
+`REPAIR.json` records the exact change counts and provenance.
+
 Selected ZIP members are CRC32 checked and SHA256 hashed. Archive publisher checksums are recorded; whole-archive checksum verification is **not** claimed for range-acquired members. No downloaded executable or dataset attack script is run. Raw logs, private labels, event streams, and model predictions stay outside Git.
 
 `SELECTION.json` is written before target support counts. `MANIFEST.json` binds prepared events, adapter code, author label sources, split membership, source-member receipts, channel counts, query coverage, and per-target support. Existing evidence outputs are never overwritten. The root robustness-v2 protocol controls actual model arms and inference; this adapter does not fit or score a model.
