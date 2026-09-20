@@ -4,6 +4,8 @@ Decision date: September 20, 2026. This is the next development experiment desig
 
 Evidence: [targeted source and representation diagnostic](../results/diagnostic_v1/README.md), including aggregate counts, scope limits and input hashes.
 
+Implementation update: the [missing/delayed-log suite](../robustness/README.md) now implements the first semantic/context, loss-training and delay controls. The original decision rationale below is preserved; use the suite's frozen protocols and run reports for executed comparisons.
+
 ## Recommendation
 
 First determine whether stronger event representation and past context improve recognition of privilege escalation. Keep logistic regression as the reference, qualify complete events, and compare matched information before spending GPU time on sequence/graph models. Overall binary F1 is already near its ceiling; stage recognition offers a measurable remaining problem.

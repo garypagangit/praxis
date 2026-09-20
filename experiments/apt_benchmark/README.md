@@ -2,6 +2,8 @@
 
 Research environment created September20,2026. This branch builds a fair way to discover a useful praxis contribution. A high score on an emulation, or changing the name of a model, does not establish a new contribution.
 
+**Missing/delayed-log experiments:** the [three-experiment suite](robustness/README.md) and [recent literature review](docs/ROBUSTNESS_LITERATURE.md) are implemented. The [AIT event-level results](results/robustness_v1/ait/REPORT.md) and [independent metric audit](results/robustness_v1/ait/AUDIT.md) are complete. This event task differs from the earlier source-line pilot below.
+
 **Completed:** [first real-data comparison and stage scores](results/pilot_v1/REPORT.md), four binary models plus a separate 12-label step classifier, 1,768,861 source lines across eight runs, and 41 passing qualification tests. The development pilot used CPU; AWS authentication was verified and the existing GPU host remained stopped. See [full machine-readable dataset catalog](DATASET_CATALOG.json).
 
 An [independent calculation audit](docs/PILOT_AUDIT.md) verified the pilot's metrics and provenance. A separate fixed-model check on 48,838 additional author-rule-nonmatch lines flagged 0.860% with logistic regression, 12.267% with random forest and 8.940% with gradient boosting. These are additional covered files from the same two test runs; no thresholds or models were refitted. Unknown-clock lines were excluded, and the rule-nonmatch labels do not establish independently verified benignness. See [supplemental counts and receipts](results/pilot_v1/background_check_v1.json).
