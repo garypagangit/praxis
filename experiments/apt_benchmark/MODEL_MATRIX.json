@@ -1,0 +1,17 @@
+{
+  "review_date": "2026-09-20",
+  "information_rule": "Same dataset, group split, supervision, observable events and decision deadline within each comparison. No pooled leaderboard across incompatible targets.",
+  "models": [
+    {"name": "Prior-only dummy", "type": "Reference", "technique": "Class prevalence, no inputs", "implementation": "ready_cpu"},
+    {"name": "Logistic regression", "type": "Classical supervised ML", "technique": "Linear decision on fixed normalized log features", "implementation": "ready_cpu"},
+    {"name": "Random forest", "type": "Classical supervised ML", "technique": "Ensemble of150trees, depth14", "implementation": "ready_cpu"},
+    {"name": "Histogram gradient boosting", "type": "Classical supervised ML", "technique": "100 sequential boosted trees, no internal validation split", "implementation": "ready_cpu"},
+    {"name": "Multilabel logistic regression", "type": "Stage/step identification", "technique": "One binary classifier per source-defined step, overlapping labels preserved", "implementation": "ready_cpu"},
+    {"name": "Train-only lexical allowlist / novelty", "type": "Simple control", "technique": "Previously unseen observable operations or names", "implementation": "planned", "gate": "Define auditable canonical event representation"},
+    {"name": "Isolation forest", "type": "Benign-only anomaly detection", "technique": "Random partition anomaly score", "implementation": "planned_separate_supervision_track", "gate": "Qualified benign fit timelines; compare with other benign-only models"},
+    {"name": "TCN or small temporal Transformer", "type": "Sequence deep learning", "technique": "Past-event sequence classification", "implementation": "planned", "gate": "Validated causal windows and same-history tabular controls"},
+    {"name": "GraphSAGE / GAT", "type": "Graph neural network", "technique": "Typed observed entity relations", "implementation": "planned", "gate": "Source-grounded graph adapter; no arbitrary graph construction from labels"},
+    {"name": "Temporal graph network", "type": "Temporal graph learning", "technique": "Entity state updated by events available at decision time", "implementation": "planned", "gate": "Verified arrival order and future-invariance tests"},
+    {"name": "Qwen classifier", "type": "LLM", "technique": "Fixed evidence-to-decision prompt or separately registered tuning", "implementation": "optional_planned", "gate": "Pinned model revision, same evidence/context budget, qualified output behavior, measured latency; unknown pretraining benchmark exposure"}
+  ]
+}

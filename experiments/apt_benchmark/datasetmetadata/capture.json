@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "reviewed_as_of": "2026-09-20",
+  "dataset": "cAPTure",
+  "qualification": "public_bytes_acquired; conditional_retrospective_network_track; online_causal_and_reduction_audit_incomplete",
+  "paper": {
+    "title": "cAPTure dataset: How fast can you detect APT threats?",
+    "peer_reviewed_venue": "Computer Networks 287 (2026), 112570",
+    "doi": "10.1016/j.comnet.2026.112570",
+    "publisher_url": "https://www.sciencedirect.com/science/article/pii/S1389128626005827",
+    "availability_date_evidence": "Crossref record created 2026-07-09, version-of-record license starts 2026-07-08; September 2026 issue."
+  },
+  "artifact_root": "https://drive.google.com/drive/folders/1d6PkZLMF6Nu7bsmxhAjP4wWwuLUZ2E-2",
+  "data_license": {
+    "status": "NOT_VERIFIED",
+    "evidence": "No explicit dataset license in four downloaded author READMEs. Article CC-BY does not automatically license the data.",
+    "raw_data_redistribution": false
+  },
+  "reduced_csv_acquisition": [
+    {
+      "dataset": "cAPTure",
+      "file": "train_set_reduced.csv",
+      "drive_id": "1jZ0GEn_XGvTzmB2j-60xRNxM4fCo8bbN",
+      "source_url": "https://drive.usercontent.google.com/download?id=1jZ0GEn_XGvTzmB2j-60xRNxM4fCo8bbN&export=download&confirm=t",
+      "bytes": 800609282,
+      "sha256": "fbc99dec8db667ae6eb9246d51b66ecbd5aaa31f7a8d7ad6de78a663d6f3072c",
+      "author_checksum_available": false,
+      "acquired_at": "2026-09-20T19:40:24.461279+00:00",
+      "elapsed_seconds": 22.141,
+      "paper_doi": "10.1016/j.comnet.2026.112570",
+      "data_license": "not verified; do not redistribute raw data",
+      "receipt_path": "C:\\w\\apt_benchmark_data_20260920\\capture\\train_set_reduced.csv.receipt.json",
+      "verification": "Acquisition receipt supplied by parent; not independently rehashed by this metadata review."
+    },
+    {
+      "dataset": "cAPTure",
+      "file": "test_set_reduced.csv",
+      "drive_id": "1-RmfzjghlzUdL0zjGxjfubWXK-umxC_M",
+      "source_url": "https://drive.usercontent.google.com/download?id=1-RmfzjghlzUdL0zjGxjfubWXK-umxC_M&export=download&confirm=t",
+      "bytes": 787680380,
+      "sha256": "6bbf16ada63f248b30c5eded57eeaf9b5b7078f5c507d0ac35459b739a8a9ffc",
+      "author_checksum_available": false,
+      "acquired_at": "2026-09-20T19:40:52.680635+00:00",
+      "elapsed_seconds": 28.218,
+      "paper_doi": "10.1016/j.comnet.2026.112570",
+      "data_license": "not verified; do not redistribute raw data",
+      "receipt_path": "C:\\w\\apt_benchmark_data_20260920\\capture\\test_set_reduced.csv.receipt.json",
+      "verification": "Acquisition receipt supplied by parent; not independently rehashed by this metadata review."
+    }
+  ],
+  "parent_full_file_profile": {
+    "train_rows": 1529050,
+    "test_rows": 1043911,
+    "train_normal_rows": 906130,
+    "test_normal_rows": 500806,
+    "train_attack_rows": 622920,
+    "test_attack_rows": 543105,
+    "train_phase_counts": {
+      "RECONNAISSANCE": 319364,
+      "BRUTE_FORCE": 47695,
+      "DISCOVERY": 28527,
+      "INSTALLATION": 152,
+      "EXPLOIT": 227182
+    },
+    "test_phase_counts": {
+      "RECONNAISSANCE": 251176,
+      "BRUTE_FORCE": 66092,
+      "DISCOVERY": 21570,
+      "INSTALLATION": 198,
+      "EXPLOIT": 204069
+    },
+    "note": "Counts supplied by parent acquisition profiles, not model outcomes; no sequence count from float-parsed IDs is used."
+  },
+  "csv_columns": [
+    "layers_mqtt_mqtt.hdrflags",
+    "layers_tcp_tcp.seq",
+    "layers_tcp_tcp.completeness",
+    "layers_tcp_tcp.len",
+    "layers_frame_frame.protocols",
+    "layers_tcp_tcp.ack",
+    "layers_tcp_tcp.window_size",
+    "layers_tcp_tcp.nxtseq",
+    "layers_tcp_tcp.hdr_len",
+    "layers_mqtt_mqtt.msgid",
+    "layers_tcp_tcp.analysis_tcp.analysis.push_bytes_sent",
+    "layers_ip_ip.version",
+    "layers_eth_eth.dst_tree_eth.dst.ig",
+    "layers_eth_eth.type",
+    "layers_mqtt_mqtt.hdrflags_tree_mqtt.msgtype",
+    "layers_tcp_tcp.flags_tree_tcp.flags.str",
+    "layers_ip_ip.len",
+    "layers_eth_eth.dst_tree_eth.addr",
+    "layers_tcp_tcp.payload",
+    "layers_tcp_tcp.analysis_tcp.analysis.initial_rtt",
+    "layers_mqtt_mqtt.hdrflags_tree_mqtt.qos",
+    "layers_ip_ip.flags",
+    "layers_tcp_tcp.window_size_value",
+    "layers_frame_frame.len",
+    "layers_tcp_tcp.analysis_tcp.analysis.bytes_in_flight",
+    "phase_name",
+    "sequence_id",
+    "label",
+    "timestamp"
+  ],
+  "target_and_group_columns": [
+    "phase_name",
+    "sequence_id",
+    "label",
+    "timestamp"
+  ],
+  "sequence_id_dtype": "string; decimal-looking suffixes are identifiers, never floating point",
+  "targets": {
+    "binary": "label != normal; normal rows have missing phase_name",
+    "phase": "Author phases RECONNAISSANCE, BRUTE_FORCE, DISCOVERY, INSTALLATION, EXPLOIT; not asserted one-to-one ATT&CK tactic labels.",
+    "step": "label is an attack command/step name",
+    "timestamp": "Shifted/concatenated packet timeline; use as ordering/evaluation metadata, not a raw classifier feature."
+  },
+  "conservative_feature_exclusions": [
+    "phase_name",
+    "sequence_id",
+    "label",
+    "timestamp",
+    "layers_tcp_tcp.completeness",
+    "layers_tcp_tcp.analysis_tcp.analysis.push_bytes_sent",
+    "layers_tcp_tcp.analysis_tcp.analysis.initial_rtt",
+    "layers_tcp_tcp.analysis_tcp.analysis.bytes_in_flight",
+    "layers_tcp_tcp.seq",
+    "layers_tcp_tcp.ack",
+    "layers_tcp_tcp.nxtseq",
+    "layers_mqtt_mqtt.msgid",
+    "layers_eth_eth.dst_tree_eth.addr",
+    "layers_tcp_tcp.payload"
+  ],
+  "exclusion_rationale": "Targets, episode IDs and absolute clock are forbidden features. TCP completeness and analysis fields are quarantined until prefix availability is demonstrated; not all are proven future-leaking. Sequence/message IDs, MAC and payload are conservative shortcut exclusions. These proposed exclusions require a frozen benchmark feature contract before fitting.",
+  "construction": {
+    "scenario_templates": [
+      "dollar_char",
+      "empty_conn",
+      "pub_exf",
+      "qos_mid",
+      "slash_char",
+      "sub_exf",
+      "user_prop"
+    ],
+    "source_labeling": "Packets inside simulation command start/end intervals receive phase and command labels; pause/discard rows removed.",
+    "composition": "Scenario timelines shifted to follow the preceding final timestamp; same templates occur in train and test.",
+    "normal_training_sources": [
+      "normal_15_16_17",
+      "normal_2_3_4"
+    ],
+    "normal_test_sources": [
+      "normal_5_6_7"
+    ],
+    "independent_campaign_count": null,
+    "warning": "Repeated steps, CSV rows and seven templates must not be treated as independent real-world campaigns."
+  },
+  "sequence_metadata": {
+    "train": {
+      "drive_id": "1IsGEmmD2j3ZisxfbI6a3j-cQNNw6-wPD",
+      "receipt": {
+        "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_train_sequences_reduced.pkl",
+        "bytes": 3086389,
+        "sha256": "05d1592ca0ad01e7c99afb64fa278f9721f9f7a019b54fba1ede72a44145fe39"
+      },
+      "nonempty_lists": 1365,
+      "total_unique_row_indices": 622920,
+      "row_index_min": 17239,
+      "row_index_max": 1508657,
+      "min_list_length": 2,
+      "max_list_length": 20560
+    },
+    "test": {
+      "drive_id": "1B6ui5cUGn9AIaab5xX4lkFB_Pf1zOJof",
+      "receipt": {
+        "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_test_sequences_reduced.pkl",
+        "bytes": 2658091,
+        "sha256": "787ae90593a6d0e138c299c6bc573e2550e1a2485d66f55b9cb366611784ae7f"
+      },
+      "nonempty_lists": 861,
+      "total_unique_row_indices": 543105,
+      "row_index_min": 5694,
+      "row_index_max": 1028775,
+      "min_list_length": 2,
+      "max_list_length": 29748
+    },
+    "inspection": "Primitive integer/list pickle opcodes verified; restricted reader disallowed all class and persistent-object resolution. No arbitrary pickle class execution.",
+    "join_status": "Counts agree with parent attack-row totals, but every sequence/label/timestamp join must still be validated; derive ordering from timestamp rather than list position."
+  },
+  "feature_selection_audit": {
+    "notebook_drive_id": "1Hc7G0zXkwSuKGUUtURzcXzBEEuYDyNFG",
+    "receipt": {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_0_feature_selection.ipynb",
+      "bytes": 384639,
+      "sha256": "1455c32b410ea10a759602b551cdd785abc313bb7bb4c2d498a101d30d251e05"
+    },
+    "inspection": "Static source and saved input-filename listing only; no notebook execution or model-result inspection.",
+    "methods": [
+      "constant-feature filtering",
+      "correlation filtering at >0.999",
+      "supervised mutual_info_classif top 100"
+    ],
+    "label_source": "filename contains normal versus other file",
+    "listed_input_files": [
+      "./data/feature_selection/dollar_char_train_00002_19700101012529.csv",
+      "./data/feature_selection/dollar_char_train_00005_19700101051127.csv",
+      "./data/feature_selection/dollar_char_train_00011_19700101095439.csv",
+      "./data/feature_selection/empty_conn_train_00000_19700101010000.csv",
+      "./data/feature_selection/empty_conn_train_00002_19700101011334.csv",
+      "./data/feature_selection/empty_conn_train_00004_19700101045441.csv",
+      "./data/feature_selection/normal_15_16_17.csv",
+      "./data/feature_selection/normal_2_3_4.csv",
+      "./data/feature_selection/pub_exf_train_00000_19700101010000.csv",
+      "./data/feature_selection/pub_exf_train_00003_19700101011532.csv",
+      "./data/feature_selection/pub_exf_train_00005_19700101012430.csv",
+      "./data/feature_selection/qos_mid_train_00002_19700101051943.csv",
+      "./data/feature_selection/qos_mid_train_00004_19700101071744.csv",
+      "./data/feature_selection/qos_mid_train_00006_19700101091808.csv",
+      "./data/feature_selection/slash_char_train_00002_19700101011213.csv",
+      "./data/feature_selection/slash_char_train_00036_19700101084037.csv",
+      "./data/feature_selection/slash_char_train_00044_19700101102058.csv",
+      "./data/feature_selection/sub_exf_train_00000_19700101010000.csv",
+      "./data/feature_selection/sub_exf_train_00003_19700101011700.csv",
+      "./data/feature_selection/sub_exf_train_00005_19700101083327.csv",
+      "./data/feature_selection/user_prop_train_00001_19700101010717.csv",
+      "./data/feature_selection/user_prop_train_00027_19700101052857.csv",
+      "./data/feature_selection/user_prop_train_00048_19700101102438.csv",
+      "./data/feature_selection/zero_len_train_00005_19700101023544.csv",
+      "./data/feature_selection/zero_len_train_00027_19700101070014.csv",
+      "./data/feature_selection/zero_len_train_00037_19700101085456.csv",
+      "./data/feature_selection/zero_len_train_00047_19700101105729.csv"
+    ],
+    "input_count": 27,
+    "train_named_count": 25,
+    "normal_file_count": 2,
+    "test_named_count": 0,
+    "conclusion": "Saved listing supports training-only provenance of this top-100 selection. The exact downstream reduced 25-feature selection and row-reduction transforms remain unverified; do not call them proven test-leaking or proven clean."
+  },
+  "research_evidence": [
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_README.md",
+      "bytes": 496,
+      "sha256": "ba24ec717babc4eb6cb5d99bd383a814a2a21b5d8fe8c60754791a8eb7ce6ab1"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_dataset_README.md",
+      "bytes": 3555,
+      "sha256": "ff9acbbfdd9d3bb0bdb12a790802b18e5fd9832026c79424e70a0d39de5b0ac8"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_creation_README.md",
+      "bytes": 5480,
+      "sha256": "6b49a9a24a168c0bcdcd77bcb9b14ae2edcc3c181a0a759fced63105341aee22"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_experiment_README.md",
+      "bytes": 3607,
+      "sha256": "3bc3f8590bcebd957c192252c8dcc33321def219e82d37a24054447d3371a32a"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_0_feature_selection.ipynb",
+      "bytes": 384639,
+      "sha256": "1455c32b410ea10a759602b551cdd785abc313bb7bb4c2d498a101d30d251e05"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_1_merge_splits.ipynb",
+      "bytes": 820207,
+      "sha256": "03e60d897d76b5a15b35a7c61511ed6f403938d3dad73c30db4892b868628763"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_2_process_dollar_train.ipynb",
+      "bytes": 304330,
+      "sha256": "ecbeb11bb364d6912e10e195dd7072767580ad0307c5ae3bc73b919db2790765"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_4_compose_final.ipynb",
+      "bytes": 190711,
+      "sha256": "ea21eab20c4e55db396ecaec3c634e1d54154a86f49168c6a66de80ad8da7b57"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_features.pkl",
+      "bytes": 4105,
+      "sha256": "684bc89536384ac5dd8321198db89b40883be4357c3c580ff78ab41023490e15"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\capture_reduced_train_header",
+      "bytes": 16384,
+      "sha256": "56849ca3631e992b08fa9f7094e24be54818f3a52cdfc881fa1b831585054e2b"
+    }
+  ],
+  "novelty_warning": "Dataset paper already benchmarks time-to-detection versus false-positive rates and supplies timing-jitter tests. Early detection or jitter robustness alone is not a novel contribution.",
+  "measured_model_result": null
+}

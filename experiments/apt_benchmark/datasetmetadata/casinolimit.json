@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "reviewed_as_of": "2026-09-20",
+  "dataset": "CasinoLimit",
+  "qualification": "optional_stage_and_technique_track_only",
+  "paper": {
+    "title": "CasinoLimit: An Offensive Dataset Labeled with MITRE ATT&CK Techniques",
+    "year": 2025,
+    "peer_reviewed_venue": "RAID 2025",
+    "doi": "10.1109/RAID67961.2025.00039",
+    "primary_url": "https://casinolimit.inria.fr/"
+  },
+  "artifact": {
+    "concept_doi": "10.5281/zenodo.15278062",
+    "version_doi": "10.5281/zenodo.17256954",
+    "record_id": 17256954,
+    "publication_date": "2025-10-03",
+    "license": "CC-BY-4.0",
+    "api_url": "https://zenodo.org/api/records/17256954"
+  },
+  "author_code": {
+    "url": "https://gitlab.inria.fr/pirat-public/datasets/casinolimit",
+    "project_id": 61940,
+    "commit": "bc75bd5f8640c2b698577c139111c861f90a0082"
+  },
+  "files": [
+    {
+      "name": "cache.zip",
+      "bytes": 49433373,
+      "checksum": "md5:e7717ec8e394be849f983745ba5bdb79",
+      "url": "https://zenodo.org/api/records/17256954/files/cache.zip/content",
+      "downloaded_here": false
+    },
+    {
+      "name": "syslogs_labels.zip",
+      "bytes": 19754669,
+      "checksum": "md5:c2c79781fc5162a2f163c43a326af694",
+      "url": "https://zenodo.org/api/records/17256954/files/syslogs_labels.zip/content",
+      "downloaded_here": false
+    },
+    {
+      "name": "syslogs.zip",
+      "bytes": 1674509947,
+      "checksum": "md5:7ca30b4b5f231930426e4f206c3e6040",
+      "url": "https://zenodo.org/api/records/17256954/files/syslogs.zip/content",
+      "downloaded_here": false
+    },
+    {
+      "name": "output.zip",
+      "bytes": 1893426,
+      "checksum": "md5:c35c2a9687567ea1e933286d969fc82f",
+      "url": "https://zenodo.org/api/records/17256954/files/output.zip/content",
+      "downloaded_here": true
+    },
+    {
+      "name": "labelled_flows.zip",
+      "bytes": 851011648,
+      "checksum": "md5:4958750766c5140919e7e584b2d9bed6",
+      "url": "https://zenodo.org/api/records/17256954/files/labelled_flows.zip/content",
+      "downloaded_here": false
+    },
+    {
+      "name": "flows_zeek.zip",
+      "bytes": 1113962872,
+      "checksum": "md5:568bdb87cb0c12bdc260c2248d8349c3",
+      "url": "https://zenodo.org/api/records/17256954/files/flows_zeek.zip/content",
+      "downloaded_here": false
+    }
+  ],
+  "actual_small_file_inspection": {
+    "output_archive": {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_output.zip",
+      "bytes": 1893426,
+      "sha256": "7cb01c030363122faa06acd82ca1c3c189e6305e4ffc536c35a15c49bfe0e2d2"
+    },
+    "total_zip_members": 332,
+    "uncompressed_bytes": 19798983,
+    "labeled_instances": 114,
+    "label_objects": 9243,
+    "distinct_techniques": 66,
+    "note": "Label objects are not distinct packets, episodes, attackers, or campaigns.",
+    "non_directory_members": 328
+  },
+  "milestones": {
+    "file_receipt": {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_steps.csv",
+      "bytes": 12200,
+      "sha256": "b4d0bda8d6320eea9a048f1188df0dbb6d84a0635b4f2b8f6b186a9f4f7f5796"
+    },
+    "all_manifest_instances": 140,
+    "milestone_columns": [
+      "step_0",
+      "step_1",
+      "step_2",
+      "step_3",
+      "step_4"
+    ],
+    "meaning": [
+      "login start",
+      "login meetingcam",
+      "login bastion",
+      "root bastion",
+      "flag"
+    ],
+    "observed_among_114_labeled_instances": [
+      113,
+      66,
+      49,
+      46,
+      10
+    ],
+    "missing_policy": "Unknown/censored; do not replace missing milestones with benign or assumed success."
+  },
+  "schema": {
+    "labels": "JSON mapping label ID to id, auditd_events (machine to event IDs), technique; inspect per-file schema before joins.",
+    "network_flows": [
+      "machine_name",
+      "timestamp",
+      "duration",
+      "src_ip",
+      "dst_ip",
+      "src_port",
+      "dst_port",
+      "bytes",
+      "packets",
+      "protocol",
+      "proctitles",
+      "labels"
+    ],
+    "network_feature_exclusions": [
+      "labels"
+    ],
+    "cross_sensor_only": [
+      "proctitles"
+    ],
+    "causality_warning": "Process-aggregated cache records can contain later events; do not treat an entire process record as available at its first timestamp."
+  },
+  "split_policy": {
+    "official_split": null,
+    "recommended_unit": "Whole execution instance; group repeated attacker runs together if linkage becomes available.",
+    "limitation": "114 executions of one challenge are not 114 independent campaigns or necessarily distinct people."
+  },
+  "limitations": [
+    "No realistic ordinary-user benign traffic; background services and SSH only. Do not claim operational binary false-positive performance.",
+    "Unannotated raw auditd records are not established benign ground truth.",
+    "Public auditd/logs/flows are downloadable; PCAP requires author access and is not qualified as immediately public.",
+    "Only 10 labeled instances have final flag milestone.",
+    "README timezone prose says UTC+1 while step timestamps carry +02:00; audit epoch joins without guessing an offset.",
+    "Human CTF attacks are not real-world APT actor identity labels."
+  ],
+  "evidence": [
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_record.json",
+      "bytes": 6673,
+      "sha256": "6ce2a187f5cf69ceb89d8f34b07b48f173ff7633dc42de0d4767dc131d49a41b"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_README.md",
+      "bytes": 23512,
+      "sha256": "06f5b12af1c2b1baaeeff4844e22b65fdfa515e3f1286eeab8f67df8f3dca05c"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_commit.json",
+      "bytes": 770,
+      "sha256": "13018847547152b94ce75a404c4a80228c6b107bd062038c106717f2549b278c"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_datasheet.pdf",
+      "bytes": 79201,
+      "sha256": "cff4144c8828fe9af890110477217f8baeac27ecc707e521ed865ef811a437b3"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_steps.csv",
+      "bytes": 12200,
+      "sha256": "b4d0bda8d6320eea9a048f1188df0dbb6d84a0635b4f2b8f6b186a9f4f7f5796"
+    },
+    {
+      "private_path": "C:\\w\\apt_benchmark_data_20260920\\research\\casino_steps_notes.md",
+      "bytes": 278,
+      "sha256": "a825a711be73ee74939dd4c283954e0dcecb03e8b1812646b8d2407ffbb90c38"
+    }
+  ],
+  "measured_model_result": null
+}

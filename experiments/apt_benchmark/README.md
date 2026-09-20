@@ -1,0 +1,65 @@
+# Comparing models for malicious behavior, attack stages and earlier warning
+
+Research environment created September20,2026. This branch builds a fair way to discover a useful praxis contribution. A high score on an emulation, or changing the name of a model, does not establish a new contribution.
+
+## The three questions
+
+1. **Detection:** Is the observed behavior malicious?
+2. **Stage identification:** Which source-documented attack step is occurring?
+3. **Early warning:** Does the system raise a useful warning before a documented later harmful action, within a fixed false-alert budget?
+
+APT-inspired emulations support behavior tests. They do not establish attribution to a real bad actor.
+
+## Core data tracks
+
+| Dataset | Role | Readiness |
+|---|---|---|
+| AIT-LDSv2.1 | Primary enterprise-log detection/step pilot; eight held-out-run units, simulated normal users | Exact source/label-pair acquisition and CPU runner implemented. See results for completion. Data captured2022;2026 packaging is not a new capture. |
+| cAPTure, Computer Networks2026 | Conditional network-packet and early-warning replication | Two reduced tables acquired, about1.59GB and2.57million packets. Qualification implemented; causal/reduction provenance remains unresolved. Not fitted in this milestone. |
+| CasinoLimit, RAID2025 | Optional stage/technique transfer across execution instances | Annotation and milestone inventory inspected.114 labeled executions of one challenge; raw event adapter not implemented. No realistic benign-user baseline. |
+
+AIT-ADS is another observation view of AIT-LDS, not a fourth independent dataset. CAM-LDS, Windows-APT2025, CICAPT-IIoT2024, DEDALE and other alternatives are compared in the two source-backed reviews:
+
+- [Endpoint/APT dataset review](docs/DATASETS_APT_REVIEW.md)
+- [Network/multistage dataset review](docs/DATASETS_NETWORK_REVIEW.md)
+- [Design and closest literature](docs/BENCHMARK_DESIGN_REVIEW.md)
+- [Model types, techniques and implementation status](MODEL_MATRIX.json)
+
+## First runnable comparison
+
+The [frozen pilot protocol](protocol.json) fits on four January AIT runs, uses one later January run for development and one for calibration, then tests on two February runs. All models receive the same normalized source text represented as128 fixed hashed features. Target fields, annotation rules, timestamps and split identifiers never enter the feature builder. Recognized timestamp/address/ID patterns are masked; residual lexical template shortcuts remain a stated limitation.
+
+Implemented: prior-only reference, logistic regression, random forest and histogram gradient boosting, plus a separate multilabel logistic stage classifier. GNNs, temporal Transformers and Qwen are explicitly **planned**, with qualification gates in the model matrix. No GPU job is needed for this CPU milestone.
+
+The pilot uses original log lines in paired, author-annotated intranet files. Missing lines in those positive-label files mean normal under the author's documented convention. Logs without a matching qualified annotation file are unknown, not automatically normal. This selected-source evaluation does not measure complete enterprise sensor coverage. Attacker scripts and label files are never executed.
+
+## Scores and how to interpret them
+
+- Detection: precision, recall, F1, ROC-AUC from continuous scores, average precision (PR metric), balanced accuracy, MCC and confusion counts.
+- Operating point: fixed0.5 and a threshold chosen on calibration data for at most1% observed event false positives. Actual test FPR is reported; this is not a population guarantee or a host-hour alarm rate.
+- Stages: each binary model's detection of source-labeled steps, plus a distinct multilabel stage-identification table. Source labels overlap and are not forced into a universal chronological order.
+- Generalization: both held-out runs shown individually and equally weighted, alongside pooled scores. Two runs do not justify confident population intervals.
+- Early-warning library: arrival-time guards, missed/censored episodes, detection delay and before-impact logic are implemented and tested. Real before-impact scoring is withheld until onset, impact, feature availability and monitored benign exposure are qualified. No delay score is invented from a completed-flow or retrospective label.
+- Cost: local fit and batch-score seconds. These are not deployed online latency measurements.
+
+## Reproduce locally
+
+Python3.11. A dedicated environment was created at `C:/w/apt_benchmark_env_20260920`; exact installed dependencies are recorded in `requirements.lock.txt` when packaging completes. Raw data, models and row-level predictions stay outside Git.
+
+```powershell
+python -m venv C:/w/apt_benchmark_env_20260920
+& C:/w/apt_benchmark_env_20260920/Scripts/python.exe -m pip install -r experiments/apt_benchmark/requirements.lock.txt
+& C:/w/apt_benchmark_env_20260920/Scripts/python.exe -m unittest discover -s experiments/apt_benchmark/tests -v
+& C:/w/apt_benchmark_env_20260920/Scripts/python.exe -m experiments.apt_benchmark.acquire_ait --output C:/w/apt_benchmark_data_20260920/ait/partial_lds
+& C:/w/apt_benchmark_env_20260920/Scripts/python.exe -m experiments.apt_benchmark.run_pilot --data C:/w/apt_benchmark_data_20260920/ait/partial_lds --output C:/w/apt_benchmark_data_20260920/pilot_new
+```
+
+The AIT acquirer uses bounded byte ranges, respects rate limits, verifies selected ZIP members by CRC and SHA256, and preserves original line numbering. It records the publisher's full-archive checksum without claiming to have verified an archive it did not download. AIT-LDS is CC-BY-NC-SA4.0: preserve attribution and its noncommercial/share-alike terms. The cAPTure data license has not been verified; raw data is not redistributed.
+
+## Praxis direction
+
+**Candidate:** Can a detector preserve earlier attack-stage warnings when a telemetry source arrives late or disappears, without increasing analyst false alerts?
+
+Build a precise arrival-aware memory or evidence-handling mechanism only after simple baselines and prefix replay are qualified. Compare ordinary updates, lateness buffering, missingness indicators and dropout training before claiming value from a new mechanism. Measure clean operation as well as held-out outages/delay bursts. This is a candidate question, not a novelty or positive-result claim. cAPTure already studies latency/FPR, and recent PIDS frameworks already compare many architectures; a leaderboard alone is insufficient.
+
+The next scientific gate is an attainable, predeclared improvement over a strong baseline on qualified early-warning evidence and an additional independent data source. Pilot outcomes may guide that choice but cannot be reused as untouched confirmation.
