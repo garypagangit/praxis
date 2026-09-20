@@ -13,16 +13,16 @@ deadline_epoch="$5"
 # BEGIN_STABLE_STORAGE_GUARDS
 # These functions are qualified separately without downloading or running science.
 storage_error() { printf 'STORAGE GUARD: %s\n' "$*" >&2; return 1; }
-root_filesystem_path() {
+storage_filesystem_path() {
   local target="$1" mounted_on device
   mounted_on=$(findmnt -rn -o TARGET -T "$target") || return 1
   device=$(findmnt -rn -o MAJ:MIN -T "$target") || return 1
-  [[ "$mounted_on" == / && "$device" == "$storage_root_device" ]] ||
-    storage_error "Path is no longer on the verified root filesystem: $target"
+  [[ "$mounted_on" == "$storage_expected_mount" && "$device" == "$storage_device" ]] ||
+    storage_error "Path is no longer on the verified filesystem: path=$target expected_mount=$storage_expected_mount actual_mount=$mounted_on"
 }
 prepare_run_storage() {
-  local base="$1" parent_name="$2" requested_id="$3"
-  local canonical root_sysfs root_block backing_disks parent
+  local base="$1" parent_name="$2" requested_id="$3" required_mount="${4:-/}"
+  local canonical block_sysfs block_device backing_disks parent
   [[ "$parent_name" =~ ^[a-zA-Z0-9_-]+$ && "$requested_id" =~ ^[a-zA-Z0-9_-]+$ ]] ||
     { storage_error 'Invalid storage directory identifier'; return 1; }
   [[ "$base" == /* && -d "$base" && ! -L "$base" ]] ||
@@ -30,34 +30,39 @@ prepare_run_storage() {
   canonical=$(readlink -f -- "$base") || return 1
   [[ "$canonical" == "$base" ]] ||
     { storage_error 'Storage base must contain no symlink components'; return 1; }
-  storage_root_device=$(findmnt -rn -o MAJ:MIN -T /) || return 1
-  [[ "$storage_root_device" =~ ^[0-9]+:[0-9]+$ ]] ||
-    { storage_error 'Cannot identify root block device'; return 1; }
-  root_filesystem_path "$base" || return 1
-  storage_root_stat=$(stat -Lc '%d' -- /) || return 1
-  [[ "$(stat -Lc '%d' -- "$base")" == "$storage_root_stat" ]] ||
-    { storage_error 'Storage base device differs from root'; return 1; }
-  # Resolve aliases such as /dev/root through sysfs; lsblk -s follows partition
+  [[ "$required_mount" == /* && -d "$required_mount" && ! -L "$required_mount" &&
+     "$(readlink -f -- "$required_mount")" == "$required_mount" ]] ||
+    { storage_error 'Required mount must be an existing canonical non-symlink directory'; return 1; }
+  storage_expected_mount="$required_mount"
+  storage_device=$(findmnt -rn -o MAJ:MIN -T "$required_mount") || return 1
+  [[ "$storage_device" =~ ^[0-9]+:[0-9]+$ ]] ||
+    { storage_error "Cannot identify block device for mount=$required_mount"; return 1; }
+  # Exact TARGET matching prevents an absent data mount from silently using root.
+  storage_filesystem_path "$required_mount" && storage_filesystem_path "$base" || return 1
+  storage_stat=$(stat -Lc '%d' -- "$required_mount") || return 1
+  [[ "$(stat -Lc '%d' -- "$base")" == "$storage_stat" ]] ||
+    { storage_error "Storage base device differs from mount=$required_mount"; return 1; }
+  # Resolve device aliases through sysfs; lsblk -s follows partition
   # and device-mapper ancestry. NVMe names are valid for both EBS and instance store.
-  root_sysfs=$(readlink -f -- "/sys/dev/block/$storage_root_device") || return 1
-  [[ -d "$root_sysfs" ]] ||
-    { storage_error 'Root block device has no sysfs entry'; return 1; }
-  root_block="/dev/${root_sysfs##*/}"
-  backing_disks=$(lsblk -sn -o TYPE,MODEL -- "$root_block") || return 1
+  block_sysfs=$(readlink -f -- "/sys/dev/block/$storage_device") || return 1
+  [[ -d "$block_sysfs" ]] ||
+    { storage_error "Block device has no sysfs entry for mount=$required_mount"; return 1; }
+  block_device="/dev/${block_sysfs##*/}"
+  backing_disks=$(lsblk -sn -o TYPE,MODEL -- "$block_device") || return 1
   printf '%s\n' "$backing_disks" | awk '
     $1 == "disk" { count++; $1=""; gsub(/[[:space:]]/, ""); if ($0 != "AmazonElasticBlockStore") bad=1 }
     END { exit (count == 0 || bad) }
-  ' || { storage_error 'Root backing disks are not all verified Amazon EBS'; return 1; }
+  ' || { storage_error "Backing disks are not all verified Amazon EBS for mount=$required_mount"; return 1; }
   storage_free_bytes=$(df -PB1 -- "$base" | awk 'NR==2 {print $4}') || return 1
   [[ "$storage_free_bytes" =~ ^[0-9]+$ ]] &&
     (( storage_free_bytes >= 10737418240 )) ||
-    { storage_error 'Root EBS needs at least 10 GiB free before creating the run directory'; return 1; }
+    { storage_error "EBS needs at least 10 GiB free before creating the run directory: mount=$required_mount free_bytes=$storage_free_bytes"; return 1; }
   parent="$base/$parent_name"
   [[ ! -L "$parent" ]] || { storage_error 'Storage parent is a symlink'; return 1; }
   if [[ ! -e "$parent" ]]; then mkdir -- "$parent" || return 1; fi
   [[ -d "$parent" && "$(readlink -f -- "$parent")" == "$parent" ]] ||
     { storage_error 'Storage parent is not a canonical directory'; return 1; }
-  root_filesystem_path "$parent" || return 1
+  storage_filesystem_path "$parent" || return 1
   run_dir="$parent/$requested_id"
   [[ ! -e "$run_dir" && ! -L "$run_dir" ]] ||
     { storage_error 'Refusing an existing run directory'; return 1; }
@@ -66,8 +71,8 @@ prepare_run_storage() {
   storage_run_identity=$(stat -Lc '%d:%i' -- "$run_dir") || return 1
   storage_outputs_identity=$(stat -Lc '%d:%i' -- "$run_dir/outputs") || return 1
   assert_run_storage || return 1
-  printf 'Verified root EBS storage: path=%s root_device=%s free_bytes_before_run=%s run_identity=%s outputs_identity=%s\n' \
-    "$run_dir" "$storage_root_device" "$storage_free_bytes" "$storage_run_identity" "$storage_outputs_identity" \
+  printf 'Verified EBS storage: path=%s mount=%s device=%s free_bytes_before_run=%s run_identity=%s outputs_identity=%s\n' \
+    "$run_dir" "$storage_expected_mount" "$storage_device" "$storage_free_bytes" "$storage_run_identity" "$storage_outputs_identity" \
     >> "$run_dir/outputs/ENV_SELECTION.log" || return 1
 }
 assert_run_storage() {
@@ -75,16 +80,19 @@ assert_run_storage() {
     { storage_error 'Run or output directory disappeared or became a symlink'; return 1; }
   [[ "$(readlink -f -- "$run_dir")" == "$run_dir" ]] ||
     { storage_error 'Run path canonical identity changed'; return 1; }
-  root_filesystem_path "$run_dir" && root_filesystem_path "$run_dir/outputs" || return 1
+  storage_filesystem_path "$run_dir" && storage_filesystem_path "$run_dir/outputs" || return 1
   [[ "$(stat -Lc '%d:%i' -- "$run_dir")" == "$storage_run_identity" &&
      "$(stat -Lc '%d:%i' -- "$run_dir/outputs")" == "$storage_outputs_identity" ]] ||
     { storage_error 'Run or output directory device/inode changed'; return 1; }
-  [[ "$(stat -Lc '%d' -- "$run_dir")" == "$storage_root_stat" ]] ||
-    { storage_error 'Run directory device no longer matches verified root'; return 1; }
+  [[ "$(stat -Lc '%d' -- "$run_dir")" == "$storage_stat" ]] ||
+    { storage_error 'Run directory device no longer matches verified mount'; return 1; }
 }
 # END_STABLE_STORAGE_GUARDS
-prepare_run_storage /var/tmp praxis-apt-final "$run_id"
+prepare_run_storage /mnt/praxis-20260912-004 praxis-apt-final "$run_id" /mnt/praxis-20260912-004
 cd "$run_dir"
+mkdir -- "$run_dir/tmp" "$run_dir/pip-cache"
+export TMPDIR="$run_dir/tmp"
+export PIP_CACHE_DIR="$run_dir/pip-cache"
 export AWS_DEFAULT_REGION=us-east-1
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
 export OMP_NUM_THREADS=4

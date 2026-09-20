@@ -6,9 +6,11 @@ Every reference bank, calibration score, normal-validation result, and attack re
 
 ## Bootstrap repair
 
-Cloud attempt 2 failed before starting the worker: the download command reported success, then its bundle and previously created output directory were absent. A startup mount/path change is suspected but unconfirmed. The repair uses `/var/tmp/praxis-apt-final/<run_id>` on verified root EBS storage, requires 10 GiB free space, rejects reused or symlinked paths, and checks directory identities after download and before execution/publication. Failure diagnostics also go to stderr so losing an output directory cannot hide the reason.
+Cloud attempt 2 failed before starting the worker: the download command reported success, then its bundle and previously created output directory were absent. A startup mount/path change is suspected but unconfirmed. Attempt 3 used a verified root EBS path but stopped before science because that filesystem had less than the required 10 GiB free.
 
-Keep the failed attempt and the original `REGISTRATION.json`. Freeze the runtime amendment under **`REGISTRATION_RUNTIME_FIX.json`**; it binds the same 24 verified encoder/cache sets and unchanged science. The commands below show that amended registration and a new attempt directory. The launcher stores the selected receipt under the canonical registration filename inside its private bundle.
+The current runtime uses the existing dedicated EBS mount at `/mnt/praxis-20260912-004`, verifies that exact mount and its EBS backing, and requires 10 GiB free. It fails if the mount is absent; there is no automatic root fallback. Run files, temporary files and pip cache use a fresh subdirectory on that volume. Directory identities are checked after download and before execution/publication. No volume or mount is created, resized or deleted.
+
+Keep all failed attempts, `REGISTRATION.json` and `REGISTRATION_RUNTIME_FIX.json`. Freeze this storage amendment under **`REGISTRATION_EBS_DATA_FIX.json`**; it binds the same 24 verified encoder/cache sets and unchanged science. The commands below show that registration and a fresh attempt directory. The launcher stores the selected receipt under the canonical registration filename inside its private bundle.
 
 ## Required preparation
 
@@ -26,13 +28,13 @@ Example preparation from the repository root, using the collected original attem
 Then register after committing the source:
 
 ```powershell
-& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.provenance register --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION_RUNTIME_FIX.json
+& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.provenance register --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION_EBS_DATA_FIX.json
 ```
 
 Create a new private cloud attempt directory and settings file. Preserve the approved host, account, bucket, profile, stop role, and price fields; use a distinct S3 prefix such as `apt-normal-stability-continuation-20260920/<unique-attempt>/`. Do not copy old execution receipts into that directory.
 
 ```powershell
-& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.launch --settings C:/w/apt_stability_20260920/cloud_attempt3/settings.json --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION_RUNTIME_FIX.json
+& 'C:/w/cti_checker_env_20260918/Scripts/python.exe' -m experiments.apt_final.normal_stability_continuation.launch --settings C:/w/apt_stability_20260920/cloud_attempt4/settings.json --data-dir C:/w/apt_native_graph_20260920/data --original-registration experiments/apt_final/normal_stability/REGISTRATION.json --reuse-dir C:/w/apt_stability_20260920/reuse_attempt1 --registration experiments/apt_final/normal_stability_continuation/REGISTRATION_EBS_DATA_FIX.json
 ```
 
 The launcher verifies and bundles both source chains, original data, and staged checkpoint files. The worker calls the wrapper once. Input and output archives are limited to 2,000 members and 4 GB. The existing one-hour/$10 controller and independent shutdown protection remain active.

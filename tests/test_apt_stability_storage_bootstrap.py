@@ -46,11 +46,12 @@ set -euo pipefail
 TEST_BASE={shlex.quote(bash_path(self.base))}
 TEST_SYSFS={shlex.quote(bash_path(self.sysfs))}
 MOCK_MOUNT={shlex.quote(mount)}
+MOCK_DEVICE=259:1
 MOCK_FREE={free_bytes}
 MOCK_DISKS={shlex.quote(disks)}
 UPLOAD_LOG={shlex.quote(bash_path(self.root / 'uploads.log'))}
 findmnt() {{
-  if [[ "$3" == MAJ:MIN ]]; then printf '259:1\\n';
+  if [[ "$3" == MAJ:MIN ]]; then printf '%s\\n' "$MOCK_DEVICE";
   elif [[ "$3" == TARGET ]]; then printf '%s\\n' "$MOCK_MOUNT";
   else return 90; fi
 }}
@@ -77,6 +78,21 @@ aws() {{ printf '%s\\n' "$*" >> "$UPLOAD_LOG"; }}
         result = subprocess.run([str(BASH), "-n", bash_path(SHELL)], capture_output=True, text=True, timeout=10)
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_dependency_temporary_storage_is_exported_inside_verified_run(self):
+        start = self.source.index('mkdir -- "$run_dir/tmp" "$run_dir/pip-cache"')
+        end = self.source.index("export AWS_DEFAULT_REGION", start)
+        self.assertLess(start, self.source.index("-m venv"))
+        self.assertLess(start, self.source.index("-m pip install"))
+        snippet = self.source[start:end]
+        result = self.execute('prepare_run_storage "$TEST_BASE" praxis run1 "$TEST_BASE"\n' + snippet + '''
+export EXPECTED_RUN="$run_dir"
+command bash -c '[[ "$TMPDIR" == "$EXPECTED_RUN/tmp" && "$PIP_CACHE_DIR" == "$EXPECTED_RUN/pip-cache" && -d "$TMPDIR" && -d "$PIP_CACHE_DIR" ]]'
+assert_run_storage
+''', mount=bash_path(self.base))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.run_path / "tmp").is_dir())
+        self.assertTrue((self.run_path / "pip-cache").is_dir())
+
     def test_stable_nvme_ebs_and_exact_ten_gib_boundary_pass(self):
         result = self.execute('prepare_run_storage "$TEST_BASE" praxis run1\nassert_run_storage')
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -91,7 +107,7 @@ aws() {{ printf '%s\\n' "$*" >> "$UPLOAD_LOG"; }}
     def test_other_mount_is_rejected_before_run_creation(self):
         result = self.execute('prepare_run_storage "$TEST_BASE" praxis run1', mount="/mnt/ephemeral")
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("verified root filesystem", result.stderr)
+        self.assertIn("filesystem", result.stderr)
         self.assertFalse(self.run_path.exists())
 
     def test_non_ebs_or_mixed_backing_disks_are_rejected(self):
@@ -142,7 +158,48 @@ assert_run_storage''')
 MOCK_MOUNT=/mnt/replaced
 assert_run_storage''')
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("verified root filesystem", result.stderr)
+        self.assertIn("filesystem", result.stderr)
+
+    def test_explicit_dedicated_ebs_mount_passes(self):
+        result = self.execute('prepare_run_storage "$TEST_BASE" praxis run1 "$TEST_BASE"\nassert_run_storage',
+                              mount=bash_path(self.base))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.run_path / "outputs" / "ENV_SELECTION.log").is_file())
+
+    def test_unmounted_dedicated_path_cannot_fall_back_to_root(self):
+        # Directory exists, but findmnt reports root: the dedicated disk is absent.
+        result = self.execute('prepare_run_storage "$TEST_BASE" praxis run1 "$TEST_BASE"', mount="/")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("filesystem", result.stderr)
+        self.assertFalse((self.base / "praxis").exists())
+
+    def test_dedicated_mount_low_space_is_rejected_before_parent_creation(self):
+        result = self.execute('prepare_run_storage "$TEST_BASE" praxis run1 "$TEST_BASE"',
+                              mount=bash_path(self.base), free_bytes=10737418239)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("at least 10 GiB", result.stderr)
+        self.assertFalse((self.base / "praxis").exists())
+
+    def test_dedicated_mount_replaced_by_root_is_rejected(self):
+        result = self.execute('''prepare_run_storage "$TEST_BASE" praxis run1 "$TEST_BASE"
+MOCK_MOUNT=/
+assert_run_storage''', mount=bash_path(self.base))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("filesystem", result.stderr)
+
+    def test_dedicated_mount_device_change_is_rejected(self):
+        result = self.execute('''prepare_run_storage "$TEST_BASE" praxis run1 "$TEST_BASE"
+MOCK_DEVICE=259:2
+assert_run_storage''', mount=bash_path(self.base))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("filesystem", result.stderr)
+
+    def test_dedicated_mount_must_also_have_only_ebs_backing_disks(self):
+        result = self.execute('prepare_run_storage "$TEST_BASE" praxis run1 "$TEST_BASE"',
+                              mount=bash_path(self.base), disks="disk Amazon EC2 NVMe Instance Storage")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("not all verified Amazon EBS", result.stderr)
+        self.assertFalse((self.base / "praxis").exists())
 
     def test_mock_download_path_change_is_caught_before_worker_marker(self):
         # Execute the exact production download/checksum segment. aws returns
