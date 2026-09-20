@@ -31,6 +31,7 @@ The current E0 tool is an inventory/recount audit, not a qualified normalized-da
 - [Corrected development protocol](docs/PROTOCOL.md).
 - [Normalized input and evidence contract](data/DATA_CONTRACT.md).
 - [Development configuration](configs/development.json) and [synthetic qualification configuration](configs/smoke.json).
+- [Committed development registration](REGISTRATION.json), binding the exact source, configuration, and protocol used for the initial freeze.
 - [Software qualification](results/qualification_20260919/README.md): **32 tests passed**, plus the complete synthetic E1-E4 command-line run; [machine-readable receipt](results/qualification_20260919/QUALIFICATION.json).
 
 The literature audit corrects several supplied premises. OCR-APT already reports local-model comparisons; PIDSMaker already studies instability; dataset availability and label validity still require verification. These are reasons to narrow the contribution, not to rename existing methods as new.
