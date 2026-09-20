@@ -1,0 +1,49 @@
+# Where normal-only MAGIC calibration ends and a new contribution would begin
+
+**Primary sources checked: September 20, 2026. Status: bounded literature assessment; calibrated GPU outcomes were unknown when this note was written.** This note adds interpretation only. It does not change the registered six-case study, its thresholds, or its decision gates.
+
+## Plain-language conclusion
+
+The current study asks a useful practical question: **can this published detector catch malicious activity when its alert cutoff is chosen from ordinary activity alone?** A successful result would establish a stronger development baseline. It would not establish a new detection algorithm, a new calibration method, or the first study of retraining instability.
+
+The most material additional overlap found here is a July 2026 calibration paper explicitly addressing stable false-positive-rate meanings across security-model releases. Merely adding a benign-score calibrator or calling it a checker is therefore a weak novelty claim. The literature also distinguishes detecting some attack activity from giving analysts useful, manageable evidence. [Berlin (2026)](https://arxiv.org/abs/2607.05481), [Jiang et al. (2025), ORTHRUS](https://www.usenix.org/conference/usenixsecurity25/presentation/jiang-baoxiang).
+
+## Five closest work families
+
+| Primary work | What already exists | Boundary for this project |
+| --- | --- | --- |
+| **Jia et al. (2024), MAGIC**, USENIX Security. [Paper record](https://www.usenix.org/conference/usenixsecurity24/presentation/jia-zian); [pinned author entity evaluator](https://github.com/FDUDSDE/MAGIC/blob/aa0b647eea74b6faa0e52eb444370c4411a32cbe/model/eval.py#L161). | Masked graph learning of benign behavior, embedding-based outlier detection, and an adaptation mechanism are published. The inspected entity evaluator standardizes from the training bank, uses k-nearest-neighbor distances, then selects a threshold using test-label recall targets: THEIA .99996 and CADETS .9976. | Reproducing this model is a baseline. Replacing its label-chosen evaluation threshold with a normal-only cutoff addresses a concrete evaluation distinction, but does not create a new representation. The entity rule is not simply maximum-F1 selection; the batch evaluator has different logic. |
+| **Bilot et al. (2025), Sometimes Simpler is Better**, with the **PIDSMaker** framework and documentation. [USENIX paper, SC3/SC5 and section 5](https://www.usenix.org/system/files/usenixsecurity25-bilot.pdf); [framework paper](https://arxiv.org/abs/2601.22983); [instability documentation](https://ubc-provenance.github.io/PIDSMaker/features/instability/). | The study already identifies test-informed thresholding and retraining instability, repeats experiments across seeds, and discusses validation-derived cutoffs. Its VELOX detector uses the maximum validation score. PIDSMaker implements repeated-run measurement. | Neither detecting instability nor excluding test labels from threshold selection is new. Our three runs describe variability conditional on these data; they are not independent campaigns or a controlled estimate of initialization alone. |
+| **Wang et al. (2025), CAPTAIN**, *Incorporating Gradients to Rules: Towards Lightweight, Adaptive Provenance-based Intrusion Detection*, NDSS. [Official paper page](https://www.ndss-symposium.org/ndss-paper/incorporating-gradients-to-rules-towards-lightweight-adaptive-provenance-based-intrusion-detection/). | A rule-based provenance detector learns environment-specific node, edge, and alarm-threshold parameters through differentiable tag propagation. | Broad claims such as “an adaptive checker reduces false alarms” overlap established work. A MAGIC extension would need a precise different mechanism and a fair comparison, not just a renamed threshold. This source is not a MAGIC kNN reproduction. |
+| **Guerra et al. (2026), How Benchmarks and Evaluation Protocols Shape Conclusions in Provenance-Based Intrusion Detection**, arXiv v3, revised September 9. [Versioned full text, IV-B/IV-C](https://arxiv.org/html/2608.01454v3); [current record](https://arxiv.org/abs/2608.01454). | Separates the final test period, calibrates thresholds from benign validation scores, and reports multi-seed behavior. Its main protocol selects checkpoints using validation attacks and uses audited process-level labels; its benign-only cutoff is the maximum validation score. | Our fixed 50-epoch procedure uses no attack-based checkpoint selection, but this difference alone is not a novel method. Its process labels, temporal partitions, and artifact exclusions differ from our prepared arrays; scores are not directly comparable. The arXiv record reports acceptance at NDSS 2027; proceedings publication was not independently verified here. |
+| **Berlin (2026), Full-range Binary Classifier Calibration for Stable Model Updates in Production**, July 6 preprint. [Paper](https://arxiv.org/html/2607.05481v1); [author implementation](https://github.com/cisco-ai-defense/fpr-model-calibration). | Fits a monotone mapping from benign scores to a common false-positive-rate scale across model releases. It explicitly identifies score ties, finite benign support, and benign distribution drift as limitations. The reported evaluation uses credit-card fraud data, not provenance graphs. | “Stable FPR after retraining” is already a stated objective and implemented method. Applying it to MAGIC could be useful applied evaluation, but is not automatically new. It supplies an important calibration comparator if a later checker is proposed. |
+
+**CAPTAIN name correction:** the July 2026 language-model detector, [Otsu et al., *Beyond Heavy Log Curation*](https://arxiv.org/abs/2607.20832), also uses the name CAPTAIN. It combines contextual language-model perplexity with score smoothing. It is a different work from the NDSS 2025 rule-based CAPTAIN. Citations and proposed baselines must specify the title and year.
+
+## Exactly what the six-case study can establish
+
+The [registered protocol](../magic_calibrated/PROTOCOL.md) trains six fresh models: THEIA and CADETS, each with seeds 0, 101, and 211. Every model uses train0–2 for fitting, train3 only for calibration, and 50 fixed epochs. All six thresholds are frozen before any test graph is loaded in this run. The reference bank retains all training-row multiplicities, and the 1% upper-tail rule alerts only above the selected calibration score.
+
+After complete independent audit, the study can report:
+
+- The exact implementation's fixed-threshold confusion counts, ranking metrics, runtime, and variation across the six declared cases.
+- Whether **every** case meets the unchanged development requirement: at least 50% annotated-malicious-row recall and at most 2% benchmark-negative false-positive rate.
+- Whether normal-only calibration is practically plausible on these previously exposed graph files. A failed or resource-incomplete case must remain visible.
+
+It cannot establish:
+
+- New algorithmic novelty, a new theorem, or universal failure of graph learning if the gate fails.
+- Guaranteed 1% future false alerts. The calibration graph sets the cutoff; scoring that same graph is not independent normal validation. Dependent nodes and distribution shifts invalidate an automatic exchangeability claim.
+- A clean causal estimate of threshold choice alone: this study fits three graphs and performs 150 optimizer updates, whereas the previous reproduction fit four graphs and performed 200 updates.
+- Independent campaigns, APT actor identification, attack-stage attribution, real-time operation, or analyst workload reduction. UUID/time/campaign mappings are missing from these arrays, and benchmark-negative labels are an upstream assumption.
+- A completed novel praxis contribution if all six cases pass. For example, a 2% node false-positive rate still means 2,000 alerts per 100,000 negative nodes before any grouping; it is not itself an analyst workload target.
+
+## One possible research question, with an explicit novelty hold
+
+**Hypothesis requiring independent confirmation:** after ordinary benign-score calibration, a fixed model-replacement check based on *which normal entities change alert status*, measured on separate normal time blocks, can reject retrainings that increase investigation burden while preserving independently measured attack detection better than calibration alone at the same review budget.
+
+This is a candidate applied reliability question, **not a verified new checker method**. Aggregate false-positive-rate agreement and agreement on individual entities are different measurements; two models can flag equally many normal entities but flag disjoint sets. Conversely, preserving old decisions can preserve old mistakes, and suppressing all alerts trivially reduces noise. A normal-only check cannot certify attack recall by itself.
+
+The reviewed works substantiate the problems of threshold selection, instability, and analyst burden. They do **not establish from this bounded review that this exact replacement intervention is absent from the entire literature**. No algorithmic novelty claim is cleared. Before promoting it, define the intervention precisely, compare it with plain rank calibration and the published FPR mapping, include a keep-current-model control, charge rejected updates and review cost, and validate attack retention on untouched, independently identified environments. These requirements would need a separate registered study and suitable data; they are not additions to the running experiment.
+
+**Recommendation:** finish and audit the fixed six-case baseline first. Treat a pass as evidence that there is a usable base detector to improve. Treat a failure as a bounded practical limitation. Neither outcome justifies labeling a threshold wrapper as a novel praxis without the additional mechanism-level and independent-evidence work above.
