@@ -1,5 +1,7 @@
 # APT final: what Gary needs to do next
 
+**Update:** Gary selected the [native graph alternative](native_graph/README.md). Its immediate development pilot does not depend on an author reply or manual Unraveled event matching. The two actions below are optional work for reopening the original Unraveled track, not prerequisites for the new pilot.
+
 AWS sign-in was completed and the expected account and existing GPU host were verified on September 19, 2026 (local time). The host is stopped. See [AWS connection and GPU plan](cloud/README.md).
 
 ## Gary: two research actions

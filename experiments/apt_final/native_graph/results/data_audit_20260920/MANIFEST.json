@@ -1,0 +1,1470 @@
+{
+  "schema": "apt-final-native-graph-data-v1",
+  "created_utc": "2026-09-20T01:31:53.840863+00:00",
+  "status": "STATIC_DEVELOPMENT_ONLY",
+  "adapter_sha256": "efbe7eb48d7f3e8d50fbec3f40d098ce6a6de1375c3eedccbf79e607ecb9abc7",
+  "source_repository": "https://github.com/FDUDSDE/MAGIC",
+  "source_commit": "aa0b647eea74b6faa0e52eb444370c4411a32cbe",
+  "source_files": {
+    "README.md": {
+      "sha256": "afa5f4f86a0b756acee0cc715913a053b66156727f3b0a8c5f533d0fa1748d83",
+      "git_blob_sha256": "c7ee17cc0121d3555f773a65fab53537f33f80482775066a786a1151b6bab3ba",
+      "matches_git_after_newline_normalization": true,
+      "url": "https://github.com/FDUDSDE/MAGIC/blob/aa0b647eea74b6faa0e52eb444370c4411a32cbe/README.md"
+    },
+    "utils/trace_parser.py": {
+      "sha256": "b236d18e715daabb54751e74ef0aef26ff1482b044dc9db29aee55b7d4886c1e",
+      "git_blob_sha256": "4e334d09b12d42281ba67e16d1a2f278a84f6aab0995de0b08f71d1fe61f6369",
+      "matches_git_after_newline_normalization": true,
+      "url": "https://github.com/FDUDSDE/MAGIC/blob/aa0b647eea74b6faa0e52eb444370c4411a32cbe/utils/trace_parser.py"
+    },
+    "utils/loaddata.py": {
+      "sha256": "a040e01265192993146322e4949a28eb86a34067952c9e279cb51fce47331c64",
+      "git_blob_sha256": "57a84d42d6fa3f13a98e7ef606e9c3087574868bea3d70d62adaeca2bf155924",
+      "matches_git_after_newline_normalization": true,
+      "url": "https://github.com/FDUDSDE/MAGIC/blob/aa0b647eea74b6faa0e52eb444370c4411a32cbe/utils/loaddata.py"
+    }
+  },
+  "allowed_use": [
+    "static_binary_entity_detection_development",
+    "synthetic_edge_missingness_stress_test"
+  ],
+  "not_established": [
+    "independent_campaign_generalization",
+    "temporal_or_delayed_log_evaluation",
+    "five_stage_classification",
+    "cross_dataset_type_semantic_alignment",
+    "confirmatory_evidence"
+  ],
+  "label_caveats": [
+    "Training zero labels encode the upstream filtered-benign assumption, not an independent audit.",
+    "The parser excludes annotated malicious endpoints from training except MemoryObject endpoints.",
+    "Test zeros mean absent from supplied malicious-index list; annotation completeness is not independently established.",
+    "Only one labeled test graph per dataset is supplied; nodes are not independent campaigns."
+  ],
+  "graph_caveats": [
+    "Parser orders events by timestamp, then drops timestamps and UUID mappings from these prepared graphs.",
+    "Parser reverses READ/RECV/LOAD directions and collapses repeated directed pairs to one edge.",
+    "Type IDs are assigned separately for each dataset; equal IDs across CADETS/THEIA do not imply equal semantics.",
+    "The metadata dimensions use both train and test type vocabulary in the upstream loader.",
+    "Source-file split definitions are available; temporal separation and cross-file entity overlap cannot be audited from prepared tensors."
+  ],
+  "decoding_reference": "https://github.com/dmlc/dgl/blob/1.0.x/src/graph/pickle.cc",
+  "arrays": {
+    "node_type": "int64[N]",
+    "src": "int64[E]",
+    "dst": "int64[E]",
+    "relation": "int64[E]",
+    "y": "int8[N]; 1=metadata-malicious, 0=other or assumed benign training"
+  },
+  "node_id_policy": "Preserve every original zero-based row index; no relabeling, deduplication, or sampling.",
+  "datasets": [
+    {
+      "dataset": "cadets",
+      "status": "STATIC_DEVELOPMENT_ONLY",
+      "archive_sha256": "53991e4889e37681edc519a3b0d2268f4aad998148ab26116f56c0df9cb522a3",
+      "archive_bytes": 8198794,
+      "matches_upstream_git_blob": true,
+      "source_split_files": {
+        "train": [
+          "ta1-cadets-e3-official.json",
+          "ta1-cadets-e3-official.json.1",
+          "ta1-cadets-e3-official.json.2",
+          "ta1-cadets-e3-official-2.json.1"
+        ],
+        "test": [
+          "ta1-cadets-e3-official-2.json"
+        ]
+      },
+      "graphs": [
+        {
+          "source_member": "train0.pkl",
+          "source_sha256": "4c485a440c1639363943c1bfd1fc01bd616f5136e718673673ec8b1057b9d61d",
+          "source_bytes": 109802730,
+          "npz": "cadets/train0.npz",
+          "npz_sha256": "fbed4afa5d56afc4caea6c0ce0f51c64b2ffe11f4204209b0d0e78ebc796437e",
+          "npz_bytes": 1158315,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "5d6317d927134bc4aec23633a9e58f2ea0e9fb530ccf83992a3853e796156ce9",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 386403,
+          "n_edges": 738142,
+          "label_counts": {
+            "0": 386403
+          },
+          "node_type_counts": {
+            "0": 26040,
+            "1": 101451,
+            "2": 250764,
+            "3": 4818,
+            "4": 3087,
+            "5": 243
+          },
+          "relation_counts": {
+            "0": 36869,
+            "1": 248049,
+            "2": 7341,
+            "3": 3580,
+            "4": 7366,
+            "5": 107503,
+            "6": 243689,
+            "7": 21788,
+            "8": 25878,
+            "9": 24459,
+            "10": 4,
+            "11": 5340,
+            "13": 1091,
+            "14": 96,
+            "15": 107,
+            "16": 2692,
+            "17": 686,
+            "18": 1538,
+            "20": 26,
+            "22": 21,
+            "23": 2,
+            "24": 17
+          },
+          "self_edges": 25853,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 20964,
+            "mean": 1.9102905515743926,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              2.0,
+              8.0,
+              20964.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 242491,
+            "mean": 1.9102905515743926,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              15.0,
+              242491.0
+            ]
+          },
+          "normalized_content_sha256": "07574243b135d190c4dcefa83d32b2f4d7a7df7847d7ddeac07f7c80eab2cb7f"
+        },
+        {
+          "source_member": "train1.pkl",
+          "source_sha256": "2c2b90bf2fb41b7b8a668fa0e718746b26227bee8a1cbd132f0af293d1660866",
+          "source_bytes": 105865110,
+          "npz": "cadets/train1.npz",
+          "npz_sha256": "0737318218e6f707358d99c811816ae2e29ffcdafb3fb8f70c89f005d1775a50",
+          "npz_bytes": 1107475,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "0068897ee901036bb84cd346c27fa0a84778be7d967794e5c983fe68e4b9bd13",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 362637,
+          "n_edges": 714073,
+          "label_counts": {
+            "0": 362637
+          },
+          "node_type_counts": {
+            "0": 28305,
+            "1": 68323,
+            "2": 253667,
+            "3": 6518,
+            "4": 5761,
+            "5": 63
+          },
+          "relation_counts": {
+            "0": 34455,
+            "1": 250245,
+            "2": 10511,
+            "3": 5457,
+            "4": 8681,
+            "5": 103035,
+            "6": 208856,
+            "7": 22696,
+            "8": 28222,
+            "9": 25942,
+            "11": 7763,
+            "13": 1545,
+            "14": 154,
+            "15": 194,
+            "16": 4318,
+            "17": 264,
+            "18": 1617,
+            "19": 1,
+            "20": 35,
+            "21": 1,
+            "22": 72,
+            "23": 2,
+            "24": 6,
+            "26": 1
+          },
+          "self_edges": 28208,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 25939,
+            "mean": 1.969112363051757,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              2.0,
+              10.0,
+              25939.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 242336,
+            "mean": 1.969112363051757,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              17.0,
+              242336.0
+            ]
+          },
+          "normalized_content_sha256": "8074ac6786cd36a78a190d5c86e142c20d06626d7d77906f9e98f968d66ca81e"
+        },
+        {
+          "source_member": "train2.pkl",
+          "source_sha256": "0404b00ab45e81f7da306d57831fb6d7541ce14fd958a40f9f310dd08055a17a",
+          "source_bytes": 83157926,
+          "npz": "cadets/train2.npz",
+          "npz_sha256": "157bb35d678faa7a65dc81b9c5a7b3956d1102c4cf0199545619ddfbf1207046",
+          "npz_bytes": 877456,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "8f24e86f30210143e9a015c7aa0aa06c8e6cfe07dbc1a08b9288e3d6ed1be5e5",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 275269,
+          "n_edges": 563229,
+          "label_counts": {
+            "0": 275269
+          },
+          "node_type_counts": {
+            "0": 19892,
+            "1": 70758,
+            "2": 173588,
+            "3": 5195,
+            "4": 5431,
+            "5": 405
+          },
+          "relation_counts": {
+            "0": 24883,
+            "1": 168584,
+            "2": 10421,
+            "3": 6513,
+            "4": 6885,
+            "5": 90686,
+            "6": 187719,
+            "7": 15171,
+            "8": 19750,
+            "9": 18327,
+            "11": 6996,
+            "12": 6,
+            "13": 959,
+            "14": 254,
+            "15": 140,
+            "16": 3971,
+            "17": 553,
+            "18": 1278,
+            "19": 1,
+            "20": 33,
+            "22": 72,
+            "23": 3,
+            "24": 13,
+            "26": 11
+          },
+          "self_edges": 19742,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 19567,
+            "mean": 2.046103992821567,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              2.0,
+              11.0,
+              19567.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 162164,
+            "mean": 2.046103992821567,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              17.0,
+              162164.0
+            ]
+          },
+          "normalized_content_sha256": "08b2a227858d54865b1438d9f252327e9a62e56b55284bf49268030c40f38bdd"
+        },
+        {
+          "source_member": "train3.pkl",
+          "source_sha256": "c54e0cece53b840e4a91113ab26bdae747f46df11b05d692ecf59405e04cd5b6",
+          "source_bytes": 66933558,
+          "npz": "cadets/train3.npz",
+          "npz_sha256": "d4e4dbf0f030e21f0fb3a609ca733058b9a9768573e3949edd740b549d46f4f8",
+          "npz_bytes": 725114,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "828db17a38003f6ef27e88a141eeba99fcbf755739368ad9b24399c6e30097b3",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 245553,
+          "n_edges": 447521,
+          "label_counts": {
+            "0": 245553
+          },
+          "node_type_counts": {
+            "0": 16811,
+            "1": 72373,
+            "2": 146678,
+            "3": 4034,
+            "4": 5595,
+            "5": 62
+          },
+          "relation_counts": {
+            "0": 21303,
+            "1": 142860,
+            "2": 8661,
+            "3": 4910,
+            "4": 5370,
+            "5": 61021,
+            "6": 146757,
+            "7": 13181,
+            "8": 16735,
+            "9": 15222,
+            "11": 4957,
+            "13": 1031,
+            "14": 185,
+            "15": 123,
+            "16": 3955,
+            "17": 190,
+            "18": 945,
+            "20": 19,
+            "22": 60,
+            "23": 2,
+            "24": 11,
+            "26": 23
+          },
+          "self_edges": 16721,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 20185,
+            "mean": 1.8225026776296767,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              2.0,
+              9.0,
+              20185.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 137946,
+            "mean": 1.8225026776296767,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              14.0,
+              137946.0
+            ]
+          },
+          "normalized_content_sha256": "176f47aeb04a4bbbdfccc10eb8dcce479943a3ed5be6a8edae8835f6d67b54d1"
+        },
+        {
+          "source_member": "test0.pkl",
+          "source_sha256": "1a2e3cc506e231f15bd4fa5d7cbf3efc9402f36f20811d91adaefae60c3c714f",
+          "source_bytes": 122352094,
+          "npz": "cadets/test0.npz",
+          "npz_sha256": "886dd3b2673f867ea25a441ce7c5c3451f27e043e629563fb1ddc07f217fca53",
+          "npz_bytes": 1199630,
+          "split": "upstream_test",
+          "label_basis": "UPSTREAM_THREATRACE_METADATA_INDICES",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "9b47eb56f4d5401e0bdecf8c0bf17e036810f29e7770f8695e3b3c353fee21b4",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 357173,
+          "n_edges": 840299,
+          "label_counts": {
+            "0": 344327,
+            "1": 12846
+          },
+          "node_type_counts": {
+            "0": 26297,
+            "1": 89370,
+            "2": 227869,
+            "3": 6476,
+            "4": 7076,
+            "5": 85
+          },
+          "relation_counts": {
+            "0": 45164,
+            "1": 222264,
+            "2": 12463,
+            "3": 7004,
+            "4": 8497,
+            "5": 134049,
+            "6": 298792,
+            "7": 20414,
+            "8": 26194,
+            "9": 48216,
+            "10": 1,
+            "11": 8172,
+            "12": 1,
+            "13": 1703,
+            "14": 319,
+            "15": 195,
+            "16": 4971,
+            "17": 271,
+            "18": 1474,
+            "20": 34,
+            "22": 55,
+            "23": 2,
+            "24": 9,
+            "26": 35
+          },
+          "self_edges": 26191,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 23811,
+            "mean": 2.352638637299012,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              1.0,
+              12.0,
+              23811.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 214291,
+            "mean": 2.352638637299012,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              21.0,
+              214291.0
+            ]
+          },
+          "normalized_content_sha256": "0349d6900e30ab3191b3ac4534ffa1884606a20baa1a8ded24e4899fc3627015"
+        }
+      ],
+      "metadata": {
+        "sha256": "f753c11b877a575aff3d519a65b0bb63fb11fc2030cb693ea38f12d325725663",
+        "node_feature_dim": 6,
+        "edge_feature_dim": 27,
+        "n_train": 4,
+        "n_test": 1,
+        "malicious_index_count": 12846,
+        "malicious_name_count": 12846,
+        "malicious_indices_unique": true,
+        "semantic_type_name_map_available": false
+      },
+      "duplicate_whole_graph_contents": 0,
+      "cross_graph_entity_overlap": "UNMEASURABLE_WITHOUT_UUID_MAPPING"
+    },
+    {
+      "dataset": "theia",
+      "status": "STATIC_DEVELOPMENT_ONLY",
+      "archive_sha256": "926b4e30a39b1680fe512ef015bfe03ab85760e12dc7d8ae88da40a346bd6864",
+      "archive_bytes": 7877492,
+      "matches_upstream_git_blob": true,
+      "source_split_files": {
+        "train": [
+          "ta1-theia-e3-official-6r.json",
+          "ta1-theia-e3-official-6r.json.1",
+          "ta1-theia-e3-official-6r.json.2",
+          "ta1-theia-e3-official-6r.json.3"
+        ],
+        "test": [
+          "ta1-theia-e3-official-6r.json.8"
+        ]
+      },
+      "graphs": [
+        {
+          "source_member": "train0.pkl",
+          "source_sha256": "b814d119795a4b5ba361aeea29bc1817b1fe120337a84903e7af192c0d7c2278",
+          "source_bytes": 30866214,
+          "npz": "theia/train0.npz",
+          "npz_sha256": "49a0183ae64e282ccec42d4d9e36cfa2291d5548d8cbd5b0c7e9bbf3c2891262",
+          "npz_bytes": 568226,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "407b5817dad5647516fb355888632fcc3a38835168c45d75fe6f95a5bdabb527",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 167265,
+          "n_edges": 284562,
+          "label_counts": {
+            "0": 167265
+          },
+          "node_type_counts": {
+            "0": 5620,
+            "1": 19886,
+            "2": 133240,
+            "3": 8516,
+            "4": 3
+          },
+          "relation_counts": {
+            "0": 70173,
+            "1": 50365,
+            "2": 56518,
+            "3": 3452,
+            "4": 8994,
+            "5": 170,
+            "6": 168,
+            "7": 340,
+            "8": 5437,
+            "9": 1752,
+            "10": 79902,
+            "11": 6316,
+            "12": 50,
+            "13": 112,
+            "14": 168,
+            "15": 391,
+            "16": 254
+          },
+          "self_edges": 0,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 1847,
+            "mean": 1.7012644605864944,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              1.0,
+              10.0,
+              1847.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 4512,
+            "mean": 1.7012644605864944,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              25.0,
+              4512.0
+            ]
+          },
+          "normalized_content_sha256": "cab6f6d59ee3756981e1b71a601480d71fbdef60b61572c3ebe001346261b3cb"
+        },
+        {
+          "source_member": "train1.pkl",
+          "source_sha256": "ddcdac3f601e891fdbc8051d8f6c8f940642fda74046d55f5135336add161f1f",
+          "source_bytes": 72723318,
+          "npz": "theia/train1.npz",
+          "npz_sha256": "00918a9822d1447b431286a4379f34c959a69f968ef32bef97b896d42a164beb",
+          "npz_bytes": 1328359,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "192ebe9abff636aeeae6108f06296223eb2b8494773e4e071aa17806f3a9850a",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 380204,
+          "n_edges": 674723,
+          "label_counts": {
+            "0": 380204
+          },
+          "node_type_counts": {
+            "0": 15310,
+            "1": 34563,
+            "2": 313546,
+            "3": 16783,
+            "4": 2
+          },
+          "relation_counts": {
+            "0": 172170,
+            "1": 120060,
+            "2": 143413,
+            "3": 8088,
+            "4": 18172,
+            "5": 497,
+            "6": 360,
+            "7": 641,
+            "8": 15098,
+            "9": 6584,
+            "10": 176317,
+            "11": 11632,
+            "12": 197,
+            "13": 360,
+            "14": 372,
+            "15": 592,
+            "16": 170
+          },
+          "self_edges": 0,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 6647,
+            "mean": 1.774634143775447,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              1.0,
+              7.0,
+              6647.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 6604,
+            "mean": 1.774634143775447,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              25.0,
+              6604.0
+            ]
+          },
+          "normalized_content_sha256": "114d3f463d28344bb0a5d9595cb1d0c41cc00f1d80dfbf6b072c851617cfba65"
+        },
+        {
+          "source_member": "train2.pkl",
+          "source_sha256": "54fe7264d034c3c3f2b661ac593d4128e539a8aa63adfacd3912fb26394fd1c3",
+          "source_bytes": 63610774,
+          "npz": "theia/train2.npz",
+          "npz_sha256": "b40e54978aff5ce672c0e3a60de54d08d7b588a9767fee41f35bf209360d55b1",
+          "npz_bytes": 1157503,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "005d872afc832e8cae7a7f0d834882251688d67db55331ba5e4d9b87bacb52c7",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 342624,
+          "n_edges": 587111,
+          "label_counts": {
+            "0": 342624
+          },
+          "node_type_counts": {
+            "0": 11192,
+            "1": 49174,
+            "2": 264940,
+            "3": 17314,
+            "4": 4
+          },
+          "relation_counts": {
+            "0": 157440,
+            "1": 100640,
+            "2": 106842,
+            "3": 9470,
+            "4": 18837,
+            "5": 259,
+            "6": 351,
+            "7": 1164,
+            "8": 10380,
+            "9": 3147,
+            "10": 165125,
+            "11": 12145,
+            "12": 77,
+            "13": 201,
+            "14": 329,
+            "15": 500,
+            "16": 204
+          },
+          "self_edges": 0,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 3344,
+            "mean": 1.7135723125058373,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              2.0,
+              8.0,
+              3344.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 9186,
+            "mean": 1.7135723125058373,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              19.0,
+              9186.0
+            ]
+          },
+          "normalized_content_sha256": "7d516b68974ff5202b37482b6827210b7f48715a77409c9dcf2b5d8732772bfa"
+        },
+        {
+          "source_member": "train3.pkl",
+          "source_sha256": "d241f2dadd210bc7d884973d49da9e59526f3067a27655ae0583d270c8335a0d",
+          "source_bytes": 75327314,
+          "npz": "theia/train3.npz",
+          "npz_sha256": "44be500f5317590e0efaf27ddca7e77cb1b256ec41acbd456d21b54f43afdf39",
+          "npz_bytes": 1365915,
+          "split": "upstream_train",
+          "label_basis": "UPSTREAM_FILTERED_BENIGN_ASSUMPTION",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "32de56a97d88149759f8a372c5d1586514bf4c21146ad37a97fcd26803a3f56e",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 389106,
+          "n_edges": 700318,
+          "label_counts": {
+            "0": 389106
+          },
+          "node_type_counts": {
+            "0": 15107,
+            "1": 41192,
+            "2": 316612,
+            "3": 16193,
+            "4": 2
+          },
+          "relation_counts": {
+            "0": 198250,
+            "1": 117261,
+            "2": 141463,
+            "3": 7492,
+            "4": 17636,
+            "5": 492,
+            "6": 365,
+            "7": 657,
+            "8": 14827,
+            "9": 6456,
+            "10": 182056,
+            "11": 11660,
+            "12": 194,
+            "13": 350,
+            "14": 358,
+            "15": 588,
+            "16": 213
+          },
+          "self_edges": 0,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 6546,
+            "mean": 1.7998129044527713,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              2.0,
+              7.0,
+              6546.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 13493,
+            "mean": 1.7998129044527713,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              25.0,
+              13493.0
+            ]
+          },
+          "normalized_content_sha256": "b107a880587ed5e4ecd70b556dd86d504cab8e868815c576cd87ae07472a6833"
+        },
+        {
+          "source_member": "test0.pkl",
+          "source_sha256": "63f0b87c20d94d843e519e96a16cd6fe91ab3d821b1204f1ed3fb808dda24677",
+          "source_bytes": 67442410,
+          "npz": "theia/test0.npz",
+          "npz_sha256": "3f9ec2cca9a6cb19c35e83e202eaf2ecd17dd040fca85c3b32df3bb1aaf5318b",
+          "npz_bytes": 1237861,
+          "split": "upstream_test",
+          "label_basis": "UPSTREAM_THREATRACE_METADATA_INDICES",
+          "decoding": {
+            "opcodes": {
+              "APPEND": 5,
+              "APPENDS": 1,
+              "BINBYTES": 6,
+              "BINGET": 69,
+              "BININT": 8,
+              "BININT1": 21,
+              "BUILD": 9,
+              "EMPTY_DICT": 14,
+              "EMPTY_LIST": 6,
+              "EMPTY_TUPLE": 15,
+              "FRAME": 7,
+              "MARK": 16,
+              "MEMOIZE": 166,
+              "NEWFALSE": 11,
+              "NEWOBJ": 7,
+              "NONE": 20,
+              "PROTO": 1,
+              "REDUCE": 29,
+              "SETITEM": 3,
+              "SETITEMS": 9,
+              "SHORT_BINBYTES": 1,
+              "SHORT_BINUNICODE": 52,
+              "STACK_GLOBAL": 12,
+              "STOP": 1,
+              "TUPLE": 6,
+              "TUPLE1": 19,
+              "TUPLE2": 12,
+              "TUPLE3": 2
+            },
+            "globals": [
+              "builtins.bytearray",
+              "builtins.getattr",
+              "collections.OrderedDict",
+              "dgl._ffi.object._new_object",
+              "dgl.frame.Column",
+              "dgl.frame.Frame",
+              "dgl.frame.Scheme",
+              "dgl.heterograph.DGLGraph",
+              "dgl.heterograph_index.HeteroGraphIndex",
+              "dgl.heterograph_index.HeteroPickleStates",
+              "torch._utils._rebuild_tensor_v2",
+              "torch.storage._load_from_bytes"
+            ],
+            "globals_or_reducers_executed": 0,
+            "dgl_sparse_format": "COO",
+            "dgl_pickle_version": 2,
+            "dgl_metadata_sha256": "8b193bfeb39158a2adb0e6eb8eb3017b0e6b0b5eb18d9185a8c188ee7caf70cb",
+            "node_attributes": [
+              "type",
+              "attr"
+            ],
+            "edge_attributes": [
+              "type",
+              "attr"
+            ],
+            "one_hot_matches_type": true,
+            "timestamps_present": false,
+            "uuid_mapping_present": false
+          },
+          "n_nodes": 344767,
+          "n_edges": 628107,
+          "label_counts": {
+            "0": 319448,
+            "1": 25319
+          },
+          "node_type_counts": {
+            "0": 12936,
+            "1": 48044,
+            "2": 237593,
+            "3": 46191,
+            "4": 3
+          },
+          "relation_counts": {
+            "0": 176202,
+            "1": 105154,
+            "2": 120122,
+            "3": 10002,
+            "4": 23937,
+            "5": 471,
+            "6": 346,
+            "7": 662,
+            "8": 12600,
+            "9": 5611,
+            "10": 122887,
+            "11": 48518,
+            "12": 170,
+            "13": 282,
+            "14": 272,
+            "15": 660,
+            "16": 211
+          },
+          "self_edges": 0,
+          "duplicate_directed_pairs": 0,
+          "isolated_nodes": 0,
+          "in_degree": {
+            "min": 0,
+            "max": 5805,
+            "mean": 1.821830395600507,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              1.0,
+              2.0,
+              7.0,
+              5805.0
+            ]
+          },
+          "out_degree": {
+            "min": 0,
+            "max": 25303,
+            "mean": 1.821830395600507,
+            "quantiles_0_50_90_99_100": [
+              0.0,
+              0.0,
+              1.0,
+              25.0,
+              25303.0
+            ]
+          },
+          "normalized_content_sha256": "8085127184c07c22eeeadd25317ef1a45ac72e02b64e9352040b810945753dfe"
+        }
+      ],
+      "metadata": {
+        "sha256": "bda53644d9c186cf6fd8a7d1c2948381068de12b3fa1511721727cb02157e8a6",
+        "node_feature_dim": 5,
+        "edge_feature_dim": 17,
+        "n_train": 4,
+        "n_test": 1,
+        "malicious_index_count": 25319,
+        "malicious_name_count": 25319,
+        "malicious_indices_unique": true,
+        "semantic_type_name_map_available": false
+      },
+      "duplicate_whole_graph_contents": 0,
+      "cross_graph_entity_overlap": "UNMEASURABLE_WITHOUT_UUID_MAPPING"
+    }
+  ],
+  "total_nodes": 3251001,
+  "total_edges": 6178085,
+  "scientific_positive_result_claimed": false
+}

@@ -4,6 +4,8 @@ This is the new APT experiment program on Git branch **`APT-final`**. It preserv
 
 Start with [what Gary needs to do next](NEXT_ACTIONS.md). [AWS access is verified](cloud/README.md); the existing GPU host is stopped, and GPU support still needs to be added and qualified in a new code revision.
 
+**New active alternative:** [CADETS/THEIA native graph pilot](native_graph/README.md). Its separate audit permits static binary development, while the original Unraveled hold and registration remain intact.
+
 ## What is built
 
 | Component | Purpose | Scientific status |
