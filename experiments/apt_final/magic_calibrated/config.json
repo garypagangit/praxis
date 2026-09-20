@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "source_mode": "source_original",
+  "datasets": [
+    "theia",
+    "cadets"
+  ],
+  "dataset_specs": {
+    "theia": {
+      "node_types": 5,
+      "edge_types": 17,
+      "k": 10,
+      "train_graphs": [
+        "train0",
+        "train1",
+        "train2"
+      ],
+      "test_graph": "test0",
+      "expected_test_nodes": 344767,
+      "calibration_graph": "train3",
+      "expected_calibration_nodes": 389106
+    },
+    "cadets": {
+      "node_types": 6,
+      "edge_types": 27,
+      "k": 200,
+      "train_graphs": [
+        "train0",
+        "train1",
+        "train2"
+      ],
+      "test_graph": "test0",
+      "expected_test_nodes": 357173,
+      "calibration_graph": "train3",
+      "expected_calibration_nodes": 245553
+    }
+  },
+  "training": {
+    "seed": 0,
+    "epochs": 50,
+    "hidden_dim": 64,
+    "num_layers": 3,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0005,
+    "mask_rate": 0.5,
+    "alpha_l": 3.0,
+    "negative_slope": 0.2
+  },
+  "knn": {
+    "query_batch_size": 128,
+    "reference_batch_size": 16384,
+    "qualification_queries": 64,
+    "numerical_rtol": 1e-06,
+    "numerical_atol": 1e-08
+  },
+  "resources": {
+    "science_cap_seconds": 2400,
+    "safety_seconds": 180,
+    "estimate_multiplier": 1.25,
+    "minimum_qualification_remaining_seconds": 180
+  },
+  "allow_full_run": true,
+  "seeds": [
+    0,
+    101,
+    211
+  ],
+  "calibration": {
+    "alpha": 0.01
+  },
+  "gates": {
+    "min_recall": 0.5,
+    "max_benchmark_negative_fpr": 0.02
+  }
+}
