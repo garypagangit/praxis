@@ -144,6 +144,13 @@ def check_local_queries(queries, expected):
         base.need(np.allclose(unique[inverse[start:stop]], expected[start:stop], rtol=1e-6, atol=1e-6), "Saved local queries differ from registered observed graph rows")
 
 
+def check_selector_score(saved_score, saved_margin, independent_margin):
+    """Require exact saved identity, portable log recomputation and exact decisions."""
+    base.need(np.array_equal(saved_score, saved_margin), "Selector score differs from its saved calibrated margin")
+    base.need(np.allclose(saved_margin, independent_margin, rtol=1e-12, atol=1e-12), "Selector margin differs from independent recomputation")
+    base.need(np.array_equal(saved_score >= 0, independent_margin >= 0), "Selector decision differs after independent recomputation")
+
+
 def extraction_check(receipts, checkpoints, nodes, edges, config, device):
     base.need(set(receipts) == {"mlp", "gin"}, "Missing embedding extraction receipt")
     for arm in ("mlp", "gin"):
@@ -294,7 +301,7 @@ def audit_dataset(output, prior, dataset, config, registration, registration_pat
             for arm in ARMS:
                 base.need(np.allclose(arrays["margin_" + arm], margins[arm], rtol=1e-12, atol=1e-12), "Calibrated/routed margin differs")
                 if arm in NEW_SELECTORS:
-                    base.need(np.array_equal(arrays["score_" + arm], margins[arm]), "Selector score differs from chosen calibrated margin")
+                    check_selector_score(arrays["score_" + arm], arrays["margin_" + arm], margins[arm])
                 predictions[arm] = margins[arm] >= 0
                 recomputed[arm] = base.metrics(y, arrays["score_" + arm], predictions[arm])
                 base.close(record["metrics"][arm], recomputed[arm], "Independent metrics " + arm)
@@ -348,6 +355,9 @@ def audit(outputs, data_dir, prior_dir, config_path, registration_path):
         "verification": "Full metrics/AP/margins/routing/mask and local training-bank reconstruction; sampled direct float64 kNN distances; artifact hashes.",
         "local_feature_float32_reconstruction_tolerance": {"rtol": 1e-6, "atol": 1e-6,
             "reason": "Portable log1p/scaling rederivation across recorded NumPy versions/platforms; integer counts, IDs and artifact hashes remain exact."},
+        "selector_margin_verification": {"saved_score_equals_saved_margin": "exact",
+            "independent_log_margin_tolerance": {"rtol": 1e-12, "atol": 1e-12},
+            "saved_vs_independent_decisions": "exact"},
         "limitations": ["Distance scores are independently recomputed for at most64 distinct query vectors per arm/seed/condition, including calibration; this is not all-query distance replay.",
             "All local-feature bank rows are rederived from training graphs; saved neural embeddings are hash-bound and extraction receipts checked but not independently inference-rerun.",
             "Checkpoint bytes and before/after state receipts are bound; JSON records do not independently attest wall-clock order.",

@@ -2,14 +2,15 @@
 
 This is the new APT experiment program on Git branch **`APT-final`**. It preserves the two supplied proposals and keeps their claims separate from measured results.
 
-The first [CADETS/THEIA native graph pilot](native_graph/README.md) is **completed and independently audited**, and the AWS GPU host is stopped. Read the [results and research decision](native_graph/results/gpu_pilot_20260920/REPORT.md), [AWS closeout](native_graph/results/gpu_pilot_20260920/AWS_CLOSEOUT.json), and [next actions](NEXT_ACTIONS.md).
+The [frozen-encoder scoring follow-up](embedding_baseline/README.md) is **completed and independently audited**. Read the [latest results](embedding_baseline/results/gpu_scoring_20260920/REPORT.md), [AWS closeout](embedding_baseline/results/gpu_scoring_20260920/AWS_CLOSEOUT.json), and [next actions](NEXT_ACTIONS.md).
 
-The pilot ran both datasets with three seeds. It found very low malicious-entity recall and no useful gain from the fixed checker. The next research step is a stronger detector and anomaly score before revisiting routing. This separate GPU path preserves the original Unraveled hold and CPU registration.
+Changing the anomaly score recovered a strong THEIA signal: mean recall 90.334% and F1 0.8324. CADETS remained unstable, and no new fixed detector passed all declared readiness gates. The next step is reference/calibration stability on normal graphs before another checker. The [initial negative pilot](native_graph/results/gpu_pilot_20260920/REPORT.md), original Unraveled hold, and all earlier registrations remain preserved.
 
 ## What is built
 
 | Component | Purpose | Scientific status |
 |---|---|---|
+| Frozen embedding scoring | Exact normal-reference nearest-neighbor scores using unchanged trained encoders | Completed and audited; strong THEIA signal, failed cross-dataset readiness and robustness. |
 | Native graph GPU pilot | Benign-trained detectors and fixed selectors on CADETS/THEIA with missing relationships | Completed on AWS; independently audited development result. Poor recall and no useful checker gain. |
 | Three-candidate registry | Local LLM deployment; prediction stability; structural/semantic/hybrid stage representations | Proposed tracks with literature and data prerequisites. Not three implemented or successful detectors. |
 | E0 data audit | Inspect available Unraveled sources, stage support, timestamps, potential linkage, and campaign independence | Actual local-data audit completed; **HOLD_DATA_CONTRACT**. |
@@ -20,7 +21,7 @@ The pilot ran both datasets with three seeds. It found very low malicious-entity
 
 The E0-E4 sequence is the **telemetry-quality routing program** in the second attachment. It does not silently stand in for experiments on all three topics in the first attachment.
 
-## Current finding
+## Initial native-pilot finding
 
 The native graph pilot did not establish a useful detector or checker. Clean-graph GIN recall averaged approximately **0.10% on CADETS** and **0.043% on THEIA** at thresholds fixed using benign calibration. The fixed quality selector made essentially the same alert decisions. These are negative results for this representation, scoring method, and checker; they do not establish that all routing methods fail. The latest verification passed **50 software tests**. See the [full result report](native_graph/results/gpu_pilot_20260920/REPORT.md).
 
@@ -77,8 +78,8 @@ It records a **development configuration freeze**, not a completed confirmatory 
 
 ## What must happen next
 
-1. Freeze a new development comparison using a documented MAGIC-style encoder and benign embedding anomaly scoring, alongside the current reconstruction and Isolation Forest baselines.
-2. Establish useful malicious-entity detection and complementary detector errors before learning a more elaborate checker. Keep threshold calibration separate from attack labels.
+1. Freeze a normal-data stability diagnostic that separates encoder and reference-bank variability, with explicit fit/calibration/validation graph roles.
+2. Evaluate reference coverage and missing-relationship controls before judging a stronger encoder or checker. Keep calibration separate from attack labels and compare against strong fixed controls.
 3. Treat further evaluation on these already examined graphs as development; establish a separate confirmation design before deployment or generalization claims.
 4. Reopen the Unraveled campaign/identity/time/link review only if that original track is pursued. Its author clarification and human review tasks are optional for the active native graph route.
 

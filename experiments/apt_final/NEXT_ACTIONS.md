@@ -1,10 +1,10 @@
 # APT final: what Gary needs to do next
 
-**Current status:** The [native graph alternative](native_graph/README.md) completed its first GPU pilot on CADETS and THEIA. Independent verification passed, but recall was poor and the fixed checker gave no useful improvement. Read the [results and decision](native_graph/results/gpu_pilot_20260920/REPORT.md).
+**Current status:** The [scoring follow-up](embedding_baseline/README.md) completed and passed its independent audit. THEIA detection improved substantially; CADETS instability and false positives prevented the declared readiness gates from passing. The degree checker discarded useful sparse-entity detections. Read the [latest results](embedding_baseline/results/gpu_scoring_20260920/REPORT.md).
 
-**Gary has no immediate dataset-acquisition or manual matching task for this route.** The next technical step is to compare a stronger MAGIC-style encoder and embedding anomaly score with the existing baselines before investing in a more elaborate checker. A new protocol and configuration must be frozen before that run; the completed pilot remains unchanged.
+**Gary has no immediate dataset-acquisition or manual matching task for this route.** The next technical step is to separate reference-bank variation from encoder variation, then validate normal-score stability under an explicit fit/calibration/validation graph split. A new protocol must be frozen before that experiment. [Follow-up literature and design](embedding_baseline/results/gpu_scoring_20260920/FOLLOWUP_LITERATURE_AND_DESIGN.md).
 
-AWS sign-in was completed and the existing GPU host was used for the pilot. The job completed and the host is stopped; see [AWS closeout](native_graph/results/gpu_pilot_20260920/AWS_CLOSEOUT.json) and [connection history](cloud/README.md).
+AWS sign-in was completed and the existing GPU host was used for both pilots; see [latest AWS closeout](embedding_baseline/results/gpu_scoring_20260920/AWS_CLOSEOUT.json) and [connection history](cloud/README.md).
 
 ## Optional Gary actions: reopening the original Unraveled track
 
@@ -41,9 +41,9 @@ The assistant will prepare the sample and instructions. The packet must include 
 
 ## Work assigned to the assistant
 
-1. Prepare a newly frozen baseline comparison: MAGIC-style representation learning with benign embedding anomaly scoring, current reconstruction scoring, and Isolation Forest.
-2. Investigate tied scores and whether detector errors are complementary, using development data with no retrospective threshold rescue.
-3. Establish a useful detector before revising the checker. Evaluate any new checker against the strongest fixed detector.
+1. Freeze a diagnostic that varies encoder and reference-bank seeds independently, preserving the current alert rule.
+2. Reserve separate normal graphs for fit, calibration and validation; retrain when required so encoder-exposed graphs are not described as untouched validation.
+3. Test normal-score stability with missing relationships before judging a stronger encoder or checker. Compare simple pooled augmentation and strong fixed controls. Existing related methods prevent an automatic novelty claim.
 4. Preserve the existing audit, negative results, and GPU receipts. GPU support, live device qualification, the first real pilot, and shutdown are completed.
 5. If Unraveled is reopened, investigate its source schemas, clocks, identities, labels and campaign independence, then prepare the review packet and qualify a separate data-release validator.
 

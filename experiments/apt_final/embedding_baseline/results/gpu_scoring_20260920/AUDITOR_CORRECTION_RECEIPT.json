@@ -1,0 +1,261 @@
+{
+  "status": "AUDITOR_COMPARISON_CORRECTED",
+  "scope": "SOFTWARE_AUDIT_CORRECTION_ONLY",
+  "created_utc": "2026-09-20T04:52:34.538010+00:00",
+  "first_failure_reason": "Selector score differs from chosen calibrated margin",
+  "first_failure_receipt_sha256": "a8931170d7a81c261570b8bb040fa9d8c24fcb6f6272cabfab1f0e57dce12135",
+  "old_auditor_sha256": "9aba65b72ec9570008f5fb3127ac5d1d9c3216925f3728746ea5d848567e8067",
+  "new_auditor_sha256": "0e46ae65e0bef61c58fa3470ae771ef25f1cad3a75fcd511d338603102e517a1",
+  "explanation": "The initial auditor compared saved selector scores to independently recalculated NumPy log margins with exact floating equality. Saved score and saved margin are byte-value identical in all24 arrays; cross-platform log rederivation differs by at most4.44e-16, with zero changed decisions. The corrected auditor requires exact saved score/margin identity, the existing1e-12 recomputation tolerance, and exact decision agreement. Frozen experiment code, config, models, data and outputs were not changed.",
+  "auditor_tests_passed": 7,
+  "result_sha256": {
+    "cadets": "ed6afbb00bd05ae727d9ff45c5c977462803c3c062662c22a35168493c19ffeb",
+    "theia": "fd3a0b20e9431b88c0b73c6ca13c0ace9effd7ac08aacd3d5e47dda21805b62d"
+  },
+  "selector_arrays_checked": 24,
+  "all_saved_score_margin_pairs_exact": true,
+  "maximum_log_recalculation_difference": 4.440892098500626e-16,
+  "changed_decisions": 0,
+  "diagnostics": [
+    {
+      "dataset": "cadets",
+      "seed": 101,
+      "scenario": "clean",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 2.7755575615628914e-17,
+      "n_unequal_floats": 1,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 101,
+      "scenario": "clean",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 211,
+      "scenario": "clean",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 211,
+      "scenario": "clean",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 307,
+      "scenario": "clean",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 307,
+      "scenario": "clean",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 101,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 6.938893903907228e-18,
+      "n_unequal_floats": 14,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 101,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 211,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 211,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 307,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "cadets",
+      "seed": 307,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 101,
+      "scenario": "clean",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 19,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 101,
+      "scenario": "clean",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 3,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 211,
+      "scenario": "clean",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 2.220446049250313e-16,
+      "n_unequal_floats": 1,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 211,
+      "scenario": "clean",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 0.0,
+      "n_unequal_floats": 0,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 307,
+      "scenario": "clean",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 1.1102230246251565e-16,
+      "n_unequal_floats": 2,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 307,
+      "scenario": "clean",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 1.1102230246251565e-16,
+      "n_unequal_floats": 2,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 101,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 54,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 101,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 9,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 211,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 79,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 211,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 3,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 307,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "quality_gate",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 36,
+      "n_changed_decisions": 0
+    },
+    {
+      "dataset": "theia",
+      "seed": 307,
+      "scenario": "drop_0.5_mask_20260920",
+      "arm": "confidence_selector",
+      "saved_score_equals_saved_margin": true,
+      "max_abs_difference_vs_independent": 4.440892098500626e-16,
+      "n_unequal_floats": 31,
+      "n_changed_decisions": 0
+    }
+  ]
+}

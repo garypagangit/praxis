@@ -4,11 +4,13 @@ This alternative starts from locally available DARPA TC E3 CADETS and THEIA grap
 
 ## Current status: completed and stopped
 
+**Follow-up now available:** [Changing the anomaly score while preserving these trained models](../embedding_baseline/results/gpu_scoring_20260920/REPORT.md) recovered useful THEIA detections, while revealing reference/calibration instability and a failed degree checker. The original results below remain unchanged.
+
 The first real GPU pilot completed **both datasets with three seeds**, passed independent saved-evidence verification, and finished with the AWS host stopped. Latest software verification: **50 tests passed**. Read the [full results and decision](results/gpu_pilot_20260920/REPORT.md), [independent audit](results/gpu_pilot_20260920/INDEPENDENT_RESULT_AUDIT.json), and [AWS closeout](results/gpu_pilot_20260920/AWS_CLOSEOUT.json).
 
 **The first detector/checker combination was not useful.** At thresholds fixed using benign calibration, clean-graph GIN recall averaged approximately **0.10% on CADETS** and **0.043% on THEIA**. The fixed quality checker made essentially the same alert decisions. These results concern the tested representation, anomaly score and routing rule; they do not establish that the datasets or all routing approaches fail.
 
-The next development comparison should establish a stronger MAGIC-style encoder with benign embedding anomaly scoring, against the current reconstruction and Isolation Forest baselines, before learning a more elaborate checker. A [separately labeled post-hoc diagnostic](results/gpu_pilot_20260920/POSTHOC_DIAGNOSTIC.json) documents extensive score ties and little complementary detection between the frozen neural arms. It changes no thresholds or original results.
+The [completed scoring follow-up](../embedding_baseline/README.md) isolated the effect of benign embedding anomaly scoring while preserving these encoders. A stronger encoder remains a later comparison. The initial [post-hoc diagnostic](results/gpu_pilot_20260920/POSTHOC_DIAGNOSTIC.json) documents extensive reconstruction-score ties and little complementary detection between these original neural decisions. It changes no thresholds or original results.
 
 ## Completed data audit
 

@@ -4,6 +4,12 @@ This follow-up tests whether a better anomaly score can recover useful detection
 
 The study is development work prompted by an inspected negative result. Nearest-neighbor anomaly scoring is existing research, and this comparison does not establish novelty or reproduce the full MAGIC architecture.
 
+## Completed result
+
+The GPU/CPU scoring run and independent audit completed. **THEIA graph-model recall rose from 0.043% to 90.334%**, with mean F1 0.8324 and FPR 2.021%. CADETS was unstable, and no new fixed arm passed every prospective readiness requirement. The low-degree checker also discarded useful graph detections. [Full report and per-repeat evidence](results/gpu_scoring_20260920/REPORT.md).
+
+The next experiment should separate reference-bank variability from encoder variability and validate normal-score stability on explicitly reserved graphs before designing a new checker. [Follow-up design and literature](results/gpu_scoring_20260920/FOLLOWUP_LITERATURE_AND_DESIGN.md). [AWS closeout](results/gpu_scoring_20260920/AWS_CLOSEOUT.json).
+
 ## Design and execution
 
 - [Prospective protocol](PROTOCOL.md), [configuration](config.json), and [literature review](LITERATURE_AND_DESIGN.md).

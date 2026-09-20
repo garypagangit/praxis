@@ -4,7 +4,8 @@ import unittest
 import numpy as np
 
 from experiments.apt_final.embedding_baseline.analysis.verify_results import (
-    bank_scaling_check, brute_force_score_sample, check_bank_indices, check_local_queries, observed_local_features,
+    bank_scaling_check, brute_force_score_sample, check_bank_indices, check_local_queries,
+    check_selector_score, observed_local_features,
 )
 from experiments.apt_final.native_graph.analysis.verify_results import AuditFailure
 
@@ -69,6 +70,16 @@ class EmbeddingResultAuditTests(unittest.TestCase):
         queries["local_knn_inverse"] = np.array([1, 0])
         with self.assertRaises(AuditFailure):
             check_local_queries(queries, expected)
+
+    def test_selector_saved_identity_is_exact_but_log_recompute_allows_rounding(self):
+        independent = np.array([-1., 0., .15])
+        saved = independent.copy()
+        saved[-1] = np.nextafter(saved[-1], np.inf)
+        check_selector_score(saved, saved.copy(), independent)
+        with self.assertRaisesRegex(AuditFailure, "saved calibrated margin"):
+            check_selector_score(independent, saved, independent)
+        with self.assertRaisesRegex(AuditFailure, "decision"):
+            check_selector_score(np.array([1e-15]), np.array([1e-15]), np.array([-1e-15]))
 
 
 if __name__ == "__main__":
