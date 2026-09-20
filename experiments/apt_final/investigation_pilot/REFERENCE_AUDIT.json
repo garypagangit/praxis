@@ -1,0 +1,84 @@
+{
+  "status": "VERIFIED_REFERENCE_ANSWERS_FROM_PINNED_SOURCE",
+  "created_utc": "2026-09-20T15:14:13.857004+00:00",
+  "reference_audit_passed": true,
+  "frozen_protocol_commit": "c676234aed5b70996d89ceea8caeac66ef43d04d",
+  "scope": "SOURCE_FACTS_AND_CASE_SELECTION_ONLY_NO_METHOD_EVALUATION",
+  "input_hashes": {
+    "archive_sha256": "98a073140860560d70080ace9142961be4f64b4862bae892d62d0f254d0fdbe5",
+    "protocol_sha256": "9fc11932783a4339e444a129ef7ffc4f40e694a8bf0927c9d74a274af9bd1a09",
+    "case_manifest_sha256": "dda734fbf7dbf0e3aaacdf5457cc0351733c48990fc0bce72fe5392dd440acc9",
+    "preparation_code_sha256": "ca49e7d631b9ff80f69eb460d6bb6382dcfe2e4c21bf556b1a3febdbe748e30d",
+    "private_artifacts": {
+      "gold.jsonl": {
+        "sha256": "1e10a00e0130eab206c566de3e9034ce841754727181651262306a5c59293933",
+        "bytes": 19926
+      },
+      "questions.jsonl": {
+        "sha256": "2d2245d25934b3e8b123a8585bbada3c91abf4aaadc6d28ca4e965143f3a8d66",
+        "bytes": 13420
+      },
+      "records.jsonl": {
+        "sha256": "0fedcc4036950f9ed440b36faf5052b39790a078c115f0db3aa03e9b882ac93e",
+        "bytes": 1027505
+      }
+    }
+  },
+  "auditor_sha256": "35c9044b7335847d9e6d69a9ccbd82ec73fe2100d6d78fe3e0169410204e0fd1",
+  "independent_source_counts": {
+    "total_source_rows": 196081,
+    "normalized_records": 1676,
+    "record_kinds": {
+      "network": 1229,
+      "creation": 447
+    },
+    "message_fallback_records": 1
+  },
+  "eligible_population_sizes": {
+    "natural_parent": 447,
+    "natural_network": 1229,
+    "ambiguous_parent": 223
+  },
+  "question_count": 60,
+  "cohort_counts": {
+    "natural_parent": 20,
+    "natural_network": 20,
+    "ambiguous_parent": 20
+  },
+  "reference_answer_classes_by_cohort": {
+    "natural_parent": {
+      "ANSWER": 14,
+      "INSUFFICIENT_EVIDENCE": 6
+    },
+    "natural_network": {
+      "INSUFFICIENT_EVIDENCE": 12,
+      "ANSWER": 8
+    },
+    "ambiguous_parent": {
+      "ANSWER": 16,
+      "INSUFFICIENT_EVIDENCE": 4
+    }
+  },
+  "checks": {
+    "protocol_matches_frozen_git": true,
+    "all_normalized_records_match_source": true,
+    "all_anchor_fields_match_source": true,
+    "cohorts_have_disjoint_anchors": true,
+    "ordered_hash_selection_matches": true,
+    "message_only_creation_preserved": true,
+    "utc_times_come_from_sysmon_utc_fields": true,
+    "all_60_reference_answers_match_independent_source_reconstruction": true,
+    "all_manifest_file_hashes_and_sizes_match": true
+  },
+  "preparation_or_method_code_imported": false,
+  "model_or_method_run": false,
+  "archive_extracted": false,
+  "limitations": [
+    "Reference truth is the recorded host/GUID relation and creation metadata, not malicious intent.",
+    "Independent parsing and selection audit uses the same recording; it is not independent-data replication.",
+    "Cohorts have distinct anchors, but process families, hosts and source evidence can overlap.",
+    "One exposed APT29 emulation recording; no independent-campaign or blind-test claim.",
+    "Missing creation records support insufficient evidence within this capture, not real-world nonexistence.",
+    "Case enrichment and reference-class counts do not measure method efficacy or population prevalence."
+  ]
+}
