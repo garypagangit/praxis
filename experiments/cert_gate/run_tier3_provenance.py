@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import tarfile
 import time
@@ -30,7 +31,7 @@ def write(path, value):
         stream.write("\n")
 
 
-def run(suricata_dir, rules_archive, pcaps, private, output):
+def run(suricata_dir, rules_archive, pcaps, private, output, instrumentation_only=False):
     root = Path(__file__).resolve().parent
     repo = root.parents[1]
     for name in ("run_tier3_provenance.py", "tier3_linkage.py", "PILOT_PROTOCOL.json"):
@@ -55,6 +56,10 @@ def run(suricata_dir, rules_archive, pcaps, private, output):
     with tarfile.open(rules_archive) as archive:
         names = sorted(m.name for m in archive.getmembers() if m.isfile() and m.name.endswith(".rules"))
         merged = b"".join(b"\n# Source: "+name.encode()+b"\n"+archive.extractfile(name).read()+b"\n" for name in names)
+        if instrumentation_only:
+            names = ["INSTRUMENTATION_ONLY_NOT_SECURITY_DETECTIONS"]
+            merged = (b'alert tcp any any -> any any (msg:"PROVENANCE ONLY TCP packet - no attack judgment"; sid:9900001; rev:1;)\n'
+                      b'alert udp any any -> any any (msg:"PROVENANCE ONLY UDP packet - no attack judgment"; sid:9900002; rev:1;)\n')
         (private/"all.rules").write_bytes(merged)
         (private/"classification.config").write_bytes(archive.extractfile("rules/classification.config").read())
     config = yaml.safe_load((suricata_dir/"suricata.yaml").read_text(encoding="utf-8"))
@@ -62,6 +67,7 @@ def run(suricata_dir, rules_archive, pcaps, private, output):
     config["rule-files"] = ["all.rules"]
     config["classification-file"] = str(private/"classification.config")
     config["reference-config-file"] = str(suricata_dir/"reference.config")
+    config.pop("threshold-file", None)
     config["default-log-dir"] = str(private)
     config["unix-command"] = {"enabled": False}
     config["outputs"] = [{"eve-log": {"enabled": True, "filetype": "regular", "filename": "eve.json",
@@ -74,7 +80,8 @@ def run(suricata_dir, rules_archive, pcaps, private, output):
               "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo, text=True).strip(),
               "code_sha256": {name: sha(root/name) for name in ("run_tier3_provenance.py", "tier3_linkage.py")},
               "pcap_sha256": EXPECTED_PCAPS, "rules_archive_sha256": sha(rules_archive),
-              "rules_members": names, "merged_rules_sha256": sha(private/"all.rules"),
+              "rules_members": names, "instrumentation_only": instrumentation_only,
+              "merged_rules_sha256": sha(private/"all.rules"),
               "classification_sha256": sha(private/"classification.config"),
               "configuration_sha256": sha(config_path), "engine_version": version.stdout.strip(),
               "portable_runtime_sha256": {p.name: sha(p) for p in sorted(suricata_dir.iterdir()) if p.is_file() and p.suffix.lower() in (".exe", ".dll")},
@@ -92,7 +99,9 @@ def run(suricata_dir, rules_archive, pcaps, private, output):
         completed = subprocess.run(command, cwd=suricata_dir, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                    text=True, errors="replace", timeout=180)
         (run_dir/"EXECUTION.txt").write_text(completed.stdout, encoding="utf-8")
-        execution = {"command": command, "exit_code": completed.returncode, "elapsed_seconds": time.perf_counter()-started}
+        rule_counts = re.search(r"(\d+) rules successfully loaded, (\d+) rules failed, (\d+) rules skipped", completed.stdout)
+        execution = {"command": command, "exit_code": completed.returncode, "elapsed_seconds": time.perf_counter()-started,
+                     "rule_loading": None if rule_counts is None else dict(zip(("loaded", "failed", "skipped"), map(int, rule_counts.groups())))}
         write(run_dir/"EXECUTION.json", execution)
         if completed.returncode:
             raise RuntimeError(f"Suricata failed for {scenario}; preserved execution log")
@@ -111,10 +120,10 @@ def run(suricata_dir, rules_archive, pcaps, private, output):
         runs[scenario] = {**execution, "events": dict(counters), "alert_signature_counts": dict(signatures),
                           "alert_severity_counts": dict(severities), "eve_sha256": sha(eve),
                           "execution_log_sha256": sha(run_dir/"EXECUTION.txt"), "linkage": linkage}
-    result = {"status": "REAL_CAPTURE_REPLAY_AND_PROVENANCE_COMPLETE_NOT_FULL_GATE_EFFICACY",
+    result = {"status": "INSTRUMENTATION_PACKET_LINKAGE_ONLY_NOT_THREAT_DETECTION" if instrumentation_only else "REAL_CAPTURE_REPLAY_AND_PROVENANCE_COMPLETE_NOT_FULL_GATE_EFFICACY",
               "created_utc": datetime.now(timezone.utc).isoformat(), "freeze_sha256": sha(output/"GENERATION_FREEZE.json"),
               "runs": runs, "attack_alert_truth_derived": False, "suppression_evaluated": False,
-              "population_certificate": False, "cloud_used": False,
+              "population_certificate": False, "cloud_used": False, "instrumentation_only": instrumentation_only,
               "limitations": ["Two author-selected scenario captures, not independent attack calibration evidence",
                               "Packet linkage proves field agreement, not benign intent or LLM injection resistance",
                               "No authenticated user identity or complete enterprise incident state is derived",
@@ -127,5 +136,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("suricata-dir", "rules-archive", "pcaps", "private", "output"):
         parser.add_argument("--"+name, type=Path, required=True)
+    parser.add_argument("--instrumentation-only", action="store_true", help="Diagnostic TCP/UDP packet rules; these events make no attack judgment")
     args = parser.parse_args()
-    run(args.suricata_dir.resolve(), args.rules_archive.resolve(), args.pcaps.resolve(), args.private, args.output)
+    run(args.suricata_dir.resolve(), args.rules_archive.resolve(), args.pcaps.resolve(), args.private, args.output, args.instrumentation_only)
