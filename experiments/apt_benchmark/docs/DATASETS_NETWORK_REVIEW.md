@@ -6,6 +6,8 @@ Checked 20 September 2026. This review separates publication verification, repos
 
 **Use AIT-LDS source logs as the first runnable multistage pilot.** Its eight scenarios support a whole-run chronological split and include simulated normal activity. AIT-ADS is a useful alternative alert view of the same underlying runs, not an independent validation dataset. Select an independently generated second dataset only after the companion acquisition review confirms its labels and causal inputs.
 
+**The frozen first pilot is strongly attack-enriched and dominated by Dirb scans:** 1,689,473 Dirb label occurrences among 1,768,861 acquired source lines. Its selected intranet view covers scans, webshell actions and privilege escalation, with no observed exfiltration, collection or lateral-movement labels. Its aggregate leaderboard cannot establish performance across a complete APT lifecycle or a realistic enterprise false-alert workload. A separately frozen expansion is needed to improve source coverage; it must preserve uncertainty in the author's rule-based negative labels.
+
 **CAM-LDS is the strongest very recent supplement for interpreting attack stages**, but lacks simulated benign user behavior. Comprehensive APTs is small and reproducible, but its rule-produced labels and explicit emulation markers require a separate, clearly scoped evaluation. CICAPT-IIoT is relevant but its current official download route requires a form. Windows-APT has a published paper and public license, but actual version-4 bytes remain unverified here.
 
 No dataset below establishes real-world actor attribution merely because an emulation uses an APT group's name. Stage recognition and warning before a later attack action are narrower, testable objectives.
@@ -65,8 +67,83 @@ Private artifact directory: `C:/w/apt_benchmark_data_20260920/ait`.
 - `LDS_PARTIAL_JOIN_PROBE.json`: initial Russellmitchell source/label feasibility probe. Its text-only alert join is not a benchmark label assignment.
 - `partial_lds/<scenario>/`: final reusable acquisition output from `acquire_ait.py`, containing exact paired intranet audit/auth/Apache members, `dataset.yaml` and `gather/attacker_0/logs/attacks.log`. Per-scenario and top-level `ACQUISITION.json` record the pinned release, ranges, archive publisher checksum, member CRC32 and SHA256. The entire LDS archive was **not** downloaded or checksum-verified. `lds_core` is an earlier partial acquisition and is not the final benchmark source root.
 
-The acquisition helper was checked with a synthetic ZIP for directory parsing, paired selection, byte preservation, path-traversal rejection and corrupted-CRC rejection. It does not execute source scripts or assign model scores. Completion counts and chronology should be taken from the generated receipt, not inferred from this plan.
+The acquisition helper was checked with a synthetic ZIP for directory parsing, paired selection, byte preservation, path-traversal rejection and corrupted-CRC rejection. It does not execute source scripts or assign model scores. **Acquisition completed for all eight runs:** 80 members, 653,687,563 decompressed bytes and 1,768,861 source lines. The final successful/resumed invocation requested 29,631,219 range bytes; earlier attempts also transferred ranges before Zenodo rate limits. This figure is not cumulative network usage across those attempts. Publisher ZIP checksums are recorded, while individual member CRC32 and SHA256 are verified.
 
 All eight ZIP central directories were inspected. Each has exactly four intranet annotation files, all nonempty; the helper nevertheless includes empty annotation files if present. Shaw uses `auth.log.1`; the other runs use `auth.log`. Apache log rotation suffixes vary. Additional source logs without corresponding annotation files are deliberately outside this pilot's label scope.
 
-The proposed chronological assignment, fixed before fitting, is fit: Santos, Fox, Wardbeck, Russellmitchell; development: Shaw; calibration: Wheeler; test: Wilson, Harrison. Fit simulation starts range14–21January2022; test starts3–4February2022. Runs overlap within roles, so this is temporal separation between role groups, not independent campaigns. Source YAML omits timezone; attacker chronology includes explicitUTC. Parse source offsets where present and exclude unresolved timestamps from early-warning metrics. Do not use the first attacker-log line blindly as onset: it can be a service-stop action preceding the main chain.
+The proposed assignment, fixed before fitting, is fit: Santos, Fox, Wardbeck, Russellmitchell; development: Shaw; calibration: Wheeler; test: Wilson, Harrison. Fit simulation starts range 14–21 January 2022 and end by 25 January. Development and calibration simulations overlap in late January and end by 31 January. Test simulations start 3–4 February. This separates the final test period from fitting/tuning/calibration; it does not make the runs independent campaigns or establish nonoverlapping chronology between every role. Source YAML omits timezone; attacker chronology includes explicit UTC. Parse source offsets where present and exclude unresolved timestamps from early-warning metrics. Do not use the first attacker-log line blindly as onset: it can be a service-stop action preceding the main chain.
+
+| Run | Raw source lines | Lines with author attack annotations | Simulation interval (2022; source YAML omits timezone) |
+|---|---:|---:|---|
+| Santos | 12,039 | 7,867 | 14–18 January |
+| Fox | 417,719 | 412,208 | 15–20 January |
+| Wardbeck | 14,338 | 5,363 | 19–24 January |
+| Russellmitchell | 11,154 | 7,748 | 21–25 January |
+| Shaw | 10,861 | 5,290 | 25–31 January |
+| Wheeler | 437,491 | 432,920 | 26–31 January |
+| Wilson | 439,830 | 429,487 | 3–9 February |
+| Harrison | 425,429 | 416,762 | 4–9 February |
+
+These are acquisition counts, before timestamp filtering, parsing or model preparation. The selected files contain 1,717,645 author-annotated attack lines and 51,216 other source lines. This is an **attack-enriched source subset**, not the original enterprise traffic prevalence. Observed labels cover service scans, Dirb/WPScan, webshell actions and privilege escalation. There are no exfiltration, collection or lateral-movement labels in this selected intranet view. Evaluate only supported stages; whole-lifecycle detection claims would exceed the data. Dirb contributes 1,689,473 label occurrences, so per-stage and per-run metrics are necessary alongside aggregate scores.
+
+## Post-freeze source-coverage qualification
+
+This qualification does not change frozen pilot v1. Its question is whether missing annotation files always mean that the corresponding source file was outside the author's labeling pipeline.
+
+The author's label exporter enumerates source files only among documents containing a label-rule match, then writes their matching lines. A file with zero rule hits therefore has no annotation file by construction. This is verified behavior in the pinned author code; the exact historical code revision used to produce the 2022 runs was not established. [Positive-only file enumeration and export](https://github.com/ait-aecid/kyoushi-dataset/blob/8cd65dce86d39e67c3038a853e281210a96a9332/src/cr_kyoushi/dataset/labels.py#L1451).
+
+Separately acquired, CRC32- and SHA256-verified processing artifacts from all eight scenario ZIPs explicitly configure `audit/audit.log*`, `auth.log*`, `apache2/*access*.log*` and `apache2/*error*.log*`. Their archived `file-completed.log` files confirm ingestion of **96 additional nonempty intranet source files** without corresponding annotation files. The additional members total **1,721,587 compressed bytes**. Directory and ingestion checks support calling them covered sources with no exported rule matches; they do not prove parser success for every line or independently establish semantic benignness. Private file-level evidence is recorded in `ait/coverage_probe/COVERAGE_QUALIFICATION.json`.
+
+| Run | Additional source files without annotation files | All listed in archived ingestion-completion log | Compressed bytes |
+|---|---:|---|---:|
+| Santos | 9 | Yes | 95,390 |
+| Fox | 11 | Yes | 162,991 |
+| Wardbeck | 12 | Yes | 437,968 |
+| Russellmitchell | 10 | Yes | 49,879 |
+| Shaw | 15 | Yes | 115,788 |
+| Wheeler | 12 | Yes | 69,568 |
+| Wilson | 15 | Yes | 465,214 |
+| Harrison | 12 | Yes | 324,789 |
+
+The label-method paper explains that hand-authored rules can miss unexpected attack manifestations. Accordingly, any expanded negative target must be named **`AUTHOR_RULE_NONMATCH_FROM_COVERED_FILE`**, with unknown/failed parses kept separate. It is not independently confirmed benign activity. [Author's peer-reviewed labeling-method paper](https://doi.org/10.1145/3510547.3517924), [author PDF](https://www.skopik.at/ait/2022_satcps.pdf).
+
+### Observation-time correction to freeze separately
+
+All eight archived `processing/logstash/conf.d/0000_pre_process.conf` files encode numeric observation epochs **one hour earlier than interpreting the timezone-free dataset YAML as UTC**. Those numeric epochs provide a stronger explicit time basis than guessing a timezone for YAML. A local CET interpretation is consistent with the difference, but that explanation is an inference. Do not silently alter an already scored protocol.
+
+| Run | Archived observation start, UTC | Archived observation end, UTC |
+|---|---|---|
+| Santos | 2022-01-13 23:00 | 2022-01-17 23:00 |
+| Fox | 2022-01-14 23:00 | 2022-01-19 23:00 |
+| Wardbeck | 2022-01-18 23:00 | 2022-01-23 23:00 |
+| Russellmitchell | 2022-01-20 23:00 | 2022-01-24 23:00 |
+| Shaw | 2022-01-24 23:00 | 2022-01-30 23:00 |
+| Wheeler | 2022-01-25 23:00 | 2022-01-30 23:00 |
+| Wilson | 2022-02-02 23:00 | 2022-02-08 23:00 |
+| Harrison | 2022-02-03 23:00 | 2022-02-08 23:00 |
+
+**Next gate:** acquire the additional covered source members into a separate directory, retain byte/line provenance, and freeze an expanded-source v2 before fitting. Use the archived epoch boundaries, audit explicit-offset timestamps and unresolved timestamps separately, and distinguish author-positive, author-rule-nonmatch and unknown records. Preserve the chosen whole-run split and avoid tuning against revealed v1 test outcomes. Broader source coverage still leaves a shared synthetic scenario and rule-label limitations; a later independent dataset remains necessary.
+
+### Completed separate background acquisition
+
+All **96 additional source files** were acquired into private `ait/coverage_expansion/<run>/`, preserving original bytes and one-based source lines. Every member passed local-header/name, decompression-length, CRC32 and SHA256 checks. The source acquisition requested **1,733,071 range bytes**, including member headers; previously acquired processing proofs were reused after verification. Whole archive checksums remain recorded but unverified.
+
+| Run | Additional files | Source lines | Lines with explicit-offset timestamps inside archived interval |
+|---|---:|---:|---:|
+| Santos | 9 | 10,528 | 6,322 |
+| Fox | 11 | 14,165 | 10,084 |
+| Wardbeck | 12 | 35,400 | 30,839 |
+| Russellmitchell | 10 | 6,876 | 2,654 |
+| Shaw | 15 | 13,105 | 9,120 |
+| Wheeler | 12 | 8,389 | 7,726 |
+| Wilson | 15 | 33,675 | 29,275 |
+| Harrison | 12 | 23,773 | 19,563 |
+| **Total** | **96** | **145,911** | **115,583** |
+
+The explicit timestamps are in Apache access records. Authentication timestamps omit year/timezone; Apache error records either omit timezone or lack a recognized timestamp. These other **30,328 lines** are not automatically eligible for causal time-bounded evaluation. Across the original two test runs, **48,838 explicit-clock lines** qualify and **8,610 other lines** remain excluded. These are acquisition/clock counts, not model predictions or independently verified benign counts.
+
+`acquire_background.py` reproduces the fixed member selection from the original pinned archive directory plus archived configured globs and completed-ingestion paths. It copies verified processing proofs, records numeric observation epochs, and never executes log contents. Each run's `ACQUISITION.json` contains `observation_epoch`, `coverage_proof_members`, and per-member `label_basis`, `ingestion_completed_proof`, ranges, CRC32, SHA256 and timestamp-format counts. A local reuse validation reproduced all eight inventories and counts with zero additional download bytes. The final helper refuses to overwrite a completed acquisition directory.
+
+For a first supplement, keep all v1 models and calibration thresholds fixed and score only the eligible additional sources in the same two test runs. Report the **author-rule-nonmatch flag rate**, not a verified operational false-positive rate, and do not calculate attack recall or F1 from this single-class supplement. A later refitted expansion needs its own frozen protocol. This adds source coverage but does not create an independent external test environment.
+
+Receipt binding note: local reuse verification refreshed acquisition metadata after the supplemental scorer had already recorded the original test-run receipt hashes. Exact original receipt bytes were reconstructed and independently matched to those recorded hashes, then preserved under `coverage_expansion/ORIGINAL_SCORE_RECEIPTS/<run>/ACQUISITION.json`. Source member bytes, hashes and clock eligibility counts did not change. The original scored receipt hashes are Wilson `9e7eaad052abbe07934504b40ae8d15454b7428c52ad5589d2021c5aed42af9f` and Harrison `213807f4c443376ae97b262bb5d380f5b585addb76fafb9eaf9bf36543cdc843`. Receipts are now frozen; this note does not imply a second scoring run.

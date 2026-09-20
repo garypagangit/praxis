@@ -1,0 +1,61 @@
+{
+  "protocol_version": "0.1",
+  "frozen_before_model_fit": true,
+  "freeze_date": "2026-09-20",
+  "purpose": "Development pilot and benchmark qualification; not confirmatory praxis evidence",
+  "primary_pilot_dataset": "AIT-LDS v2.1 intranet source logs with exact source-line labels",
+  "splits": {
+    "fit": [
+      "santos",
+      "fox",
+      "wardbeck",
+      "russellmitchell"
+    ],
+    "development": [
+      "shaw"
+    ],
+    "calibration": [
+      "wheeler"
+    ],
+    "test": [
+      "wilson",
+      "harrison"
+    ]
+  },
+  "split_rationale": "Earlier January runs fit; later January runs develop/calibrate; February runs test. Whole runs retained. Scenario generation shares attack recipes, so this is held-out execution transfer, not unseen APT family transfer.",
+  "prediction_unit": "Original line in a qualified source log; not an independent attack or analyst alert",
+  "label_policy": "Author-provided exact original-line annotations. Only paired, author-covered source files permit unannotated lines to mean normal. Missing source/label pairing is unknown and excluded.",
+  "feature_view": "Same normalized log text and source type, fixed 128-dimensional nonnegative hashed unigram/bigram representation for every CPU model; no target, rule, scenario, line number or timestamp metadata inputs. Recognized timestamp, header-host, address and numeric-ID patterns are masked; unstructured usernames, paths and payloads may retain lexical identity.",
+  "seed": 20260920,
+  "models": [
+    "dummy_prior",
+    "logistic_regression",
+    "random_forest",
+    "hist_gradient_boosting"
+  ],
+  "hyperparameter_search": "None; fixed model specifications. Development set is an engineering diagnostic, not used to select a winner.",
+  "decision_rule": "score > threshold",
+  "calibration": {
+    "target_event_false_positive_rate": 0.01,
+    "source": "calibration split only",
+    "guarantee": "None. Finite-sample observed operating point, not certified risk control or a host-hour alert budget."
+  },
+  "reported_thresholds": [
+    "fixed 0.5",
+    "calibration-only event-FPR operating point"
+  ],
+  "binary_metrics": [
+    "precision",
+    "recall",
+    "f1",
+    "roc_auc",
+    "average_precision",
+    "balanced_accuracy",
+    "mcc",
+    "false_positive_rate"
+  ],
+  "stages": "Report source-defined attack-step detection recall and stage-vs-normal diagnostic metrics for every binary detector. Separately fit one-vs-rest logistic regression (balanced classes, max_iter1000, same128features, fixed0.5 threshold) for multilabel source-step identification. Targets come from fit labels only; report unseen test stages. Overlapping author labels are not ordered kill-chain states.",
+  "early_detection": "Only source-event time where explicitly parseable; idealized replay excludes unknown acquisition/inference delay. No before-impact metric or benign-host-hour rate without verified impact and exposure annotations.",
+  "uncertainty": "Two test runs; report each run and equal-run macro. No population confidence claim from correlated log rows or repeated seeds.",
+  "confirmatory_next_gate": "Freeze a new, attainable candidate-vs-baseline hypothesis after development, qualify temporal/impact labels and a fresh held-out data partition before confirmatory scoring. Pilot test outcomes are now development evidence."
+}

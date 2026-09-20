@@ -1,0 +1,3721 @@
+{
+  "status": "DEVELOPMENT_PILOT",
+  "started_at": "2026-09-20T19:52:31.034252+00:00",
+  "protocol_sha256": "8439e806d4376df52d310af5479884b84fb955989a1e3fa43408174c1940ef61",
+  "source_file_count": 32,
+  "acquisition_receipt_sha256": "2d6e7872f710caa3d5feb8def82c558c9adeff846f5a1919112d310473f0f018",
+  "environment": {
+    "python": "3.11.9",
+    "sklearn": "1.9.0",
+    "numpy": "2.4.6",
+    "device": "CPU",
+    "thread_limit": 2
+  },
+  "preparation_seconds": 154.5470000000205,
+  "support": {
+    "fit": {
+      "rows": 455250,
+      "attack": 433186,
+      "benign": 22064,
+      "runs": [
+        "santos",
+        "fox",
+        "wardbeck",
+        "russellmitchell"
+      ]
+    },
+    "development": {
+      "rows": 10861,
+      "attack": 5290,
+      "benign": 5571,
+      "runs": [
+        "shaw"
+      ]
+    },
+    "calibration": {
+      "rows": 437491,
+      "attack": 432920,
+      "benign": 4571,
+      "runs": [
+        "wheeler"
+      ]
+    },
+    "test": {
+      "rows": 865259,
+      "attack": 846249,
+      "benign": 19010,
+      "runs": [
+        "wilson",
+        "harrison"
+      ]
+    }
+  },
+  "models": {
+    "dummy_prior": {
+      "specification": {
+        "estimator": "DummyClassifier",
+        "parameters": {
+          "strategy": "prior"
+        },
+        "imputer": "median_keep_empty_features",
+        "scaler": null
+      },
+      "fit_seconds": 7.8439999999827705,
+      "batch_scoring_seconds_dev_cal_test": 2.6880000000237487,
+      "warnings": [],
+      "calibration": {
+        "status": "EMPIRICAL_CALIBRATION_ONLY",
+        "threshold_kind": "finite",
+        "threshold_value": 0.9515343218012081,
+        "decision_rule": "class_1_score > threshold",
+        "max_fpr": 0.01,
+        "n_rows": 437491,
+        "n_attack": 432920,
+        "n_benign": 4571,
+        "allowed_false_positives": 45,
+        "confusion": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 4571,
+          "fn": 432920
+        },
+        "observed_recall": 0.0,
+        "observed_fpr": 0.0,
+        "both_classes_present": true,
+        "minimum_benign_count_for_one_false_event_within_budget": 100,
+        "insufficient_benign_resolution": false,
+        "population_fpr_guarantee": false,
+        "selection": "Lowest feasible strict threshold; calibration data only",
+        "limitations": [
+          "Empirical event FPR, not a population guarantee or host-hour alarm rate",
+          "Dependent rows and distribution shift are not corrected by this selector",
+          "One-row budget resolution is not a confidence or power calculation"
+        ]
+      },
+      "development_fixed_0_5": {
+        "n_rows": 10861,
+        "n_attack": 5290,
+        "n_benign": 5571,
+        "weighted_support": {
+          "attack": 5290.0,
+          "benign": 5571.0,
+          "total": 10861.0
+        },
+        "confusion": {
+          "tp": 5290,
+          "fp": 5571,
+          "tn": 0,
+          "fn": 0
+        },
+        "weighted_confusion": {
+          "tp": 5290.0,
+          "fp": 5571.0,
+          "tn": 0.0,
+          "fn": 0.0
+        },
+        "precision": 0.48706380627934814,
+        "recall": 1.0,
+        "f1": 0.6550677976595877,
+        "false_positive_rate": 1.0,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.5,
+        "mcc": null,
+        "roc_auc": 0.5,
+        "average_precision": 0.48706380627934814,
+        "undefined": {
+          "mcc": "MCC denominator is zero (constant labels or predictions)"
+        }
+      },
+      "test_fixed_0_5": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 846249,
+          "fp": 19010,
+          "tn": 0,
+          "fn": 0
+        },
+        "weighted_confusion": {
+          "tp": 846249.0,
+          "fp": 19010.0,
+          "tn": 0.0,
+          "fn": 0.0
+        },
+        "precision": 0.9780296997777544,
+        "recall": 1.0,
+        "f1": 0.9888928360253063,
+        "false_positive_rate": 1.0,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.5,
+        "mcc": null,
+        "roc_auc": 0.5,
+        "average_precision": 0.9780296997777544,
+        "undefined": {
+          "mcc": "MCC denominator is zero (constant labels or predictions)"
+        },
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": 0.9780558595343288,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 1.0,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.9889055695068647,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.5,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": null,
+              "defined_groups": 0,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.5,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.9780558595343288,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 416762,
+                "fp": 8667,
+                "tn": 0,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 416762.0,
+                "fp": 8667.0,
+                "tn": 0.0,
+                "fn": 0.0
+              },
+              "precision": 0.9796276229406082,
+              "recall": 1.0,
+              "f1": 0.9897089852539388,
+              "false_positive_rate": 1.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.9796276229406082,
+              "undefined": {
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 429487,
+                "fp": 10343,
+                "tn": 0,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 429487.0,
+                "fp": 10343.0,
+                "tn": 0.0,
+                "fn": 0.0
+              },
+              "precision": 0.9764840961280494,
+              "recall": 1.0,
+              "f1": 0.9881021537597907,
+              "false_positive_rate": 1.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.9764840961280494,
+              "undefined": {
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "test_calibrated": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 19010,
+          "fn": 846249
+        },
+        "weighted_confusion": {
+          "tp": 0.0,
+          "fp": 0.0,
+          "tn": 19010.0,
+          "fn": 846249.0
+        },
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.5,
+        "mcc": null,
+        "roc_auc": 0.5,
+        "average_precision": 0.9780296997777544,
+        "undefined": {
+          "precision": "No positive predictions with positive weight",
+          "mcc": "MCC denominator is zero (constant labels or predictions)"
+        },
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": null,
+              "defined_groups": 0,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 0.0,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.0,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.5,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": null,
+              "defined_groups": 0,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.5,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.9780558595343288,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 8667,
+                "fn": 416762
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 8667.0,
+                "fn": 416762.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.9796276229406082,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 10343,
+                "fn": 429487
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 10343.0,
+                "fn": 429487.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.9764840961280494,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "attack_step_detection": {
+        "interpretation": "Binary detection of each author-labeled attack step versus all normal rows. Other attack steps excluded from each diagnostic; these overlapping metrics are not stage-name identification or additive.",
+        "steps": {
+          "attacker_change_user": {
+            "attack_step_rows": 28,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19038,
+              "n_attack": 28,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 28.0,
+                "benign": 19010.0,
+                "total": 19038.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 28
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 28.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.0014707427250761635,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "attacker_http": {
+            "attack_step_rows": 846158,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 865168,
+              "n_attack": 846158,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846158.0,
+                "benign": 19010.0,
+                "total": 865168.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 846158
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 846158.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.9780273889001905,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "dirb": {
+            "attack_step_rows": 838004,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 857014,
+              "n_attack": 838004,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 838004.0,
+                "benign": 19010.0,
+                "total": 857014.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 838004
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 838004.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.9778183320225807,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "escalate": {
+            "attack_step_rows": 81,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19091,
+              "n_attack": 81,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 81.0,
+                "benign": 19010.0,
+                "total": 19091.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 81
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 81.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.00424283693887172,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "escalated_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 47
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 47.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.002466285354462927,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "escalated_sudo_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 47
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 47.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.002466285354462927,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "escalated_sudo_session": {
+            "attack_step_rows": 15,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19025,
+              "n_attack": 15,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 15.0,
+                "benign": 19010.0,
+                "total": 19025.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 15
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 15.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.0007884362680683311,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "foothold": {
+            "attack_step_rows": 846168,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 865178,
+              "n_attack": 846168,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846168.0,
+                "benign": 19010.0,
+                "total": 865178.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 846168
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 846168.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.9780276428665546,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "service_scan": {
+            "attack_step_rows": 24,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19034,
+              "n_attack": 24,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 24.0,
+                "benign": 19010.0,
+                "total": 19034.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 24
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 24.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.0012609015446043922,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "webshell_cmd": {
+            "attack_step_rows": 22,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19032,
+              "n_attack": 22,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 22.0,
+                "benign": 19010.0,
+                "total": 19032.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 22
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 22.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.0011559478772593527,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "webshell_upload": {
+            "attack_step_rows": 6,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 19016,
+              "n_attack": 6,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 6.0,
+                "benign": 19010.0,
+                "total": 19016.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 6
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 6.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.0003155237694572991,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          },
+          "wpscan": {
+            "attack_step_rows": 8120,
+            "detected_rows": 0,
+            "stage_vs_normal": {
+              "n_rows": 27130,
+              "n_attack": 8120,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 8120.0,
+                "benign": 19010.0,
+                "total": 27130.0
+              },
+              "confusion": {
+                "tp": 0,
+                "fp": 0,
+                "tn": 19010,
+                "fn": 8120
+              },
+              "weighted_confusion": {
+                "tp": 0.0,
+                "fp": 0.0,
+                "tn": 19010.0,
+                "fn": 8120.0
+              },
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0,
+              "false_positive_rate": 0.0,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.5,
+              "mcc": null,
+              "roc_auc": 0.5,
+              "average_precision": 0.29929966826391446,
+              "undefined": {
+                "precision": "No positive predictions with positive weight",
+                "mcc": "MCC denominator is zero (constant labels or predictions)"
+              }
+            }
+          }
+        }
+      }
+    },
+    "logistic_regression": {
+      "specification": {
+        "estimator": "LogisticRegression",
+        "parameters": {
+          "max_iter": 1000,
+          "class_weight": "balanced"
+        },
+        "imputer": "median_keep_empty_features",
+        "scaler": "StandardScaler"
+      },
+      "fit_seconds": 8.610000000044238,
+      "batch_scoring_seconds_dev_cal_test": 2.8589999999967404,
+      "warnings": [],
+      "calibration": {
+        "status": "EMPIRICAL_CALIBRATION_ONLY",
+        "threshold_kind": "finite",
+        "threshold_value": 0.0011599654098972678,
+        "decision_rule": "class_1_score > threshold",
+        "max_fpr": 0.01,
+        "n_rows": 437491,
+        "n_attack": 432920,
+        "n_benign": 4571,
+        "allowed_false_positives": 45,
+        "confusion": {
+          "tp": 432920,
+          "fp": 37,
+          "tn": 4534,
+          "fn": 0
+        },
+        "observed_recall": 1.0,
+        "observed_fpr": 0.008094508860205645,
+        "both_classes_present": true,
+        "minimum_benign_count_for_one_false_event_within_budget": 100,
+        "insufficient_benign_resolution": false,
+        "population_fpr_guarantee": false,
+        "selection": "Lowest feasible strict threshold; calibration data only",
+        "limitations": [
+          "Empirical event FPR, not a population guarantee or host-hour alarm rate",
+          "Dependent rows and distribution shift are not corrected by this selector",
+          "One-row budget resolution is not a confidence or power calculation"
+        ]
+      },
+      "development_fixed_0_5": {
+        "n_rows": 10861,
+        "n_attack": 5290,
+        "n_benign": 5571,
+        "weighted_support": {
+          "attack": 5290.0,
+          "benign": 5571.0,
+          "total": 10861.0
+        },
+        "confusion": {
+          "tp": 5274,
+          "fp": 3,
+          "tn": 5568,
+          "fn": 16
+        },
+        "weighted_confusion": {
+          "tp": 5274.0,
+          "fp": 3.0,
+          "tn": 5568.0,
+          "fn": 16.0
+        },
+        "precision": 0.9994314951677089,
+        "recall": 0.9969754253308128,
+        "f1": 0.9982019494653166,
+        "false_positive_rate": 0.0005385029617662897,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9982184611845233,
+        "mcc": 0.996501541916622,
+        "roc_auc": 0.9998800329413154,
+        "average_precision": 0.9998960051551233,
+        "undefined": {}
+      },
+      "test_fixed_0_5": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 846186,
+          "fp": 2,
+          "tn": 19008,
+          "fn": 63
+        },
+        "weighted_confusion": {
+          "tp": 846186.0,
+          "fp": 2.0,
+          "tn": 19008.0,
+          "fn": 63.0
+        },
+        "precision": 0.9999976364590375,
+        "recall": 0.9999255538263561,
+        "f1": 0.9999615938436704,
+        "false_positive_rate": 0.00010520778537611783,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.99991017302049,
+        "mcc": 0.9982560450006686,
+        "roc_auc": 0.9999985674940745,
+        "average_precision": 0.9999999679131698,
+        "undefined": {},
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": 0.999997635925344,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 0.9999257324920601,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.9999616828806172,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.9999098502647431,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": 0.9982684178950484,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.9999987166739592,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.9999999709884595,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 416736,
+                "fp": 1,
+                "tn": 8666,
+                "fn": 26
+              },
+              "weighted_confusion": {
+                "tp": 416736.0,
+                "fp": 1.0,
+                "tn": 8666.0,
+                "fn": 26.0
+              },
+              "precision": 0.9999976004050516,
+              "recall": 0.9999376142738542,
+              "f1": 0.9999676064398397,
+              "false_positive_rate": 0.00011538017768547363,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9999111170480843,
+              "mcc": 0.9984132963575323,
+              "roc_auc": 0.9999988964795536,
+              "average_precision": 0.9999999771757986,
+              "undefined": {}
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 429450,
+                "fp": 1,
+                "tn": 10342,
+                "fn": 37
+              },
+              "weighted_confusion": {
+                "tp": 429450.0,
+                "fp": 1.0,
+                "tn": 10342.0,
+                "fn": 37.0
+              },
+              "precision": 0.9999976714456364,
+              "recall": 0.999913850710266,
+              "f1": 0.9999557593213946,
+              "false_positive_rate": 9.668374746205163e-05,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9999085834814019,
+              "mcc": 0.9981235394325645,
+              "roc_auc": 0.9999985368683647,
+              "average_precision": 0.9999999648011204,
+              "undefined": {}
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "test_calibrated": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 846238,
+          "fp": 96,
+          "tn": 18914,
+          "fn": 11
+        },
+        "weighted_confusion": {
+          "tp": 846238.0,
+          "fp": 96.0,
+          "tn": 18914.0,
+          "fn": 11.0
+        },
+        "precision": 0.9998865696049077,
+        "recall": 0.9999870014617447,
+        "f1": 0.9999367830115273,
+        "false_positive_rate": 0.005049973698053656,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9974685138818455,
+        "mcc": 0.9971187856672974,
+        "roc_auc": 0.9999985674940745,
+        "average_precision": 0.9999999679131698,
+        "undefined": {},
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": 0.9998862247202973,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 0.9999870518408518,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.9999366355655928,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.9974066918506529,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": 0.9970611752096494,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.9999987166739592,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.9999999709884595,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 416758,
+                "fp": 57,
+                "tn": 8610,
+                "fn": 4
+              },
+              "weighted_confusion": {
+                "tp": 416758.0,
+                "fp": 57.0,
+                "tn": 8610.0,
+                "fn": 4.0
+              },
+              "precision": 0.9998632486834687,
+              "recall": 0.9999904021959776,
+              "f1": 0.9999268213974234,
+              "false_positive_rate": 0.006576670128071997,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9967068660339529,
+              "mcc": 0.9964018162820653,
+              "roc_auc": 0.9999988964795536,
+              "average_precision": 0.9999999771757986,
+              "undefined": {}
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 429480,
+                "fp": 39,
+                "tn": 10304,
+                "fn": 7
+              },
+              "weighted_confusion": {
+                "tp": 429480.0,
+                "fp": 39.0,
+                "tn": 10304.0,
+                "fn": 7.0
+              },
+              "precision": 0.999909200757126,
+              "recall": 0.999983701485726,
+              "f1": 0.999946449733762,
+              "false_positive_rate": 0.0037706661510200135,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9981065176673529,
+              "mcc": 0.9977205341372337,
+              "roc_auc": 0.9999985368683647,
+              "average_precision": 0.9999999648011204,
+              "undefined": {}
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "attack_step_detection": {
+        "interpretation": "Binary detection of each author-labeled attack step versus all normal rows. Other attack steps excluded from each diagnostic; these overlapping metrics are not stage-name identification or additive.",
+        "steps": {
+          "attacker_change_user": {
+            "attack_step_rows": 28,
+            "detected_rows": 18,
+            "stage_vs_normal": {
+              "n_rows": 19038,
+              "n_attack": 28,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 28.0,
+                "benign": 19010.0,
+                "total": 19038.0
+              },
+              "confusion": {
+                "tp": 18,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 10
+              },
+              "weighted_confusion": {
+                "tp": 18.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 10.0
+              },
+              "precision": 0.15789473684210525,
+              "recall": 0.6428571428571429,
+              "f1": 0.2535211267605634,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.8189035845795446,
+              "mcc": 0.3168112355995309,
+              "roc_auc": 0.9600604944765913,
+              "average_precision": 0.5569280617534509,
+              "undefined": {}
+            }
+          },
+          "attacker_http": {
+            "attack_step_rows": 846158,
+            "detected_rows": 846158,
+            "stage_vs_normal": {
+              "n_rows": 865168,
+              "n_attack": 846158,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846158.0,
+                "benign": 19010.0,
+                "total": 865168.0
+              },
+              "confusion": {
+                "tp": 846158,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 846158.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.9998865588818487,
+              "recall": 1.0,
+              "f1": 0.9999432762235201,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.9974152385333092,
+              "roc_auc": 0.9999999779925521,
+              "average_precision": 0.9999999995055425,
+              "undefined": {}
+            }
+          },
+          "dirb": {
+            "attack_step_rows": 838004,
+            "detected_rows": 838004,
+            "stage_vs_normal": {
+              "n_rows": 857014,
+              "n_attack": 838004,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 838004.0,
+                "benign": 19010.0,
+                "total": 857014.0
+              },
+              "confusion": {
+                "tp": 838004,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 838004.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.9998854551962773,
+              "recall": 1.0,
+              "f1": 0.9999427243178227,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.9974146880543067,
+              "roc_auc": 0.9999999922789404,
+              "average_precision": 0.9999999998248369,
+              "undefined": {}
+            }
+          },
+          "escalate": {
+            "attack_step_rows": 81,
+            "detected_rows": 70,
+            "stage_vs_normal": {
+              "n_rows": 19091,
+              "n_attack": 81,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 81.0,
+                "benign": 19010.0,
+                "total": 19091.0
+              },
+              "confusion": {
+                "tp": 70,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 11
+              },
+              "weighted_confusion": {
+                "tp": 70.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 11.0
+              },
+              "precision": 0.42168674698795183,
+              "recall": 0.8641975308641975,
+              "f1": 0.5668016194331984,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9295737785830719,
+              "mcc": 0.6014912851736025,
+              "roc_auc": 0.9852637663088304,
+              "average_precision": 0.8187858308589193,
+              "undefined": {}
+            }
+          },
+          "escalated_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 46,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 46,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 1
+              },
+              "weighted_confusion": {
+                "tp": 46.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 1.0
+              },
+              "precision": 0.323943661971831,
+              "recall": 0.9787234042553191,
+              "f1": 0.48677248677248675,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9868367152786327,
+              "mcc": 0.5615726670706486,
+              "roc_auc": 0.9984106909017652,
+              "average_precision": 0.8758985816141708,
+              "undefined": {}
+            }
+          },
+          "escalated_sudo_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 46,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 46,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 1
+              },
+              "weighted_confusion": {
+                "tp": 46.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 1.0
+              },
+              "precision": 0.323943661971831,
+              "recall": 0.9787234042553191,
+              "f1": 0.48677248677248675,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9868367152786327,
+              "mcc": 0.5615726670706486,
+              "roc_auc": 0.9984106909017652,
+              "average_precision": 0.8758985816141708,
+              "undefined": {}
+            }
+          },
+          "escalated_sudo_session": {
+            "attack_step_rows": 15,
+            "detected_rows": 15,
+            "stage_vs_normal": {
+              "n_rows": 19025,
+              "n_attack": 15,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 15.0,
+                "benign": 19010.0,
+                "total": 19025.0
+              },
+              "confusion": {
+                "tp": 15,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 15.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.13513513513513514,
+              "recall": 1.0,
+              "f1": 0.23809523809523808,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.36667793260164944,
+              "roc_auc": 0.9999929861476416,
+              "average_precision": 0.9921568627450981,
+              "undefined": {}
+            }
+          },
+          "foothold": {
+            "attack_step_rows": 846168,
+            "detected_rows": 846168,
+            "stage_vs_normal": {
+              "n_rows": 865178,
+              "n_attack": 846168,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846168.0,
+                "benign": 19010.0,
+                "total": 865178.0
+              },
+              "confusion": {
+                "tp": 846168,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 846168.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.999886560222342,
+              "recall": 1.0,
+              "f1": 0.9999432768938427,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.9974152392018992,
+              "roc_auc": 0.9999999779928123,
+              "average_precision": 0.9999999995055541,
+              "undefined": {}
+            }
+          },
+          "service_scan": {
+            "attack_step_rows": 24,
+            "detected_rows": 24,
+            "stage_vs_normal": {
+              "n_rows": 19034,
+              "n_attack": 24,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 24.0,
+                "benign": 19010.0,
+                "total": 19034.0
+              },
+              "confusion": {
+                "tp": 24,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 24.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.2,
+              "recall": 1.0,
+              "f1": 0.3333333333333333,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.44608295782330587,
+              "roc_auc": 1.0,
+              "average_precision": 1.0,
+              "undefined": {}
+            }
+          },
+          "webshell_cmd": {
+            "attack_step_rows": 22,
+            "detected_rows": 22,
+            "stage_vs_normal": {
+              "n_rows": 19032,
+              "n_attack": 22,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 22.0,
+                "benign": 19010.0,
+                "total": 19032.0
+              },
+              "confusion": {
+                "tp": 22,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 22.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.1864406779661017,
+              "recall": 1.0,
+              "f1": 0.3142857142857143,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.43069613121796857,
+              "roc_auc": 0.9999282674190617,
+              "average_precision": 0.8911094489007826,
+              "undefined": {}
+            }
+          },
+          "webshell_upload": {
+            "attack_step_rows": 6,
+            "detected_rows": 6,
+            "stage_vs_normal": {
+              "n_rows": 19016,
+              "n_attack": 6,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 6.0,
+                "benign": 19010.0,
+                "total": 19016.0
+              },
+              "confusion": {
+                "tp": 6,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 6.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.058823529411764705,
+              "recall": 1.0,
+              "f1": 0.1111111111111111,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.24192245066427506,
+              "roc_auc": 0.9999298614764158,
+              "average_precision": 0.7388888888888889,
+              "undefined": {}
+            }
+          },
+          "wpscan": {
+            "attack_step_rows": 8120,
+            "detected_rows": 8120,
+            "stage_vs_normal": {
+              "n_rows": 27130,
+              "n_attack": 8120,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 8120.0,
+                "benign": 19010.0,
+                "total": 27130.0
+              },
+              "confusion": {
+                "tp": 8120,
+                "fp": 96,
+                "tn": 18914,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 8120.0,
+                "fp": 96.0,
+                "tn": 18914.0,
+                "fn": 0.0
+              },
+              "precision": 0.9883154819863681,
+              "recall": 1.0,
+              "f1": 0.9941234084231146,
+              "false_positive_rate": 0.005049973698053656,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9974750131509731,
+              "mcc": 0.9916272055550702,
+              "roc_auc": 0.9999986719460591,
+              "average_precision": 0.999996898154093,
+              "undefined": {}
+            }
+          }
+        }
+      }
+    },
+    "random_forest": {
+      "specification": {
+        "estimator": "RandomForestClassifier",
+        "parameters": {
+          "n_estimators": 150,
+          "max_depth": 14,
+          "min_samples_leaf": 5,
+          "class_weight": "balanced",
+          "n_jobs": 2
+        },
+        "imputer": "median_keep_empty_features",
+        "scaler": null
+      },
+      "fit_seconds": 44.5,
+      "batch_scoring_seconds_dev_cal_test": 8.594000000040978,
+      "warnings": [],
+      "calibration": {
+        "status": "EMPIRICAL_CALIBRATION_ONLY",
+        "threshold_kind": "finite",
+        "threshold_value": 0.06117871687615479,
+        "decision_rule": "class_1_score > threshold",
+        "max_fpr": 0.01,
+        "n_rows": 437491,
+        "n_attack": 432920,
+        "n_benign": 4571,
+        "allowed_false_positives": 45,
+        "confusion": {
+          "tp": 432916,
+          "fp": 45,
+          "tn": 4526,
+          "fn": 4
+        },
+        "observed_recall": 0.9999907604176291,
+        "observed_fpr": 0.009844672938087946,
+        "both_classes_present": true,
+        "minimum_benign_count_for_one_false_event_within_budget": 100,
+        "insufficient_benign_resolution": false,
+        "population_fpr_guarantee": false,
+        "selection": "Lowest feasible strict threshold; calibration data only",
+        "limitations": [
+          "Empirical event FPR, not a population guarantee or host-hour alarm rate",
+          "Dependent rows and distribution shift are not corrected by this selector",
+          "One-row budget resolution is not a confidence or power calculation"
+        ]
+      },
+      "development_fixed_0_5": {
+        "n_rows": 10861,
+        "n_attack": 5290,
+        "n_benign": 5571,
+        "weighted_support": {
+          "attack": 5290.0,
+          "benign": 5571.0,
+          "total": 10861.0
+        },
+        "confusion": {
+          "tp": 5271,
+          "fp": 0,
+          "tn": 5571,
+          "fn": 19
+        },
+        "weighted_confusion": {
+          "tp": 5271.0,
+          "fp": 0.0,
+          "tn": 5571.0,
+          "fn": 19.0
+        },
+        "precision": 1.0,
+        "recall": 0.9964083175803403,
+        "f1": 0.9982009279424296,
+        "false_positive_rate": 0.0,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9982041587901702,
+        "mcc": 0.9965046908021613,
+        "roc_auc": 0.9998593682718943,
+        "average_precision": 0.9998604986279849,
+        "undefined": {}
+      },
+      "test_fixed_0_5": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 846191,
+          "fp": 2,
+          "tn": 19008,
+          "fn": 58
+        },
+        "weighted_confusion": {
+          "tp": 846191.0,
+          "fp": 2.0,
+          "tn": 19008.0,
+          "fn": 58.0
+        },
+        "precision": 0.9999976364730032,
+        "recall": 0.9999314622528358,
+        "f1": 0.9999645482681239,
+        "false_positive_rate": 0.00010520778537611783,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9999131272337298,
+        "mcc": 0.998389881503398,
+        "roc_auc": 0.9999946026011279,
+        "average_precision": 0.9999998793418422,
+        "undefined": {},
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": 0.9999976359378908,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 0.9999313401145442,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.9999644869110429,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.9999126540759853,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": 0.9983636825137041,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.9999949947943254,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.9999998861019241,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 416730,
+                "fp": 1,
+                "tn": 8666,
+                "fn": 32
+              },
+              "weighted_confusion": {
+                "tp": 416730.0,
+                "fp": 1.0,
+                "tn": 8666.0,
+                "fn": 32.0
+              },
+              "precision": 0.9999976003705028,
+              "recall": 0.9999232175678204,
+              "f1": 0.9999604075859065,
+              "false_positive_rate": 0.00011538017768547363,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9999039186950676,
+              "mcc": 0.9980616907391449,
+              "roc_auc": 0.9999964009619161,
+              "average_precision": 0.9999999253030607,
+              "undefined": {}
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 429461,
+                "fp": 1,
+                "tn": 10342,
+                "fn": 26
+              },
+              "weighted_confusion": {
+                "tp": 429461.0,
+                "fp": 1.0,
+                "tn": 10342.0,
+                "fn": 26.0
+              },
+              "precision": 0.9999976715052787,
+              "recall": 0.999939462661268,
+              "f1": 0.9999685662361794,
+              "false_positive_rate": 9.668374746205163e-05,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.999921389456903,
+              "mcc": 0.9986656742882634,
+              "roc_auc": 0.9999935886267347,
+              "average_precision": 0.9999998469007877,
+              "undefined": {}
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "test_calibrated": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 846227,
+          "fp": 1401,
+          "tn": 17609,
+          "fn": 22
+        },
+        "weighted_confusion": {
+          "tp": 846227.0,
+          "fp": 1401.0,
+          "tn": 17609.0,
+          "fn": 22.0
+        },
+        "precision": 0.9983471522885039,
+        "recall": 0.9999740029234894,
+        "f1": 0.9991599153893701,
+        "false_positive_rate": 0.07369805365597054,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9631379746337594,
+        "mcc": 0.9610354556665208,
+        "roc_auc": 0.9999946026011279,
+        "average_precision": 0.9999998793418422,
+        "undefined": {},
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": 0.9983517035751615,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 0.999973997043968,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.999162169664439,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.963487319311898,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": 0.96138782033108,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.9999949947943254,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.9999998861019241,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 416751,
+                "fp": 564,
+                "tn": 8103,
+                "fn": 11
+              },
+              "weighted_confusion": {
+                "tp": 416751.0,
+                "fp": 564.0,
+                "tn": 8103.0,
+                "fn": 11.0
+              },
+              "precision": 0.9986485029294417,
+              "recall": 0.9999736060389383,
+              "f1": 0.9993106152069893,
+              "false_positive_rate": 0.06507442021460713,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9674495929121656,
+              "mcc": 0.9655921741331751,
+              "roc_auc": 0.9999964009619161,
+              "average_precision": 0.9999999253030607,
+              "undefined": {}
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 429476,
+                "fp": 837,
+                "tn": 9506,
+                "fn": 11
+              },
+              "weighted_confusion": {
+                "tp": 429476.0,
+                "fp": 837.0,
+                "tn": 9506.0,
+                "fn": 11.0
+              },
+              "precision": 0.9980549042208811,
+              "recall": 0.999974388048998,
+              "f1": 0.9990137241218888,
+              "false_positive_rate": 0.08092429662573722,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9595250457116304,
+              "mcc": 0.9571834665289847,
+              "roc_auc": 0.9999935886267347,
+              "average_precision": 0.9999998469007877,
+              "undefined": {}
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "attack_step_detection": {
+        "interpretation": "Binary detection of each author-labeled attack step versus all normal rows. Other attack steps excluded from each diagnostic; these overlapping metrics are not stage-name identification or additive.",
+        "steps": {
+          "attacker_change_user": {
+            "attack_step_rows": 28,
+            "detected_rows": 18,
+            "stage_vs_normal": {
+              "n_rows": 19038,
+              "n_attack": 28,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 28.0,
+                "benign": 19010.0,
+                "total": 19038.0
+              },
+              "confusion": {
+                "tp": 18,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 10
+              },
+              "weighted_confusion": {
+                "tp": 18.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 10.0
+              },
+              "precision": 0.012684989429175475,
+              "recall": 0.6428571428571429,
+              "f1": 0.0248790601243953,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.7845795446005861,
+              "mcc": 0.08304661291796224,
+              "roc_auc": 0.9069437138348238,
+              "average_precision": 0.4063665486649827,
+              "undefined": {}
+            }
+          },
+          "attacker_http": {
+            "attack_step_rows": 846158,
+            "detected_rows": 846158,
+            "stage_vs_normal": {
+              "n_rows": 865168,
+              "n_attack": 846158,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846158.0,
+                "benign": 19010.0,
+                "total": 865168.0
+              },
+              "confusion": {
+                "tp": 846158,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 846158.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.9983470177297392,
+              "recall": 1.0,
+              "f1": 0.9991728252122403,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.9616500328340943,
+              "roc_auc": 0.9999999943427181,
+              "average_precision": 0.9999999998728968,
+              "undefined": {}
+            }
+          },
+          "dirb": {
+            "attack_step_rows": 838004,
+            "detected_rows": 838004,
+            "stage_vs_normal": {
+              "n_rows": 857014,
+              "n_attack": 838004,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 838004.0,
+                "benign": 19010.0,
+                "total": 857014.0
+              },
+              "confusion": {
+                "tp": 838004,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 838004.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.998330960620916,
+              "recall": 1.0,
+              "f1": 0.9991647833056816,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.9616422993601411,
+              "roc_auc": 0.9999999973635406,
+              "average_precision": 0.999999999940191,
+              "undefined": {}
+            }
+          },
+          "escalate": {
+            "attack_step_rows": 81,
+            "detected_rows": 59,
+            "stage_vs_normal": {
+              "n_rows": 19091,
+              "n_attack": 81,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 81.0,
+                "benign": 19010.0,
+                "total": 19091.0
+              },
+              "confusion": {
+                "tp": 59,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 22
+              },
+              "weighted_confusion": {
+                "tp": 59.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 22.0
+              },
+              "precision": 0.04041095890410959,
+              "recall": 0.7283950617283951,
+              "f1": 0.07657365347177157,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.8273485040362123,
+              "mcc": 0.16012495602714108,
+              "roc_auc": 0.9436696735311498,
+              "average_precision": 0.5515806022221297,
+              "undefined": {}
+            }
+          },
+          "escalated_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 35,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 35,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 12
+              },
+              "weighted_confusion": {
+                "tp": 35.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 12.0
+              },
+              "precision": 0.02437325905292479,
+              "recall": 0.7446808510638298,
+              "f1": 0.04720161834120027,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.8354913987039296,
+              "mcc": 0.126083680492215,
+              "roc_auc": 0.9583623400897623,
+              "average_precision": 0.48144478739252866,
+              "undefined": {}
+            }
+          },
+          "escalated_sudo_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 35,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 35,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 12
+              },
+              "weighted_confusion": {
+                "tp": 35.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 12.0
+              },
+              "precision": 0.02437325905292479,
+              "recall": 0.7446808510638298,
+              "f1": 0.04720161834120027,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.8354913987039296,
+              "mcc": 0.126083680492215,
+              "roc_auc": 0.9583623400897623,
+              "average_precision": 0.48144478739252866,
+              "undefined": {}
+            }
+          },
+          "escalated_sudo_session": {
+            "attack_step_rows": 15,
+            "detected_rows": 15,
+            "stage_vs_normal": {
+              "n_rows": 19025,
+              "n_attack": 15,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 15.0,
+                "benign": 19010.0,
+                "total": 19025.0
+              },
+              "confusion": {
+                "tp": 15,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 15.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.01059322033898305,
+              "recall": 1.0,
+              "f1": 0.020964360587002098,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.09905816785127393,
+              "roc_auc": 0.9999473961073119,
+              "average_precision": 0.8856192881192881,
+              "undefined": {}
+            }
+          },
+          "foothold": {
+            "attack_step_rows": 846168,
+            "detected_rows": 846168,
+            "stage_vs_normal": {
+              "n_rows": 865178,
+              "n_attack": 846168,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846168.0,
+                "benign": 19010.0,
+                "total": 865178.0
+              },
+              "confusion": {
+                "tp": 846168,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 846168.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.998347037232367,
+              "recall": 1.0,
+              "f1": 0.9991728349796928,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.9616500422269718,
+              "roc_auc": 0.9999999943427851,
+              "average_precision": 0.9999999998728998,
+              "undefined": {}
+            }
+          },
+          "service_scan": {
+            "attack_step_rows": 24,
+            "detected_rows": 24,
+            "stage_vs_normal": {
+              "n_rows": 19034,
+              "n_attack": 24,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 24.0,
+                "benign": 19010.0,
+                "total": 19034.0
+              },
+              "confusion": {
+                "tp": 24,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 24.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.016842105263157894,
+              "recall": 1.0,
+              "f1": 0.033126293995859216,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.12490346226503965,
+              "roc_auc": 0.9999868490268279,
+              "average_precision": 0.9894202898550725,
+              "undefined": {}
+            }
+          },
+          "webshell_cmd": {
+            "attack_step_rows": 22,
+            "detected_rows": 22,
+            "stage_vs_normal": {
+              "n_rows": 19032,
+              "n_attack": 22,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 22.0,
+                "benign": 19010.0,
+                "total": 19032.0
+              },
+              "confusion": {
+                "tp": 22,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 22.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.015460295151089248,
+              "recall": 1.0,
+              "f1": 0.03044982698961938,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.11966996903779632,
+              "roc_auc": 0.999940222849218,
+              "average_precision": 0.9333685786599124,
+              "undefined": {}
+            }
+          },
+          "webshell_upload": {
+            "attack_step_rows": 6,
+            "detected_rows": 6,
+            "stage_vs_normal": {
+              "n_rows": 19016,
+              "n_attack": 6,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 6.0,
+                "benign": 19010.0,
+                "total": 19016.0
+              },
+              "confusion": {
+                "tp": 6,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 6.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.0042643923240938165,
+              "recall": 1.0,
+              "f1": 0.008492569002123142,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.06284993961638023,
+              "roc_auc": 0.9999473961073119,
+              "average_precision": 0.7746031746031746,
+              "undefined": {}
+            }
+          },
+          "wpscan": {
+            "attack_step_rows": 8120,
+            "detected_rows": 8120,
+            "stage_vs_normal": {
+              "n_rows": 27130,
+              "n_attack": 8120,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 8120.0,
+                "benign": 19010.0,
+                "total": 27130.0
+              },
+              "confusion": {
+                "tp": 8120,
+                "fp": 1401,
+                "tn": 17609,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 8120.0,
+                "fp": 1401.0,
+                "tn": 17609.0,
+                "fn": 0.0
+              },
+              "precision": 0.8528515912194097,
+              "recall": 1.0,
+              "f1": 0.9205827334051357,
+              "false_positive_rate": 0.07369805365597054,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9631509731720147,
+              "mcc": 0.8888183666470567,
+              "roc_auc": 0.9999998704337617,
+              "average_precision": 0.9999996964025838,
+              "undefined": {}
+            }
+          }
+        }
+      }
+    },
+    "hist_gradient_boosting": {
+      "specification": {
+        "estimator": "HistGradientBoostingClassifier",
+        "parameters": {
+          "max_iter": 100,
+          "max_leaf_nodes": 15,
+          "l2_regularization": 1,
+          "early_stopping": false
+        },
+        "imputer": "median_keep_empty_features",
+        "scaler": null
+      },
+      "fit_seconds": 19.53100000001723,
+      "batch_scoring_seconds_dev_cal_test": 15.047000000020489,
+      "warnings": [],
+      "calibration": {
+        "status": "EMPIRICAL_CALIBRATION_ONLY",
+        "threshold_kind": "finite",
+        "threshold_value": 0.002108490591936204,
+        "decision_rule": "class_1_score > threshold",
+        "max_fpr": 0.01,
+        "n_rows": 437491,
+        "n_attack": 432920,
+        "n_benign": 4571,
+        "allowed_false_positives": 45,
+        "confusion": {
+          "tp": 432920,
+          "fp": 38,
+          "tn": 4533,
+          "fn": 0
+        },
+        "observed_recall": 1.0,
+        "observed_fpr": 0.008313279369940932,
+        "both_classes_present": true,
+        "minimum_benign_count_for_one_false_event_within_budget": 100,
+        "insufficient_benign_resolution": false,
+        "population_fpr_guarantee": false,
+        "selection": "Lowest feasible strict threshold; calibration data only",
+        "limitations": [
+          "Empirical event FPR, not a population guarantee or host-hour alarm rate",
+          "Dependent rows and distribution shift are not corrected by this selector",
+          "One-row budget resolution is not a confidence or power calculation"
+        ]
+      },
+      "development_fixed_0_5": {
+        "n_rows": 10861,
+        "n_attack": 5290,
+        "n_benign": 5571,
+        "weighted_support": {
+          "attack": 5290.0,
+          "benign": 5571.0,
+          "total": 10861.0
+        },
+        "confusion": {
+          "tp": 5284,
+          "fp": 0,
+          "tn": 5571,
+          "fn": 6
+        },
+        "weighted_confusion": {
+          "tp": 5284.0,
+          "fp": 0.0,
+          "tn": 5571.0,
+          "fn": 6.0
+        },
+        "precision": 1.0,
+        "recall": 0.9988657844990548,
+        "f1": 0.9994325704558351,
+        "false_positive_rate": 0.0,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9994328922495275,
+        "mcc": 0.9988949682083527,
+        "roc_auc": 0.9999991007984571,
+        "average_precision": 0.9999990007739304,
+        "undefined": {}
+      },
+      "test_fixed_0_5": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 846238,
+          "fp": 14,
+          "tn": 18996,
+          "fn": 11
+        },
+        "weighted_confusion": {
+          "tp": 846238.0,
+          "fp": 14.0,
+          "tn": 18996.0,
+          "fn": 11.0
+        },
+        "precision": 0.9999834564645047,
+        "recall": 0.9999870014617447,
+        "f1": 0.9999852289599829,
+        "false_positive_rate": 0.0007364544976328248,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9996252734820559,
+        "mcc": 0.9993276316657663,
+        "roc_auc": 0.9999996435363319,
+        "average_precision": 0.9999999919486049,
+        "undefined": {},
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": 0.9999835949798013,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 0.99998701629494,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.999985305617551,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.9996410927086853,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": 0.9993435853921295,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.9999994935629958,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.999999987846487,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 416757,
+                "fp": 3,
+                "tn": 8664,
+                "fn": 5
+              },
+              "weighted_confusion": {
+                "tp": 416757.0,
+                "fp": 3.0,
+                "tn": 8664.0,
+                "fn": 5.0
+              },
+              "precision": 0.9999928016124389,
+              "recall": 0.9999880027449719,
+              "f1": 0.999990402172948,
+              "false_positive_rate": 0.00034614053305642093,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9998209311059578,
+              "mcc": 0.9995289416377219,
+              "roc_auc": 0.9999999742530352,
+              "average_precision": 0.9999999994645323,
+              "undefined": {}
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 429481,
+                "fp": 11,
+                "tn": 10332,
+                "fn": 6
+              },
+              "weighted_confusion": {
+                "tp": 429481.0,
+                "fp": 11.0,
+                "tn": 10332.0,
+                "fn": 6.0
+              },
+              "precision": 0.9999743883471637,
+              "recall": 0.999986029844908,
+              "f1": 0.999980209062154,
+              "false_positive_rate": 0.0010635212220825678,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9994612543114128,
+              "mcc": 0.9991582291465372,
+              "roc_auc": 0.9999990128729563,
+              "average_precision": 0.9999999762284417,
+              "undefined": {}
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "test_calibrated": {
+        "n_rows": 865259,
+        "n_attack": 846249,
+        "n_benign": 19010,
+        "weighted_support": {
+          "attack": 846249.0,
+          "benign": 19010.0,
+          "total": 865259.0
+        },
+        "confusion": {
+          "tp": 846247,
+          "fp": 1072,
+          "tn": 17938,
+          "fn": 2
+        },
+        "weighted_confusion": {
+          "tp": 846247.0,
+          "fp": 1072.0,
+          "tn": 17938.0,
+          "fn": 2.0
+        },
+        "precision": 0.9987348330439894,
+        "recall": 0.9999976366294081,
+        "f1": 0.9993658359156526,
+        "false_positive_rate": 0.05639137296159916,
+        "decision_rule": "score > threshold; larger scores mean malicious",
+        "balanced_accuracy": 0.9718031318339044,
+        "mcc": 0.9707251147521014,
+        "roc_auc": 0.9999996435363319,
+        "average_precision": 0.9999999919486049,
+        "undefined": {},
+        "group_summary": {
+          "aggregation": "Equal-group macro over defined metrics; top-level metrics pool all weighted rows",
+          "macro": {
+            "precision": {
+              "value": 0.9987401253557469,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "recall": {
+              "value": 0.999997671640818,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "f1": {
+              "value": 0.9993684736312003,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "balanced_accuracy": {
+              "value": 0.9723020824142423,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "mcc": {
+              "value": 0.9712285313088624,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "roc_auc": {
+              "value": 0.9999994935629958,
+              "defined_groups": 2,
+              "total_groups": 2
+            },
+            "average_precision": {
+              "value": 0.999999987846487,
+              "defined_groups": 2,
+              "total_groups": 2
+            }
+          },
+          "per_group": {
+            "harrison": {
+              "n_rows": 425429,
+              "n_attack": 416762,
+              "n_benign": 8667,
+              "weighted_support": {
+                "attack": 416762.0,
+                "benign": 8667.0,
+                "total": 425429.0
+              },
+              "confusion": {
+                "tp": 416762,
+                "fp": 382,
+                "tn": 8285,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 416762.0,
+                "fp": 382.0,
+                "tn": 8285.0,
+                "fn": 0.0
+              },
+              "precision": 0.9990842490842491,
+              "recall": 1.0,
+              "f1": 0.9995419147961521,
+              "false_positive_rate": 0.04407522787585093,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9779623860620745,
+              "mcc": 0.9772662805697777,
+              "roc_auc": 0.9999999742530352,
+              "average_precision": 0.9999999994645323,
+              "undefined": {}
+            },
+            "wilson": {
+              "n_rows": 439830,
+              "n_attack": 429487,
+              "n_benign": 10343,
+              "weighted_support": {
+                "attack": 429487.0,
+                "benign": 10343.0,
+                "total": 439830.0
+              },
+              "confusion": {
+                "tp": 429485,
+                "fp": 690,
+                "tn": 9653,
+                "fn": 2
+              },
+              "weighted_confusion": {
+                "tp": 429485.0,
+                "fp": 690.0,
+                "tn": 9653.0,
+                "fn": 2.0
+              },
+              "precision": 0.9983960016272447,
+              "recall": 0.999995343281636,
+              "f1": 0.9991950324662484,
+              "false_positive_rate": 0.06671178574881563,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9666417787664101,
+              "mcc": 0.9651907820479473,
+              "roc_auc": 0.9999990128729563,
+              "average_precision": 0.9999999762284417,
+              "undefined": {}
+            }
+          },
+          "zero_weight_groups_excluded": []
+        }
+      },
+      "attack_step_detection": {
+        "interpretation": "Binary detection of each author-labeled attack step versus all normal rows. Other attack steps excluded from each diagnostic; these overlapping metrics are not stage-name identification or additive.",
+        "steps": {
+          "attacker_change_user": {
+            "attack_step_rows": 28,
+            "detected_rows": 28,
+            "stage_vs_normal": {
+              "n_rows": 19038,
+              "n_attack": 28,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 28.0,
+                "benign": 19010.0,
+                "total": 19038.0
+              },
+              "confusion": {
+                "tp": 28,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 28.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.025454545454545455,
+              "recall": 1.0,
+              "f1": 0.04964539007092199,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.15498105912739854,
+              "roc_auc": 0.9994476591267754,
+              "average_precision": 0.6665002692894113,
+              "undefined": {}
+            }
+          },
+          "attacker_http": {
+            "attack_step_rows": 846158,
+            "detected_rows": 846158,
+            "stage_vs_normal": {
+              "n_rows": 865168,
+              "n_attack": 846158,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846158.0,
+                "benign": 19010.0,
+                "total": 865168.0
+              },
+              "confusion": {
+                "tp": 846158,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 846158.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.9987347001404577,
+              "recall": 1.0,
+              "f1": 0.9993669495709193,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.9707804484924211,
+              "roc_auc": 0.9999999923222606,
+              "average_precision": 0.9999999998268059,
+              "undefined": {}
+            }
+          },
+          "dirb": {
+            "attack_step_rows": 838004,
+            "detected_rows": 838004,
+            "stage_vs_normal": {
+              "n_rows": 857014,
+              "n_attack": 838004,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 838004.0,
+                "benign": 19010.0,
+                "total": 857014.0
+              },
+              "confusion": {
+                "tp": 838004,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 838004.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.9987224041683948,
+              "recall": 1.0,
+              "f1": 0.9993607937605838,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.9707744725680779,
+              "roc_auc": 0.9999999961080837,
+              "average_precision": 0.9999999999117112,
+              "undefined": {}
+            }
+          },
+          "escalate": {
+            "attack_step_rows": 81,
+            "detected_rows": 79,
+            "stage_vs_normal": {
+              "n_rows": 19091,
+              "n_attack": 81,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 81.0,
+                "benign": 19010.0,
+                "total": 19091.0
+              },
+              "confusion": {
+                "tp": 79,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 2
+              },
+              "weighted_confusion": {
+                "tp": 79.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 2.0
+              },
+              "precision": 0.0686359687228497,
+              "recall": 0.9753086419753086,
+              "f1": 0.12824675324675325,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9594586345068548,
+              "mcc": 0.25093491892947645,
+              "roc_auc": 0.9963560439274975,
+              "average_precision": 0.8496380723969464,
+              "undefined": {}
+            }
+          },
+          "escalated_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 45,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 45,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 2
+              },
+              "weighted_confusion": {
+                "tp": 45.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 2.0
+              },
+              "precision": 0.04028648164726947,
+              "recall": 0.9574468085106383,
+              "f1": 0.07731958762886598,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9505277177745196,
+              "mcc": 0.190262716149098,
+              "roc_auc": 0.9940591178215273,
+              "average_precision": 0.77930227975318,
+              "undefined": {}
+            }
+          },
+          "escalated_sudo_command": {
+            "attack_step_rows": 47,
+            "detected_rows": 45,
+            "stage_vs_normal": {
+              "n_rows": 19057,
+              "n_attack": 47,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 47.0,
+                "benign": 19010.0,
+                "total": 19057.0
+              },
+              "confusion": {
+                "tp": 45,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 2
+              },
+              "weighted_confusion": {
+                "tp": 45.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 2.0
+              },
+              "precision": 0.04028648164726947,
+              "recall": 0.9574468085106383,
+              "f1": 0.07731958762886598,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9505277177745196,
+              "mcc": 0.190262716149098,
+              "roc_auc": 0.9940591178215273,
+              "average_precision": 0.77930227975318,
+              "undefined": {}
+            }
+          },
+          "escalated_sudo_session": {
+            "attack_step_rows": 15,
+            "detected_rows": 15,
+            "stage_vs_normal": {
+              "n_rows": 19025,
+              "n_attack": 15,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 15.0,
+                "benign": 19010.0,
+                "total": 19025.0
+              },
+              "confusion": {
+                "tp": 15,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 15.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.013799448022079117,
+              "recall": 1.0,
+              "f1": 0.02722323049001815,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.11411081544709885,
+              "roc_auc": 0.9998947922146239,
+              "average_precision": 0.7595144724556488,
+              "undefined": {}
+            }
+          },
+          "foothold": {
+            "attack_step_rows": 846168,
+            "detected_rows": 846168,
+            "stage_vs_normal": {
+              "n_rows": 865178,
+              "n_attack": 846168,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 846168.0,
+                "benign": 19010.0,
+                "total": 865178.0
+              },
+              "confusion": {
+                "tp": 846168,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 846168.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.9987347150748312,
+              "recall": 1.0,
+              "f1": 0.9993669570475633,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.9707804557506037,
+              "roc_auc": 0.9999999923223513,
+              "average_precision": 0.99999999982681,
+              "undefined": {}
+            }
+          },
+          "service_scan": {
+            "attack_step_rows": 24,
+            "detected_rows": 24,
+            "stage_vs_normal": {
+              "n_rows": 19034,
+              "n_attack": 24,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 24.0,
+                "benign": 19010.0,
+                "total": 19034.0
+              },
+              "confusion": {
+                "tp": 24,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 24.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.021897810218978103,
+              "recall": 1.0,
+              "f1": 0.04285714285714286,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.14374617433475367,
+              "roc_auc": 0.9999824653691041,
+              "average_precision": 0.9871794871794872,
+              "undefined": {}
+            }
+          },
+          "webshell_cmd": {
+            "attack_step_rows": 22,
+            "detected_rows": 22,
+            "stage_vs_normal": {
+              "n_rows": 19032,
+              "n_attack": 22,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 22.0,
+                "benign": 19010.0,
+                "total": 19032.0
+              },
+              "confusion": {
+                "tp": 22,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 22.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.02010968921389397,
+              "recall": 1.0,
+              "f1": 0.03942652329749104,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.13775222767451503,
+              "roc_auc": 0.999927071876046,
+              "average_precision": 0.9067034879573884,
+              "undefined": {}
+            }
+          },
+          "webshell_upload": {
+            "attack_step_rows": 6,
+            "detected_rows": 6,
+            "stage_vs_normal": {
+              "n_rows": 19016,
+              "n_attack": 6,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 6.0,
+                "benign": 19010.0,
+                "total": 19016.0
+              },
+              "confusion": {
+                "tp": 6,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 6.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.0055658627087198514,
+              "recall": 1.0,
+              "f1": 0.01107011070110701,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.07247065660568679,
+              "roc_auc": 0.999894792214624,
+              "average_precision": 0.6388888888888888,
+              "undefined": {}
+            }
+          },
+          "wpscan": {
+            "attack_step_rows": 8120,
+            "detected_rows": 8120,
+            "stage_vs_normal": {
+              "n_rows": 27130,
+              "n_attack": 8120,
+              "n_benign": 19010,
+              "weighted_support": {
+                "attack": 8120.0,
+                "benign": 19010.0,
+                "total": 27130.0
+              },
+              "confusion": {
+                "tp": 8120,
+                "fp": 1072,
+                "tn": 17938,
+                "fn": 0
+              },
+              "weighted_confusion": {
+                "tp": 8120.0,
+                "fp": 1072.0,
+                "tn": 17938.0,
+                "fn": 0.0
+              },
+              "precision": 0.8833768494342907,
+              "recall": 1.0,
+              "f1": 0.9380776340110906,
+              "false_positive_rate": 0.05639137296159916,
+              "decision_rule": "score > threshold; larger scores mean malicious",
+              "balanced_accuracy": 0.9718043135192005,
+              "mcc": 0.9129961752670156,
+              "roc_auc": 0.9999998445205143,
+              "average_precision": 0.9999996358560233,
+              "undefined": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "not_claimed": [
+    "Novel method",
+    "APT actor attribution",
+    "Independent campaign generalization",
+    "Operational false alarms per host-hour",
+    "Detection before verified impact",
+    "A universally best model",
+    "A positive praxis contribution"
+  ],
+  "stage_identification": {
+    "model": "One-vs-rest logistic regression",
+    "threshold": 0.5,
+    "source": "Author exact line-level step annotations; hierarchical/overlapping, not a universal kill-chain order",
+    "seconds_fit_and_test_score": 17.81199999997625,
+    "warnings": [],
+    "test_stages_not_seen_in_fit": [],
+    "metrics": {
+      "mode": "multilabel",
+      "stage_source": "AIT-LDS v2.1 exact original-line labels",
+      "chronology_inferred": false,
+      "n_rows": 865259,
+      "per_stage": {
+        "attacker_change_user": {
+          "n_rows": 865259,
+          "n_attack": 28,
+          "n_benign": 865231,
+          "weighted_support": {
+            "attack": 28.0,
+            "benign": 865231.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 26,
+            "fp": 15,
+            "tn": 865216,
+            "fn": 2
+          },
+          "weighted_confusion": {
+            "tp": 26.0,
+            "fp": 15.0,
+            "tn": 865216.0,
+            "fn": 2.0
+          },
+          "precision": 0.6341463414634146,
+          "recall": 0.9285714285714286,
+          "f1": 0.7536231884057971,
+          "false_positive_rate": 1.7336410738866267e-05,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.9642770460803449,
+          "mcc": 0.7673571749776303,
+          "roc_auc": 0.9999933543758834,
+          "average_precision": 0.8177514533940293,
+          "undefined": {}
+        },
+        "attacker_http": {
+          "n_rows": 865259,
+          "n_attack": 846158,
+          "n_benign": 19101,
+          "weighted_support": {
+            "attack": 846158.0,
+            "benign": 19101.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 846096,
+            "fp": 1,
+            "tn": 19100,
+            "fn": 62
+          },
+          "weighted_confusion": {
+            "tp": 846096.0,
+            "fp": 1.0,
+            "tn": 19100.0,
+            "fn": 62.0
+          },
+          "precision": 0.9999988181024162,
+          "recall": 0.999926727632428,
+          "f1": 0.9999627715681147,
+          "false_positive_rate": 5.23532799329878e-05,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.9999371871762475,
+          "mcc": 0.9983175991007395,
+          "roc_auc": 0.9999999695590969,
+          "average_precision": 0.9999999992988551,
+          "undefined": {}
+        },
+        "dirb": {
+          "n_rows": 865259,
+          "n_attack": 838004,
+          "n_benign": 27255,
+          "weighted_support": {
+            "attack": 838004.0,
+            "benign": 27255.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 837990,
+            "fp": 0,
+            "tn": 27255,
+            "fn": 14
+          },
+          "weighted_confusion": {
+            "tp": 837990.0,
+            "fp": 0.0,
+            "tn": 27255.0,
+            "fn": 14.0
+          },
+          "precision": 1.0,
+          "recall": 0.9999832936358299,
+          "f1": 0.9999916467481387,
+          "false_positive_rate": 0.0,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.999991646817915,
+          "mcc": 0.999734914221994,
+          "roc_auc": 0.9999999999124337,
+          "average_precision": 0.9999999999971521,
+          "undefined": {}
+        },
+        "escalate": {
+          "n_rows": 865259,
+          "n_attack": 81,
+          "n_benign": 865178,
+          "weighted_support": {
+            "attack": 81.0,
+            "benign": 865178.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 71,
+            "fp": 40,
+            "tn": 865138,
+            "fn": 10
+          },
+          "weighted_confusion": {
+            "tp": 71.0,
+            "fp": 40.0,
+            "tn": 865138.0,
+            "fn": 10.0
+          },
+          "precision": 0.6396396396396397,
+          "recall": 0.8765432098765432,
+          "f1": 0.7395833333333334,
+          "false_positive_rate": 4.623326067005865e-05,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.9382484883079365,
+          "mcc": 0.7487536838561888,
+          "roc_auc": 0.9829201492512395,
+          "average_precision": 0.8418558100726303,
+          "undefined": {}
+        },
+        "escalated_command": {
+          "n_rows": 865259,
+          "n_attack": 47,
+          "n_benign": 865212,
+          "weighted_support": {
+            "attack": 47.0,
+            "benign": 865212.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 45,
+            "fp": 12,
+            "tn": 865200,
+            "fn": 2
+          },
+          "weighted_confusion": {
+            "tp": 45.0,
+            "fp": 12.0,
+            "tn": 865200.0,
+            "fn": 2.0
+          },
+          "precision": 0.7894736842105263,
+          "recall": 0.9574468085106383,
+          "f1": 0.8653846153846154,
+          "false_positive_rate": 1.3869433156266903e-05,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.978716469538741,
+          "mcc": 0.8694054845680892,
+          "roc_auc": 0.9998934955407806,
+          "average_precision": 0.8608661042305857,
+          "undefined": {}
+        },
+        "escalated_sudo_command": {
+          "n_rows": 865259,
+          "n_attack": 47,
+          "n_benign": 865212,
+          "weighted_support": {
+            "attack": 47.0,
+            "benign": 865212.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 45,
+            "fp": 12,
+            "tn": 865200,
+            "fn": 2
+          },
+          "weighted_confusion": {
+            "tp": 45.0,
+            "fp": 12.0,
+            "tn": 865200.0,
+            "fn": 2.0
+          },
+          "precision": 0.7894736842105263,
+          "recall": 0.9574468085106383,
+          "f1": 0.8653846153846154,
+          "false_positive_rate": 1.3869433156266903e-05,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.978716469538741,
+          "mcc": 0.8694054845680892,
+          "roc_auc": 0.9998934955407806,
+          "average_precision": 0.8608661042305857,
+          "undefined": {}
+        },
+        "escalated_sudo_session": {
+          "n_rows": 865259,
+          "n_attack": 15,
+          "n_benign": 865244,
+          "weighted_support": {
+            "attack": 15.0,
+            "benign": 865244.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 15,
+            "fp": 4,
+            "tn": 865240,
+            "fn": 0
+          },
+          "weighted_confusion": {
+            "tp": 15.0,
+            "fp": 4.0,
+            "tn": 865240.0,
+            "fn": 0.0
+          },
+          "precision": 0.7894736842105263,
+          "recall": 1.0,
+          "f1": 0.8823529411764706,
+          "false_positive_rate": 4.622973404034007e-06,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.999997688513298,
+          "mcc": 0.8885212628264341,
+          "roc_auc": 0.9999997688513298,
+          "average_precision": 0.9877124183006536,
+          "undefined": {}
+        },
+        "foothold": {
+          "n_rows": 865259,
+          "n_attack": 846168,
+          "n_benign": 19091,
+          "weighted_support": {
+            "attack": 846168.0,
+            "benign": 19091.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 846144,
+            "fp": 2,
+            "tn": 19089,
+            "fn": 24
+          },
+          "weighted_confusion": {
+            "tp": 846144.0,
+            "fp": 2.0,
+            "tn": 19089.0,
+            "fn": 24.0
+          },
+          "precision": 0.9999976363417188,
+          "recall": 0.9999716368380747,
+          "f1": 0.9999846364209006,
+          "false_positive_rate": 0.00010476140589806715,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.9999334377160882,
+          "mcc": 0.9993042526713853,
+          "roc_auc": 0.9999999911478092,
+          "average_precision": 0.9999999998002772,
+          "undefined": {}
+        },
+        "service_scan": {
+          "n_rows": 865259,
+          "n_attack": 24,
+          "n_benign": 865235,
+          "weighted_support": {
+            "attack": 24.0,
+            "benign": 865235.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 24,
+            "fp": 1,
+            "tn": 865234,
+            "fn": 0
+          },
+          "weighted_confusion": {
+            "tp": 24.0,
+            "fp": 1.0,
+            "tn": 865234.0,
+            "fn": 0.0
+          },
+          "precision": 0.96,
+          "recall": 1.0,
+          "f1": 0.9795918367346939,
+          "false_positive_rate": 1.1557553728177895e-06,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.9999994221223136,
+          "mcc": 0.9797953309109214,
+          "roc_auc": 1.0,
+          "average_precision": 0.9999999999999999,
+          "undefined": {}
+        },
+        "webshell_cmd": {
+          "n_rows": 865259,
+          "n_attack": 22,
+          "n_benign": 865237,
+          "weighted_support": {
+            "attack": 22.0,
+            "benign": 865237.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 22,
+            "fp": 6,
+            "tn": 865231,
+            "fn": 0
+          },
+          "weighted_confusion": {
+            "tp": 22.0,
+            "fp": 6.0,
+            "tn": 865231.0,
+            "fn": 0.0
+          },
+          "precision": 0.7857142857142857,
+          "recall": 1.0,
+          "f1": 0.88,
+          "false_positive_rate": 6.934516207698006e-06,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.9999965327418961,
+          "mcc": 0.8864021870267677,
+          "roc_auc": 0.9999992119867945,
+          "average_precision": 0.9618608518978229,
+          "undefined": {}
+        },
+        "webshell_upload": {
+          "n_rows": 865259,
+          "n_attack": 6,
+          "n_benign": 865253,
+          "weighted_support": {
+            "attack": 6.0,
+            "benign": 865253.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 6,
+            "fp": 0,
+            "tn": 865253,
+            "fn": 0
+          },
+          "weighted_confusion": {
+            "tp": 6.0,
+            "fp": 0.0,
+            "tn": 865253.0,
+            "fn": 0.0
+          },
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 1.0,
+          "mcc": 1.0,
+          "roc_auc": 1.0,
+          "average_precision": 1.0,
+          "undefined": {}
+        },
+        "wpscan": {
+          "n_rows": 865259,
+          "n_attack": 8120,
+          "n_benign": 857139,
+          "weighted_support": {
+            "attack": 8120.0,
+            "benign": 857139.0,
+            "total": 865259.0
+          },
+          "confusion": {
+            "tp": 8116,
+            "fp": 6,
+            "tn": 857133,
+            "fn": 4
+          },
+          "weighted_confusion": {
+            "tp": 8116.0,
+            "fp": 6.0,
+            "tn": 857133.0,
+            "fn": 4.0
+          },
+          "precision": 0.9992612656981039,
+          "recall": 0.9995073891625615,
+          "f1": 0.9993843122768132,
+          "false_positive_rate": 7.00003150014175e-06,
+          "decision_rule": "score > threshold; larger scores mean malicious",
+          "balanced_accuracy": 0.9997501945655307,
+          "mcc": 0.9993784866314811,
+          "roc_auc": 0.9999999620687949,
+          "average_precision": 0.9999960213562794,
+          "undefined": {}
+        }
+      },
+      "macro": {
+        "precision": {
+          "value": 0.8655982532992632,
+          "defined_stages": 12,
+          "total_stages": 12
+        },
+        "recall": {
+          "value": 0.9766164418948452,
+          "defined_stages": 12,
+          "total_stages": 12
+        },
+        "f1": {
+          "value": 0.9137703247861245,
+          "defined_stages": 12,
+          "total_stages": 12
+        },
+        "balanced_accuracy": {
+          "value": 0.9882970485932544,
+          "defined_stages": 12,
+          "total_stages": 12
+        },
+        "mcc": {
+          "value": 0.9171979884466435,
+          "defined_stages": 12,
+          "total_stages": 12
+        },
+        "roc_auc": {
+          "value": 0.9985582831862453,
+          "defined_stages": 12,
+          "total_stages": 12
+        },
+        "average_precision": {
+          "value": 0.9442423968815726,
+          "defined_stages": 12,
+          "total_stages": 12
+        }
+      }
+    },
+    "interpretation": "Secondary fixed-threshold source-step identification, not part of the binary leaderboard. All test rows retained as negatives for absent known steps; no per-stage threshold tuning."
+  },
+  "elapsed_seconds": 332.98399999999674,
+  "completed_at": "2026-09-20T19:55:27.388412+00:00"
+}

@@ -2,6 +2,10 @@
 
 Research environment created September20,2026. This branch builds a fair way to discover a useful praxis contribution. A high score on an emulation, or changing the name of a model, does not establish a new contribution.
 
+**Completed:** [first real-data comparison and stage scores](results/pilot_v1/REPORT.md), four binary models plus a separate 12-label step classifier, 1,768,861 source lines across eight runs, and 41 passing qualification tests. The development pilot used CPU; AWS authentication was verified and the existing GPU host remained stopped. See [full machine-readable dataset catalog](DATASET_CATALOG.json).
+
+An [independent calculation audit](docs/PILOT_AUDIT.md) verified the pilot's metrics and provenance. A separate fixed-model check on 48,838 additional author-rule-nonmatch lines flagged 0.860% with logistic regression, 12.267% with random forest and 8.940% with gradient boosting. These are additional covered files from the same two test runs; no thresholds or models were refitted. Unknown-clock lines were excluded, and the rule-nonmatch labels do not establish independently verified benignness. See [supplemental counts and receipts](results/pilot_v1/background_check_v1.json).
+
 ## The three questions
 
 1. **Detection:** Is the observed behavior malicious?
@@ -54,9 +58,18 @@ python -m venv C:/w/apt_benchmark_env_20260920
 & C:/w/apt_benchmark_env_20260920/Scripts/python.exe -m experiments.apt_benchmark.run_pilot --data C:/w/apt_benchmark_data_20260920/ait/partial_lds --output C:/w/apt_benchmark_data_20260920/pilot_new
 ```
 
+Optional supplemental background qualification uses a new immutable output:
+
+```powershell
+& C:/w/apt_benchmark_env_20260920/Scripts/python.exe -m experiments.apt_benchmark.acquire_background --source-root C:/w/apt_benchmark_data_20260920/ait/partial_lds --output C:/w/apt_benchmark_data_20260920/ait/background_new
+& C:/w/apt_benchmark_env_20260920/Scripts/python.exe -m experiments.apt_benchmark.score_background --expansion C:/w/apt_benchmark_data_20260920/ait/background_new --pilot C:/w/apt_benchmark_data_20260920/pilot_new --output C:/w/apt_benchmark_data_20260920/background_new.json
+```
+
 The AIT acquirer uses bounded byte ranges, respects rate limits, verifies selected ZIP members by CRC and SHA256, and preserves original line numbering. It records the publisher's full-archive checksum without claiming to have verified an archive it did not download. AIT-LDS is CC-BY-NC-SA4.0: preserve attribution and its noncommercial/share-alike terms. The cAPTure data license has not been verified; raw data is not redistributed.
 
 ## Praxis direction
+
+The [praxis decision memo](docs/PRAXIS_DECISION.md) explains the observed weakness: source-step identification of privilege escalation has 73.958% F1 even though overall binary detection exceeds 99.9% F1.
 
 **Candidate:** Can a detector preserve earlier attack-stage warnings when a telemetry source arrives late or disappears, without increasing analyst false alerts?
 

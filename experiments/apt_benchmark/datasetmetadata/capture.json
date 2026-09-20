@@ -30,7 +30,7 @@
       "paper_doi": "10.1016/j.comnet.2026.112570",
       "data_license": "not verified; do not redistribute raw data",
       "receipt_path": "C:\\w\\apt_benchmark_data_20260920\\capture\\train_set_reduced.csv.receipt.json",
-      "verification": "Acquisition receipt supplied by parent; not independently rehashed by this metadata review."
+      "verification": "Independently rehashed by qualify_capture.py and matched local acquisition receipt; this does not authenticate an author-provided checksum."
     },
     {
       "dataset": "cAPTure",
@@ -45,7 +45,7 @@
       "paper_doi": "10.1016/j.comnet.2026.112570",
       "data_license": "not verified; do not redistribute raw data",
       "receipt_path": "C:\\w\\apt_benchmark_data_20260920\\capture\\test_set_reduced.csv.receipt.json",
-      "verification": "Acquisition receipt supplied by parent; not independently rehashed by this metadata review."
+      "verification": "Independently rehashed by qualify_capture.py and matched local acquisition receipt; this does not authenticate an author-provided checksum."
     }
   ],
   "parent_full_file_profile": {
@@ -69,7 +69,7 @@
       "INSTALLATION": 198,
       "EXPLOIT": 204069
     },
-    "note": "Counts supplied by parent acquisition profiles, not model outcomes; no sequence count from float-parsed IDs is used."
+    "note": "Counts originally supplied by acquisition profiles and subsequently reproduced by qualify_capture.py. String step-ID counts are 1365 train and 861 test; no model outcomes."
   },
   "csv_columns": [
     "layers_mqtt_mqtt.hdrflags",
@@ -288,5 +288,47 @@
     }
   ],
   "novelty_warning": "Dataset paper already benchmarks time-to-detection versus false-positive rates and supplies timing-jitter tests. Early detection or jitter robustness alone is not a novel contribution.",
-  "measured_model_result": null
+  "measured_model_result": null,
+  "reproducible_metadata_qualification": {
+    "private_receipt_path": "C:\\w\\apt_benchmark_data_20260920\\capture\\qualification.json",
+    "receipt_sha256": "853103b98d37b29683764cc997997f85b9c2df4abf356946d169ee524abba54f",
+    "script_sha256": "a4bd89180d3beb6cf157ac2b60fc121e87a34f843fe973abddd724e0abb7726b",
+    "status": "CONSISTENCY_CHECKS_PASS_WITH_LIMITS",
+    "validation_scope": "Exact schema, local acquisition receipt hashes/sizes, string sequence IDs, recognized labels/phases, sequence label-phase consistency, and UTC timestamp ordering.",
+    "files": [
+      {
+        "file": "train_set_reduced.csv",
+        "rows": 1529050,
+        "normal_rows": 906130,
+        "recognized_attack_rows": 622920,
+        "unknown_label_rows": 0,
+        "distinct_attack_step_ids_as_strings": 1365,
+        "numeric_equivalence_collision_groups": 0,
+        "timestamp_monotone_nondecreasing_utc": true,
+        "source_receipt_verified": true,
+        "validation_ok": true
+      },
+      {
+        "file": "test_set_reduced.csv",
+        "rows": 1043911,
+        "normal_rows": 500806,
+        "recognized_attack_rows": 543105,
+        "unknown_label_rows": 0,
+        "distinct_attack_step_ids_as_strings": 861,
+        "numeric_equivalence_collision_groups": 0,
+        "timestamp_monotone_nondecreasing_utc": true,
+        "source_receipt_verified": true,
+        "validation_ok": true
+      }
+    ],
+    "remaining_limitations": [
+      "Reduced 25-feature selection and row-generation provenance remain unverified.",
+      "Rows, step IDs and scenario templates are not independent real-world campaigns.",
+      "Separate data license not verified; do not redistribute raw data.",
+      "TCP completeness and tcp.analysis fields quarantined until causal availability is established.",
+      "Author phase labels are not asserted to map one-to-one to all ATT&CK tactics.",
+      "Timeline is shifted/concatenated emulation time, not real calendar-time coverage.",
+      "Metadata consistency is not a human ground-truth audit or detector-efficacy result."
+    ]
+  }
 }
