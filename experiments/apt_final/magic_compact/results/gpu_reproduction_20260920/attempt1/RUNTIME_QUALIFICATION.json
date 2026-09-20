@@ -1,0 +1,65 @@
+{
+  "author": {
+    "status": "PASS",
+    "device": "cuda:0",
+    "embedding_shape": [
+      20,
+      64
+    ],
+    "cpu_device_max_absolute_error": 4.76837158203125e-07,
+    "embedding_rtol": 0.0001,
+    "embedding_atol": 1e-05,
+    "forward_backward_qualified": true,
+    "training_loss": 1.3966773748397827,
+    "optimizer_step_changed_parameters": true,
+    "mask_target_alias_probe": {
+      "masked_rows": 10,
+      "original_rows_changed": 10,
+      "shared_feature_storage": true,
+      "behavior_retained_without_fix": true
+    },
+    "encoder_normalizations": [
+      "NoneType",
+      "NoneType",
+      "NoneType"
+    ],
+    "determinism_fix_applied": false,
+    "normalization_fix_applied": false,
+    "source_dgl_rng_explicitly_seeded": false
+  },
+  "synthetic_exact_knn": {
+    "status": "PASS",
+    "reference_rows": 37,
+    "queries": 17,
+    "k": 10,
+    "max_absolute_error": 3.552713678800501e-15,
+    "decisive_oracle": "NumPy float64 direct differences and exhaustive sort",
+    "sklearn_max_absolute_discrepancy_from_direct": 0.0,
+    "sklearn_comparison_is_diagnostic": true,
+    "rtol": 1e-06,
+    "atol": 1e-08,
+    "timing": {
+      "seconds": 0.034870367999999985,
+      "query_rows": 17,
+      "reference_rows": 37,
+      "k": 10,
+      "dimension": 64,
+      "reference_sampling": false,
+      "reference_duplicates_preserved": true,
+      "search": "exact",
+      "distance": "direct_float64_euclidean",
+      "query_batch_size": 128,
+      "reference_batch_size": 16384,
+      "device": "cuda:0"
+    }
+  },
+  "bindings": {
+    "config_sha256": "67c8ba41f6df17559bce2a37dd14fad287ac834f415e585da6d1f13b75bc8bed",
+    "registration_sha256": "502e4b80eda400806de44e621e2fa298c476310ebb94fe22f9ea56904b8d965e",
+    "author_source_manifest_sha256": "41712e30414f027fdbca52fcd8fac64e3d9843a6006e5a6a7373daf53c5c94a8",
+    "worker_environment_sha256": "3c7329977c82825a0da4fd5ca811fcdfa9e5342010a701588f11c82cd8dde1fd",
+    "source_commit": "ca89e5639d0b45b4bd8ecc7e23b0b03e691b0906",
+    "upstream_commit": "aa0b647eea74b6faa0e52eb444370c4411a32cbe",
+    "data_manifest_sha256": "de06215e30e36c6063eeeb6a1ed18a738735fd909dbeeda7fa7789728fb2feab"
+  }
+}
