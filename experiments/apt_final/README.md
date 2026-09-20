@@ -2,6 +2,8 @@
 
 This is the new APT experiment program on Git branch **`APT-final`**. It preserves the two supplied proposals and keeps their claims separate from measured results.
 
+Start with [what Gary needs to do next](NEXT_ACTIONS.md). [AWS access is verified](cloud/README.md); the existing GPU host is stopped, and GPU support still needs to be added and qualified in a new code revision.
+
 ## What is built
 
 | Component | Purpose | Scientific status |
