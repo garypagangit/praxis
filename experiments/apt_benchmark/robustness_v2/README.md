@@ -30,6 +30,10 @@ The router can contain five logistic regressions, including its fallback, so its
 - Removing audit record types simulates missing records, not a whole sensor outage. Full-delay recovery is a buffering control by construction.
 - S-DAPT-2026 remains [conditionally registered](../sdapt2026/README.md), pending qualified raw data and corrected source evidence.
 
+### CAM-LDS source qualification amendment, before its fit
+
+The [CAM-specific protocol](camlds_protocol.json) corrects supervision wording after inspection of the pinned author extractor: source intervals are padded and manually adjusted manifestation windows. The target is whether the query belongs to an author-designated T1105 manifestation window, not whether a specific event transfers a tool or the technique is literally executing. Unrelated and idle host events can inherit the scenario-window label. This narrows CAM to a separate-source exploratory proxy; it cannot directly confirm Casino onset recognition. Model arms, parameters, splits, perturbations, calibration, and gates remain unchanged. The base protocol and completed AIT/Casino receipts are preserved.
+
 ## Reproduction and audit
 
 Run from the repository root using the pinned benchmark environment. The feature cache streams one source execution at a time; optional `--base-cache` reuses only hash-verified unchanged v1 chunks. No model fitting happens during cache preparation.
