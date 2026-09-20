@@ -1,4 +1,12 @@
-# APT final: completed comparison and optional next work
+# APT final: current work and completed studies
+
+## Active continuation: published MAGIC baseline
+
+Gary selected **build and test the strongest next APT approach** on September 20, 2026. A separately frozen [MAGIC source reproduction](magic_reproduction/README.md) is being qualified on the available THEIA and CADETS graphs. It tests the original edge-aware architecture and training objective, records implementation differences, and labels test-selected thresholds as descriptive oracles. This is a baseline prerequisite, not an established novel method or deployment-ready detector.
+
+The [literature correction](docs/LITERATURE_CORRECTION_20260920.md) records that S-DAPT-2026 was withdrawn and updates SCVIC licensing/access evidence. The frozen original candidate registry remains an historical record; the addendum governs current use of those sources.
+
+## Completed stability comparison
 
 **Current status: complete and independently audited; no-go for this fixed repair family.** All nine detector variants failed the declared detection requirements on each dataset. Pooled calibration sharply reduced false alerts but also lost attack sensitivity. The strongest THEIA graph-model average improved without satisfying the required reliability checks. Read the [final report](normal_stability/results/gpu_stability_20260920/REPORT.md) and [full comparison](normal_stability/results/gpu_stability_20260920/FULL_RESULTS.md).
 

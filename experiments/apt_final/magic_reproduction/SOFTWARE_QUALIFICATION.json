@@ -1,0 +1,116 @@
+{
+  "created_utc": "2026-09-20T11:37:17.519535+00:00",
+  "status": "PASS_LOCAL_SOFTWARE_QUALIFICATION",
+  "total_tests_passed": 32,
+  "total_tests_failed_final": 0,
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests -p test_apt_magic_provenance.py -v",
+      "passed": 17
+    },
+    {
+      "command": "python -m unittest discover -s tests -p test_apt_magic_reproduction.py -v",
+      "passed": 15
+    },
+    {
+      "command": "bash -n experiments/apt_final/magic_reproduction/run_cloud.sh",
+      "status": "PASS"
+    }
+  ],
+  "initial_fixture_issue": "Full-path synthetic fixture had at least k identical embeddings and correctly hit the zero-normalizer hold. The success fixture now uses k=17; a separate regression preserves the zero-normalizer hold. Production behavior was not weakened.",
+  "source_files": {
+    "experiments/apt_final/magic_reproduction/provenance.py": "f10639c20e002fac1f2153f1b02f6e039568077dbc0038048922125bc4a2b6a9",
+    "experiments/apt_final/magic_reproduction/model_adapter.py": "2da95f687110e7bd8fb187bb16abfc4d6effcc6149ba84c4c32f71a6225579e2",
+    "experiments/apt_final/magic_reproduction/qualification.py": "f8c72e8a2a72ac656f9d44fdb161ddca12a5da4aae8f5903c16f5f5254eb30ab",
+    "experiments/apt_final/magic_reproduction/worker.py": "e1c945728d6458d829462bffe84eb6da111da97c0f68dcffb6f6da2e52abb401",
+    "experiments/apt_final/magic_reproduction/launch.py": "3cf7d4109e3229666612f0704feeae56e1d6cb3f15dd606abf8ea3c89852b511",
+    "experiments/apt_final/magic_reproduction/run_cloud.sh": "d98e37d3362286cde56ea95e9cf52d15775f1dd73abd22b20050dc3f446df1ed",
+    "experiments/apt_final/magic_reproduction/config.json": "67c8ba41f6df17559bce2a37dd14fad287ac834f415e585da6d1f13b75bc8bed",
+    "experiments/apt_final/magic_reproduction/RUNTIME.json": "e3dd8e53bf037b813d76620e7205be264e15a95e6696286e2add66261f50721a",
+    "experiments/apt_final/magic_reproduction/PROTOCOL.md": "cbd9d4cdb7a1836c1f0b29f3780ffbb0a8a1f5764991c786ca272793b3b1e6da",
+    "experiments/apt_final/native_graph/cloud_control.py": "587642961ddc6f9287975c1a851834ebba7cbf65615fee1353ff9590e57813b7",
+    "experiments/apt_final/native_graph/data.py": "efbe7eb48d7f3e8d50fbec3f40d098ce6a6de1375c3eedccbf79e607ecb9abc7"
+  },
+  "test_files": {
+    "tests/test_apt_magic_provenance.py": "8a54d0cb1a07584ce08936136ceaa3aa12f1c593987e31abf6e3b9b787e383c5",
+    "tests/test_apt_magic_reproduction.py": "14d42213a563721f71c9d0d6cccfc2f4aa8fa65e7cef8a9a262504c50cc70a86"
+  },
+  "actual_upstream_cpu_probe": {
+    "status": "PASS_CPU_QUALIFICATION_ONLY",
+    "created_utc": "2026-09-20T11:36:31.860022+00:00",
+    "cuda_executed": false,
+    "environment": {
+      "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+      "torch": "2.11.0+cpu",
+      "dgl": "1.1.2"
+    },
+    "config_sha256": "67c8ba41f6df17559bce2a37dd14fad287ac834f415e585da6d1f13b75bc8bed",
+    "source_manifest_sha256": "41712e30414f027fdbca52fcd8fac64e3d9843a6006e5a6a7373daf53c5c94a8",
+    "operative_sha256": {
+      "worker.py": "e1c945728d6458d829462bffe84eb6da111da97c0f68dcffb6f6da2e52abb401",
+      "model_adapter.py": "2da95f687110e7bd8fb187bb16abfc4d6effcc6149ba84c4c32f71a6225579e2",
+      "qualification.py": "f8c72e8a2a72ac656f9d44fdb161ddca12a5da4aae8f5903c16f5f5254eb30ab"
+    },
+    "source_cpu": {
+      "status": "PASS",
+      "device": "cpu",
+      "embedding_shape": [
+        20,
+        64
+      ],
+      "cpu_device_max_absolute_error": 0.0,
+      "embedding_rtol": 0.0001,
+      "embedding_atol": 1e-05,
+      "forward_backward_qualified": true,
+      "training_loss": 1.74967360496521,
+      "optimizer_step_changed_parameters": true,
+      "mask_target_alias_probe": {
+        "masked_rows": 10,
+        "original_rows_changed": 10,
+        "shared_feature_storage": true,
+        "behavior_retained_without_fix": true
+      },
+      "encoder_normalizations": [
+        "NoneType",
+        "NoneType",
+        "NoneType"
+      ],
+      "determinism_fix_applied": false,
+      "normalization_fix_applied": false,
+      "source_dgl_rng_explicitly_seeded": false
+    },
+    "distance_cpu": {
+      "status": "PASS",
+      "reference_rows": 37,
+      "queries": 17,
+      "k": 10,
+      "max_absolute_error": 3.552713678800501e-15,
+      "decisive_oracle": "NumPy float64 direct differences and exhaustive sort",
+      "sklearn_max_absolute_discrepancy_from_direct": 0.0,
+      "sklearn_comparison_is_diagnostic": true,
+      "rtol": 1e-06,
+      "atol": 1e-08,
+      "timing": {
+        "seconds": 0.0006851000362075865,
+        "query_rows": 17,
+        "reference_rows": 37,
+        "k": 10,
+        "dimension": 64,
+        "reference_sampling": false,
+        "reference_duplicates_preserved": true,
+        "search": "exact",
+        "distance": "direct_float64_euclidean",
+        "query_batch_size": 128,
+        "reference_batch_size": 16384,
+        "device": "cpu"
+      }
+    }
+  },
+  "actual_upstream_cpu_probe_sha256": "58fdb77f9f63cc7a86ed545d891113216b5705e6da8dcd684763410ea4c8f466",
+  "independent_reviews": [
+    "provenance, archive transport, launcher closure, runtime version assertions",
+    "author-source training fidelity, graph reconstruction and exhaustive distance logic"
+  ],
+  "cuda_executed_locally": false,
+  "scientific_performance_result": false
+}
