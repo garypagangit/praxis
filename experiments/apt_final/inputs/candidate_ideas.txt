@@ -1,0 +1,74 @@
+Here are three fully-formed praxis candidates. Each is anchored to a named gap in published literature, uses free public data, and is scoped so the experiment is executable on commodity hardware. I've written them in your problem/RQ/H structure.
+
+---
+
+## Idea 1: Locally Hosted LLMs for Provenance-Based APT Detection in Disconnected Environments
+
+**Problem statement.** LLM-augmented provenance analysis is now the leading edge of APT detection research, but the published systems depend on commercial cloud APIs: OCR-APT (CCS 2025) uses GPT-4o-mini as its main LLM and OpenAI's text-embedding-3-large for indexing, and Prov-LLM follows the same RAG-on-frontier-model pattern. Defense, intelligence, and critical-infrastructure networks that face the most serious APT activity are precisely the networks that cannot send audit telemetry to a commercial API. No published study has established whether locally hosted open-weight models can deliver comparable detection quality under air-gapped constraints, so the operational communities with the greatest need cannot adopt the state of the art.
+
+**RQ.** To what extent can a locally hosted open-weight LLM (Qwen3-8B class, LoRA-adapted) replicate the detection and attack-reconstruction performance of API-dependent LLM-provenance pipelines on standard APT benchmarks, and at what compute and latency cost?
+
+**H1.** A LoRA-fine-tuned local LLM achieves detection performance (precision, recall, macro-F1 on attack windows) within a pre-registered margin (e.g., 5 points of F1) of a GPT-4o-mini-based pipeline replicated from the literature. **H2.** Local embedding models substituted for commercial embeddings degrade retrieval-augmented anomaly detection by a measurable, bounded amount. **H3.** Inference latency and VRAM footprint of the local pipeline fall within thresholds compatible with near-real-time SOC triage (define numerically up front).
+
+**Dataset and justification.** DARPA TC Engagement 3/5 and OpTC. Justification is airtight: they're the community-standard APT benchmarks, and the USENIX Security 2025 PIDSMAKER team open-sourced a unified framework of eight state-of-the-art systems and provides pre-processed datasets with ground truth for consistent evaluation, so you inherit data, labels, and baselines rather than defending your own preprocessing.
+
+**Experiment layout.**
+1. Reproduce one published API-based pipeline (OCR-APT's architecture is documented and evaluated on DARPA TC3 and OpTC) as the reference arm, with a small API budget for the baseline runs.
+2. Swap in the local arm: Qwen3-8B via QLoRA, plus a local embedding model (e.g., open sentence-transformer) in the RAG store; hold graph construction and subgraph anomaly ranking constant so the LLM is the only manipulated variable.
+3. Fine-tune on one engagement, hold out another entirely for cross-scenario generalization.
+4. Evaluate all arms with identical metrics, plus resource metrics (tokens/window, latency, VRAM).
+5. Ablations: model size (Qwen 4B/8B/14B), quantization level, RAG on/off.
+6. Statistical treatment: multiple seeds, report variance, McNemar or bootstrap CIs on paired detection outcomes.
+
+**Defense strength.** Novelty is a named, unfilled gap; feasibility is high because data and baselines are open; the negative result is still publishable ("local models cannot yet close the gap, here's the bound"); and it ties directly to your deployability thesis. Main threat: fast-moving field, so pre-register scope and freeze the comparison set early.
+
+---
+
+## Idea 2: Quantifying and Mitigating Prediction Instability in Provenance-Based APT Detectors
+
+**Problem statement.** The field's credibility problem was formalized at USENIX Security 2025: eight state-of-the-art provenance IDS were reimplemented in a unified framework, nine key shortcomings hindering practical adoption were identified, and despite near-perfect reported performance the systems were shown not to be viable for deployment. Follow-on work confirms prediction instability remains a central limitation of current self-supervised architectures, and graph- and path-level provenance detectors have proven vulnerable to mimicry attacks in which adversaries inject benign activity to evade detection. Detection scores in the literature are therefore point estimates over unstable systems, yet no work has characterized instability as a first-class deployability metric or tested engineering mitigations for it.
+
+**RQ.** How unstable are state-of-the-art provenance APT detectors across retraining seeds, data ordering, and threshold selection, and can lightweight ensemble or certification-style wrappers reduce instability to operationally acceptable levels without sacrificing detection?
+
+**H1.** Across N retraining runs, top systems exhibit variance in attack-level recall exceeding a meaningful threshold (e.g., ±10 points), contradicting the deployment implication of their reported point scores. **H2.** A deterministic stability wrapper (seed ensembling with majority vote, or score-band abstention) reduces run-to-run variance by a target fraction at bounded cost to mean F1. **H3.** Instability correlates with false-positive burden measured in analyst-relevant units (alerts per day), not just per-edge metrics.
+
+**Dataset and justification.** Same DARPA suite via PIDSMAKER, which exists explicitly to enable this: it operationalizes evaluation recommendations via systematic hyperparameter tuning and ablations, and flags pitfalls like data snooping and weak baselines. You are extending a USENIX-validated critique, so dataset and baseline choices need no independent defense.
+
+**Experiment layout.**
+1. Select 3 to 4 systems already modularized in PIDSMAKER (e.g., MAGIC, Flash, Kairos, Orthrus).
+2. Instability characterization: 10+ seeds per system per dataset, measure variance in node/edge/attack-level detection and in ranked attribution quality.
+3. Translate to operational metrics: alert volume, analyst triage load (grounded in the 99% false positives SOC analyst literature).
+4. Implement two mitigations (ensemble vote; abstain-and-escalate band) as deterministic wrappers, i.e., your gates thesis instantiated.
+5. Re-run the full matrix with mitigations; test H2/H3.
+6. Optional adversarial arm: one mimicry-style perturbation to test whether wrappers help or hurt under evasion.
+
+**Defense strength.** Lowest technical risk of the three; the contribution is measurement plus engineering mitigation, which is exactly what a D.Eng. praxis is for; it plugs verbatim into your deterministic-gates narrative. Committee challenge to prepare for: "is this just replication?" Answer: replication establishes the instrument, the wrapper mitigation and operational-unit metrics are the contribution.
+
+---
+
+## Idea 3: Structural vs Semantic Representations for Minority-Stage APT Classification
+
+**Problem statement.** Your published GML work established that five GNN architectures collapse on minority APT lifecycle stages, and this failure pattern generalizes: multiclass IDS literature consistently reports minority-class degradation and reaches for SMOTE variants or GAN augmentation as patches. Meanwhile two representation families now compete for APT detection, graph-structural methods and LLM-semantic methods, where existing techniques approach provenance analysis either from a graph perspective or a natural language perspective, and flow features can be serialized into natural-language prompts for fine-tuned 8B LLMs like Qwen3-8B. No study has run a controlled head-to-head of structural, semantic, and hybrid representations on the same stage-labeled APT benchmark with minority-stage macro-F1 as the primary endpoint, so it's unknown whether minority-stage failure is a data problem or a representation problem.
+
+**RQ.** For stage-level APT classification under severe class imbalance, do LLM-semantic representations, graph-structural representations, or hybrids differ significantly in minority-stage detection, holding data splits and evaluation constant?
+
+**H1.** A LoRA-tuned LLM on serialized flows outperforms the best GNN on minority-stage macro-F1 by a pre-specified margin. **H2.** A hybrid (LLM embeddings as node features in the best GNN) outperforms both single-family arms. **H3.** Representation choice matters more than resampling: the gap between representation families exceeds the gap SMOTE/augmentation produces within a family. (H1 is deliberately falsifiable; a fine-tuned lightweight LLM only matched a Random Forest baseline on known attacks in CICIoT2023, so a null result is credible and still a finding.)
+
+**Dataset and justification.** SCVIC-APT-2021 as primary: it's public, stage-labeled, built on the MITRE ATT&CK lifecycle, and has published ML baselines to compare against, with macro F1-scores of 95.20% (XGBoost) and 96.67% (LightGBM) reported using resampling and cost-sensitive learning, giving you a strong non-graph baseline for H3. Secondary validation on the new stage-aware S-DAPT-2026 synthetic dataset for cross-dataset generalization. Justification: stage labels are the point of the study and few datasets have them; DAPT-2020's known defects are avoided; and your prior GML results become documented motivation rather than a liability.
+
+**Experiment layout.**
+1. Port your existing GNN pipeline (GATv2, R-GCN as the two prior winners) to SCVIC-APT-2021; establish structural arm.
+2. Build the semantic arm: serialize flows to text templates, QLoRA-tune Qwen (7B/8B class) for stage classification.
+3. Build the hybrid arm: frozen LLM embeddings of serialized flows as node features into the best GNN.
+4. Classical baseline arm: XGBoost/LightGBM replicating the published protocol, plus a simple MLP (the simple-network-beats-complex finding makes this baseline mandatory).
+5. Uniform evaluation: identical stratified splits, macro-F1 with per-stage breakdown, minority stages as primary endpoint, seeds and CIs.
+6. H3 ablation: run SMOTE/augmentation on and off within each family.
+7. Cross-dataset transfer test on S-DAPT-2026.
+
+**Defense strength.** Maximum continuity with your completed work (the committee sees a research arc, not a restart); the controlled-comparison design is methodologically clean; every arm has literature precedent but the comparison itself is the novel contribution. Main threat: reviewers noting synthetic datasets limit external validity, which you concede and bound in limitations.
+
+---
+
+Quick comparative read for choosing: Idea 2 is safest and most D.Eng.-native, Idea 1 has the strongest novelty claim and best exploits your operational background, Idea 3 preserves the most sunk work and has the cleanest experimental design. All three survive the "why this dataset" question because each dataset choice is defended by a published deficiency in the alternative.
+
+Want me to develop one of these into a full praxis proposal document (problem statement expanded, literature matrix, timeline, threats to validity)?

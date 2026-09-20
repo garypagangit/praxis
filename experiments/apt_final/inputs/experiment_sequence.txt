@@ -1,0 +1,47 @@
+Here's the development experiment sequence, written so each one gates the next and every claim you'd make at defense traces to a pre-registered decision rule. Five experiments, E0 through E4, in dependency order.
+
+## E0. Dataset verification (prerequisite, ~1 week)
+
+Purpose: establish that Unraveled's flow and host logs can be joined with acceptable integrity and that campaign-independent splits exist, before any modeling claim depends on them. Procedure: quantify join success rate between network flows and host events on shared keys (host, timestamp window, session identifiers), measure timestamp skew distribution between sources, and verify that attack campaigns can be partitioned so no campaign appears in both train and test. Deliverable is a data quality memo with three numbers: join rate, label coverage per lifecycle stage, and minimum positive-class counts per stage per split. Decision rule: any stage with fewer than roughly 30 positive test samples is excluded from hypothesis testing (this is the lesson of the three-exfiltration-sample problem; document the exclusion rather than repeating it). If joins fail integrity checks, fall back to DARPA TC/OpTC via the PIDSMAKER pre-processed releases and reframe E2 to E4 on that data. E0 has no hypothesis; it is pass/fail infrastructure.
+
+## E1. Edge-information ablation (the decisive diagnostic, ~2 weeks)
+
+Purpose: determine whether your constructed graph edges carry detection signal beyond node features. This settles whether "graph context" is even a real quantity to gate.
+
+Design: hold features, splits, preprocessing, and training budget identical across four arms. Arm A: MLP on node features alone. Arm B: your best prior GNN (GATv2, with GIN as secondary) on real edges. Arm C: same GNN on degree-preserving shuffled edges (rewire while preserving degree sequence, so any advantage from graph statistics alone is controlled). Arm D: same GNN on self-loops only. Ten seeds per arm minimum.
+
+Metrics: macro-F1 over included stages, per-stage F1, PR-AUC, with paired bootstrap confidence intervals on the seed-level differences.
+
+Hypotheses. H1a: Arm B exceeds Arm C by a margin whose 95% CI excludes zero (edges carry structural signal). H1b: Arm B exceeds Arm A (graph modeling beats a plain classifier at matched budget). Decision rule, pre-registered: if H1a fails, the praxis narrative becomes "graph context adds nothing under these telemetry conditions, and a gate should say so," which is a legitimate and defensible finding; if H1a holds but H1b fails, edges have signal the architecture isn't exploiting, which motivates the gate operating point analysis in E3; if both hold, the gate's job is deciding when the advantage persists. All three outcomes feed E3, which is why this experiment is safe to run first and impossible to waste.
+
+## E2. Telemetry degradation characterization (~3 weeks)
+
+Purpose: map where graph advantage lives and dies as a function of observable telemetry quality. This produces the empirical curve the gate policy will be built on.
+
+Design: starting from the E1 winner configurations, inject controlled degradation into the test-time telemetry along four independent axes: uniform log drop (0, 5, 10, 25, 50 percent), source-specific outage (host logs absent, flow logs absent), ingestion delay (shift a fraction of events by minutes to hours, breaking temporal edges), and edge-type-specific loss (drop one relation type at a time). Evaluate Arm A (MLP) and Arm B (GNN) at every grid point, five seeds each.
+
+Metrics: macro-F1 and recall at a fixed false-positive budget (set the budget in alerts per day terms up front and hold it constant everywhere).
+
+Hypothesis H2: there exists a degradation regime in which the MLP matches or exceeds the GNN, i.e., the performance curves cross. The location of that crossover, expressed in observable quantities, is a finding in itself. Secondary output: for each degradation axis, record the candidate observable indicators (arrival rate vs baseline, join success rate, edge density drift, timestamp skew) so E3 has a measured feature set rather than a guessed one.
+
+## E3. The gate policy (core contribution, ~6 weeks)
+
+Purpose: demonstrate that a deterministic policy over observable telemetry quality selects between classifier and graph context to improve the detection, false-alert, and cost trade-off. This is the praxis claim.
+
+Design: five arms evaluated on identical degraded-and-clean test streams from the E2 grid plus held-out mixed conditions. MLP-only and GNN-only as the fixed baselines. Oracle switch, which picks the better model per window using test labels, as the upper bound. Random switch at the oracle's switching rate as the floor control. Then the gate itself, in two versions: a static threshold rule over the E2 indicators (fully deterministic, auditable, the version that matches your thesis language), and a small frozen learned policy (shallow tree or logistic model trained on E2 outputs, then locked). The two-version design lets you show how much a learned policy buys over hand-set thresholds, which preempts the Mowst comparison: your novelty sits in the telemetry-quality signal and the security-operations cost framing, not in switching as a mechanism, so say that in the writeup and cite Mowst yourself.
+
+Metrics: macro-F1 and stage-level recall at the fixed alert budget, alerts per day, mean compute cost per window, and fraction of oracle gap closed. Ten seeds, CIs on all deltas.
+
+Hypotheses. H3a: the gate meets or exceeds the better single arm at equal false-alert and compute budget. H3b: the gate closes a pre-specified fraction (I'd register 50 percent) of the gap between the best single arm and the oracle. H3c: the static rule captures a substantial share (register a number, e.g., 80 percent) of the learned policy's benefit, supporting the deployability argument that a fully auditable gate is sufficient.
+
+## E4. Cross-environment generalization (~3 weeks)
+
+Purpose: show the gate is a transferable engineering artifact, not a dataset artifact. Design: freeze the E3 policy (thresholds and all), then evaluate on a campaign split never touched during development, and ideally on a second dataset entirely (one DARPA engagement via PIDSMAKER is the strongest choice since its baselines and ground truth are community-standard). No refitting permitted; report the frozen policy first and a recalibrated variant second, clearly labeled. Hypothesis H4: the frozen gate retains its H3a property, or degrades within a registered bound, on the unseen environment. Metrics identical to E3.
+
+## Cross-cutting standards (apply to every experiment)
+
+Temporal or campaign-based splits only, never random row splits, to avoid the data snooping failure the USENIX critique documented. All thresholds, margins, and sample-size exclusions written down before the run, in the repo, with the config committed, so the pre-registration is verifiable at defense. Report variance everywhere; a point estimate without seeds is inadmissible under your own framing. Keep excluded stages excluded in every table. And log compute (wall time, memory) per arm from day one, because the cost leg of your trade-off claim needs the same rigor as the detection leg.
+
+One parallel non-experiment task for the same period: the METANOIA and CAPTAIN collision check against your safety-gated TTA paper's claims, since that's a reading task you can do while E0 runs.
+
+Total is roughly 15 to 16 weeks of development with E0 and E1 front-loaded as cheap kill-or-confirm steps. Want me to put this in a document you can drop into the praxis repo, or draft the E1 config skeleton (arms, seeds, metrics as a runnable spec) first?

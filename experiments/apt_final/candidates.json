@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "program": "APT final",
+  "reviewed_on": "2026-09-19",
+  "status": "PROPOSED_RESEARCH_GATES_NOT_VALIDATED_NOVELTY",
+  "source_documents": [
+    "User attachment: three fully formed praxis candidates",
+    "User attachment: E0 through E4 development experiment sequence"
+  ],
+  "primary_program": {
+    "id": "telemetry_quality_routing",
+    "question": "When does observable telemetry quality justify using graph context instead of a feature-only detector?",
+    "sequence": ["E0", "E1", "E2", "E3", "E4"],
+    "scope_note": "The supplied E0-E4 sequence tests a telemetry-quality routing proposal. It is not a complete implementation or validation of all three separate candidate tracks.",
+    "novelty_status": "CONDITIONAL_ON_INCREMENTAL_VALUE_OVER_EXISTING_ROUTING",
+    "must_compare": ["feature-only MLP", "real-edge GIN", "rewired-edge GIN", "self-only GIN", "confidence routing", "development-rate random routing"],
+    "prior_work": [
+      "https://proceedings.iclr.cc/paper_files/paper/2024/hash/6a8449c080c3d27e5e16995e82beaade-Abstract-Conference.html",
+      "https://www.usenix.org/conference/usenixsecurity25/presentation/bilot"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "local_llm",
+      "title": "Disconnected local LLM detection and reconstruction",
+      "status": "PROPOSED_REQUIRES_NARROWER_CONTRIBUTION",
+      "problem": "Security teams need useful analysis when audit telemetry cannot leave the network.",
+      "research_question": "Can a completely local pipeline preserve campaign detection and evidence-grounded reconstruction on held-out environments within a fixed hardware and latency budget?",
+      "novelty_risk": "HIGH_AS_WRITTEN",
+      "novelty_claim_rejected": "First local open-weight or Qwen-based APT analysis pipeline",
+      "potential_contribution": "An independently evaluated quality-cost boundary under verified offline runtime dependencies and campaign-held-out evaluation.",
+      "prior_work": [
+        "https://github.com/CoDS-GCS/OCR-APT",
+        "https://arxiv.org/html/2502.02342v1",
+        "https://arxiv.org/html/2607.20832v1"
+      ],
+      "candidate_datasets": ["DARPA TC E3/E5", "OpTC"],
+      "readiness_gates": [
+        "Inspect and reproduce OCR-APT's existing local-model comparison",
+        "Pin labels, campaign splits, reference code, and resource budget",
+        "Separate detection from reconstruction endpoints",
+        "Test language-model and embedding replacements separately",
+        "Justify and freeze noninferiority margin before evaluation",
+        "Verify inference and all runtime dependencies work with network access disabled"
+      ],
+      "illustrative_noninferiority_margin_f1": 0.05,
+      "margin_status": "ILLUSTRATIVE_NOT_REGISTERED",
+      "model_training_run": false
+    },
+    {
+      "id": "prediction_instability",
+      "title": "Dependable alerts across detector retraining",
+      "status": "PROPOSED_REQUIRES_SPECIFIC_INTERVENTION",
+      "problem": "Retraining may change which attacks and ordinary activities trigger alerts.",
+      "research_question": "Can a frozen reliability intervention reduce prediction disagreement and adverse alert burden without sacrificing campaign detection at matched cost?",
+      "novelty_risk": "HIGH_FOR_MEASUREMENT_OR_GENERIC_ENSEMBLING",
+      "novelty_claim_rejected": "First study or tooling to measure provenance-detector seed instability",
+      "potential_contribution": "A specific intervention with paired decision-level reliability metrics, analyst escalation accounting, and independent transfer evidence.",
+      "prior_work": [
+        "https://ubc-provenance.github.io/PIDSMaker/features/instability/",
+        "https://arxiv.org/abs/2601.22983",
+        "https://www.usenix.org/conference/usenixsecurity25/presentation/bilot"
+      ],
+      "candidate_datasets": ["DARPA TC through pinned PIDSMaker release"],
+      "readiness_gates": [
+        "Reproduce two systems before expanding the matrix",
+        "Separate training randomness, threshold fitting, data ordering, and environment shift",
+        "Use ordinary ensemble and threshold controls at equal total cost",
+        "Count abstention and analyst escalation explicitly",
+        "Require useful mean detection while reducing disagreement",
+        "Keep campaign uncertainty separate from seed variability"
+      ],
+      "model_training_run": false
+    },
+    {
+      "id": "minority_stage_representations",
+      "title": "Structural and semantic evidence for rare attack stages",
+      "status": "PROPOSED_DATA_AND_NOVELTY_GATES_OPEN",
+      "problem": "Strong overall traffic scores can hide missed rare attack stages.",
+      "research_question": "At equal information access and independent campaign splits, do semantic or hybrid representations improve prespecified rare-stage detection beyond graph and strong tabular baselines?",
+      "novelty_risk": "CONDITIONAL_COMPARATIVE_CONTRIBUTION",
+      "novelty_claim_rejected": "Semantic graph enrichment or Qwen plus a GNN is itself new",
+      "potential_contribution": "A controlled analysis separating representation, graph information, class balancing, and cross-environment failure boundaries.",
+      "prior_work": [
+        "https://arxiv.org/html/2603.17100v1",
+        "https://arxiv.org/abs/2208.05089",
+        "https://arxiv.org/html/2601.06690v1"
+      ],
+      "candidate_datasets": ["SCVIC-APT-2021", "S-DAPT-2026 subject to release and task audit"],
+      "dataset_status": {
+        "SCVIC-APT-2021": "EXISTENCE_SUPPORTED_DIRECT_DOWNLOAD_LICENSE_AND_CAMPAIGN_METADATA_UNVERIFIED",
+        "S-DAPT-2026": "PAPER_VERIFIED_WORKING_DATA_CODE_RELEASE_NOT_VERIFIED_SYNTHETIC_ALERT_DOMAIN"
+      },
+      "primary_graph_reference": "GIN from the historical same-procedure corrective experiment",
+      "required_baselines": ["MLP", "XGBoost or LightGBM", "real-edge GIN", "rewired-edge GIN", "self-only GIN"],
+      "readiness_gates": [
+        "Obtain exact data and validate stage labels and independent campaign identifiers",
+        "Define minority stages using training information or domain definitions",
+        "Audit stage-name and identifier leakage in text templates and alert types",
+        "Equalize information available to representation arms",
+        "Apply balancing only to training data with meaningful within-family controls",
+        "Freeze cross-dataset taxonomy mapping and distinguish alerts from raw flows"
+      ],
+      "model_training_run": false
+    }
+  ],
+  "global_claim_boundaries": [
+    "No new candidate is established novel or empirically successful by this registry",
+    "No original GML publication status is asserted",
+    "Public benchmark ground truth still requires local validation",
+    "Thirty positive records is a proposed screen and does not establish statistical power",
+    "E2 development results cannot serve as independent confirmation of an E3 policy selected on them",
+    "Undefined benefit ratios must be reported as null with a reason",
+    "Oracle use of evaluation labels is diagnostic only and must not influence deployable policies or random control rates"
+  ],
+  "audit_document": "docs/LITERATURE_AND_DESIGN_AUDIT.md"
+}

@@ -1,0 +1,120 @@
+{
+  "alert_thresholds": {
+    "confidence": {
+      "reason": "Authoritative calibration exposure days and false-alert budget/day are required",
+      "status": "ALERT_RATE_NOT_ESTIMABLE"
+    },
+    "gin": {
+      "reason": "Authoritative calibration exposure days and false-alert budget/day are required",
+      "status": "ALERT_RATE_NOT_ESTIMABLE"
+    },
+    "learned": {
+      "reason": "Authoritative calibration exposure days and false-alert budget/day are required",
+      "status": "ALERT_RATE_NOT_ESTIMABLE"
+    },
+    "mlp": {
+      "reason": "Authoritative calibration exposure days and false-alert budget/day are required",
+      "status": "ALERT_RATE_NOT_ESTIMABLE"
+    },
+    "oracle_descriptive": {
+      "reason": "Authoritative calibration exposure days and false-alert budget/day are required",
+      "status": "ALERT_RATE_NOT_ESTIMABLE"
+    },
+    "random": {
+      "reason": "Authoritative calibration exposure days and false-alert budget/day are required",
+      "status": "ALERT_RATE_NOT_ESTIMABLE"
+    },
+    "static": {
+      "reason": "Authoritative calibration exposure days and false-alert budget/day are required",
+      "status": "ALERT_RATE_NOT_ESTIMABLE"
+    }
+  },
+  "confidence": {
+    "kind": "confidence",
+    "maximum_mlp_confidence": 0.0
+  },
+  "config": {
+    "alert_budget_per_day": 10.0,
+    "benign_label": 0,
+    "bootstrap_replicates": 80,
+    "bootstrap_seed": 20260919,
+    "compute_claim": "OFFLINE_REPLAY_COST_PROXY_ONLY",
+    "delay_seconds": [
+      5,
+      60
+    ],
+    "drop_rates": [
+      0.0,
+      0.25,
+      0.5
+    ],
+    "epochs": 3,
+    "hidden_dim": 8,
+    "include_labels": [
+      0,
+      1,
+      2
+    ],
+    "learning_rate": 0.01,
+    "min_rewired_fraction": 0.5,
+    "observation_days": {},
+    "program": "APT-final",
+    "schema_version": 1,
+    "scope": "SYNTHETIC_SMOKE_NOT_SCIENTIFIC_EVIDENCE",
+    "seeds": [
+      101,
+      211
+    ]
+  },
+  "created_at_unix": 1789866536.9915888,
+  "e1_results_sha256": "cf13fac8e331ea289a0549df3b5dbcc4ab9afc8cb48e467dd67ed80795854b70",
+  "e2_predictions_sha256": "63b0a620fa65c49e64570e2a2419bcfd0350a5fbac224f7ac624cf42c6beb9e8",
+  "feature_indices": [
+    1,
+    2,
+    3
+  ],
+  "feature_names": [
+    "mean_in_degree",
+    "isolated_fraction",
+    "mean_arrival_lag"
+  ],
+  "fit_rows": 1680,
+  "fit_split": "gate_train",
+  "labels": [
+    0,
+    1,
+    2
+  ],
+  "learned": {
+    "coefficients": [
+      0.7117003914795582,
+      -0.3432006768289665,
+      -0.0802675678897128
+    ],
+    "intercept": -1.7005949011389607,
+    "kind": "logistic",
+    "mean": [
+      1.4684523809523808,
+      0.18273809523809523,
+      35.095238095238095
+    ],
+    "scale": [
+      0.9893263629835801,
+      0.3864516577618104,
+      23.365429819662953
+    ]
+  },
+  "random_rate": 0.0,
+  "random_rate_source": "calibration learned-policy routes, no oracle or outcome labels",
+  "seeds": [
+    101,
+    211
+  ],
+  "static": {
+    "kind": "degree_threshold",
+    "minimum_observed_in_degree": 8.0
+  },
+  "status": "SMOKE_NOT_EVIDENCE",
+  "utility_target": "GIN correctness minus MLP correctness; correctness ties excluded from logistic fitting"
+}
