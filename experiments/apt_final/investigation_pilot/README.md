@@ -1,5 +1,7 @@
 # APT investigation: is there room beyond ordinary identity lookup?
 
+**Completed: NO-GO for this novel-selector proposal.** Exact identity lookup recovered all 38 available answers, correctly abstained on the other 22, and made zero wrong connections. See the [final report](results/otrf_baseline_20260920/REPORT.md). The frozen protocol below was executed without changing the question set or continuing into a model experiment after the stopping rule fired.
+
 This bounded experiment executes the first gate in the [research shortlist](../docs/APT_PIVOT_SHORTLIST_20260920.md). It uses the already qualified public OTRF APT29 day-one recording. It does not train a detector or run an LLM.
 
 ## Frozen question and decision
@@ -12,10 +14,19 @@ Select 60 source-grounded questions by a fixed hash: 20 random parent-creation l
 
 Compare name/nearest-time lookup, name/time lookup with abstention, exact host/GUID lookup, and the same exact lookup with compact serialized identifiers. Exact methods retain all source identifiers and need return only the relevant record. Count index construction, lookup work and alias metadata; never force the strong comparator to return unrelated neighborhoods.
 
-The primary stopping rule is **no room to improve** if a strong baseline recovers every available answer without an unsupported answer and correctly identifies unavailable evidence. Then close this dataset/task's novel-selector proposal before model work. A later, genuinely harder investigation task would require a new protocol. No percentage accuracy on this lookup exercise can be presented as APT detection or LLM performance.
+The primary stopping rule is **no room to improve** if a strong baseline recovers every available answer without an unsupported answer and correctly identifies unavailable evidence. Then close this dataset/task's novel-selector proposal before model work. A later, genuinely harder investigation task would require a new protocol. No percentage accuracy on this lookup exercise can be presented as APT detection or LLM performance. Reference-answer availability is scoped to the qualified Sysmon creation table; the screen does not join other log channels or prove the absence of evidence there.
 
 ## Reproduction
 
 Source archive and generated source excerpts remain outside Git. Scripts will regenerate the selected question set from the archive with SHA-256 `98a073140860560d70080ace9142961be4f64b4862bae892d62d0f254d0fdbe5`. Committed receipts contain source-reference hashes, individual outcomes and aggregate metrics; the pinned public archive supplies the original evidence.
 
 No cloud resources or external human review are required for this factual retrieval screen. Later claims about attack intent, explanation quality or analyst time would require an independently reviewed task and evaluation.
+
+Run the commands below from this directory, supplying the pinned archive and fresh output paths. Preparation refuses to overwrite an existing workspace/manifest, and scoring refuses to overwrite an existing result directory. The source-derived files must match the committed manifest even when regenerated in another workspace.
+
+```powershell
+python prepare.py --archive <archive.zip> --workspace <new-workspace> --manifest <new-manifest.json>
+python -m unittest discover -s . -p test_pilot.py -v
+python audit_reference.py --archive <archive.zip> --workspace <new-workspace> --output <new-reference-audit.json>
+python run_pilot.py --workspace <new-workspace> --output <new-result-directory>
+```

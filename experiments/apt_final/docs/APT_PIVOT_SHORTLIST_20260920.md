@@ -1,5 +1,7 @@
 # Executable APT praxis opportunities after the negative detector studies
 
+> Execution update, September 20: option 1's [registered baseline screen](../investigation_pilot/results/otrf_baseline_20260920/REPORT.md) is complete and closed. Ordinary GUID joins solved all 38 available answers and correctly abstained on 22 unavailable cases, leaving no correctness gap for a novel selector in this task. The ranking below is the original prospective shortlist, not three validated successes. The next candidate's [data-readiness audit](CTI_FALLBACK_READINESS_20260920.md) is complete; no CTI efficacy claim is made.
+
 Research completed September 20, 2026. User accepts either direct detection or improvements to APT investigation and explanation.
 
 ## Decision

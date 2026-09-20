@@ -1,5 +1,11 @@
 # APT final: current work and completed studies
 
+## Latest investigation pilot: ordinary lookup reaches the available-data limit
+
+The [completed investigation screen](investigation_pilot/results/otrf_baseline_20260920/REPORT.md) is **NO-GO for a novel selector on these questions**. Across 60 frozen source-grounded questions, ordinary host/process-GUID lookup recovered all 38 recorded answers, correctly reported insufficient evidence for the other 22, and made zero wrong connections. Name/nearest-time matching made 16 wrong or unsupported answers. These are deterministic retrieval results on one APT29 emulation recording, not LLM or detection accuracy. The predefined stopping rule fired; no new selector or model run followed.
+
+The [CTI fallback readiness audit](docs/CTI_FALLBACK_READINESS_20260920.md) verifies public train/development data for the next candidate, actor-invariant technique extraction. No CTI model has been trained under that proposal, and no novel positive result is established. Gary has no action required to finish the investigation pilot. No cloud resources were started.
+
 ## New pivot research: investigation and behavior extraction
 
 The September 20 [research shortlist](docs/APT_PIVOT_SHORTLIST_20260920.md) recommends a small evidence-selection failure audit, with actor-invariant technique extraction as the alternative and a graph-robustness idea held in reserve. Public OTRF APT29 logs were downloaded, hash-checked and parsed: 196,081 records, four hosts and 447 process identities. This establishes data access, not a positive method result. Current literature substantially overlaps with generic verification, stable IDs, Qwen substitution and graph augmentation; novelty remains unestablished.
