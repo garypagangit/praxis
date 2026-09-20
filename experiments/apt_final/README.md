@@ -2,14 +2,15 @@
 
 This is the new APT experiment program on Git branch **`APT-final`**. It preserves the two supplied proposals and keeps their claims separate from measured results.
 
-Start with [what Gary needs to do next](NEXT_ACTIONS.md). [AWS access is verified](cloud/README.md); the existing GPU host is stopped, and GPU support still needs to be added and qualified in a new code revision.
+The first [CADETS/THEIA native graph pilot](native_graph/README.md) is **completed and independently audited**, and the AWS GPU host is stopped. Read the [results and research decision](native_graph/results/gpu_pilot_20260920/REPORT.md), [AWS closeout](native_graph/results/gpu_pilot_20260920/AWS_CLOSEOUT.json), and [next actions](NEXT_ACTIONS.md).
 
-**New active alternative:** [CADETS/THEIA native graph pilot](native_graph/README.md). Its separate audit permits static binary development, while the original Unraveled hold and registration remain intact.
+The pilot ran both datasets with three seeds. It found very low malicious-entity recall and no useful gain from the fixed checker. The next research step is a stronger detector and anomaly score before revisiting routing. This separate GPU path preserves the original Unraveled hold and CPU registration.
 
 ## What is built
 
 | Component | Purpose | Scientific status |
 |---|---|---|
+| Native graph GPU pilot | Benign-trained detectors and fixed selectors on CADETS/THEIA with missing relationships | Completed on AWS; independently audited development result. Poor recall and no useful checker gain. |
 | Three-candidate registry | Local LLM deployment; prediction stability; structural/semantic/hybrid stage representations | Proposed tracks with literature and data prerequisites. Not three implemented or successful detectors. |
 | E0 data audit | Inspect available Unraveled sources, stage support, timestamps, potential linkage, and campaign independence | Actual local-data audit completed; **HOLD_DATA_CONTRACT**. |
 | E1 edge-information experiment | MLP versus GIN with real, rewired, or self-only edges | Development engine; synthetic qualification, no new real-data efficacy result. |
@@ -20,6 +21,10 @@ Start with [what Gary needs to do next](NEXT_ACTIONS.md). [AWS access is verifie
 The E0-E4 sequence is the **telemetry-quality routing program** in the second attachment. It does not silently stand in for experiments on all three topics in the first attachment.
 
 ## Current finding
+
+The native graph pilot did not establish a useful detector or checker. Clean-graph GIN recall averaged approximately **0.10% on CADETS** and **0.043% on THEIA** at thresholds fixed using benign calibration. The fixed quality selector made essentially the same alert decisions. These are negative results for this representation, scoring method, and checker; they do not establish that all routing methods fail. The latest verification passed **50 software tests**. See the [full result report](native_graph/results/gpu_pilot_20260920/REPORT.md).
+
+### Original Unraveled track: still on hold
 
 E0 recounted **435,488 cached Unraveled rows** and inspected bounded source samples from **173 flow files and 59 host files**. Existing source metadata does not establish independent APT campaigns or a validated flow/host join. Mixed timestamp formats and unresolved identity mappings must be resolved before relying on those relationships. All cached `Signature` values were empty.
 
@@ -36,13 +41,14 @@ The current E0 tool is an inventory/recount audit, not a qualified normalized-da
 - [Normalized input and evidence contract](data/DATA_CONTRACT.md).
 - [Development configuration](configs/development.json) and [synthetic qualification configuration](configs/smoke.json).
 - [Committed development registration](REGISTRATION.json), binding the exact source, configuration, and protocol used for the initial freeze.
-- [Software qualification](results/qualification_20260919/README.md): **32 tests passed**, plus the complete synthetic E1-E4 command-line run; [machine-readable receipt](results/qualification_20260919/QUALIFICATION.json).
+- [Initial Unraveled software qualification](results/qualification_20260919/README.md): **32 tests passed**, plus the complete synthetic E1-E4 command-line run; [historical receipt](results/qualification_20260919/QUALIFICATION.json).
+- [Completed native graph GPU experiment](native_graph/results/gpu_pilot_20260920/REPORT.md), including independent saved-evidence verification and a separately labeled post-hoc diagnostic.
 
 The literature audit corrects several supplied premises. OCR-APT already reports local-model comparisons; PIDSMaker already studies instability; dataset availability and label validity still require verification. These are reasons to narrow the contribution, not to rename existing methods as new.
 
 ## Run the software
 
-Use Python 3.11+; E0 and status use the standard library. E1-E4 qualification also requires the packages in `requirements.txt`. Use a dedicated virtual environment. All output paths below must be new; scientific receipts are never overwritten.
+The commands below reproduce the original Unraveled audit and synthetic engine. For the completed GPU experiment, use the separate [native graph instructions](native_graph/README.md). Use Python 3.11+; E0 and status use the standard library. E1-E4 qualification also requires the packages in `requirements.txt`. Use a dedicated virtual environment. All output paths below must be new; scientific receipts are never overwritten.
 
 ```powershell
 python experiments/apt_final/run.py status
@@ -59,7 +65,7 @@ python -m unittest discover -s tests -p "test_apt_final*.py" -v
 
 An audit can finish successfully while its scientific status remains HOLD. Always inspect `E0_RESULT.json.status`; shell exit code zero means the audit executed, not that the data passed.
 
-### Registration and later real-data execution
+### Original Unraveled registration and later real-data execution
 
 The registration command accepts only exact committed code/config/contract bytes. A new registered configuration is needed after any operative change.
 
@@ -71,9 +77,9 @@ It records a **development configuration freeze**, not a completed confirmatory 
 
 ## What must happen next
 
-1. Complete the campaign/identity/time/link review packet under `data/`, grounded in author documentation or independently checked annotations.
-2. Normalize and validate a small supported data subset; qualify a release adapter and freeze its hashes. If independent campaigns or joins cannot be supported, evaluate a separately audited DARPA/OpTC release and narrow the target accordingly.
-3. Measure whether real graph edges add useful information before running a large architecture or routing sweep.
-4. Register actual operational alert limits and exposure, qualified statistical comparisons, and the untouched confirmation design before making deployment or transfer claims.
+1. Freeze a new development comparison using a documented MAGIC-style encoder and benign embedding anomaly scoring, alongside the current reconstruction and Isolation Forest baselines.
+2. Establish useful malicious-entity detection and complementary detector errors before learning a more elaborate checker. Keep threshold calibration separate from attack labels.
+3. Treat further evaluation on these already examined graphs as development; establish a separate confirmation design before deployment or generalization claims.
+4. Reopen the Unraveled campaign/identity/time/link review only if that original track is pursued. Its author clarification and human review tasks are optional for the active native graph route.
 
-Nothing has been sent to dataset authors. No AWS instance or paid model API was used in this branch setup. Original research results remain unchanged.
+Nothing has been sent to dataset authors. The initial Unraveled branch setup used no AWS instance; the later native graph pilot ran on the existing AWS GPU host and completed with verified shutdown. No paid model API was used. Original research results remain unchanged.

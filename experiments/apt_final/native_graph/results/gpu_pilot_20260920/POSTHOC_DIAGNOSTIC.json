@@ -1,0 +1,1036 @@
+{
+  "status": "POSTHOC_EXPLORATORY_NO_THRESHOLD_CHANGES",
+  "scope": "DEVELOPMENT_ONLY",
+  "created_utc": "2026-09-20T01:53:21.559934+00:00",
+  "analysis_script_sha256": "db73d70d9627cbe81a8daa1311f3456cbdd1f735bd996a8db0dafb5ce70d6d69",
+  "numpy_version": "2.4.6",
+  "input_independent_audit_sha256": "5f63f8cb2c11cca0a23d2b038aade383f32561c11a219aa6505ade365c9af136",
+  "source_registration_sha256": "e77ab68f51f7ac415fb1b5b0aacf6b8ad180d14cb3d00f77f292ff5b5c334954",
+  "source_commit": "f34d7a21beb08d977f1a439b57a11ac431f8ce98",
+  "input_files": [
+    {
+      "relative_path": "cadets/RESULTS.json",
+      "sha256": "15ea6ddb6c18a6d7b3d00c338e29134bcf1255726b40ba03ffb3f275eb2f4378"
+    },
+    {
+      "relative_path": "cadets/private/predictions_101_clean.npz",
+      "sha256": "2d6e9baa3896e7929629dec9b7f0ac9290caf3a0849874a01e006ab5662d279b"
+    },
+    {
+      "relative_path": "cadets/private/predictions_211_clean.npz",
+      "sha256": "4aa7afdc2d8a11c152e7a0c16c017d572e71adca56c7e0e1c131d2e85275cc0d"
+    },
+    {
+      "relative_path": "cadets/private/predictions_307_clean.npz",
+      "sha256": "a0cc7c6c28e79284b15ea60da4bd9f6675949f379b26123aab1095a304fbde39"
+    },
+    {
+      "relative_path": "theia/RESULTS.json",
+      "sha256": "ac4dd88a703648224b10a8f2f8356e04df8566fb65ff149c4cfd9b2034a0721c"
+    },
+    {
+      "relative_path": "theia/private/predictions_101_clean.npz",
+      "sha256": "f9a833c318ea7c854d64036fb4d757e43b68e2a28be86492571cab6ccb5b2831"
+    },
+    {
+      "relative_path": "theia/private/predictions_211_clean.npz",
+      "sha256": "0948c3d998917ca5c4c5bf7c5aa3ebded0a31d631401caac902e4241f63552d1"
+    },
+    {
+      "relative_path": "theia/private/predictions_307_clean.npz",
+      "sha256": "9c21cbd850e9dc2669a80dbeb82b92df9539857d53fcc4aaefdfb095f16e9a53"
+    }
+  ],
+  "selection": "All three frozen seeds for each dataset, clean graph only, selected after seeing the pilot results.",
+  "model_fitting_performed": false,
+  "threshold_changes_performed": false,
+  "frozen_results_modified": false,
+  "prediction_rule": "Reuse each saved calibrated margin >= 0; no rescoring or threshold optimization.",
+  "interpretation_limits": [
+    "Union recall bounds selection between these fixed binary decisions only; it does not bound retrained detectors or new scores.",
+    "Exact score ties and distributions describe a possible representation/scoring limitation, not an established causal mechanism.",
+    "Counts concern annotated malicious entities, not independent attacks or campaigns.",
+    "Benign score quantiles use test annotations post hoc for diagnosis only; no thresholds are selected from them.",
+    "This diagnostic does not establish dataset failure, general impossibility of routing, or positive deployment performance."
+  ],
+  "records": [
+    {
+      "dataset": "cadets",
+      "seed": 101,
+      "scenario": "clean",
+      "n_entities": 357173,
+      "n_annotated_malicious_entities": 12846,
+      "annotated_malicious_prevalence": 0.03596576448947709,
+      "frozen_mlp_true_positive_entities": 13,
+      "frozen_gin_true_positive_entities": 13,
+      "frozen_mlp_gin_union_true_positive_entities": 13,
+      "union_recall_upper_bound_for_fixed_binary_selector": 0.0010119881675229644,
+      "mlp_additional_true_positive_entities_over_gin": 0,
+      "gin_additional_true_positive_entities_over_mlp": 0,
+      "shared_true_positive_entities": 13,
+      "malicious_entities_missed_by_both": 12833,
+      "all_entity_prediction_disagreements": 0,
+      "score_distributions": {
+        "mlp": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 28,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.5589747428894043,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.12430093437433243,
+              "0.25": 0.5589747428894043,
+              "0.5": 0.5589747428894043,
+              "0.9": 0.5589747428894043,
+              "0.95": 0.5589747428894043,
+              "0.99": 0.5589747428894043,
+              "1.0": 508.96966552734375
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 788,
+            "largest_exact_tie_count": 215150,
+            "largest_exact_tie_fraction": 0.6248420832522573,
+            "largest_exact_tie_score": 0.03882068023085594,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.03882068023085594,
+              "0.25": 0.03882068023085594,
+              "0.5": 0.03882068023085594,
+              "0.9": 2.051335096359253,
+              "0.95": 2.955458164215088,
+              "0.99": 14.095488548278809,
+              "1.0": 4352.0830078125
+            }
+          }
+        },
+        "gin": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 32,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.5886635184288025,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.19399447739124298,
+              "0.25": 0.5886635184288025,
+              "0.5": 0.5886635184288025,
+              "0.9": 0.5886635184288025,
+              "0.95": 0.5886635184288025,
+              "0.99": 0.5886635184288025,
+              "1.0": 510.59832763671875
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 3455,
+            "largest_exact_tie_count": 214124,
+            "largest_exact_tie_fraction": 0.6218623575845055,
+            "largest_exact_tie_score": 0.0490705631673336,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.0490705631673336,
+              "0.25": 0.0490705631673336,
+              "0.5": 0.0490705631673336,
+              "0.9": 2.148996591567993,
+              "0.95": 3.0821914672851562,
+              "0.99": 14.373141288757324,
+              "1.0": 4358.09130859375
+            }
+          }
+        },
+        "isolation_forest": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 22,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.4021741088042368,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.3497703288624087,
+              "0.25": 0.4021741088042368,
+              "0.5": 0.4021741088042368,
+              "0.9": 0.4021741088042368,
+              "0.95": 0.4021741088042368,
+              "0.99": 0.4021741088042368,
+              "1.0": 0.6838032855492816
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 539,
+            "largest_exact_tie_count": 215150,
+            "largest_exact_tie_fraction": 0.6248420832522573,
+            "largest_exact_tie_score": 0.3296632394791967,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.3296632394791967,
+              "0.25": 0.3296632394791967,
+              "0.5": 0.3296632394791967,
+              "0.9": 0.5112569182160016,
+              "0.95": 0.5255937695611241,
+              "0.99": 0.6336408988761899,
+              "1.0": 0.769005074111516
+            }
+          }
+        },
+        "type_rarity": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 3,
+            "largest_exact_tie_count": 12806,
+            "largest_exact_tie_fraction": 0.9968861902537755,
+            "largest_exact_tie_score": 1.4489220812124557,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.4489220812124557,
+              "0.25": 1.4489220812124557,
+              "0.5": 1.4489220812124557,
+              "0.9": 1.4489220812124557,
+              "0.95": 1.4489220812124557,
+              "0.99": 1.4489220812124557,
+              "1.0": 4.272919418571049
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 6,
+            "largest_exact_tie_count": 227869,
+            "largest_exact_tie_fraction": 0.6617808071978091,
+            "largest_exact_tie_score": 0.41260258945209055,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.41260258945209055,
+              "0.25": 0.41260258945209055,
+              "0.5": 0.41260258945209055,
+              "0.9": 2.624503227022593,
+              "0.95": 2.624503227022593,
+              "0.99": 4.272919418571049,
+              "1.0": 7.271456743052648
+            }
+          }
+        }
+      }
+    },
+    {
+      "dataset": "cadets",
+      "seed": 211,
+      "scenario": "clean",
+      "n_entities": 357173,
+      "n_annotated_malicious_entities": 12846,
+      "annotated_malicious_prevalence": 0.03596576448947709,
+      "frozen_mlp_true_positive_entities": 13,
+      "frozen_gin_true_positive_entities": 14,
+      "frozen_mlp_gin_union_true_positive_entities": 14,
+      "union_recall_upper_bound_for_fixed_binary_selector": 0.001089833411178577,
+      "mlp_additional_true_positive_entities_over_gin": 0,
+      "gin_additional_true_positive_entities_over_mlp": 1,
+      "shared_true_positive_entities": 13,
+      "malicious_entities_missed_by_both": 12832,
+      "all_entity_prediction_disagreements": 61,
+      "score_distributions": {
+        "mlp": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 28,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.5213692784309387,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.14293375611305237,
+              "0.25": 0.5213692784309387,
+              "0.5": 0.5213692784309387,
+              "0.9": 0.5213692784309387,
+              "0.95": 0.5213692784309387,
+              "0.99": 0.5213692784309387,
+              "1.0": 510.0629577636719
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 788,
+            "largest_exact_tie_count": 215150,
+            "largest_exact_tie_fraction": 0.6248420832522573,
+            "largest_exact_tie_score": 0.029983321204781532,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.029983321204781532,
+              "0.25": 0.029983321204781532,
+              "0.5": 0.029983321204781532,
+              "0.9": 1.8778458833694458,
+              "0.95": 2.6900582313537598,
+              "0.99": 14.118085861206055,
+              "1.0": 4355.2646484375
+            }
+          }
+        },
+        "gin": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 32,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.6204578876495361,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.2316679060459137,
+              "0.25": 0.6204578876495361,
+              "0.5": 0.6204578876495361,
+              "0.9": 0.6204578876495361,
+              "0.95": 0.6204578876495361,
+              "0.99": 0.6204578876495361,
+              "1.0": 511.01995849609375
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 3465,
+            "largest_exact_tie_count": 214124,
+            "largest_exact_tie_fraction": 0.6218623575845055,
+            "largest_exact_tie_score": 0.05677291005849838,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.05677291005849838,
+              "0.25": 0.05677291005849838,
+              "0.5": 0.05677291005849838,
+              "0.9": 1.905696988105774,
+              "0.95": 2.739163398742676,
+              "0.99": 14.12463665008545,
+              "1.0": 4355.876953125
+            }
+          }
+        },
+        "isolation_forest": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 22,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.40143591168678905,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.3461162899007001,
+              "0.25": 0.40143591168678905,
+              "0.5": 0.40143591168678905,
+              "0.9": 0.40143591168678905,
+              "0.95": 0.40143591168678905,
+              "0.99": 0.40143591168678905,
+              "1.0": 0.6656963695964353
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 550,
+            "largest_exact_tie_count": 215150,
+            "largest_exact_tie_fraction": 0.6248420832522573,
+            "largest_exact_tie_score": 0.3306895266607755,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.3306895266607755,
+              "0.25": 0.3306895266607755,
+              "0.5": 0.3306895266607755,
+              "0.9": 0.5225885541601851,
+              "0.95": 0.5351169894075221,
+              "0.99": 0.6370466773009121,
+              "1.0": 0.7670810804845403
+            }
+          }
+        },
+        "type_rarity": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 3,
+            "largest_exact_tie_count": 12806,
+            "largest_exact_tie_fraction": 0.9968861902537755,
+            "largest_exact_tie_score": 1.4489220812124557,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.4489220812124557,
+              "0.25": 1.4489220812124557,
+              "0.5": 1.4489220812124557,
+              "0.9": 1.4489220812124557,
+              "0.95": 1.4489220812124557,
+              "0.99": 1.4489220812124557,
+              "1.0": 4.272919418571049
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 6,
+            "largest_exact_tie_count": 227869,
+            "largest_exact_tie_fraction": 0.6617808071978091,
+            "largest_exact_tie_score": 0.41260258945209055,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.41260258945209055,
+              "0.25": 0.41260258945209055,
+              "0.5": 0.41260258945209055,
+              "0.9": 2.624503227022593,
+              "0.95": 2.624503227022593,
+              "0.99": 4.272919418571049,
+              "1.0": 7.271456743052648
+            }
+          }
+        }
+      }
+    },
+    {
+      "dataset": "cadets",
+      "seed": 307,
+      "scenario": "clean",
+      "n_entities": 357173,
+      "n_annotated_malicious_entities": 12846,
+      "annotated_malicious_prevalence": 0.03596576448947709,
+      "frozen_mlp_true_positive_entities": 13,
+      "frozen_gin_true_positive_entities": 13,
+      "frozen_mlp_gin_union_true_positive_entities": 13,
+      "union_recall_upper_bound_for_fixed_binary_selector": 0.0010119881675229644,
+      "mlp_additional_true_positive_entities_over_gin": 0,
+      "gin_additional_true_positive_entities_over_mlp": 0,
+      "shared_true_positive_entities": 13,
+      "malicious_entities_missed_by_both": 12833,
+      "all_entity_prediction_disagreements": 9,
+      "score_distributions": {
+        "mlp": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 28,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.5428630709648132,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.13981691002845764,
+              "0.25": 0.5428630709648132,
+              "0.5": 0.5428630709648132,
+              "0.9": 0.5428630709648132,
+              "0.95": 0.5428630709648132,
+              "0.99": 0.5428630709648132,
+              "1.0": 509.67413330078125
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 788,
+            "largest_exact_tie_count": 215150,
+            "largest_exact_tie_fraction": 0.6248420832522573,
+            "largest_exact_tie_score": 0.022147120907902718,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.022147120907902718,
+              "0.25": 0.022147120907902718,
+              "0.5": 0.022147120907902718,
+              "0.9": 1.9587039947509766,
+              "0.95": 2.8158977031707764,
+              "0.99": 13.911615371704102,
+              "1.0": 4355.13720703125
+            }
+          }
+        },
+        "gin": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 32,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.5597351789474487,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.15147364139556885,
+              "0.25": 0.5597351789474487,
+              "0.5": 0.5597351789474487,
+              "0.9": 0.5597351789474487,
+              "0.95": 0.5597351789474487,
+              "0.99": 0.5597351789474487,
+              "1.0": 511.1878967285156
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 3441,
+            "largest_exact_tie_count": 214124,
+            "largest_exact_tie_fraction": 0.6218623575845055,
+            "largest_exact_tie_score": 0.02671479992568493,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.02671479992568493,
+              "0.25": 0.02671479992568493,
+              "0.5": 0.02671479992568493,
+              "0.9": 2.1251730918884277,
+              "0.95": 3.1177444458007812,
+              "0.99": 14.392013549804688,
+              "1.0": 4352.70849609375
+            }
+          }
+        },
+        "isolation_forest": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 24,
+            "largest_exact_tie_count": 12788,
+            "largest_exact_tie_fraction": 0.9954849758679745,
+            "largest_exact_tie_score": 0.39779864590740516,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.34392019095613147,
+              "0.25": 0.39779864590740516,
+              "0.5": 0.39779864590740516,
+              "0.9": 0.39779864590740516,
+              "0.95": 0.39779864590740516,
+              "0.99": 0.39779864590740516,
+              "1.0": 0.6884044007880765
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 552,
+            "largest_exact_tie_count": 215150,
+            "largest_exact_tie_fraction": 0.6248420832522573,
+            "largest_exact_tie_score": 0.3306786750691472,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.3306786750691472,
+              "0.25": 0.3306786750691472,
+              "0.5": 0.3306786750691472,
+              "0.9": 0.49826678687633325,
+              "0.95": 0.5196159850686706,
+              "0.99": 0.631701042913498,
+              "1.0": 0.7752896889677472
+            }
+          }
+        },
+        "type_rarity": {
+          "annotated_malicious_entities": {
+            "n_entities": 12846,
+            "n_distinct_saved_scores": 3,
+            "largest_exact_tie_count": 12806,
+            "largest_exact_tie_fraction": 0.9968861902537755,
+            "largest_exact_tie_score": 1.4489220812124557,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.4489220812124557,
+              "0.25": 1.4489220812124557,
+              "0.5": 1.4489220812124557,
+              "0.9": 1.4489220812124557,
+              "0.95": 1.4489220812124557,
+              "0.99": 1.4489220812124557,
+              "1.0": 4.272919418571049
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 344327,
+            "n_distinct_saved_scores": 6,
+            "largest_exact_tie_count": 227869,
+            "largest_exact_tie_fraction": 0.6617808071978091,
+            "largest_exact_tie_score": 0.41260258945209055,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.41260258945209055,
+              "0.25": 0.41260258945209055,
+              "0.5": 0.41260258945209055,
+              "0.9": 2.624503227022593,
+              "0.95": 2.624503227022593,
+              "0.99": 4.272919418571049,
+              "1.0": 7.271456743052648
+            }
+          }
+        }
+      }
+    },
+    {
+      "dataset": "theia",
+      "seed": 101,
+      "scenario": "clean",
+      "n_entities": 344767,
+      "n_annotated_malicious_entities": 25319,
+      "annotated_malicious_prevalence": 0.07343800305713714,
+      "frozen_mlp_true_positive_entities": 11,
+      "frozen_gin_true_positive_entities": 11,
+      "frozen_mlp_gin_union_true_positive_entities": 11,
+      "union_recall_upper_bound_for_fixed_binary_selector": 0.0004344563371381176,
+      "mlp_additional_true_positive_entities_over_gin": 0,
+      "gin_additional_true_positive_entities_over_mlp": 0,
+      "shared_true_positive_entities": 11,
+      "malicious_entities_missed_by_both": 25308,
+      "all_entity_prediction_disagreements": 15,
+      "score_distributions": {
+        "mlp": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 26,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 1.3247308731079102,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.3247308731079102,
+              "0.25": 1.3247308731079102,
+              "0.5": 1.3247308731079102,
+              "0.9": 2.4523608684539795,
+              "0.95": 2.903745174407959,
+              "0.99": 3.5745584964752197,
+              "1.0": 174.60293579101562
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 1254,
+            "largest_exact_tie_count": 122887,
+            "largest_exact_tie_fraction": 0.3846854574140392,
+            "largest_exact_tie_score": 0.06956649571657181,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.05180209130048752,
+              "0.25": 0.05180209130048752,
+              "0.5": 0.06956649571657181,
+              "0.9": 1.608453392982483,
+              "0.95": 2.0068681240081787,
+              "0.99": 14.737458229064941,
+              "1.0": 17043.060546875
+            }
+          }
+        },
+        "gin": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 231,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 1.2975653409957886,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.2975653409957886,
+              "0.25": 1.2975653409957886,
+              "0.5": 1.2975653409957886,
+              "0.9": 2.401772975921631,
+              "0.95": 2.741830348968506,
+              "0.99": 3.5571703910827637,
+              "1.0": 174.8214569091797
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 11519,
+            "largest_exact_tie_count": 19761,
+            "largest_exact_tie_fraction": 0.0618598332122912,
+            "largest_exact_tie_score": 0.46788445115089417,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.07053769379854202,
+              "0.25": 0.07614295184612274,
+              "0.5": 0.0805838480591774,
+              "0.9": 1.57481849193573,
+              "0.95": 1.8444015979766846,
+              "0.99": 15.289668083190918,
+              "1.0": 17055.75390625
+            }
+          }
+        },
+        "isolation_forest": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 26,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 0.5255759091300064,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.46171363283171524,
+              "0.25": 0.5255759091300064,
+              "0.5": 0.5255759091300064,
+              "0.9": 0.5634728150104032,
+              "0.95": 0.5634728150104032,
+              "0.99": 0.573569889935996,
+              "1.0": 0.6544153933765424
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 776,
+            "largest_exact_tie_count": 122887,
+            "largest_exact_tie_fraction": 0.3846854574140392,
+            "largest_exact_tie_score": 0.3681913623706393,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.3681913623706393,
+              "0.25": 0.3681913623706393,
+              "0.5": 0.3742610503719703,
+              "0.9": 0.46171363283171524,
+              "0.95": 0.5118430546544934,
+              "0.99": 0.5898958261475257,
+              "1.0": 0.8044506630937647
+            }
+          }
+        },
+        "type_rarity": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 3,
+            "largest_exact_tie_count": 25291,
+            "largest_exact_tie_fraction": 0.9988941111418302,
+            "largest_exact_tie_score": 3.0391487312406404,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 2.1505626057958604,
+              "0.25": 3.0391487312406404,
+              "0.5": 3.0391487312406404,
+              "0.9": 3.0391487312406404,
+              "0.95": 3.0391487312406404,
+              "0.99": 3.0391487312406404,
+              "1.0": 3.3217592845558053
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 5,
+            "largest_exact_tie_count": 237593,
+            "largest_exact_tie_fraction": 0.7437611129197866,
+            "largest_exact_tie_score": 0.22363715810504617,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.22363715810504617,
+              "0.25": 0.22363715810504617,
+              "0.5": 0.22363715810504617,
+              "0.9": 3.0391487312406404,
+              "0.95": 3.0391487312406404,
+              "0.99": 3.3217592845558053,
+              "1.0": 11.396501755011906
+            }
+          }
+        }
+      }
+    },
+    {
+      "dataset": "theia",
+      "seed": 211,
+      "scenario": "clean",
+      "n_entities": 344767,
+      "n_annotated_malicious_entities": 25319,
+      "annotated_malicious_prevalence": 0.07343800305713714,
+      "frozen_mlp_true_positive_entities": 11,
+      "frozen_gin_true_positive_entities": 11,
+      "frozen_mlp_gin_union_true_positive_entities": 11,
+      "union_recall_upper_bound_for_fixed_binary_selector": 0.0004344563371381176,
+      "mlp_additional_true_positive_entities_over_gin": 0,
+      "gin_additional_true_positive_entities_over_mlp": 0,
+      "shared_true_positive_entities": 11,
+      "malicious_entities_missed_by_both": 25308,
+      "all_entity_prediction_disagreements": 319,
+      "score_distributions": {
+        "mlp": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 26,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 1.3822146654129028,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.3822146654129028,
+              "0.25": 1.3822146654129028,
+              "0.5": 1.3822146654129028,
+              "0.9": 2.491894006729126,
+              "0.95": 2.798856735229492,
+              "0.99": 3.6153788566589355,
+              "1.0": 176.14125061035156
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 1253,
+            "largest_exact_tie_count": 122887,
+            "largest_exact_tie_fraction": 0.3846854574140392,
+            "largest_exact_tie_score": 0.04216855764389038,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.04216855764389038,
+              "0.25": 0.04216855764389038,
+              "0.5": 0.05569734424352646,
+              "0.9": 1.6670784950256348,
+              "0.95": 2.092588424682617,
+              "0.99": 14.894709587097168,
+              "1.0": 17048.46484375
+            }
+          }
+        },
+        "gin": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 231,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 1.3522404432296753,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.3522404432296753,
+              "0.25": 1.3522404432296753,
+              "0.5": 1.3522404432296753,
+              "0.9": 2.504448890686035,
+              "0.95": 2.931276798248291,
+              "0.99": 3.675079822540283,
+              "1.0": 175.91915893554688
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 11498,
+            "largest_exact_tie_count": 19761,
+            "largest_exact_tie_fraction": 0.0618598332122912,
+            "largest_exact_tie_score": 0.49419793486595154,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.047981202602386475,
+              "0.25": 0.06082616746425629,
+              "0.5": 0.08821607381105423,
+              "0.9": 1.6945366859436035,
+              "0.95": 2.156667947769165,
+              "0.99": 15.410462560653686,
+              "1.0": 17054.48046875
+            }
+          }
+        },
+        "isolation_forest": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 26,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 0.540523135423398,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.46507041169073327,
+              "0.25": 0.540523135423398,
+              "0.5": 0.540523135423398,
+              "0.9": 0.5712148860422942,
+              "0.95": 0.5712148860422942,
+              "0.99": 0.5922558532231372,
+              "1.0": 0.6772953482398968
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 768,
+            "largest_exact_tie_count": 122887,
+            "largest_exact_tie_fraction": 0.3846854574140392,
+            "largest_exact_tie_score": 0.38205546436432936,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.37939991082598024,
+              "0.25": 0.38205546436432936,
+              "0.5": 0.38926821339161993,
+              "0.9": 0.46507041169073327,
+              "0.95": 0.5067062918601348,
+              "0.99": 0.5915653534466537,
+              "1.0": 0.80779143289591
+            }
+          }
+        },
+        "type_rarity": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 3,
+            "largest_exact_tie_count": 25291,
+            "largest_exact_tie_fraction": 0.9988941111418302,
+            "largest_exact_tie_score": 3.0391487312406404,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 2.1505626057958604,
+              "0.25": 3.0391487312406404,
+              "0.5": 3.0391487312406404,
+              "0.9": 3.0391487312406404,
+              "0.95": 3.0391487312406404,
+              "0.99": 3.0391487312406404,
+              "1.0": 3.3217592845558053
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 5,
+            "largest_exact_tie_count": 237593,
+            "largest_exact_tie_fraction": 0.7437611129197866,
+            "largest_exact_tie_score": 0.22363715810504617,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.22363715810504617,
+              "0.25": 0.22363715810504617,
+              "0.5": 0.22363715810504617,
+              "0.9": 3.0391487312406404,
+              "0.95": 3.0391487312406404,
+              "0.99": 3.3217592845558053,
+              "1.0": 11.396501755011906
+            }
+          }
+        }
+      }
+    },
+    {
+      "dataset": "theia",
+      "seed": 307,
+      "scenario": "clean",
+      "n_entities": 344767,
+      "n_annotated_malicious_entities": 25319,
+      "annotated_malicious_prevalence": 0.07343800305713714,
+      "frozen_mlp_true_positive_entities": 11,
+      "frozen_gin_true_positive_entities": 11,
+      "frozen_mlp_gin_union_true_positive_entities": 11,
+      "union_recall_upper_bound_for_fixed_binary_selector": 0.0004344563371381176,
+      "mlp_additional_true_positive_entities_over_gin": 0,
+      "gin_additional_true_positive_entities_over_mlp": 0,
+      "shared_true_positive_entities": 11,
+      "malicious_entities_missed_by_both": 25308,
+      "all_entity_prediction_disagreements": 325,
+      "score_distributions": {
+        "mlp": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 26,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 1.2631258964538574,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.2631258964538574,
+              "0.25": 1.2631258964538574,
+              "0.5": 1.2631258964538574,
+              "0.9": 2.366910457611084,
+              "0.95": 2.812541961669922,
+              "0.99": 3.4771647453308105,
+              "1.0": 176.1436004638672
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 1254,
+            "largest_exact_tie_count": 122887,
+            "largest_exact_tie_fraction": 0.3846854574140392,
+            "largest_exact_tie_score": 0.04275931790471077,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.04275931790471077,
+              "0.25": 0.04275931790471077,
+              "0.5": 0.04627510905265808,
+              "0.9": 1.6576309204101562,
+              "0.95": 2.1329152584075928,
+              "0.99": 14.6226806640625,
+              "1.0": 17062.23828125
+            }
+          }
+        },
+        "gin": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 231,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 1.2578585147857666,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 1.2578585147857666,
+              "0.25": 1.2578585147857666,
+              "0.5": 1.2578585147857666,
+              "0.9": 2.347135305404663,
+              "0.95": 2.766368865966797,
+              "0.99": 3.4798662662506104,
+              "1.0": 176.3318634033203
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 11571,
+            "largest_exact_tie_count": 19761,
+            "largest_exact_tie_fraction": 0.0618598332122912,
+            "largest_exact_tie_score": 0.47879311442375183,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.06582464277744293,
+              "0.25": 0.07172738760709763,
+              "0.5": 0.09697799384593964,
+              "0.9": 1.6101171970367432,
+              "0.95": 1.9789808988571167,
+              "0.99": 15.430944442749023,
+              "1.0": 17066.279296875
+            }
+          }
+        },
+        "isolation_forest": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 24,
+            "largest_exact_tie_count": 17897,
+            "largest_exact_tie_fraction": 0.7068604605237173,
+            "largest_exact_tie_score": 0.5439778392257608,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.46635707384284836,
+              "0.25": 0.5439778392257608,
+              "0.5": 0.5439778392257608,
+              "0.9": 0.5756939689229107,
+              "0.95": 0.5756939689229107,
+              "0.99": 0.5933133168762,
+              "1.0": 0.664790231474967
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 805,
+            "largest_exact_tie_count": 122887,
+            "largest_exact_tie_fraction": 0.3846854574140392,
+            "largest_exact_tie_score": 0.385332728347102,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.3741478215619799,
+              "0.25": 0.38524755173963215,
+              "0.5": 0.385332728347102,
+              "0.9": 0.46635707384284836,
+              "0.95": 0.5119730437305755,
+              "0.99": 0.5951967294355495,
+              "1.0": 0.8180606943770545
+            }
+          }
+        },
+        "type_rarity": {
+          "annotated_malicious_entities": {
+            "n_entities": 25319,
+            "n_distinct_saved_scores": 3,
+            "largest_exact_tie_count": 25291,
+            "largest_exact_tie_fraction": 0.9988941111418302,
+            "largest_exact_tie_score": 3.0391487312406404,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 2.1505626057958604,
+              "0.25": 3.0391487312406404,
+              "0.5": 3.0391487312406404,
+              "0.9": 3.0391487312406404,
+              "0.95": 3.0391487312406404,
+              "0.99": 3.0391487312406404,
+              "1.0": 3.3217592845558053
+            }
+          },
+          "annotated_benign_entities": {
+            "n_entities": 319448,
+            "n_distinct_saved_scores": 5,
+            "largest_exact_tie_count": 237593,
+            "largest_exact_tie_fraction": 0.7437611129197866,
+            "largest_exact_tie_score": 0.22363715810504617,
+            "largest_tie_definition": "exact equality at saved NumPy dtype precision; no rounding",
+            "quantiles": {
+              "0.0": 0.22363715810504617,
+              "0.25": 0.22363715810504617,
+              "0.5": 0.22363715810504617,
+              "0.9": 3.0391487312406404,
+              "0.95": 3.0391487312406404,
+              "0.99": 3.3217592845558053,
+              "1.0": 11.396501755011906
+            }
+          }
+        }
+      }
+    }
+  ]
+}

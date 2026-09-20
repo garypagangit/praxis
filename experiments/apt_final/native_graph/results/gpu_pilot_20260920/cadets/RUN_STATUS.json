@@ -1,0 +1,51 @@
+{
+  "status": "COMPLETE_DEVELOPMENT_ONLY",
+  "scope": "DEVELOPMENT_ONLY",
+  "dataset": "cadets",
+  "device_requested": "cuda",
+  "device_actual": "cuda",
+  "gpu_qualification": {
+    "status": "PASS",
+    "cuda_parity_executed": true,
+    "rtol": 0.0001,
+    "atol": 1e-05,
+    "checks": [
+      {
+        "arm": "mlp",
+        "max_absolute_error": 5.960464477539063e-08,
+        "cpu_cuda_allclose": true,
+        "cuda_repeat_exact": true,
+        "deterministic_backward_optimizer_step": true,
+        "finite_gradients": true
+      },
+      {
+        "arm": "gin",
+        "max_absolute_error": 2.9802322387695312e-08,
+        "cpu_cuda_allclose": true,
+        "cuda_repeat_exact": true,
+        "deterministic_backward_optimizer_step": true,
+        "finite_gradients": true
+      }
+    ]
+  },
+  "versions": {
+    "python": "3.10.12",
+    "numpy": "1.26.4",
+    "torch": "2.5.1+cu121",
+    "sklearn": "1.5.2",
+    "cuda": "12.1"
+  },
+  "reproducibility": {
+    "deterministic_algorithms": true,
+    "cublas_workspace_config": ":4096:8",
+    "cudnn_benchmark": false,
+    "cuda_matmul_tf32": false,
+    "seed_variability_is_not_campaign_uncertainty": true
+  },
+  "registration_sha256": "e77ab68f51f7ac415fb1b5b0aacf6b8ad180d14cb3d00f77f292ff5b5c334954",
+  "registration_git_commit": "f34d7a21beb08d977f1a439b57a11ac431f8ce98",
+  "config_sha256": "29ab58499e780f5201c652b12b7878dd92c558475251c4582382fae88034bbae",
+  "data_manifest_sha256": "de06215e30e36c6063eeeb6a1ed18a738735fd909dbeeda7fa7789728fb2feab",
+  "gpu_name": "NVIDIA A10G",
+  "elapsed_seconds": 168.313416373
+}

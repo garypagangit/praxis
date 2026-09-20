@@ -1,10 +1,14 @@
 # APT final: what Gary needs to do next
 
-**Update:** Gary selected the [native graph alternative](native_graph/README.md). Its immediate development pilot does not depend on an author reply or manual Unraveled event matching. The two actions below are optional work for reopening the original Unraveled track, not prerequisites for the new pilot.
+**Current status:** The [native graph alternative](native_graph/README.md) completed its first GPU pilot on CADETS and THEIA. Independent verification passed, but recall was poor and the fixed checker gave no useful improvement. Read the [results and decision](native_graph/results/gpu_pilot_20260920/REPORT.md).
 
-AWS sign-in was completed and the expected account and existing GPU host were verified on September 19, 2026 (local time). The host is stopped. See [AWS connection and GPU plan](cloud/README.md).
+**Gary has no immediate dataset-acquisition or manual matching task for this route.** The next technical step is to compare a stronger MAGIC-style encoder and embedding anomaly score with the existing baselines before investing in a more elaborate checker. A new protocol and configuration must be frozen before that run; the completed pilot remains unchanged.
 
-## Gary: two research actions
+AWS sign-in was completed and the existing GPU host was used for the pilot. The job completed and the host is stopped; see [AWS closeout](native_graph/results/gpu_pilot_20260920/AWS_CLOSEOUT.json) and [connection history](cloud/README.md).
+
+## Optional Gary actions: reopening the original Unraveled track
+
+These tasks are not prerequisites for the active native graph experiment.
 
 ### 1. Send this clarification request to the dataset authors
 
@@ -37,10 +41,10 @@ The assistant will prepare the sample and instructions. The packet must include 
 
 ## Work assigned to the assistant
 
-1. Investigate source schemas, clock evidence, and stable identifiers; implement and verify normalization without inventing missing facts.
-2. Handle duplicate observations, prepare the review packet, and populate machine-derived manifest fields.
-3. Check label support and independent attack groups; qualify the data-release validator. If Unraveled contains only one APT realization, use it for development and investigate separately collected confirmation data.
-4. Add and qualify GPU support in a new registered code revision, with portable checkpoints, reproducibility checks, and measured timing.
-5. Run the first real comparison when its data evidence is sufficient: does using meaningful graph connections improve detection over a model that ignores them?
+1. Prepare a newly frozen baseline comparison: MAGIC-style representation learning with benign embedding anomaly scoring, current reconstruction scoring, and Isolation Forest.
+2. Investigate tied scores and whether detector errors are complementary, using development data with no retrospective threshold rescue.
+3. Establish a useful detector before revising the checker. Evaluate any new checker against the strongest fixed detector.
+4. Preserve the existing audit, negative results, and GPU receipts. GPU support, live device qualification, the first real pilot, and shutdown are completed.
+5. If Unraveled is reopened, investigate its source schemas, clocks, identities, labels and campaign independence, then prepare the review packet and qualify a separate data-release validator.
 
-The original E0 hold and CPU development registration remain unchanged. No author response, completed human review, validated join, independent campaign split, or GPU speedup is claimed.
+The original E0 hold and CPU development registration remain unchanged. The native graph pilot has its own registration and real GPU results. No author response, completed human review, validated Unraveled join, independent campaign split, or comparative GPU speedup is claimed.

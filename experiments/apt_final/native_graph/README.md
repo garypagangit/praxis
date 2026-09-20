@@ -2,6 +2,14 @@
 
 This alternative starts from locally available DARPA TC E3 CADETS and THEIA graphs distributed by the MAGIC authors. No Unraveled author reply or manual network-to-host joining is needed for this scope.
 
+## Current status: completed and stopped
+
+The first real GPU pilot completed **both datasets with three seeds**, passed independent saved-evidence verification, and finished with the AWS host stopped. Latest software verification: **50 tests passed**. Read the [full results and decision](results/gpu_pilot_20260920/REPORT.md), [independent audit](results/gpu_pilot_20260920/INDEPENDENT_RESULT_AUDIT.json), and [AWS closeout](results/gpu_pilot_20260920/AWS_CLOSEOUT.json).
+
+**The first detector/checker combination was not useful.** At thresholds fixed using benign calibration, clean-graph GIN recall averaged approximately **0.10% on CADETS** and **0.043% on THEIA**. The fixed quality checker made essentially the same alert decisions. These results concern the tested representation, anomaly score and routing rule; they do not establish that the datasets or all routing approaches fail.
+
+The next development comparison should establish a stronger MAGIC-style encoder with benign embedding anomaly scoring, against the current reconstruction and Isolation Forest baselines, before learning a more elaborate checker. A [separately labeled post-hoc diagnostic](results/gpu_pilot_20260920/POSTHOC_DIAGNOSTIC.json) documents extensive score ties and little complementary detection between the frozen neural arms. It changes no thresholds or original results.
+
 ## Completed data audit
 
 - 10 graphs, **3,251,001 nodes** and **6,178,085 retained relationships**.
@@ -14,7 +22,7 @@ The audit permits **static development experiments only**. Training benign statu
 
 ## Experiment
 
-See the [protocol](PROTOCOL.md) and [configuration](config.json). Fit a small graph autoencoder, a non-message-passing autoencoder, and Isolation Forest on three author training graphs. Set alert thresholds on a fourth benign graph. Compare these and a node-type rarity baseline with fixed quality and confidence selectors on the attack-bearing graph, including controlled missing-relationship conditions.
+The completed pilot followed the [protocol](PROTOCOL.md) and [configuration](config.json): fit a small graph autoencoder, a non-message-passing autoencoder, and Isolation Forest on three author training graphs; set alert thresholds on a fourth benign graph; then compare these and a node-type rarity baseline with fixed quality and confidence selectors on the attack-bearing graph, including controlled missing-relationship conditions.
 
 Local relationship counts are recomputed after removal for every arm. Fit and calibrate separately on CADETS and THEIA because their integer type IDs have no verified shared semantics. This is a repeated development procedure, not frozen-model transfer or a new MAGIC reproduction.
 
@@ -36,3 +44,5 @@ Commit exact code/config/protocol bytes before registration. Any operative chang
 `launch.py` prepares a hash-bound bundle and uses `cloud_control.py`, a label-only adaptation of the already reviewed CTI controller. Its original operational limits remain: one existing g5.xlarge, one-hour cap, independent automatic stop, $10 reserve, and verified shutdown. A separate private settings directory and S3 prefix keep this attempt separate from earlier jobs. No CTI workload or secret is used.
 
 `run_cloud.sh` verifies the archive hash, validates archive paths, selects an existing CUDA environment, records versions, and executes the bounded worker. The actual models must pass a small CPU/GPU numerical and deterministic repeat check before fitting. Runtime predictions and timings do not by themselves establish production efficiency or generalization.
+
+The completed run passed those live device checks, including deterministic backward qualification. The initial software/data qualification receipt predates GPU execution; current run evidence is under [gpu_pilot_20260920](results/gpu_pilot_20260920/REPORT.md).
