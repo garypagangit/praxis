@@ -1,5 +1,5 @@
 {
-  "status": "TABULAR_FOLLOWUP_RUNNING_EXTERNAL_TRANSFER_OPERATIONALLY_UNFAVORABLE",
+  "status": "TABULAR_STRONG_BENIGN_CONTROLS_IMPROVED_WITH_TRADEOFF_FOUNDATION_PENDING",
   "date": "2026-09-21",
   "branch": "apt-benchmark",
   "tests_passed": 328,
@@ -37,7 +37,8 @@
     "tabular_batch": "results/tabular_batch_v1/REPORT.md",
     "tabular_proposal_review": "tabular_batch/BATCH_REVIEW.md",
     "tabular_followup": "results/tabular_followup_v1/REPORT.md",
-    "tabular_novelty": "tabular_followup/NOVELTY_POSITION.md"
+    "tabular_novelty": "tabular_followup/NOVELTY_POSITION.md",
+    "strong_benign_controls": "results/strong_benign_controls_v1/REPORT.md"
   },
   "robustness_experiments_completed": 3,
   "robustness_models_fitted": 16,
@@ -50,7 +51,7 @@
   ],
   "sdapt2026_status": "CANDIDATE_PLAN_PREPARED_RAW_DATA_AND_CORRECTIONS_UNQUALIFIED",
   "sdapt2026_models_fitted": 0,
-  "updated_utc": "2026-09-21T13:09:43.784271+00:00",
+  "updated_utc": "2026-09-21T14:48:51.092149+00:00",
   "robustness_v2": {
     "arm_target_configurations": 30,
     "audited_result_rows": 630,
@@ -195,17 +196,17 @@
   },
   "top_level_pilot_counts_scope": "Original AIT pilot; later experiment counts and outcomes are in their named nested sections, including tabular_batch.",
   "tabular_followup": {
-    "snapshot_utc": "2026-09-21T13:09:43.784271+00:00",
+    "snapshot_utc": "2026-09-21T14:48:51.092149+00:00",
     "latest_outcome_source": "results/tabular_followup_v1/PUBLICATION.json",
     "completed_cells_snapshot": {
-      "full_tabicl": 1,
-      "full_tabpfn": 0,
+      "full_tabicl": 4,
+      "full_tabpfn": 4,
       "original_cpu": 30,
       "sandworm": 20,
-      "strong_baselines": 49
+      "strong_baselines": 60
     },
     "full_foundation_comparison": "RUNNING_CPU",
-    "stronger_baselines": "RUNNING_CPU",
+    "stronger_baselines": "ALL_60_INDEPENDENTLY_AUDITED_FOUNDATION_COMPARISON_PENDING",
     "rare_stage_policy": "FROZEN_WAITING_FULL_SOURCE_PREDICTIONS",
     "external_binary_transfer": {
       "audited_cells": 20,
@@ -224,6 +225,26 @@
     "gpu_used": false,
     "novel_method_validated": false,
     "independent_rare_stage_validation": false,
-    "automatic_completion_deadline_utc": "2026-09-22T01:09:26.813672+00:00"
+    "automatic_completion_deadline_utc": "2026-09-22T01:09:26.813672+00:00",
+    "strong_benign_finding": {
+      "interpretation": "Descriptive unequal-label improvement with reduced lateral-activity detection, not a novel method",
+      "fit_labels": [
+        192,
+        1184
+      ],
+      "cv_selected_tree_macro_f1": [
+        0.4420648975516118,
+        0.654299122359225
+      ],
+      "cv_selected_tree_normal_fpr": [
+        0.10036419526212034,
+        0.003996124160513215
+      ],
+      "cv_selected_tree_binary_attack_recall": [
+        0.984032634032634,
+        0.9569930069930069
+      ],
+      "source": "results/strong_benign_controls_v1/SUMMARY.json"
+    }
   }
 }

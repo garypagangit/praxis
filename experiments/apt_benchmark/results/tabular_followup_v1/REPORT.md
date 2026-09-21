@@ -1,6 +1,6 @@
 # Few-label APT detection: independent transfer and follow-up evaluation
 
-**Interim report: 2026-09-21T13:09:43.784271+00:00. Full comparison and rare-stage decision remain incomplete.**
+**Interim report: 2026-09-21T14:48:51.092149+00:00. Full comparison and rare-stage decision remain incomplete.**
 
 ## What the completed test tells us
 
@@ -46,6 +46,23 @@ All 20 model/seed cells passed an independent provenance and metric audit.
 See [the audited aggregate evidence](TRANSFER_SUMMARY.json). Audit PASS means the
 records and calculations checked out; it does not mean the scientific hypothesis passed.
 
+## Completed stronger controls: a positive result with a tradeoff
+
+All 60 stronger tree runs have now passed independent metric and provenance checks.
+Adding 992 normal-traffic training examples, with the same attack examples, changed
+the training-CV-selected tree's macro-F1 from **0.4421 to 0.6543** and its benign
+false-alarm rate from **10.04% to 0.40%**. Initial-stage recall remained 93.33%;
+exfiltration-stage recall changed from 71.60% to 72.83%.
+
+The tradeoff is reduced attack detection: pooled detection of any attack fell from
+98.40% to 95.70%, and detection of lateral activity as any attack fell from 94.24%
+to 83.06%. Both label cost and missed attacks matter. This is a descriptive
+192-versus-1,184-label comparison on one development split, not a novel method,
+equal-budget foundation-model win, or independent replication.
+
+[Full stronger-control report and evidence](../strong_benign_controls_v1/REPORT.md).
+The abundant-benign models were not part of the earlier Sandworm transfer test.
+
 ## What is still running
 
 Completion counts are a snapshot, not final audited outcomes:
@@ -53,9 +70,9 @@ Completion counts are a snapshot, not final audited outcomes:
 | Work | Completed cells / required | State |
 |---|---:|---|
 | Original full tree baselines | 30/30 | Previously audited |
-| Original full-query TabICL | 1/10 | CPU worker running |
-| Original full-query TabPFN | 0/10 | CPU worker running |
-| Stronger trees, two label budgets | 49/60 | CPU worker running |
+| Original full-query TabICL | 4/10 | CPU worker running |
+| Original full-query TabPFN | 4/10 | CPU worker running |
+| Stronger trees, two label budgets | 60/60 | Independently audited; foundation comparison pending |
 | Independent binary transfer | 20/20 | Audited; operationally unfavorable |
 | Rare-stage review policy | 0/10 seed pairs | Waiting for full calibration predictions |
 
