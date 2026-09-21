@@ -1,0 +1,129 @@
+{
+  "artifact_hashes": {
+    "PREDICTIONS.npz": "14eb1b11231b342df0b421a01e013e8269a867b78ad43c59a01ddd221cc2d112",
+    "PREFLIGHT.json": "5ca146237bab9a339a6e018401fe7c88645702a8ea7aa52dd521aa920fb10f39",
+    "RESULT.json": "ce37313fe015dcc5743332b320af1032404cde64c5f9e10d00918dcd4f60805d"
+  },
+  "audit_source_sha256": "f8d55aacb8d9b969c35bb3b012eac3f819978204903a6541a65abe86281f5102",
+  "audit_status": "PASS",
+  "audited_utc": "2026-09-21T18:49:53.056039+00:00",
+  "benign_n": 100000,
+  "checks": [
+    "Frozen source, target, code, protocol and model provenance",
+    "Independent source-group selection reconstruction",
+    "Target row fingerprints recomputed and source overlap excluded",
+    "Saved prediction labels/classes/rows",
+    "Every locked-policy binary and stage count, FPR, precision, recall, F1, ROC-AUC and average precision"
+  ],
+  "common_auditor_sha256": "1758989fac7bf6afcbf084eabb176fd5c9211775c18e7d1277eb2e77dcbeef40",
+  "external_protocol_sha256": "f6816db53e908b3005febd53d66fa43d2392bdaab647e8a33841769c789b18e2",
+  "lateral_n": 4,
+  "limitations": [
+    "No model loading, fitting or inference was repeated. Raw CSV extraction/author labels were not independently rebuilt in this audit.",
+    "One documented execution with at most four lateral feature groups cannot confirm a three-point protection margin.",
+    "The selected target prevalence is not a deployment prevalence; no independent-incident or population guarantee is established."
+  ],
+  "metrics": {
+    "cv_natural_argmax": {
+      "alert_fraction": 0.07418703251869925,
+      "attack_f1": 0.000269432843863667,
+      "attack_n": 4,
+      "attack_precision": 0.00013478905512872354,
+      "attack_recall": 0.25,
+      "average_precision": 0.0002355912471231482,
+      "benign_fpr": 0.07418,
+      "benign_n": 100000,
+      "fn": 3,
+      "fp": 7418,
+      "per_stage": {
+        "DataExfiltration": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        },
+        "InitialCompromise": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        },
+        "LateralMovement": {
+          "detected": 1,
+          "n": 4,
+          "recall": 0.25
+        },
+        "Pivoting": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        },
+        "Reconnaissance": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        }
+      },
+      "roc_auc": 0.86979875,
+      "rows": 100004,
+      "tn": 92582,
+      "tp": 1
+    },
+    "cv_natural_benign_threshold": {
+      "alert_fraction": 0.24514019439222431,
+      "attack_f1": 0.00032627758065173945,
+      "attack_n": 4,
+      "attack_precision": 0.00016316540893330614,
+      "attack_recall": 1.0,
+      "average_precision": 0.0002355912471231482,
+      "benign_fpr": 0.24511,
+      "benign_n": 100000,
+      "fn": 0,
+      "fp": 24511,
+      "per_stage": {
+        "DataExfiltration": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        },
+        "InitialCompromise": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        },
+        "LateralMovement": {
+          "detected": 4,
+          "n": 4,
+          "recall": 1.0
+        },
+        "Pivoting": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        },
+        "Reconnaissance": {
+          "detected": 0,
+          "n": 0,
+          "recall": null
+        }
+      },
+      "roc_auc": 0.86979875,
+      "rows": 100004,
+      "tn": 75489,
+      "tp": 4
+    }
+  },
+  "missing_policies": [
+    "reference",
+    "candidate",
+    "threshold_only"
+  ],
+  "rows": 100004,
+  "run_status": "COMPLETE_LIMITED_EXTERNAL_STRESS",
+  "source_budget": 1024,
+  "source_group_result_sha256": "cab239702cf09ea97404c9969825f4e6180f4e6ce15ba8ca63ea51bf7eef0b35",
+  "source_prefit_sha256": "c9e0d9f2c08c18ed9649d624054c4b799ee6f1e7dcd75ff21414a6510e60a3b3",
+  "source_seed": 20260921,
+  "source_selection_lock_sha256": "b44c40c4c564b7921f5fd62598a065e0106f3664d6c0e4b2b946a0b25b254c05",
+  "source_selection_status": "INFEASIBLE",
+  "target_data_sha256": "245e2da96cce476173cd2cc5b20278d36bf8cef4b302ae60fefbc29fcad099bd",
+  "target_manifest_sha256": "7e65d58ac79b421fe151a5a59c591050859f1ee001142b6f5d711a016deafcbb"
+}

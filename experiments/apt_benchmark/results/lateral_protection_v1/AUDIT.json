@@ -1,0 +1,79 @@
+{
+  "artifact_hashes": {
+    "PREFIT_RECEIPT.json": "c9e0d9f2c08c18ed9649d624054c4b799ee6f1e7dcd75ff21414a6510e60a3b3",
+    "SUMMARY.json": "c8b09fa71b26f60262adf4c0bbe539375364dd97d453b328ea04f09964930f2b"
+  },
+  "audit_source_sha256": "1758989fac7bf6afcbf084eabb176fd5c9211775c18e7d1277eb2e77dcbeef40",
+  "audit_status": "PASS",
+  "audited_cells": 152,
+  "audited_utc": "2026-09-21T19:26:13.692332+00:00",
+  "checks": [
+    "Input, protocol, code, model and receipt hashes",
+    "Independent support, partition and label rosters",
+    "Fitting-only CV arithmetic, fold weights and imputation statistics",
+    "Selection precedes verification receipt chain",
+    "Independent score-bin threshold/tie reconstruction including threshold-only ablation",
+    "All saved predictions and classification/alert/stage metrics",
+    "All-seed completeness and exact rational development guards"
+  ],
+  "completed_groups": 19,
+  "execution_binding": "8c03ddb57d72de601bd55fe652f134a58fadaa2d6a5258edd3dda2fe93ad5a0e",
+  "experiment": "LATERAL_PROTECTION_DEVELOPMENT_V1",
+  "group_result_hashes": {
+    "1024/20260921": "cab239702cf09ea97404c9969825f4e6180f4e6ce15ba8ca63ea51bf7eef0b35",
+    "1024/20260922": "b35b08ef43ef5e672243cb54bafd76e5e4df057a57055fa5fedd4bbc29d36069",
+    "1024/20260923": "89c407831ba31dc120a43b653b11d3a4c3265ac511dca593637862fe0e8a8e5d",
+    "1024/20260924": "7c84169cebdffac131d2c4c24b3a0eaadde438d99dfeff5e482225012d163fb1",
+    "1024/20260925": "e0640d810c0c52ae8205b1a74385426e71bc990fc664b1a2579e34080860ff8c",
+    "1024/20260926": "f644c5c51ab7f1c512276fc6671afd6c79b2f76c4b086f68b85e2f32e7bf941c",
+    "1024/20260927": "4c5ee8b0da513ddb44ee6a1ff28c2cbea84b4ee760084ff9764c02ce8d0680d0",
+    "1024/20260928": "102c414a1f55634373cbe2339b2e633ced70722a0d5d9310a6a37d4febc83e05",
+    "1024/20260929": "0921a89935b4322b14d0cf1408cfa05660b322cf3d42118f7a6f8f36e24d1680",
+    "1024/20260930": "417b06021106781de6fa2e67f9773e57a0b413e5046847c576a00cbf3b39feae",
+    "128/20260921": "9452b75605a2f0bd531bf3ffb0e2ab6be06166f1feabd89537f57b6d425b6544",
+    "128/20260922": "c74b813875d0669b06416172132feae4183a384efc4f929f7b3a60cc16c55588",
+    "128/20260923": "27bea397148f1eacef2975e78fe6979af147f1e9ea2f9d085a64429635e1a145",
+    "32/20260921": "46c9e4801e201a9315c422a38e0b2f0dd63e066cc67eba33f82eb3c1fdb90ca1",
+    "32/20260922": "bba2638c33939f845978235968bac3ac0299daed459cb0a6cde55bec7068ff26",
+    "32/20260923": "3905911cf7f0dc82a5b9eef04420e9afedb4ef49ec5799e9ca471405b6c9d354",
+    "512/20260921": "849ed3292b4ccf007a3006ce596b08d5cc3c7ca47086cce59b9e29fa91b3d866",
+    "512/20260922": "1a9e18b532e00daae13c00f934c5f7dabc6506adaf787086bbfbd07f84cc87bd",
+    "512/20260923": "3fc7eff8d4837a3680696f3dcd0ce2c88e6d6f2639b181e3223a13f80d4e6e2c"
+  },
+  "limitations": [
+    "No model fitting or inference was replayed; CV fold scores are checked arithmetically, not recomputed from unsaved fold predictions.",
+    "Receipt ordering and frozen code support the recorded execution path; they do not establish human blindness or independent confirmation.",
+    "Previously exposed source flows and repeated fitting seeds do not provide independent-incident or deployment guarantees."
+  ],
+  "missing_groups": [],
+  "primary_gate": {
+    "expected_pairs": 10,
+    "pairs": 6,
+    "reason": "All prespecified seeds must have a selected policy; no averaging only feasible survivors",
+    "status": "INFEASIBLE"
+  },
+  "protocol_sha256": "f20d9a96c693081896ca5057b207d635b82912eeccc5da073143f059a5257a5e",
+  "required_cells": 152,
+  "required_groups": 19,
+  "run_status": "COMPLETE",
+  "secondary_gates": {
+    "128": {
+      "expected_pairs": 3,
+      "pairs": 1,
+      "reason": "All prespecified seeds must have a selected policy; no averaging only feasible survivors",
+      "status": "INFEASIBLE"
+    },
+    "32": {
+      "expected_pairs": 3,
+      "pairs": 0,
+      "reason": "All prespecified seeds must have a selected policy; no averaging only feasible survivors",
+      "status": "INFEASIBLE"
+    },
+    "512": {
+      "expected_pairs": 3,
+      "pairs": 1,
+      "reason": "All prespecified seeds must have a selected policy; no averaging only feasible survivors",
+      "status": "INFEASIBLE"
+    }
+  }
+}
