@@ -6,6 +6,7 @@
 
 An empirical praxis on benign training coverage, alert policies, and attack-stage visibility.
 
+- [Simple findings summary](FINDINGS_SUMMARY.md)
 - [Read the findings-led manuscript](FINDINGS_PRAXIS.md)
 - [Current Word document](FINDINGS_PRAXIS.docx)
 - [Current PDF](FINDINGS_PRAXIS.pdf)
@@ -28,3 +29,5 @@ The revised emphasis and additional descriptive comparisons were developed after
 - [Earlier source draft](DRAFT_EMPIRICAL_PRAXIS.md)
 
 The earlier manuscript and its document receipt remain intact. They describe the original screen-oriented presentation; they are not the receipt or page count for the findings-led revision. Software validation, scientific audit, numerical synthesis, and document rendering are separate checks.
+
+The current findings manuscript has 36 pages, 17 references, 39 tables, and three figures. Its [numerical review](FINDINGS_NUMERICAL_REVIEW.json) and [literature review](FINDINGS_LITERATURE_REVIEW.json) are recorded separately; the [document receipt](FINDINGS_DOCUMENT_RECEIPT.json) binds the delivered files and all-page visual review.
