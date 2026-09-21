@@ -84,6 +84,9 @@ class FinalDecisionTests(unittest.TestCase):
 
     def report_inputs(self):
         e1, comparison, gate, _ = publication_fixtures.synthetic_values()
+        for summary in e1["model_summaries"].values():
+            summary.update(roc_auc_ovr_macro={"mean": .8}, average_precision_ovr_macro={"mean": .6},
+                           per_stage={"InitialCompromise": {"same_test_support": 15, **{key: {"mean": .7} for key in ("precision", "recall", "f1", "roc_auc_ovr", "average_precision_ovr")}}})
         metrics = {"rare_stages": {"InitialCompromise": {"same_test_support": 15, "mean_routed_count": 12., "mean_routing_recall": .8},
                                     "DataExfiltration": {"same_test_support": 106, "mean_routed_count": 79.5, "mean_routing_recall": .75}},
                    "mean_review_queue_attack_precision": .5, "mean_reviewed": 600., "mean_review_fraction": .02,

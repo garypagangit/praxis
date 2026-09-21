@@ -174,8 +174,17 @@ def render(evidence, e1, comparisons, gate, transfer, *, docs="../../tabular_fol
     lines += ["", "Recall here means reaching the review queue. Queue precision means the fraction of reviewed flows that are any attack; this binary gate does not output a stage-classification precision. Correct stage identification and successful analyst adjudication were not measured by the routing experiment. Counts are means over repeated fits on the same cases, not additional independent attacks.", "",
               "The candidate needs 29,929 known-normal calibration labels beyond its shared 192 fitting labels; conformal controls use all 30,782 calibration labels. Only nominal **95% class-conditional (Mondrian) LAC** is forced to include InitialCompromise for every input with these 14 rare calibration cases, making the specified protective mapping review every flow. This is not a claim that 90% Mondrian or all conformal methods review everything.", "",
               "## Original models and the stronger benign-label challenge", "",
-              "| Original model | Full-test macro-F1 |", "|---|---:|"]
-    for name, summary in e1["model_summaries"].items(): lines.append(f"| {name} | {summary['macro_f1']['mean']:.4f} |")
+              "| Original model | Full-test macro-F1 | Macro ROC-AUC | Macro average precision |", "|---|---:|---:|---:|"]
+    for name, summary in e1["model_summaries"].items():
+        lines.append(f"| {name} | {summary['macro_f1']['mean']:.4f} | {summary['roc_auc_ovr_macro']['mean']:.4f} | {summary['average_precision_ovr_macro']['mean']:.4f} |")
+    lines += ["", "Macro metrics weight the six labels equally, including NormalTraffic. AUC and average precision use one-versus-rest continuous scores; average precision summarizes the precision-recall curve. All entries average ten fits on the same development-test rows.", ""]
+    for name, summary in e1["model_summaries"].items():
+        lines += [f"### Stage classification: {name}", "", "| Source label | Same test cases | Precision | Recall | F1 | ROC-AUC | Average precision |", "|---|---:|---:|---:|---:|---:|---:|"]
+        for stage, metrics in summary["per_stage"].items():
+            values = [f"{metrics[key]['mean']:.4f}" for key in ("precision", "recall", "f1", "roc_auc_ovr", "average_precision_ovr")]
+            lines.append(f"| {stage} | {metrics['same_test_support']} | " + " | ".join(values) + " |")
+        lines.append("")
+    lines += ["### Stronger controls and additional benign examples", ""]
     lines += ["", "| Stronger tree family | Macro-F1: 192 labels | Macro-F1: 1,184 labels |", "|---|---:|---:|"]
     for name in sorted(pub.TREE_MODELS):
         a, b = (comparisons["model_summaries"][condition][name]["macro_f1"]["mean"] for condition in ("equal_32_per_class", "abundant_benign_1024"))
