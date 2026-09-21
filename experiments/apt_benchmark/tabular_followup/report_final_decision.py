@@ -143,7 +143,7 @@ def load_evidence(final_root, benign_folder):
     return evidence, e1, comparisons, gate, transfer
 
 
-def render(evidence, e1, comparisons, gate, transfer, *, docs="../../tabular_followup", benign_report="../strong_benign_controls_v1/REPORT.md"):
+def render(evidence, e1, comparisons, gate, transfer, *, docs="../../tabular_followup", benign_report="../strong_benign_controls_v1/REPORT.md", external_evidence="../tabular_followup_v1/TRANSFER_SUMMARY.json"):
     decisions = evidence["registered_decisions"]
     positive_review = decisions["review_policy"] == "DEVELOPMENT_PROMISING"
     strong_positive = decisions["strong_equal_label"] == "PASS"
@@ -194,7 +194,7 @@ def render(evidence, e1, comparisons, gate, transfer, *, docs="../../tabular_fol
               f"The detection cost matters: pooled attack detection changed **{pub.pct(a['binary_attack_recall'])} to {pub.pct(b['binary_attack_recall'])}**; lateral-movement detection as any attack changed **{pub.pct(a['binary_detection_by_stage']['LateralMovement'])} to {pub.pct(b['binary_detection_by_stage']['LateralMovement'])}**. These are binary detection rates, distinct from correctly identifying the stage. More benign labels improved an established baseline with a security tradeoff; the unequal-label condition is not a fair model-family victory or a new algorithm.", "",
               "This comparison does **not establish tree architecture superiority**: the foundation models received 192 fitting labels while the abundant-benign trees received 1,184. No matched abundant-benign foundation-model arm was run. Isolating an architecture effect would require the same label budget and fitting data.", "",
               f"The [independently audited benign-control report]({benign_report}) documents all stage tradeoffs. Its tree predictions are hash-matched to this final comparison. The abundant-benign models were not the models evaluated in Sandworm transfer.", "",
-              "## External binary transfer: separate operating points", "", *pub.transfer_report(transfer),
+              "## External binary transfer: separate operating points", "", *[line.replace("(TRANSFER_SUMMARY.json)", f"({external_evidence})") for line in pub.transfer_report(transfer)],
               "## Limits of the praxis claim", "",
               f"The [novelty review]({docs}/NOVELTY_POSITION.md), [focused benign-label novelty note]({docs}/BENIGN_LABEL_NOVELTY_NOTE.md), and [frozen method design]({docs}/RARE_STAGE_DESIGN.md) document relevant overlap and distinguish publication status. Conditional candidacy above follows the registered development gates only. A defensible new contribution still needs a clearly distinct mechanism or applied finding and independent evidence for the relevant attack stages.", "",
               "These results do not establish early warning, actor attribution, robustness to missing or delayed logs, or unknown-stage protection. Fifteen InitialCompromise cases and 106 Exfiltration cases are reused across fitting seeds; no independent-incident confidence claim follows. The official SCVIC author holdout remains unavailable.", "",
@@ -213,7 +213,10 @@ def generate(final_root, output, benign_folder):
         pub.require((here / name).is_file(), "Missing report documentation: " + name)
     docs = Path(os.path.relpath(here, output)).as_posix()
     benign_report = Path(os.path.relpath(benign_folder / "REPORT.md", output)).as_posix()
-    report = render(evidence, e1, comparisons, gate, transfer, docs=docs, benign_report=benign_report)
+    public_transfer = here.parent / "results/tabular_followup_v1/TRANSFER_SUMMARY.json"
+    pub.require(public_transfer.is_file() and pub.read(public_transfer) == transfer, "Published external evidence differs or is missing")
+    external_evidence = Path(os.path.relpath(public_transfer, output)).as_posix()
+    report = render(evidence, e1, comparisons, gate, transfer, docs=docs, benign_report=benign_report, external_evidence=external_evidence)
     pub.aggregate_only(report); pub.aggregate_only(evidence)
     output.mkdir(parents=True, exist_ok=True)
     (output / "REPORT.md").write_text(report, encoding="utf-8")

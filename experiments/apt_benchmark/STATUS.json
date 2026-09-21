@@ -1,5 +1,5 @@
 {
-  "status": "TABULAR_STRONG_BENIGN_CONTROLS_IMPROVED_WITH_TRADEOFF_FOUNDATION_PENDING",
+  "status": "TABULAR_FOLLOWUP_COMPLETE_AUDITED_NOVEL_PRAXIS_UNCONFIRMED",
   "date": "2026-09-21",
   "branch": "apt-benchmark",
   "tests_passed": 328,
@@ -17,11 +17,9 @@
   "novel_method_validated": false,
   "early_before_impact_measured": false,
   "next_gates": [
-    "Finish full-query foundation inference and independently audit all ten paired seeds",
-    "Complete stronger tree controls and abundant-benign challenge; retain unequal-label disclosure",
-    "Evaluate frozen rare-stage review policy against both single-model controls",
-    "Complete the predeclared source-calibrated threshold diagnostic on existing Sandworm predictions",
-    "Require independent stage-labeled incidents and resolve closest-literature overlap before any novel praxis claim"
+    "Before a novel praxis claim: independently validate a specific positive benefit on appropriately stage-labeled incidents and resolve the documented closest-literature overlap",
+    "Any future abundant-benign foundation/tree comparison needs matching label budgets; that experiment was not part of this completed batch",
+    "Any new lateral-movement protection hypothesis is post-result development and requires its own frozen design and independent confirmation"
   ],
   "reports": {
     "pilot": "results/pilot_v1/REPORT.md",
@@ -38,7 +36,9 @@
     "tabular_proposal_review": "tabular_batch/BATCH_REVIEW.md",
     "tabular_followup": "results/tabular_followup_v1/REPORT.md",
     "tabular_novelty": "tabular_followup/NOVELTY_POSITION.md",
-    "strong_benign_controls": "results/strong_benign_controls_v1/REPORT.md"
+    "strong_benign_controls": "results/strong_benign_controls_v1/REPORT.md",
+    "tabular_final_decision": "results/tabular_followup_decision_v1/REPORT.md",
+    "benign_label_novelty": "tabular_followup/BENIGN_LABEL_NOVELTY_NOTE.md"
   },
   "robustness_experiments_completed": 3,
   "robustness_models_fitted": 16,
@@ -51,7 +51,7 @@
   ],
   "sdapt2026_status": "CANDIDATE_PLAN_PREPARED_RAW_DATA_AND_CORRECTIONS_UNQUALIFIED",
   "sdapt2026_models_fitted": 0,
-  "updated_utc": "2026-09-21T14:48:51.092149+00:00",
+  "updated_utc": "2026-09-21T17:46:10.092196+00:00",
   "robustness_v2": {
     "arm_target_configurations": 30,
     "audited_result_rows": 630,
@@ -79,10 +79,10 @@
   "tabular_batch": {
     "source": "SCVIC author training data; deduplicated development split",
     "full_e1_classical_cells_completed_and_audited": 30,
-    "full_e1_foundation_cells_completed": 0,
+    "full_e1_foundation_cells_completed": 20,
     "full_e1_foundation_cells_required": 20,
-    "e1_full_status": "INCOMPLETE",
-    "e4_full_status": "INCOMPLETE",
+    "e1_full_status": "COMPLETE_AUDITED",
+    "e4_full_status": "COMPLETE_AUDITED",
     "cpu_prescreen_foundation_cells_completed_and_audited": 6,
     "cpu_prescreen_primary": {
       "guards": {
@@ -196,18 +196,18 @@
   },
   "top_level_pilot_counts_scope": "Original AIT pilot; later experiment counts and outcomes are in their named nested sections, including tabular_batch.",
   "tabular_followup": {
-    "snapshot_utc": "2026-09-21T14:48:51.092149+00:00",
+    "snapshot_utc": "2026-09-21T17:46:10.092196+00:00",
     "latest_outcome_source": "results/tabular_followup_v1/PUBLICATION.json",
     "completed_cells_snapshot": {
-      "full_tabicl": 4,
-      "full_tabpfn": 4,
       "original_cpu": 30,
-      "sandworm": 20,
-      "strong_baselines": 60
+      "full_tabicl": 10,
+      "full_tabpfn": 10,
+      "strong_baselines": 60,
+      "sandworm": 20
     },
-    "full_foundation_comparison": "RUNNING_CPU",
-    "stronger_baselines": "ALL_60_INDEPENDENTLY_AUDITED_FOUNDATION_COMPARISON_PENDING",
-    "rare_stage_policy": "FROZEN_WAITING_FULL_SOURCE_PREDICTIONS",
+    "full_foundation_comparison": "COMPLETE_AUDITED",
+    "stronger_baselines": "ALL_60_INDEPENDENTLY_AUDITED",
+    "rare_stage_policy": "DEVELOPMENT_NEGATIVE",
     "external_binary_transfer": {
       "audited_cells": 20,
       "seeds": 10,
@@ -215,13 +215,14 @@
       "unique_attack_rows": 37,
       "source_only": true,
       "target_labels_used_for_fit_or_calibration": false,
-      "interpretation": "Operationally unfavorable at fixed argmax; source-threshold diagnostic pending",
+      "interpretation": "Completed primary argmax and separate source-threshold diagnostic; see final report for their different operating points. Binary transfer is not independent stage validation.",
       "tabicl_attack_recall": 0.44324324324324327,
       "tabicl_normal_false_positive_rate": 0.28208373904576434,
       "tabicl_binary_macro_f1": 0.4342237178474798,
-      "selected_tree_binary_macro_f1": 0.40002942722170226
+      "selected_tree_binary_macro_f1": 0.40002942722170226,
+      "source_threshold_diagnostic": "COMPLETE_AUDITED"
     },
-    "automatic_completion_watcher": "RUNNING_12_HOUR_DEADLINE",
+    "automatic_completion_watcher": "PUSHED_AND_VERIFIED",
     "gpu_used": false,
     "novel_method_validated": false,
     "independent_rare_stage_validation": false,
@@ -245,6 +246,15 @@
         0.9569930069930069
       ],
       "source": "results/strong_benign_controls_v1/SUMMARY.json"
-    }
+    },
+    "registered_decisions": {
+      "original_e1": "PASS",
+      "original_e4": "FAIL",
+      "review_policy": "DEVELOPMENT_NEGATIVE",
+      "strong_equal_label": "PASS"
+    },
+    "final_report_tests_passed": 8,
+    "final_report": "results/tabular_followup_decision_v1/REPORT.md",
+    "completed_utc": "2026-09-21T17:45:00.261567+00:00"
   }
 }

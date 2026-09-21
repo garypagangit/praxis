@@ -113,6 +113,8 @@ class FinalDecisionTests(unittest.TestCase):
         self.assertIn("did not meet its frozen development criteria", text)
         self.assertIn("At the primary argmax operating point", text)
         self.assertIn("separate source-threshold diagnostic", text)
+        self.assertIn("(../tabular_followup_v1/TRANSFER_SUMMARY.json)", text)
+        self.assertNotIn("(TRANSFER_SUMMARY.json)", text)
         for expected in ("Ceiling limitation", "only 0.67 percentage points", "registered negative outcome is retained", "Second-model ablation", "+1.6", "+30.1", "not replacement success criteria"):
             self.assertIn(expected, text)
 

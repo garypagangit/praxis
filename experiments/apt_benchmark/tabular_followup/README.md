@@ -1,10 +1,12 @@
 # Reliable APT stage recognition with limited labeled data
 
+**Completed September 21, 2026:** [Final audited results and praxis decision](../results/tabular_followup_decision_v1/REPORT.md). All 50 original model runs, 60 stronger-control runs, ten review-policy pairs and 20 external-transfer runs are complete. The work packages below preserve the original rationale; the linked report records the completed outcomes, including negative results and limitations.
+
 This continuation challenges the promising [CPU prescreen](../results/tabular_batch_v1/REPORT.md). The question is whether the improvement survives stronger controls and can support useful review of rare attack stages. It does not assume a positive result or a novel algorithm.
 
 ## Work packages
 
-1. **Complete the original comparison.** Run the unchanged E1 protocol over all 30,787 development-test rows and 30,782 calibration rows. Retain its ten fitting seeds, 32 examples per class, primary TabICL candidate, secondary TabPFN candidate, and original decision criteria. A full CPU TabICL run was started while AWS authentication is pending. Partial cells never count as completed results.
+1. **Complete the original comparison.** Run the unchanged E1 protocol over all 30,787 development-test rows and 30,782 calibration rows. Retain its ten fitting seeds, 32 examples per class, primary TabICL candidate, secondary TabPFN candidate, and original decision criteria. Full local CPU runs of both foundation models are complete. AWS was not used because the authentication session had expired. Partial cells never count as completed results.
 2. **Challenge the controls.** Expand training-only tree-model tuning. In a separate condition, keep the same 32 attack examples per class but provide 1,024 normal fitting examples. Report the extra labels explicitly. An abundant-normal tree versus a scarce-normal foundation model is a deployment challenge, not an equal-budget model comparison.
 3. **Test rare-stage review.** Freeze a fixed false-alert-budget review rule before its outcomes. Compare it against ordinary attack-score thresholds, an ablation, and established class-conditional prediction sets. Review routing is not correct stage identification, and human review is not assumed to be perfect or performed.
 4. **Qualify independent evidence.** Seek an author-released held-out dataset or independent campaign. Check provenance, rights, feature compatibility, stage mapping, and overlap before model evaluation. A derivative synthetic dataset is not independent confirmation.
