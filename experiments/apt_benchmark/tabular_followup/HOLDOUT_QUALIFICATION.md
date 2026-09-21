@@ -65,6 +65,8 @@ There is no newly chosen success threshold. Ten seeds are ten source-fitting sub
 
 A secondary operating-point diagnostic is predeclared for when matching full source-calibration predictions are available: use only the 29,929 source-normal calibration scores to fix a conservative empirical 1% tail threshold, then measure its target attack recall and false alarms. It uses additional source calibration labels; it does not change the primary argmax result or guarantee a 1% target false-positive rate under shift.
 
+The [independent auditor](audit_sandworm_transfer.py) verifies the twenty completed artifact chains, original source supports/CV choices, imputer medians, checkpoint and code hashes, then recomputes confusion counts, F1, tie-aware AUC/AP, procedure recall and paired summaries without fitting or predicting. Its optional `--source-foundation-run` adds the threshold diagnostic only after all ten matching source TabICL calibration cells are complete and audited; otherwise that diagnostic stays pending without hiding the primary result. A separately labeled always-normal arithmetic reference explains the imbalance: 98.23% accuracy can coexist with zero detected attacks. This reporting reference was added after initial partial results and changes no fitted arm or decision gate.
+
 ### Prepared artifact contract and verification
 
 Canonical private prepared directory: `tabular_followup_v1/sandworm_prepared_v3`.
