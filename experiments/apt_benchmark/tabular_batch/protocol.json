@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "experiment": "E1",
+  "title": "Few-label APT stage classification and empirical uncertainty",
+  "status": "FROZEN_BEFORE_SCIENTIFIC_MODEL_FITS",
+  "data_npz_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+  "manifest_sha256": "772edbce9548a1dc87a0e9dd835f9002dfd5a2bb7b3cc37de212d7b3c43791e3",
+  "evaluation_scope": "Feature-deduplicated within-author-training development split; no incident/temporal/author-holdout generalization claim",
+  "seeds": [20260921, 20260922, 20260923, 20260924, 20260925, 20260926, 20260927, 20260928, 20260929, 20260930],
+  "samples_per_class": 32,
+  "unsupported_requested_budgets": [64, 128, 256, 512, 1024],
+  "n_splits": 3,
+  "prediction_chunk_rows": 1024,
+  "foundation_n_estimators": 4,
+  "models": ["random_forest", "xgboost", "lightgbm", "tabicl_v2", "tabpfn_2_5_synthetic"],
+  "model_grids": {
+    "xgboost": [
+      {"n_estimators": 100, "max_depth": 2, "learning_rate": 0.05},
+      {"n_estimators": 100, "max_depth": 3, "learning_rate": 0.1},
+      {"n_estimators": 200, "max_depth": 3, "learning_rate": 0.05}
+    ],
+    "lightgbm": [
+      {"n_estimators": 100, "num_leaves": 7, "learning_rate": 0.05},
+      {"n_estimators": 100, "num_leaves": 15, "learning_rate": 0.1},
+      {"n_estimators": 200, "num_leaves": 15, "learning_rate": 0.05}
+    ]
+  },
+  "preprocessing": "Median imputation fit only on selected fit rows; keep empty columns; repeat inside each inner CV training fold. No test/calibration fitting or selection.",
+  "hyperparameter_selection": "Three-fold stratified CV macro-F1 within the same 192 selected fitting labels only; deterministic ties choose grid order. No additional labeled validation data.",
+  "primary_candidate": "tabicl_v2",
+  "primary_comparator": "Best of XGBoost and LightGBM by inner CV for each seed, tie to XGBoost; never select on test",
+  "primary_metric": "Mean paired test macro-F1 difference over ten common fitting subsamples",
+  "e1_development_gate": {
+    "macro_f1_delta_min": 0.02,
+    "high_risk_classes": ["InitialCompromise", "DataExfiltration"],
+    "mean_recall_delta_min": -0.05,
+    "interpretation": "Descriptive development screen only; ten subsampling seeds do not supply ten independent incidents or population significance"
+  },
+  "secondary_metrics": ["all model and seed scores", "per-class precision/recall/F1", "confusion matrices", "one-vs-rest ROC-AUC and AP", "fit and inference time", "device and version provenance"],
+  "e4": {
+    "methods": ["marginal", "mondrian"],
+    "nominal_coverages": [0.9, 0.95],
+    "score": "1 minus true-class probability",
+    "quantile": "ceil((n+1)*(1-alpha)) order statistic; infinity if rank exceeds n or class unsupported; no forced singleton",
+    "primary": "90% marginal LAC, TabICL versus the E1 inner-CV-selected GBDT",
+    "development_gate": {"candidate_to_comparator_mean_set_size_max": 0.9, "observed_pooled_coverage_min": 0.88, "observed_per_class_coverage_min": 0.85},
+    "interpretation": "Empirical development performance only. Neither the split design nor conformal wrapping establishes population, temporal-shift, per-stage or unseen-stage guarantees. Class-conditional95% InitialCompromise uses infinite fallback because calibration n=14."
+  },
+  "hardware": "Prefer existing AWS A10G for foundation inference after sign-in; classical controls may run on CPU. Separate hardware timings cannot support an E2 throughput comparison.",
+  "execution": "Model-subset runs may be combined only with matching input/protocol/class/split/seed/selected-fit fingerprints. Completed immutable cells may be resumed without changing settings; partial cells are preserved as failed attempts. Synthetic smoke fits qualify runtime, not scientific outcomes.",
+  "limitations": ["Official author test data unavailable", "Exact feature duplicate removal does not remove all correlated or near-duplicate flows", "InitialCompromise has only15 test and14 calibration examples", "Balanced training budgets alter class priors", "Source stage labels are accepted for this benchmark, not independently human-adjudicated", "No early-warning, next-stage forecasting or actor-attribution claim", "Broad foundation-model IDS and conformalized foundation IDS already have prior art; novelty remains unestablished", "A negative outcome is possible and will be reported"]
+}

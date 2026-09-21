@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "2026-09-21T00:50:16.584197+00:00",
+  "scope": [
+    "E1",
+    "E2",
+    "E7"
+  ],
+  "review_type": "bounded_primary_source_review_not_systematic",
+  "first_use_claim_verified": false,
+  "experiments_run": false,
+  "sources": [
+    {
+      "id": "ids_foundation_2025",
+      "title": "Foundation Models for Cybersecurity: A Comprehensive Multi-Modal Evaluation of TabPFN and TabICL for Tabular Intrusion Detection",
+      "url": "https://doi.org/10.3390/electronics14193792",
+      "status": "peer_reviewed_journal",
+      "published": "2025-09-24",
+      "experiments": [
+        "E1"
+      ],
+      "finding": "Existing multi-dataset IDS foundation-model evaluation including rare classes. Does not establish performance on the proposed APT-stage datasets."
+    },
+    {
+      "id": "malware_low_data_2026",
+      "title": "Memory-Based Malware Detection under Limited Data Conditions: A Comparative Evaluation of TabPFN and Ensemble Models",
+      "url": "https://arxiv.org/abs/2601.07305",
+      "status": "preprint_peer_review_not_verified",
+      "published": "2026-01-12",
+      "experiments": [
+        "E1"
+      ],
+      "finding": "Reports 2-6 percent gains in memory-malware low-data experiments; no guaranteed transfer to APT stage classification."
+    },
+    {
+      "id": "ton_iot_hybrid_2026",
+      "title": "Optimizing IoT Intrusion Detection with Tabular Foundation Models for Smart City Forensics",
+      "authors": [
+        "Asma Al-Dahmani",
+        "Abdulla Bin Safwan",
+        "Mohammad Obeidat",
+        "Belal Alsinglawi"
+      ],
+      "url": "https://arxiv.org/html/2604.11394v1",
+      "status": "preprint_peer_review_not_verified",
+      "published": "2026-04-13",
+      "experiments": [
+        "E2"
+      ],
+      "finding": "Already proposes TabPFN screening followed by RF/GB. Table 3 timing headline is vs RF, not tuned XGBoost. End-to-end threshold frontier still needs measurement."
+    },
+    {
+      "id": "grande_iclr2024",
+      "title": "GRANDE: Gradient-Based Decision Tree Ensembles",
+      "url": "https://s-marton.github.io/files/paper_grande.pdf",
+      "status": "peer_reviewed_conference",
+      "published": "2024",
+      "experiments": [
+        "E7"
+      ],
+      "finding": "Section 4.3 PhishingWebsites is prior cybersecurity application, refuting broad first-security-use claim."
+    },
+    {
+      "id": "tabicl_icml2025",
+      "title": "TabICL: A Tabular Foundation Model for In-Context Learning on Large Data",
+      "url": "https://proceedings.mlr.press/v267/qu25d.html",
+      "status": "peer_reviewed_conference",
+      "published": "2025",
+      "experiments": [
+        "E1"
+      ]
+    },
+    {
+      "id": "tabicl_v2_2026",
+      "title": "TabICLv2: A better, faster, scalable, and open tabular foundation model",
+      "url": "https://arxiv.org/abs/2602.11139",
+      "status": "listed_in_official_icml2026_downloads",
+      "venue_evidence": "https://icml.cc/Downloads/2026",
+      "published": "2026",
+      "experiments": [
+        "E1"
+      ]
+    },
+    {
+      "id": "tabicl_implementation",
+      "url": "https://github.com/soda-inria/tabicl",
+      "status": "official_implementation",
+      "experiments": [
+        "E1"
+      ]
+    },
+    {
+      "id": "tabpfn_implementation",
+      "url": "https://github.com/PriorLabs/TabPFN/blob/main/README.md",
+      "status": "official_implementation",
+      "experiments": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "id": "tabpfn25_card",
+      "url": "https://huggingface.co/Prior-Labs/tabpfn_2_5",
+      "status": "official_model_card",
+      "experiments": [
+        "E1",
+        "E2"
+      ],
+      "finding": "Default classifier uses real-data finetuning; default-2 classifier is synthetic-only. Explicit version pin required."
+    },
+    {
+      "id": "tabpfn25_license",
+      "url": "https://huggingface.co/Prior-Labs/tabpfn_2_5/blob/main/LICENSE",
+      "status": "official_license",
+      "experiments": [
+        "E1",
+        "E2"
+      ],
+      "finding": "Noncommercial research/evaluation license; do not equate public checkpoint access with unrestricted production use."
+    },
+    {
+      "id": "tabicl_card",
+      "url": "https://huggingface.co/jingang/TabICL",
+      "status": "official_model_card",
+      "experiments": [
+        "E1"
+      ]
+    },
+    {
+      "id": "grande_implementation",
+      "url": "https://github.com/s-marton/GRANDE",
+      "status": "official_implementation",
+      "experiments": [
+        "E7"
+      ]
+    }
+  ],
+  "package_metadata": [
+    {
+      "name": "tabicl",
+      "metadata_url": "https://pypi.org/pypi/tabicl/json",
+      "version": "2.2.0",
+      "upload_time": "2026-09-02T15:13:36.629078Z",
+      "requires_python": ">=3.10",
+      "core_dependencies": [
+        "einops>=0.7",
+        "huggingface-hub",
+        "numpy",
+        "psutil",
+        "scikit-learn>=1.3.0",
+        "scipy",
+        "torch>=2.2",
+        "tqdm>=4.64.0"
+      ],
+      "installed_by_this_audit": false
+    },
+    {
+      "name": "tabpfn",
+      "metadata_url": "https://pypi.org/pypi/tabpfn/json",
+      "version": "9.0.0",
+      "upload_time": "2026-09-15T12:29:22.201085Z",
+      "requires_python": ">=3.10",
+      "core_dependencies": [
+        "torch>=2.5",
+        "safetensors>=0.4.0",
+        "numpy>=1.21.6",
+        "scikit-learn>=1.2.0",
+        "typing_extensions>=4.12.0",
+        "scipy>=1.11.1",
+        "pandas>=1.4.0",
+        "einops>=0.4.0",
+        "huggingface-hub>=0.23.0",
+        "pydantic>=2.8.0",
+        "pydantic-settings>=2.10.1",
+        "joblib>=1.2.0",
+        "tqdm>=4.66.0",
+        "filelock>=3.11.0",
+        "lightgbm>=4.4",
+        "skrub<0.11,>=0.7",
+        "matplotlib>=3.6.1",
+        "mlx>=0.29.3; sys_platform == \"darwin\" and platform_machine == \"arm64\""
+      ],
+      "installed_by_this_audit": false
+    },
+    {
+      "name": "GRANDE",
+      "metadata_url": "https://pypi.org/pypi/GRANDE/json",
+      "version": "0.1.6",
+      "upload_time": "2024-03-15T12:10:41.973241Z",
+      "requires_python": "",
+      "core_dependencies": [
+        "category-encoders ==2.6.1",
+        "pandas >=2.0.3",
+        "tensorflow ==2.16.1",
+        "numpy >=1.24.3",
+        "scikit-learn >=1.3.0",
+        "focal-loss ==0.0.7"
+      ],
+      "installed_by_this_audit": false
+    }
+  ],
+  "model_metadata": [
+    {
+      "repository": "jingang/TabICL",
+      "metadata_url": "https://huggingface.co/api/models/jingang/TabICL",
+      "tree_metadata_url": "https://huggingface.co/api/models/jingang/TabICL/tree/4dcd344ece2c00be9e831fdd35bed57b5ad83e19?expand=false",
+      "revision": "4dcd344ece2c00be9e831fdd35bed57b5ad83e19",
+      "gated": false,
+      "private": false,
+      "license_tag": "bsd-3-clause",
+      "files": [
+        {
+          "filename": "tabicl-classifier-v2-20260212.ckpt",
+          "size_bytes": 110368038,
+          "sha256": "bdc7dbd5e4ff21f8f0456fcf90c6b7cdf72dbea960f2d05b19bec19f9b3d4ed0"
+        }
+      ],
+      "downloaded_by_this_audit": false,
+      "fitted_by_this_audit": false
+    },
+    {
+      "repository": "Prior-Labs/tabpfn_2_5",
+      "metadata_url": "https://huggingface.co/api/models/Prior-Labs/tabpfn_2_5",
+      "tree_metadata_url": "https://huggingface.co/api/models/Prior-Labs/tabpfn_2_5/tree/6c45f3a6d0d07c6c5f62572e04a0c2929de91b8b?expand=false",
+      "revision": "6c45f3a6d0d07c6c5f62572e04a0c2929de91b8b",
+      "gated": false,
+      "private": false,
+      "license_tag": "other",
+      "files": [
+        {
+          "filename": "tabpfn-v2.5-classifier-v2.5_default-2.ckpt",
+          "size_bytes": 42929867,
+          "sha256": "2d0fbd257a5a274f2a219836d5a68e9c27224845936b4685d85dd42e2b8092aa"
+        },
+        {
+          "filename": "tabpfn-v2.5-classifier-v2.5_default.ckpt",
+          "size_bytes": 42935499,
+          "sha256": "5d7170e2d3af01f9c501bb09ec3bd12e9944f8604de18002c647873c6ec04a12"
+        }
+      ],
+      "downloaded_by_this_audit": false,
+      "fitted_by_this_audit": false
+    }
+  ],
+  "source_commits": [
+    {
+      "repository": "s-marton/GRANDE",
+      "branch": "master",
+      "url": "https://api.github.com/repos/s-marton/GRANDE/commits/master",
+      "sha": "07f7278b30ab9ebbbdc544e5f9a91f1b5df7fecb",
+      "commit_date": "2025-12-16T17:32:51Z"
+    },
+    {
+      "repository": "soda-inria/tabicl",
+      "branch": "main",
+      "url": "https://api.github.com/repos/soda-inria/tabicl/commits/main",
+      "sha": "0dbff3ec8fc68c123c87af77b0ea8b25cd2d23f3",
+      "commit_date": "2026-09-02T13:49:56Z"
+    }
+  ],
+  "grande_git_requirements_url": "https://raw.githubusercontent.com/s-marton/GRANDE/07f7278b30ab9ebbbdc544e5f9a91f1b5df7fecb/requirements.txt",
+  "recommended_first_foundation_arm": "TabICLv2 after dataset gate and smoke test",
+  "statistical_notes": [
+    "Do not guarantee positive results.",
+    "Account for model, budget and dataset multiplicity.",
+    "Count selection and calibration labels in the scarce-label budget.",
+    "Use independent scenarios as uncertainty units where possible."
+  ],
+  "backend_validation": {
+    "checked_utc": "2026-09-21T00:53:07.240931+00:00",
+    "syntax": "PASS",
+    "lazy_model_import": "PASS",
+    "cached_checkpoint_integrity_rejects_same_size_corruption": "PASS",
+    "release_wheel_constructor_keyword_check": "PASS",
+    "tabpfn_wheel_sha256": "0adb0e69be839051c7f9e92caadec93324cccc0256321bf967fda91e5c493f98",
+    "tabicl_wheel_sha256": "c80b8ec2719be26bc0bf1dd758a2361f58019d8f7877038b785529a425789ce4",
+    "requirement_versions_exist": [
+      {
+        "package": "torch",
+        "version": "2.5.1",
+        "exists": true,
+        "requires_python": ">=3.8.0"
+      },
+      {
+        "package": "tabicl",
+        "version": "2.2.0",
+        "exists": true,
+        "requires_python": ">=3.10"
+      },
+      {
+        "package": "tabpfn",
+        "version": "9.0.0",
+        "exists": true,
+        "requires_python": ">=3.10"
+      },
+      {
+        "package": "numpy",
+        "version": "2.2.6",
+        "exists": true,
+        "requires_python": ">=3.10"
+      },
+      {
+        "package": "scipy",
+        "version": "1.15.3",
+        "exists": true,
+        "requires_python": ">=3.10"
+      },
+      {
+        "package": "scikit-learn",
+        "version": "1.7.2",
+        "exists": true,
+        "requires_python": ">=3.10"
+      },
+      {
+        "package": "pandas",
+        "version": "2.3.3",
+        "exists": true,
+        "requires_python": ">=3.9"
+      }
+    ],
+    "dependency_resolver_run": false,
+    "runtime_smoke_fit_run": false,
+    "fits_run": 0,
+    "checkpoint_downloads": 0
+  }
+}
