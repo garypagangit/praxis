@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "experiment": "E1_CPU_PRESCREEN",
+  "status": "FROZEN_BEFORE_FOUNDATION_CLASSIFICATION_OUTCOMES",
+  "title": "Bounded CPU plausibility screen with prevalence-adjusted estimates",
+  "e1_protocol_sha256": "9d4c69f9ab8af48dae44aae6c237a25cedc56a1f50eff819513fa2e9beb7c687",
+  "data_npz_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+  "manifest_sha256": "772edbce9548a1dc87a0e9dd835f9002dfd5a2bb7b3cc37de212d7b3c43791e3",
+  "seeds": [
+    20260921,
+    20260922,
+    20260923
+  ],
+  "samples_per_class": 32,
+  "normal_query_rows": 1024,
+  "expected_attack_query_rows": 858,
+  "expected_original_normal_rows": 29929,
+  "query_hash_tag": "E1_CPU_PRESCREEN_20260921",
+  "query_selection": "All development-test attack rows plus the first 1024 NormalTraffic rows ranked by SHA256(query_hash_tag|fingerprint). Order the combined query by the same hash and reuse it for all three seeds.",
+  "query_weights": "Attack rows receive weight 1; NormalTraffic rows receive weight 29929/1024. The weights sum to 30787. Scores estimate this prescreen execution at original test prevalence; they are not actual full-E1 scores.",
+  "foundation_n_estimators": 4,
+  "prediction_chunk_rows": 1024,
+  "cpu_threads": 4,
+  "torch_interop_threads": 2,
+  "foundation_models": [
+    "tabicl_v2",
+    "tabpfn_2_5_synthetic"
+  ],
+  "primary_candidate": "tabicl_v2",
+  "secondary_candidate": "tabpfn_2_5_synthetic",
+  "macro_f1_delta_min": 0.02,
+  "high_risk_classes": [
+    "InitialCompromise",
+    "DataExfiltration"
+  ],
+  "mean_recall_delta_min": -0.05,
+  "primary_gate": "Require all three paired seeds. Report PRELIMINARY_PROMISING only if the mean weighted-estimated macro-F1 delta is at least 0.02 and both high-risk mean recall deltas are at least -0.05. Otherwise report PRELIMINARY_NEGATIVE. Missing pairs remain INCOMPLETE. Never report a full E1 pass.",
+  "baseline_policy": "Reuse exact query indices, class order and fit supports from hash-verified completed E1 CPU Random Forest, XGBoost and LightGBM cells. Do not refit baselines. Select the GBDT family separately for each seed using only its original selected inner-CV macro-F1; ties choose XGBoost.",
+  "rescope_timing": "Freeze after classical scores are known and before foundation-model classification outcomes. This is an explicit compute-budget rescope.",
+  "rescope_reason": "AWS sign-in expired and GPU access remains unavailable. Full ten-seed foundation evaluation on CPU was estimated at about ten hours. This separate 1882-row, three-seed query provides a bounded plausibility test.",
+  "not_performed": [
+    "Calibration",
+    "E4 evaluation",
+    "Threshold tuning",
+    "Candidate selection using query outcomes",
+    "Independent confirmation",
+    "Completion of the full registered E1 experiment"
+  ],
+  "required_reporting": [
+    "Unweighted query metrics and prevalence-adjusted estimated metrics for all five models",
+    "Per-stage precision, recall, F1, confusion matrices, ROC-AUC and average precision",
+    "Raw sampled benign false-positive counts and their weighted estimates",
+    "Full-test versus weighted-estimated macro-F1 for all three baselines",
+    "Checkpoint, data, support, query, weight, code and version provenance",
+    "TabPFN secondary outcomes regardless of the primary result"
+  ],
+  "limitations": [
+    "The same benign query sample is reused across three seeds. Repeated fitting seeds do not reduce uncertainty from benign sampling.",
+    "Each sampled benign false alarm represents 29929/1024 original normal rows. Zero sampled false positives does not establish zero full-test false positives.",
+    "Aggregated scores are nonlinear plug-in estimates, not unbiased F1 estimates.",
+    "Foundation prediction batch invariance is unverified. Changing query batch composition may change predictions.",
+    "Attack recall covers all 858 attack rows for this prescreen execution, including 15 InitialCompromise and 106 DataExfiltration examples.",
+    "No significance interval, temporal or incident generalization, novelty, or guaranteed positive outcome is claimed."
+  ],
+  "execution_policy": "Freeze source and protocol before fitting. The prefit receipt binds exact queries, weights, supports, checkpoints and baselines. Resume only verified completed cells; preserve and reject incomplete nonempty cells.",
+  "cpu_thread_detail": "Set PyTorch intra-operation threads to 4 and inter-operation threads to 2. Override TabICL n_jobs to 4 in this separate runner; the shared E1 backend remains unchanged."
+}
