@@ -156,7 +156,7 @@ def run(cache, protocol_path, output):
     source_files = [Path(__file__), Path(__file__).with_name('features.py'), protocol_path]
     receipt = {'created_utc': datetime.now(timezone.utc).isoformat(), 'frozen_before_fit': True,
         'protocol_sha256': digest(protocol_path), 'feature_manifest_sha256': digest(cache / 'MANIFEST.json'),
-        'cache_artifact_sha256': hashes, 'code_sha256': {p.relative_to(repo).as_posix(): digest(p) for p in source_files},
+        'cache_artifact_sha256': hashes, 'code_sha256': {p.resolve().relative_to(repo).as_posix(): digest(p) for p in source_files},
         'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip(),
         'python': platform.python_version(), 'sklearn': sklearn.__version__,
         'development_only': True, 'models_fit': 0}
