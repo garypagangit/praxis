@@ -63,6 +63,51 @@ def final_fixture(root):
 
 
 class PublicationTests(unittest.TestCase):
+    def synthetic_transfer_report(self, *, complete_diagnostic=False):
+        # Explicit poor detection/high false alarms ensure presentation cannot hide
+        # operationally unfavorable values behind a relative macro-F1 advantage.
+        def summaries(tabicl_recall, tree_recall):
+            output = {}
+            for model, recall, false_alarm in [("tabicl_v2", tabicl_recall, .21), ("selected_gbdt", tree_recall, .34)]:
+                metrics = {"attack_recall": recall, "normal_false_positive_rate": false_alarm, "attack_precision": .0123,
+                           "attack_f1": .0187, "binary_macro_f1": .445, "roc_auc": .4321, "average_precision": .0165}
+                output[model] = {"views": {"deduplicated_primary": {name: {"mean": value} for name, value in metrics.items()}}}
+            return output
+        diagnostic = {"status": "PENDING_MATCHING_FULL_SOURCE_CALIBRATION", "available_full_source_tabicl_cells": 2, "required_full_source_tabicl_cells": 10}
+        if complete_diagnostic:
+            diagnostic = {"status": "COMPLETE_AUDITED", "source_normal_calibration_count_per_seed_model": 29929,
+                          "model_summaries": summaries(.135, .027)}
+        return {"target_counts": {"unique_rows": 2091, "normal_rows": 2054, "attack_rows": 37},
+                "model_summaries": summaries(.054, .0), "source_threshold_diagnostic": diagnostic,
+                "always_normal_descriptive_reference": {"views": {"deduplicated_primary": {"binary_macro_f1": .4955, "attack_average_precision_prevalence_reference": 37 / 2091}}}}
+
+    def test_external_report_displays_poor_primary_metrics_and_pending_diagnostic(self):
+        e1, comparisons, gate, _ = synthetic_values()
+        text = publish.report(e1, comparisons, gate, self.synthetic_transfer_report())
+        self.assertIn("2,091 unique flows: 2,054 normal and 37 attacks", text)
+        self.assertIn("| TabICL | 5.40% | 21.00% | 1.23% | 1.87% | 44.50% | 0.4321 | 0.0165 |", text)
+        self.assertIn("| Source-CV-selected tree | 0.00% | 34.00%", text)
+        self.assertIn("does not establish a useful deployable detector", text)
+        self.assertIn("At the primary argmax operating point", text)
+        self.assertIn("predicting normal for every flow detects no attacks yet reaches 49.55%", text)
+        self.assertIn("PENDING_MATCHING_FULL_SOURCE_CALIBRATION", text)
+        self.assertIn("2/10", text)
+        self.assertEqual(text.count("| Model | Attack recall |"), 1)
+
+    def test_external_report_keeps_completed_threshold_metrics_separate(self):
+        e1, comparisons, gate, _ = synthetic_values()
+        text = publish.report(e1, comparisons, gate, self.synthetic_transfer_report(complete_diagnostic=True))
+        self.assertEqual(text.count("| Model | Attack recall |"), 2)
+        primary, secondary = text.split("### External Sandworm transfer: separate source-threshold diagnostic")
+        self.assertIn("| TabICL | 5.40%", primary)
+        self.assertNotIn("| TabICL | 13.50%", primary)
+        self.assertIn("| TabICL | 13.50%", secondary)
+        self.assertIn("| Source-CV-selected tree | 2.70%", secondary)
+        self.assertIn("COMPLETE_AUDITED", secondary)
+        self.assertIn("29,929 labeled source-normal", secondary)
+        self.assertIn("does not guarantee 1% false alarms on Sandworm", secondary)
+        self.assertIn("Judge this diagnostic's practical value from its own", secondary)
+
     def test_counts_and_exact_model_seed_rosters_are_required(self):
         values = synthetic_values()
         publish.verify(*values)

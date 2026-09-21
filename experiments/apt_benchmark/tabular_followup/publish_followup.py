@@ -125,6 +125,49 @@ def verify_sources(final_root, values, transfer=None):
         require(transfer["protocol_sha256"] == sha(source / "protocol_sandworm_transfer.json") and transfer["audit_code_sha256"] == sha(source / "audit_sandworm_transfer.py"), "External protocol/auditor binding changed")
 
 
+def transfer_table(model_summaries):
+    """Display the audited primary unique-flow means, including unfavorable ones."""
+    columns = [("attack_recall", pct), ("normal_false_positive_rate", pct), ("attack_precision", pct),
+               ("attack_f1", pct), ("binary_macro_f1", pct),
+               ("roc_auc", lambda v: "not available" if v is None else f"{v:.4f}"),
+               ("average_precision", lambda v: "not available" if v is None else f"{v:.4f}")]
+    lines = ["| Model | Attack recall | Normal false-alarm rate | Attack precision | Attack F1 | Binary macro-F1 | ROC-AUC | Average precision |",
+             "|---|---:|---:|---:|---:|---:|---:|---:|"]
+    for model, label in [("tabicl_v2", "TabICL"), ("selected_gbdt", "Source-CV-selected tree")]:
+        metrics = model_summaries[model]["views"]["deduplicated_primary"]
+        lines.append("| " + label + " | " + " | ".join(formatter(metrics[name]["mean"]) for name, formatter in columns) + " |")
+    return lines
+
+
+def transfer_report(transfer):
+    counts = transfer["target_counts"]
+    lines = ["### External Sandworm transfer: primary decision rule", "",
+             f"The independent target contains {counts['unique_rows']:,} unique flows: {counts['normal_rows']:,} normal and {counts['attack_rows']:,} attacks. Its attack labels describe procedures, with no exfiltration class. This binary transfer check cannot validate six-stage recognition or the rare-stage protection claim.", "",
+             "The primary decision is fixed: flag a flow when the source-trained classifier's highest-probability class is not NormalTraffic. The table reports arithmetic means across ten source-fitting seeds on the same target capture; these are not ten independent attack incidents.", "",
+             *transfer_table(transfer["model_summaries"]), "",
+             "Attack recall measures how many attacks are caught; precision measures how many flagged flows are attacks. The normal false-alarm rate reports the cost to benign traffic. ROC-AUC and average precision describe ranking quality and do not replace these operating-point measurements.", ""]
+    reference = transfer.get("always_normal_descriptive_reference", {}).get("views", {}).get("deduplicated_primary")
+    if reference is not None:
+        lines += [f"For context, predicting normal for every flow detects no attacks yet reaches {pct(reference['binary_macro_f1'])} binary macro-F1. The constant-score average-precision reference is {reference['attack_average_precision_prevalence_reference']:.4f}. This is an arithmetic reference, not another fitted model or success gate.", ""]
+    lines += ["**At the primary argmax operating point, this transfer result does not establish a useful deployable detector.** A relative gain over a weak comparator does not resolve missed attacks, false alarms, or analyst workload; the absolute values above must support any practical claim. One small capture cannot establish broad deployment reliability.", "",
+              "### External Sandworm transfer: separate source-threshold diagnostic", ""]
+    diagnostic = transfer.get("source_threshold_diagnostic", {})
+    status = diagnostic.get("status", "NOT_AVAILABLE")
+    lines += [f"Diagnostic status: **{status}**.", ""]
+    if status == "COMPLETE_AUDITED":
+        calibration_count = diagnostic["source_normal_calibration_count_per_seed_model"]
+        lines += [f"This predeclared secondary operating point uses {calibration_count:,} labeled source-normal calibration examples per model and seed. It flags target scores strictly above the source-calibrated threshold for a nominal 1% benign tail. No target labels select that threshold. The table is separate from the primary argmax results above; a 1% source target does not guarantee 1% false alarms on Sandworm.", "",
+                  *transfer_table(diagnostic["model_summaries"]), "",
+                  "Changing this threshold changes detection and false alarms; it does not change the underlying ranking scores, so ROC-AUC and average precision can remain identical to the primary table. Judge this diagnostic's practical value from its own recall, precision, and false-alarm rate.", ""]
+    else:
+        available = diagnostic.get("available_full_source_tabicl_cells")
+        required = diagnostic.get("required_full_source_tabicl_cells")
+        progress = f" Matching full-source calibration cells: {available}/{required}." if available is not None and required is not None else ""
+        lines += ["No secondary operating-point results are available in this summary." + progress + " The primary outcomes above remain the completed external results.", ""]
+    lines += ["The [audited external evidence](TRANSFER_SUMMARY.json) retains every seed, procedure-level detected/missed count, and raw-flow multiplicity sensitivity. The raw view reweights the same unique-query predictions; it is not a separate inference run.", ""]
+    return lines
+
+
 def report(e1, comparison, gate, transfer=None, *, documentation_base="../../tabular_followup"):
     eq = comparison["comparisons"]["equal_32_per_class"]
     lines = ["# Reliable APT recognition with limited labeled data: followup results", "",
@@ -152,7 +195,7 @@ def report(e1, comparison, gate, transfer=None, *, documentation_base="../../tab
         "[Policy results](GATE_AGGREGATE.json) and [independent calculation audit](GATE_AUDIT.json).", "",
         "## Independent evidence and praxis decision", ""]
     if transfer:
-        lines += ["A separate Sandworm transfer check is documented in [external evidence](TRANSFER_SUMMARY.json). Its 37 attack flows use procedure labels, with no exfiltration class. It tests fresh binary transfer only and cannot validate the rare-stage protection claim.", ""]
+        lines += transfer_report(transfer)
     else:
         lines += [f"The SCVIC author holdout remains unavailable. A small author-released Sandworm capture was separately qualified for binary transfer; see the [qualification record]({documentation_base}/HOLDOUT_QUALIFICATION.md). This is not an all-stage confirmation dataset.", ""]
     lines += [f"Direct prior work already covers these combinations, including tree-to-foundation rescue, few-label adaptation, cross-dataset transfer, and conformal prediction. This review policy is a development adaptation tested under rare-stage and false-alert constraints; there is no first-method claim. A defensible praxis contribution still requires a specific positive benefit and independent evidence with the relevant attack-stage labels. See the [novelty review and publication-status distinctions]({documentation_base}/NOVELTY_POSITION.md) and [method boundaries]({documentation_base}/RARE_STAGE_DESIGN.md).", "",
