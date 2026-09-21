@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "experiment": "STRONG_BASELINES_FOLLOWUP",
+  "title": "Stronger tree baselines with equal labels and additional benign training data",
+  "status": "FROZEN_BEFORE_FOLLOWUP_MODEL_FITS",
+  "registered_after_prior_results": true,
+  "e1_protocol_sha256": "9d4c69f9ab8af48dae44aae6c237a25cedc56a1f50eff819513fa2e9beb7c687",
+  "data_npz_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+  "manifest_sha256": "772edbce9548a1dc87a0e9dd835f9002dfd5a2bb7b3cc37de212d7b3c43791e3",
+  "seeds": [
+    20260921,
+    20260922,
+    20260923,
+    20260924,
+    20260925,
+    20260926,
+    20260927,
+    20260928,
+    20260929,
+    20260930
+  ],
+  "models": [
+    "xgboost",
+    "lightgbm",
+    "random_forest"
+  ],
+  "conditions": [
+    "equal_32_per_class",
+    "abundant_benign_1024"
+  ],
+  "samples_per_attack_class": 32,
+  "equal_budget_normal_rows": 32,
+  "abundant_normal_rows": 1024,
+  "n_splits": 3,
+  "prediction_chunk_rows": 1024,
+  "cpu_threads": 4,
+  "support_hash_tag": "STRONG_BASELINES_BENIGN_20260921",
+  "model_grids": {
+    "xgboost": [
+      {
+        "n_estimators": 100,
+        "max_depth": 2,
+        "learning_rate": 0.05
+      },
+      {
+        "n_estimators": 100,
+        "max_depth": 3,
+        "learning_rate": 0.1
+      },
+      {
+        "n_estimators": 200,
+        "max_depth": 3,
+        "learning_rate": 0.05
+      },
+      {
+        "n_estimators": 300,
+        "max_depth": 2,
+        "learning_rate": 0.05,
+        "min_child_weight": 1,
+        "reg_lambda": 1
+      },
+      {
+        "n_estimators": 600,
+        "max_depth": 2,
+        "learning_rate": 0.03,
+        "min_child_weight": 1,
+        "reg_lambda": 5
+      },
+      {
+        "n_estimators": 300,
+        "max_depth": 3,
+        "learning_rate": 0.1,
+        "min_child_weight": 1,
+        "reg_lambda": 5
+      },
+      {
+        "n_estimators": 600,
+        "max_depth": 3,
+        "learning_rate": 0.03,
+        "min_child_weight": 3,
+        "reg_lambda": 1
+      },
+      {
+        "n_estimators": 300,
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "min_child_weight": 1,
+        "reg_lambda": 1
+      },
+      {
+        "n_estimators": 600,
+        "max_depth": 5,
+        "learning_rate": 0.03,
+        "min_child_weight": 3,
+        "reg_lambda": 5
+      },
+      {
+        "n_estimators": 300,
+        "max_depth": 7,
+        "learning_rate": 0.05,
+        "min_child_weight": 1,
+        "reg_lambda": 5
+      },
+      {
+        "n_estimators": 400,
+        "max_depth": 3,
+        "learning_rate": 0.05,
+        "min_child_weight": 1,
+        "reg_alpha": 0.1,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8
+      },
+      {
+        "n_estimators": 400,
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "min_child_weight": 3,
+        "reg_alpha": 1,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8
+      }
+    ],
+    "lightgbm": [
+      {
+        "n_estimators": 100,
+        "num_leaves": 7,
+        "learning_rate": 0.05,
+        "min_child_samples": 5
+      },
+      {
+        "n_estimators": 100,
+        "num_leaves": 15,
+        "learning_rate": 0.1,
+        "min_child_samples": 5
+      },
+      {
+        "n_estimators": 200,
+        "num_leaves": 15,
+        "learning_rate": 0.05,
+        "min_child_samples": 5
+      },
+      {
+        "n_estimators": 300,
+        "num_leaves": 3,
+        "learning_rate": 0.05,
+        "min_child_samples": 5
+      },
+      {
+        "n_estimators": 600,
+        "num_leaves": 7,
+        "learning_rate": 0.03,
+        "min_child_samples": 5,
+        "reg_lambda": 1
+      },
+      {
+        "n_estimators": 300,
+        "num_leaves": 15,
+        "learning_rate": 0.05,
+        "min_child_samples": 10,
+        "reg_lambda": 1
+      },
+      {
+        "n_estimators": 600,
+        "num_leaves": 31,
+        "learning_rate": 0.03,
+        "min_child_samples": 5,
+        "reg_lambda": 5
+      },
+      {
+        "n_estimators": 300,
+        "num_leaves": 7,
+        "learning_rate": 0.1,
+        "min_child_samples": 20,
+        "reg_lambda": 5
+      },
+      {
+        "n_estimators": 400,
+        "num_leaves": 15,
+        "learning_rate": 0.05,
+        "min_child_samples": 5,
+        "colsample_bytree": 0.8,
+        "reg_alpha": 0.1
+      },
+      {
+        "n_estimators": 300,
+        "num_leaves": 7,
+        "learning_rate": 0.05,
+        "min_child_samples": 5,
+        "class_weight": "balanced"
+      },
+      {
+        "n_estimators": 400,
+        "num_leaves": 15,
+        "learning_rate": 0.05,
+        "min_child_samples": 10,
+        "class_weight": "balanced",
+        "reg_lambda": 1
+      },
+      {
+        "n_estimators": 400,
+        "num_leaves": 31,
+        "learning_rate": 0.05,
+        "min_child_samples": 5,
+        "class_weight": "balanced",
+        "reg_lambda": 5
+      }
+    ],
+    "random_forest": [
+      {
+        "n_estimators": 200,
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "max_features": "sqrt",
+        "class_weight": null
+      },
+      {
+        "n_estimators": 400,
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "max_features": 0.7,
+        "class_weight": null
+      },
+      {
+        "n_estimators": 400,
+        "max_depth": 8,
+        "min_samples_leaf": 2,
+        "max_features": "sqrt",
+        "class_weight": null
+      },
+      {
+        "n_estimators": 600,
+        "max_depth": 16,
+        "min_samples_leaf": 1,
+        "max_features": 0.7,
+        "class_weight": "balanced"
+      },
+      {
+        "n_estimators": 400,
+        "max_depth": null,
+        "min_samples_leaf": 2,
+        "max_features": "sqrt",
+        "class_weight": "balanced"
+      },
+      {
+        "n_estimators": 600,
+        "max_depth": 8,
+        "min_samples_leaf": 4,
+        "max_features": 0.7,
+        "class_weight": "balanced_subsample"
+      }
+    ]
+  },
+  "support_design": "Equal-label support is identical to the original E1 support for each seed. The abundant-benign support retains all original 192 rows and adds 992 NormalTraffic fit rows by SHA256(tag|seed|fingerprint). Attack supports are unchanged.",
+  "query_design": "All 30,787 original development-test rows, in original array order. No sampling or filtering by predictions or outcomes. Calibration data are neither fitted nor evaluated in this follow-up.",
+  "label_costs": {
+    "equal_32_per_class": {
+      "attack": 160,
+      "benign": 32,
+      "total": 192
+    },
+    "abundant_benign_1024": {
+      "attack": 160,
+      "benign": 1024,
+      "total": 1184
+    },
+    "additional_tuning_labels": 0
+  },
+  "hyperparameter_selection": "Three-fold stratified CV macro-F1 using only selected training supports, with fold-specific median imputation. Twelve XGBoost, twelve LightGBM, and six Random Forest candidates are fixed before any follow-up fit. No early stopping, threshold search, or retuning after results.",
+  "family_selection": "Maximum inner-CV macro-F1; ties prefer xgboost then lightgbm then random_forest",
+  "primary_comparator_families": [
+    "xgboost",
+    "lightgbm"
+  ],
+  "primary_comparison": "Existing original-budget TabICL versus the wider-CV-selected GBDT using matching seeds, support fingerprints, class order, and query rows. Full-test claims require full-test TabICL predictions. Any comparison to the earlier CPU prescreen must restrict the saved tree predictions to the exact prescreen query and use its same weights.",
+  "secondary_comparison": "CV-selected best of all three tree families, plus every family individually. Abundant-benign trees are a deployment challenge with 992 additional training labels, not an equal-label foundation comparison.",
+  "decision_scope": "Descriptive follow-up only. Report paired macro-F1 differences and InitialCompromise/DataExfiltration recall differences without selecting models or thresholds on test outcomes. This runner reports tree results and training-CV choices, not a foundation success verdict.",
+  "preprocessing": "Median imputation with empty columns retained; fitted independently inside every training CV fold and then on the full selected support for final prediction. No scaling or feature fitting on calibration/test data.",
+  "execution": "Freeze source and protocol before model fits. Private prefit receipt binds data, code, versions, supports, folds and the complete query roster. Every started cell has an immutable receipt; incomplete cells are preserved and require a fresh output directory. Completed cells resume only when all bindings and artifact hashes match.",
+  "limitations": [
+    "Official author test data unavailable",
+    "Exact feature duplicate removal does not remove all correlated or near-duplicate flows",
+    "InitialCompromise has only15 test and14 calibration examples",
+    "Balanced training budgets alter class priors",
+    "Source stage labels are accepted for this benchmark, not independently human-adjudicated",
+    "No early-warning, next-stage forecasting or actor-attribution claim",
+    "Broad foundation-model IDS and conformalized foundation IDS already have prior art; novelty remains unestablished",
+    "A negative outcome is possible and will be reported",
+    "Earlier development outcomes were known when this follow-up was designed; this is not a new untouched holdout",
+    "Additional benign-label acquisition cost is counted even if benign labels might be operationally easier to obtain",
+    "Shared test rows and fitting pool make ten seeds dependent; no seed-based confidence interval or independent replication claim"
+  ],
+  "same_budget_primary_gate": {
+    "required_paired_seeds": 10,
+    "mean_macro_f1_delta_min": 0.02,
+    "high_risk_classes": [
+      "InitialCompromise",
+      "DataExfiltration"
+    ],
+    "mean_recall_delta_min": -0.05,
+    "reference": "Reuse the original E1 descriptive development gate",
+    "required_tree_families": [
+      "xgboost",
+      "lightgbm"
+    ],
+    "require_full_original_test_query": true,
+    "interpretation": "Follow-up descriptive result only; not an untouched holdout or independent confirmation"
+  },
+  "batch_completion": "All 60 cells: ten seeds, two conditions, and all three tree families including Random Forest. Primary comparison eligibility requires both GBDT families and matching full-query original TabICL for all ten seeds.",
+  "abundant_benign_decision": "Descriptive unequal-budget challenge only; no equal-budget foundation winner claim."
+}
