@@ -1,5 +1,7 @@
 # Can combined audit evidence identify tool-transfer periods?
 
+**Completed:** [audited results](../results/window_diagnostic_v1/REPORT.md). Pooling improves primary recall from 10.4% to 21.3%, but fails the frozen useful-signal gate. The nonlinear control does not rescue the result. Retire this primary formulation; no recovery extension is supported by these findings.
+
 This bounded diagnostic follows the [negative structured-loss follow-up](../results/robustness_v2/SUMMARY.md). It tests whether the observation unit was too narrow: one audit event can be unrelated to an attack that the author labels across a whole period and multiple hosts. Pooling does not establish that every event in the period is malicious.
 
 ## Frozen design
@@ -38,7 +40,8 @@ Private data root below is an example. Raw logs, matrices, row-level predictions
 
 ```powershell
 python -m experiments.apt_benchmark.window_diagnostic.features --source-root C:/w/apt_benchmark_data_20260920/camlds_v1 --output C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/features --protocol experiments/apt_benchmark/window_diagnostic/protocol.json
-python -m experiments.apt_benchmark.window_diagnostic.run --cache C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/features --protocol experiments/apt_benchmark/window_diagnostic/protocol.json --output C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/run1
+python -m experiments.apt_benchmark.window_diagnostic.run --cache C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/features --protocol experiments/apt_benchmark/window_diagnostic/protocol.json --output C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/run2
+python -m experiments.apt_benchmark.window_diagnostic.audit --cache C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/features --run C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/run2 --protocol experiments/apt_benchmark/window_diagnostic/protocol.json --output C:/w/apt_benchmark_data_20260920/window_diagnostic_v1/AUDIT.json
 ```
 
 Outputs are immutable; use a fresh destination for an explicit rerun. The feature manifest binds source, protocol, adapter and artifact hashes. The runner writes a pre-fit receipt and records disjoint training families, ordered train/test window hashes and saved-model hashes. An independent code audit must verify calculations before result publication; it is not a human label audit.

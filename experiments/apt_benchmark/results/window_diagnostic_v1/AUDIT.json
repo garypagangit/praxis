@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "created_utc": "2026-09-21T00:40:57.329738+00:00",
+  "audit_code_sha256": "7fd59821c4a704492a44e58f7d6df372d06124c383642861e0588d8b4902d2b6",
+  "protocol_sha256": "6a0946d7b0ef06599c431ea5a9180bbe5fe5d7b4af49323373326a43b070781c",
+  "results_sha256": "05178f1dfcc85737d8a9f212fcfccc1d44202a7bf77a9d127129bdc2a3ae78ab",
+  "pre_fit_receipt_sha256": "4d5197c5cb0bba9a32a7db81ef255a6c476eca3dbbfc0589fda41c710a3f0f5a",
+  "predictions_sha256": "9866febf31b22b22bb0ac6ee0eed75808c41388e0ca27b615427e8412934ae1d",
+  "feature_manifest_sha256": "1d53214244072c974cc9039afb2d2d96a6113dc8a4d1496549fbd8c7783eaa95",
+  "windows": 5480,
+  "family_result_rows_checked": 50,
+  "run_result_rows_checked": 320,
+  "selection_masks_checked": 10,
+  "saved_models_checked": 15,
+  "model_sha256": {
+    "model_1_first_lr.joblib": "78c8e004b45e82a78271dbef5970c5c1971fa00e6eea73d35f89d12b54911086",
+    "model_1_pooled_lr.joblib": "a79959028c01766da0218156f6d7380030535d9525a8dc33afce98d90ab25498",
+    "model_1_pooled_extra_trees.joblib": "9f54675d0cc3887b076b539088574f67eb6dff1873fb297e7cca6ca72cf496d8",
+    "model_2_first_lr.joblib": "b5b4fc7d1e63236844d896080cfc44f4cdc251cf76fb66d052774e1308f4e8e1",
+    "model_2_pooled_lr.joblib": "dc3f49590c84e4bc0b94cd3a74b26b334440d86e0e4faec40e35a43cca42afa1",
+    "model_2_pooled_extra_trees.joblib": "2f79b098501a83aa31a5fc53f8a7fd3e3cc401faa509012c23a765c43ebdd437",
+    "model_3_first_lr.joblib": "76118439762b06ea989ec548971b7e703998eeec255b2167d94cb24ff43143ea",
+    "model_3_pooled_lr.joblib": "94c0500193474d93cdfe79ed33e8f823a93b6aaffb86d792615b5a8886255c42",
+    "model_3_pooled_extra_trees.joblib": "35c2472de643a1a9322e49178f7998628579cad821e9c64cf8a68714f602bc1b",
+    "model_4_first_lr.joblib": "13eb18d2d01a364bccdbad2902ab7c31e2f03acd12c381b9faf52b782d3768a5",
+    "model_4_pooled_lr.joblib": "beab8ec8d0f02cb090266ed24bccefce6d76cc5d37d7f42c1b51338e5b16eca3",
+    "model_4_pooled_extra_trees.joblib": "3265b39ea60a0ec1806a97f4b30c7634c62b4e57e7bfac666f129319a6f2e092",
+    "model_6_first_lr.joblib": "28ccc407ba27a741309420daab0d789fc315353c1f610392ccf742ab7151f855",
+    "model_6_pooled_lr.joblib": "7b5de39359a956fbcdc7eb23c721ac48a00cfabc12dc29ed9a4a12911461ce14",
+    "model_6_pooled_extra_trees.joblib": "bd419867ef65930291cc0aad6a915ee97722a26d7d4305e59f04f7aa3bf04a14"
+  },
+  "checks": [
+    "Independent full-grid and conditional selections including ties and per-run rounding",
+    "Independent AP/AUC, confusion counts, unknown-selection bounds, interval touches and macro averages",
+    "All primary gates independently recomputed",
+    "Protocol, feature cache, code, receipt and model hash bindings",
+    "Family-disjoint declared fit rosters and saved-model prediction reproduction without refitting"
+  ],
+  "limitations": [
+    "AI/code audit, not human source-label adjudication",
+    "Model receipts and code bind declared training rosters; this is not an external execution attestation",
+    "Raw source events are bound through the preparation manifest; this audit does not reread the entire source",
+    "PASS is calculation integrity, not a positive experimental outcome"
+  ],
+  "gates": {
+    "clean_useful_signal": {
+      "passed": false,
+      "macro_recall": 0.21254823322091573,
+      "macro_chance_recall": 0.10252344753697733,
+      "families_above_chance": 4
+    },
+    "pooling_benefit": {
+      "passed": true,
+      "macro_delta": 0.1087716100021268,
+      "families_improved": 4,
+      "worst_family_delta": 0.0
+    },
+    "simple_control_value": {
+      "passed": false,
+      "macro_delta": -0.006696442135326469
+    },
+    "loss_gap": {
+      "present": false,
+      "macro_clean_minus_loss_recall": 0.04639352231640992
+    },
+    "activity_count_clean_recall_delta": -0.0876052015920761,
+    "novel_method_validated": false,
+    "decision": "RETIRE_PRIMARY_POOLED_LR_FORMULATION; inspect secondary controls as disclosed developmental diagnostics only"
+  }
+}

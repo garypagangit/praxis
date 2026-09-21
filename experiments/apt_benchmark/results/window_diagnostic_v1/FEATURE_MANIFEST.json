@@ -1,0 +1,143 @@
+{
+  "status": "FEATURES_PREPARED_NO_MODELS_FIT",
+  "protocol_sha256": "6a0946d7b0ef06599c431ea5a9180bbe5fe5d7b4af49323373326a43b070781c",
+  "source_events_sha256": "17bbb1a7cf7b55ff5f8bf72a88fd8cc9c54f563d0f368441a1a626537356620a",
+  "source_manifest_sha256": "3596db41fd7aef1c999d589042f14985631a3dd20aad0d68455e9f6ba515313b",
+  "labels_sha256": "cc27fee6d78b6de3d5d2172b334269bbcd9747dac80b6882e8982229b2540afe",
+  "attack_times_sha256": "e300f508c5611e11a835d2dea575b152e85c9eed08ac3e945ec7f42cc0433d81",
+  "code_sha256": {
+    "features.py": "5b63fc1e29a9e481c12870a3aa2bf1d485ca74eb00c4bf87d24df82411ffd199",
+    "camlds/events.py": "c60f664cb364eedaeede8c43c50fb149d3fe82470521f8246a6bc0ba89b5ef2a"
+  },
+  "features": {
+    "text_dimensions": 8192,
+    "ngrams": [
+      1,
+      2
+    ],
+    "stripped_generic_markers": [
+      "TECHNIQUE_MARKER",
+      "SCENARIO_MARKER",
+      "CHALLENGE_MARKER"
+    ],
+    "binary_event_hashes": true,
+    "binary_pooled_presence": true,
+    "text_norm": "l2",
+    "observed_count_columns_log1p": [
+      "events",
+      "fragments",
+      "hosts",
+      "SYSCALL",
+      "EXECVE",
+      "PROCTITLE",
+      "PATH",
+      "OTHER"
+    ],
+    "dimensions": 8200,
+    "bin_seconds": 10,
+    "pooled_rule_tokens": [
+      "curl",
+      "rsync",
+      "scp",
+      "sftp",
+      "tftp",
+      "wget"
+    ]
+  },
+  "counts": {
+    "source_events": 691563,
+    "events_in_complete_bins": 688839,
+    "events_outside_complete_bins": 2724
+  },
+  "support": {
+    "fit": {
+      "windows": 1610,
+      "positive": 146,
+      "other_annotated": 1047,
+      "unknown": 417,
+      "empty": 142
+    },
+    "development": {
+      "windows": 227,
+      "positive": 9,
+      "other_annotated": 155,
+      "unknown": 63,
+      "empty": 0
+    },
+    "calibration": {
+      "windows": 79,
+      "positive": 3,
+      "other_annotated": 45,
+      "unknown": 31,
+      "empty": 14
+    },
+    "test": {
+      "windows": 3564,
+      "positive": 106,
+      "other_annotated": 3072,
+      "unknown": 386,
+      "empty": 0
+    }
+  },
+  "windows": 5480,
+  "matrices": {
+    "pooled_clean": {
+      "shape": [
+        5480,
+        8200
+      ],
+      "nnz": 1176615
+    },
+    "pooled_command_absent": {
+      "shape": [
+        5480,
+        8200
+      ],
+      "nnz": 704885
+    },
+    "first_clean": {
+      "shape": [
+        5480,
+        8200
+      ],
+      "nnz": 360955
+    },
+    "first_command_absent": {
+      "shape": [
+        5480,
+        8200
+      ],
+      "nnz": 284339
+    }
+  },
+  "artifacts": {
+    "first_clean.npz": {
+      "sha256": "8b660bf859df0f8d5f7bc1a2633669c4edc98aa60fb5395e4ca7ef08a316a0d9",
+      "bytes": 73746
+    },
+    "first_command_absent.npz": {
+      "sha256": "94b94d070630b28603904510675edaded79f567e833672061da5d7f92c629bd9",
+      "bytes": 56464
+    },
+    "metadata.json": {
+      "sha256": "d65151128c47a62596ca263f16391adc200cf6443c9b3fb2b31ea4e41245daa3",
+      "bytes": 1572298
+    },
+    "pooled_clean.npz": {
+      "sha256": "2614fa2b24c633f241836e380280981ad362c84cc575ac42f09f9df9dbf4b187",
+      "bytes": 1015652
+    },
+    "pooled_command_absent.npz": {
+      "sha256": "f36137f19ba9c4aae3e0aae7dd96932b1c077ab61de81629ab94211ae0649c74",
+      "bytes": 439682
+    },
+    "rules_clean.npy": {
+      "sha256": "7b26046a275401751c047018f98b1ca9d0d4bc4beb20d37febae7ac957f76736",
+      "bytes": 22048
+    },
+    "rules_command_absent.npy": {
+      "sha256": "c1061e8236b4edb17c6a3e4b1428f97b5718d37ebd0c31e088e089a72cb830eb",
+      "bytes": 22048
+    }
+  }
+}

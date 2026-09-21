@@ -1,0 +1,47 @@
+{
+  "experiment": "CAM-LDS fixed-window evidence diagnostic",
+  "version": 1,
+  "status": "FROZEN_BEFORE_NEW_MODEL_FITS",
+  "purpose": "Bounded developmental diagnosis of evidence aggregation; not a novel-method or independent-confirmation claim",
+  "target": "T1105",
+  "window_seconds": 10,
+  "families": ["1", "2", "3", "4", "6"],
+  "roster": "All complete absolute-UTC 10-second bins within each existing prepared replay envelope [minimum author start minus120 seconds, maximum author end); keep empty and unknown bins",
+  "label": "Any half-open overlap with a T1105 author manifestation interval is positive; overlap only with other annotated intervals is negative; no overlap is unknown (-1)",
+  "prediction_time": "End of the fixed window; retrospective audit-only evidence, not early warning",
+  "split": "Leave one of five previously exposed scenario families out; all results remain development evidence",
+  "features": {
+    "hash_dimensions": 8192,
+    "strip_fixed_generic_markers": ["TECHNIQUE_MARKER", "SCENARIO_MARKER", "CHALLENGE_MARKER"],
+    "ngrams": [1, 2],
+    "pooled_text": "Binary presence of within-event hashed unigrams/bigrams across all visible defender events in the fixed bin, L2 normalized",
+    "metadata": "log1p observed event/fragment/host counts and SYSCALL/EXECVE/PROCTITLE/PATH/OTHER counts",
+    "first_event": "Earliest source event by timestamp,event_id in the same bin; selected before removal and not replaced if invisible",
+    "excluded": ["labels", "source intervals", "source step ids", "attacker chronology", "absolute time", "bin number", "run identity", "family identity", "host names", "hidden deletion mask"]
+  },
+  "conditions": {
+    "clean": [],
+    "command_absent": ["EXECVE", "PROCTITLE"]
+  },
+  "training": "Clean known-label windows only; no tuning, augmentation, calibration threshold, or model selection",
+  "arms": ["transfer_rule", "activity_count", "first_lr", "pooled_lr", "pooled_extra_trees"],
+  "transfer_tools": ["curl", "wget", "scp", "sftp", "tftp", "rsync"],
+  "transfer_rule": "Count distinct exact lowercase tool tokens in visible pooled fragment text",
+  "activity_count": "Rank by observed event count; no fitting",
+  "logistic_regression": {"C": 1.0, "class_weight": "balanced", "solver": "liblinear", "max_iter": 2000, "random_state": 20260921},
+  "extra_trees": {"n_estimators": 200, "max_depth": 20, "min_samples_leaf": 2, "class_weight": "balanced", "max_features": "sqrt", "n_jobs": 2, "random_state": 20260921},
+  "review_fraction": 0.10,
+  "review_rule": "Rank all complete bins within each run and inspect ceil(0.10*N); break tied scores by SHA256(window-diagnostic-v1:window_id)",
+  "primary_metric": "Equal-weight mean over five families of target-window recall at full-grid review budget; pool counts within family",
+  "chance": "Within each family, sum_run(positive_bins_run*ceil(0.10*N_run)/N_run)/positive_bins_family",
+  "secondary_metrics": ["known-label average precision", "known-label ROC-AUC", "known-only top10% precision/recall/F1", "full-grid confirmed-positive yield lower bound", "unknown selected fraction", "per-run and per-family metrics", "source interval coverage diagnostic"],
+  "gates": {
+    "primary_arm": "pooled_lr",
+    "clean_useful_signal": {"macro_recall_min": 0.40, "chance_multiplier_min": 3.0, "families_above_chance_min": 4},
+    "pooling_benefit": {"comparator": "first_lr", "macro_recall_delta_min": 0.10, "families_improved_min": 3, "worst_family_delta_min": -0.10},
+    "simple_control_value": {"comparator": "transfer_rule", "macro_recall_delta_min": 0.05},
+    "loss_gap": {"clean_minus_command_absent_macro_recall_min": 0.10},
+    "interpretation": "These are practical descriptive development gates, not significance tests or guarantees. ExtraTrees cannot replace pooled LR after seeing outcomes. Activity-count comparison is diagnostic. Clean signal failure retires the primary formulation; an ExtraTrees-only success is an explicitly secondary lead. Clean signal plus loss gap supports checking surviving additional sources; it does not validate recovery. Pooling benefit and simple-control value are separate from basic signal. No novel method is validated by this experiment."
+  },
+  "limitations": ["All families previously exposed", "Padded globally applied author windows remain weak labels", "Other attack windows are not verified benign examples", "Unknown bins consume review budget but are not scored as false positives", "No ordinary-user workload", "Family4 contains only one target source interval", "Existing replay envelope was derived from author intervals; this is a selected slice, not full continuous monitoring", "No new network or application source is acquired in this diagnostic", "One fit seed and one window width; no search for favorable settings"]
+}

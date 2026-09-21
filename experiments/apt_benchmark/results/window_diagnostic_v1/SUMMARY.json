@@ -1,0 +1,214 @@
+{
+  "status": "COMPLETE_PRIMARY_USEFUL_SIGNAL_FAILED_RETIRE_FORMULATION",
+  "updated_utc": "2026-09-21T00:42:28.700527+00:00",
+  "windows": 5480,
+  "positive_windows": 264,
+  "unknown_windows": 897,
+  "runs": 32,
+  "families": 5,
+  "models_fit": 15,
+  "input_audit_checks_passed": 62,
+  "family_results_audited": 50,
+  "run_results_audited": 320,
+  "tests_passed": 172,
+  "test_wall_seconds": 32.411,
+  "cpu_only": true,
+  "aws_compute_started": false,
+  "gates": {
+    "clean_useful_signal": {
+      "passed": false,
+      "macro_recall": 0.21254823322091573,
+      "macro_chance_recall": 0.10252344753697733,
+      "families_above_chance": 4
+    },
+    "pooling_benefit": {
+      "passed": true,
+      "macro_delta": 0.1087716100021268,
+      "families_improved": 4,
+      "worst_family_delta": 0.0
+    },
+    "simple_control_value": {
+      "passed": false,
+      "macro_delta": -0.006696442135326469
+    },
+    "loss_gap": {
+      "present": false,
+      "macro_clean_minus_loss_recall": 0.04639352231640992
+    },
+    "activity_count_clean_recall_delta": -0.0876052015920761,
+    "novel_method_validated": false,
+    "decision": "RETIRE_PRIMARY_POOLED_LR_FORMULATION; inspect secondary controls as disclosed developmental diagnostics only"
+  },
+  "macro_family_results": [
+    {
+      "arm": "transfer_rule",
+      "condition": "clean",
+      "recall": 0.2192446753562422,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.12674981161122134,
+      "unknown_selected_fraction": 0.20045982624988734,
+      "known_average_precision": 0.17235203711064676,
+      "known_roc_auc": 0.5755593210818292,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.52,
+      "known_only_f1": 0.17631863292240652
+    },
+    {
+      "arm": "transfer_rule",
+      "condition": "command_absent",
+      "recall": 0.21301005681645552,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.12143542066147131,
+      "unknown_selected_fraction": 0.19912577423533406,
+      "known_average_precision": 0.17081856958598332,
+      "known_roc_auc": 0.5754470195097869,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.5152380952380952,
+      "known_only_f1": 0.17035478544912505
+    },
+    {
+      "arm": "activity_count",
+      "condition": "clean",
+      "recall": 0.30015343481299184,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.13331025378988562,
+      "unknown_selected_fraction": 0.10368674259132007,
+      "known_average_precision": 0.19105522334509073,
+      "known_roc_auc": 0.5842765017683528,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.43238095238095237,
+      "known_only_f1": 0.10989974669219953
+    },
+    {
+      "arm": "activity_count",
+      "condition": "command_absent",
+      "recall": 0.30015343481299184,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.13331025378988562,
+      "unknown_selected_fraction": 0.10368674259132007,
+      "known_average_precision": 0.19105522334509073,
+      "known_roc_auc": 0.5842765017683528,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.43238095238095237,
+      "known_only_f1": 0.10989974669219953
+    },
+    {
+      "arm": "first_lr",
+      "condition": "clean",
+      "recall": 0.10377662321878893,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.08871221308898172,
+      "unknown_selected_fraction": 0.23537992178761913,
+      "known_average_precision": 0.08597562311872084,
+      "known_roc_auc": 0.45227197653253565,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.16666666666666666,
+      "known_only_f1": 0.10548492812643757
+    },
+    {
+      "arm": "first_lr",
+      "condition": "command_absent",
+      "recall": 0.06746422386291132,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.050558902984452106,
+      "unknown_selected_fraction": 0.23067608903500586,
+      "known_average_precision": 0.08102999023338223,
+      "known_roc_auc": 0.43931422531316455,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.17619047619047618,
+      "known_only_f1": 0.06162975219578992
+    },
+    {
+      "arm": "pooled_lr",
+      "condition": "clean",
+      "recall": 0.21254823322091573,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.1507156541659099,
+      "unknown_selected_fraction": 0.28691470096472355,
+      "known_average_precision": 0.14219620315208048,
+      "known_roc_auc": 0.4993727492335437,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.4038095238095238,
+      "known_only_f1": 0.17569956815239834
+    },
+    {
+      "arm": "pooled_lr",
+      "condition": "command_absent",
+      "recall": 0.16615471090450581,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.1353320957285617,
+      "unknown_selected_fraction": 0.28086086487816597,
+      "known_average_precision": 0.11038783385867279,
+      "known_roc_auc": 0.4281392065544791,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.24952380952380954,
+      "known_only_f1": 0.16314139710366124
+    },
+    {
+      "arm": "pooled_extra_trees",
+      "condition": "clean",
+      "recall": 0.19353295050587913,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.14069422206524318,
+      "unknown_selected_fraction": 0.3542426603703942,
+      "known_average_precision": 0.122735170662797,
+      "known_roc_auc": 0.47626120788187193,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.3514285714285714,
+      "known_only_f1": 0.17418352512692134
+    },
+    {
+      "arm": "pooled_extra_trees",
+      "condition": "command_absent",
+      "recall": 0.15802570412906752,
+      "chance_recall": 0.10252344753697733,
+      "confirmed_positive_yield_lower_bound": 0.12823903850719645,
+      "unknown_selected_fraction": 0.3672798264563408,
+      "known_average_precision": 0.11881765051853058,
+      "known_roc_auc": 0.4237140490445981,
+      "known_prevalence": 0.07840763402345238,
+      "source_interval_touch_recall": 0.28095238095238095,
+      "known_only_f1": 0.14559005502401728
+    }
+  ],
+  "pooled_clean_bin_counts_secondary": [
+    {
+      "arm": "first_lr",
+      "selected_target": 44,
+      "positive": 264,
+      "reviewed": 559,
+      "pooled_bin_recall": 0.16666666666666666
+    },
+    {
+      "arm": "pooled_lr",
+      "selected_target": 77,
+      "positive": 264,
+      "reviewed": 559,
+      "pooled_bin_recall": 0.2916666666666667
+    },
+    {
+      "arm": "pooled_extra_trees",
+      "selected_target": 69,
+      "positive": 264,
+      "reviewed": 559,
+      "pooled_bin_recall": 0.26136363636363635
+    },
+    {
+      "arm": "transfer_rule",
+      "selected_target": 68,
+      "positive": 264,
+      "reviewed": 559,
+      "pooled_bin_recall": 0.25757575757575757
+    },
+    {
+      "arm": "activity_count",
+      "selected_target": 29,
+      "positive": 264,
+      "reviewed": 559,
+      "pooled_bin_recall": 0.10984848484848485
+    }
+  ],
+  "novel_method_validated": false,
+  "independent_confirmation": false,
+  "recommendation": "Retire this primary CAM-LDS fixed-window T1105 formulation; do not launch an evidence-recovery extension based on these findings."
+}

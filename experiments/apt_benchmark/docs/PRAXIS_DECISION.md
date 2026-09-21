@@ -1,5 +1,7 @@
 # Praxis opportunity revealed by the first comparison
 
+**Current decision after the bounded diagnostic:** [combined audit evidence results](../results/window_diagnostic_v1/REPORT.md) are complete. Pooling raises macro-family recall from 10.4% to 21.3%, but misses the predeclared useful-signal gate, does not beat the simple transfer-tool rule, and is not rescued by ExtraTrees. Retire this primary CAM window formulation. Do not launch an evidence-recovery extension from these findings. A new candidate needs independently qualified evidence-level supervision and useful complete-evidence controls. All recommendations below are historical; this paragraph supersedes their next-step language.
+
 **Latest completed follow-up:** [structured-loss controls and separate-source proxy results](../results/robustness_v2/SUMMARY.md) are complete and audited. All four AIT/Casino primary development targets fail the full frozen screen. Mixed training reduces some incorrect flags but introduces clean/random-loss harm; the visible-record router does not resolve the weakness. CAM-LDS is qualified only for manifestation-window membership with padded global labels. The next gate is to match supervision to host/process-local evidence or a defensible multi-host window target before selecting a further mechanism. Earlier recommendations below are preserved as research history, not the latest completion status.
 
 **September 20 update:** The subsequent [missing/delayed-log suite is complete](../results/robustness_v1/SUMMARY.md). It provides positive random-loss results on CasinoLimit, structured-loss failures and no consistent AIT augmentation benefit. The next gate is source-type-aware evidence handling with independent confirmation. [S-DAPT-2026 is registered conditionally](../sdapt2026/README.md), with source/correction and data-access issues documented. The earlier pilot rationale below is retained as development history.
@@ -44,7 +46,7 @@ There is a plausible applied research direction, but no established novelty or p
 
 A defensible contribution would require a clearly different treatment of missing/late evidence, a reproducible benefit over these relevant controls, and validation beyond the original easy/repeated patterns. Simply substituting Qwen, a Transformer or a GNN is insufficient evidence of novelty.
 
-## Decision now
+## Historical pilot decision
 
 **Continue with the benchmark and the rare-step/context question.** It has a measurable weakness to address and accessible source data. The current result establishes working infrastructure and a model tradeoff. It does not yet establish a completed positive praxis experiment.
 
