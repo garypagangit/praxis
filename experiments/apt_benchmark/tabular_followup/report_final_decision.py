@@ -105,6 +105,19 @@ def verify_external_diagnostic(transfer):
     pub.require(pub.roster(diagnostic["per_seed"], ["model", "seed"]) == {(model, seed) for model in ("tabicl_v2", "selected_gbdt") for seed in pub.SEEDS}, "External diagnostic roster differs")
 
 
+def review_diagnostics(gate):
+    """Descriptive ceiling and component costs; never a replacement decision gate."""
+    pairs = [p for p in gate["primary"]["paired_comparisons"] if p["control"] == "single_tabicl"]
+    control = mean(p["control_minimum_rare_routing_recall"] for p in pairs)
+    result = {"tabicl_mean_minimum_rare_recall": control, "maximum_possible_gain_over_tabicl": 1.0 - control}
+    for name in ("attack_reviewed", "benign_reviewed"):
+        result["tree_addition_mean_" + name] = mean(row["policies"]["candidate"][name] - row["policies"]["two_channel_tabicl_only"][name] for row in gate["rows"])
+    result["tree_addition_rare_recall_deltas"] = {
+        stage: mean(row["policies"]["candidate"]["per_stage"][stage]["routing_fraction"] - row["policies"]["two_channel_tabicl_only"]["per_stage"][stage]["routing_fraction"] for row in gate["rows"])
+        for stage in ("InitialCompromise", "DataExfiltration")}
+    return result
+
+
 def load_evidence(final_root, benign_folder):
     verify_manifest(final_root)
     paths = {"E1_ANALYSIS.json": final_root / "e1/ANALYSIS.json", "COMPARISONS.json": final_root / "COMPARISONS.json",
@@ -123,7 +136,7 @@ def load_evidence(final_root, benign_folder):
                 "benign_context_hashes": context_hashes, "completed_counts": {"original_cells": 50, "strong_cells": 60, "review_pairs": 10, "external_cells": 20},
                 "registered_decisions": {"original_e1": e1["primary"]["e1"]["status"], "original_e4": e1["primary"]["e4"]["status"],
                                          "strong_equal_label": comparisons["comparisons"]["equal_32_per_class"]["status"], "review_policy": gate["primary"]["status"]},
-                "review_primary": gate["primary"], "review_absolute_metrics": policies, "selected_tree_label_tradeoff": tradeoff,
+                "review_primary": gate["primary"], "review_absolute_metrics": policies, "review_diagnostics": review_diagnostics(gate), "selected_tree_label_tradeoff": tradeoff,
                 "novelty_established": False, "independent_attack_stage_validation": False,
                 "new_success_criteria_applied": False, "human_review_performed": False}
     for value in (evidence, e1, comparisons, gate, gate_audit, transfer): pub.aggregate_only(value)
@@ -153,6 +166,11 @@ def render(evidence, e1, comparisons, gate, transfer, *, docs="../../tabular_fol
     for name, item in evidence["review_absolute_metrics"].items():
         initial, exfil = (item["rare_stages"][stage] for stage in ("InitialCompromise", "DataExfiltration"))
         lines.append(f"| {policy_labels[name]} | {pub.pct(initial['mean_routing_recall'])} ({initial['mean_routed_count']:.2f}/{initial['same_test_support']}) | {pub.pct(exfil['mean_routing_recall'])} ({exfil['mean_routed_count']:.2f}/{exfil['same_test_support']}) | {pub.pct(item['mean_review_queue_attack_precision'])} | {item['mean_reviewed']:.1f} | {pub.pct(item['mean_review_fraction'])} | {pub.pct(item['mean_benign_fpr'])} | {pub.pct(item['maximum_seed_benign_fpr'])} |")
+    diagnostic = evidence["review_diagnostics"]
+    if diagnostic["maximum_possible_gain_over_tabicl"] < .05:
+        lines += ["", f"**Ceiling limitation:** the fixed TabICL control's mean minimum rare-stage recall was {pub.pct(diagnostic['tabicl_mean_minimum_rare_recall'])}. Even a perfect candidate could gain only {100 * diagnostic['maximum_possible_gain_over_tabicl']:.2f} percentage points, below the frozen +5-point requirement. The registered negative outcome is retained. This is a failed added-value test with a ceiling-limited endpoint, not evidence that rare attacks cannot be detected."]
+    rare_delta = diagnostic["tree_addition_rare_recall_deltas"]
+    lines += ["", f"**Second-model ablation:** adding the tree to the otherwise matching TabICL-only two-channel rule changed Initial and Exfiltration routing recall by {100 * rare_delta['InitialCompromise']:+.2f} and {100 * rare_delta['DataExfiltration']:+.2f} percentage points. It changed routed attacks by {diagnostic['tree_addition_mean_attack_reviewed']:+.1f} and benign reviews by {diagnostic['tree_addition_mean_benign_reviewed']:+.1f} per fitting seed. These are descriptive component costs, not replacement success criteria."]
     lines += ["", "Recall here means reaching the review queue. Queue precision means the fraction of reviewed flows that are any attack; this binary gate does not output a stage-classification precision. Correct stage identification and successful analyst adjudication were not measured by the routing experiment. Counts are means over repeated fits on the same cases, not additional independent attacks.", "",
               "The candidate needs 29,929 known-normal calibration labels beyond its shared 192 fitting labels; conformal controls use all 30,782 calibration labels. Only nominal **95% class-conditional (Mondrian) LAC** is forced to include InitialCompromise for every input with these 14 rare calibration cases, making the specified protective mapping review every flow. This is not a claim that 90% Mondrian or all conformal methods review everything.", "",
               "## Original models and the stronger benign-label challenge", "",

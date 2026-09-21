@@ -89,6 +89,9 @@ class FinalDecisionTests(unittest.TestCase):
                    "mean_review_queue_attack_precision": .5, "mean_reviewed": 600., "mean_review_fraction": .02,
                    "mean_benign_fpr": .01, "maximum_seed_benign_fpr": .014}
         evidence = {"registered_decisions": {"original_e1": "PASS", "original_e4": "FAIL", "strong_equal_label": "FAIL", "review_policy": "DEVELOPMENT_NEGATIVE"},
+                    "review_diagnostics": {"tabicl_mean_minimum_rare_recall": .993333333333, "maximum_possible_gain_over_tabicl": .006666666667,
+                                           "tree_addition_mean_attack_reviewed": 1.6, "tree_addition_mean_benign_reviewed": 30.1,
+                                           "tree_addition_rare_recall_deltas": {"InitialCompromise": 0., "DataExfiltration": 0.}},
                     "review_absolute_metrics": {name: deepcopy(metrics) for name in decision.POLICIES},
                     "selected_tree_label_tradeoff": {
                         "equal_32_per_class": {"mean": {"macro_f1": .4421, "normal_fpr": .1004, "binary_attack_recall": .9840, "binary_detection_by_stage": {"LateralMovement": .9424}}},
@@ -107,6 +110,24 @@ class FinalDecisionTests(unittest.TestCase):
         self.assertIn("did not meet its frozen development criteria", text)
         self.assertIn("At the primary argmax operating point", text)
         self.assertIn("separate source-threshold diagnostic", text)
+        for expected in ("Ceiling limitation", "only 0.67 percentage points", "registered negative outcome is retained", "Second-model ablation", "+1.6", "+30.1", "not replacement success criteria"):
+            self.assertIn(expected, text)
+
+    def test_ceiling_uses_mean_of_per_seed_minima_and_signed_component_costs(self):
+        def policy(attack, benign, initial, exfil):
+            return {"attack_reviewed": attack, "benign_reviewed": benign, "per_stage": {
+                "InitialCompromise": {"routing_fraction": initial}, "DataExfiltration": {"routing_fraction": exfil}}}
+        gate = {"primary": {"paired_comparisons": [
+                    {"control": "single_tabicl", "control_minimum_rare_routing_recall": .9},
+                    {"control": "single_tabicl", "control_minimum_rare_routing_recall": .7},
+                    {"control": "single_tree", "control_minimum_rare_routing_recall": .2}]},
+                "rows": [{"policies": {"candidate": policy(10, 20, .9, .8), "two_channel_tabicl_only": policy(8, 15, .9, .8)}},
+                         {"policies": {"candidate": policy(7, 9, .7, .6), "two_channel_tabicl_only": policy(8, 10, .7, .6)}}]}
+        result = decision.review_diagnostics(gate)
+        self.assertAlmostEqual(result["maximum_possible_gain_over_tabicl"], .2)
+        self.assertEqual(result["tree_addition_mean_attack_reviewed"], .5)
+        self.assertEqual(result["tree_addition_mean_benign_reviewed"], 2.)
+        self.assertEqual(result["tree_addition_rare_recall_deltas"], {"InitialCompromise": 0., "DataExfiltration": 0.})
 
     def test_positive_candidate_language_does_not_assert_novel_or_validated_praxis(self):
         values = self.report_inputs()
