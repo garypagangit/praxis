@@ -1,0 +1,88 @@
+{
+  "completed_utc": "2026-09-21T01:14:19.293052+00:00",
+  "cpu_threads": 4,
+  "decision": {
+    "full_stage_median_seconds": 0.004014899954199791,
+    "interpretation": "Measured CPU configuration only; not a full cascade, quality frontier, statistical timing guarantee, or GPU result.",
+    "necessary_speed_condition_passed": false,
+    "observed_optimistic_serial_cascade_speedup_ceiling": 0.00014812493615561908,
+    "required_screen_max_seconds": 0.0008029799908399581,
+    "required_speedup": 5.0,
+    "screen_alone_median_seconds": 27.10482150001917,
+    "status": "CPU_CANDIDATE_FAILS_NECESSARY_SPEED_CONDITION"
+  },
+  "device": "cpu",
+  "experiment": "E2_CPU_LATENCY_NECESSARY_CONDITION",
+  "fit_receipt_sha256": "fbd32e2e847f75f53b4e06f30aead1c3eb43dfd7e878372f9de364162919b833",
+  "full_cascade_evaluated": false,
+  "gpu_evaluated": false,
+  "heldout_classification_outcomes_evaluated": false,
+  "input_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+  "limitations": [
+    "One development seed and one batch of 1024 rows.",
+    "Warm CPU execution, no concurrency; median of three measurements is descriptive.",
+    "Necessary speed condition only; screen accuracy and full quality/throughput frontier untested.",
+    "Changing hardware, compression, caching strategy or model settings requires a separate registered test."
+  ],
+  "prefit_receipt_sha256": "033480a7dcdb4dd9161f68346dae7340f92cbdb889138c4a9459682a47be6714",
+  "private_predictions_sha256": "3c536c688ec28e46fa3c74f07171d6fe49018ee385f194d115d5d31a3fc19b76",
+  "protocol_sha256": "3b0d7e9b52887ebbc0278e818d1344b4b993b822cf0727fcf6ce45bc7d28d9cf",
+  "query_rows": 1024,
+  "query_selection": "SHA256(seed|fingerprint), labels not consulted",
+  "same_hardware": true,
+  "schema_version": 1,
+  "screen_model": "tabpfn_2_5_synthetic",
+  "seed": 20260921,
+  "selected_fit_rows": 192,
+  "selected_gbdt": "xgboost",
+  "selected_gbdt_parameters": {
+    "learning_rate": 0.05,
+    "max_depth": 2,
+    "n_estimators": 100
+  },
+  "timing": {
+    "measured_order": [
+      [
+        "full_stage",
+        "screen_alone"
+      ],
+      [
+        "screen_alone",
+        "full_stage"
+      ],
+      [
+        "full_stage",
+        "screen_alone"
+      ]
+    ],
+    "measured_seconds": {
+      "full_stage": [
+        0.002688899985514581,
+        0.005039600015152246,
+        0.004014899954199791
+      ],
+      "screen_alone": [
+        28.162671400001273,
+        27.10482150001917,
+        26.269446599995717
+      ]
+    },
+    "warmup_seconds": {
+      "full_stage": 0.0037128000403754413,
+      "screen_alone": 28.55476670002099
+    }
+  },
+  "torch_interop_threads": 2,
+  "versions": {
+    "lightgbm": "4.6.0",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "python": "3.11.9",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.15.3",
+    "tabicl": "2.2.0",
+    "tabpfn": "9.0.0",
+    "torch": "2.5.1+cpu",
+    "xgboost": "2.1.4"
+  }
+}

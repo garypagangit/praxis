@@ -102,5 +102,24 @@
       "results": "results/window_diagnostic_v1/REPORT.md",
       "limits": "Pooling improves recall but primary useful-signal gate fails; no nonlinear rescue or novel contribution; retire primary formulation"
     }
-  ]
+  ],
+  "tabular_development": {
+    "protocol": "tabular_batch/protocol.json",
+    "results": "results/tabular_batch_v1/REPORT.md",
+    "evaluation": "Six-class SCVIC stage classification with 32 fitting labels per class; deduplicated within-author-training split",
+    "classical_models": {
+      "RandomForest": "200 trees; 10 seeds complete",
+      "XGBoost": "2.1.4, training-only three-candidate three-fold tuning; 10 seeds complete",
+      "LightGBM": "4.6.0, training-only three-candidate three-fold tuning; 10 seeds complete"
+    },
+    "foundation_models": {
+      "TabICL": "Package2.2.0, pinned v2 checkpoint, four ensembles; three CPU prescreen contexts complete; full E1 incomplete",
+      "TabPFN": "Package9.0.0 with explicit2.5 synthetic-only checkpoint, four ensembles; three CPU prescreen contexts complete; full E1 incomplete"
+    },
+    "label_noise": "18 fixed XGBoost treatment cells completed; two declared adaptations negative",
+    "cpu_latency": "TabPFN binary screen fails necessary fivefold-speed condition on measured CPU configuration",
+    "novel_method_validated": false,
+    "cpu_prescreen_status": "PRELIMINARY_PROMISING",
+    "cpu_prescreen_independent_audit": "PASS"
+  }
 }

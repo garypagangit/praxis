@@ -1,0 +1,118 @@
+{
+  "artifact_hashes": {
+    "AGGREGATE.json": "2d98550006c75c00c7ca50e68a545a9ee8d5576dfac3d55c1f60c64eeeda4b3a",
+    "BASELINE_QUERY_PRIVATE.npz": "7a5fa06f38f6229771d901269340f05fa8b0ad61382d41d3eb057ea4ff331c5b",
+    "COMPLETE.json": "0692e4065cd075e7f6c2bfac8e057bc1f27de9c25cf57e9ef26fd83d9e8da4f8",
+    "PREFIT_RECEIPT.json": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429"
+  },
+  "audit_source_sha256": "c54861e4130beb7e0627be063b035c8a1d8aae34f4eb12d0f1be7c0b9ce37cf8",
+  "audit_status": "PASS",
+  "audited_cell_count": 15,
+  "checkpoint_hashes": {
+    "tabicl_v2": "bdc7dbd5e4ff21f8f0456fcf90c6b7cdf72dbea960f2d05b19bec19f9b3d4ed0",
+    "tabpfn_2_5_synthetic": "2d0fbd257a5a274f2a219836d5a68e9c27224845936b4685d85dd42e2b8092aa"
+  },
+  "checks": [
+    "Input, protocol, source, checkpoint, global and cell hashes",
+    "Query/support reconstruction and exact baseline source mapping",
+    "All 15 weighted/unweighted score tables, confusion, AUC/AP and false alarms",
+    "Nine original full-test baseline score tables and CV selections",
+    "Three paired primary guards and model summary arithmetic"
+  ],
+  "experiment": "E1_CPU_PRESCREEN",
+  "foundation_cell_count": 6,
+  "input_hashes": {
+    "DATA.npz": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+    "MANIFEST.json": "772edbce9548a1dc87a0e9dd835f9002dfd5a2bb7b3cc37de212d7b3c43791e3"
+  },
+  "limitations": [
+    "Read-only artifact/source audit; fitting, inference and timings were not replayed.",
+    "PASS verifies saved arithmetic and provenance; it does not independently attest historical execution or create scientific confirmation.",
+    "Weights produce sampled-prevalence estimates; full E1, E4 and GPU evaluation remain incomplete. Query batch invariance is unverified."
+  ],
+  "model_summaries": {
+    "lightgbm": {
+      "mean_baseline_full_test_macro_f1": 0.442570211619848,
+      "mean_prevalence_weighted_estimated_macro_f1": 0.4334070237818482,
+      "mean_query_unweighted_macro_f1": 0.6708139502606195,
+      "mean_weighted_estimate_minus_full_test_macro_f1": -0.009163187837999761,
+      "seed_count": 3
+    },
+    "random_forest": {
+      "mean_baseline_full_test_macro_f1": 0.42170425026216857,
+      "mean_prevalence_weighted_estimated_macro_f1": 0.40250075042978395,
+      "mean_query_unweighted_macro_f1": 0.6463372097340829,
+      "mean_weighted_estimate_minus_full_test_macro_f1": -0.0192034998323846,
+      "seed_count": 3
+    },
+    "tabicl_v2": {
+      "mean_prevalence_weighted_estimated_macro_f1": 0.5189856051173709,
+      "mean_query_unweighted_macro_f1": 0.7046696063631974,
+      "seed_count": 3
+    },
+    "tabpfn_2_5_synthetic": {
+      "mean_prevalence_weighted_estimated_macro_f1": 0.5321721393085054,
+      "mean_query_unweighted_macro_f1": 0.6975421720144315,
+      "seed_count": 3
+    },
+    "xgboost": {
+      "mean_baseline_full_test_macro_f1": 0.4320147979103499,
+      "mean_prevalence_weighted_estimated_macro_f1": 0.41674239003251906,
+      "mean_query_unweighted_macro_f1": 0.6570555490127554,
+      "mean_weighted_estimate_minus_full_test_macro_f1": -0.015272407877830815,
+      "seed_count": 3
+    }
+  },
+  "primary_descriptive": {
+    "guards": {
+      "DataExfiltration_mean_recall_loss_at_most_0.05": true,
+      "InitialCompromise_mean_recall_loss_at_most_0.05": true,
+      "mean_weighted_estimated_macro_f1_gain_at_least_0.02": true
+    },
+    "mean_high_risk_recall_deltas": {
+      "DataExfiltration": 0.08805031446540883,
+      "InitialCompromise": -0.022222222222222216
+    },
+    "mean_weighted_estimated_macro_f1_delta": 0.09966705587294068,
+    "paired_seed_count": 3,
+    "pairs": [
+      {
+        "candidate_weighted_estimated_macro_f1": 0.5129559080895566,
+        "comparator_selected_by_e1_inner_cv": "xgboost",
+        "comparator_weighted_estimated_macro_f1": 0.40298092750889897,
+        "high_risk_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0
+        },
+        "seed": 20260921,
+        "weighted_estimated_macro_f1_delta": 0.10997498058065763
+      },
+      {
+        "candidate_weighted_estimated_macro_f1": 0.5302405233020139,
+        "comparator_selected_by_e1_inner_cv": "lightgbm",
+        "comparator_weighted_estimated_macro_f1": 0.4111659888029074,
+        "high_risk_recall_deltas": {
+          "DataExfiltration": 0.12264150943396235,
+          "InitialCompromise": -0.06666666666666665
+        },
+        "seed": 20260922,
+        "weighted_estimated_macro_f1_delta": 0.11907453449910649
+      },
+      {
+        "candidate_weighted_estimated_macro_f1": 0.5137603839605422,
+        "comparator_selected_by_e1_inner_cv": "lightgbm",
+        "comparator_weighted_estimated_macro_f1": 0.4438087314214843,
+        "high_risk_recall_deltas": {
+          "DataExfiltration": 0.14150943396226412,
+          "InitialCompromise": 0.0
+        },
+        "seed": 20260923,
+        "weighted_estimated_macro_f1_delta": 0.06995165253905794
+      }
+    ],
+    "primary_candidate": "tabicl_v2",
+    "required_paired_seeds": 3,
+    "status": "PRELIMINARY_PROMISING"
+  },
+  "run_status": "COMPLETE"
+}

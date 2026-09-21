@@ -1,0 +1,47 @@
+{
+  "cpu_threads": 4,
+  "data_npz_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+  "device": "cpu",
+  "e1_protocol_sha256": "9d4c69f9ab8af48dae44aae6c237a25cedc56a1f50eff819513fa2e9beb7c687",
+  "experiment": "E2_CPU_LATENCY_NECESSARY_CONDITION",
+  "failure_interpretation": "CPU candidate fails necessary speed condition; GPU implementation, other settings, screen quality, and full end-to-end frontier remain untested",
+  "gbdt_inference_threads": 4,
+  "gbdt_selection": "E1 exact three-fold stratified CV and three-candidate grids on same192 selected rows; XGBoost then LightGBM ties; no held-out selection",
+  "gbdt_selection_threads": 1,
+  "heldout_classification_outcomes_evaluated": false,
+  "manifest_sha256": "772edbce9548a1dc87a0e9dd835f9002dfd5a2bb7b3cc37de212d7b3c43791e3",
+  "measured_pair_order": [
+    [
+      "full_stage",
+      "screen_alone"
+    ],
+    [
+      "screen_alone",
+      "full_stage"
+    ],
+    [
+      "full_stage",
+      "screen_alone"
+    ]
+  ],
+  "measured_repeats": 3,
+  "negative_class": "NormalTraffic",
+  "partial_execution_policy": "Any nonempty output directory is preserved and rejected; fresh output required",
+  "primary_statistic": "Median of three screen-alone times versus median full-stage selected-GBDT time divided by5",
+  "query_rows": 1024,
+  "query_selection": "First 1024 development-test feature fingerprints ordered by SHA256(seed|fingerprint); no query labels or prediction scores used",
+  "required_speedup": 5.0,
+  "samples_per_class": 32,
+  "schema_version": 1,
+  "screen_model": "tabpfn_2_5_synthetic",
+  "screen_n_estimators": 4,
+  "screen_target": "0=NormalTraffic,1=any other registered stage; same192 selected training records as E1 seed20260921",
+  "seed": 20260921,
+  "source_scope": "Feature-deduplicated within-author-training development split; no incident/temporal/author-holdout generalization claim",
+  "status": "FROZEN_BEFORE_SCIENTIFIC_MODEL_FITS",
+  "success_interpretation": "Passing is necessary only, never sufficient, for fivefold serial-cascade throughput at this frozen CPU configuration",
+  "timing": "Fitted imputer.transform plus actual model.predict_proba on one1024-row batch; independent fit/constructor timers; no precalculated probabilities",
+  "title": "CPU screening latency feasibility for a two-stage classifier",
+  "torch_interop_threads": 2,
+  "warmup_repeats": 1
+}

@@ -1,0 +1,4778 @@
+{
+  "protocol": {
+    "arms": [
+      "no_correction",
+      "gradient_gmm_removal_adaptation",
+      "gradient_gmm_relabel_adaptation"
+    ],
+    "boosting_rounds": 100,
+    "classes": [
+      "DataExfiltration",
+      "InitialCompromise",
+      "LateralMovement",
+      "NormalTraffic",
+      "Pivoting",
+      "Reconnaissance"
+    ],
+    "dataset_npz_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+    "experiment": "E3 history-gradient GMM treatment development pilot",
+    "fit_per_class_cap": 256,
+    "implementation_status": "explicit adaptation; not a faithful reproduction of the original Gradients algorithm",
+    "limitations": [
+      "Source labels are assumed correct for this controlled corruption study; it does not validate or repair real annotation errors.",
+      "Only the author's training CSV is available. Exact-feature deduplication does not remove all correlated flows or identify independent incidents.",
+      "No author holdout, temporal, early-warning, population, conformal or novelty claim.",
+      "InitialCompromise has 43 fit rows and 15 test rows; rare-stage recall is coarse and fragile.",
+      "The cap is unequal in realized per-class counts; this is a bounded training context, not a strict equal-label-budget sample-efficiency experiment.",
+      "Repeated adaptive treatment and rare-class retention are declared implementation choices and prevent claiming an exact reproduction of the named Gradients paper."
+    ],
+    "model_parameters": {
+      "alpha": 0.0,
+      "base_score": 0.5,
+      "colsample_bytree": 1.0,
+      "device": "cpu",
+      "eta": 0.1,
+      "lambda": 1.0,
+      "max_depth": 3,
+      "nthread": 2,
+      "num_class": 6,
+      "objective": "multi:softprob",
+      "subsample": 1.0,
+      "tree_method": "hist",
+      "verbosity": 0
+    },
+    "model_selection": "None; fixed identical settings and rounds across arms; no early stopping. Calibration and test do not select or stop training.",
+    "noise_policy": "Uniformly select floor(rate*n) training rows without replacement using seed+917; replace each label uniformly with one of the other classes. Same corruption for all arms. Never pass the noise rate, true labels or corruption mask to a treatment learner.",
+    "noise_rates": [
+      0.0,
+      0.2
+    ],
+    "primary_metric": "test macro-F1, fixed full six-class label set",
+    "primary_noise_rate": 0.2,
+    "rare_stage": "InitialCompromise",
+    "schema_version": 1,
+    "screen": {
+      "aggregation": "Arithmetic mean of paired seed deltas; three fitting/subsampling seeds are not independent population replications; no confidence interval or significance claim.",
+      "clean_macro_f1_delta_min": -0.01,
+      "clean_rare_stage_recall_delta_min": -0.05,
+      "noisy_macro_f1_gain_min": 0.02,
+      "noisy_rare_stage_recall_delta_min": -0.05,
+      "pass_rule": "All four conditions must hold for the same treatment arm. Report both arms regardless of outcome; a passing arm is a promising development result requiring fresh confirmation."
+    },
+    "secondary_metrics": [
+      "per-stage precision/recall/F1",
+      "confusion counts",
+      "one-vs-rest ROC-AUC and average precision",
+      "clean-label alteration",
+      "posthoc noise detection precision/recall",
+      "posthoc treatment precision/recall",
+      "clean rare-stage damage",
+      "fit duration"
+    ],
+    "seeds": [
+      20260921,
+      20260922,
+      20260923
+    ],
+    "split_codes": {
+      "calibration_unused": 1,
+      "fit": 0,
+      "test": 2
+    },
+    "subset_policy": "Within each source-label class, select min(256, available fit rows), ordered by SHA256(seed|group_sha256). All arms/noise conditions share that seed's subset.",
+    "treatment": {
+      "candidate_rule": "Among active, never-treated rows, high-mean GMM component posterior > 0.5. Fit GMM on all active residual-history means. Skip if fewer than four active rows or residual standard deviation <= 1e-8 or component means differ by <= 1e-8.",
+      "gmm_components": 2,
+      "gmm_max_iter": 100,
+      "gmm_n_init": 3,
+      "gmm_random_state": "training seed",
+      "gmm_reg_covar": 1e-06,
+      "gradient_definition": "Post-update softmax cross-entropy residual p_k - 1[k=current_training_label]; maximum absolute residual over classes; arithmetic mean of the last five rounds.",
+      "history_after_intervention": "Clear histories after each scheduled intervention so subsequent gradients describe the updated labels/active roster.",
+      "history_rounds": 5,
+      "intervention_every_rounds": 5,
+      "last_intervention": "Never intervene after the last training round; every recorded treatment must affect at least one subsequent update.",
+      "relabel_rule": "Change a candidate at most once to the argmax of its five-round mean probabilities, only when different from its current label. Ties use lowest class index.",
+      "removal_cap_fraction": 0.8,
+      "removal_class_guard": "Retain at least one currently assigned-label row per class; rank candidates by descending gradient statistic, breaking ties by original local row index.",
+      "warmup_rounds": 15
+    },
+    "xgboost_version": "2.1.4"
+  },
+  "publication_note": "Private model and prediction file paths omitted; their SHA256 receipts retained.",
+  "rows": [
+    {
+      "arm": "no_correction",
+      "fit_count": 1323,
+      "fit_seconds": 0.5644770999788307,
+      "model_sha256": "3de7976130928803f2f4a2b8b6cf9d9780d1c369c3082137e4c0538741d9a1ae",
+      "noise_rate": 0.0,
+      "prediction_sha256": "2ecd9590eebb9a213bae792096d51036095788f8b21bf31167f42a24998dfb69",
+      "seed": 20260921,
+      "test": {
+        "accuracy": 0.9655049209081755,
+        "confusion_matrix": [
+          [
+            87,
+            0,
+            0,
+            0,
+            11,
+            8
+          ],
+          [
+            0,
+            13,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            122,
+            7,
+            8,
+            7
+          ],
+          [
+            97,
+            149,
+            503,
+            29014,
+            89,
+            77
+          ],
+          [
+            56,
+            4,
+            18,
+            2,
+            336,
+            9
+          ],
+          [
+            6,
+            0,
+            2,
+            1,
+            6,
+            153
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.570342314393317,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.6406683199561669,
+            "f1": 0.4943181818181818,
+            "precision": 0.35365853658536583,
+            "recall": 0.8207547169811321,
+            "roc_auc": 0.9975161322261397,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.6119225047839095,
+            "f1": 0.143646408839779,
+            "precision": 0.0783132530120482,
+            "recall": 0.8666666666666667,
+            "roc_auc": 0.9972074179990468,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.6520444901421696,
+            "f1": 0.30925221799746516,
+            "precision": 0.18914728682170542,
+            "recall": 0.8472222222222222,
+            "roc_auc": 0.9888155306450268,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9999589241415076,
+            "f1": 0.9843095347140943,
+            "precision": 0.9996554575523704,
+            "recall": 0.9694276454275118,
+            "roc_auc": 0.9985848598481831,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.8866158625367767,
+            "f1": 0.7671232876712328,
+            "precision": 0.7450110864745011,
+            "recall": 0.7905882352941176,
+            "roc_auc": 0.9970896282892314,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.9085633286116618,
+            "f1": 0.723404255319149,
+            "precision": 0.6,
+            "recall": 0.9107142857142857,
+            "roc_auc": 0.9985254642697733,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": null,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": null,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 0,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": []
+    },
+    {
+      "arm": "gradient_gmm_removal_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 0.753824999963399,
+      "model_sha256": "9a452544c7eb50fc8e04481c0af1ba301f60aa3390f7756417ae4c7943d2f4ff",
+      "noise_rate": 0.0,
+      "prediction_sha256": "16b3692009bfe81cb7eec984dfb76a46013d46786361457af6017d54f93e4c4a",
+      "seed": 20260921,
+      "test": {
+        "accuracy": 0.9460486569006399,
+        "confusion_matrix": [
+          [
+            77,
+            0,
+            12,
+            7,
+            6,
+            4
+          ],
+          [
+            1,
+            9,
+            0,
+            3,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            89,
+            39,
+            8,
+            8
+          ],
+          [
+            75,
+            0,
+            140,
+            28552,
+            1145,
+            17
+          ],
+          [
+            48,
+            1,
+            71,
+            21,
+            279,
+            5
+          ],
+          [
+            2,
+            1,
+            17,
+            21,
+            7,
+            120
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5975610483773711,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.4339835339006923,
+            "f1": 0.49838187702265374,
+            "precision": 0.3793103448275862,
+            "recall": 0.7264150943396226,
+            "roc_auc": 0.989949375589219,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.6133285694660671,
+            "f1": 0.6923076923076923,
+            "precision": 0.8181818181818182,
+            "recall": 0.6,
+            "roc_auc": 0.9868408509900775,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.4341920381561539,
+            "f1": 0.3763213530655391,
+            "precision": 0.270516717325228,
+            "recall": 0.6180555555555556,
+            "roc_auc": 0.9497610474750441,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9993154181429128,
+            "f1": 0.9749368298845865,
+            "precision": 0.9968229584889851,
+            "recall": 0.9539911122991079,
+            "roc_auc": 0.9788184406280567,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.524155018894696,
+            "f1": 0.2980769230769231,
+            "precision": 0.19281271596406357,
+            "recall": 0.6564705882352941,
+            "roc_auc": 0.9680830527323241,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.7987024503776057,
+            "f1": 0.7453416149068323,
+            "precision": 0.7792207792207793,
+            "recall": 0.7142857142857143,
+            "roc_auc": 0.990079494680396,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 1058,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 1058,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 1191,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 1191,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 1058,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.94140625,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 241
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.9767441860465116,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 42
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.796875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 204
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.3515625,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 90
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.88671875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 227
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.9921875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 254
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": [
+        {
+          "active_count": 769,
+          "after_round": 15,
+          "candidates": 554,
+          "changed": 554,
+          "treated_count": 554
+        },
+        {
+          "active_count": 681,
+          "after_round": 20,
+          "candidates": 88,
+          "changed": 88,
+          "treated_count": 642
+        },
+        {
+          "active_count": 265,
+          "after_round": 25,
+          "candidates": 549,
+          "changed": 416,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 30,
+          "candidates": 133,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 35,
+          "candidates": 133,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 40,
+          "candidates": 102,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 45,
+          "candidates": 3,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 50,
+          "candidates": 3,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 55,
+          "candidates": 3,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 60,
+          "candidates": 3,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 65,
+          "candidates": 3,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 70,
+          "candidates": 5,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 75,
+          "candidates": 5,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 80,
+          "candidates": 5,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 85,
+          "candidates": 5,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 90,
+          "candidates": 5,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 95,
+          "candidates": 5,
+          "changed": 0,
+          "treated_count": 1058
+        }
+      ]
+    },
+    {
+      "arm": "gradient_gmm_relabel_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 2.0441679999930784,
+      "model_sha256": "208f70e3e89acdc6777840c9188f050efeb3d7ac3ba099f059c4c8e936b8240b",
+      "noise_rate": 0.0,
+      "prediction_sha256": "e7bc356a61a8de57f49f685037bbb1571580042c78ecd7cae2ad7f2bc6916af6",
+      "seed": 20260921,
+      "test": {
+        "accuracy": 0.9540390424529834,
+        "confusion_matrix": [
+          [
+            85,
+            0,
+            3,
+            0,
+            8,
+            10
+          ],
+          [
+            0,
+            12,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            115,
+            11,
+            9,
+            9
+          ],
+          [
+            65,
+            10,
+            800,
+            28720,
+            199,
+            135
+          ],
+          [
+            58,
+            4,
+            53,
+            4,
+            297,
+            9
+          ],
+          [
+            11,
+            0,
+            2,
+            3,
+            9,
+            143
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5870179433133017,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.48799918563768324,
+            "f1": 0.5230769230769231,
+            "precision": 0.3881278538812785,
+            "recall": 0.8018867924528302,
+            "roc_auc": 0.9873091514445976,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.808549330317305,
+            "f1": 0.5853658536585366,
+            "precision": 0.46153846153846156,
+            "recall": 0.8,
+            "roc_auc": 0.9806382425581698,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.35545798632684644,
+            "f1": 0.20590868397493287,
+            "precision": 0.11819116135662898,
+            "recall": 0.7986111111111112,
+            "roc_auc": 0.944705062240062,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9998352185802342,
+            "f1": 0.9790686575305106,
+            "precision": 0.9993388774835589,
+            "recall": 0.959604397073073,
+            "roc_auc": 0.9949823751487691,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.7170951744995592,
+            "f1": 0.6265822784810127,
+            "precision": 0.5678776290630975,
+            "recall": 0.6988235294117647,
+            "roc_auc": 0.9785267187699795,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.7725810200182222,
+            "f1": 0.6021052631578947,
+            "precision": 0.46579804560260585,
+            "recall": 0.8511904761904762,
+            "roc_auc": 0.9880824075931689,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 197,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 197,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 648,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 648,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 197,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.22265625,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 57
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.32558139534883723,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 14
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.11328125,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 29
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0078125,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 2
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.234375,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 60
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.13671875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 35
+          }
+        },
+        "retained_incorrect_labels": 197
+      },
+      "treatment_trace": [
+        {
+          "active_count": 1323,
+          "after_round": 15,
+          "candidates": 554,
+          "changed": 177,
+          "treated_count": 177
+        },
+        {
+          "active_count": 1323,
+          "after_round": 20,
+          "candidates": 399,
+          "changed": 9,
+          "treated_count": 186
+        },
+        {
+          "active_count": 1323,
+          "after_round": 25,
+          "candidates": 385,
+          "changed": 5,
+          "treated_count": 191
+        },
+        {
+          "active_count": 1323,
+          "after_round": 30,
+          "candidates": 333,
+          "changed": 1,
+          "treated_count": 192
+        },
+        {
+          "active_count": 1323,
+          "after_round": 35,
+          "candidates": 288,
+          "changed": 3,
+          "treated_count": 195
+        },
+        {
+          "active_count": 1323,
+          "after_round": 40,
+          "candidates": 257,
+          "changed": 1,
+          "treated_count": 196
+        },
+        {
+          "active_count": 1323,
+          "after_round": 45,
+          "candidates": 242,
+          "changed": 1,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 50,
+          "candidates": 261,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 55,
+          "candidates": 259,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 60,
+          "candidates": 265,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 65,
+          "candidates": 263,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 70,
+          "candidates": 268,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 75,
+          "candidates": 282,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 80,
+          "candidates": 284,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 85,
+          "candidates": 286,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 90,
+          "candidates": 281,
+          "changed": 0,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 95,
+          "candidates": 282,
+          "changed": 0,
+          "treated_count": 197
+        }
+      ]
+    },
+    {
+      "arm": "no_correction",
+      "fit_count": 1323,
+      "fit_seconds": 0.5768164999899454,
+      "model_sha256": "e00bf77af30e623ed9b7bdc330bd6afc408b408973bcd9353d54ab68cdaa79e9",
+      "noise_rate": 0.2,
+      "prediction_sha256": "44fefb4cb426fa1d2e50bebf74c51d665ee8385c89987b374037ec0ef7791806",
+      "seed": 20260921,
+      "test": {
+        "accuracy": 0.933056160067561,
+        "confusion_matrix": [
+          [
+            86,
+            0,
+            0,
+            2,
+            11,
+            7
+          ],
+          [
+            0,
+            12,
+            0,
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            1,
+            122,
+            8,
+            5,
+            7
+          ],
+          [
+            73,
+            378,
+            1010,
+            28038,
+            326,
+            104
+          ],
+          [
+            64,
+            3,
+            31,
+            1,
+            318,
+            8
+          ],
+          [
+            4,
+            3,
+            1,
+            2,
+            8,
+            150
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.4968210821919559,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5851324047156545,
+            "f1": 0.5149700598802395,
+            "precision": 0.37719298245614036,
+            "recall": 0.8113207547169812,
+            "roc_auc": 0.994767826932408,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.3521145512707952,
+            "f1": 0.05825242718446602,
+            "precision": 0.030226700251889168,
+            "recall": 0.8,
+            "roc_auc": 0.9536353394861129,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.45845287120246964,
+            "f1": 0.18654434250764526,
+            "precision": 0.10481099656357389,
+            "recall": 0.8472222222222222,
+            "roc_auc": 0.9738931222283864,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9997587635093155,
+            "f1": 0.9671610900310452,
+            "precision": 0.9995365584114648,
+            "recall": 0.9368171338835244,
+            "roc_auc": 0.9919896669203362,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.6124940241667516,
+            "f1": 0.5813528336380256,
+            "precision": 0.47533632286995514,
+            "recall": 0.7482352941176471,
+            "roc_auc": 0.9692293385307487,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.8600949716017652,
+            "f1": 0.672645739910314,
+            "precision": 0.539568345323741,
+            "recall": 0.8928571428571429,
+            "roc_auc": 0.9951376285188623,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": 0.0,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": 0.0,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 0,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 210,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 43,
+            "originally_clean_count": 35,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 208,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 196,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 201,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 209,
+            "originally_clean_removed_or_mislabeled": 0
+          }
+        },
+        "retained_incorrect_labels": 264
+      },
+      "treatment_trace": []
+    },
+    {
+      "arm": "gradient_gmm_removal_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 0.7322362999548204,
+      "model_sha256": "b19506995e6f48482bda84b9d61f38eec0e049cc4666f8b69ec2c15b685500fc",
+      "noise_rate": 0.2,
+      "prediction_sha256": "273a5103731c582cea3a1e30180a10250dc63f824e765f41f16f57f9035d4b73",
+      "seed": 20260921,
+      "test": {
+        "accuracy": 0.9106765842725826,
+        "confusion_matrix": [
+          [
+            85,
+            0,
+            4,
+            0,
+            4,
+            13
+          ],
+          [
+            0,
+            9,
+            0,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            0,
+            70,
+            38,
+            24,
+            10
+          ],
+          [
+            307,
+            0,
+            46,
+            27498,
+            558,
+            1520
+          ],
+          [
+            64,
+            1,
+            69,
+            3,
+            237,
+            51
+          ],
+          [
+            16,
+            1,
+            1,
+            5,
+            7,
+            138
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.4806066227301544,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.42814869830619157,
+            "f1": 0.29310344827586204,
+            "precision": 0.17932489451476794,
+            "recall": 0.8018867924528302,
+            "roc_auc": 0.9462928934568934,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.5944761835608207,
+            "f1": 0.6923076923076923,
+            "precision": 0.8181818181818182,
+            "recall": 0.6,
+            "roc_auc": 0.9436869015121973,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.3479152638941938,
+            "f1": 0.41916167664670656,
+            "precision": 0.3684210526315789,
+            "recall": 0.4861111111111111,
+            "roc_auc": 0.9141095528433176,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9992387332661136,
+            "f1": 0.9568682035667682,
+            "precision": 0.998257460248312,
+            "recall": 0.918774432824351,
+            "roc_auc": 0.9767164963295807,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.5304255350503037,
+            "f1": 0.37708830548926014,
+            "precision": 0.2848557692307692,
+            "recall": 0.5576470588235294,
+            "roc_auc": 0.8967304331652957,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.6674683025387905,
+            "f1": 0.14511041009463724,
+            "precision": 0.07958477508650519,
+            "recall": 0.8214285714285714,
+            "roc_auc": 0.9674828421195056,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 748,
+          "precision": 0.2608695652173913,
+          "recall": 1.0,
+          "selected": 1012,
+          "truly_noisy_selected": 264
+        },
+        "candidate_detection": {
+          "clean_selected": 749,
+          "precision": 0.26061204343534056,
+          "recall": 1.0,
+          "selected": 1013,
+          "truly_noisy_selected": 264
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 264,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 748,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.5523809523809524,
+            "original_count": 256,
+            "originally_clean_count": 210,
+            "originally_clean_removed_or_mislabeled": 116
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.9714285714285714,
+            "original_count": 43,
+            "originally_clean_count": 35,
+            "originally_clean_removed_or_mislabeled": 34
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.8990384615384616,
+            "original_count": 256,
+            "originally_clean_count": 208,
+            "originally_clean_removed_or_mislabeled": 187
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.6581632653061225,
+            "original_count": 256,
+            "originally_clean_count": 196,
+            "originally_clean_removed_or_mislabeled": 129
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.900497512437811,
+            "original_count": 256,
+            "originally_clean_count": 201,
+            "originally_clean_removed_or_mislabeled": 181
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.48325358851674644,
+            "original_count": 256,
+            "originally_clean_count": 209,
+            "originally_clean_removed_or_mislabeled": 101
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": [
+        {
+          "active_count": 546,
+          "after_round": 15,
+          "candidates": 777,
+          "changed": 777,
+          "treated_count": 777
+        },
+        {
+          "active_count": 333,
+          "after_round": 20,
+          "candidates": 213,
+          "changed": 213,
+          "treated_count": 990
+        },
+        {
+          "active_count": 327,
+          "after_round": 25,
+          "candidates": 6,
+          "changed": 6,
+          "treated_count": 996
+        },
+        {
+          "active_count": 311,
+          "after_round": 30,
+          "candidates": 17,
+          "changed": 16,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 35,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 40,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 45,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 50,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 55,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 60,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 65,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 70,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 75,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 80,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 85,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 90,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        },
+        {
+          "active_count": 311,
+          "after_round": 95,
+          "candidates": 1,
+          "changed": 0,
+          "treated_count": 1012
+        }
+      ]
+    },
+    {
+      "arm": "gradient_gmm_relabel_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 1.999088499986101,
+      "model_sha256": "3cd9165b4cba3a07edd88e8fbc8768d18b4b3cfc23f45625a3da286a64742738",
+      "noise_rate": 0.2,
+      "prediction_sha256": "72de97ed721ac37c44e54908b4871c5ba2ae7db469aef30d4c5fe69811e04770",
+      "seed": 20260921,
+      "test": {
+        "accuracy": 0.9156462143112353,
+        "confusion_matrix": [
+          [
+            81,
+            0,
+            1,
+            0,
+            14,
+            10
+          ],
+          [
+            1,
+            10,
+            2,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            111,
+            15,
+            8,
+            10
+          ],
+          [
+            110,
+            64,
+            1692,
+            27505,
+            243,
+            315
+          ],
+          [
+            46,
+            3,
+            34,
+            2,
+            336,
+            4
+          ],
+          [
+            8,
+            1,
+            2,
+            2,
+            8,
+            147
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.4737886221935537,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5002034053593031,
+            "f1": 0.4602272727272727,
+            "precision": 0.32926829268292684,
+            "recall": 0.7641509433962265,
+            "roc_auc": 0.9774059663254193,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.6511367598050811,
+            "f1": 0.21505376344086022,
+            "precision": 0.1282051282051282,
+            "recall": 0.6666666666666666,
+            "roc_auc": 0.9525954330776897,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.4075309906791033,
+            "f1": 0.11178247734138973,
+            "precision": 0.06026058631921824,
+            "recall": 0.7708333333333334,
+            "roc_auc": 0.9194383935791028,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9997094608214743,
+            "f1": 0.9574782865994813,
+            "precision": 0.9993096933585235,
+            "recall": 0.9190083196899328,
+            "roc_auc": 0.9910978515509239,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.7486667311006039,
+            "f1": 0.6486486486486487,
+            "precision": 0.5499181669394435,
+            "recall": 0.7905882352941176,
+            "roc_auc": 0.9663165256880699,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.7448364723554973,
+            "f1": 0.44954128440366975,
+            "precision": 0.30246913580246915,
+            "recall": 0.875,
+            "roc_auc": 0.9782977889545706,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 171,
+          "precision": 0.5985915492957746,
+          "recall": 0.9659090909090909,
+          "selected": 426,
+          "truly_noisy_selected": 255
+        },
+        "candidate_detection": {
+          "clean_selected": 602,
+          "precision": 0.3040462427745665,
+          "recall": 0.9962121212121212,
+          "selected": 865,
+          "truly_noisy_selected": 263
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 230,
+        "originally_clean_removed_or_mislabeled": 171,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.2857142857142857,
+            "original_count": 256,
+            "originally_clean_count": 210,
+            "originally_clean_removed_or_mislabeled": 60
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.3142857142857143,
+            "original_count": 43,
+            "originally_clean_count": 35,
+            "originally_clean_removed_or_mislabeled": 11
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.17307692307692307,
+            "original_count": 256,
+            "originally_clean_count": 208,
+            "originally_clean_removed_or_mislabeled": 36
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.030612244897959183,
+            "original_count": 256,
+            "originally_clean_count": 196,
+            "originally_clean_removed_or_mislabeled": 6
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.15920398009950248,
+            "original_count": 256,
+            "originally_clean_count": 201,
+            "originally_clean_removed_or_mislabeled": 32
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.12440191387559808,
+            "original_count": 256,
+            "originally_clean_count": 209,
+            "originally_clean_removed_or_mislabeled": 26
+          }
+        },
+        "retained_incorrect_labels": 205
+      },
+      "treatment_trace": [
+        {
+          "active_count": 1323,
+          "after_round": 15,
+          "candidates": 777,
+          "changed": 392,
+          "treated_count": 392
+        },
+        {
+          "active_count": 1323,
+          "after_round": 20,
+          "candidates": 438,
+          "changed": 15,
+          "treated_count": 407
+        },
+        {
+          "active_count": 1323,
+          "after_round": 25,
+          "candidates": 397,
+          "changed": 12,
+          "treated_count": 419
+        },
+        {
+          "active_count": 1323,
+          "after_round": 30,
+          "candidates": 391,
+          "changed": 3,
+          "treated_count": 422
+        },
+        {
+          "active_count": 1323,
+          "after_round": 35,
+          "candidates": 283,
+          "changed": 2,
+          "treated_count": 424
+        },
+        {
+          "active_count": 1323,
+          "after_round": 40,
+          "candidates": 252,
+          "changed": 1,
+          "treated_count": 425
+        },
+        {
+          "active_count": 1323,
+          "after_round": 45,
+          "candidates": 234,
+          "changed": 1,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 50,
+          "candidates": 234,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 55,
+          "candidates": 237,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 60,
+          "candidates": 227,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 65,
+          "candidates": 224,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 70,
+          "candidates": 225,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 75,
+          "candidates": 229,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 80,
+          "candidates": 177,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 85,
+          "candidates": 177,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 90,
+          "candidates": 230,
+          "changed": 0,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 95,
+          "candidates": 238,
+          "changed": 0,
+          "treated_count": 426
+        }
+      ]
+    },
+    {
+      "arm": "no_correction",
+      "fit_count": 1323,
+      "fit_seconds": 0.5766112999990582,
+      "model_sha256": "df6904f20f70faaac97345ecb5228569effd2a71267f5f155d8af180d6587324",
+      "noise_rate": 0.0,
+      "prediction_sha256": "99bbfaa44686dac2922ba4af52cd4fb45fddc791927ae61d093126e72683ad85",
+      "seed": 20260922,
+      "test": {
+        "accuracy": 0.972325981745542,
+        "confusion_matrix": [
+          [
+            92,
+            0,
+            1,
+            0,
+            7,
+            6
+          ],
+          [
+            0,
+            13,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            122,
+            3,
+            10,
+            8
+          ],
+          [
+            4,
+            46,
+            608,
+            29215,
+            8,
+            48
+          ],
+          [
+            67,
+            1,
+            12,
+            3,
+            338,
+            4
+          ],
+          [
+            6,
+            0,
+            2,
+            1,
+            4,
+            155
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.6538234488910674,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.6991369728464112,
+            "f1": 0.6666666666666666,
+            "precision": 0.5411764705882353,
+            "recall": 0.8679245283018868,
+            "roc_auc": 0.9985847980404565,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.8134550708013976,
+            "f1": 0.3466666666666667,
+            "precision": 0.21666666666666667,
+            "recall": 0.8666666666666667,
+            "roc_auc": 0.9946314831665151,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.6126872547528343,
+            "f1": 0.2744656917885264,
+            "precision": 0.16375838926174496,
+            "recall": 0.8472222222222222,
+            "roc_auc": 0.9867327412097017,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9999734006407951,
+            "f1": 0.9878108569593075,
+            "precision": 0.9997604544521251,
+            "recall": 0.9761435397106485,
+            "roc_auc": 0.9990770308689385,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.9297491435051918,
+            "f1": 0.8524590163934426,
+            "precision": 0.9184782608695652,
+            "recall": 0.7952941176470588,
+            "roc_auc": 0.9983919915374093,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.9280427282923549,
+            "f1": 0.7948717948717948,
+            "precision": 0.6981981981981982,
+            "recall": 0.9226190476190477,
+            "roc_auc": 0.9991967328098488,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": null,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": null,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 0,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": []
+    },
+    {
+      "arm": "gradient_gmm_removal_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 0.7087128999992274,
+      "model_sha256": "b9323392a372018fa260d08426c60e3ffaddbe052b42168a5610f89d62842418",
+      "noise_rate": 0.0,
+      "prediction_sha256": "918448c1e3cee7ffa4254f4c611c71f4ad718b3bd00f86a4f2c84c5bc0dc3d09",
+      "seed": 20260922,
+      "test": {
+        "accuracy": 0.9585214538603957,
+        "confusion_matrix": [
+          [
+            65,
+            0,
+            22,
+            1,
+            4,
+            14
+          ],
+          [
+            0,
+            7,
+            1,
+            2,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            107,
+            23,
+            4,
+            10
+          ],
+          [
+            64,
+            3,
+            564,
+            28944,
+            83,
+            271
+          ],
+          [
+            43,
+            0,
+            89,
+            8,
+            253,
+            32
+          ],
+          [
+            2,
+            1,
+            19,
+            8,
+            4,
+            134
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5479982900383984,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5217830925157659,
+            "f1": 0.4642857142857143,
+            "precision": 0.3735632183908046,
+            "recall": 0.6132075471698113,
+            "roc_auc": 0.9852228624070087,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.5811235581254061,
+            "f1": 0.5384615384615384,
+            "precision": 0.6363636363636364,
+            "recall": 0.4666666666666667,
+            "roc_auc": 0.9657242514840331,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.5351045896274085,
+            "f1": 0.226215644820296,
+            "precision": 0.13341645885286782,
+            "recall": 0.7430555555555556,
+            "roc_auc": 0.9475755972906628,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9995762260463461,
+            "f1": 0.982568106594246,
+            "precision": 0.9985510246325813,
+            "recall": 0.967088776771693,
+            "roc_auc": 0.9871748141152397,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.7118183761346785,
+            "f1": 0.6503856041131105,
+            "precision": 0.71671388101983,
+            "recall": 0.5952941176470589,
+            "roc_auc": 0.982070932318649,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.69236911505794,
+            "f1": 0.4260731319554849,
+            "precision": 0.29067245119305857,
+            "recall": 0.7976190476190477,
+            "roc_auc": 0.9836279877573681,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 1058,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 1058,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 1275,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 1275,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 1058,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.99609375,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 255
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.9767441860465116,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 42
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.8046875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 206
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.515625,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 132
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.83984375,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 215
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.8125,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 208
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": [
+        {
+          "active_count": 840,
+          "after_round": 15,
+          "candidates": 483,
+          "changed": 483,
+          "treated_count": 483
+        },
+        {
+          "active_count": 464,
+          "after_round": 20,
+          "candidates": 378,
+          "changed": 376,
+          "treated_count": 859
+        },
+        {
+          "active_count": 265,
+          "after_round": 25,
+          "candidates": 400,
+          "changed": 199,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 30,
+          "candidates": 208,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 35,
+          "candidates": 7,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 40,
+          "candidates": 7,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 45,
+          "candidates": 7,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 50,
+          "candidates": 7,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 55,
+          "candidates": 7,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 60,
+          "candidates": 7,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 65,
+          "candidates": 7,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 70,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 75,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 80,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 85,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 90,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 95,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        }
+      ]
+    },
+    {
+      "arm": "gradient_gmm_relabel_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 2.4491617999738082,
+      "model_sha256": "8c1b5dae2a621632d2abfaf23a713767e80d6a1ac277941d4b669b267f37453c",
+      "noise_rate": 0.0,
+      "prediction_sha256": "11362c60b27bc38f7a12db6866cfa97d5670fb10704123f732e4e2451717b5ac",
+      "seed": 20260922,
+      "test": {
+        "accuracy": 0.9606327345957709,
+        "confusion_matrix": [
+          [
+            89,
+            0,
+            3,
+            0,
+            7,
+            7
+          ],
+          [
+            0,
+            11,
+            1,
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            0,
+            109,
+            14,
+            10,
+            10
+          ],
+          [
+            98,
+            4,
+            587,
+            28946,
+            85,
+            209
+          ],
+          [
+            90,
+            0,
+            41,
+            4,
+            278,
+            12
+          ],
+          [
+            12,
+            0,
+            1,
+            6,
+            7,
+            142
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.6020052258322611,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5532584013238961,
+            "f1": 0.4494949494949495,
+            "precision": 0.30689655172413793,
+            "recall": 0.839622641509434,
+            "roc_auc": 0.9887449549318521,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.7464066309484919,
+            "f1": 0.7333333333333333,
+            "precision": 0.7333333333333333,
+            "recall": 0.7333333333333333,
+            "roc_auc": 0.9736037089995234,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.4542170101304952,
+            "f1": 0.24604966139954854,
+            "precision": 0.14690026954177898,
+            "recall": 0.7569444444444444,
+            "roc_auc": 0.9350072474409599,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9998592085127439,
+            "f1": 0.9829029355337102,
+            "precision": 0.9991715567828788,
+            "recall": 0.9671556015904307,
+            "roc_auc": 0.995562906026002,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.6978179251950994,
+            "f1": 0.6838868388683886,
+            "precision": 0.7164948453608248,
+            "recall": 0.6541176470588236,
+            "roc_auc": 0.9721752035245295,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.728057712168818,
+            "f1": 0.5163636363636364,
+            "precision": 0.3717277486910995,
+            "recall": 0.8452380952380952,
+            "roc_auc": 0.9816921371572895,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 193,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 193,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 638,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 638,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 193,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.15234375,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 39
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.3488372093023256,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 15
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.1171875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 30
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.02734375,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 7
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.28125,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 72
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.1171875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 30
+          }
+        },
+        "retained_incorrect_labels": 193
+      },
+      "treatment_trace": [
+        {
+          "active_count": 1323,
+          "after_round": 15,
+          "candidates": 483,
+          "changed": 179,
+          "treated_count": 179
+        },
+        {
+          "active_count": 1323,
+          "after_round": 20,
+          "candidates": 320,
+          "changed": 3,
+          "treated_count": 182
+        },
+        {
+          "active_count": 1323,
+          "after_round": 25,
+          "candidates": 339,
+          "changed": 6,
+          "treated_count": 188
+        },
+        {
+          "active_count": 1323,
+          "after_round": 30,
+          "candidates": 339,
+          "changed": 4,
+          "treated_count": 192
+        },
+        {
+          "active_count": 1323,
+          "after_round": 35,
+          "candidates": 334,
+          "changed": 1,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 40,
+          "candidates": 384,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 45,
+          "candidates": 383,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 50,
+          "candidates": 390,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 55,
+          "candidates": 394,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 60,
+          "candidates": 391,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 65,
+          "candidates": 390,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 70,
+          "candidates": 408,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 75,
+          "candidates": 408,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 80,
+          "candidates": 400,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 85,
+          "candidates": 405,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 90,
+          "candidates": 400,
+          "changed": 0,
+          "treated_count": 193
+        },
+        {
+          "active_count": 1323,
+          "after_round": 95,
+          "candidates": 398,
+          "changed": 0,
+          "treated_count": 193
+        }
+      ]
+    },
+    {
+      "arm": "no_correction",
+      "fit_count": 1323,
+      "fit_seconds": 0.570133299974259,
+      "model_sha256": "386785c7cc840ea99c54f16a1e04fafdaa929f84d440c31cde3e23351e878b63",
+      "noise_rate": 0.2,
+      "prediction_sha256": "145924c3d000d9170ffee68f2e0f2cb439176453cfd683f400a089cd97f64ee9",
+      "seed": 20260922,
+      "test": {
+        "accuracy": 0.9656998083606717,
+        "confusion_matrix": [
+          [
+            90,
+            0,
+            1,
+            0,
+            8,
+            7
+          ],
+          [
+            0,
+            11,
+            1,
+            0,
+            2,
+            1
+          ],
+          [
+            1,
+            0,
+            125,
+            3,
+            7,
+            8
+          ],
+          [
+            26,
+            59,
+            646,
+            29027,
+            57,
+            114
+          ],
+          [
+            67,
+            0,
+            17,
+            3,
+            331,
+            7
+          ],
+          [
+            11,
+            1,
+            3,
+            1,
+            5,
+            147
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5914116607197865,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5778207226015827,
+            "f1": 0.5980066445182725,
+            "precision": 0.46153846153846156,
+            "recall": 0.8490566037735849,
+            "roc_auc": 0.9919125166887748,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.56941222768144,
+            "f1": 0.2558139534883721,
+            "precision": 0.15492957746478872,
+            "recall": 0.7333333333333333,
+            "roc_auc": 0.9914965986394557,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.47901616230767513,
+            "f1": 0.26680896478121663,
+            "precision": 0.15762925598991173,
+            "recall": 0.8680555555555556,
+            "roc_auc": 0.9854165080297477,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9999540520544694,
+            "f1": 0.9845835523972661,
+            "precision": 0.9997589033546876,
+            "recall": 0.9698620067493067,
+            "roc_auc": 0.9984264234990955,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.8529545490367147,
+            "f1": 0.792814371257485,
+            "precision": 0.8073170731707318,
+            "recall": 0.7788235294117647,
+            "roc_auc": 0.9925913583930378,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.8283442768828742,
+            "f1": 0.6504424778761062,
+            "precision": 0.5176056338028169,
+            "recall": 0.875,
+            "roc_auc": 0.9886148734290411,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": 0.0,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": 0.0,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 0,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 206,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 43,
+            "originally_clean_count": 33,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 212,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 203,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 205,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 200,
+            "originally_clean_removed_or_mislabeled": 0
+          }
+        },
+        "retained_incorrect_labels": 264
+      },
+      "treatment_trace": []
+    },
+    {
+      "arm": "gradient_gmm_removal_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 0.7120564999640919,
+      "model_sha256": "706a61642275db71d17f3425ff1d8932e298f8dd36c105fa484321ffea406293",
+      "noise_rate": 0.2,
+      "prediction_sha256": "3a4dc251c136b665d320a5bdddc48fc550ac10cc2210ad0db9b2ed9bb67d5526",
+      "seed": 20260922,
+      "test": {
+        "accuracy": 0.8518205736187352,
+        "confusion_matrix": [
+          [
+            71,
+            0,
+            18,
+            0,
+            4,
+            13
+          ],
+          [
+            0,
+            9,
+            1,
+            2,
+            2,
+            1
+          ],
+          [
+            0,
+            0,
+            111,
+            21,
+            3,
+            9
+          ],
+          [
+            170,
+            12,
+            3767,
+            25653,
+            77,
+            250
+          ],
+          [
+            59,
+            0,
+            80,
+            5,
+            246,
+            35
+          ],
+          [
+            6,
+            1,
+            14,
+            5,
+            7,
+            135
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.4822055328187524,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5394575470218231,
+            "f1": 0.3446601941747573,
+            "precision": 0.23202614379084968,
+            "recall": 0.6698113207547169,
+            "roc_auc": 0.9655912976687065,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.6198840087826446,
+            "f1": 0.4864864864864865,
+            "precision": 0.4090909090909091,
+            "recall": 0.6,
+            "roc_auc": 0.9543253607175354,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.3572617967581354,
+            "f1": 0.05368802902055623,
+            "precision": 0.02781257830117765,
+            "recall": 0.7708333333333334,
+            "roc_auc": 0.9157951834205382,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9992250195217272,
+            "f1": 0.9225209026341814,
+            "precision": 0.9987152534454566,
+            "recall": 0.8571285375388419,
+            "roc_auc": 0.9794767974961098,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.6496384869560214,
+            "f1": 0.643979057591623,
+            "precision": 0.7256637168141593,
+            "recall": 0.5788235294117647,
+            "roc_auc": 0.9497971535626963,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.7229291511909177,
+            "f1": 0.44189852700491,
+            "precision": 0.3047404063205418,
+            "recall": 0.8035714285714286,
+            "roc_auc": 0.9741618960527155,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 795,
+          "precision": 0.2485822306238185,
+          "recall": 0.9962121212121212,
+          "selected": 1058,
+          "truly_noisy_selected": 263
+        },
+        "candidate_detection": {
+          "clean_selected": 860,
+          "precision": 0.2341941228851291,
+          "recall": 0.9962121212121212,
+          "selected": 1123,
+          "truly_noisy_selected": 263
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 263,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 795,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.9951456310679612,
+            "original_count": 256,
+            "originally_clean_count": 206,
+            "originally_clean_removed_or_mislabeled": 205
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.9090909090909091,
+            "original_count": 43,
+            "originally_clean_count": 33,
+            "originally_clean_removed_or_mislabeled": 30
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.7264150943396226,
+            "original_count": 256,
+            "originally_clean_count": 212,
+            "originally_clean_removed_or_mislabeled": 154
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.3448275862068966,
+            "original_count": 256,
+            "originally_clean_count": 203,
+            "originally_clean_removed_or_mislabeled": 70
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.7560975609756098,
+            "original_count": 256,
+            "originally_clean_count": 205,
+            "originally_clean_removed_or_mislabeled": 155
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.905,
+            "original_count": 256,
+            "originally_clean_count": 200,
+            "originally_clean_removed_or_mislabeled": 181
+          }
+        },
+        "retained_incorrect_labels": 1
+      },
+      "treatment_trace": [
+        {
+          "active_count": 875,
+          "after_round": 15,
+          "candidates": 448,
+          "changed": 448,
+          "treated_count": 448
+        },
+        {
+          "active_count": 672,
+          "after_round": 20,
+          "candidates": 203,
+          "changed": 203,
+          "treated_count": 651
+        },
+        {
+          "active_count": 366,
+          "after_round": 25,
+          "candidates": 306,
+          "changed": 306,
+          "treated_count": 957
+        },
+        {
+          "active_count": 265,
+          "after_round": 30,
+          "candidates": 165,
+          "changed": 101,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 35,
+          "candidates": 9,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 40,
+          "candidates": 10,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 45,
+          "candidates": 11,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 50,
+          "candidates": 11,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 55,
+          "candidates": 11,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 60,
+          "candidates": 11,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 65,
+          "candidates": 10,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 70,
+          "candidates": 10,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 75,
+          "candidates": 10,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 80,
+          "candidates": 10,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 85,
+          "candidates": 10,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 90,
+          "candidates": 11,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 95,
+          "candidates": 10,
+          "changed": 0,
+          "treated_count": 1058
+        }
+      ]
+    },
+    {
+      "arm": "gradient_gmm_relabel_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 1.764480099955108,
+      "model_sha256": "9c26cd4623bdba95c11a2609d64cd5af54ac60ac8115dfdf11556c6edd882687",
+      "noise_rate": 0.2,
+      "prediction_sha256": "7e86b93f651c533ef38590a83be21668fefd0db1ff0e2ee41eed1a05bfbadc23",
+      "seed": 20260922,
+      "test": {
+        "accuracy": 0.9460161756585572,
+        "confusion_matrix": [
+          [
+            88,
+            0,
+            3,
+            0,
+            6,
+            9
+          ],
+          [
+            0,
+            9,
+            2,
+            0,
+            3,
+            1
+          ],
+          [
+            0,
+            0,
+            111,
+            15,
+            8,
+            10
+          ],
+          [
+            149,
+            22,
+            911,
+            28503,
+            117,
+            227
+          ],
+          [
+            81,
+            1,
+            56,
+            2,
+            274,
+            11
+          ],
+          [
+            11,
+            1,
+            4,
+            5,
+            7,
+            140
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5137079784856454,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.48717396434433907,
+            "f1": 0.4045977011494253,
+            "precision": 0.2674772036474164,
+            "recall": 0.8301886792452831,
+            "roc_auc": 0.9857529673887042,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.5688456974054402,
+            "f1": 0.375,
+            "precision": 0.2727272727272727,
+            "recall": 0.6,
+            "roc_auc": 0.965531435504138,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.39306239102138996,
+            "f1": 0.1803411860276198,
+            "precision": 0.10211591536338546,
+            "recall": 0.7708333333333334,
+            "roc_auc": 0.9266515009772034,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9997164383226956,
+            "f1": 0.9752283847127656,
+            "precision": 0.9992287467134093,
+            "recall": 0.9523539042400347,
+            "roc_auc": 0.992190589211873,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.6978220620453628,
+            "f1": 0.6523809523809524,
+            "precision": 0.6602409638554216,
+            "recall": 0.6447058823529411,
+            "roc_auc": 0.9708968641141984,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.765589658734876,
+            "f1": 0.49469964664310956,
+            "precision": 0.35175879396984927,
+            "recall": 0.8333333333333334,
+            "roc_auc": 0.9786230227418705,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 171,
+          "precision": 0.5928571428571429,
+          "recall": 0.9431818181818182,
+          "selected": 420,
+          "truly_noisy_selected": 249
+        },
+        "candidate_detection": {
+          "clean_selected": 487,
+          "precision": 0.34805890227576974,
+          "recall": 0.9848484848484849,
+          "selected": 747,
+          "truly_noisy_selected": 260
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 214,
+        "originally_clean_removed_or_mislabeled": 171,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.17475728155339806,
+            "original_count": 256,
+            "originally_clean_count": 206,
+            "originally_clean_removed_or_mislabeled": 36
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.30303030303030304,
+            "original_count": 43,
+            "originally_clean_count": 33,
+            "originally_clean_removed_or_mislabeled": 10
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.1509433962264151,
+            "original_count": 256,
+            "originally_clean_count": 212,
+            "originally_clean_removed_or_mislabeled": 32
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.04926108374384237,
+            "original_count": 256,
+            "originally_clean_count": 203,
+            "originally_clean_removed_or_mislabeled": 10
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.2780487804878049,
+            "original_count": 256,
+            "originally_clean_count": 205,
+            "originally_clean_removed_or_mislabeled": 57
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.13,
+            "original_count": 256,
+            "originally_clean_count": 200,
+            "originally_clean_removed_or_mislabeled": 26
+          }
+        },
+        "retained_incorrect_labels": 221
+      },
+      "treatment_trace": [
+        {
+          "active_count": 1323,
+          "after_round": 15,
+          "candidates": 448,
+          "changed": 394,
+          "treated_count": 394
+        },
+        {
+          "active_count": 1323,
+          "after_round": 20,
+          "candidates": 217,
+          "changed": 14,
+          "treated_count": 408
+        },
+        {
+          "active_count": 1323,
+          "after_round": 25,
+          "candidates": 238,
+          "changed": 8,
+          "treated_count": 416
+        },
+        {
+          "active_count": 1323,
+          "after_round": 30,
+          "candidates": 250,
+          "changed": 3,
+          "treated_count": 419
+        },
+        {
+          "active_count": 1323,
+          "after_round": 35,
+          "candidates": 236,
+          "changed": 1,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 40,
+          "candidates": 229,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 45,
+          "candidates": 235,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 50,
+          "candidates": 243,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 55,
+          "candidates": 258,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 60,
+          "candidates": 264,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 65,
+          "candidates": 285,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 70,
+          "candidates": 294,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 75,
+          "candidates": 301,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 80,
+          "candidates": 305,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 85,
+          "candidates": 287,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 90,
+          "candidates": 285,
+          "changed": 0,
+          "treated_count": 420
+        },
+        {
+          "active_count": 1323,
+          "after_round": 95,
+          "candidates": 279,
+          "changed": 0,
+          "treated_count": 420
+        }
+      ]
+    },
+    {
+      "arm": "no_correction",
+      "fit_count": 1323,
+      "fit_seconds": 0.7363746999762952,
+      "model_sha256": "a6e87b176fbef267304c09dffc3ce6d83fb9140318de4df9258f44ee61b44a80",
+      "noise_rate": 0.0,
+      "prediction_sha256": "374a4d54c4fa4d28b1487fdf89c4d8fc6e3774139039fab312d6bb500c2fd21f",
+      "seed": 20260923,
+      "test": {
+        "accuracy": 0.9710267320622341,
+        "confusion_matrix": [
+          [
+            91,
+            0,
+            0,
+            0,
+            7,
+            8
+          ],
+          [
+            0,
+            13,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            129,
+            3,
+            5,
+            7
+          ],
+          [
+            5,
+            98,
+            539,
+            29178,
+            16,
+            93
+          ],
+          [
+            66,
+            0,
+            23,
+            2,
+            327,
+            7
+          ],
+          [
+            4,
+            0,
+            3,
+            0,
+            4,
+            157
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.6192821044549593,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.6763056852421233,
+            "f1": 0.6691176470588235,
+            "precision": 0.5481927710843374,
+            "recall": 0.8584905660377359,
+            "roc_auc": 0.9985954062898001,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.8714843672159895,
+            "f1": 0.20634920634920634,
+            "precision": 0.11711711711711711,
+            "recall": 0.8666666666666667,
+            "roc_auc": 0.9978595259759956,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.639536044293295,
+            "f1": 0.30787589498806683,
+            "precision": 0.18587896253602307,
+            "recall": 0.8958333333333334,
+            "roc_auc": 0.9931913034334467,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9999708623528598,
+            "f1": 0.98721071863581,
+            "precision": 0.9998286673748416,
+            "recall": 0.9749072805640014,
+            "roc_auc": 0.9989893330298957,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.9310438717331627,
+            "f1": 0.8331210191082803,
+            "precision": 0.9083333333333333,
+            "recall": 0.7694117647058824,
+            "roc_auc": 0.9983191063132321,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.902810911253686,
+            "f1": 0.7120181405895691,
+            "precision": 0.575091575091575,
+            "recall": 0.9345238095238095,
+            "roc_auc": 0.9988236762421092,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": null,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": null,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 0,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 0
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": []
+    },
+    {
+      "arm": "gradient_gmm_removal_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 0.8479318000026979,
+      "model_sha256": "62ed2f615209e1994760c743f501731441c023ccf9b28f53e203287eb10cae7f",
+      "noise_rate": 0.0,
+      "prediction_sha256": "a62c904fb1df0e3d370cf4c7841f3e84183932468deb97b31e38a2aa62d01150",
+      "seed": 20260923,
+      "test": {
+        "accuracy": 0.9618345405528307,
+        "confusion_matrix": [
+          [
+            69,
+            0,
+            13,
+            0,
+            10,
+            14
+          ],
+          [
+            0,
+            10,
+            0,
+            3,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            87,
+            37,
+            10,
+            10
+          ],
+          [
+            54,
+            1,
+            96,
+            29004,
+            447,
+            327
+          ],
+          [
+            40,
+            0,
+            52,
+            4,
+            305,
+            24
+          ],
+          [
+            1,
+            0,
+            16,
+            6,
+            8,
+            137
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5997681185127391,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5421181945951702,
+            "f1": 0.5111111111111111,
+            "precision": 0.42073170731707316,
+            "recall": 0.6509433962264151,
+            "roc_auc": 0.9850409847407253,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.7040965544678236,
+            "f1": 0.7692307692307693,
+            "precision": 0.9090909090909091,
+            "recall": 0.6666666666666666,
+            "roc_auc": 0.9818937128991725,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.4645655362870482,
+            "f1": 0.4264705882352941,
+            "precision": 0.32954545454545453,
+            "recall": 0.6041666666666666,
+            "roc_auc": 0.9433686595089688,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.999579466381718,
+            "f1": 0.983469813336046,
+            "precision": 0.9982790665657052,
+            "recall": 0.9690935213338234,
+            "roc_auc": 0.9870779259165106,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.691789729962835,
+            "f1": 0.5053852526926264,
+            "precision": 0.3900255754475703,
+            "recall": 0.7176470588235294,
+            "roc_auc": 0.9772878636995934,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.6617941319273789,
+            "f1": 0.40294117647058825,
+            "precision": 0.267578125,
+            "recall": 0.8154761904761905,
+            "roc_auc": 0.9810720934247177,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 1058,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 1058,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 1263,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 1263,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 1058,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.99609375,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 255
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.9767441860465116,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 42
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.91796875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 235
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.4921875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 126
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.91796875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 235
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.64453125,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 165
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": [
+        {
+          "active_count": 834,
+          "after_round": 15,
+          "candidates": 489,
+          "changed": 489,
+          "treated_count": 489
+        },
+        {
+          "active_count": 432,
+          "after_round": 20,
+          "candidates": 403,
+          "changed": 402,
+          "treated_count": 891
+        },
+        {
+          "active_count": 265,
+          "after_round": 25,
+          "candidates": 372,
+          "changed": 167,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 30,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 35,
+          "candidates": 3,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 40,
+          "candidates": 47,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 45,
+          "candidates": 47,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 50,
+          "candidates": 48,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 55,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 60,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 65,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 70,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 75,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 80,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 85,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 90,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 95,
+          "candidates": 2,
+          "changed": 0,
+          "treated_count": 1058
+        }
+      ]
+    },
+    {
+      "arm": "gradient_gmm_relabel_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 2.2495211000205018,
+      "model_sha256": "fd995e28102a0159f6216f9b712003fbf8c629bcf12812acf5bb2600eb2f4c8c",
+      "noise_rate": 0.0,
+      "prediction_sha256": "6e5ea88bd31d2400e1c38ec5b42a5b63a9a2b6cea0f0927059d4d84967799016",
+      "seed": 20260923,
+      "test": {
+        "accuracy": 0.9604703283853575,
+        "confusion_matrix": [
+          [
+            86,
+            0,
+            1,
+            0,
+            11,
+            8
+          ],
+          [
+            0,
+            13,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            112,
+            13,
+            9,
+            10
+          ],
+          [
+            221,
+            16,
+            328,
+            28920,
+            236,
+            208
+          ],
+          [
+            74,
+            0,
+            35,
+            5,
+            302,
+            9
+          ],
+          [
+            9,
+            0,
+            10,
+            5,
+            7,
+            137
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5653397634338837,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5123515952091401,
+            "f1": 0.3467741935483871,
+            "precision": 0.2205128205128205,
+            "recall": 0.8113207547169812,
+            "roc_auc": 0.9888026084608937,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.8623003158522446,
+            "f1": 0.5909090909090909,
+            "precision": 0.4482758620689655,
+            "recall": 0.8666666666666667,
+            "roc_auc": 0.9910329736990338,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.5566488709643631,
+            "f1": 0.3549920760697306,
+            "precision": 0.2299794661190965,
+            "recall": 0.7777777777777778,
+            "roc_auc": 0.9631042253623266,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9998936683799797,
+            "f1": 0.9824704443538524,
+            "precision": 0.9992053346232249,
+            "recall": 0.9662868789468408,
+            "roc_auc": 0.9964573694651546,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.715051190767931,
+            "f1": 0.6094853683148335,
+            "precision": 0.5335689045936396,
+            "recall": 0.7105882352941176,
+            "roc_auc": 0.9748543264219593,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.7513239395256618,
+            "f1": 0.5074074074074074,
+            "precision": 0.3682795698924731,
+            "recall": 0.8154761904761905,
+            "roc_auc": 0.9855139743607688,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 206,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 206,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 660,
+          "precision": 0.0,
+          "recall": null,
+          "selected": 660,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 0,
+        "injected_noise_fraction": 0.0,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 206,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.1796875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 46
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.32558139534883723,
+            "original_count": 43,
+            "originally_clean_count": 43,
+            "originally_clean_removed_or_mislabeled": 14
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.15625,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 40
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0390625,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 10
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.19921875,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 51
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.17578125,
+            "original_count": 256,
+            "originally_clean_count": 256,
+            "originally_clean_removed_or_mislabeled": 45
+          }
+        },
+        "retained_incorrect_labels": 206
+      },
+      "treatment_trace": [
+        {
+          "active_count": 1323,
+          "after_round": 15,
+          "candidates": 489,
+          "changed": 197,
+          "treated_count": 197
+        },
+        {
+          "active_count": 1323,
+          "after_round": 20,
+          "candidates": 326,
+          "changed": 2,
+          "treated_count": 199
+        },
+        {
+          "active_count": 1323,
+          "after_round": 25,
+          "candidates": 326,
+          "changed": 6,
+          "treated_count": 205
+        },
+        {
+          "active_count": 1323,
+          "after_round": 30,
+          "candidates": 366,
+          "changed": 0,
+          "treated_count": 205
+        },
+        {
+          "active_count": 1323,
+          "after_round": 35,
+          "candidates": 363,
+          "changed": 0,
+          "treated_count": 205
+        },
+        {
+          "active_count": 1323,
+          "after_round": 40,
+          "candidates": 347,
+          "changed": 0,
+          "treated_count": 205
+        },
+        {
+          "active_count": 1323,
+          "after_round": 45,
+          "candidates": 330,
+          "changed": 1,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 50,
+          "candidates": 323,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 55,
+          "candidates": 340,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 60,
+          "candidates": 374,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 65,
+          "candidates": 400,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 70,
+          "candidates": 402,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 75,
+          "candidates": 401,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 80,
+          "candidates": 400,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 85,
+          "candidates": 401,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 90,
+          "candidates": 398,
+          "changed": 0,
+          "treated_count": 206
+        },
+        {
+          "active_count": 1323,
+          "after_round": 95,
+          "candidates": 381,
+          "changed": 0,
+          "treated_count": 206
+        }
+      ]
+    },
+    {
+      "arm": "no_correction",
+      "fit_count": 1323,
+      "fit_seconds": 0.9828030000207946,
+      "model_sha256": "45b1f8ccef51033093f30cb1630ddc7a601ffe445d921e01b617bcadc37e868a",
+      "noise_rate": 0.2,
+      "prediction_sha256": "c768c8220dd232ae19f1adebfaf71077d6fa4c570bb8a31ee09cfbf4f821a55b",
+      "seed": 20260923,
+      "test": {
+        "accuracy": 0.9623867216682366,
+        "confusion_matrix": [
+          [
+            88,
+            0,
+            0,
+            0,
+            9,
+            9
+          ],
+          [
+            0,
+            11,
+            0,
+            0,
+            2,
+            2
+          ],
+          [
+            1,
+            0,
+            125,
+            3,
+            5,
+            10
+          ],
+          [
+            45,
+            74,
+            653,
+            28930,
+            62,
+            165
+          ],
+          [
+            64,
+            0,
+            25,
+            2,
+            327,
+            7
+          ],
+          [
+            8,
+            0,
+            2,
+            3,
+            7,
+            148
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5655543040524788,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.6069984933817032,
+            "f1": 0.5641025641025641,
+            "precision": 0.42718446601941745,
+            "recall": 0.8301886792452831,
+            "roc_auc": 0.9913919437572143,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.7046394403226651,
+            "f1": 0.22,
+            "precision": 0.12941176470588237,
+            "recall": 0.7333333333333333,
+            "roc_auc": 0.9909376489449284,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.4556475469838759,
+            "f1": 0.26343519494204426,
+            "precision": 0.15527950310559005,
+            "recall": 0.8680555555555556,
+            "roc_auc": 0.9811239063117552,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9999151796195711,
+            "f1": 0.9828936415988584,
+            "precision": 0.9997235468933582,
+            "recall": 0.9666210030405292,
+            "roc_auc": 0.9971132340322758,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.8412667673033468,
+            "f1": 0.7813620071684588,
+            "precision": 0.7936893203883495,
+            "recall": 0.7694117647058824,
+            "roc_auc": 0.988891842357126,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.8123691483438309,
+            "f1": 0.581532416502947,
+            "precision": 0.4340175953079179,
+            "recall": 0.8809523809523809,
+            "roc_auc": 0.9845598515705312,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": 0.0,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "candidate_detection": {
+          "clean_selected": 0,
+          "precision": null,
+          "recall": 0.0,
+          "selected": 0,
+          "truly_noisy_selected": 0
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 0,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 207,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 43,
+            "originally_clean_count": 36,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 199,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 200,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 208,
+            "originally_clean_removed_or_mislabeled": 0
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.0,
+            "original_count": 256,
+            "originally_clean_count": 209,
+            "originally_clean_removed_or_mislabeled": 0
+          }
+        },
+        "retained_incorrect_labels": 264
+      },
+      "treatment_trace": []
+    },
+    {
+      "arm": "gradient_gmm_removal_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 0.8328144000261091,
+      "model_sha256": "93a0def8b0481a219ed941e0900d65075691f403ce82b22f5075efc8db88cc16",
+      "noise_rate": 0.2,
+      "prediction_sha256": "5071c03501effffe6e3c15f29fa394d05a8ded983c2ec380d317d219c5feaf61",
+      "seed": 20260923,
+      "test": {
+        "accuracy": 0.9553058108942086,
+        "confusion_matrix": [
+          [
+            69,
+            0,
+            17,
+            0,
+            6,
+            14
+          ],
+          [
+            1,
+            9,
+            0,
+            3,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            88,
+            37,
+            9,
+            10
+          ],
+          [
+            78,
+            1,
+            83,
+            28869,
+            184,
+            714
+          ],
+          [
+            50,
+            0,
+            85,
+            5,
+            263,
+            22
+          ],
+          [
+            26,
+            1,
+            15,
+            6,
+            7,
+            113
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5505284345301075,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.43567382102808083,
+            "f1": 0.41818181818181815,
+            "precision": 0.3080357142857143,
+            "recall": 0.6509433962264151,
+            "roc_auc": 0.9714164565003355,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.6548093368143715,
+            "f1": 0.6923076923076923,
+            "precision": 0.8181818181818182,
+            "recall": 0.6,
+            "roc_auc": 0.9806880714069066,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.479247629055743,
+            "f1": 0.4074074074074074,
+            "precision": 0.3055555555555556,
+            "recall": 0.6111111111111112,
+            "roc_auc": 0.9418313544510799,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9996551552218279,
+            "f1": 0.9811211745314279,
+            "precision": 0.9982365145228216,
+            "recall": 0.96458284606903,
+            "roc_auc": 0.9891493979418735,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.6119762965421487,
+            "f1": 0.5870535714285714,
+            "precision": 0.5583864118895966,
+            "recall": 0.6188235294117647,
+            "roc_auc": 0.9597599166140338,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.5485972093907934,
+            "f1": 0.21709894332372717,
+            "precision": 0.12943871706758306,
+            "recall": 0.6726190476190477,
+            "roc_auc": 0.9752174964502278,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 794,
+          "precision": 0.2495274102079395,
+          "recall": 1.0,
+          "selected": 1058,
+          "truly_noisy_selected": 264
+        },
+        "candidate_detection": {
+          "clean_selected": 952,
+          "precision": 0.21710526315789475,
+          "recall": 1.0,
+          "selected": 1216,
+          "truly_noisy_selected": 264
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 264,
+        "noisy_labels_corrected_and_retained": 0,
+        "originally_clean_removed_or_mislabeled": 794,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.7632850241545893,
+            "original_count": 256,
+            "originally_clean_count": 207,
+            "originally_clean_removed_or_mislabeled": 158
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.8055555555555556,
+            "original_count": 43,
+            "originally_clean_count": 36,
+            "originally_clean_removed_or_mislabeled": 29
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.8743718592964824,
+            "original_count": 256,
+            "originally_clean_count": 199,
+            "originally_clean_removed_or_mislabeled": 174
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.59,
+            "original_count": 256,
+            "originally_clean_count": 200,
+            "originally_clean_removed_or_mislabeled": 118
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.9711538461538461,
+            "original_count": 256,
+            "originally_clean_count": 208,
+            "originally_clean_removed_or_mislabeled": 202
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.5406698564593302,
+            "original_count": 256,
+            "originally_clean_count": 209,
+            "originally_clean_removed_or_mislabeled": 113
+          }
+        },
+        "retained_incorrect_labels": 0
+      },
+      "treatment_trace": [
+        {
+          "active_count": 809,
+          "after_round": 15,
+          "candidates": 514,
+          "changed": 514,
+          "treated_count": 514
+        },
+        {
+          "active_count": 571,
+          "after_round": 20,
+          "candidates": 238,
+          "changed": 238,
+          "treated_count": 752
+        },
+        {
+          "active_count": 265,
+          "after_round": 25,
+          "candidates": 451,
+          "changed": 306,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 30,
+          "candidates": 128,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 35,
+          "candidates": 157,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 40,
+          "candidates": 30,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 45,
+          "candidates": 35,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 50,
+          "candidates": 35,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 55,
+          "candidates": 33,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 60,
+          "candidates": 32,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 65,
+          "candidates": 30,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 70,
+          "candidates": 37,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 75,
+          "candidates": 42,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 80,
+          "candidates": 37,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 85,
+          "candidates": 33,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 90,
+          "candidates": 33,
+          "changed": 0,
+          "treated_count": 1058
+        },
+        {
+          "active_count": 265,
+          "after_round": 95,
+          "candidates": 33,
+          "changed": 0,
+          "treated_count": 1058
+        }
+      ]
+    },
+    {
+      "arm": "gradient_gmm_relabel_adaptation",
+      "fit_count": 1323,
+      "fit_seconds": 1.7288366999709979,
+      "model_sha256": "4d92e9becb43793550a342dc577321b3703314d6c5d93f6b426a5c8f3dedcede",
+      "noise_rate": 0.2,
+      "prediction_sha256": "f43d6f00c48eec895fc2e9b62154daf6e33d132985114900d7d70214bb067bbd",
+      "seed": 20260923,
+      "test": {
+        "accuracy": 0.9573196479033358,
+        "confusion_matrix": [
+          [
+            84,
+            0,
+            2,
+            0,
+            10,
+            10
+          ],
+          [
+            0,
+            11,
+            0,
+            1,
+            2,
+            1
+          ],
+          [
+            0,
+            0,
+            115,
+            13,
+            7,
+            9
+          ],
+          [
+            94,
+            50,
+            267,
+            28835,
+            335,
+            348
+          ],
+          [
+            65,
+            0,
+            57,
+            4,
+            290,
+            9
+          ],
+          [
+            11,
+            0,
+            8,
+            3,
+            8,
+            138
+          ]
+        ],
+        "count": 30787,
+        "macro_f1": 0.5112772995489173,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision": 0.5382870806218244,
+            "f1": 0.4666666666666667,
+            "precision": 0.33070866141732286,
+            "recall": 0.7924528301886793,
+            "roc_auc": 0.9793180648339302,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision": 0.7233072483535136,
+            "f1": 0.2894736842105263,
+            "precision": 0.18032786885245902,
+            "recall": 0.7333333333333333,
+            "roc_auc": 0.9410936349061918,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision": 0.5643629280076378,
+            "f1": 0.38785834738617203,
+            "precision": 0.2561247216035635,
+            "recall": 0.7986111111111112,
+            "roc_auc": 0.9539891746166427,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision": 0.9998646114686436,
+            "f1": 0.9810325763375011,
+            "precision": 0.9992722484058775,
+            "recall": 0.9634468241504895,
+            "roc_auc": 0.9954990408146209,
+            "support": 29929
+          },
+          "Pivoting": {
+            "average_precision": 0.6863690812927703,
+            "f1": 0.5385329619312906,
+            "precision": 0.4447852760736196,
+            "recall": 0.6823529411764706,
+            "roc_auc": 0.9710418983481675,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision": 0.6762703285904943,
+            "f1": 0.404099560761347,
+            "precision": 0.26796116504854367,
+            "recall": 0.8214285714285714,
+            "roc_auc": 0.9698389888631243,
+            "support": 168
+          }
+        }
+      },
+      "treatment_audit": {
+        "actual_treatment": {
+          "clean_selected": 173,
+          "precision": 0.5957943925233645,
+          "recall": 0.9659090909090909,
+          "selected": 428,
+          "truly_noisy_selected": 255
+        },
+        "candidate_detection": {
+          "clean_selected": 492,
+          "precision": 0.3492063492063492,
+          "recall": 1.0,
+          "selected": 756,
+          "truly_noisy_selected": 264
+        },
+        "injected_noise_count": 264,
+        "injected_noise_fraction": 0.19954648526077098,
+        "noisy_examples_removed": 0,
+        "noisy_labels_corrected_and_retained": 216,
+        "originally_clean_removed_or_mislabeled": 173,
+        "per_stage": {
+          "DataExfiltration": {
+            "clean_damage_fraction": 0.20772946859903382,
+            "original_count": 256,
+            "originally_clean_count": 207,
+            "originally_clean_removed_or_mislabeled": 43
+          },
+          "InitialCompromise": {
+            "clean_damage_fraction": 0.3055555555555556,
+            "original_count": 43,
+            "originally_clean_count": 36,
+            "originally_clean_removed_or_mislabeled": 11
+          },
+          "LateralMovement": {
+            "clean_damage_fraction": 0.18090452261306533,
+            "original_count": 256,
+            "originally_clean_count": 199,
+            "originally_clean_removed_or_mislabeled": 36
+          },
+          "NormalTraffic": {
+            "clean_damage_fraction": 0.02,
+            "original_count": 256,
+            "originally_clean_count": 200,
+            "originally_clean_removed_or_mislabeled": 4
+          },
+          "Pivoting": {
+            "clean_damage_fraction": 0.2403846153846154,
+            "original_count": 256,
+            "originally_clean_count": 208,
+            "originally_clean_removed_or_mislabeled": 50
+          },
+          "Reconnaissance": {
+            "clean_damage_fraction": 0.13875598086124402,
+            "original_count": 256,
+            "originally_clean_count": 209,
+            "originally_clean_removed_or_mislabeled": 29
+          }
+        },
+        "retained_incorrect_labels": 221
+      },
+      "treatment_trace": [
+        {
+          "active_count": 1323,
+          "after_round": 15,
+          "candidates": 514,
+          "changed": 399,
+          "treated_count": 399
+        },
+        {
+          "active_count": 1323,
+          "after_round": 20,
+          "candidates": 269,
+          "changed": 16,
+          "treated_count": 415
+        },
+        {
+          "active_count": 1323,
+          "after_round": 25,
+          "candidates": 301,
+          "changed": 10,
+          "treated_count": 425
+        },
+        {
+          "active_count": 1323,
+          "after_round": 30,
+          "candidates": 287,
+          "changed": 0,
+          "treated_count": 425
+        },
+        {
+          "active_count": 1323,
+          "after_round": 35,
+          "candidates": 286,
+          "changed": 1,
+          "treated_count": 426
+        },
+        {
+          "active_count": 1323,
+          "after_round": 40,
+          "candidates": 295,
+          "changed": 2,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 45,
+          "candidates": 281,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 50,
+          "candidates": 199,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 55,
+          "candidates": 191,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 60,
+          "candidates": 196,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 65,
+          "candidates": 190,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 70,
+          "candidates": 188,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 75,
+          "candidates": 191,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 80,
+          "candidates": 195,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 85,
+          "candidates": 196,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 90,
+          "candidates": 206,
+          "changed": 0,
+          "treated_count": 428
+        },
+        {
+          "active_count": 1323,
+          "after_round": 95,
+          "candidates": 209,
+          "changed": 0,
+          "treated_count": 428
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "interpretation": "Three seeds on one exposed development split; no confidence interval, significance, independent-campaign, original-algorithm, or novelty claim.",
+    "run_count": 18,
+    "screen_status": "NEGATIVE_DEVELOPMENT",
+    "screens": {
+      "gradient_gmm_relabel_adaptation": {
+        "all_gates_pass": false,
+        "guards": {
+          "clean_macro_f1_preserved": false,
+          "clean_rare_recall_preserved": false,
+          "noisy_macro_f1_recovery": false,
+          "noisy_rare_recall_preserved": false
+        },
+        "mean_deltas": {
+          "clean_macro_f1_delta": -0.029694978386632376,
+          "clean_rare_stage_recall_delta": -0.0666666666666667,
+          "noisy_macro_f1_delta": -0.05167104891203489,
+          "noisy_rare_stage_recall_delta": -0.0888888888888889
+        },
+        "paired_seed_deltas": [
+          {
+            "clean_macro_f1_delta": 0.016675628919984753,
+            "clean_rare_stage_recall_delta": -0.06666666666666665,
+            "noisy_macro_f1_delta": -0.0230324599984022,
+            "noisy_rare_stage_recall_delta": -0.13333333333333341,
+            "seed": 20260921
+          },
+          {
+            "clean_macro_f1_delta": -0.051818223058806234,
+            "clean_rare_stage_recall_delta": -0.13333333333333341,
+            "noisy_macro_f1_delta": -0.07770368223414104,
+            "noisy_rare_stage_recall_delta": -0.1333333333333333,
+            "seed": 20260922
+          },
+          {
+            "clean_macro_f1_delta": -0.053942341021075646,
+            "clean_rare_stage_recall_delta": 0.0,
+            "noisy_macro_f1_delta": -0.05427700450356143,
+            "noisy_rare_stage_recall_delta": 0.0,
+            "seed": 20260923
+          }
+        ]
+      },
+      "gradient_gmm_removal_adaptation": {
+        "all_gates_pass": false,
+        "guards": {
+          "clean_macro_f1_preserved": false,
+          "clean_rare_recall_preserved": false,
+          "noisy_macro_f1_recovery": false,
+          "noisy_rare_recall_preserved": false
+        },
+        "mean_deltas": {
+          "clean_macro_f1_delta": -0.03270680360361167,
+          "clean_rare_stage_recall_delta": -0.2888888888888889,
+          "noisy_macro_f1_delta": -0.046815485628402286,
+          "noisy_rare_stage_recall_delta": -0.15555555555555556
+        },
+        "paired_seed_deltas": [
+          {
+            "clean_macro_f1_delta": 0.027218733984054166,
+            "clean_rare_stage_recall_delta": -0.2666666666666667,
+            "noisy_macro_f1_delta": -0.0162144594618015,
+            "noisy_rare_stage_recall_delta": -0.20000000000000007,
+            "seed": 20260921
+          },
+          {
+            "clean_macro_f1_delta": -0.10582515885266897,
+            "clean_rare_stage_recall_delta": -0.4,
+            "noisy_macro_f1_delta": -0.10920612790103407,
+            "noisy_rare_stage_recall_delta": -0.1333333333333333,
+            "seed": 20260922
+          },
+          {
+            "clean_macro_f1_delta": -0.019513985942220202,
+            "clean_rare_stage_recall_delta": -0.20000000000000007,
+            "noisy_macro_f1_delta": -0.015025869522371282,
+            "noisy_rare_stage_recall_delta": -0.1333333333333333,
+            "seed": 20260923
+          }
+        ]
+      }
+    }
+  }
+}

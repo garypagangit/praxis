@@ -1,0 +1,79 @@
+{
+  "artifact_hashes": {
+    "AGGREGATE.json": "bc7e9c19b72103ddb5fbf650991f684a6bfdd9cd9ff91a6be956ab59128949c5",
+    "FIT_RECEIPT.json": "fbd32e2e847f75f53b4e06f30aead1c3eb43dfd7e878372f9de364162919b833",
+    "PREDICTIONS_PRIVATE.npz": "3c536c688ec28e46fa3c74f07171d6fe49018ee385f194d115d5d31a3fc19b76",
+    "PREFIT_RECEIPT.json": "033480a7dcdb4dd9161f68346dae7340f92cbdb889138c4a9459682a47be6714"
+  },
+  "audit_status": "PASS",
+  "decision": {
+    "full_stage_median_seconds": 0.004014899954199791,
+    "interpretation": "Measured CPU configuration only; not a full cascade, quality frontier, statistical timing guarantee, or GPU result.",
+    "necessary_speed_condition_passed": false,
+    "observed_optimistic_serial_cascade_speedup_ceiling": 0.00014812493615561908,
+    "required_screen_max_seconds": 0.0008029799908399581,
+    "required_speedup": 5.0,
+    "screen_alone_median_seconds": 27.10482150001917,
+    "status": "CPU_CANDIDATE_FAILS_NECESSARY_SPEED_CONDITION"
+  },
+  "experiment": "E2_CPU_LATENCY_NECESSARY_CONDITION",
+  "fit_rows": 192,
+  "limitations": [
+    "No fitting, model-inference replay, timing replay or query-label quality evaluation was performed by this auditor.",
+    "Source inspection establishes timer placement, not an independent measurement of elapsed time.",
+    "Result applies only to this warm CPU configuration; no GPU or full cascade claim."
+  ],
+  "probability_checks": {
+    "full_stage_probabilities": {
+      "maximum_repeat_absolute_difference": 0.0,
+      "shape": [
+        3,
+        1024,
+        6
+      ]
+    },
+    "screen_probabilities": {
+      "maximum_repeat_absolute_difference": 0.0,
+      "shape": [
+        3,
+        1024,
+        2
+      ]
+    }
+  },
+  "query_rows": 1024,
+  "run_status": "COMPLETE",
+  "schema_version": 1,
+  "screen_to_stage_median_runtime_ratio": 6751.057762140782,
+  "selected_gbdt": "xgboost",
+  "timer_source_review": {
+    "excludes": [
+      "model/preprocessor fitting",
+      "constructor/checkpoint setup",
+      "query-label scoring"
+    ],
+    "function": "paired_predictions",
+    "includes": [
+      "fitted imputer.transform(query)",
+      "actual model.predict_proba call"
+    ],
+    "limitation": "Static bound-source review; wall-clock execution was not independently replayed.",
+    "prediction_call_lines": [
+      72,
+      82
+    ],
+    "status": "PASS"
+  },
+  "training_binary_counts": [
+    32,
+    160
+  ],
+  "verified": [
+    "Pre-fit binding, source/input/protocol/checkpoint/artifact hashes",
+    "Fit support and label-blind timing query reconstruction",
+    "Binary training counts and inner-CV arithmetic/selection",
+    "Training-only imputation medians",
+    "Three measured probability matrices per model",
+    "Alternating timing order, medians and necessary-speed arithmetic"
+  ]
+}

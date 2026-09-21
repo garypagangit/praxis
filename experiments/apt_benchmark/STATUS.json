@@ -1,26 +1,28 @@
 {
-  "status": "WINDOW_DIAGNOSTIC_COMPLETE_PRIMARY_USEFUL_SIGNAL_FAILED_RETIRE_FORMULATION",
+  "status": "TABULAR_CPU_PRESCREEN_PROMISING_FULL_CONFIRMATION_PENDING",
   "date": "2026-09-20",
   "branch": "apt-benchmark",
-  "tests_passed": 172,
+  "tests_passed": 252,
   "binary_models_run": 4,
   "stage_models_run": 1,
   "stage_targets": 12,
-  "datasets_modelled": 3,
+  "datasets_modelled": 4,
   "capture_tables_acquired_and_qualified": 2,
   "capture_packets": 2572961,
   "primary_pilot_wall_seconds": 332.98399999999674,
   "background_supplement_rows": 48838,
-  "aws_authentication": "NOT_RECHECKED_THIS_FOLLOWUP_PREVIOUSLY_VERIFIED",
-  "aws_gpu_state": "STOPPED",
+  "aws_authentication": "EXPIRED_DEVICE_SIGNIN_NOT_COMPLETED",
+  "aws_gpu_state": "NOT_REVERIFIED_AFTER_AUTH_EXPIRY_LAST_OBSERVED_STOPPED",
   "aws_compute_started_this_task": false,
   "novel_method_validated": false,
   "early_before_impact_measured": false,
   "next_gates": [
-    "Retire the tested primary CAM-LDS fixed-window T1105 formulation; no evidence-recovery extension justified by these results",
-    "Before a new APT candidate, qualify host/process or evidence-level supervision and useful complete-evidence controls in an independent cohort",
-    "Preserve exposed CAM data as development evidence; new confirmation requires independently qualified unexposed scenarios",
-    "S-DAPT remains conditional on corrected source, raw data, license and shortcut qualification"
+    "Complete the frozen full E1/E4 foundation comparison after AWS authentication; CPU prescreen is separate and preliminary",
+    "Qualify independent SCVIC author test or independent-incident data before confirmation",
+    "Evaluate more benign training examples, stronger baseline tuning and a defined false-alert budget in a separately registered follow-up",
+    "Check a precise methodological novelty claim against conformalized foundation-model IDS prior art",
+    "Retain the negative CPU cascade and label-cleaning results; avoid presenting their success as guaranteed",
+    "S-DAPT requires corrected source, raw data, license and sequence qualification"
   ],
   "reports": {
     "pilot": "results/pilot_v1/REPORT.md",
@@ -32,7 +34,9 @@
     "sdapt2026": "sdapt2026/README.md",
     "robustness_followup": "results/robustness_v2/SUMMARY.md",
     "camlds_qualification": "camlds/QUALIFICATION.md",
-    "window_diagnostic": "results/window_diagnostic_v1/REPORT.md"
+    "window_diagnostic": "results/window_diagnostic_v1/REPORT.md",
+    "tabular_batch": "results/tabular_batch_v1/REPORT.md",
+    "tabular_proposal_review": "tabular_batch/BATCH_REVIEW.md"
   },
   "robustness_experiments_completed": 3,
   "robustness_models_fitted": 16,
@@ -45,7 +49,7 @@
   ],
   "sdapt2026_status": "CANDIDATE_PLAN_PREPARED_RAW_DATA_AND_CORRECTIONS_UNQUALIFIED",
   "sdapt2026_models_fitted": 0,
-  "updated_utc": "2026-09-21T00:43:36.494580+00:00",
+  "updated_utc": "2026-09-21T01:36:15.663784+00:00",
   "robustness_v2": {
     "arm_target_configurations": 30,
     "audited_result_rows": 630,
@@ -69,5 +73,124 @@
     "useful_signal_passed": false,
     "pooling_benefit_passed": true,
     "novel_method_validated": false
-  }
+  },
+  "tabular_batch": {
+    "source": "SCVIC author training data; deduplicated development split",
+    "full_e1_classical_cells_completed_and_audited": 30,
+    "full_e1_foundation_cells_completed": 0,
+    "full_e1_foundation_cells_required": 20,
+    "e1_full_status": "INCOMPLETE",
+    "e4_full_status": "INCOMPLETE",
+    "cpu_prescreen_foundation_cells_completed_and_audited": 6,
+    "cpu_prescreen_primary": {
+      "guards": {
+        "DataExfiltration_mean_recall_loss_at_most_0.05": true,
+        "InitialCompromise_mean_recall_loss_at_most_0.05": true,
+        "mean_weighted_estimated_macro_f1_gain_at_least_0.02": true
+      },
+      "interpretation": "Descriptive rescope after classical results were known, before foundation outcomes. Never full E1 PASS, independent replication, significance, or confirmation.",
+      "mean_high_risk_recall_deltas": {
+        "DataExfiltration": 0.08805031446540883,
+        "InitialCompromise": -0.022222222222222216
+      },
+      "mean_weighted_estimated_macro_f1_delta": 0.09966705587294068,
+      "paired_seed_count": 3,
+      "pairs": [
+        {
+          "candidate_weighted_estimated_macro_f1": 0.5129559080895566,
+          "comparator_selected_by_e1_inner_cv": "xgboost",
+          "comparator_weighted_estimated_macro_f1": 0.40298092750889897,
+          "high_risk_recall_deltas": {
+            "DataExfiltration": 0.0,
+            "InitialCompromise": 0.0
+          },
+          "seed": 20260921,
+          "weighted_estimated_macro_f1_delta": 0.10997498058065763
+        },
+        {
+          "candidate_weighted_estimated_macro_f1": 0.5302405233020139,
+          "comparator_selected_by_e1_inner_cv": "lightgbm",
+          "comparator_weighted_estimated_macro_f1": 0.4111659888029074,
+          "high_risk_recall_deltas": {
+            "DataExfiltration": 0.12264150943396235,
+            "InitialCompromise": -0.06666666666666665
+          },
+          "seed": 20260922,
+          "weighted_estimated_macro_f1_delta": 0.11907453449910649
+        },
+        {
+          "candidate_weighted_estimated_macro_f1": 0.5137603839605422,
+          "comparator_selected_by_e1_inner_cv": "lightgbm",
+          "comparator_weighted_estimated_macro_f1": 0.4438087314214843,
+          "high_risk_recall_deltas": {
+            "DataExfiltration": 0.14150943396226412,
+            "InitialCompromise": 0.0
+          },
+          "seed": 20260923,
+          "weighted_estimated_macro_f1_delta": 0.06995165253905794
+        }
+      ],
+      "primary_candidate": "tabicl_v2",
+      "required_paired_seeds": 3,
+      "status": "PRELIMINARY_PROMISING"
+    },
+    "cpu_prescreen_model_summaries": {
+      "lightgbm": {
+        "mean_baseline_full_test_macro_f1": 0.442570211619848,
+        "mean_prevalence_weighted_estimated_macro_f1": 0.4334070237818482,
+        "mean_query_unweighted_macro_f1": 0.6708139502606195,
+        "mean_weighted_estimate_minus_full_test_macro_f1": -0.009163187837999761,
+        "seed_count": 3
+      },
+      "random_forest": {
+        "mean_baseline_full_test_macro_f1": 0.42170425026216857,
+        "mean_prevalence_weighted_estimated_macro_f1": 0.40250075042978395,
+        "mean_query_unweighted_macro_f1": 0.6463372097340829,
+        "mean_weighted_estimate_minus_full_test_macro_f1": -0.0192034998323846,
+        "seed_count": 3
+      },
+      "tabicl_v2": {
+        "mean_prevalence_weighted_estimated_macro_f1": 0.5189856051173709,
+        "mean_query_unweighted_macro_f1": 0.7046696063631974,
+        "seed_count": 3
+      },
+      "tabpfn_2_5_synthetic": {
+        "mean_prevalence_weighted_estimated_macro_f1": 0.5321721393085054,
+        "mean_query_unweighted_macro_f1": 0.6975421720144315,
+        "seed_count": 3
+      },
+      "xgboost": {
+        "mean_baseline_full_test_macro_f1": 0.4320147979103499,
+        "mean_prevalence_weighted_estimated_macro_f1": 0.41674239003251906,
+        "mean_query_unweighted_macro_f1": 0.6570555490127554,
+        "mean_weighted_estimate_minus_full_test_macro_f1": -0.015272407877830815,
+        "seed_count": 3
+      }
+    },
+    "cpu_prescreen_query": {
+      "attack_rows": 858,
+      "enriched_attack_prevalence": 0.45589798087141337,
+      "normal_rows": 1024,
+      "normal_weight": 29.2275390625,
+      "original_test_attack_prevalence": 0.027868905706954234,
+      "original_test_normal_rows": 29929,
+      "query_hash_tag": "E1_CPU_PRESCREEN_20260921",
+      "query_normal_sampling": "Fixed SHA256-ranked sample; all attack rows retained",
+      "represented_weight_sum": 30787.0,
+      "rows": 1882
+    },
+    "cpu_prescreen_score_scope": "Prevalence-adjusted estimates for one sampled query execution, not actual full-test foundation scores",
+    "cpu_prescreen_independent_audit": "PASS",
+    "e2_status": "CPU_NECESSARY_SPEED_CONDITION_FAILED_FULL_CASCADE_UNTESTED",
+    "e3_completed_and_audited_cells": 18,
+    "e3_status": "BOTH_TESTED_ADAPTATIONS_NEGATIVE",
+    "e5_status": "NOT_RUN_PROPOSED_DATA_UNQUALIFIED_NO_UNSEEN_STAGE_GUARANTEE",
+    "e6_status": "NOT_RUN_CORRECTED_SOURCE_AND_SEQUENCES_UNQUALIFIED",
+    "e7_status": "OPTIONAL_NOT_RUN_FIRST_SECURITY_USE_CLAIM_UNSUPPORTED",
+    "gpu_used": false,
+    "fresh_author_holdout_evaluated": false,
+    "missing_delayed_log_resilience_evaluated_in_this_batch": false,
+    "novel_method_validated": false
+  },
+  "top_level_pilot_counts_scope": "Original AIT pilot; later experiment counts and outcomes are in their named nested sections, including tabular_batch."
 }

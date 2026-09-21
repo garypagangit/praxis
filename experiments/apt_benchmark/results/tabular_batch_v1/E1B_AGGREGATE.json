@@ -1,0 +1,5188 @@
+{
+  "cells": [
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.88391204079644,
+        "average_precision_ovr_macro": 0.6861843465249603,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            79,
+            0,
+            8,
+            0,
+            11,
+            8
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            5,
+            93,
+            11,
+            18,
+            15
+          ],
+          [
+            208,
+            2380,
+            413,
+            26622,
+            213,
+            93
+          ],
+          [
+            75,
+            35,
+            20,
+            0,
+            284,
+            11
+          ],
+          [
+            26,
+            6,
+            4,
+            2,
+            9,
+            121
+          ]
+        ],
+        "macro_f1": 0.4527946894781078,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4418607505345856,
+            "f1": 0.3185483870967742,
+            "false_negative": 27,
+            "false_positive": 311,
+            "precision": 0.20256410256410257,
+            "recall": 0.7452830188679245,
+            "roc_auc_ovr": 0.988523719123076,
+            "support": 106,
+            "true_positive": 79
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7241609878535421,
+            "f1": 0.011405295315682282,
+            "false_negative": 1,
+            "false_positive": 2426,
+            "precision": 0.005737704918032787,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9918963126651935,
+            "support": 15,
+            "true_positive": 14
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.5015634978314988,
+            "f1": 0.2727272727272727,
+            "false_negative": 51,
+            "false_positive": 445,
+            "precision": 0.17286245353159851,
+            "recall": 0.6458333333333334,
+            "roc_auc_ovr": 0.9269083794740143,
+            "support": 144,
+            "true_positive": 93
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9998834420433492,
+            "f1": 0.9413054239445584,
+            "false_negative": 3307,
+            "false_positive": 13,
+            "precision": 0.9995119204054815,
+            "recall": 0.8895051622172475,
+            "roc_auc_ovr": 0.9962519493492797,
+            "support": 29929,
+            "true_positive": 26622
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.74261513168732,
+            "f1": 0.5910509885535901,
+            "false_negative": 141,
+            "false_positive": 252,
+            "precision": 0.5298507462686567,
+            "recall": 0.668235294117647,
+            "roc_auc_ovr": 0.9853115155554351,
+            "support": 425,
+            "true_positive": 284
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.707022269199467,
+            "f1": 0.5817307692307693,
+            "false_negative": 47,
+            "false_positive": 127,
+            "precision": 0.4879032258064516,
+            "recall": 0.7202380952380952,
+            "roc_auc_ovr": 0.9869561422335026,
+            "support": 168,
+            "true_positive": 121
+          }
+        },
+        "roc_auc_ovr_macro": 0.97930800306675
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.022951594620938764,
+      "estimated_original_test_benign_false_positives": 3653.4423828125,
+      "inner_cv_selected_macro_f1": null,
+      "model": "random_forest",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8726591618926007,
+        "average_precision_ovr_macro": 0.6948161379327163,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            79.0,
+            0.0,
+            8.0,
+            0.0,
+            11.0,
+            8.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            2.0,
+            5.0,
+            93.0,
+            11.0,
+            18.0,
+            15.0
+          ],
+          [
+            263.0478515625,
+            2542.7958984375,
+            467.640625,
+            26275.5576171875,
+            233.8203125,
+            146.1376953125
+          ],
+          [
+            75.0,
+            35.0,
+            20.0,
+            0.0,
+            284.0,
+            11.0
+          ],
+          [
+            26.0,
+            6.0,
+            4.0,
+            2.0,
+            9.0,
+            121.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.42984309485716904,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.43775528616708187,
+            "f1": 0.2867264604189816,
+            "precision": 0.17750900206043504,
+            "recall": 0.7452830188679245,
+            "roc_auc_ovr": 0.9872449635486524,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7531014886895806,
+            "f1": 0.01069602103690075,
+            "precision": 0.005378831282316229,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.992001907002849,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.5483429211707671,
+            "f1": 0.25249761374482976,
+            "precision": 0.15692478051095468,
+            "recall": 0.6458333333333334,
+            "roc_auc_ovr": 0.9286723550670091,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.999885721921239,
+            "f1": 0.9347811869064274,
+            "precision": 0.9995054882740504,
+            "recall": 0.8779296875,
+            "roc_auc_ovr": 0.9963117123761654,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.7380066823802913,
+            "f1": 0.578517263055708,
+            "precision": 0.5100388646472016,
+            "recall": 0.668235294117647,
+            "roc_auc_ovr": 0.9844705364172442,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.6918047272673382,
+            "f1": 0.5158400239801664,
+            "precision": 0.4018095438846821,
+            "recall": 0.7202380952380952,
+            "roc_auc_ovr": 0.9849815904431265,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.978947177475841
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.7917109458023379,
+        "average_precision_ovr_macro": 0.7843564217300406,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            79,
+            0,
+            8,
+            0,
+            11,
+            8
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            5,
+            93,
+            11,
+            18,
+            15
+          ],
+          [
+            9,
+            87,
+            16,
+            899,
+            8,
+            5
+          ],
+          [
+            75,
+            35,
+            20,
+            0,
+            284,
+            11
+          ],
+          [
+            26,
+            6,
+            4,
+            2,
+            9,
+            121
+          ]
+        ],
+        "macro_f1": 0.6292173757904558,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4767847572268289,
+            "f1": 0.531986531986532,
+            "precision": 0.41361256544502617,
+            "recall": 0.7452830188679245,
+            "roc_auc_ovr": 0.9465382245453,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8302541380188437,
+            "f1": 0.1728395061728395,
+            "precision": 0.09523809523809523,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9911444384931263,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.73300485604934,
+            "f1": 0.6526315789473685,
+            "precision": 0.6595744680851063,
+            "recall": 0.6458333333333334,
+            "roc_auc_ovr": 0.9165827579593402,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.99675005757713,
+            "f1": 0.9287190082644629,
+            "precision": 0.9857456140350878,
+            "recall": 0.8779296875,
+            "roc_auc_ovr": 0.9963117123761654,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8632523505050849,
+            "f1": 0.7513227513227513,
+            "precision": 0.8580060422960725,
+            "recall": 0.668235294117647,
+            "roc_auc_ovr": 0.953430497799669,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8060923710030161,
+            "f1": 0.7378048780487805,
+            "precision": 0.75625,
+            "recall": 0.7202380952380952,
+            "roc_auc_ovr": 0.9697727399010947,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9622967285124493
+      },
+      "sampled_benign_false_positives": 125,
+      "seed": 20260921,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.8744275181082924,
+        "average_precision_ovr_macro": 0.5968669432082317,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81,
+            0,
+            5,
+            0,
+            8,
+            12
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            5,
+            105,
+            4,
+            18,
+            11
+          ],
+          [
+            270,
+            2642,
+            456,
+            26340,
+            103,
+            118
+          ],
+          [
+            77,
+            16,
+            36,
+            2,
+            266,
+            28
+          ],
+          [
+            26,
+            6,
+            8,
+            3,
+            10,
+            115
+          ]
+        ],
+        "macro_f1": 0.44379536276346004,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4246442205162627,
+            "f1": 0.2887700534759358,
+            "false_negative": 25,
+            "false_positive": 374,
+            "precision": 0.17802197802197803,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.9906106231316414,
+            "support": 106,
+            "true_positive": 81
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.5408972852330777,
+            "f1": 0.010378057820607857,
+            "false_negative": 1,
+            "false_positive": 2669,
+            "precision": 0.005218039508013418,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9732895706053122,
+            "support": 15,
+            "true_positive": 14
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.2997916067060066,
+            "f1": 0.27851458885941643,
+            "false_negative": 39,
+            "false_positive": 505,
+            "precision": 0.1721311475409836,
+            "recall": 0.7291666666666666,
+            "roc_auc_ovr": 0.9244138139216135,
+            "support": 144,
+            "true_positive": 105
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9992772673428674,
+            "f1": 0.9360673797931697,
+            "false_negative": 3589,
+            "false_positive": 9,
+            "precision": 0.9996584310600023,
+            "recall": 0.8800828627752347,
+            "roc_auc_ovr": 0.9757533583170924,
+            "support": 29929,
+            "true_positive": 26340
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.7160917527539654,
+            "f1": 0.6401925391095066,
+            "false_negative": 159,
+            "false_positive": 140,
+            "precision": 0.6551724137931034,
+            "recall": 0.6258823529411764,
+            "roc_auc_ovr": 0.9908536599541997,
+            "support": 425,
+            "true_positive": 266
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.6004995266972104,
+            "f1": 0.5088495575221239,
+            "false_negative": 53,
+            "false_positive": 169,
+            "precision": 0.40492957746478875,
+            "recall": 0.6845238095238095,
+            "roc_auc_ovr": 0.9827566800259411,
+            "support": 168,
+            "true_positive": 115
+          }
+        },
+        "roc_auc_ovr_macro": 0.9729462843259666
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.04081443525456108,
+      "estimated_original_test_benign_false_positives": 3887.2626953125,
+      "inner_cv_selected_macro_f1": 0.732469530638867,
+      "model": "xgboost",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8647395752976094,
+        "average_precision_ovr_macro": 0.6227311105111866,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81.0,
+            0.0,
+            5.0,
+            0.0,
+            8.0,
+            12.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            5.0,
+            105.0,
+            4.0,
+            18.0,
+            11.0
+          ],
+          [
+            350.73046875,
+            2513.568359375,
+            613.7783203125,
+            26041.7373046875,
+            146.1376953125,
+            263.0478515625
+          ],
+          [
+            77.0,
+            16.0,
+            36.0,
+            2.0,
+            266.0,
+            28.0
+          ],
+          [
+            26.0,
+            6.0,
+            8.0,
+            3.0,
+            10.0,
+            115.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.40298092750889897,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.43310477217358717,
+            "f1": 0.2524424316575665,
+            "precision": 0.1511954326379724,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.9893729496002842,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.5770103963543382,
+            "f1": 0.010896771785752562,
+            "precision": 0.005480377907532385,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9726209665544165,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.4293643004444046,
+            "f1": 0.23031914152995572,
+            "precision": 0.1367582246360682,
+            "recall": 0.7291666666666666,
+            "roc_auc_ovr": 0.9260248432081204,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9992900847569638,
+            "f1": 0.9303986963335349,
+            "precision": 0.9996545203348859,
+            "recall": 0.8701171875,
+            "roc_auc_ovr": 0.9761840535766316,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.7127662037306561,
+            "f1": 0.6085997696390528,
+            "precision": 0.5922459922116382,
+            "recall": 0.6258823529411764,
+            "roc_auc_ovr": 0.9904178831711321,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.5848509056071695,
+            "f1": 0.38522875410753105,
+            "precision": 0.26803537083613105,
+            "recall": 0.6845238095238095,
+            "roc_auc_ovr": 0.978868692570442,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9722482314468378
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.7821466524973433,
+        "average_precision_ovr_macro": 0.7365755726175579,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81,
+            0,
+            5,
+            0,
+            8,
+            12
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            5,
+            105,
+            4,
+            18,
+            11
+          ],
+          [
+            12,
+            86,
+            21,
+            891,
+            5,
+            9
+          ],
+          [
+            77,
+            16,
+            36,
+            2,
+            266,
+            28
+          ],
+          [
+            26,
+            6,
+            8,
+            3,
+            10,
+            115
+          ]
+        ],
+        "macro_f1": 0.6187795972501736,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5029833950042668,
+            "f1": 0.5346534653465347,
+            "precision": 0.41116751269035534,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.9489631140574537,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.6300155138856589,
+            "f1": 0.19718309859154928,
+            "precision": 0.11023622047244094,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9811462238885914,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.7276607875541937,
+            "f1": 0.658307210031348,
+            "precision": 0.6,
+            "recall": 0.7291666666666666,
+            "roc_auc_ovr": 0.9194176735711547,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.982652479601558,
+            "f1": 0.9261954261954262,
+            "precision": 0.99,
+            "recall": 0.8701171875,
+            "roc_auc_ovr": 0.9761840535766316,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8522210173311577,
+            "f1": 0.7257844474761255,
+            "precision": 0.8636363636363636,
+            "recall": 0.6258823529411764,
+            "roc_auc_ovr": 0.9587298639428317,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7239202423285128,
+            "f1": 0.6705539358600583,
+            "precision": 0.6571428571428571,
+            "recall": 0.6845238095238095,
+            "roc_auc_ovr": 0.9584531449686058,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9571490123342113
+      },
+      "sampled_benign_false_positives": 133,
+      "seed": 20260921,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.870724656510865,
+        "average_precision_ovr_macro": 0.6088235265952923,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            78,
+            0,
+            6,
+            0,
+            14,
+            8
+          ],
+          [
+            0,
+            15,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            102,
+            5,
+            18,
+            15
+          ],
+          [
+            88,
+            2762,
+            645,
+            26220,
+            75,
+            139
+          ],
+          [
+            73,
+            36,
+            39,
+            0,
+            267,
+            10
+          ],
+          [
+            14,
+            6,
+            7,
+            2,
+            14,
+            125
+          ]
+        ],
+        "macro_f1": 0.464555045792216,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.40961345801159726,
+            "f1": 0.43213296398891965,
+            "false_negative": 28,
+            "false_positive": 177,
+            "precision": 0.3058823529411765,
+            "recall": 0.7358490566037735,
+            "roc_auc_ovr": 0.9755324572456803,
+            "support": 106,
+            "true_positive": 78
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.5100568101142334,
+            "f1": 0.010578279266572637,
+            "false_negative": 0,
+            "false_positive": 2806,
+            "precision": 0.005317263381779511,
+            "recall": 1.0,
+            "roc_auc_ovr": 0.98851770007366,
+            "support": 15,
+            "true_positive": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.4231123273439193,
+            "f1": 0.2163308589607635,
+            "false_negative": 42,
+            "false_positive": 697,
+            "precision": 0.1276595744680851,
+            "recall": 0.7083333333333334,
+            "roc_auc_ovr": 0.9430790338195781,
+            "support": 144,
+            "true_positive": 102
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9994473795551563,
+            "f1": 0.9338271956692072,
+            "false_negative": 3709,
+            "false_positive": 7,
+            "precision": 0.9997330994776376,
+            "recall": 0.8760733736509739,
+            "roc_auc_ovr": 0.9811974392231,
+            "support": 29929,
+            "true_positive": 26220
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.6871632464245414,
+            "f1": 0.6568265682656826,
+            "false_negative": 158,
+            "false_positive": 121,
+            "precision": 0.6881443298969072,
+            "recall": 0.6282352941176471,
+            "roc_auc_ovr": 0.9710132634833789,
+            "support": 425,
+            "true_positive": 267
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.6235479381223057,
+            "f1": 0.5376344086021505,
+            "false_negative": 43,
+            "false_positive": 172,
+            "precision": 0.4208754208754209,
+            "recall": 0.7440476190476191,
+            "roc_auc_ovr": 0.9801479084726415,
+            "support": 168,
+            "true_positive": 125
+          }
+        },
+        "roc_auc_ovr_macro": 0.9732479670530064
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.019308694671062998,
+      "estimated_original_test_benign_false_positives": 3741.125,
+      "inner_cv_selected_macro_f1": 0.7312071383346117,
+      "model": "lightgbm",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8696811966089584,
+        "average_precision_ovr_macro": 0.6127598677774959,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            78.0,
+            0.0,
+            6.0,
+            0.0,
+            14.0,
+            8.0
+          ],
+          [
+            0.0,
+            15.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            2.0,
+            2.0,
+            102.0,
+            5.0,
+            18.0,
+            15.0
+          ],
+          [
+            87.6826171875,
+            2688.93359375,
+            613.7783203125,
+            26187.875,
+            87.6826171875,
+            263.0478515625
+          ],
+          [
+            73.0,
+            36.0,
+            39.0,
+            0.0,
+            267.0,
+            10.0
+          ],
+          [
+            14.0,
+            6.0,
+            7.0,
+            2.0,
+            14.0,
+            125.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.445246351121153,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4182592506441776,
+            "f1": 0.43251321956251576,
+            "precision": 0.3062635403286106,
+            "recall": 0.7358490566037735,
+            "roc_auc_ovr": 0.9737843572033165,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.5573426903592998,
+            "f1": 0.010858024263725575,
+            "precision": 0.005458647193700949,
+            "recall": 1.0,
+            "roc_auc_ovr": 0.9914938630458154,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.42404129797479545,
+            "f1": 0.22373859462909987,
+            "precision": 0.1328508467893234,
+            "recall": 0.7083333333333334,
+            "roc_auc_ovr": 0.9427064536142038,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9995343007583972,
+            "f1": 0.9332169241699723,
+            "precision": 0.9997327721548586,
+            "recall": 0.875,
+            "roc_auc_ovr": 0.9842446778481935,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.6857084010182344,
+            "f1": 0.6467376070225985,
+            "precision": 0.6663628232094155,
+            "recall": 0.6282352941176471,
+            "roc_auc_ovr": 0.9690545294651643,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.5916732659100706,
+            "f1": 0.4244137370790056,
+            "precision": 0.2968783703232959,
+            "recall": 0.7440476190476191,
+            "roc_auc_ovr": 0.9755336469012053,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9728029213463164
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.7879914984059511,
+        "average_precision_ovr_macro": 0.7571820274036177,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            78,
+            0,
+            6,
+            0,
+            14,
+            8
+          ],
+          [
+            0,
+            15,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            102,
+            5,
+            18,
+            15
+          ],
+          [
+            3,
+            92,
+            21,
+            896,
+            3,
+            9
+          ],
+          [
+            73,
+            36,
+            39,
+            0,
+            267,
+            10
+          ],
+          [
+            14,
+            6,
+            7,
+            2,
+            14,
+            125
+          ]
+        ],
+        "macro_f1": 0.6303830103197842,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4862784804226,
+            "f1": 0.5652173913043478,
+            "precision": 0.4588235294117647,
+            "recall": 0.7358490566037735,
+            "roc_auc_ovr": 0.9366660292367839,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7726160715291149,
+            "f1": 0.18072289156626506,
+            "precision": 0.09933774834437085,
+            "recall": 1.0,
+            "roc_auc_ovr": 0.9938582396000715,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.694333349682681,
+            "f1": 0.6394984326018809,
+            "precision": 0.5828571428571429,
+            "recall": 0.7083333333333334,
+            "roc_auc_ovr": 0.9229937827643524,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.988515857071374,
+            "f1": 0.9299429164504411,
+            "precision": 0.9922480620155039,
+            "recall": 0.875,
+            "roc_auc_ovr": 0.9842446778481935,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8215112374833152,
+            "f1": 0.7206477732793523,
+            "precision": 0.8449367088607594,
+            "recall": 0.6282352941176471,
+            "roc_auc_ovr": 0.9356647422180953,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7798371682326206,
+            "f1": 0.746268656716418,
+            "precision": 0.7485029940119761,
+            "recall": 0.7440476190476191,
+            "roc_auc_ovr": 0.9634765516474968,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9561506705524989
+      },
+      "sampled_benign_false_positives": 128,
+      "seed": 20260921,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.8968395751453535,
+        "average_precision_ovr_macro": 0.6717184023590729,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81,
+            0,
+            7,
+            0,
+            8,
+            10
+          ],
+          [
+            0,
+            13,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            8,
+            8,
+            103,
+            12,
+            3,
+            10
+          ],
+          [
+            15,
+            921,
+            409,
+            27025,
+            1182,
+            377
+          ],
+          [
+            77,
+            13,
+            58,
+            3,
+            248,
+            26
+          ],
+          [
+            8,
+            7,
+            5,
+            3,
+            4,
+            141
+          ]
+        ],
+        "macro_f1": 0.40975849195933384,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5386519394816685,
+            "f1": 0.5491525423728814,
+            "false_negative": 25,
+            "false_positive": 108,
+            "precision": 0.42857142857142855,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.9683880319268332,
+            "support": 106,
+            "true_positive": 81
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7385914977260076,
+            "f1": 0.02661207778915046,
+            "false_negative": 2,
+            "false_positive": 949,
+            "precision": 0.013513513513513514,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9782215433944278,
+            "support": 15,
+            "true_positive": 13
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.341940645359858,
+            "f1": 0.2837465564738292,
+            "false_negative": 41,
+            "false_positive": 479,
+            "precision": 0.17697594501718214,
+            "recall": 0.7152777777777778,
+            "roc_auc_ovr": 0.9603262662852129,
+            "support": 144,
+            "true_positive": 103
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9998190446007793,
+            "f1": 0.9486949958752392,
+            "false_negative": 2904,
+            "false_positive": 19,
+            "precision": 0.9992974412069221,
+            "recall": 0.9029703631928898,
+            "roc_auc_ovr": 0.9940837838361978,
+            "support": 29929,
+            "true_positive": 27025
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.6729885145249117,
+            "f1": 0.2650988776055585,
+            "false_negative": 177,
+            "false_positive": 1198,
+            "precision": 0.1715076071922545,
+            "recall": 0.5835294117647059,
+            "roc_auc_ovr": 0.9772384985876308,
+            "support": 425,
+            "true_positive": 248
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7383187724612124,
+            "f1": 0.38524590163934425,
+            "false_negative": 27,
+            "false_positive": 423,
+            "precision": 0.25,
+            "recall": 0.8392857142857143,
+            "roc_auc_ovr": 0.9853607859421244,
+            "support": 168,
+            "true_positive": 141
+          }
+        },
+        "roc_auc_ovr_macro": 0.9772698183287378
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.024613310352264883,
+      "estimated_original_test_benign_false_positives": 3185.8017578125,
+      "inner_cv_selected_macro_f1": null,
+      "model": "random_forest",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8876863040305162,
+        "average_precision_ovr_macro": 0.6708246324594822,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81.0,
+            0.0,
+            7.0,
+            0.0,
+            8.0,
+            10.0
+          ],
+          [
+            0.0,
+            13.0,
+            0.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          [
+            8.0,
+            8.0,
+            103.0,
+            12.0,
+            3.0,
+            10.0
+          ],
+          [
+            58.455078125,
+            1022.9638671875,
+            409.185546875,
+            26743.1982421875,
+            1139.8740234375,
+            555.3232421875
+          ],
+          [
+            77.0,
+            13.0,
+            58.0,
+            3.0,
+            248.0,
+            26.0
+          ],
+          [
+            8.0,
+            7.0,
+            5.0,
+            3.0,
+            4.0,
+            141.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.38514518160706895,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5382036248207964,
+            "f1": 0.47864549971435,
+            "precision": 0.3484544224774612,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.968418919654878,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7411824431107439,
+            "f1": 0.024097192492435686,
+            "precision": 0.01221846004447916,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9789281675423952,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.33369133919001126,
+            "f1": 0.28367405670146073,
+            "precision": 0.17691954146384012,
+            "recall": 0.7152777777777778,
+            "roc_auc_ovr": 0.9619470344355922,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9998115871748815,
+            "f1": 0.9434691476422595,
+            "precision": 0.999290043372818,
+            "recall": 0.8935546875,
+            "roc_auc_ovr": 0.9938344533071095,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.6759415176053245,
+            "f1": 0.27120512055156887,
+            "precision": 0.17665402725577312,
+            "recall": 0.5835294117647059,
+            "roc_auc_ovr": 0.9769733397154723,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.736117282855136,
+            "f1": 0.3097800725403386,
+            "precision": 0.1899442075725624,
+            "recall": 0.8392857142857143,
+            "roc_auc_ovr": 0.9844566342212916,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9774264248127896
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.7975557917109458,
+        "average_precision_ovr_macro": 0.767003901582421,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81,
+            0,
+            7,
+            0,
+            8,
+            10
+          ],
+          [
+            0,
+            13,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            8,
+            8,
+            103,
+            12,
+            3,
+            10
+          ],
+          [
+            2,
+            35,
+            14,
+            915,
+            39,
+            19
+          ],
+          [
+            77,
+            13,
+            58,
+            3,
+            248,
+            26
+          ],
+          [
+            8,
+            7,
+            5,
+            3,
+            4,
+            141
+          ]
+        ],
+        "macro_f1": 0.6420825688961701,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5522116778141246,
+            "f1": 0.574468085106383,
+            "precision": 0.4602272727272727,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.9289186002039775,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7934696308058753,
+            "f1": 0.2857142857142857,
+            "precision": 0.17105263157894737,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9797714693804678,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.5646591891183812,
+            "f1": 0.622356495468278,
+            "precision": 0.5508021390374331,
+            "recall": 0.7152777777777778,
+            "roc_auc_ovr": 0.9287155574734688,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.99481370286121,
+            "f1": 0.9346271705822268,
+            "precision": 0.9796573875802997,
+            "recall": 0.8935546875,
+            "roc_auc_ovr": 0.9938344533071095,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8635579250429212,
+            "f1": 0.6813186813186813,
+            "precision": 0.8184818481848185,
+            "recall": 0.5835294117647059,
+            "roc_auc_ovr": 0.9523024748677783,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8333112838520138,
+            "f1": 0.7540106951871658,
+            "precision": 0.6844660194174758,
+            "recall": 0.8392857142857143,
+            "roc_auc_ovr": 0.9713250819581041,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9591446061984842
+      },
+      "sampled_benign_false_positives": 109,
+      "seed": 20260922,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.9020040926365024,
+        "average_precision_ovr_macro": 0.6426210376197266,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            80,
+            0,
+            3,
+            0,
+            12,
+            11
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            8,
+            11,
+            106,
+            8,
+            4,
+            7
+          ],
+          [
+            48,
+            725,
+            438,
+            27152,
+            163,
+            1403
+          ],
+          [
+            74,
+            5,
+            35,
+            2,
+            274,
+            35
+          ],
+          [
+            8,
+            4,
+            6,
+            1,
+            5,
+            144
+          ]
+        ],
+        "macro_f1": 0.4255987209183681,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4671822593285897,
+            "f1": 0.49382716049382713,
+            "false_negative": 26,
+            "false_positive": 138,
+            "precision": 0.3669724770642202,
+            "recall": 0.7547169811320755,
+            "roc_auc_ovr": 0.9760490328658938,
+            "support": 106,
+            "true_positive": 80
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.482668102244514,
+            "f1": 0.03617571059431524,
+            "false_negative": 1,
+            "false_positive": 745,
+            "precision": 0.01844532279314888,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9957038866502015,
+            "support": 15,
+            "true_positive": 14
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.48804557597933096,
+            "f1": 0.2896174863387978,
+            "false_negative": 38,
+            "false_positive": 482,
+            "precision": 0.18027210884353742,
+            "recall": 0.7361111111111112,
+            "roc_auc_ovr": 0.9536647621171412,
+            "support": 144,
+            "true_positive": 106
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9998070077848429,
+            "f1": 0.951166538219015,
+            "false_negative": 2777,
+            "false_positive": 11,
+            "precision": 0.9995950373670066,
+            "recall": 0.9072137391827325,
+            "roc_auc_ovr": 0.9938022122441915,
+            "support": 29929,
+            "true_positive": 27152
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.6945350192549049,
+            "f1": 0.6199095022624435,
+            "false_negative": 151,
+            "false_positive": 185,
+            "precision": 0.5969498910675382,
+            "recall": 0.6447058823529411,
+            "roc_auc_ovr": 0.9788755293962654,
+            "support": 425,
+            "true_positive": 274
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7234882611261768,
+            "f1": 0.16289592760180996,
+            "false_negative": 24,
+            "false_positive": 1456,
+            "precision": 0.09,
+            "recall": 0.8571428571428571,
+            "roc_auc_ovr": 0.9867544506290056,
+            "support": 168,
+            "true_positive": 144
+          }
+        },
+        "roc_auc_ovr_macro": 0.9808083123171164
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.004390047688320964,
+      "estimated_original_test_benign_false_positives": 2951.9814453125,
+      "inner_cv_selected_macro_f1": 0.689523051145073,
+      "model": "xgboost",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8963204779513269,
+        "average_precision_ovr_macro": 0.6825141028590459,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            80.0,
+            0.0,
+            3.0,
+            0.0,
+            12.0,
+            11.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            8.0,
+            11.0,
+            106.0,
+            8.0,
+            4.0,
+            7.0
+          ],
+          [
+            87.6826171875,
+            789.1435546875,
+            409.185546875,
+            26977.0185546875,
+            116.91015625,
+            1549.0595703125
+          ],
+          [
+            74.0,
+            5.0,
+            35.0,
+            2.0,
+            274.0,
+            35.0
+          ],
+          [
+            8.0,
+            4.0,
+            6.0,
+            1.0,
+            5.0,
+            144.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.4212086732300471,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.46437213026580604,
+            "f1": 0.4399440403210432,
+            "precision": 0.3104594360037443,
+            "recall": 0.7547169811320755,
+            "roc_auc_ovr": 0.9771354658763559,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.6627935076928825,
+            "f1": 0.03340716497001488,
+            "precision": 0.017007968926288915,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9963457208122103,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.5183638509383774,
+            "f1": 0.3014851498898706,
+            "precision": 0.18956140871733793,
+            "recall": 0.7361111111111112,
+            "roc_auc_ovr": 0.9576973349525206,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9998118847007699,
+            "f1": 0.947942082692445,
+            "precision": 0.9995924117223459,
+            "recall": 0.9013671875,
+            "roc_auc_ovr": 0.993933475378788,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.7170186562774024,
+            "f1": 0.654008065080068,
+            "precision": 0.663582611986188,
+            "recall": 0.6447058823529411,
+            "roc_auc_ovr": 0.9801702146882276,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.732724587279037,
+            "f1": 0.15046553642684146,
+            "precision": 0.08247141303101571,
+            "recall": 0.8571428571428571,
+            "roc_auc_ovr": 0.9855867612233966,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9818114954885832
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8188097768331563,
+        "average_precision_ovr_macro": 0.7976378624631363,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            80,
+            0,
+            3,
+            0,
+            12,
+            11
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            8,
+            11,
+            106,
+            8,
+            4,
+            7
+          ],
+          [
+            3,
+            27,
+            14,
+            923,
+            4,
+            53
+          ],
+          [
+            74,
+            5,
+            35,
+            2,
+            274,
+            35
+          ],
+          [
+            8,
+            4,
+            6,
+            1,
+            5,
+            144
+          ]
+        ],
+        "macro_f1": 0.6696442503313663,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.506120018589861,
+            "f1": 0.5734767025089605,
+            "precision": 0.4624277456647399,
+            "recall": 0.7547169811320755,
+            "roc_auc_ovr": 0.9323315060343362,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8594829244829245,
+            "f1": 0.3684210526315789,
+            "precision": 0.22950819672131148,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9962149616139975,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.7092488085523371,
+            "f1": 0.6883116883116883,
+            "precision": 0.6463414634146342,
+            "recall": 0.7361111111111112,
+            "roc_auc_ovr": 0.9438490921876997,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9948278757733808,
+            "f1": 0.9427987742594485,
+            "precision": 0.9882226980728052,
+            "recall": 0.9013671875,
+            "roc_auc_ovr": 0.993933475378788,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.879112734596168,
+            "f1": 0.7558620689655172,
+            "precision": 0.9133333333333333,
+            "recall": 0.6447058823529411,
+            "roc_auc_ovr": 0.9575178650732772,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8370348127841459,
+            "f1": 0.6889952153110048,
+            "precision": 0.576,
+            "recall": 0.8571428571428571,
+            "roc_auc_ovr": 0.9745547869089293,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9664002811995047
+      },
+      "sampled_benign_false_positives": 101,
+      "seed": 20260922,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.9110338779354923,
+        "average_precision_ovr_macro": 0.6013927530421541,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            4,
+            0,
+            15,
+            11
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            5,
+            11,
+            103,
+            8,
+            9,
+            8
+          ],
+          [
+            44,
+            476,
+            502,
+            27455,
+            133,
+            1319
+          ],
+          [
+            73,
+            20,
+            34,
+            4,
+            258,
+            36
+          ],
+          [
+            7,
+            5,
+            6,
+            1,
+            7,
+            142
+          ]
+        ],
+        "macro_f1": 0.42234697633578366,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.461598794749244,
+            "f1": 0.4887459807073955,
+            "false_negative": 30,
+            "false_positive": 129,
+            "precision": 0.37073170731707317,
+            "recall": 0.7169811320754716,
+            "roc_auc_ovr": 0.9782607759826775,
+            "support": 106,
+            "true_positive": 76
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.31898688340518255,
+            "f1": 0.051756007393715345,
+            "false_negative": 1,
+            "false_positive": 512,
+            "precision": 0.026615969581749048,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.992707656310932,
+            "support": 15,
+            "true_positive": 14
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.39940369180788476,
+            "f1": 0.2597730138713745,
+            "false_negative": 41,
+            "false_positive": 546,
+            "precision": 0.15870570107858242,
+            "recall": 0.7152777777777778,
+            "roc_auc_ovr": 0.9475063636066965,
+            "support": 144,
+            "true_positive": 103
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9997695489649989,
+            "f1": 0.9566702092443856,
+            "false_negative": 2474,
+            "false_positive": 13,
+            "precision": 0.9995267220037862,
+            "recall": 0.9173376992214909,
+            "roc_auc_ovr": 0.9924997513540398,
+            "support": 29929,
+            "true_positive": 27455
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.7032516365285828,
+            "f1": 0.6084905660377359,
+            "false_negative": 167,
+            "false_positive": 165,
+            "precision": 0.6099290780141844,
+            "recall": 0.6070588235294118,
+            "roc_auc_ovr": 0.9816573735745534,
+            "support": 425,
+            "true_positive": 258
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7253459627970323,
+            "f1": 0.16864608076009502,
+            "false_negative": 26,
+            "false_positive": 1374,
+            "precision": 0.09366754617414248,
+            "recall": 0.8452380952380952,
+            "roc_auc_ovr": 0.986252700237481,
+            "support": 168,
+            "true_positive": 142
+          }
+        },
+        "roc_auc_ovr_macro": 0.9798141035110634
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.011180987532876274,
+      "estimated_original_test_benign_false_positives": 2396.658203125,
+      "inner_cv_selected_macro_f1": 0.6959269466684103,
+      "model": "lightgbm",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.9135460355628999,
+        "average_precision_ovr_macro": 0.6493781964325581,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            76.0,
+            0.0,
+            4.0,
+            0.0,
+            15.0,
+            11.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            5.0,
+            11.0,
+            103.0,
+            8.0,
+            9.0,
+            8.0
+          ],
+          [
+            87.6826171875,
+            350.73046875,
+            496.8681640625,
+            27532.341796875,
+            175.365234375,
+            1286.01171875
+          ],
+          [
+            73.0,
+            20.0,
+            34.0,
+            4.0,
+            258.0,
+            36.0
+          ],
+          [
+            7.0,
+            5.0,
+            6.0,
+            1.0,
+            7.0,
+            142.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.4111659888029074,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4545089532490314,
+            "f1": 0.4285521551783477,
+            "precision": 0.3056104236778964,
+            "recall": 0.7169811320754716,
+            "roc_auc_ovr": 0.9775062969784977,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.552509023011218,
+            "f1": 0.06735133001963788,
+            "precision": 0.03493620049323989,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9927877522923978,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.4462867117294989,
+            "f1": 0.26146506407594666,
+            "precision": 0.15997063645781037,
+            "recall": 0.7152777777777778,
+            "roc_auc_ovr": 0.950714920004607,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9997652993207506,
+            "f1": 0.9580741922779876,
+            "precision": 0.9995280508735065,
+            "recall": 0.919921875,
+            "roc_auc_ovr": 0.9923644877258159,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.70603790996797,
+            "f1": 0.579537452809701,
+            "precision": 0.5544032534929302,
+            "recall": 0.6070588235294118,
+            "roc_auc_ovr": 0.9827484345908635,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7371612813168801,
+            "f1": 0.1720157384558237,
+            "precision": 0.09575109771869428,
+            "recall": 0.8452380952380952,
+            "roc_auc_ovr": 0.9859320310896187,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9803423204469667
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8156216790648246,
+        "average_precision_ovr_macro": 0.7788210069471672,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            4,
+            0,
+            15,
+            11
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            5,
+            11,
+            103,
+            8,
+            9,
+            8
+          ],
+          [
+            3,
+            12,
+            17,
+            942,
+            6,
+            44
+          ],
+          [
+            73,
+            20,
+            34,
+            4,
+            258,
+            36
+          ],
+          [
+            7,
+            5,
+            6,
+            1,
+            7,
+            142
+          ]
+        ],
+        "macro_f1": 0.6595792763233167,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.505181735461453,
+            "f1": 0.562962962962963,
+            "precision": 0.4634146341463415,
+            "recall": 0.7169811320754716,
+            "roc_auc_ovr": 0.9321402770695223,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7745852785558667,
+            "f1": 0.36363636363636365,
+            "precision": 0.22580645161290322,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9920014283163721,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.6918537979622247,
+            "f1": 0.6688311688311688,
+            "precision": 0.6280487804878049,
+            "recall": 0.7152777777777778,
+            "roc_auc_ovr": 0.9278325182201765,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9938502224924483,
+            "f1": 0.9519959575543203,
+            "precision": 0.9863874345549738,
+            "recall": 0.919921875,
+            "roc_auc_ovr": 0.9923644877258159,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8671915678815516,
+            "f1": 0.7156726768377254,
+            "precision": 0.8716216216216216,
+            "recall": 0.6070588235294118,
+            "roc_auc_ovr": 0.9553570996003069,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8402634393294591,
+            "f1": 0.6943765281173594,
+            "precision": 0.5892116182572614,
+            "recall": 0.8452380952380952,
+            "roc_auc_ovr": 0.9733705617602934,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9621777287820813
+      },
+      "sampled_benign_false_positives": 82,
+      "seed": 20260922,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.889596258160912,
+        "average_precision_ovr_macro": 0.6365694494213661,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            87,
+            0,
+            5,
+            0,
+            9,
+            5
+          ],
+          [
+            0,
+            13,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            2,
+            2,
+            107,
+            6,
+            17,
+            10
+          ],
+          [
+            46,
+            236,
+            1338,
+            26781,
+            169,
+            1359
+          ],
+          [
+            78,
+            12,
+            24,
+            3,
+            288,
+            20
+          ],
+          [
+            40,
+            1,
+            4,
+            3,
+            8,
+            112
+          ]
+        ],
+        "macro_f1": 0.40255956934906395,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5513417289998719,
+            "f1": 0.48467966573816157,
+            "false_negative": 19,
+            "false_positive": 166,
+            "precision": 0.3438735177865613,
+            "recall": 0.8207547169811321,
+            "roc_auc_ovr": 0.9884153304884776,
+            "support": 106,
+            "true_positive": 87
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7257023441892348,
+            "f1": 0.0931899641577061,
+            "false_negative": 2,
+            "false_positive": 251,
+            "precision": 0.04924242424242424,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9855940465358118,
+            "support": 15,
+            "true_positive": 13
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.16243815670284784,
+            "f1": 0.1319358816276202,
+            "false_negative": 37,
+            "false_positive": 1371,
+            "precision": 0.07239512855209743,
+            "recall": 0.7430555555555556,
+            "roc_auc_ovr": 0.896315929503566,
+            "support": 144,
+            "true_positive": 107
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9998344721277151,
+            "f1": 0.9442896935933147,
+            "false_negative": 3148,
+            "false_positive": 12,
+            "precision": 0.9995521218228641,
+            "recall": 0.894817735306893,
+            "roc_auc_ovr": 0.9948602134609017,
+            "support": 29929,
+            "true_positive": 26781
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.7967654985280311,
+            "f1": 0.6274509803921569,
+            "false_negative": 137,
+            "false_positive": 205,
+            "precision": 0.5841784989858012,
+            "recall": 0.6776470588235294,
+            "roc_auc_ovr": 0.9883978812524945,
+            "support": 425,
+            "true_positive": 288
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.5833344959804955,
+            "f1": 0.13381123058542413,
+            "false_negative": 56,
+            "false_positive": 1394,
+            "precision": 0.07436918990703852,
+            "recall": 0.6666666666666666,
+            "roc_auc_ovr": 0.9717241978603388,
+            "support": 168,
+            "true_positive": 112
+          }
+        },
+        "roc_auc_ovr_macro": 0.9708845998502652
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.010045594523950152,
+      "estimated_original_test_benign_false_positives": 3068.8916015625,
+      "inner_cv_selected_macro_f1": null,
+      "model": "random_forest",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8921657972013349,
+        "average_precision_ovr_macro": 0.6399933806418582,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            87.0,
+            0.0,
+            5.0,
+            0.0,
+            9.0,
+            5.0
+          ],
+          [
+            0.0,
+            13.0,
+            0.0,
+            0.0,
+            2.0,
+            0.0
+          ],
+          [
+            2.0,
+            2.0,
+            107.0,
+            6.0,
+            17.0,
+            10.0
+          ],
+          [
+            58.455078125,
+            379.9580078125,
+            1110.646484375,
+            26860.1083984375,
+            233.8203125,
+            1286.01171875
+          ],
+          [
+            78.0,
+            12.0,
+            24.0,
+            3.0,
+            288.0,
+            20.0
+          ],
+          [
+            40.0,
+            1.0,
+            4.0,
+            3.0,
+            8.0,
+            112.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.3925139748251138,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5488329863089462,
+            "f1": 0.46842810947235586,
+            "precision": 0.327739068374622,
+            "recall": 0.8207547169811321,
+            "roc_auc_ovr": 0.9879694223302322,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7578308364283712,
+            "f1": 0.06147182349016068,
+            "precision": 0.0318660248139433,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9866247253404745,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.1639772526291672,
+            "f1": 0.1534439030948423,
+            "precision": 0.08555575163470143,
+            "recall": 0.7430555555555556,
+            "roc_auc_ovr": 0.9000415676752818,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9998184815197042,
+            "f1": 0.9457600091189902,
+            "precision": 0.9995534403247385,
+            "recall": 0.8974609375,
+            "roc_auc_ovr": 0.9943711074082168,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8051461843669462,
+            "f1": 0.5860684732235832,
+            "precision": 0.5162952899819331,
+            "recall": 0.6776470588235294,
+            "roc_auc_ovr": 0.9883972394109848,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.564354542598014,
+            "f1": 0.13991153055075037,
+            "precision": 0.0781570719447405,
+            "recall": 0.6666666666666666,
+            "roc_auc_ovr": 0.9701934974540141,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9712662599365339
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8108395324123273,
+        "average_precision_ovr_macro": 0.7774108632023475,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            87,
+            0,
+            5,
+            0,
+            9,
+            5
+          ],
+          [
+            0,
+            13,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            2,
+            2,
+            107,
+            6,
+            17,
+            10
+          ],
+          [
+            2,
+            13,
+            38,
+            919,
+            8,
+            44
+          ],
+          [
+            78,
+            12,
+            24,
+            3,
+            288,
+            20
+          ],
+          [
+            40,
+            1,
+            4,
+            3,
+            8,
+            112
+          ]
+        ],
+        "macro_f1": 0.6677116845156229,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.566723174190484,
+            "f1": 0.5523809523809524,
+            "precision": 0.41626794258373206,
+            "recall": 0.8207547169811321,
+            "roc_auc_ovr": 0.9553799082100969,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7906647357379859,
+            "f1": 0.4642857142857143,
+            "precision": 0.3170731707317073,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9866809498303875,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.6483416942895701,
+            "f1": 0.6645962732919255,
+            "precision": 0.601123595505618,
+            "recall": 0.7430555555555556,
+            "roc_auc_ovr": 0.9052331063802582,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9950300445210126,
+            "f1": 0.9401534526854219,
+            "precision": 0.9871106337271751,
+            "recall": 0.8974609375,
+            "roc_auc_ovr": 0.9943711074082168,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8876318519819917,
+            "f1": 0.760898282694848,
+            "precision": 0.8674698795180723,
+            "recall": 0.6776470588235294,
+            "roc_auc_ovr": 0.962116355121321,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7760736784930409,
+            "f1": 0.6239554317548747,
+            "precision": 0.5863874345549738,
+            "recall": 0.6666666666666666,
+            "roc_auc_ovr": 0.961648121909207,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9609049248099145
+      },
+      "sampled_benign_false_positives": 105,
+      "seed": 20260923,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.8864130964368078,
+        "average_precision_ovr_macro": 0.6665457620969556,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            90,
+            0,
+            6,
+            0,
+            5,
+            5
+          ],
+          [
+            0,
+            13,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            5,
+            102,
+            8,
+            18,
+            10
+          ],
+          [
+            2,
+            328,
+            1452,
+            26677,
+            37,
+            1433
+          ],
+          [
+            98,
+            5,
+            30,
+            3,
+            280,
+            9
+          ],
+          [
+            24,
+            1,
+            3,
+            3,
+            9,
+            128
+          ]
+        ],
+        "macro_f1": 0.42665031004922155,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5769195410768294,
+            "f1": 0.5607476635514018,
+            "false_negative": 16,
+            "false_positive": 125,
+            "precision": 0.4186046511627907,
+            "recall": 0.8490566037735849,
+            "roc_auc_ovr": 0.9940998147092448,
+            "support": 106,
+            "true_positive": 90
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.734738907168394,
+            "f1": 0.07084468664850137,
+            "false_negative": 2,
+            "false_positive": 339,
+            "precision": 0.036931818181818184,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9942501841500933,
+            "support": 15,
+            "true_positive": 13
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.43592527052132357,
+            "f1": 0.11737629459148446,
+            "false_negative": 42,
+            "false_positive": 1492,
+            "precision": 0.06398996235884567,
+            "recall": 0.7083333333333334,
+            "roc_auc_ovr": 0.9000514890114473,
+            "support": 144,
+            "true_positive": 102
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9996266268750603,
+            "f1": 0.9423172024019781,
+            "false_negative": 3252,
+            "false_positive": 14,
+            "precision": 0.999475478625754,
+            "recall": 0.8913428447325337,
+            "roc_auc_ovr": 0.9884790079333832,
+            "support": 29929,
+            "true_positive": 26677
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.822923225395211,
+            "f1": 0.7225806451612903,
+            "false_negative": 145,
+            "false_positive": 70,
+            "precision": 0.8,
+            "recall": 0.6588235294117647,
+            "roc_auc_ovr": 0.9911882500184054,
+            "support": 425,
+            "true_positive": 280
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.42914100154491575,
+            "f1": 0.14603536794067312,
+            "false_negative": 40,
+            "false_positive": 1457,
+            "precision": 0.08075709779179811,
+            "recall": 0.7619047619047619,
+            "roc_auc_ovr": 0.9643750417963326,
+            "support": 168,
+            "true_positive": 128
+          }
+        },
+        "roc_auc_ovr_macro": 0.9720739646031511
+      },
+      "baseline_weighted_minus_full_test_macro_f1": -0.0006127406906104027,
+      "estimated_original_test_benign_false_positives": 3390.39453125,
+      "inner_cv_selected_macro_f1": 0.6981246178932423,
+      "model": "xgboost",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8819178701643551,
+        "average_precision_ovr_macro": 0.6786803701228147,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            90.0,
+            0.0,
+            6.0,
+            0.0,
+            5.0,
+            5.0
+          ],
+          [
+            0.0,
+            13.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            5.0,
+            102.0,
+            8.0,
+            18.0,
+            10.0
+          ],
+          [
+            0.0,
+            233.8203125,
+            1753.65234375,
+            26538.60546875,
+            58.455078125,
+            1344.466796875
+          ],
+          [
+            98.0,
+            5.0,
+            30.0,
+            3.0,
+            280.0,
+            9.0
+          ],
+          [
+            24.0,
+            1.0,
+            3.0,
+            3.0,
+            9.0,
+            128.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.42603756935861115,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5768429257397434,
+            "f1": 0.5642633228840125,
+            "precision": 0.4225352112676056,
+            "recall": 0.8490566037735849,
+            "roc_auc_ovr": 0.9941229265676994,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7619937739887179,
+            "f1": 0.09530082185504424,
+            "precision": 0.050422714463198084,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9952432723437703,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.4629826823168832,
+            "f1": 0.1000170448778227,
+            "precision": 0.053807334628786674,
+            "recall": 0.7083333333333334,
+            "roc_auc_ovr": 0.9012861364942576,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.999643202200138,
+            "f1": 0.9397256061863615,
+            "precision": 0.9994727447738989,
+            "recall": 0.88671875,
+            "roc_auc_ovr": 0.988962453562063,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8306199001347706,
+            "f1": 0.703115612393786,
+            "precision": 0.7537923600704577,
+            "recall": 0.6588235294117647,
+            "roc_auc_ovr": 0.9915370569363746,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.4399997363566352,
+            "f1": 0.15380300795464014,
+            "precision": 0.08553480790037993,
+            "recall": 0.7619047619047619,
+            "roc_auc_ovr": 0.9647726440273064,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9726540816552451
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.808182784272051,
+        "average_precision_ovr_macro": 0.7819087983183417,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            90,
+            0,
+            6,
+            0,
+            5,
+            5
+          ],
+          [
+            0,
+            13,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            5,
+            102,
+            8,
+            18,
+            10
+          ],
+          [
+            0,
+            8,
+            60,
+            908,
+            2,
+            46
+          ],
+          [
+            98,
+            5,
+            30,
+            3,
+            280,
+            9
+          ],
+          [
+            24,
+            1,
+            3,
+            3,
+            9,
+            128
+          ]
+        ],
+        "macro_f1": 0.6827427994567263,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5859863362110952,
+            "f1": 0.5642633228840125,
+            "precision": 0.4225352112676056,
+            "recall": 0.8490566037735849,
+            "roc_auc_ovr": 0.9596480324664286,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8214788479494362,
+            "f1": 0.5531914893617021,
+            "precision": 0.40625,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9951794322442422,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.6731422910508832,
+            "f1": 0.5895953757225434,
+            "precision": 0.504950495049505,
+            "recall": 0.7083333333333334,
+            "roc_auc_ovr": 0.9072129523078889,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.990183529571795,
+            "f1": 0.9331963001027749,
+            "precision": 0.9848156182212582,
+            "recall": 0.88671875,
+            "roc_auc_ovr": 0.988962453562063,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8954098901635749,
+            "f1": 0.7567567567567568,
+            "precision": 0.8888888888888888,
+            "recall": 0.6588235294117647,
+            "roc_auc_ovr": 0.9640914045783036,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.7252518949632658,
+            "f1": 0.6994535519125683,
+            "precision": 0.6464646464646465,
+            "recall": 0.7619047619047619,
+            "roc_auc_ovr": 0.9599464494082347,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9625067874278601
+      },
+      "sampled_benign_false_positives": 116,
+      "seed": 20260923,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "baseline_full_test_metrics": {
+        "accuracy": 0.9069087601909896,
+        "average_precision_ovr_macro": 0.6880386288206563,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            82,
+            0,
+            0,
+            0,
+            20,
+            4
+          ],
+          [
+            0,
+            14,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            3,
+            0,
+            108,
+            5,
+            18,
+            10
+          ],
+          [
+            9,
+            224,
+            1129,
+            27285,
+            59,
+            1223
+          ],
+          [
+            82,
+            6,
+            20,
+            2,
+            304,
+            11
+          ],
+          [
+            24,
+            1,
+            4,
+            2,
+            9,
+            128
+          ]
+        ],
+        "macro_f1": 0.4408086127315443,
+        "n": 30787,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5710966335103858,
+            "f1": 0.5359477124183006,
+            "false_negative": 24,
+            "false_positive": 118,
+            "precision": 0.41,
+            "recall": 0.7735849056603774,
+            "roc_auc_ovr": 0.9948583814086894,
+            "support": 106,
+            "true_positive": 82
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8447358217800206,
+            "f1": 0.1076923076923077,
+            "false_negative": 1,
+            "false_positive": 231,
+            "precision": 0.05714285714285714,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9966398024177824,
+            "support": 15,
+            "true_positive": 14
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.3065591047915685,
+            "f1": 0.15362731152204837,
+            "false_negative": 36,
+            "false_positive": 1154,
+            "precision": 0.08557844690966719,
+            "recall": 0.75,
+            "roc_auc_ovr": 0.920280642307288,
+            "support": 144,
+            "true_positive": 108
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9996952928861622,
+            "f1": 0.9536375233734687,
+            "false_negative": 2644,
+            "false_positive": 9,
+            "precision": 0.9996702571993845,
+            "recall": 0.9116575896287882,
+            "roc_auc_ovr": 0.991989589035932,
+            "support": 29929,
+            "true_positive": 27285
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8083149752098258,
+            "f1": 0.7281437125748503,
+            "false_negative": 121,
+            "false_positive": 106,
+            "precision": 0.7414634146341463,
+            "recall": 0.7152941176470589,
+            "roc_auc_ovr": 0.9915642230807085,
+            "support": 425,
+            "true_positive": 304
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.5978299447459751,
+            "f1": 0.16580310880829016,
+            "false_negative": 40,
+            "false_positive": 1248,
+            "precision": 0.09302325581395349,
+            "recall": 0.7619047619047619,
+            "roc_auc_ovr": 0.9818002244171452,
+            "support": 168,
+            "true_positive": 128
+          }
+        },
+        "roc_auc_ovr_macro": 0.9795221437779241
+      },
+      "baseline_weighted_minus_full_test_macro_f1": 0.00300011868993999,
+      "estimated_original_test_benign_false_positives": 2513.568359375,
+      "inner_cv_selected_macro_f1": 0.7508139549520174,
+      "model": "lightgbm",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.9111453418853737,
+        "average_precision_ovr_macro": 0.7001320640472964,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            82.0,
+            0.0,
+            0.0,
+            0.0,
+            20.0,
+            4.0
+          ],
+          [
+            0.0,
+            14.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            3.0,
+            0.0,
+            108.0,
+            5.0,
+            18.0,
+            10.0
+          ],
+          [
+            0.0,
+            204.5927734375,
+            1052.19140625,
+            27415.431640625,
+            87.6826171875,
+            1169.1015625
+          ],
+          [
+            82.0,
+            6.0,
+            20.0,
+            2.0,
+            304.0,
+            11.0
+          ],
+          [
+            24.0,
+            1.0,
+            4.0,
+            2.0,
+            9.0,
+            128.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.4438087314214843,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5716170192728326,
+            "f1": 0.5521885521885522,
+            "precision": 0.4293193717277487,
+            "recall": 0.7735849056603774,
+            "roc_auc_ovr": 0.99500888414458,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.880105375720346,
+            "f1": 0.11637922286669887,
+            "precision": 0.06205872549316687,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9975028240296915,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.34264189331152783,
+            "f1": 0.16250481231246675,
+            "precision": 0.09112452168524994,
+            "recall": 0.75,
+            "roc_auc_ovr": 0.9229372299773013,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9997295129346633,
+            "f1": 0.9560171329384205,
+            "precision": 0.9996718254686938,
+            "recall": 0.916015625,
+            "roc_auc_ovr": 0.9930365858100233,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8058374924470207,
+            "f1": 0.7039622980718241,
+            "precision": 0.6929839206965102,
+            "recall": 0.7152941176470589,
+            "roc_auc_ovr": 0.9912600592252991,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.6008610905973885,
+            "f1": 0.171800370150944,
+            "precision": 0.09681555761719327,
+            "recall": 0.7619047619047619,
+            "roc_auc_ovr": 0.9810402856107425,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9801309781329396
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8363443145589798,
+        "average_precision_ovr_macro": 0.8294467948197789,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            82,
+            0,
+            0,
+            0,
+            20,
+            4
+          ],
+          [
+            0,
+            14,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            3,
+            0,
+            108,
+            5,
+            18,
+            10
+          ],
+          [
+            0,
+            7,
+            36,
+            938,
+            3,
+            40
+          ],
+          [
+            82,
+            6,
+            20,
+            2,
+            304,
+            11
+          ],
+          [
+            24,
+            1,
+            4,
+            2,
+            9,
+            128
+          ]
+        ],
+        "macro_f1": 0.7224795641387579,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5889370242247352,
+            "f1": 0.5521885521885522,
+            "precision": 0.4293193717277487,
+            "recall": 0.7735849056603774,
+            "roc_auc_ovr": 0.9602589027706951,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.9295075295075295,
+            "f1": 0.6511627906976745,
+            "precision": 0.5,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9971433672558472,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.7582191866766418,
+            "f1": 0.6900958466453674,
+            "precision": 0.6390532544378699,
+            "recall": 0.75,
+            "roc_auc_ovr": 0.9189481843753996,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9926748320808606,
+            "f1": 0.9518011161846778,
+            "precision": 0.9904963041182682,
+            "recall": 0.916015625,
+            "roc_auc_ovr": 0.9930365858100233,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9019216418517259,
+            "f1": 0.7804878048780488,
+            "precision": 0.8587570621468926,
+            "recall": 0.7152941176470589,
+            "roc_auc_ovr": 0.9693051798619242,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8054205545771801,
+            "f1": 0.7091412742382271,
+            "precision": 0.6632124352331606,
+            "recall": 0.7619047619047619,
+            "roc_auc_ovr": 0.9728374868033561,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9685882844795408
+      },
+      "sampled_benign_false_positives": 86,
+      "seed": 20260923,
+      "source": "verified E1 baseline predictions; no refit"
+    },
+    {
+      "actual_device": "cpu",
+      "backend_private_sha256": "68b9f9cfc8a19465e5f505d7821fec4e8b7dcf1c80b44970607749efb3d759ba",
+      "checkpoint": {
+        "filename": "tabicl-classifier-v2-20260212.ckpt",
+        "revision": "4dcd344ece2c00be9e831fdd35bed57b5ad83e19",
+        "sha256": "bdc7dbd5e4ff21f8f0456fcf90c6b7cdf72dbea960f2d05b19bec19f9b3d4ed0"
+      },
+      "comparison_binding": "fd404cdab936b21f7c3cc05108d0e9a88e4d85f951f7389e5b3bbebf905a7765",
+      "cpu_threads": 4,
+      "estimated_original_test_benign_false_positives": 3507.3046875,
+      "execution_binding": "317e8b741702428a66c6d318e53e02d517a88d6daaa51d1392cc341a94deb8a6",
+      "model": "tabicl_v2",
+      "prediction_chunk_rows": 1024,
+      "prediction_sha256": "52e2d60d36dedcc884dd1ccec71ad847e62dd32821290e18a40828d04fa46137",
+      "prefit_receipt_sha256": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8788675516451749,
+        "average_precision_ovr_macro": 0.7782692940645863,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81.0,
+            0.0,
+            6.0,
+            0.0,
+            12.0,
+            7.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            115.0,
+            2.0,
+            11.0,
+            16.0
+          ],
+          [
+            0.0,
+            789.1435546875,
+            2630.478515625,
+            26421.6953125,
+            0.0,
+            87.6826171875
+          ],
+          [
+            76.0,
+            34.0,
+            20.0,
+            4.0,
+            279.0,
+            12.0
+          ],
+          [
+            9.0,
+            4.0,
+            3.0,
+            0.0,
+            5.0,
+            147.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.5129559080895566,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5580542138561948,
+            "f1": 0.5955882352941176,
+            "precision": 0.4879518072289157,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.9973121534398324,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.9078665835902774,
+            "f1": 0.03270479564635658,
+            "precision": 0.016644007936554007,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9983259922948081,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.4713228008237945,
+            "f1": 0.07880818678932261,
+            "precision": 0.0414492306760913,
+            "recall": 0.7986111111111112,
+            "roc_auc_ovr": 0.9462902938836742,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9997147100087141,
+            "f1": 0.9376594978108884,
+            "precision": 0.9997729654467008,
+            "recall": 0.8828125,
+            "roc_auc_ovr": 0.9904324191433566,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.899327874244216,
+            "f1": 0.7612551159618008,
+            "precision": 0.9058441558441559,
+            "recall": 0.6564705882352941,
+            "roc_auc_ovr": 0.9973279476516456,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8333295818643214,
+            "f1": 0.6717196170348537,
+            "precision": 0.5450851876663468,
+            "recall": 0.875,
+            "roc_auc_ovr": 0.9893166637712987,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.986500911697436
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8182784272051009,
+        "average_precision_ovr_macro": 0.8348306041921485,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            81,
+            0,
+            6,
+            0,
+            12,
+            7
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            115,
+            2,
+            11,
+            16
+          ],
+          [
+            0,
+            27,
+            90,
+            904,
+            0,
+            3
+          ],
+          [
+            76,
+            34,
+            20,
+            4,
+            279,
+            12
+          ],
+          [
+            9,
+            4,
+            3,
+            0,
+            5,
+            147
+          ]
+        ],
+        "macro_f1": 0.6718154236091779,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5617571368279834,
+            "f1": 0.5955882352941176,
+            "precision": 0.4879518072289157,
+            "recall": 0.7641509433962265,
+            "roc_auc_ovr": 0.9610636579976203,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.9197451963241436,
+            "f1": 0.2978723404255319,
+            "precision": 0.17721518987341772,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.997607570076772,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.7494912739760433,
+            "f1": 0.6084656084656085,
+            "precision": 0.49145299145299143,
+            "recall": 0.7986111111111112,
+            "roc_auc_ovr": 0.9467619230277458,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9923255392419367,
+            "f1": 0.9348500517063082,
+            "precision": 0.9934065934065934,
+            "recall": 0.8828125,
+            "roc_auc_ovr": 0.9904324191433566,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9112349098504213,
+            "f1": 0.7612551159618008,
+            "precision": 0.9058441558441559,
+            "recall": 0.6564705882352941,
+            "roc_auc_ovr": 0.9737203762767975,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8744295689323623,
+            "f1": 0.8328611898016998,
+            "precision": 0.7945945945945946,
+            "recall": 0.875,
+            "roc_auc_ovr": 0.9750166694449075,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9741004359945333
+      },
+      "sampled_benign_false_positives": 120,
+      "seed": 20260921,
+      "selected_fit_rows": 192,
+      "timing_seconds": {
+        "constructor": 0.8699726000195369,
+        "fit_including_imputer": 0.3739449999993667,
+        "predict_query_including_transform": 17.18950809998205
+      },
+      "versions": {
+        "lightgbm": "4.6.0",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "python": "3.11.9",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.15.3",
+        "tabicl": "2.2.0",
+        "tabpfn": "9.0.0",
+        "torch": "2.5.1+cpu",
+        "xgboost": "2.1.4"
+      }
+    },
+    {
+      "actual_device": "cpu",
+      "backend_private_sha256": "9b0c3b848ffc033943e94031741e0b3551c37c539e52419a81fb83fe79f16a0f",
+      "checkpoint": {
+        "filename": "tabpfn-v2.5-classifier-v2.5_default-2.ckpt",
+        "revision": "6c45f3a6d0d07c6c5f62572e04a0c2929de91b8b",
+        "sha256": "2d0fbd257a5a274f2a219836d5a68e9c27224845936b4685d85dd42e2b8092aa"
+      },
+      "comparison_binding": "b2c85b4b2db607babc98e582f581be8d7a0ad770fd83669ef5b6201a03d51e11",
+      "cpu_threads": 4,
+      "estimated_original_test_benign_false_positives": 3565.759765625,
+      "execution_binding": "317e8b741702428a66c6d318e53e02d517a88d6daaa51d1392cc341a94deb8a6",
+      "model": "tabpfn_2_5_synthetic",
+      "prediction_chunk_rows": 1024,
+      "prediction_sha256": "e3abb7338b430a77947a64c4ede59ed958e155f1a81726283c158563983d5076",
+      "prefit_receipt_sha256": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.8764166769862279,
+        "average_precision_ovr_macro": 0.7004542078679131,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            79.0,
+            0.0,
+            4.0,
+            0.0,
+            9.0,
+            14.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            3.0,
+            106.0,
+            4.0,
+            12.0,
+            18.0
+          ],
+          [
+            0.0,
+            1139.8740234375,
+            2045.927734375,
+            26363.240234375,
+            0.0,
+            379.9580078125
+          ],
+          [
+            69.0,
+            42.0,
+            24.0,
+            0.0,
+            277.0,
+            13.0
+          ],
+          [
+            9.0,
+            8.0,
+            1.0,
+            1.0,
+            6.0,
+            143.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.4661120716301615,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5129218556501596,
+            "f1": 0.5984848484848485,
+            "precision": 0.5,
+            "recall": 0.7452830188679245,
+            "roc_auc_ovr": 0.9963437639281316,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8060460313826193,
+            "f1": 0.022915619337931056,
+            "precision": 0.011600216533059727,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9932266637994769,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.31564534178809045,
+            "f1": 0.09118562992969372,
+            "precision": 0.048603169343608255,
+            "recall": 0.7361111111111112,
+            "roc_auc_ovr": 0.9532058497218726,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9993688035107211,
+            "f1": 0.9365730939783314,
+            "precision": 0.9998103779412066,
+            "recall": 0.880859375,
+            "roc_auc_ovr": 0.9787250509906761,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8756969396642844,
+            "f1": 0.7589041095890411,
+            "precision": 0.9081967213114754,
+            "recall": 0.6517647058823529,
+            "roc_auc_ovr": 0.9957919039938904,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.6930462752116031,
+            "f1": 0.38860912846112305,
+            "precision": 0.2517791773915944,
+            "recall": 0.8511904761904762,
+            "roc_auc_ovr": 0.990877782419216,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9846951691422104
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.808182784272051,
+        "average_precision_ovr_macro": 0.8010161486982472,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            79,
+            0,
+            4,
+            0,
+            9,
+            14
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            3,
+            106,
+            4,
+            12,
+            18
+          ],
+          [
+            0,
+            39,
+            70,
+            902,
+            0,
+            13
+          ],
+          [
+            69,
+            42,
+            24,
+            0,
+            277,
+            13
+          ],
+          [
+            9,
+            8,
+            1,
+            1,
+            6,
+            143
+          ]
+        ],
+        "macro_f1": 0.6509237487621261,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5184178960989826,
+            "f1": 0.5984848484848485,
+            "precision": 0.5,
+            "recall": 0.7452830188679245,
+            "roc_auc_ovr": 0.9551302481727011,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8493981304643069,
+            "f1": 0.23140495867768596,
+            "precision": 0.1320754716981132,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9921799678628815,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.707923900177418,
+            "f1": 0.6074498567335244,
+            "precision": 0.5170731707317073,
+            "recall": 0.7361111111111112,
+            "roc_auc_ovr": 0.9420310701956272,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9845453693398784,
+            "f1": 0.9342309684101502,
+            "precision": 0.9944873208379272,
+            "recall": 0.880859375,
+            "roc_auc_ovr": 0.9787250509906761,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.8959785527077779,
+            "f1": 0.7589041095890411,
+            "precision": 0.9081967213114754,
+            "recall": 0.6517647058823529,
+            "roc_auc_ovr": 0.9673301304049418,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8498330434011199,
+            "f1": 0.7750677506775068,
+            "precision": 0.7114427860696517,
+            "recall": 0.8511904761904762,
+            "roc_auc_ovr": 0.9794757459576597,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9691453689307479
+      },
+      "sampled_benign_false_positives": 122,
+      "seed": 20260921,
+      "selected_fit_rows": 192,
+      "timing_seconds": {
+        "constructor": 1.0323628999758512,
+        "fit_including_imputer": 0.18685529998037964,
+        "predict_query_including_transform": 54.6714524999843
+      },
+      "versions": {
+        "lightgbm": "4.6.0",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "python": "3.11.9",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.15.3",
+        "tabicl": "2.2.0",
+        "tabpfn": "9.0.0",
+        "torch": "2.5.1+cpu",
+        "xgboost": "2.1.4"
+      }
+    },
+    {
+      "actual_device": "cpu",
+      "backend_private_sha256": "bba040c52b73672cf1266c0853259744938625ed587232c25e36e2d882031e2e",
+      "checkpoint": {
+        "filename": "tabicl-classifier-v2-20260212.ckpt",
+        "revision": "4dcd344ece2c00be9e831fdd35bed57b5ad83e19",
+        "sha256": "bdc7dbd5e4ff21f8f0456fcf90c6b7cdf72dbea960f2d05b19bec19f9b3d4ed0"
+      },
+      "comparison_binding": "bf607b880d3996f52c49719d8728cd9d671791038604552c508452d39daba403",
+      "cpu_threads": 4,
+      "estimated_original_test_benign_false_positives": 1578.287109375,
+      "execution_binding": "317e8b741702428a66c6d318e53e02d517a88d6daaa51d1392cc341a94deb8a6",
+      "model": "tabicl_v2",
+      "prediction_chunk_rows": 1024,
+      "prediction_sha256": "b01a1da54b021229e2ebdebf59eb42b56e3f3184c87fedb44fe265af3ed2e00f",
+      "prefit_receipt_sha256": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.9416868447924449,
+        "average_precision_ovr_macro": 0.808894751386202,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            89.0,
+            0.0,
+            2.0,
+            0.0,
+            6.0,
+            9.0
+          ],
+          [
+            0.0,
+            13.0,
+            0.0,
+            0.0,
+            2.0,
+            0.0
+          ],
+          [
+            5.0,
+            16.0,
+            106.0,
+            5.0,
+            7.0,
+            5.0
+          ],
+          [
+            0.0,
+            906.0537109375,
+            379.9580078125,
+            28350.712890625,
+            0.0,
+            292.275390625
+          ],
+          [
+            74.0,
+            9.0,
+            30.0,
+            1.0,
+            288.0,
+            23.0
+          ],
+          [
+            11.0,
+            5.0,
+            1.0,
+            1.0,
+            5.0,
+            145.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.5302405233020139,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5931141614339306,
+            "f1": 0.624561403508772,
+            "precision": 0.4972067039106145,
+            "recall": 0.839622641509434,
+            "roc_auc_ovr": 0.9888517433807407,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8680672962573757,
+            "f1": 0.02696945170691386,
+            "precision": 0.013697854873944133,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9940125090890257,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.6298066050301506,
+            "f1": 0.3197789264202667,
+            "precision": 0.20425544726982592,
+            "recall": 0.7361111111111112,
+            "roc_auc_ovr": 0.9662194213440054,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9999451142425669,
+            "f1": 0.9728019126357359,
+            "precision": 0.9997531535767007,
+            "recall": 0.947265625,
+            "roc_auc_ovr": 0.9981140278991841,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.901375144730312,
+            "f1": 0.7858117326057299,
+            "precision": 0.935064935064935,
+            "recall": 0.6776470588235294,
+            "roc_auc_ovr": 0.9963669423726979,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8610601866228769,
+            "f1": 0.45151971293466525,
+            "precision": 0.30572954630624843,
+            "recall": 0.8630952380952381,
+            "roc_auc_ovr": 0.9938070336548078,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.989561946290077
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8560042507970245,
+        "average_precision_ovr_macro": 0.8520964210578882,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            89,
+            0,
+            2,
+            0,
+            6,
+            9
+          ],
+          [
+            0,
+            13,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            5,
+            16,
+            106,
+            5,
+            7,
+            5
+          ],
+          [
+            0,
+            31,
+            13,
+            970,
+            0,
+            10
+          ],
+          [
+            74,
+            9,
+            30,
+            1,
+            288,
+            23
+          ],
+          [
+            11,
+            5,
+            1,
+            1,
+            5,
+            145
+          ]
+        ],
+        "macro_f1": 0.6989658302876264,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.6016288509681197,
+            "f1": 0.624561403508772,
+            "precision": 0.4972067039106145,
+            "recall": 0.839622641509434,
+            "roc_auc_ovr": 0.9479060428352881,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8843873517786561,
+            "f1": 0.29213483146067415,
+            "precision": 0.17567567567567569,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9930369576861275,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.8048227065117659,
+            "f1": 0.7162162162162162,
+            "precision": 0.6973684210526315,
+            "recall": 0.7361111111111112,
+            "roc_auc_ovr": 0.9634957166602737,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9984630821237293,
+            "f1": 0.9695152423788106,
+            "precision": 0.9928352098259979,
+            "recall": 0.947265625,
+            "roc_auc_ovr": 0.9981140278991841,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9169716485484208,
+            "f1": 0.7858117326057299,
+            "precision": 0.935064935064935,
+            "recall": 0.6776470588235294,
+            "roc_auc_ovr": 0.9746634906536397,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.9063048864166378,
+            "f1": 0.8055555555555556,
+            "precision": 0.7552083333333334,
+            "recall": 0.8630952380952381,
+            "roc_auc_ovr": 0.9818094682447074,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9765042839965368
+      },
+      "sampled_benign_false_positives": 54,
+      "seed": 20260922,
+      "selected_fit_rows": 192,
+      "timing_seconds": {
+        "constructor": 0.17212020000442863,
+        "fit_including_imputer": 0.4437459000037052,
+        "predict_query_including_transform": 20.042301500041503
+      },
+      "versions": {
+        "lightgbm": "4.6.0",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "python": "3.11.9",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.15.3",
+        "tabicl": "2.2.0",
+        "tabpfn": "9.0.0",
+        "torch": "2.5.1+cpu",
+        "xgboost": "2.1.4"
+      }
+    },
+    {
+      "actual_device": "cpu",
+      "backend_private_sha256": "a4c243e238caf101a0fa9fc01c5dd289cc1c219434993f7e1eda0a13583afd60",
+      "checkpoint": {
+        "filename": "tabpfn-v2.5-classifier-v2.5_default-2.ckpt",
+        "revision": "6c45f3a6d0d07c6c5f62572e04a0c2929de91b8b",
+        "sha256": "2d0fbd257a5a274f2a219836d5a68e9c27224845936b4685d85dd42e2b8092aa"
+      },
+      "comparison_binding": "06c5cce5a31c7c8a259c82b8efa7b9052ec04925159a3aeb49993584f587dba5",
+      "cpu_threads": 4,
+      "estimated_original_test_benign_false_positives": 1373.6943359375,
+      "execution_binding": "317e8b741702428a66c6d318e53e02d517a88d6daaa51d1392cc341a94deb8a6",
+      "model": "tabpfn_2_5_synthetic",
+      "prediction_chunk_rows": 1024,
+      "prediction_sha256": "d97a1ada2248248e4f0306d6890af5d28c00bcdbfc6b2252a277ac82deb50b68",
+      "prefit_receipt_sha256": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.9481049035002599,
+        "average_precision_ovr_macro": 0.7425991079050901,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            83.0,
+            0.0,
+            2.0,
+            0.0,
+            12.0,
+            9.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            12.0,
+            115.0,
+            5.0,
+            7.0,
+            4.0
+          ],
+          [
+            0.0,
+            876.826171875,
+            467.640625,
+            28555.3056640625,
+            0.0,
+            29.2275390625
+          ],
+          [
+            81.0,
+            11.0,
+            33.0,
+            0.0,
+            277.0,
+            23.0
+          ],
+          [
+            7.0,
+            6.0,
+            4.0,
+            0.0,
+            6.0,
+            145.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.571937988693566,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5379797745258561,
+            "f1": 0.5971223021582733,
+            "precision": 0.48255813953488375,
+            "recall": 0.7830188679245284,
+            "roc_auc_ovr": 0.9916233875436974,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.7590270431292021,
+            "f1": 0.02995209253057157,
+            "precision": 0.015220267076617312,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9958439816262891,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.4160602964470351,
+            "f1": 0.30040203261157933,
+            "precision": 0.18499434460223702,
+            "recall": 0.7986111111111112,
+            "roc_auc_ovr": 0.9573041882717404,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9999336237855991,
+            "f1": 0.9764282663251957,
+            "precision": 0.9998249318456598,
+            "recall": 0.9541015625,
+            "roc_auc_ovr": 0.9977202159819347,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9018961962616843,
+            "f1": 0.760989010989011,
+            "precision": 0.9141914191419142,
+            "recall": 0.6517647058823529,
+            "roc_auc_ovr": 0.9965619818195006,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8406977132811644,
+            "f1": 0.7667342275467655,
+            "precision": 0.6897288559178346,
+            "recall": 0.8630952380952381,
+            "roc_auc_ovr": 0.9947151087177891,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.988961477326825
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8560042507970245,
+        "average_precision_ovr_macro": 0.8279750144438457,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            83,
+            0,
+            2,
+            0,
+            12,
+            9
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            12,
+            115,
+            5,
+            7,
+            4
+          ],
+          [
+            0,
+            30,
+            16,
+            977,
+            0,
+            1
+          ],
+          [
+            81,
+            11,
+            33,
+            0,
+            277,
+            23
+          ],
+          [
+            7,
+            6,
+            4,
+            0,
+            6,
+            145
+          ]
+        ],
+        "macro_f1": 0.7019044005055921,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5439933431714228,
+            "f1": 0.5971223021582733,
+            "precision": 0.48255813953488375,
+            "recall": 0.7830188679245284,
+            "roc_auc_ovr": 0.9484053629100799,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8644314336432166,
+            "f1": 0.3181818181818182,
+            "precision": 0.1917808219178082,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9950008926977325,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.7613887986650569,
+            "f1": 0.732484076433121,
+            "precision": 0.6764705882352942,
+            "recall": 0.7986111111111112,
+            "roc_auc_ovr": 0.9467299578059072,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.998159258071553,
+            "f1": 0.9740777666999003,
+            "precision": 0.994908350305499,
+            "recall": 0.9541015625,
+            "roc_auc_ovr": 0.9977202159819347,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9140824655054388,
+            "f1": 0.760989010989011,
+            "precision": 0.9141914191419142,
+            "recall": 0.6517647058823529,
+            "roc_auc_ovr": 0.9731664580725907,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8857947876063857,
+            "f1": 0.8285714285714286,
+            "precision": 0.7967032967032966,
+            "recall": 0.8630952380952381,
+            "roc_auc_ovr": 0.9833270822914931,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9740583282932896
+      },
+      "sampled_benign_false_positives": 47,
+      "seed": 20260922,
+      "selected_fit_rows": 192,
+      "timing_seconds": {
+        "constructor": 0.06488149997312576,
+        "fit_including_imputer": 0.1858990999753587,
+        "predict_query_including_transform": 52.37578270002268
+      },
+      "versions": {
+        "lightgbm": "4.6.0",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "python": "3.11.9",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.15.3",
+        "tabicl": "2.2.0",
+        "tabpfn": "9.0.0",
+        "torch": "2.5.1+cpu",
+        "xgboost": "2.1.4"
+      }
+    },
+    {
+      "actual_device": "cpu",
+      "backend_private_sha256": "bc2a0000c69958a0143ce97f6a987c9fbfe2b0c08810d12084c3892b054925f7",
+      "checkpoint": {
+        "filename": "tabicl-classifier-v2-20260212.ckpt",
+        "revision": "4dcd344ece2c00be9e831fdd35bed57b5ad83e19",
+        "sha256": "bdc7dbd5e4ff21f8f0456fcf90c6b7cdf72dbea960f2d05b19bec19f9b3d4ed0"
+      },
+      "comparison_binding": "d6a560f23b013ea29ce9d9f2b133fb2053d156296013fd8e9b2c345cfaa10e05",
+      "cpu_threads": 4,
+      "estimated_original_test_benign_false_positives": 1812.107421875,
+      "execution_binding": "317e8b741702428a66c6d318e53e02d517a88d6daaa51d1392cc341a94deb8a6",
+      "model": "tabicl_v2",
+      "prediction_chunk_rows": 1024,
+      "prediction_sha256": "d503bc94366d4a3519bb870afe667b6107a29ca8b1191011c9f97b30930d3800",
+      "prefit_receipt_sha256": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.9345468080074382,
+        "average_precision_ovr_macro": 0.7866413139938796,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            97.0,
+            0.0,
+            0.0,
+            0.0,
+            5.0,
+            4.0
+          ],
+          [
+            0.0,
+            14.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            2.0,
+            0.0,
+            127.0,
+            2.0,
+            4.0,
+            9.0
+          ],
+          [
+            0.0,
+            350.73046875,
+            1256.7841796875,
+            28116.892578125,
+            0.0,
+            204.5927734375
+          ],
+          [
+            106.0,
+            8.0,
+            26.0,
+            1.0,
+            283.0,
+            1.0
+          ],
+          [
+            21.0,
+            1.0,
+            4.0,
+            0.0,
+            8.0,
+            134.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.5137603839605422,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5869681392114914,
+            "f1": 0.5843373493975904,
+            "precision": 0.42920353982300885,
+            "recall": 0.9150943396226415,
+            "roc_auc_ovr": 0.9983280614706154,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8749156888455727,
+            "f1": 0.0720293423102045,
+            "precision": 0.03746015155474262,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9990155269163796,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.5219830824195556,
+            "f1": 0.1630521116544872,
+            "precision": 0.08982983529216731,
+            "recall": 0.8819444444444444,
+            "roc_auc_ovr": 0.9628773017561872,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9999696167537937,
+            "f1": 0.9687314031110561,
+            "precision": 0.9998933139594447,
+            "recall": 0.939453125,
+            "roc_auc_ovr": 0.9989631137092074,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9172120894421345,
+            "f1": 0.7796143250688705,
+            "precision": 0.9401993355481728,
+            "recall": 0.6658823529411765,
+            "roc_auc_ovr": 0.9982907358741286,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8187992672907297,
+            "f1": 0.5147977722210446,
+            "precision": 0.3800418218830926,
+            "recall": 0.7976190476190477,
+            "roc_auc_ovr": 0.9834558890421948,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9901551047947855
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.859192348565356,
+        "average_precision_ovr_macro": 0.8641317461749748,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            97,
+            0,
+            0,
+            0,
+            5,
+            4
+          ],
+          [
+            0,
+            14,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            0,
+            127,
+            2,
+            4,
+            9
+          ],
+          [
+            0,
+            12,
+            43,
+            962,
+            0,
+            7
+          ],
+          [
+            106,
+            8,
+            26,
+            1,
+            283,
+            1
+          ],
+          [
+            21,
+            1,
+            4,
+            0,
+            8,
+            134
+          ]
+        ],
+        "macro_f1": 0.7432275651927879,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.5873241298867402,
+            "f1": 0.5843373493975904,
+            "precision": 0.42920353982300885,
+            "recall": 0.9150943396226415,
+            "roc_auc_ovr": 0.9714165816760156,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.9319758672699849,
+            "f1": 0.56,
+            "precision": 0.4,
+            "recall": 0.9333333333333333,
+            "roc_auc_ovr": 0.9988930548116408,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.8439277954965939,
+            "f1": 0.7383720930232558,
+            "precision": 0.635,
+            "recall": 0.8819444444444444,
+            "roc_auc_ovr": 0.9627685078634446,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9991390943776224,
+            "f1": 0.9673202614379085,
+            "precision": 0.9968911917098445,
+            "recall": 0.939453125,
+            "roc_auc_ovr": 0.9989631137092074,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9278272686591081,
+            "f1": 0.7796143250688705,
+            "precision": 0.9401993355481728,
+            "recall": 0.6658823529411765,
+            "roc_auc_ovr": 0.979424280350438,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8945963213597993,
+            "f1": 0.8297213622291022,
+            "precision": 0.864516129032258,
+            "recall": 0.7976190476190477,
+            "roc_auc_ovr": 0.9727593487803523,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.980704147865183
+      },
+      "sampled_benign_false_positives": 62,
+      "seed": 20260923,
+      "selected_fit_rows": 192,
+      "timing_seconds": {
+        "constructor": 0.14310960000148043,
+        "fit_including_imputer": 0.32352840004023165,
+        "predict_query_including_transform": 16.5140134000103
+      },
+      "versions": {
+        "lightgbm": "4.6.0",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "python": "3.11.9",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.15.3",
+        "tabicl": "2.2.0",
+        "tabpfn": "9.0.0",
+        "torch": "2.5.1+cpu",
+        "xgboost": "2.1.4"
+      }
+    },
+    {
+      "actual_device": "cpu",
+      "backend_private_sha256": "686366084a2bc3675525fb623ebf5cc3eba2966544537282679613531aebe19e",
+      "checkpoint": {
+        "filename": "tabpfn-v2.5-classifier-v2.5_default-2.ckpt",
+        "revision": "6c45f3a6d0d07c6c5f62572e04a0c2929de91b8b",
+        "sha256": "2d0fbd257a5a274f2a219836d5a68e9c27224845936b4685d85dd42e2b8092aa"
+      },
+      "comparison_binding": "9b7cb2422b7bd875e54009c5e3f01db7c3423c7712a3c7050f9997fa7d378718",
+      "cpu_threads": 4,
+      "estimated_original_test_benign_false_positives": 1198.3291015625,
+      "execution_binding": "317e8b741702428a66c6d318e53e02d517a88d6daaa51d1392cc341a94deb8a6",
+      "model": "tabpfn_2_5_synthetic",
+      "prediction_chunk_rows": 1024,
+      "prediction_sha256": "caa83bcf3c0f6b45932b77c3610bff789a965328d9ddd0fd7d6f010c6a97ee76",
+      "prefit_receipt_sha256": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429",
+      "prevalence_weighted_estimated_metrics": {
+        "accuracy": 0.9546454964250333,
+        "average_precision_ovr_macro": 0.7599210122737126,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            89.0,
+            0.0,
+            0.0,
+            0.0,
+            8.0,
+            9.0
+          ],
+          [
+            0.0,
+            13.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            2.0,
+            122.0,
+            5.0,
+            5.0,
+            9.0
+          ],
+          [
+            0.0,
+            321.5029296875,
+            789.1435546875,
+            28730.6708984375,
+            0.0,
+            87.6826171875
+          ],
+          [
+            75.0,
+            10.0,
+            34.0,
+            0.0,
+            298.0,
+            8.0
+          ],
+          [
+            17.0,
+            3.0,
+            3.0,
+            0.0,
+            7.0,
+            138.0
+          ]
+        ],
+        "interpretation": "Prevalence-adjusted estimated score for this prescreen execution. Sampled NormalTraffic and changed query batches prevent treating it as an actual full-E1 score or unbiased ratio estimate.",
+        "macro_f1": 0.5584663576017886,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4875544488297611,
+            "f1": 0.6180555555555556,
+            "precision": 0.489010989010989,
+            "recall": 0.839622641509434,
+            "roc_auc_ovr": 0.9970658962997312,
+            "sample_support": 106,
+            "support": 106.0
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8606437165881466,
+            "f1": 0.07133001653043126,
+            "precision": 0.03719568248433182,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9965730056951124,
+            "sample_support": 15,
+            "support": 15.0
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.5018737862298812,
+            "f1": 0.22320947596837176,
+            "precision": 0.12853693142357986,
+            "recall": 0.8472222222222222,
+            "roc_auc_ovr": 0.9514092985642708,
+            "sample_support": 144,
+            "support": 144.0
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.9999631678986551,
+            "f1": 0.9794880107033116,
+            "precision": 0.9998260002344239,
+            "recall": 0.9599609375,
+            "roc_auc_ovr": 0.9987411676864801,
+            "sample_support": 1024,
+            "support": 29929.0
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9085178057415314,
+            "f1": 0.8010752688172043,
+            "precision": 0.9341692789968652,
+            "recall": 0.7011764705882353,
+            "roc_auc_ovr": 0.997806060016124,
+            "sample_support": 425,
+            "support": 425.0
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8009731483543001,
+            "f1": 0.6576398180358577,
+            "precision": 0.5483096192423649,
+            "recall": 0.8214285714285714,
+            "roc_auc_ovr": 0.9920432474079106,
+            "sample_support": 168,
+            "support": 168.0
+          }
+        },
+        "represented_weight_sum": 30787.0,
+        "roc_auc_ovr_macro": 0.9889397792782715
+      },
+      "query_unweighted_metrics": {
+        "accuracy": 0.8730074388947928,
+        "average_precision_ovr_macro": 0.8290451114317062,
+        "classes": [
+          "DataExfiltration",
+          "InitialCompromise",
+          "LateralMovement",
+          "NormalTraffic",
+          "Pivoting",
+          "Reconnaissance"
+        ],
+        "confusion_matrix": [
+          [
+            89,
+            0,
+            0,
+            0,
+            8,
+            9
+          ],
+          [
+            0,
+            13,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            2,
+            122,
+            5,
+            5,
+            9
+          ],
+          [
+            0,
+            11,
+            27,
+            983,
+            0,
+            3
+          ],
+          [
+            75,
+            10,
+            34,
+            0,
+            298,
+            8
+          ],
+          [
+            17,
+            3,
+            3,
+            0,
+            7,
+            138
+          ]
+        ],
+        "macro_f1": 0.7397983667755762,
+        "n": 1882,
+        "per_stage": {
+          "DataExfiltration": {
+            "average_precision_ovr": 0.4900926745175677,
+            "f1": 0.6180555555555556,
+            "precision": 0.489010989010989,
+            "recall": 0.839622641509434,
+            "roc_auc_ovr": 0.9626572327044025,
+            "support": 106
+          },
+          "InitialCompromise": {
+            "average_precision_ovr": 0.8885939486397152,
+            "f1": 0.48148148148148145,
+            "precision": 0.3333333333333333,
+            "recall": 0.8666666666666667,
+            "roc_auc_ovr": 0.9959292983395822,
+            "support": 15
+          },
+          "LateralMovement": {
+            "average_precision_ovr": 0.8051854485854256,
+            "f1": 0.7371601208459214,
+            "precision": 0.6524064171122995,
+            "recall": 0.8472222222222222,
+            "roc_auc_ovr": 0.945771001150748,
+            "support": 144
+          },
+          "NormalTraffic": {
+            "average_precision_ovr": 0.998954530522412,
+            "f1": 0.9771371769383698,
+            "precision": 0.9949392712550608,
+            "recall": 0.9599609375,
+            "roc_auc_ovr": 0.9987411676864801,
+            "support": 1024
+          },
+          "Pivoting": {
+            "average_precision_ovr": 0.9204581378778055,
+            "f1": 0.8010752688172043,
+            "precision": 0.9341692789968652,
+            "recall": 0.7011764705882353,
+            "roc_auc_ovr": 0.9775751947999516,
+            "support": 425
+          },
+          "Reconnaissance": {
+            "average_precision_ovr": 0.8709859284473109,
+            "f1": 0.8238805970149253,
+            "precision": 0.8263473053892215,
+            "recall": 0.8214285714285714,
+            "roc_auc_ovr": 0.9812781296882813,
+            "support": 168
+          }
+        },
+        "roc_auc_ovr_macro": 0.9769920040615743
+      },
+      "sampled_benign_false_positives": 41,
+      "seed": 20260923,
+      "selected_fit_rows": 192,
+      "timing_seconds": {
+        "constructor": 0.05793399998219684,
+        "fit_including_imputer": 0.13569590001134202,
+        "predict_query_including_transform": 47.58605789998546
+      },
+      "versions": {
+        "lightgbm": "4.6.0",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "python": "3.11.9",
+        "scikit-learn": "1.7.2",
+        "scipy": "1.15.3",
+        "tabicl": "2.2.0",
+        "tabpfn": "9.0.0",
+        "torch": "2.5.1+cpu",
+        "xgboost": "2.1.4"
+      }
+    }
+  ],
+  "e4_evaluated": false,
+  "experiment": "E1_CPU_PRESCREEN",
+  "foundation_cell_count": 6,
+  "full_e1_completed": false,
+  "gpu_evaluated": false,
+  "limitations": [
+    "Separate CPU plausibility screen after classical results were known, before foundation classification outcomes.",
+    "Weighted estimates are not full-test scores; sampled NormalTraffic induces uncertainty not measured by the three fitting seeds.",
+    "Each sampled benign error represents about 29.23 original-test rows; zero sampled false positives does not establish zero original-test false positives.",
+    "All three seeds share the same query and fitting pool; no CI, significance, independent incident or confirmation claim.",
+    "Query batch composition differs from full E1; foundation prediction batch invariance has not been established.",
+    "InitialCompromise recall denominator15; DataExfiltration106. No calibration or E4 evaluation in this prescreen.",
+    "TabICL remains primary and TabPFN secondary regardless of outcomes; novelty remains unestablished."
+  ],
+  "model_summaries": {
+    "lightgbm": {
+      "mean_baseline_full_test_macro_f1": 0.442570211619848,
+      "mean_prevalence_weighted_estimated_macro_f1": 0.4334070237818482,
+      "mean_query_unweighted_macro_f1": 0.6708139502606195,
+      "mean_weighted_estimate_minus_full_test_macro_f1": -0.009163187837999761,
+      "seed_count": 3
+    },
+    "random_forest": {
+      "mean_baseline_full_test_macro_f1": 0.42170425026216857,
+      "mean_prevalence_weighted_estimated_macro_f1": 0.40250075042978395,
+      "mean_query_unweighted_macro_f1": 0.6463372097340829,
+      "mean_weighted_estimate_minus_full_test_macro_f1": -0.0192034998323846,
+      "seed_count": 3
+    },
+    "tabicl_v2": {
+      "mean_prevalence_weighted_estimated_macro_f1": 0.5189856051173709,
+      "mean_query_unweighted_macro_f1": 0.7046696063631974,
+      "seed_count": 3
+    },
+    "tabpfn_2_5_synthetic": {
+      "mean_prevalence_weighted_estimated_macro_f1": 0.5321721393085054,
+      "mean_query_unweighted_macro_f1": 0.6975421720144315,
+      "seed_count": 3
+    },
+    "xgboost": {
+      "mean_baseline_full_test_macro_f1": 0.4320147979103499,
+      "mean_prevalence_weighted_estimated_macro_f1": 0.41674239003251906,
+      "mean_query_unweighted_macro_f1": 0.6570555490127554,
+      "mean_weighted_estimate_minus_full_test_macro_f1": -0.015272407877830815,
+      "seed_count": 3
+    }
+  },
+  "prefit_receipt_sha256": "9df8b481aea316107abe19bcb6010d4be293c8df6ba88d0f277e70d5ed6e4429",
+  "primary_descriptive": {
+    "guards": {
+      "DataExfiltration_mean_recall_loss_at_most_0.05": true,
+      "InitialCompromise_mean_recall_loss_at_most_0.05": true,
+      "mean_weighted_estimated_macro_f1_gain_at_least_0.02": true
+    },
+    "interpretation": "Descriptive rescope after classical results were known, before foundation outcomes. Never full E1 PASS, independent replication, significance, or confirmation.",
+    "mean_high_risk_recall_deltas": {
+      "DataExfiltration": 0.08805031446540883,
+      "InitialCompromise": -0.022222222222222216
+    },
+    "mean_weighted_estimated_macro_f1_delta": 0.09966705587294068,
+    "paired_seed_count": 3,
+    "pairs": [
+      {
+        "candidate_weighted_estimated_macro_f1": 0.5129559080895566,
+        "comparator_selected_by_e1_inner_cv": "xgboost",
+        "comparator_weighted_estimated_macro_f1": 0.40298092750889897,
+        "high_risk_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0
+        },
+        "seed": 20260921,
+        "weighted_estimated_macro_f1_delta": 0.10997498058065763
+      },
+      {
+        "candidate_weighted_estimated_macro_f1": 0.5302405233020139,
+        "comparator_selected_by_e1_inner_cv": "lightgbm",
+        "comparator_weighted_estimated_macro_f1": 0.4111659888029074,
+        "high_risk_recall_deltas": {
+          "DataExfiltration": 0.12264150943396235,
+          "InitialCompromise": -0.06666666666666665
+        },
+        "seed": 20260922,
+        "weighted_estimated_macro_f1_delta": 0.11907453449910649
+      },
+      {
+        "candidate_weighted_estimated_macro_f1": 0.5137603839605422,
+        "comparator_selected_by_e1_inner_cv": "lightgbm",
+        "comparator_weighted_estimated_macro_f1": 0.4438087314214843,
+        "high_risk_recall_deltas": {
+          "DataExfiltration": 0.14150943396226412,
+          "InitialCompromise": 0.0
+        },
+        "seed": 20260923,
+        "weighted_estimated_macro_f1_delta": 0.06995165253905794
+      }
+    ],
+    "primary_candidate": "tabicl_v2",
+    "required_paired_seeds": 3,
+    "status": "PRELIMINARY_PROMISING"
+  },
+  "protocol_sha256": "90276e52ff04239d12d57babb3896ae7828c55e7213ae5bd20fef256458183c1",
+  "query": {
+    "attack_rows": 858,
+    "enriched_attack_prevalence": 0.45589798087141337,
+    "normal_rows": 1024,
+    "normal_weight": 29.2275390625,
+    "original_test_attack_prevalence": 0.027868905706954234,
+    "original_test_normal_rows": 29929,
+    "query_hash_tag": "E1_CPU_PRESCREEN_20260921",
+    "query_normal_sampling": "Fixed SHA256-ranked sample; all attack rows retained",
+    "represented_weight_sum": 30787.0,
+    "rows": 1882
+  },
+  "schema_version": 1
+}

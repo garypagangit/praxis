@@ -2,6 +2,8 @@
 
 This batch evaluates the user's E0–E7 proposal. A proposal is not evidence of a positive result or novelty. The registered experiments can fail, and the results must retain all registered arms and seeds.
 
+[Read the proposal assessment](BATCH_REVIEW.md) and [measured results](../results/tabular_batch_v1/REPORT.md). The separate [CPU plausibility screen](METHODS_CPU_PRESCREEN.md) is explicitly distinguished from the full E1 comparison.
+
 ## Frozen first experiments
 
 - **E0:** qualify source files, labels, feature leakage, duplicates and usable splits. [Dataset decision](E0_DATASET_GATE.md).
@@ -24,3 +26,7 @@ E2 requires a separately frozen, measured end-to-end binary screening experiment
 `run_e3.py --freeze-only` creates the pre-fit receipt; `--run` requires unchanged code, protocol, data and package versions. Source calibration labels are unused for E3. Its clean-label corruption mask is available only to post-hoc evaluation, never to a treatment learner.
 
 Raw data, row-level predictions, checkpoints and private cloud configuration remain outside Git. Public evidence contains methods, source citations, aggregate scores and verification receipts. CPU-only synthetic smoke tests qualify runtime compatibility; they are not cybersecurity experiment results.
+
+The local Python 3.11.9 environment is recorded in [LOCAL_CPU_ENVIRONMENT.lock.txt](LOCAL_CPU_ENVIRONMENT.lock.txt). Its Torch 2.5.1 CPU build came from the official PyTorch CPU wheel index. The cloud runbook uses a separate CUDA environment and records its actual resolved dependencies if executed; this lock file does not assert identical CPU/GPU packages or timing.
+
+[Validation receipt](VALIDATION.json): 252 implementation tests pass. Independent calculation audits pass for the 30 classical E1 cells, all 15 prescreen score tables including six foundation contexts, the CPU timing pilot, and all 18 label-treatment cells. Passing software checks does not convert an incomplete or negative research result into a positive one.

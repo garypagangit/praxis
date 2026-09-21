@@ -34,7 +34,7 @@ Both outcomes leave GPU execution, alternate model settings, batching, compressi
 
 ## Artifacts and execution
 
-[protocol_e2_latency.json](protocol_e2_latency.json) awaits the root's source/protocol freeze. Do not start scientific fits before that freeze. [run_e2_latency.py](run_e2_latency.py) writes a prefit receipt with input/code/support/query hashes before fitting, then private fit and probability artifacts. Any nonempty output directory is rejected so interrupted evidence is preserved. `AGGREGATE.json` is the public-safe timing summary; the raw probabilities and individual fingerprints remain private. `COMPLETE.json` binds final artifact hashes.
+[protocol_e2_latency.json](protocol_e2_latency.json) and runtime were frozen at commit `431e783` before the scientific fits. [run_e2_latency.py](run_e2_latency.py) writes a prefit receipt with input/code/support/query hashes before fitting, then private fit and probability artifacts. Any nonempty output directory is rejected so interrupted evidence is preserved. `AGGREGATE.json` is the public-safe timing summary; the raw probabilities and individual fingerprints remain private. `COMPLETE.json` binds final artifact hashes.
 
 ```powershell
 python -m experiments.apt_benchmark.tabular_batch.run_e2_latency `

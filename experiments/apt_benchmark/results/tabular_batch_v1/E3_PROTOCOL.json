@@ -1,0 +1,100 @@
+{
+  "arms": [
+    "no_correction",
+    "gradient_gmm_removal_adaptation",
+    "gradient_gmm_relabel_adaptation"
+  ],
+  "boosting_rounds": 100,
+  "classes": [
+    "DataExfiltration",
+    "InitialCompromise",
+    "LateralMovement",
+    "NormalTraffic",
+    "Pivoting",
+    "Reconnaissance"
+  ],
+  "dataset_npz_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+  "experiment": "E3 history-gradient GMM treatment development pilot",
+  "fit_per_class_cap": 256,
+  "implementation_status": "explicit adaptation; not a faithful reproduction of the original Gradients algorithm",
+  "limitations": [
+    "Source labels are assumed correct for this controlled corruption study; it does not validate or repair real annotation errors.",
+    "Only the author's training CSV is available. Exact-feature deduplication does not remove all correlated flows or identify independent incidents.",
+    "No author holdout, temporal, early-warning, population, conformal or novelty claim.",
+    "InitialCompromise has 43 fit rows and 15 test rows; rare-stage recall is coarse and fragile.",
+    "The cap is unequal in realized per-class counts; this is a bounded training context, not a strict equal-label-budget sample-efficiency experiment.",
+    "Repeated adaptive treatment and rare-class retention are declared implementation choices and prevent claiming an exact reproduction of the named Gradients paper."
+  ],
+  "model_parameters": {
+    "alpha": 0.0,
+    "base_score": 0.5,
+    "colsample_bytree": 1.0,
+    "device": "cpu",
+    "eta": 0.1,
+    "lambda": 1.0,
+    "max_depth": 3,
+    "nthread": 2,
+    "num_class": 6,
+    "objective": "multi:softprob",
+    "subsample": 1.0,
+    "tree_method": "hist",
+    "verbosity": 0
+  },
+  "model_selection": "None; fixed identical settings and rounds across arms; no early stopping. Calibration and test do not select or stop training.",
+  "noise_policy": "Uniformly select floor(rate*n) training rows without replacement using seed+917; replace each label uniformly with one of the other classes. Same corruption for all arms. Never pass the noise rate, true labels or corruption mask to a treatment learner.",
+  "noise_rates": [
+    0.0,
+    0.2
+  ],
+  "primary_metric": "test macro-F1, fixed full six-class label set",
+  "primary_noise_rate": 0.2,
+  "rare_stage": "InitialCompromise",
+  "schema_version": 1,
+  "screen": {
+    "aggregation": "Arithmetic mean of paired seed deltas; three fitting/subsampling seeds are not independent population replications; no confidence interval or significance claim.",
+    "clean_macro_f1_delta_min": -0.01,
+    "clean_rare_stage_recall_delta_min": -0.05,
+    "noisy_macro_f1_gain_min": 0.02,
+    "noisy_rare_stage_recall_delta_min": -0.05,
+    "pass_rule": "All four conditions must hold for the same treatment arm. Report both arms regardless of outcome; a passing arm is a promising development result requiring fresh confirmation."
+  },
+  "secondary_metrics": [
+    "per-stage precision/recall/F1",
+    "confusion counts",
+    "one-vs-rest ROC-AUC and average precision",
+    "clean-label alteration",
+    "posthoc noise detection precision/recall",
+    "posthoc treatment precision/recall",
+    "clean rare-stage damage",
+    "fit duration"
+  ],
+  "seeds": [
+    20260921,
+    20260922,
+    20260923
+  ],
+  "split_codes": {
+    "calibration_unused": 1,
+    "fit": 0,
+    "test": 2
+  },
+  "subset_policy": "Within each source-label class, select min(256, available fit rows), ordered by SHA256(seed|group_sha256). All arms/noise conditions share that seed's subset.",
+  "treatment": {
+    "candidate_rule": "Among active, never-treated rows, high-mean GMM component posterior > 0.5. Fit GMM on all active residual-history means. Skip if fewer than four active rows or residual standard deviation <= 1e-8 or component means differ by <= 1e-8.",
+    "gmm_components": 2,
+    "gmm_max_iter": 100,
+    "gmm_n_init": 3,
+    "gmm_random_state": "training seed",
+    "gmm_reg_covar": 1e-06,
+    "gradient_definition": "Post-update softmax cross-entropy residual p_k - 1[k=current_training_label]; maximum absolute residual over classes; arithmetic mean of the last five rounds.",
+    "history_after_intervention": "Clear histories after each scheduled intervention so subsequent gradients describe the updated labels/active roster.",
+    "history_rounds": 5,
+    "intervention_every_rounds": 5,
+    "last_intervention": "Never intervene after the last training round; every recorded treatment must affect at least one subsequent update.",
+    "relabel_rule": "Change a candidate at most once to the argmax of its five-round mean probabilities, only when different from its current label. Ties use lowest class index.",
+    "removal_cap_fraction": 0.8,
+    "removal_class_guard": "Retain at least one currently assigned-label row per class; rank candidates by descending gradient statistic, breaking ties by original local row index.",
+    "warmup_rounds": 15
+  },
+  "xgboost_version": "2.1.4"
+}

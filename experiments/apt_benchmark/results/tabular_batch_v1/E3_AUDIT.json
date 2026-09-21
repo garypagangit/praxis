@@ -1,0 +1,107 @@
+{
+  "audit_status": "PASS",
+  "audited_cells": 18,
+  "checks": [
+    "Frozen source/protocol/data hashes and fit/test rosters",
+    "Per-cell prediction/model byte checksums",
+    "Exact source labels and deterministic training corruption",
+    "Independent confusion/F1/AUC/AP metrics",
+    "Treatment masks, trace schedule, caps and observed-class retention",
+    "Independent post-hoc noise/treatment precision/recall",
+    "Complete-grid paired seed deltas and all four gates"
+  ],
+  "expected_cells": 18,
+  "independent_summary": {
+    "interpretation": "Three seeds on one exposed development split; no confidence interval, significance, independent-campaign, original-algorithm, or novelty claim.",
+    "run_count": 18,
+    "screen_status": "NEGATIVE_DEVELOPMENT",
+    "screens": {
+      "gradient_gmm_relabel_adaptation": {
+        "all_gates_pass": false,
+        "guards": {
+          "clean_macro_f1_preserved": false,
+          "clean_rare_recall_preserved": false,
+          "noisy_macro_f1_recovery": false,
+          "noisy_rare_recall_preserved": false
+        },
+        "mean_deltas": {
+          "clean_macro_f1_delta": -0.029694978386632376,
+          "clean_rare_stage_recall_delta": -0.0666666666666667,
+          "noisy_macro_f1_delta": -0.05167104891203489,
+          "noisy_rare_stage_recall_delta": -0.0888888888888889
+        },
+        "paired_seed_deltas": [
+          {
+            "clean_macro_f1_delta": 0.016675628919984753,
+            "clean_rare_stage_recall_delta": -0.06666666666666665,
+            "noisy_macro_f1_delta": -0.0230324599984022,
+            "noisy_rare_stage_recall_delta": -0.13333333333333341,
+            "seed": 20260921
+          },
+          {
+            "clean_macro_f1_delta": -0.051818223058806234,
+            "clean_rare_stage_recall_delta": -0.13333333333333341,
+            "noisy_macro_f1_delta": -0.07770368223414104,
+            "noisy_rare_stage_recall_delta": -0.1333333333333333,
+            "seed": 20260922
+          },
+          {
+            "clean_macro_f1_delta": -0.053942341021075646,
+            "clean_rare_stage_recall_delta": 0.0,
+            "noisy_macro_f1_delta": -0.05427700450356143,
+            "noisy_rare_stage_recall_delta": 0.0,
+            "seed": 20260923
+          }
+        ]
+      },
+      "gradient_gmm_removal_adaptation": {
+        "all_gates_pass": false,
+        "guards": {
+          "clean_macro_f1_preserved": false,
+          "clean_rare_recall_preserved": false,
+          "noisy_macro_f1_recovery": false,
+          "noisy_rare_recall_preserved": false
+        },
+        "mean_deltas": {
+          "clean_macro_f1_delta": -0.03270680360361167,
+          "clean_rare_stage_recall_delta": -0.2888888888888889,
+          "noisy_macro_f1_delta": -0.046815485628402286,
+          "noisy_rare_stage_recall_delta": -0.15555555555555556
+        },
+        "paired_seed_deltas": [
+          {
+            "clean_macro_f1_delta": 0.027218733984054166,
+            "clean_rare_stage_recall_delta": -0.2666666666666667,
+            "noisy_macro_f1_delta": -0.0162144594618015,
+            "noisy_rare_stage_recall_delta": -0.20000000000000007,
+            "seed": 20260921
+          },
+          {
+            "clean_macro_f1_delta": -0.10582515885266897,
+            "clean_rare_stage_recall_delta": -0.4,
+            "noisy_macro_f1_delta": -0.10920612790103407,
+            "noisy_rare_stage_recall_delta": -0.1333333333333333,
+            "seed": 20260922
+          },
+          {
+            "clean_macro_f1_delta": -0.019513985942220202,
+            "clean_rare_stage_recall_delta": -0.20000000000000007,
+            "noisy_macro_f1_delta": -0.015025869522371282,
+            "noisy_rare_stage_recall_delta": -0.1333333333333333,
+            "seed": 20260923
+          }
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "Model bytes are checksum-verified; model predictions and the learning trajectory were not replayed.",
+    "A passing calculation audit does not establish independent incidents, correct source annotations, or novelty.",
+    "A partial-run PASS applies only to the artifacts audited; no final outcome is issued until COMPLETE."
+  ],
+  "missing_cells": [],
+  "protocol_sha256": "1ddd762b9d83d5c222ae22864866b28ab417695aaeefa25b6c1e5f83ff9e1bd4",
+  "receipt_sha256": "238de392f5353240cd86753cbe23d49d3e2b1cb8ad8bd6e870e4d9925444283b",
+  "run_status": "COMPLETE",
+  "schema_version": 1
+}
