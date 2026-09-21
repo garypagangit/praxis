@@ -22,6 +22,7 @@ def support(data, seed, condition):
     normal = data["classes"].tolist().index("NormalTraffic")
     original = set(rows.tolist())
     pool = [int(i) for i in np.flatnonzero((data["split"] == 0) & (data["y"] == normal)) if int(i) not in original]
+    audit.require(len(pool) >= 992, "Insufficient benign fitting support")
     def key(i):
         return hashlib.sha256(f"STRONG_BASELINES_BENIGN_20260921|{seed}|{data['group_sha256'][i]}".encode("ascii")).digest()
     return np.r_[rows, np.asarray(sorted(pool, key=key)[:992], dtype=np.int64)]
@@ -49,6 +50,34 @@ def fpr(metrics):
     return float((row.sum() - row[index]) / row.sum())
 
 
+def validate_global_completion(root, binding, execution, protocol):
+    """A running batch may lack this marker; an existing marker must be intact."""
+    path = root / "COMPLETE.json"
+    if not path.exists():
+        return None
+    marker = json.loads(path.read_text(encoding="utf-8"))
+    audit.require(marker.get("execution_binding") == binding, "Global completion binding mismatch")
+    audit.require(set(marker.get("artifact_sha256", {})) == {"PREFIT_RECEIPT.json", "RESULTS.json"}, "Global artifact roster mismatch")
+    for filename, digest in marker["artifact_sha256"].items():
+        audit.require(audit.file_hash(root / filename) == digest, "Global completed bytes changed")
+    expected = {f"{condition}/{name}/{seed}" for condition in execution["conditions"]
+                for name in execution["models"] for seed in protocol["seeds"]}
+    audit.require(set(marker.get("cell_complete_sha256", {})) == expected, "Global completed cell roster mismatch")
+    for name, digest in marker["cell_complete_sha256"].items():
+        audit.require(audit.file_hash(root / "cells" / name / "COMPLETE.json") == digest, "Global cell receipt changed")
+    all_registered = set(execution["conditions"]) == set(protocol["conditions"]) and set(execution["models"]) == set(protocol["models"])
+    audit.require(marker.get("all_registered_cells_complete") == all_registered, "Global batch-completion claim mismatch")
+    return audit.file_hash(path)
+
+
+def validate_imputer(saved_statistics, selected_features):
+    """Independently check stored medians, including the empty-column fallback."""
+    expected = np.zeros(selected_features.shape[1], dtype=float)
+    populated = ~np.isnan(selected_features).all(axis=0)
+    expected[populated] = np.nanmedian(selected_features[:, populated], axis=0)
+    audit.require(np.array_equal(saved_statistics, expected), "Imputer statistics do not match selected fitting rows")
+
+
 def audit_strong(data, protocol, protocol_path, e1_protocol_path, roots):
     strong.validate_protocol(protocol, e1_protocol_path)
     source = Path(__file__).parent
@@ -69,10 +98,12 @@ def audit_strong(data, protocol, protocol_path, e1_protocol_path, roots):
         audit.require(binding == prefit["execution_binding"], "Invalid prefit binding")
         audit.require(all(ex.get(k) == v for k, v in expected.items()), "Source/protocol binding mismatch")
         audit.require(ex["seeds"] == protocol["seeds"] and ex["classes"] == data["classes"].tolist(), "Seed/class mismatch")
-        audit.require(set(ex["models"]) <= set(protocol["models"]) and len(set(ex["models"])) == len(ex["models"]), "Invalid model roster")
-        audit.require(set(ex["conditions"]) <= set(protocol["conditions"]) and len(set(ex["conditions"])) == len(ex["conditions"]), "Invalid condition roster")
+        audit.require(bool(ex["models"]) and set(ex["models"]) <= set(protocol["models"]) and len(set(ex["models"])) == len(ex["models"]), "Invalid model roster")
+        audit.require(bool(ex["conditions"]) and set(ex["conditions"]) <= set(protocol["conditions"]) and len(set(ex["conditions"])) == len(ex["conditions"]), "Invalid condition roster")
+        audit.require(ex.get("actual_device") == "cpu" and ex.get("cpu_threads") == protocol["cpu_threads"], "Execution hardware settings mismatch")
         audit.require(ex["test_query"] == {"indices": test.tolist(), "fingerprints": data["group_sha256"][test].tolist()}, "Prefit test query mismatch")
-        receipts.append({"prefit_sha256": audit.file_hash(prefit_path), "execution_binding": binding})
+        completed_sha = validate_global_completion(root, binding, ex, protocol)
+        receipts.append({"prefit_sha256": audit.file_hash(prefit_path), "execution_binding": binding, "global_complete_sha256": completed_sha})
         for condition in ex["conditions"]:
             for seed in protocol["seeds"]:
                 rows = support(data, seed, condition)
@@ -96,6 +127,7 @@ def audit_strong(data, protocol, protocol_path, e1_protocol_path, roots):
                         audit.require(audit.file_hash(folder / filename) == digest, "Completed bytes changed")
                     cell = json.loads((folder / "CELL.json").read_text(encoding="utf-8"))
                     audit.require((cell["condition"], cell["model"], cell["seed"]) == key, "Cell identity mismatch")
+                    audit.require(cell.get("experiment") == protocol["experiment"] and cell.get("actual_device") == "cpu" and cell.get("versions") == ex["versions"], "Cell experiment/environment mismatch")
                     audit.require(cell["execution_binding"] == binding and cell["comparison_binding"] == comparison and cell["common_binding"] == expected, "Cell provenance mismatch")
                     audit.require(cell["prefit_receipt_sha256"] == audit.file_hash(prefit_path), "Prefit changed")
                     started = json.loads((folder / "STARTED.json").read_text(encoding="utf-8"))
@@ -108,6 +140,7 @@ def audit_strong(data, protocol, protocol_path, e1_protocol_path, roots):
                         audit.require(np.array_equal(z["test_indices"], test) and np.array_equal(z["test_fingerprints"], data["group_sha256"][test]), "Query identity mismatch")
                         audit.require(np.array_equal(z["selected_fit_indices"], rows) and np.array_equal(z["selected_fit_fingerprints"], data["group_sha256"][rows]), "Fit identity mismatch")
                         audit.require(np.array_equal(z["classes"], data["classes"]) and np.array_equal(z["test_y"], data["y"][test]), "Test class/label mismatch")
+                        validate_imputer(z["imputer_statistics"], data["X"][rows])
                         metrics = audit.recompute_metrics(z["test_y"], z["test_probabilities"], data["classes"].tolist())
                     audit.check_reported_metrics(cell["metrics"]["test"], metrics)
                     score = cv_check(cell["inner_cv"], protocol["model_grids"][name])
@@ -118,7 +151,12 @@ def audit_strong(data, protocol, protocol_path, e1_protocol_path, roots):
 
 
 def compare(e1, cells, protocol):
-    foundation = {c["seed"]: c for c in e1["cells"] if c["model"] == "tabicl_v2"}
+    foundation_cells = [c for c in e1["cells"] if c["model"] == "tabicl_v2"]
+    foundation = {c["seed"]: c for c in foundation_cells}
+    audit.require(len(foundation) == len(foundation_cells), "Duplicate foundation seed")
+    audit.require(len({(c["condition"], c["seed"], c["model"]) for c in cells}) == len(cells), "Duplicate tree cell")
+    gate = protocol["same_budget_primary_gate"]
+    audit.require(gate["required_paired_seeds"] == len(protocol["seeds"]), "Gate and protocol seed count differ")
     outputs = {}
     for condition in protocol["conditions"]:
         pairs = []
@@ -128,15 +166,16 @@ def compare(e1, cells, protocol):
                 continue
             selected = max([models["xgboost"], models["lightgbm"]], key=lambda c: c["cv_macro_f1"])
             a, b = foundation[seed]["test_metrics"], selected["metrics"]
+            audit.require(a["classes"] == b["classes"], "Compared class orders differ")
             pairs.append({"seed": seed, "selected_tree": selected["model"], "tabicl_macro_f1": a["macro_f1"],
                           "tree_macro_f1": b["macro_f1"], "delta_macro_f1": a["macro_f1"] - b["macro_f1"],
                           "tabicl_normal_fpr": fpr(a), "tree_normal_fpr": fpr(b),
                           "recall_deltas": {name: a["per_stage"][name]["recall"] - b["per_stage"][name]["recall"] for name in a["classes"]}})
         average = float(np.mean([p["delta_macro_f1"] for p in pairs])) if pairs else None
-        recall = {name: float(np.mean([p["recall_deltas"][name] for p in pairs])) if pairs else None for name in ["InitialCompromise", "DataExfiltration"]}
-        gates = {"mean_macro_f1_gain_at_least_0.02": average is not None and average >= .02,
-                 **{name + "_mean_recall_loss_at_most_0.05": value is not None and value >= -.05 for name, value in recall.items()}}
-        complete = len(pairs) == len(protocol["seeds"])
+        recall = {name: float(np.mean([p["recall_deltas"][name] for p in pairs])) if pairs else None for name in gate["high_risk_classes"]}
+        gates = {"mean_macro_f1_gain_at_least_0.02": average is not None and average >= gate["mean_macro_f1_delta_min"],
+                 **{name + "_mean_recall_loss_at_most_0.05": value is not None and value >= gate["mean_recall_delta_min"] for name, value in recall.items()}}
+        complete = len(pairs) == gate["required_paired_seeds"]
         status = "INCOMPLETE" if not complete else ("PASS" if all(gates.values()) else "FAIL")
         if condition == "abundant_benign_1024":
             status = "DESCRIPTIVE_UNEQUAL_LABEL_BUDGET" if complete else "INCOMPLETE"
