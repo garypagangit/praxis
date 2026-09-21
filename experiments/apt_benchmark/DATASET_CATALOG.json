@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-20",
+  "checked_at": "2026-09-21",
   "scope": "Primary-source shortlist, not an exhaustive inventory of all cybersecurity datasets",
   "datasets": [
     {
@@ -51,13 +51,35 @@
     },
     {
       "name": "DEDALE",
-      "paper": "ESORICS2025 International Workshops, proceedings2026",
+      "paper": "ESORICS2025 International Workshops, proceedings2026; first online May 1, 2026",
       "paper_doi": "10.1007/978-3-032-16092-8_1",
       "artifact": "https://doi.org/10.57745/Y5JLDG",
       "license": "CC-BY-4.0",
-      "status": "metadata and documentation inspected",
-      "role": "possible external long-timeline validation",
-      "limits": "Four weeks, one APT exercise; whole raw collection about3.2TB, smaller log views available"
+      "status": "Sixteen author-labeled CICFlowMeter tables acquired and qualified; fixed day17 external stress complete and independently audited",
+      "role": "Completed limited source-locked benign-versus-lateral flow stress; ordinary controls only because the fixed source candidate was infeasible",
+      "limits": "One APT exercise; only four author-labeled lateral flows from one PrintNightmare execution. The stress set uses 100000 hash-sampled benign groups; no independent protection confirmation or deployment precision claim. Source extractor implementation equivalence remains unverified.",
+      "artifact_version": "2.0, released March 20, 2026",
+      "qualification": "lateral_protection_experiment/dedale/QUALIFICATION.md",
+      "results": "results/lateral_protection_v1/REPORT.md",
+      "acquired_daily_tables": 16,
+      "acquired_raw_flows": 10362133,
+      "raw_label_counts": {
+        "benign": 10362041,
+        "attack": 71,
+        "attack_related": 21
+      },
+      "lateral_flows": 4,
+      "lateral_executions": 1,
+      "stress_rows": 100004,
+      "stress_benign_rows": 100000,
+      "stress_lateral_rows": 4,
+      "predictors": 73,
+      "pcaps_acquired": false,
+      "source_exact_feature_overlap_rows": 0,
+      "download_upper_bound_bytes": 1831346622,
+      "verification_scope": "Selected ZIP members CRC32 and SHA256 checked; full-archive MD5 not claimed for partial archive acquisition.",
+      "limited_stress_evaluation_complete": true,
+      "independent_lateral_confirmation_ready": false
     },
     {
       "name": "CasinoLimit",
@@ -149,11 +171,13 @@
       "paper_doi": "10.1109/LNET.2022.3185553",
       "artifact": "https://ieee-dataport.org/documents/scvic-apt-2021",
       "license": "CC-BY-4.0 according to official DataCite/DataPort record",
-      "status": "Author training CSV qualified; 153919 feature-deduplicated rows and 73 predictors; development fitting performed",
-      "role": "32 labels per class stage comparison and separately scoped injected-label-noise experiment",
-      "limits": "Only author training file available; exact feature deduplication does not establish incident independence; 15 InitialCompromise development-test rows; no temporal or early-warning claim",
+      "status": "Author training CSV qualified; 153919 feature-deduplicated rows and 73 predictors; tabular and 152-cell lateral-protection development studies complete and audited",
+      "role": "Exposed few-label stage, injected-label-noise, benign-label-budget, and lateral-protection development; no independent confirmation",
+      "limits": "Only author training file available; exact feature deduplication does not establish incident independence. Repartitioning earlier calibration does not make data unexposed; verification has 72 lateral flows and original test has 15 InitialCompromise rows. No temporal, early-warning, or actor-attribution claim.",
       "qualification": "tabular_batch/E0_DATASET_GATE.md",
-      "results": "results/tabular_batch_v1/REPORT.md"
+      "results": "results/tabular_batch_v1/REPORT.md",
+      "lateral_protection_results": "results/lateral_protection_v1/REPORT.md",
+      "lateral_protection_primary_status": "INFEASIBLE: 6 of 10 primary fitting seeds feasible"
     },
     {
       "name": "DAPT2020",

@@ -1,8 +1,10 @@
 # Comparing models for malicious behavior, attack stages and earlier warning
 
-**Praxis proposal prepared:** [Reducing false alarms while preserving lateral-movement detection](lateral_protection_praxis/README.md). The eight-page Word proposal uses the completed results below as preliminary evidence and defines the prospective controls and independent confirmation requirements. The proposed protection method has not been tested.
+**Latest completed and audited study:** [reducing false alarms while preserving lateral-movement detection](lateral_protection_experiment/README.md). All 19 groups and 152 final models are complete; the independent source audit passed. The primary screen is **INFEASIBLE: only six of ten seeds produced a feasible selected policy**. Among those six, verification false positives fell from 0.7195% to 0.4800%, but lateral-movement detection fell from 88.19% to 84.49%. These subset means do not establish success across all ten seeds. The DEDALE external stress test evaluated ordinary controls only and exposed a substantial false-alarm/detection tradeoff. No novel validated method is established. [Result package](results/lateral_protection_v1/REPORT.md) Ã‚Â· [empirical paper](lateral_protection_experiment/paper/PRAXIS.md) Ã‚Â· [Word](lateral_protection_experiment/paper/PRAXIS.docx) Ã‚Â· [PDF](lateral_protection_experiment/paper/PRAXIS.pdf).
 
-**Latest completed experiment batch:** [final audited tabular APT results and praxis decision](results/tabular_followup_decision_v1/REPORT.md). All 130 model/seed evaluations and ten rare-stage review-policy pairs are complete. The report separates the original foundation-model comparison, stronger controls, the rare-stage checker, and independent Sandworm binary transfer. It includes the benign-label improvement and its lateral-movement detection cost. These are development findings; a novel method and independent attack-stage validation remain unestablished. [Frozen methods and literature](tabular_followup/README.md).
+This study ran on CPU and passed **40 new implementation and integrity tests**; that count is specific to this study, not a cumulative historical suite count. The original [eight-page proposal and supporting reviews](lateral_protection_praxis/README.md) are preserved as planning history. Its independent-confirmation requirements remain unmet.
+
+**Earlier completed tabular experiment batch:** [final audited tabular APT results and praxis decision](results/tabular_followup_decision_v1/REPORT.md). All 130 model/seed evaluations and ten rare-stage review-policy pairs are complete. The report separates the original foundation-model comparison, stronger controls, the rare-stage checker, and independent Sandworm binary transfer. It includes the benign-label improvement and its lateral-movement detection cost. These are development findings; a novel method and independent attack-stage validation remain unestablished. [Frozen methods and literature](tabular_followup/README.md).
 
 **Previous completed diagnostic:** [combined audit evidence results](results/window_diagnostic_v1/REPORT.md). Across 5,480 fixed CAM-LDS windows and five development families, pooling improves recall at the same review budget from 10.4% to 21.3%, but fails the frozen 40% useful-signal gate and does not beat the simple tool rule. ExtraTrees reaches 19.4%. Fifteen fits and all calculations are independently code-audited; 172 software tests passed for that milestone. **Retire this primary CAM window formulation.** No novel method or fresh confirmation is established.
 
@@ -14,7 +16,7 @@ Research environment created September20,2026. This branch builds a fair way to 
 
 **S-DAPT-2026 added:** [source review and proposed evaluations](sdapt2026/README.md), [machine-readable plan](sdapt2026/EVALUATION_PLAN.json), and an unsent source request are prepared. Its January preprint was withdrawn; a later SSRN posting exists, but correction status, raw artifact and license remain unqualified. It has not been fitted or counted as an evaluation-ready dataset.
 
-**Earlier completed pilot:** [first real-data comparison and stage scores](results/pilot_v1/REPORT.md), four binary models plus a separate 12-label step classifier, and 1,768,861 source lines across eight runs. The current environment has 252 passing implementation and qualification tests. The development runs used CPU. AWS authentication was previously verified; no AWS compute was started for the latest diagnostic. See [full machine-readable dataset catalog](DATASET_CATALOG.json).
+**Earlier completed pilot:** [first real-data comparison and stage scores](results/pilot_v1/REPORT.md), four binary models plus a separate 12-label step classifier, and 1,768,861 source lines across eight runs. That earlier milestone recorded 252 passing implementation and qualification tests. The development runs used CPU. AWS authentication was previously verified; no AWS compute was started for the latest lateral-protection study. See [full machine-readable dataset catalog](DATASET_CATALOG.json).
 
 An [independent calculation audit](docs/PILOT_AUDIT.md) verified the pilot's metrics and provenance. A separate fixed-model check on 48,838 additional author-rule-nonmatch lines flagged 0.860% with logistic regression, 12.267% with random forest and 8.940% with gradient boosting. These are additional covered files from the same two test runs; no thresholds or models were refitted. Unknown-clock lines were excluded, and the rule-nonmatch labels do not establish independently verified benignness. See [supplemental counts and receipts](results/pilot_v1/background_check_v1.json).
 
@@ -35,12 +37,13 @@ APT-inspired emulations support behavior tests. They do not establish attributio
 | CasinoLimit, RAID2025 | Completed technique robustness across execution instances | All114 executions adapted;3,758,674 retained events and8,240 eligible targets. Three target techniques fitted and audited. One challenge, no realistic benign-user baseline. |
 | CAM-LDS, IJIS2026 | Completed event proxy and five-family window diagnostic | 32 runs; padded global labels, no benign-user workload. Pooling helps but fails useful-signal gate; primary window formulation retired. |
 | S-DAPT-2026 | Conditional synthetic alert/campaign stress tests | Candidate plan prepared. January paper withdrawn; later preprint correction status, raw files and license need qualification. No fitting. |
-| SCVIC-APT-2021 | Few-label stage classification and injected-label-noise development | Author training CSV qualified and feature-deduplicated; 73 predictors, six labels. Author test set unavailable; no independent-incident or temporal confirmation. |
+| SCVIC-APT-2021 | Completed few-label, label-noise, and lateral-protection development studies | Author training CSV qualified and feature-deduplicated; 73 predictors, six labels. The lateral-protection primary screen is infeasible in four of ten seeds. Author test set unavailable; no independent-incident or temporal confirmation. |
 | Sandworm APT capture, FGCS2026 | Completed independent binary-transfer challenge | 2,091 deduplicated flows, including 37 attacks; ten fits each for TabICL and source-CV-selected boosted trees. No target fitting or calibration. One capture; no Exfiltration stage or independent rare-stage confirmation. |
+| DEDALE, ESORICS workshop proceedings2026 | Completed external benign-versus-lateral flow stress test | Sixteen author-labeled flow tables qualified; fixed day17 test has 100,000 sampled benign flows and four lateral flows from one execution. Only ordinary controls were eligible. No target fitting or calibration; insufficient independent executions for protection confirmation. |
 | DAPT2020 | Qualified source for possible separately scoped diagnostics | Ten local CSVs audited; only 15 exfiltration rows prevent the proposed all-stage few-shot grid. |
 | DSRL-APT-2023 | Synthetic method screening only | Author CSV acquired and pinned; CTGAN derivative of DAPT2020, not an independent real-data validation set. |
 
-AIT-ADS is another observation view of AIT-LDS, not a fourth independent dataset. Windows-APT2025, CICAPT-IIoT2024, DEDALE and other alternatives are compared in the two source-backed reviews:
+AIT-ADS is another observation view of AIT-LDS, not a fourth independent dataset. [DEDALE's acquired flow qualification](lateral_protection_experiment/dedale/QUALIFICATION.md) supersedes its earlier metadata-only status. Windows-APT2025, CICAPT-IIoT2024 and other alternatives are compared in the two source-backed reviews:
 
 - [Endpoint/APT dataset review](docs/DATASETS_APT_REVIEW.md)
 - [Network/multistage dataset review](docs/DATASETS_NETWORK_REVIEW.md)
@@ -87,9 +90,13 @@ The AIT acquirer uses bounded byte ranges, respects rate limits, verifies select
 
 ## Praxis direction
 
-The [praxis decision memo](docs/PRAXIS_DECISION.md) explains the observed weakness: source-step identification of privilege escalation has 73.958% F1 even though overall binary detection exceeds 99.9% F1.
+The [current praxis decision](docs/PRAXIS_DECISION.md) is to retain the completed lateral-protection study as a negative empirical result, without claiming a validated solution or novel algorithm. Its central problem remains useful: lowering false alarms can hide dangerous attack steps. Independent execution-level confirmation remains unavailable in the tested DEDALE subset.
 
-The [next-experiment decision](docs/NEXT_EXPERIMENT.md) now prioritizes source-label scope and event/context representation: a targeted error review found opposite-labeled events with identical normalized inputs. Qualification and stronger simple inputs precede GPU architecture comparisons.
+### Historical pilot direction
+
+The original pilot found a source-step identification weakness: privilege escalation has 73.958% F1 even though overall binary detection exceeds 99.9% F1. The recommendations below are preserved as history and do not supersede the completed study above.
+
+The earlier [next-experiment decision](docs/NEXT_EXPERIMENT.md) prioritized source-label scope and event/context representation: a targeted error review found opposite-labeled events with identical normalized inputs. Qualification and stronger simple inputs precede GPU architecture comparisons.
 
 **Candidate:** Can a detector preserve earlier attack-stage warnings when a telemetry source arrives late or disappears, without increasing analyst false alerts?
 
