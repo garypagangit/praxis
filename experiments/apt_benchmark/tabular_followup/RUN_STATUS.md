@@ -26,14 +26,14 @@ results, mismatched provenance, private paths, and row-level data. Scientific
 failure is a reportable result; it does not prevent completion.
 
 The current watcher has a **12-hour deadline**, ending September 21 at about
-9:04 p.m. America/New_York. Its temporary Windows request prevents system sleep
+9:09 p.m. America/New_York. Its temporary Windows request prevents system sleep
 only while plugged in; it does not change the power plan or display settings.
 Battery operation, shutdown, a worker failure, or exceeding the deadline can
 leave the work incomplete. The watcher records that state instead of reporting
 success. It never automatically refits, restarts, or kills a model worker.
 
 Private monitoring files are under the existing data workspace's
-`tabular_followup_v1/final_review1`: `STATE.json`, `STARTUP_RECEIPT.json`, and,
+`tabular_followup_v1/final_review2`: `STATE.json`, `STARTUP_RECEIPT.json`, and,
 after successful audits, `RESULT_MANIFEST.json`. `ERROR.json` records an audit
 failure when one occurs. `PUSHED_AND_VERIFIED` confirms the remote result commit.
 If Git publication fails, the local audited artifacts remain available.
@@ -46,9 +46,14 @@ Current AWS machine state cannot be verified without a valid session.
 
 The full benchmark software suite passed **328 tests** on September 21, 2026
 (72.392 seconds). This verifies software checks, not the scientific hypotheses.
-Private test output is retained outside Git. An independent audit additionally
+A subsequent report-only update passed all 14 targeted publication tests,
+including two added tests. Private test output is retained outside Git. An independent audit additionally
 recomputes scientific metrics from saved predictions and verifies artifact hashes.
 
 The [novelty review](NOVELTY_POSITION.md) documents substantial existing work.
 No new algorithm, operational detector, early-warning result, or independent
 rare-stage improvement is established merely by executing this plan.
+
+The initial watcher was interrupted for that presentation-only amendment. Its
+private receipts are preserved; the current watcher uses a fresh startup receipt
+and final directory. Scientific workers, settings, and protocols were unchanged.

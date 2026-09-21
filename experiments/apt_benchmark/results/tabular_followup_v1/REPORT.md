@@ -1,6 +1,6 @@
 # Few-label APT detection: independent transfer and follow-up evaluation
 
-**Interim report: 2026-09-21T13:06:02.429153+00:00. Full comparison and rare-stage decision remain incomplete.**
+**Interim report: 2026-09-21T13:09:43.784271+00:00. Full comparison and rare-stage decision remain incomplete.**
 
 ## What the completed test tells us
 
@@ -11,7 +11,7 @@ This is an interpretation of the completed measurements, not a newly invented
 success criterion. The previously declared source-calibrated threshold diagnostic
 is still pending.
 
-We trained only on SCVIC: 32 labeled examples per class, 192 per seed. We then
+We trained only on SCVIC: 32 labeled examples per class, including NormalTraffic, 192 per seed. We then
 tested the frozen models on a different campaign without target training,
 calibration, or tuning. The [author dataset](https://zenodo.org/records/16911636)
 is associated with a [2026 peer-reviewed paper](https://doi.org/10.1016/j.future.2025.108308).
@@ -53,9 +53,9 @@ Completion counts are a snapshot, not final audited outcomes:
 | Work | Completed cells / required | State |
 |---|---:|---|
 | Original full tree baselines | 30/30 | Previously audited |
-| Original full-query TabICL | 0/10 | CPU worker running |
+| Original full-query TabICL | 1/10 | CPU worker running |
 | Original full-query TabPFN | 0/10 | CPU worker running |
-| Stronger trees, two label budgets | 45/60 | CPU worker running |
+| Stronger trees, two label budgets | 49/60 | CPU worker running |
 | Independent binary transfer | 20/20 | Audited; operationally unfavorable |
 | Rare-stage review policy | 0/10 seed pairs | Waiting for full calibration predictions |
 
@@ -95,7 +95,8 @@ is unsupported.
 
 ## Reproducibility
 
-The complete software suite passed 328 tests in 72.392 seconds. Protocols and
+The complete software suite passed 328 tests in 72.392 seconds. After a final
+reporting update, all 14 targeted publication tests passed, including two new tests. Protocols and
 source are frozen before the relevant outcomes; the independent audit verifies
 input, code, checkpoint, prediction, and completion hashes. The source-only 1%
 threshold diagnostic is predeclared and will use matching source calibration
