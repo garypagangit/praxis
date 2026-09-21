@@ -1,8 +1,16 @@
 # Comparing models for malicious behavior, attack stages and earlier warning
 
-**Latest completed and audited study:** [reducing false alarms while preserving lateral-movement detection](lateral_protection_experiment/README.md). All 19 groups and 152 final models are complete; the independent source audit passed. The primary screen is **INFEASIBLE: only six of ten seeds produced a feasible selected policy**. Among those six, verification false positives fell from 0.7195% to 0.4800%, but lateral-movement detection fell from 88.19% to 84.49%. These subset means do not establish success across all ten seeds. The DEDALE external stress test evaluated ordinary controls only and exposed a substantial false-alarm/detection tradeoff. No novel validated method is established. [Result package](results/lateral_protection_v1/REPORT.md) Ã‚Â· [empirical paper](lateral_protection_experiment/paper/PRAXIS.md) Ã‚Â· [Word](lateral_protection_experiment/paper/PRAXIS.docx) Ã‚Â· [PDF](lateral_protection_experiment/paper/PRAXIS.pdf).
+**Current recommended paper: [Improving APT Alert Efficiency: Measured Gains and Lateral-Movement Tradeoffs](lateral_protection_experiment/paper/FINDINGS_PRAXIS.md).** The completed studies show positive improvements with measurable detection costs:
 
-This study ran on CPU and passed **40 new implementation and integrity tests**; that count is specific to this study, not a cumulative historical suite count. The original [eight-page proposal and supporting reviews](lateral_protection_praxis/README.md) are preserved as planning history. Its independent-confirmation requirements remain unmet.
+- In the earlier benign-label comparison, adding 992 normal fitting examples while retaining the same 160 attack examples reduced false positives by **96.02%** and raised macro-F1 from **0.4421 to 0.6543**; lateral-flow detection fell from **94.24% to 83.06%**.
+- In the new experiment, the candidate produced **33.3% fewer false positives** and raised attack F1 from **0.8770 to 0.9044**, compared with the reference on the **same six feasible seeds**; lateral detection fell from **88.19% to 84.49%**.
+- An exploratory comparison on those six seeds found **25.9% fewer false positives** and **0.46 percentage points higher mean lateral recall** for the lateral-sensitive reference than for the ordinary source-normal threshold. Only **two of six seeds improved both measures**, and some other stages declined; this is not universal superiority.
+
+All 19 groups and 152 final models in the new experiment completed, with independent calculation audits passing. The **original all-ten-seed screen remains INFEASIBLE**: six selections were feasible and four were not. The findings-led revision adds posthoc interpretation and descriptive comparisons; it changes no fits, thresholds, data, or protocol. SCVIC remains development evidence, and the DEDALE stress tested ordinary controls on one lateral execution. No novel validated algorithm or deployment benefit is established.
+
+[Current Word paper](lateral_protection_experiment/paper/FINDINGS_PRAXIS.docx) | [current PDF](lateral_protection_experiment/paper/FINDINGS_PRAXIS.pdf) | [actual improvements and costs](lateral_protection_experiment/paper/FINDINGS_ACTUALS.md) | [literature gap](lateral_protection_experiment/paper/FINDINGS_LITERATURE_GAP.md) | [original audited result package](results/lateral_protection_v1/REPORT.md). The [prior screen-oriented manuscript](lateral_protection_experiment/paper/PRAXIS.md) and [original eight-page proposal](lateral_protection_praxis/README.md) remain preserved.
+
+This study ran on CPU and passed **40 new implementation and integrity tests**; that count is specific to this study, not a cumulative historical suite count. Its independent-confirmation requirements remain unmet.
 
 **Earlier completed tabular experiment batch:** [final audited tabular APT results and praxis decision](results/tabular_followup_decision_v1/REPORT.md). All 130 model/seed evaluations and ten rare-stage review-policy pairs are complete. The report separates the original foundation-model comparison, stronger controls, the rare-stage checker, and independent Sandworm binary transfer. It includes the benign-label improvement and its lateral-movement detection cost. These are development findings; a novel method and independent attack-stage validation remain unestablished. [Frozen methods and literature](tabular_followup/README.md).
 
@@ -90,7 +98,7 @@ The AIT acquirer uses bounded byte ranges, respects rate limits, verifies select
 
 ## Praxis direction
 
-The [current praxis decision](docs/PRAXIS_DECISION.md) is to retain the completed lateral-protection study as a negative empirical result, without claiming a validated solution or novel algorithm. Its central problem remains useful: lowering false alarms can hide dangerous attack steps. Independent execution-level confirmation remains unavailable in the tested DEDALE subset.
+The [current praxis decision](docs/PRAXIS_DECISION.md) emphasizes measured false-alarm and classification improvements together with their lateral-detection costs. The empirical contribution is a controlled comparison of these choices; the original joint screen remains unchanged. Independent execution-level confirmation remains unavailable in the tested DEDALE subset.
 
 ### Historical pilot direction
 

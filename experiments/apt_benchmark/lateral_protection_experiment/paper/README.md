@@ -1,19 +1,30 @@
-# Completed empirical praxis
+# Findings-led empirical praxis
 
-**Reducing False Alarms While Preserving Lateral-Movement Detection**
+## Current recommended manuscript
 
-A negative feasibility study of training emphasis and alert selection with scarce attack fitting labels.
+**Improving APT Alert Efficiency: Measured Gains and Lateral-Movement Tradeoffs**
 
-- [Read the complete manuscript](PRAXIS.md)
-- [Download the Word document](PRAXIS.docx)
-- [Download the PDF](PRAXIS.pdf)
-- [Audited numerical results](../../results/lateral_protection_v1/REPORT.md)
-- [Frozen experiment and reproduction instructions](../README.md)
+An empirical praxis on benign training coverage, alert policies, and attack-stage visibility.
 
-The completed experiment fitted 152 final models across 19 groups. Its primary requirement was **INFEASIBLE**: four of ten primary fitting seeds had no qualifying policy. Even among the six feasible seeds, 33.3% fewer false alarms accompanied a decline in lateral-flow detection from 88.2% to 84.5%. This did not satisfy the declared protection criteria.
+- [Read the findings-led manuscript](FINDINGS_PRAXIS.md)
+- [Current Word document](FINDINGS_PRAXIS.docx)
+- [Current PDF](FINDINGS_PRAXIS.pdf)
+- [Actual improvements, matched counts, and tradeoffs](FINDINGS_ACTUALS.md)
+- [Literature gap and prior-art boundaries](FINDINGS_LITERATURE_GAP.md)
+- [Unchanged audited numerical results](../../results/lateral_protection_v1/REPORT.md)
+- [Frozen design and reproduction instructions](../README.md)
 
-The DEDALE stress test evaluated ordinary controls only because its fixed source seed had no qualifying candidate. Its four lateral flows represented one execution. No successful novel method or independent protection guarantee is claimed.
+The earlier benign-label experiment reduced false positives by **96.02%** and raised macro-F1 from **0.4421 to 0.6543**, with lateral detection falling from **94.24% to 83.06%**. In the current experiment, the candidate achieved **33.3% fewer false positives** and attack F1 **0.8770 to 0.9044** on the same six feasible supports; lateral detection fell from **88.19% to 84.49%**.
 
-The manuscript includes five chapters, 14 references, three figures, complete stage tables, label accounting, provenance, limitations, and a prospective follow-up design. `DRAFT_EMPIRICAL_PRAXIS.md` is the earlier source draft; `PRAXIS.md` is the completed manuscript. Software validation, scientific audit, manuscript review, and document rendering are separate checks.
+An exploratory comparison on those six supports found **25.9% fewer false positives** and **0.46 percentage points higher mean lateral recall** for the lateral-sensitive reference than the ordinary source-normal threshold. Both measures improved in only **two of six supports**, and some other stages declined. This is a small aggregate improvement, not superiority across all seeds or stages.
 
-`MANUSCRIPT_REVIEW.json` records the numerical and editorial review. `DOCUMENT_RECEIPT.json` records the delivered document hashes and visual review. The Word/PDF evidence hyperlinks are pinned to the published manuscript source revision.
+The revised emphasis and additional descriptive comparisons were developed after completion. No fits, thresholds, source data, protocol, or original decision changed. All 152 final models and 19 groups completed; the original all-ten screen remains **INFEASIBLE**, with six feasible selections and four unavailable policies. DEDALE tested ordinary controls only on four lateral flows from one execution. The contribution is empirical evidence about useful improvements and their costs, not a novel validated algorithm or demonstrated deployment utility.
+
+## Preserved earlier manuscripts and receipts
+
+- [Prior screen-oriented manuscript](PRAXIS.md), [Word](PRAXIS.docx), [PDF](PRAXIS.pdf)
+- [Prior manuscript review](MANUSCRIPT_REVIEW.json)
+- [Prior document receipt](DOCUMENT_RECEIPT.json)
+- [Earlier source draft](DRAFT_EMPIRICAL_PRAXIS.md)
+
+The earlier manuscript and its document receipt remain intact. They describe the original screen-oriented presentation; they are not the receipt or page count for the findings-led revision. Software validation, scientific audit, numerical synthesis, and document rendering are separate checks.

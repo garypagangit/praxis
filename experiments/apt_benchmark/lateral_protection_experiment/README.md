@@ -1,12 +1,20 @@
-# Lateral-movement protection: completed development experiment
+# False-alarm reduction and lateral detection: completed development findings
 
-Research question: Can lower false-alarm operating points preserve lateral-movement detection?
+**Current recommended paper:** [Improving APT Alert Efficiency: Measured Gains and Lateral-Movement Tradeoffs](paper/FINDINGS_PRAXIS.md), [Word](paper/FINDINGS_PRAXIS.docx), [PDF](paper/FINDINGS_PRAXIS.pdf). The revised paper leads with actual improvements and their detection costs; its posthoc synthesis leaves the frozen experiment unchanged.
 
-**Complete and independently audited, September 21, 2026.** All 19 groups and 152 final models completed. The primary screen is **INFEASIBLE: six of ten seeds had a feasible selected policy; four did not**. The source audit passed for all 152 cells. This prospectively specified **development** experiment used a source dataset whose earlier outcomes were already known; it establishes neither independent confirmation nor algorithmic novelty.
+## Measured benefits and companion costs
 
-[Results and evidence receipts](../results/lateral_protection_v1/REPORT.md) · [empirical paper](paper/PRAXIS.md) · [Word](paper/PRAXIS.docx) · [PDF](paper/PRAXIS.pdf) · [preserved planning proposal](../lateral_protection_praxis/README.md).
+| Comparison | Positive finding | Companion cost and scope |
+|---|---|---|
+| Earlier expansion from 32 to 1,024 normal fitting labels, with the same 160 attack labels | 96.02% fewer false positives; macro-F1 0.4421 to 0.6543 | Lateral detection 94.24% to 83.06%; ten fits from the earlier benign-label experiment |
+| Current candidate versus reference, same six feasible primary seeds | 33.3% fewer false positives; attack F1 0.8770 to 0.9044 | Lateral detection 88.19% to 84.49%; four other primary seeds have no candidate |
+| Current reference versus ordinary source-normal 1% threshold, same six seeds | 25.9% fewer false positives; lateral recall 87.73% to 88.19% (+0.46pp) | Exploratory aggregate comparison; only two of six seeds improve both measures and some other stages decline |
 
-## Completed results
+[Actual improvements and paired counts](paper/FINDINGS_ACTUALS.md) | [literature gap](paper/FINDINGS_LITERATURE_GAP.md) | [audited result package](../results/lateral_protection_v1/REPORT.md). The [prior screen-oriented manuscript](paper/PRAXIS.md), [Word](paper/PRAXIS.docx), [PDF](paper/PRAXIS.pdf), and [planning proposal](../lateral_protection_praxis/README.md) remain available as history.
+
+## Original screen, unchanged
+
+All **19 groups and 152 final models** completed and the independent source consistency audit passed. The original all-ten-seed primary screen remains **INFEASIBLE**. The positive findings do not replace this criterion or establish a new confirmed hypothesis.
 
 | Benign fitting labels, with 160 attack labels | Feasible seeds | Frozen descriptive screen |
 |---|---:|---|
@@ -15,9 +23,9 @@ Research question: Can lower false-alarm operating points preserve lateral-movem
 | 128: secondary | 1/3 | INFEASIBLE |
 | 512: secondary | 1/3 | INFEASIBLE |
 
-Among the **same six feasible primary seeds**, mean verification false-positive rate decreased from **0.7195% to 0.4800%**, but lateral-flow detection decreased from **88.19% to 84.49%**. That loss exceeds three percentage points and detection remains below 90%. These descriptive subset means cannot rescue the primary requirement that all ten seeds be feasible. Comparisons with ordinary controls must use the matching feasible subset; an ordinary-control mean over all ten seeds has a different denominator.
+The same-six candidate/reference means are verification FPR **0.7195% to 0.4800%** and lateral recall **88.19% to 84.49%**. The recall cost exceeds three percentage points and candidate recall is below the study's 90% requirement. Candidate comparisons with ordinary controls must use the same six seeds, not all-ten ordinary-control means. The 90%/1% and other screen values were investigator-chosen requirements, not industry standards.
 
-Lateral detection means flagging an author-labeled lateral flow as **any attack**. It does not measure exact stage naming, actor attribution, or early warning. Each verification run uses the same 14,965 benign and 72 lateral feature groups; fitting seeds are repeated models, not independent incidents. Forty new implementation and integrity tests passed for this study; this is not a cumulative historical test count.
+Lateral detection counts any attack flag on an author-labeled lateral flow. It does not measure exact stage naming, actor attribution, or early warning. Each verification run uses the same 14,965 benign and 72 lateral feature groups; fitting seeds are repeated models, not independent incidents. SCVIC remains exposed development data. Forty new implementation and integrity tests passed for this CPU study; this is not a cumulative historical test count. No novel validated algorithm or deployment benefit is established.
 
 ## Fixed design
 
