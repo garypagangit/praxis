@@ -1,125 +1,86 @@
-# Few-label APT detection: independent transfer and follow-up evaluation
+# Reliable APT recognition with limited labeled data: followup results
 
-**Interim report: 2026-09-21T14:48:51.092149+00:00. Full comparison and rare-stage decision remain incomplete.**
+**Execution complete:** 50 original model/seed cells, 60 stronger-tree cells, and ten rare-stage review comparisons were audited. The original TabICL development gate is **PASS**; the stronger equal-label comparison is **PASS**; the rare-stage review policy is **DEVELOPMENT_NEGATIVE**.
 
-## What the completed test tells us
+These are development findings on the same feature-deduplicated SCVIC author-training split. Completion and arithmetic verification do not establish a novel method, independent attack-campaign generalization, or reliable deployment.
 
-The independent Sandworm transfer test does **not support a useful detector** at
-the prespecified argmax operating rule. TabICL improved binary macro-F1 over the
-selected tree, but it detected fewer attacks and produced many false alarms.
-This is an interpretation of the completed measurements, not a newly invented
-success criterion. The previously declared source-calibrated threshold diagnostic
-is still pending.
+## Full original comparison
 
-We trained only on SCVIC: 32 labeled examples per class, including NormalTraffic, 192 per seed. We then
-tested the frozen models on a different campaign without target training,
-calibration, or tuning. The [author dataset](https://zenodo.org/records/16911636)
-is associated with a [2026 peer-reviewed paper](https://doi.org/10.1016/j.future.2025.108308).
-The evaluation contains 2,091 unique flows: 37 attack and 2,054 normal.
+Unlike the earlier weighted prescreen, these models were evaluated on every one of the 30,787 development-test flows. Each used the same 32 fitting labels per class (192 total) across ten matched fitting seeds. Seeds reuse the same test flows and are not independent incidents.
 
-Means across ten source-training seeds, reusing the same target flows:
+| Model | Mean full-test macro-F1 |
+|---|---:|
+| lightgbm | 44.96% |
+| random_forest | 43.78% |
+| tabicl_v2 | 54.44% |
+| tabpfn_2_5_synthetic | 54.08% |
+| xgboost | 43.59% |
 
-| Metric | TabICL | Training-CV-selected tree |
-|---|---:|---:|
-| Attack recall: attacks detected | 44.32% | 76.22% |
-| Normal false-positive rate | 28.21% | 40.97% |
-| Attack precision: alerts that are attacks | 2.65% | 3.47% |
-| Attack F1 | 0.0491 | 0.0661 |
-| Binary macro-F1 | 0.4342 | 0.4000 |
-| ROC-AUC | 0.7089 | 0.7473 |
-| Average precision | 0.0380 | 0.1054 |
+Macro-F1 gives all six classes equal weight; it is not accuracy. Boosted-tree hyperparameters and comparator families were selected using fitting-only cross-validation, never test outcomes. The foundation candidates were fixed in advance.
 
-TabICL detected an average **16.4 of 37 attack flows**
-and produced **579.4 false alarms among 2,054 normal flows**.
-The tree detected 28.2 attacks with
-841.5 false alarms. TabICL's macro-F1 gain is
-+3.42 percentage points, while its attack
-recall is 31.89
-percentage points lower. This relative score gain is not operational success.
+The original paired TabICL macro-F1 difference is +10.08 percentage points. Full uncertainty-set E4 result: **FAIL**. [Full E1/E4 evidence](E1_ANALYSIS.json).
 
-Calling every flow normal would yield 98.23% accuracy and 0.4955 macro-F1 while
-detecting zero attacks. This arithmetic reference was added for interpretation
-after partial results; it is not a fitted comparison arm or a new success gate.
-It illustrates why accuracy and macro-F1 cannot be the whole decision.
+## Stronger controls and additional normal examples
 
-All 20 model/seed cells passed an independent provenance and metric audit.
-See [the audited aggregate evidence](TRANSFER_SUMMARY.json). Audit PASS means the
-records and calculations checked out; it does not mean the scientific hypothesis passed.
+The new tree search used 12 XGBoost, 12 LightGBM, and six Random Forest settings in training-only three-fold cross-validation. No extra validation labels were used.
 
-## Completed stronger controls: a positive result with a tradeoff
+| Fitting condition | Tree family | Mean full-test macro-F1 | Normal false-alarm rate |
+|---|---|---:|---:|
+| abundant_benign_1024 | lightgbm | 64.87% | 0.44% |
+| abundant_benign_1024 | random_forest | 64.33% | 0.36% |
+| abundant_benign_1024 | xgboost | 67.05% | 0.31% |
+| equal_32_per_class | lightgbm | 45.02% | 9.14% |
+| equal_32_per_class | random_forest | 43.97% | 10.87% |
+| equal_32_per_class | xgboost | 43.43% | 10.89% |
 
-All 60 stronger tree runs have now passed independent metric and provenance checks.
-Adding 992 normal-traffic training examples, with the same attack examples, changed
-the training-CV-selected tree's macro-F1 from **0.4421 to 0.6543** and its benign
-false-alarm rate from **10.04% to 0.40%**. Initial-stage recall remained 93.33%;
-exfiltration-stage recall changed from 71.60% to 72.83%.
+At the same 192-label budget, TabICL's mean difference versus the wider-CV-selected boosted tree was +10.24 percentage points. Both rare-stage recall guards remain part of the decision.
 
-The tradeoff is reduced attack detection: pooled detection of any attack fell from
-98.40% to 95.70%, and detection of lateral activity as any attack fell from 94.24%
-to 83.06%. Both label cost and missed attacks matter. This is a descriptive
-192-versus-1,184-label comparison on one development split, not a novel method,
-equal-budget foundation-model win, or independent replication.
+The abundant-normal condition used 1,024 normal labels and the same 160 attack labels, totaling 1,184. Its comparison with a 192-label foundation model is an explicitly unequal-budget deployment challenge, not a fair model-family ranking. [All controls and paired comparisons](COMPARISONS.json).
 
-[Full stronger-control report and evidence](../strong_benign_controls_v1/REPORT.md).
-The abundant-benign models were not part of the earlier Sandworm transfer test.
+## Rare-stage review experiment
 
-## What is still running
+The fixed policy allocated a nominal 0.5% benign tail to a general attack score and 0.5% to a rare-stage rescue score combining TabICL and the original training-CV-selected tree. Both thresholds used source benign calibration examples only. The policy had to beat both fixed single-model controls, protect every attack stage, and remain at or below 1.5% observed normal-traffic routing in every seed.
 
-Completion counts are a snapshot, not final audited outcomes:
+Decision: **DEVELOPMENT_NEGATIVE**. Mean changes in minimum initial-compromise/exfiltration routing recall: single_tabicl: -0.09 percentage points; single_tree: +15.13 percentage points.
 
-| Work | Completed cells / required | State |
-|---|---:|---|
-| Original full tree baselines | 30/30 | Previously audited |
-| Original full-query TabICL | 4/10 | CPU worker running |
-| Original full-query TabPFN | 4/10 | CPU worker running |
-| Stronger trees, two label budgets | 60/60 | Independently audited; foundation comparison pending |
-| Independent binary transfer | 20/20 | Audited; operationally unfavorable |
-| Rare-stage review policy | 0/10 seed pairs | Waiting for full calibration predictions |
+Sending a flow to review is not correct stage identification or successful human correction. No human review was performed. The proposed rule needs 29,929 known-normal calibration examples beyond the 192 fitting labels; the conformal controls use all 30,782 calibration labels. At nominal 95% class-conditional coverage, the 14 initial-compromise calibration cases force that stage into every set, making this policy's review mapping route every flow.
 
-The frozen review policy asks whether combining the two models catches more of
-the harder InitialCompromise/DataExfiltration stage without exceeding the review
-budget. It must beat both single-model controls, protect the other stages, and
-meet the specified per-seed false-alarm limit. It uses 29,929 additional benign
-calibration labels, so it is not a 192-total-label system.
+[Policy results](GATE_AGGREGATE.json) and [independent calculation audit](GATE_AUDIT.json).
 
-The [completion watcher](../../tabular_followup/RUN_STATUS.md) is running. It will
-audit the remaining results and publish a final report if all required workers
-finish successfully before its 12-hour deadline. It preserves explicit incomplete
-or error states otherwise. No AWS resources were started; authentication is expired.
+## Independent evidence and praxis decision
 
-## Praxis decision and limits
+### External Sandworm transfer: primary decision rule
 
-**No novel, independently validated improvement is established yet.** The
-earlier sampled development result justified this test, but the new independent
-result does not confirm useful transfer. The source rare-stage experiment remains
-unresolved. A positive development gate alone would still need independent
-stage-labeled incidents.
+The independent target contains 2,091 unique flows: 2,054 normal and 37 attacks. Its attack labels describe procedures, with no exfiltration class. This binary transfer check cannot validate six-stage recognition or the rare-stage protection claim.
 
-This is one independent campaign with only 37 attack flows. Ten training seeds
-are not ten independent incidents. Sandworm's procedure labels differ from SCVIC's
-stage labels and contain no exfiltration category. Matching feature names do not
-prove identical extractor settings. The test measures binary transfer; it does
-not establish early detection, missing-log resilience, or stage identification.
-Raw-flow reweighting leads to the same practical conclusion and is documented
-in the aggregate evidence; it does not rerun inference on a differently composed batch.
+The primary decision is fixed: flag a flow when the source-trained classifier's highest-probability class is not NormalTraffic. The table reports arithmetic means across ten source-fitting seeds on the same target capture; these are not ten independent attack incidents.
 
-The [literature review](../../tabular_followup/NOVELTY_POSITION.md) documents
-direct prior work on tabular foundation models, trees, conformal uncertainty,
-few-shot transfer, and rescue paths, including
-[Lawall's 2026 author presentation](https://www.dtrsociety.org/wp-content/uploads/library/porto2026/keynotes/CYBERSEC2026_02_002.pdf).
-The exact constrained evaluation remains worth finishing; a first-method claim
-is unsupported.
+| Model | Attack recall | Normal false-alarm rate | Attack precision | Attack F1 | Binary macro-F1 | ROC-AUC | Average precision |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| TabICL | 44.32% | 28.21% | 2.65% | 4.91% | 43.42% | 0.7089 | 0.0380 |
+| Source-CV-selected tree | 76.22% | 40.97% | 3.47% | 6.61% | 40.00% | 0.7473 | 0.1054 |
 
-## Reproducibility
+Attack recall measures how many attacks are caught; precision measures how many flagged flows are attacks. The normal false-alarm rate reports the cost to benign traffic. ROC-AUC and average precision describe ranking quality and do not replace these operating-point measurements.
 
-The complete software suite passed 328 tests in 72.392 seconds. After a final
-reporting update, all 14 targeted publication tests passed, including two new tests. Protocols and
-source are frozen before the relevant outcomes; the independent audit verifies
-input, code, checkpoint, prediction, and completion hashes. The source-only 1%
-threshold diagnostic is predeclared and will use matching source calibration
-predictions, without changing target labels or refitting on the target.
+For context, predicting normal for every flow detects no attacks yet reaches 49.55% binary macro-F1. The constant-score average-precision reference is 0.0177. This is an arithmetic reference, not another fitted model or success gate.
 
-Only code, documentation, and aggregate evidence are published. Raw/derived
-flow records, model checkpoints, and credentials remain outside Git. Dataset
-rights ambiguity and feature/label limits are recorded in the
-[qualification](../../tabular_followup/HOLDOUT_QUALIFICATION.md).
+**At the primary argmax operating point, this transfer result does not establish a useful deployable detector.** A relative gain over a weak comparator does not resolve missed attacks, false alarms, or analyst workload; the absolute values above must support any practical claim. One small capture cannot establish broad deployment reliability.
+
+### External Sandworm transfer: separate source-threshold diagnostic
+
+Diagnostic status: **COMPLETE_AUDITED**.
+
+This predeclared secondary operating point uses 29,929 labeled source-normal calibration examples per model and seed. It flags target scores strictly above the source-calibrated threshold for a nominal 1% benign tail. No target labels select that threshold. The table is separate from the primary argmax results above; a 1% source target does not guarantee 1% false alarms on Sandworm.
+
+| Model | Attack recall | Normal false-alarm rate | Attack precision | Attack F1 | Binary macro-F1 | ROC-AUC | Average precision |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| TabICL | 3.78% | 2.20% | 1.14% | 1.67% | 49.84% | 0.7089 | 0.0380 |
+| Source-CV-selected tree | 14.32% | 4.41% | 5.44% | 7.66% | 52.32% | 0.7473 | 0.1054 |
+
+Changing this threshold changes detection and false alarms; it does not change the underlying ranking scores, so ROC-AUC and average precision can remain identical to the primary table. Judge this diagnostic's practical value from its own recall, precision, and false-alarm rate.
+
+The [audited external evidence](TRANSFER_SUMMARY.json) retains every seed, procedure-level detected/missed count, and raw-flow multiplicity sensitivity. The raw view reweights the same unique-query predictions; it is not a separate inference run.
+
+Direct prior work already covers these combinations, including tree-to-foundation rescue, few-label adaptation, cross-dataset transfer, and conformal prediction. This review policy is a development adaptation tested under rare-stage and false-alert constraints; there is no first-method claim. A defensible praxis contribution still requires a specific positive benefit and independent evidence with the relevant attack-stage labels. See the [novelty review and publication-status distinctions](../../tabular_followup/NOVELTY_POSITION.md) and [method boundaries](../../tabular_followup/RARE_STAGE_DESIGN.md).
+
+Remaining limits: only 15 initial-compromise and 106 exfiltration development-test examples; correlated flows and fitting seeds; fixed dataset label interpretation; no analyst workload study; no missing-log, early-warning, actor-attribution, or unknown-stage guarantee. All outcomes, including failed gates, are retained.

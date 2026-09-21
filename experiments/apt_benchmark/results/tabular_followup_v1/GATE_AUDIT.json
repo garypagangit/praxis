@@ -1,0 +1,342 @@
+{
+  "artifact_hashes": {
+    "AGGREGATE.json": "89da5dbf5a2bd6d17e85cc0d3fef073f15e8304a2ab73d212c6d33ba35176524",
+    "COMPLETE.json": "bf52954f7a00eb6d7417891eabc98da7e5f54ccc51eec4dcccf60b0b40d5d493",
+    "PREFIT_RECEIPT.json": "08d957ee5c6fb160a720557197d8f3d6a59e05310b75f231ada913f242bc54a1",
+    "ROUTING_PRIVATE.npz": "5f7a786e73e0ba57f31a535bcc28949db4c2c368df1ab7edec18e8e59900a4ff",
+    "SOURCE_ANALYSIS.json": "d4e81bcb0e53f9b072e1b608f787bd64db80e575d53b26b85433653391fc7cca"
+  },
+  "audit_source_sha256": "25820409e5a241ce863a70221ea63e71d701fdc4ca00440bfb387dd7af917843",
+  "audit_status": "PASS",
+  "audited_pair_count": 10,
+  "checks": [
+    "Frozen protocol, code, input, source-cell and output hashes",
+    "Full E1 source audit and fit-CV comparator",
+    "Independent sorted finite-sample thresholds and strict tie handling",
+    "Every saved candidate/control routing flag, FPR, workload and stage count",
+    "Class-conditional LAC mappings",
+    "Both-control, all-stage, each-seed FPR and completeness arithmetic"
+  ],
+  "experiment": "RARE_STAGE_REVIEW_GATE",
+  "limitations": [
+    "No model fitting, inference or human review was replayed.",
+    "PASS verifies saved evidence; routing is not correct stage identification or successful human adjudication.",
+    "No novelty, independence, deployment coverage, false-alarm or missed-attack guarantee is established."
+  ],
+  "primary": {
+    "guards": {
+      "every_attack_stage_mean_loss_at_most_0_05_against_both_controls": true,
+      "every_seed_benign_fpr_within_0_015": true,
+      "minimum_rare_gain_against_both_controls": false
+    },
+    "interpretation": "Prospective development follow-up after prior E1/CPU-prescreen outcomes; empirical routing utility only, no new algorithm, independent confirmation, stage-classification, temporal-generalization or conformal deployment guarantee.",
+    "mean_attack_stage_recall_deltas": {
+      "single_tabicl": {
+        "DataExfiltration": -0.0009433962264150941,
+        "InitialCompromise": 0.0,
+        "LateralMovement": -0.04444444444444444,
+        "Pivoting": -0.009647058823529408,
+        "Reconnaissance": -0.013095238095238104
+      },
+      "single_tree": {
+        "DataExfiltration": 0.12264150943396226,
+        "InitialCompromise": 0.11333333333333333,
+        "LateralMovement": 0.11319444444444446,
+        "Pivoting": 0.12329411764705882,
+        "Reconnaissance": 0.19464285714285717
+      }
+    },
+    "mean_minimum_rare_recall_deltas": {
+      "single_tabicl": -0.0009433962264150941,
+      "single_tree": 0.15132075471698112
+    },
+    "paired_comparisons": [
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": -0.009433962264150941,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.10416666666666663,
+          "Pivoting": -0.02117647058823524,
+          "Reconnaissance": -0.04166666666666663
+        },
+        "candidate_minimum_rare_routing_recall": 0.9905660377358491,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": -0.009433962264150941,
+        "seed": 20260921
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.02777777777777779,
+          "Pivoting": -0.009411764705882342,
+          "Reconnaissance": -0.005952380952381042
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260922
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.11111111111111105,
+          "Pivoting": -0.04705882352941182,
+          "Reconnaissance": -0.029761904761904767
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260923
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": 0.0,
+          "Pivoting": 0.007058823529411784,
+          "Reconnaissance": -0.005952380952380931
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260924
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.02777777777777779,
+          "Pivoting": -0.016470588235294126,
+          "Reconnaissance": -0.023809523809523725
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260925
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.02083333333333337,
+          "Pivoting": 0.0,
+          "Reconnaissance": 0.0
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260926
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.06944444444444442,
+          "Pivoting": 0.004705882352941226,
+          "Reconnaissance": 0.0
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260927
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.02083333333333337,
+          "Pivoting": -0.004705882352941226,
+          "Reconnaissance": 0.0
+        },
+        "candidate_minimum_rare_routing_recall": 0.9333333333333333,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 0.9333333333333333,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260928
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.02777777777777779,
+          "Pivoting": -0.009411764705882342,
+          "Reconnaissance": -0.011904761904761973
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260929
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.0,
+          "LateralMovement": -0.03472222222222221,
+          "Pivoting": 0.0,
+          "Reconnaissance": -0.011904761904761973
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tabicl",
+        "control_minimum_rare_routing_recall": 1.0,
+        "minimum_rare_routing_recall_delta": 0.0,
+        "seed": 20260930
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.2547169811320755,
+          "InitialCompromise": 0.19999999999999996,
+          "LateralMovement": 0.13194444444444453,
+          "Pivoting": 0.15764705882352936,
+          "Reconnaissance": 0.261904761904762
+        },
+        "candidate_minimum_rare_routing_recall": 0.9905660377358491,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.7358490566037735,
+        "minimum_rare_routing_recall_delta": 0.2547169811320755,
+        "seed": 20260921
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.0,
+          "InitialCompromise": 0.06666666666666665,
+          "LateralMovement": 0.0,
+          "Pivoting": 0.04941176470588238,
+          "Reconnaissance": 0.04166666666666663
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.9333333333333333,
+        "minimum_rare_routing_recall_delta": 0.06666666666666665,
+        "seed": 20260922
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.037735849056603765,
+          "InitialCompromise": 0.06666666666666665,
+          "LateralMovement": 0.11111111111111116,
+          "Pivoting": -0.0023529411764706687,
+          "Reconnaissance": 0.06547619047619047
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.9333333333333333,
+        "minimum_rare_routing_recall_delta": 0.06666666666666665,
+        "seed": 20260923
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.18867924528301883,
+          "InitialCompromise": 0.06666666666666665,
+          "LateralMovement": 0.2777777777777778,
+          "Pivoting": 0.18117647058823538,
+          "Reconnaissance": 0.16666666666666663
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.8113207547169812,
+        "minimum_rare_routing_recall_delta": 0.18867924528301883,
+        "seed": 20260924
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.14150943396226412,
+          "InitialCompromise": 0.1333333333333333,
+          "LateralMovement": 0.09027777777777779,
+          "Pivoting": 0.268235294117647,
+          "Reconnaissance": 0.3035714285714286
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.8584905660377359,
+        "minimum_rare_routing_recall_delta": 0.14150943396226412,
+        "seed": 20260925
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.037735849056603765,
+          "InitialCompromise": 0.0,
+          "LateralMovement": 0.09027777777777779,
+          "Pivoting": 0.04235294117647059,
+          "Reconnaissance": 0.26190476190476186
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.9622641509433962,
+        "minimum_rare_routing_recall_delta": 0.037735849056603765,
+        "seed": 20260926
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.05660377358490565,
+          "InitialCompromise": 0.19999999999999996,
+          "LateralMovement": 0.11805555555555558,
+          "Pivoting": 0.021176470588235352,
+          "Reconnaissance": 0.23809523809523814
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.8,
+        "minimum_rare_routing_recall_delta": 0.19999999999999996,
+        "seed": 20260927
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.4716981132075472,
+          "InitialCompromise": 0.2666666666666667,
+          "LateralMovement": 0.29166666666666663,
+          "Pivoting": 0.5152941176470588,
+          "Reconnaissance": 0.4464285714285714
+        },
+        "candidate_minimum_rare_routing_recall": 0.9333333333333333,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.5283018867924528,
+        "minimum_rare_routing_recall_delta": 0.4050314465408805,
+        "seed": 20260928
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.018867924528301883,
+          "InitialCompromise": 0.1333333333333333,
+          "LateralMovement": 0.0,
+          "Pivoting": -0.02352941176470591,
+          "Reconnaissance": 0.13095238095238093
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.8666666666666667,
+        "minimum_rare_routing_recall_delta": 0.1333333333333333,
+        "seed": 20260929
+      },
+      {
+        "attack_stage_recall_deltas": {
+          "DataExfiltration": 0.018867924528301883,
+          "InitialCompromise": 0.0,
+          "LateralMovement": 0.02083333333333337,
+          "Pivoting": 0.02352941176470591,
+          "Reconnaissance": 0.029761904761904767
+        },
+        "candidate_minimum_rare_routing_recall": 1.0,
+        "control": "single_tree",
+        "control_minimum_rare_routing_recall": 0.9811320754716981,
+        "minimum_rare_routing_recall_delta": 0.018867924528301883,
+        "seed": 20260930
+      }
+    ],
+    "paired_seed_count": 10,
+    "required_paired_seeds": 10,
+    "status": "DEVELOPMENT_NEGATIVE"
+  },
+  "protocol_sha256": "03199d57cbb68c339a38926b8d338076695e0aace3045b90c4c578fbd6fd18cd",
+  "run_status": "COMPLETE",
+  "runner_sha256": "a76a2030612ba61ffbd4bdd74f36a5c625e91ee78b898ad9ea9b9602c8374e4a"
+}
