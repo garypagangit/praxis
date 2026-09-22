@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "status": "FROZEN_BEFORE_FEATURE_PREPARATION_AND_FITS",
+  "input_manifest_sha256": "1b6da619c1ed830f0f131bfb7778589d781c3826e7fd3dc50f21bd7829ead002",
+  "study": "Do coarse host roles and earlier completed activity distinguish author movement and exfiltration stages?",
+  "source": "UNRAVELED author net1013x sensor; eleven complete capture files as assigned in input manifest",
+  "classes": [
+    "Benign",
+    "OtherAttackStage",
+    "LateralMovement",
+    "DataExfiltration"
+  ],
+  "stage_mapping": {
+    "Benign": 0,
+    "Reconnaissance": 1,
+    "Establish Foothold": 1,
+    "Cover up": 1,
+    "Lateral Movement": 2,
+    "Data Exfiltration": 3
+  },
+  "seeds": [
+    20260922,
+    20260923,
+    20260924
+  ],
+  "arms": [
+    "current",
+    "current_roles",
+    "current_history",
+    "current_roles_history",
+    "current_roles_wrong_host_history",
+    "roles_only"
+  ],
+  "model": "LightGBM",
+  "parameters": {
+    "n_estimators": 300,
+    "num_leaves": 15,
+    "learning_rate": 0.05,
+    "min_child_samples": 10,
+    "reg_lambda": 1.0
+  },
+  "fit_caps_by_class": [
+    20000,
+    5000,
+    5000,
+    5000
+  ],
+  "fit_sampling": "SHA256 HOST_HISTORY_V1|seed|observable-event-hash within original fit captures",
+  "current_features": "Numeric stable prefix except identifiers, endpoint identities/ports, first/last absolute timestamps, VLAN/tunnel IDs; add three destination-service categories equally to every current-feature arm",
+  "roles": [
+    "OTHER_ADDRESS",
+    "DEPARTMENT",
+    "PUBLIC_SERVICES",
+    "PRIVATE_SERVICES"
+  ],
+  "role_source": "Author static topology:10.1.1/2/3 department;10.1.4 public services;10.1.5 private services;other address unknown, not automatically Internet",
+  "history_windows_ms": [
+    300000,
+    1800000
+  ],
+  "history_state_names": [
+    "log_completed_flows",
+    "log_transmitted_bytes",
+    "log_received_bytes",
+    "log_distinct_peers",
+    "log_initiated_flows",
+    "log_remote_admin_flows",
+    "log_internal_peer_flows",
+    "peer_seen_in_window",
+    "host_seen_before"
+  ],
+  "history_availability": "Strict end_of_prior_flow < start_of_current_flow; compute all qualified flows before fitting-row subsampling; no labels or predictions used in history",
+  "history_control": "Current roles plus earlier state of a deterministic different host selected from only the hosts observed by query time",
+  "thresholds": "Calibration-only exfil F1 maximum (higher threshold on ties), plus empirical all-nonexfil tails 0.1/0.5/1/2 percent",
+  "evaluation": "All later test rows; four-class macroF1, per-stage AP/ROC/F1/P/R, Exfil-vs-Lateral AP, exfil false labels by true class and role strata",
+  "important_stratum": "Department source to private-services destination contains both target labels in test; training/calibration have no exfil examples in this stratum",
+  "calibration_limitation": "No lateral movement calibration rows; no movement threshold tuning, calibration claim or recall protection guarantee",
+  "primary_comparisons": [
+    "roles minus current",
+    "history minus current",
+    "roles+history minus roles",
+    "roles+history minus history",
+    "roles+history minus wrong-host control"
+  ],
+  "interpretation": "Previously exposed alternative dataset; one APT campaign with later-period evaluation. Author Stage is progress annotation, not independently verified stolen-data content. No independent-campaign, early-warning, or algorithm-novelty claim",
+  "success_rule": "Report paired directions and measured costs, no arbitrary pass/fail magnitude; disclose sparse lateral support and role shift"
+}

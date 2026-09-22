@@ -1,0 +1,1666 @@
+{
+  "schema_version": 1,
+  "purpose": "Source input qualification only; model protocol and gates are owned separately.",
+  "status": "QUALIFIED_FOR_SINGLE_SENSOR_TEMPORAL_DEVELOPMENT_ONLY",
+  "private_raw_root": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\imports\\unraveled\\data\\network-flows",
+  "source_repository": "https://gitlab.com/asu22/unraveled",
+  "source_commit": "d2ea90055d82fa448ab20588a13e3ec8bfd74816",
+  "source_paper_doi": "10.1016/j.comnet.2023.109688",
+  "sensor": "net1013x",
+  "parser_rule": {
+    "reader": "Python csv.reader standard comma delimiter",
+    "expected_header_fields": 89,
+    "stable_observable_prefix_indices_inclusive": [
+      0,
+      76
+    ],
+    "excluded_dpi_indices_header": [
+      77,
+      84
+    ],
+    "annotations": "rightmost four fields: Activity,Stage,DefenderResponse,Signature",
+    "allowed_stages": [
+      "Benign",
+      "Cover up",
+      "Data Exfiltration",
+      "Establish Foothold",
+      "Lateral Movement",
+      "Reconnaissance"
+    ],
+    "reason": "Author unquoted commas inside excluded DPI strings can create more than89 raw fields. Rightmost author annotations remain valid; positional pandas Stage is unreliable for those rows.",
+    "unresolved_rule": "Stop or explicitly quarantine unresolvable annotation/prefix rows; do not infer attack stages.",
+    "label_predictors_forbidden": [
+      "Activity",
+      "Stage",
+      "DefenderResponse",
+      "Signature"
+    ]
+  },
+  "files": [
+    {
+      "source_file": "Week5_Day1_06212021/net1013x_Flow_labeled.csv",
+      "capture": "Week5_Day1_06212021",
+      "interface": "net1013x",
+      "rows": 46137,
+      "bytes": 26038650,
+      "sha256": "cbc00c3397d81972c321223e0318fd1b99f2c9d00143b98d1070359dbb56a272",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Benign": 45478,
+        "6": 5,
+        "Normal": 170,
+        "Lateral Movement": 9,
+        "26": 2,
+        "Data Exfiltration": 441,
+        "Establish Foothold": 32
+      },
+      "minimum_first_seen_ms": 1624259338198.0,
+      "maximum_first_seen_ms": 1624346942102.0,
+      "maximum_last_seen_ms": 1624346942143.0,
+      "start_utc": "2021-06-21T07:08:58.198000+00:00",
+      "last_packet_utc": "2021-06-22T07:29:02.143000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 8069,
+      "split": "fit",
+      "right_anchored_stage_counts": {
+        "Benign": 45655,
+        "Lateral Movement": 9,
+        "Data Exfiltration": 441,
+        "Establish Foothold": 32
+      },
+      "raw_field_count_histogram": {
+        "89": 45960,
+        "104": 7,
+        "90": 170
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 511
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 44755
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 234
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 106
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 49
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 441
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 32
+        },
+        {
+          "stage": "Lateral Movement",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 9
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 45655
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Exfiltration over C2 channel",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 441
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 32
+        },
+        {
+          "stage": "Lateral Movement",
+          "activity": "Remote System Discovery",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 9
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Benign": 1709,
+        "Lateral Movement": 1,
+        "Data Exfiltration": 1,
+        "Establish Foothold": 1
+      }
+    },
+    {
+      "source_file": "Week5_Day2_06222021/net1013x_Flow_labeled.csv",
+      "capture": "Week5_Day2_06222021",
+      "interface": "net1013x",
+      "rows": 38397,
+      "bytes": 21798174,
+      "sha256": "aaf60e435aed2cd2fe873f1315a95907c4d19f7a92edb9f3c500342cc8f5d4e1",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Benign": 36239,
+        "Establish Foothold": 2037,
+        "6": 5,
+        "Normal": 111,
+        "Lateral Movement": 4,
+        "26": 1
+      },
+      "minimum_first_seen_ms": 1624347131579.0,
+      "maximum_first_seen_ms": 1624433618978.0,
+      "maximum_last_seen_ms": 1624433626795.0,
+      "start_utc": "2021-06-22T07:32:11.579000+00:00",
+      "last_packet_utc": "2021-06-23T07:33:46.795000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 5781,
+      "split": "fit",
+      "right_anchored_stage_counts": {
+        "Benign": 36356,
+        "Establish Foothold": 2037,
+        "Lateral Movement": 4
+      },
+      "raw_field_count_histogram": {
+        "89": 38280,
+        "104": 6,
+        "90": 111
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 438
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 35491
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 277
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 102
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 48
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 2037
+        },
+        {
+          "stage": "Lateral Movement",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 4
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 36356
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 2037
+        },
+        {
+          "stage": "Lateral Movement",
+          "activity": "Remote System Discovery",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 4
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Benign": 1439,
+        "Establish Foothold": 1,
+        "Lateral Movement": 1
+      }
+    },
+    {
+      "source_file": "Week5_Day3_06232021/net1013x_Flow_labeled.csv",
+      "capture": "Week5_Day3_06232021",
+      "interface": "net1013x",
+      "rows": 21082,
+      "bytes": 11652222,
+      "sha256": "89377dd45992a258f93551c38da76a1aad0550a4f3dfa209a76b4f44811ae801",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Establish Foothold": 2811,
+        "Benign": 18216,
+        "6": 5,
+        "Normal": 43,
+        "26": 2,
+        "Lateral Movement": 5
+      },
+      "minimum_first_seen_ms": 1624433722582.0,
+      "maximum_first_seen_ms": 1624518042998.0,
+      "maximum_last_seen_ms": 1624518046515.0,
+      "start_utc": "2021-06-23T07:35:22.582000+00:00",
+      "last_packet_utc": "2021-06-24T07:00:46.515000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 4055,
+      "split": "fit",
+      "right_anchored_stage_counts": {
+        "Establish Foothold": 2811,
+        "Benign": 18266,
+        "Lateral Movement": 5
+      },
+      "raw_field_count_histogram": {
+        "89": 21032,
+        "104": 7,
+        "90": 43
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 390
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 17584
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 208
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 37
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 47
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 2811
+        },
+        {
+          "stage": "Lateral Movement",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 5
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 18266
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 2811
+        },
+        {
+          "stage": "Lateral Movement",
+          "activity": "Remote System Discovery",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 5
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Establish Foothold": 1,
+        "Benign": 1137,
+        "Lateral Movement": 1
+      }
+    },
+    {
+      "source_file": "Week5_Day4_06242021/net1013x_Flow_labeled.csv",
+      "capture": "Week5_Day4_06242021",
+      "interface": "net1013x",
+      "rows": 9862,
+      "bytes": 5201572,
+      "sha256": "2ee5135dcdecf8811cc5ed2de56d9230629f613a1f00bf7dc0ea2ba48b767364",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Benign": 6938,
+        "Establish Foothold": 2914,
+        "6": 6,
+        "26": 2,
+        "Normal": 2
+      },
+      "minimum_first_seen_ms": 1624518302905.0,
+      "maximum_first_seen_ms": 1624605689453.0,
+      "maximum_last_seen_ms": 1624605690454.0,
+      "start_utc": "2021-06-24T07:05:02.905000+00:00",
+      "last_packet_utc": "2021-06-25T07:21:30.454000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 2138,
+      "split": "fit",
+      "right_anchored_stage_counts": {
+        "Benign": 6948,
+        "Establish Foothold": 2914
+      },
+      "raw_field_count_histogram": {
+        "89": 9852,
+        "104": 8,
+        "90": 2
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 231
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 6518
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 147
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 3
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 49
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 2914
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 6948
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 2914
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Benign": 179,
+        "Establish Foothold": 1
+      }
+    },
+    {
+      "source_file": "Week5_Day5-6_06252021-06262021/net1013x_Flow_labeled.csv",
+      "capture": "Week5_Day5-6_06252021-06262021",
+      "interface": "net1013x",
+      "rows": 45738,
+      "bytes": 25538732,
+      "sha256": "8af3c70d4ce3f5e8418fe12047ec78c2667f2b851017c75184b4bca3006ef2f1",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Benign": 39755,
+        "Establish Foothold": 4568,
+        "26": 4,
+        "Normal": 95,
+        "6": 8,
+        "Lateral Movement": 9,
+        "Data Exfiltration": 1299
+      },
+      "minimum_first_seen_ms": 1624605820555.0,
+      "maximum_first_seen_ms": 1624743117767.0,
+      "maximum_last_seen_ms": 1624743117767.0,
+      "start_utc": "2021-06-25T07:23:40.555000+00:00",
+      "last_packet_utc": "2021-06-26T21:31:57.767000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 8401,
+      "split": "fit",
+      "right_anchored_stage_counts": {
+        "Benign": 39862,
+        "Establish Foothold": 4568,
+        "Lateral Movement": 9,
+        "Data Exfiltration": 1299
+      },
+      "raw_field_count_histogram": {
+        "89": 45631,
+        "104": 12,
+        "90": 95
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 623
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 38743
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 306
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 112
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 78
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 1299
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 4568
+        },
+        {
+          "stage": "Lateral Movement",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 9
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 39862
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Data Transfer Size Limits",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 1299
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 4568
+        },
+        {
+          "stage": "Lateral Movement",
+          "activity": "Remote System Discovery",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 9
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Benign": 1585,
+        "Establish Foothold": 1,
+        "Lateral Movement": 1,
+        "Data Exfiltration": 1
+      }
+    },
+    {
+      "source_file": "Week5_Day6_06272021/net1013x_Flow_labeled.csv",
+      "capture": "Week5_Day6_06272021",
+      "interface": "net1013x",
+      "rows": 12919,
+      "bytes": 7008490,
+      "sha256": "1a98b0eb6c5929a5dac599e4352f28656ecf968d353113c16676fefd26db1a70",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Establish Foothold": 2659,
+        "Benign": 8920,
+        "Data Exfiltration": 1331,
+        "Normal": 3,
+        "6": 4,
+        "26": 2
+      },
+      "minimum_first_seen_ms": 1624784003135.0,
+      "maximum_first_seen_ms": 1624863797524.0,
+      "maximum_last_seen_ms": 1624863797570.0,
+      "start_utc": "2021-06-27T08:53:23.135000+00:00",
+      "last_packet_utc": "2021-06-28T07:03:17.570000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 3492,
+      "split": "calibration",
+      "right_anchored_stage_counts": {
+        "Establish Foothold": 2659,
+        "Benign": 8929,
+        "Data Exfiltration": 1331
+      },
+      "raw_field_count_histogram": {
+        "89": 12910,
+        "90": 3,
+        "104": 6
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 287
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 8437
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 136
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 24
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 45
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 1331
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 2659
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 8929
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Data Transfer Size Limits",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 1331
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 2659
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Establish Foothold": 1,
+        "Benign": 497,
+        "Data Exfiltration": 1
+      }
+    },
+    {
+      "source_file": "Week6_Day2_06292021/net1013x_Flow_labeled.csv",
+      "capture": "Week6_Day2_06292021",
+      "interface": "net1013x",
+      "rows": 70451,
+      "bytes": 39979283,
+      "sha256": "bd15add5e58db8ae80954e40572abc19101e41a7286780c3e147c4c68f420187",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Data Exfiltration": 2253,
+        "Establish Foothold": 5780,
+        "Benign": 62249,
+        "6": 10,
+        "Normal": 137,
+        "26": 4,
+        "Lateral Movement": 18
+      },
+      "minimum_first_seen_ms": 1624863977550.0,
+      "maximum_first_seen_ms": 1625037512472.0,
+      "maximum_last_seen_ms": 1625037522669.0,
+      "start_utc": "2021-06-28T07:06:17.550000+00:00",
+      "last_packet_utc": "2021-06-30T07:18:42.669000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 9632,
+      "split": "test",
+      "right_anchored_stage_counts": {
+        "Data Exfiltration": 2253,
+        "Establish Foothold": 5780,
+        "Benign": 62400,
+        "Lateral Movement": 18
+      },
+      "raw_field_count_histogram": {
+        "89": 70300,
+        "104": 14,
+        "90": 137
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 916
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 60887
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 379
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 122
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 96
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 2253
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 5780
+        },
+        {
+          "stage": "Lateral Movement",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 18
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 62400
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Data Transfer Size Limits",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 2253
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 5780
+        },
+        {
+          "stage": "Lateral Movement",
+          "activity": "Remote System Discovery",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 18
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Data Exfiltration": 1,
+        "Establish Foothold": 1,
+        "Benign": 1654,
+        "Lateral Movement": 1
+      }
+    },
+    {
+      "source_file": "Week6_Day3_06302021/net1013x_Flow_labeled.csv",
+      "capture": "Week6_Day3_06302021",
+      "interface": "net1013x",
+      "rows": 52588,
+      "bytes": 30027494,
+      "sha256": "e5be0be272bd199d3cde91a364c1af10c53906d9635c61c73671a9b717d4eb2b",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Benign": 48794,
+        "Establish Foothold": 3628,
+        "26": 3,
+        "6": 6,
+        "Normal": 148,
+        "Data Exfiltration": 9
+      },
+      "minimum_first_seen_ms": 1625037605239.0,
+      "maximum_first_seen_ms": 1625146418042.0,
+      "maximum_last_seen_ms": 1625146418116.0,
+      "start_utc": "2021-06-30T07:20:05.239000+00:00",
+      "last_packet_utc": "2021-07-01T13:33:38.116000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 6599,
+      "split": "test",
+      "right_anchored_stage_counts": {
+        "Benign": 48951,
+        "Establish Foothold": 3628,
+        "Data Exfiltration": 9
+      },
+      "raw_field_count_histogram": {
+        "89": 52431,
+        "104": 9,
+        "90": 148
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 560
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 47931
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 291
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 109
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 60
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 9
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 3628
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 48951
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Unsecured Credentials",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 9
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 3628
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Benign": 1421,
+        "Establish Foothold": 1,
+        "Data Exfiltration": 1
+      }
+    },
+    {
+      "source_file": "Week6_Day4_07012021/net1013x_Flow_labeled.csv",
+      "capture": "Week6_Day4_07012021",
+      "interface": "net1013x",
+      "rows": 37633,
+      "bytes": 21329415,
+      "sha256": "c077c628e5c89eb37957cf43c6dcfc20298165e610688a5b81d84e91eda1936e",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Establish Foothold": 2133,
+        "Benign": 35172,
+        "Normal": 84,
+        "Lateral Movement": 11,
+        "Data Exfiltration": 228,
+        "26": 2,
+        "6": 3
+      },
+      "minimum_first_seen_ms": 1625147776141.0,
+      "maximum_first_seen_ms": 1625212317997.0,
+      "maximum_last_seen_ms": 1625212326187.0,
+      "start_utc": "2021-07-01T13:56:16.141000+00:00",
+      "last_packet_utc": "2021-07-02T07:52:06.187000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 5028,
+      "split": "test",
+      "right_anchored_stage_counts": {
+        "Establish Foothold": 2133,
+        "Benign": 35261,
+        "Lateral Movement": 11,
+        "Data Exfiltration": 228
+      },
+      "raw_field_count_histogram": {
+        "89": 37544,
+        "90": 84,
+        "104": 5
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 412
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 34307
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 420
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 87
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 35
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 4
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 224
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 2133
+        },
+        {
+          "stage": "Lateral Movement",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 11
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 35261
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Data Transfer Size Limits",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 224
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Unsecured Credentials",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 4
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 2133
+        },
+        {
+          "stage": "Lateral Movement",
+          "activity": "Remote System Discovery",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 11
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Establish Foothold": 1,
+        "Benign": 1677,
+        "Lateral Movement": 1,
+        "Data Exfiltration": 2
+      }
+    },
+    {
+      "source_file": "Week6_Day5_07022021_part2/net1013x_Flow_labeled.csv",
+      "capture": "Week6_Day5_07022021_part2",
+      "interface": "net1013x",
+      "rows": 26267,
+      "bytes": 14664933,
+      "sha256": "b02b9a62269eed526fc31325be7c13c6493fa2f7f3f68a5ed515b4d52a770e56",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Establish Foothold": 525,
+        "Benign": 25045,
+        "Data Exfiltration": 258,
+        "Normal": 71,
+        "Cover up": 358,
+        "Lateral Movement": 6,
+        "6": 3,
+        "26": 1
+      },
+      "minimum_first_seen_ms": 1625255513857.0,
+      "maximum_first_seen_ms": 1625315832578.0,
+      "maximum_last_seen_ms": 1625315832656.0,
+      "start_utc": "2021-07-02T19:51:53.857000+00:00",
+      "last_packet_utc": "2021-07-03T12:37:12.656000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 2554,
+      "split": "test",
+      "right_anchored_stage_counts": {
+        "Establish Foothold": 525,
+        "Benign": 25120,
+        "Data Exfiltration": 258,
+        "Cover up": 358,
+        "Lateral Movement": 6
+      },
+      "raw_field_count_histogram": {
+        "89": 26192,
+        "90": 71,
+        "104": 4
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 383
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 24427
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 136
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 139
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 35
+        },
+        {
+          "stage": "Cover up",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 358
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 75
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 183
+        },
+        {
+          "stage": "Establish Foothold",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 525
+        },
+        {
+          "stage": "Lateral Movement",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 6
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 25120
+        },
+        {
+          "stage": "Cover up",
+          "activity": "Remove Traces",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 358
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Data Transfer Size Limits",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 183
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Unsecured Credentials",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 75
+        },
+        {
+          "stage": "Establish Foothold",
+          "activity": "Encrypted Channel: Symmetric Cryptography",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 525
+        },
+        {
+          "stage": "Lateral Movement",
+          "activity": "Remote System Discovery",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 6
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Establish Foothold": 1,
+        "Benign": 1102,
+        "Data Exfiltration": 2,
+        "Cover up": 1,
+        "Lateral Movement": 1
+      }
+    },
+    {
+      "source_file": "Week6_Day6-7_07032021-07042021/net1013x_Flow_labeled.csv",
+      "capture": "Week6_Day6-7_07032021-07042021",
+      "interface": "net1013x",
+      "rows": 21155,
+      "bytes": 9932794,
+      "sha256": "43952a5185cd7ed88f3ec8969100117f45e4ed3d631b781acfc75b1df3cce038",
+      "matches_prior_author_audit": true,
+      "stage_counts": {
+        "Benign": 20434,
+        "Data Exfiltration": 694,
+        "Normal": 10,
+        "6": 12,
+        "26": 5
+      },
+      "minimum_first_seen_ms": 1625345507281.0,
+      "maximum_first_seen_ms": 1625553719126.0,
+      "maximum_last_seen_ms": 1625553722131.0,
+      "start_utc": "2021-07-03T20:51:47.281000+00:00",
+      "last_packet_utc": "2021-07-06T06:42:02.131000+00:00",
+      "invalid_or_nonpositive_time_rows": 0,
+      "last_before_first_rows": 0,
+      "duration_mismatch_rows": 0,
+      "file_first_seen_order_decreases": 4558,
+      "split": "test",
+      "right_anchored_stage_counts": {
+        "Benign": 20461,
+        "Data Exfiltration": 694
+      },
+      "raw_field_count_histogram": {
+        "89": 21128,
+        "90": 10,
+        "104": 17
+      },
+      "unresolved_annotation_rows": 0,
+      "invalid_numeric_prefix_rows": 0,
+      "nonfinite_numeric_prefix_rows": 0,
+      "exact_observable_prefix_duplicates_within_file": 0,
+      "stage_role_pairs": [
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "IT",
+          "rows": 601
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 19322
+        },
+        {
+          "stage": "Benign",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 350
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "IT",
+          "rows": 72
+        },
+        {
+          "stage": "Benign",
+          "src_role": "OTHER_ADDRESS",
+          "dst_role": "OTHER_ADDRESS",
+          "rows": 116
+        },
+        {
+          "stage": "Data Exfiltration",
+          "src_role": "IT",
+          "dst_role": "PRIVATE_SERVICES",
+          "rows": 694
+        }
+      ],
+      "stage_activity_signature_counts": [
+        {
+          "stage": "Benign",
+          "activity": "Normal",
+          "defender_response": "Benign",
+          "signature": "None",
+          "rows": 20461
+        },
+        {
+          "stage": "Data Exfiltration",
+          "activity": "Data Transfer Size Limits",
+          "defender_response": "Benign",
+          "signature": "APT",
+          "rows": 694
+        }
+      ],
+      "stage_distinct_directed_host_pairs": {
+        "Benign": 407,
+        "Data Exfiltration": 1
+      }
+    }
+  ],
+  "split_stage_counts": {
+    "fit": {
+      "Benign": 147087,
+      "Lateral Movement": 27,
+      "Data Exfiltration": 1740,
+      "Establish Foothold": 12362
+    },
+    "calibration": {
+      "Establish Foothold": 2659,
+      "Benign": 8929,
+      "Data Exfiltration": 1331
+    },
+    "test": {
+      "Data Exfiltration": 3442,
+      "Establish Foothold": 12066,
+      "Benign": 192193,
+      "Lateral Movement": 35,
+      "Cover up": 358
+    }
+  },
+  "daily_first_seen_stage_counts": [
+    {
+      "utc_date": "2021-06-21",
+      "stage": "Benign",
+      "rows": 40366
+    },
+    {
+      "utc_date": "2021-06-21",
+      "stage": "Data Exfiltration",
+      "rows": 24
+    },
+    {
+      "utc_date": "2021-06-21",
+      "stage": "Lateral Movement",
+      "rows": 9
+    },
+    {
+      "utc_date": "2021-06-22",
+      "stage": "Benign",
+      "rows": 37568
+    },
+    {
+      "utc_date": "2021-06-22",
+      "stage": "Data Exfiltration",
+      "rows": 417
+    },
+    {
+      "utc_date": "2021-06-22",
+      "stage": "Establish Foothold",
+      "rows": 1162
+    },
+    {
+      "utc_date": "2021-06-22",
+      "stage": "Lateral Movement",
+      "rows": 4
+    },
+    {
+      "utc_date": "2021-06-23",
+      "stage": "Benign",
+      "rows": 20529
+    },
+    {
+      "utc_date": "2021-06-23",
+      "stage": "Establish Foothold",
+      "rows": 2877
+    },
+    {
+      "utc_date": "2021-06-23",
+      "stage": "Lateral Movement",
+      "rows": 5
+    },
+    {
+      "utc_date": "2021-06-24",
+      "stage": "Benign",
+      "rows": 6663
+    },
+    {
+      "utc_date": "2021-06-24",
+      "stage": "Establish Foothold",
+      "rows": 2872
+    },
+    {
+      "utc_date": "2021-06-25",
+      "stage": "Benign",
+      "rows": 34542
+    },
+    {
+      "utc_date": "2021-06-25",
+      "stage": "Data Exfiltration",
+      "rows": 6
+    },
+    {
+      "utc_date": "2021-06-25",
+      "stage": "Establish Foothold",
+      "rows": 2871
+    },
+    {
+      "utc_date": "2021-06-25",
+      "stage": "Lateral Movement",
+      "rows": 9
+    },
+    {
+      "utc_date": "2021-06-26",
+      "stage": "Benign",
+      "rows": 7419
+    },
+    {
+      "utc_date": "2021-06-26",
+      "stage": "Data Exfiltration",
+      "rows": 1293
+    },
+    {
+      "utc_date": "2021-06-26",
+      "stage": "Establish Foothold",
+      "rows": 2580
+    },
+    {
+      "utc_date": "2021-06-27",
+      "stage": "Benign",
+      "rows": 5970
+    },
+    {
+      "utc_date": "2021-06-27",
+      "stage": "Data Exfiltration",
+      "rows": 907
+    },
+    {
+      "utc_date": "2021-06-27",
+      "stage": "Establish Foothold",
+      "rows": 1813
+    },
+    {
+      "utc_date": "2021-06-28",
+      "stage": "Benign",
+      "rows": 8637
+    },
+    {
+      "utc_date": "2021-06-28",
+      "stage": "Data Exfiltration",
+      "rows": 1439
+    },
+    {
+      "utc_date": "2021-06-28",
+      "stage": "Establish Foothold",
+      "rows": 2874
+    },
+    {
+      "utc_date": "2021-06-29",
+      "stage": "Benign",
+      "rows": 47111
+    },
+    {
+      "utc_date": "2021-06-29",
+      "stage": "Data Exfiltration",
+      "rows": 1238
+    },
+    {
+      "utc_date": "2021-06-29",
+      "stage": "Establish Foothold",
+      "rows": 2874
+    },
+    {
+      "utc_date": "2021-06-29",
+      "stage": "Lateral Movement",
+      "rows": 17
+    },
+    {
+      "utc_date": "2021-06-30",
+      "stage": "Benign",
+      "rows": 47251
+    },
+    {
+      "utc_date": "2021-06-30",
+      "stage": "Data Exfiltration",
+      "rows": 3
+    },
+    {
+      "utc_date": "2021-06-30",
+      "stage": "Establish Foothold",
+      "rows": 2878
+    },
+    {
+      "utc_date": "2021-06-30",
+      "stage": "Lateral Movement",
+      "rows": 1
+    },
+    {
+      "utc_date": "2021-07-01",
+      "stage": "Benign",
+      "rows": 41768
+    },
+    {
+      "utc_date": "2021-07-01",
+      "stage": "Data Exfiltration",
+      "rows": 21
+    },
+    {
+      "utc_date": "2021-07-01",
+      "stage": "Establish Foothold",
+      "rows": 2838
+    },
+    {
+      "utc_date": "2021-07-01",
+      "stage": "Lateral Movement",
+      "rows": 11
+    },
+    {
+      "utc_date": "2021-07-02",
+      "stage": "Benign",
+      "rows": 18951
+    },
+    {
+      "utc_date": "2021-07-02",
+      "stage": "Cover up",
+      "rows": 358
+    },
+    {
+      "utc_date": "2021-07-02",
+      "stage": "Data Exfiltration",
+      "rows": 316
+    },
+    {
+      "utc_date": "2021-07-02",
+      "stage": "Establish Foothold",
+      "rows": 1419
+    },
+    {
+      "utc_date": "2021-07-02",
+      "stage": "Lateral Movement",
+      "rows": 5
+    },
+    {
+      "utc_date": "2021-07-03",
+      "stage": "Benign",
+      "rows": 12499
+    },
+    {
+      "utc_date": "2021-07-03",
+      "stage": "Data Exfiltration",
+      "rows": 193
+    },
+    {
+      "utc_date": "2021-07-03",
+      "stage": "Establish Foothold",
+      "rows": 29
+    },
+    {
+      "utc_date": "2021-07-03",
+      "stage": "Lateral Movement",
+      "rows": 1
+    },
+    {
+      "utc_date": "2021-07-04",
+      "stage": "Benign",
+      "rows": 8651
+    },
+    {
+      "utc_date": "2021-07-04",
+      "stage": "Data Exfiltration",
+      "rows": 288
+    },
+    {
+      "utc_date": "2021-07-05",
+      "stage": "Benign",
+      "rows": 8067
+    },
+    {
+      "utc_date": "2021-07-05",
+      "stage": "Data Exfiltration",
+      "rows": 288
+    },
+    {
+      "utc_date": "2021-07-06",
+      "stage": "Benign",
+      "rows": 2217
+    },
+    {
+      "utc_date": "2021-07-06",
+      "stage": "Data Exfiltration",
+      "rows": 80
+    }
+  ],
+  "split_rule": "Five complete Week5 Day1 through Day5-6 captures fit; next complete Week5 Day6 capture calibration; all five complete Week6 IT captures test. Calendar date names are not true boundaries.",
+  "limitations": [
+    "Previously exposed data from one emulated APT campaign; not independent confirmation.",
+    "Calibration contains zero author-labeled lateral flows; cannot tune or certify lateral recall.",
+    "All IT lateral labels refer to one directed host pair and Remote System Discovery.",
+    "IT to PRIVATE_SERVICES has both stage labels but exfil examples there occur only in late test captures.",
+    "Data Exfiltration includes author Activity Unsecured Credentials; preserve and disclose author label semantics.",
+    "Full-flow packet statistics are available after flow completion; no early-warning claim."
+  ],
+  "no_fits_performed": true
+}
