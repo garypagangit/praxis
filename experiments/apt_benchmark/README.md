@@ -1,5 +1,7 @@
 # Comparing models for malicious behavior, attack stages and earlier warning
 
+**Latest completed pilots (September 22): [exfiltration recognition and stage-specialist fusion](exfil_stage_experiments/README.md).** Simple general-plus-specialist averaging raised stage macro-F1 from **0.6749 to 0.6841** and reduced normal false alerts **19.01%**, versus general-model averaging on the same development rows. Lateral any-attack recall fell **0.23 percentage points**. A dedicated exfiltration specialist did not clearly improve exfiltration ranking. Both experiments completed all three seeds; 14 tests and the independent saved-output audit passed. [All results](results/exfil_stage_v1/REPORT.md). These are development findings; attack chronology, independent generalization and novel algorithm claims remain unestablished.
+
 **Current recommended paper: [Improving APT Alert Efficiency: Measured Gains and Lateral-Movement Tradeoffs](lateral_protection_experiment/paper/FINDINGS_PRAXIS.md).** The completed studies show positive improvements with measurable detection costs:
 
 - In the earlier benign-label comparison, adding 992 normal fitting examples while retaining the same 160 attack examples reduced false positives by **96.02%** and raised macro-F1 from **0.4421 to 0.6543**; lateral-flow detection fell from **94.24% to 83.06%**.
