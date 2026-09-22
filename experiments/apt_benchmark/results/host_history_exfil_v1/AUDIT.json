@@ -1,0 +1,104 @@
+{
+  "audit_status": "PASS",
+  "run_status": "COMPLETE",
+  "audited_utc": "2026-09-22T12:36:09.457762+00:00",
+  "auditor_sha256": "888090f479225ea9ce2571d3718c816797b5b11250c970019a3086470744bf7a",
+  "models_audited": 18,
+  "seeds_audited": 3,
+  "artifact_hashes": {
+    "SUMMARY.json": "7a4ff8f0df6c9301277edae92d5a9ac516276c10f45b53557caf31b1fdbb6f70",
+    "STARTED.json": "38ffc646343fb216c4c9d4a9716ad18de4904524787affe4cda6ff063d4052a5",
+    "COMPLETE.json": "9d7fc9f04b231be4bb571ceae7c1425574be548ff9a7db1ba526af54abb912b8"
+  },
+  "bindings": {
+    "protocol_sha256": "db58c390a4ae3a8cbc70469e60e19d694c349b20b400efc761932fac8ce78e4a",
+    "prepared_sha256": "b2a491474e722f4dabcd4c419c83a4a6b49f08dfc3bc059aa42ef2aaa4c3de14",
+    "preparation_receipt_sha256": "9908c2246b38e96ce1dd2372f8057631526a35d9c931a3993129325032e5ec02",
+    "input_manifest_sha256": "1b6da619c1ed830f0f131bfb7778589d781c3826e7fd3dc50f21bd7829ead002",
+    "runner_sha256": "29137e5f7de619b0cfc734ef2d05fcbc57037fb9fffa9241540a105a90f3b338",
+    "context_sha256": "d99bd56ef4d4ebafc33aa370a24eefae5b7517dd1610e317cf634efb52e98074"
+  },
+  "source_checks": {
+    "raw_rows_verified": 382229,
+    "retained_rows_verified": 382229,
+    "duplicate_rows_removed": 0,
+    "conflicting_rows_quarantined": 0,
+    "raw_files_verified": 11
+  },
+  "history_checks": {
+    "history_anchors_independently_recomputed": 98,
+    "sampling": "All lateral-stage anchors plus up to twelve index-spaced anchors per acquisition split",
+    "windows_checked_per_anchor_per_policy": 4
+  },
+  "split_counts": {
+    "fit": {
+      "Benign": 147087,
+      "OtherAttackStage": 12362,
+      "LateralMovement": 27,
+      "DataExfiltration": 1740
+    },
+    "calibration": {
+      "Benign": 8929,
+      "OtherAttackStage": 2659,
+      "LateralMovement": 0,
+      "DataExfiltration": 1331
+    },
+    "test": {
+      "Benign": 192193,
+      "OtherAttackStage": 12424,
+      "LateralMovement": 35,
+      "DataExfiltration": 3442
+    }
+  },
+  "department_to_private_counts": {
+    "fit": {
+      "Benign": 1172,
+      "OtherAttackStage": 0,
+      "LateralMovement": 27,
+      "DataExfiltration": 0
+    },
+    "calibration": {
+      "Benign": 136,
+      "OtherAttackStage": 0,
+      "LateralMovement": 0,
+      "DataExfiltration": 0
+    },
+    "test": {
+      "Benign": 1576,
+      "OtherAttackStage": 0,
+      "LateralMovement": 35,
+      "DataExfiltration": 1101
+    }
+  },
+  "seed_receipts": [
+    {
+      "seed": 20260922,
+      "arms": 6,
+      "fit_rows": 26767,
+      "prediction_sha256": "3af60566a3da935e2481515416efb6932f78c22806022b7a5e474b5641d690a3",
+      "complete_sha256": "cdcb25d78995d52436c260720ea4f26ca8796414df47d5e101bf23f484c968b2"
+    },
+    {
+      "seed": 20260923,
+      "arms": 6,
+      "fit_rows": 26767,
+      "prediction_sha256": "3d537b5de990878f1b4c009e33a404f91ae0f73eed6adeee91fff58d6d7400bf",
+      "complete_sha256": "4acb51fd681fbf5939b7a26c9102ff9236c3c81eeb981ff643d8a11c3b2ea179"
+    },
+    {
+      "seed": 20260924,
+      "arms": 6,
+      "fit_rows": 26767,
+      "prediction_sha256": "18163fb0c15f78a689bd715aa5688654458ce5b95bf9666a18dfe81d71ee5a6c",
+      "complete_sha256": "5ccd28333aa6be070f12589656f61ae40140c2f8706dd1d81bab7d2108f44e67"
+    }
+  ],
+  "limitations": [
+    "Arithmetic and provenance audit, not independent verification of attack semantics.",
+    "No model refitting or inference replay; saved model files verified by hash only.",
+    "Histories independently recalculated at selected anchors; strict serialized time guards checked on every row.",
+    "No lateral calibration cases; no lateral threshold guarantee.",
+    "Single campaign temporal development evidence; current-flow features require flow completion.",
+    "History endpoint accounting verified on this corpus, which has no self-endpoint flows."
+  ]
+}
