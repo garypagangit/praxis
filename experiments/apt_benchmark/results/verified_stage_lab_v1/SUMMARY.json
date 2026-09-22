@@ -1,0 +1,5003 @@
+{
+  "status": "COMPLETE",
+  "scope": "Controlled loopback application outcomes: remote hash computation and complete object persistence; no operational APT or novelty claim",
+  "audit": {
+    "status": "PASS",
+    "source_summary_sha256": "95032c56e7a8f1d5e793c48545497e98324bfa1f12b4d967cec7183b02aa185e"
+  },
+  "seeds": [
+    20260922,
+    20260923,
+    20260924
+  ],
+  "models_fitted": 21,
+  "counts": {
+    "fit": {
+      "linked": {
+        "rows": 288,
+        "outcomes": {
+          "Neither": 216,
+          "RemoteAction": 24,
+          "FileTransfer": 24,
+          "Both": 24
+        }
+      },
+      "crossed": {
+        "rows": 864,
+        "outcomes": {
+          "Neither": 648,
+          "RemoteAction": 72,
+          "FileTransfer": 72,
+          "Both": 72
+        }
+      }
+    },
+    "calibration": {
+      "linked": {
+        "rows": 96,
+        "outcomes": {
+          "Neither": 72,
+          "RemoteAction": 8,
+          "FileTransfer": 8,
+          "Both": 8
+        }
+      },
+      "crossed": {
+        "rows": 288,
+        "outcomes": {
+          "Neither": 216,
+          "RemoteAction": 24,
+          "FileTransfer": 24,
+          "Both": 24
+        }
+      }
+    },
+    "test": {
+      "linked": {
+        "rows": 192,
+        "outcomes": {
+          "Neither": 144,
+          "RemoteAction": 16,
+          "FileTransfer": 16,
+          "Both": 16
+        }
+      },
+      "crossed": {
+        "rows": 576,
+        "outcomes": {
+          "Neither": 432,
+          "RemoteAction": 48,
+          "FileTransfer": 48,
+          "Both": 48
+        }
+      }
+    }
+  },
+  "runtime": {
+    "fit_and_prediction_elapsed_seconds": 15.460574900032952,
+    "cloud_compute_started": false
+  },
+  "provenance": {
+    "summary_sha256": "95032c56e7a8f1d5e793c48545497e98324bfa1f12b4d967cec7183b02aa185e",
+    "started_sha256": "2f023f95610b65dce9159fe999e865c8e474bfe4047bf0156e9cd8910a0775b0",
+    "complete_sha256": "6ba28c7d7a2693d2b7000c77b53d564e4e41f1f816d79ddda11e3919f88397ba",
+    "protocol_sha256": "82904540f172ef6f05b43aa3463434f0b2b60e2f5624bd83f473fddde818b753",
+    "prepared_sha256": "e0025390e4a85145040e10c4ab36f22796a124364d3c21930f448703014e4ad2",
+    "preparation_sha256": "16fb7a0eac80dc3eddd952d9db08be675f0524e627a6c67dc304aaa0b36ac5ce",
+    "collection_receipt_sha256": "e6dad9f11cb40482bd74d4acac90cee07c100e293372bb69365f9c8065c4f625",
+    "seed_complete_sha256": {
+      "20260922": "6f7131760bc7f9d5c3acd09e5b93eae9d4c885b466b757764534f8710771dbf0",
+      "20260923": "1024c238f93d16de30cbe66a8f7229808b7d22e3b666b6a9d09852ad7830cd67",
+      "20260924": "faedb2d52aef451d027dde0dfa21882057a2f6ef4e41882ddb1bbb226c71b3e0"
+    },
+    "frozen_source_sha256": {
+      "collector.py": "eb160983c79c29d5ae498d1be42ac28bf0742452cc8c9e5a92e2f427c4123e50",
+      "features.py": "d51e49865af32e9e8392300ac8e80915af933b27873a395f99a4d6a4e21f0958",
+      "run.py": "9bbfe85d98f2d7cf401b0ed95fa0bc7d85c8ee398c332759bca329c8d14713f5",
+      "DESIGN.md": "2143587f1c9fe7f28c3777b86dbd5b36dfd3fc64ae1fe4fdadca14912bb02031"
+    },
+    "publisher_sha256": "cdf50d35281a3c50570bf79a712b5e483cb06e9a872c0dd5b56aeceb82f08161"
+  },
+  "clean_primary_comparison": {
+    "current": {
+      "linked": {
+        "all": {
+          "rows": 192.0,
+          "accuracy": 0.921875,
+          "macro_f1": 0.7653958944281525,
+          "confusion": [
+            [
+              144.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              8.0,
+              8.0,
+              0.0
+            ],
+            [
+              0.0,
+              7.0,
+              9.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 144.0
+            },
+            "RemoteAction": {
+              "precision": 0.5333333333333333,
+              "recall": 0.5,
+              "f1": 0.5161290322580645,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 0.5294117647058824,
+              "recall": 0.5625,
+              "f1": 0.5454545454545454,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 24.0,
+              "fp": 7.0,
+              "fn": 8.0,
+              "precision": 0.7741935483870968,
+              "recall": 0.75,
+              "f1": 0.7619047619047619,
+              "ap": 0.8602150537634409,
+              "roc_auc": 0.9765624999999999
+            },
+            "transfer": {
+              "tp": 25.0,
+              "fp": 8.0,
+              "fn": 7.0,
+              "precision": 0.7575757575757576,
+              "recall": 0.78125,
+              "f1": 0.7692307692307693,
+              "ap": 0.8589015151515151,
+              "roc_auc": 0.9765625
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 64.0,
+          "accuracy": 0.765625,
+          "macro_f1": 0.7653958944281525,
+          "confusion": [
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              8.0,
+              8.0,
+              0.0
+            ],
+            [
+              0.0,
+              7.0,
+              9.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "RemoteAction": {
+              "precision": 0.5333333333333333,
+              "recall": 0.5,
+              "f1": 0.5161290322580645,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 0.5294117647058824,
+              "recall": 0.5625,
+              "f1": 0.5454545454545454,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 24.0,
+              "fp": 7.0,
+              "fn": 8.0,
+              "precision": 0.7741935483870968,
+              "recall": 0.75,
+              "f1": 0.7619047619047619,
+              "ap": 0.8602150537634409,
+              "roc_auc": 0.8828125
+            },
+            "transfer": {
+              "tp": 25.0,
+              "fp": 8.0,
+              "fn": 7.0,
+              "precision": 0.7575757575757576,
+              "recall": 0.78125,
+              "f1": 0.7692307692307693,
+              "ap": 0.8589015151515151,
+              "roc_auc": 0.8828125
+            }
+          }
+        }
+      },
+      "crossed": {
+        "all": {
+          "rows": 576.0,
+          "accuracy": 0.6979166666666666,
+          "macro_f1": 0.31662781662781664,
+          "confusion": [
+            [
+              384.0,
+              9.0,
+              23.0,
+              16.0
+            ],
+            [
+              16.0,
+              9.0,
+              7.0,
+              16.0
+            ],
+            [
+              16.0,
+              7.0,
+              9.0,
+              16.0
+            ],
+            [
+              16.0,
+              15.0,
+              17.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.8888888888888888,
+              "recall": 0.8888888888888888,
+              "f1": 0.8888888888888888,
+              "support": 432.0
+            },
+            "RemoteAction": {
+              "precision": 0.225,
+              "recall": 0.1875,
+              "f1": 0.20454545454545456,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.16071428571428573,
+              "recall": 0.1875,
+              "f1": 0.17307692307692307,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 40.0,
+              "fp": 48.0,
+              "fn": 56.0,
+              "precision": 0.45454545454545453,
+              "recall": 0.4166666666666667,
+              "f1": 0.43478260869565216,
+              "ap": 0.43974494824392607,
+              "roc_auc": 0.8787000868055556
+            },
+            "transfer": {
+              "tp": 42.0,
+              "fp": 62.0,
+              "fn": 54.0,
+              "precision": 0.40384615384615385,
+              "recall": 0.4375,
+              "f1": 0.42,
+              "ap": 0.4323918465693253,
+              "roc_auc": 0.8731879340277777
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 192.0,
+          "accuracy": 0.09375,
+          "macro_f1": 0.0944055944055944,
+          "confusion": [
+            [
+              0.0,
+              9.0,
+              23.0,
+              16.0
+            ],
+            [
+              16.0,
+              9.0,
+              7.0,
+              16.0
+            ],
+            [
+              16.0,
+              7.0,
+              9.0,
+              16.0
+            ],
+            [
+              16.0,
+              15.0,
+              17.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "RemoteAction": {
+              "precision": 0.225,
+              "recall": 0.1875,
+              "f1": 0.20454545454545456,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.16071428571428573,
+              "recall": 0.1875,
+              "f1": 0.17307692307692307,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 40.0,
+              "fp": 48.0,
+              "fn": 56.0,
+              "precision": 0.45454545454545453,
+              "recall": 0.4166666666666667,
+              "f1": 0.43478260869565216,
+              "ap": 0.43974494824392607,
+              "roc_auc": 0.39350043402777773
+            },
+            "transfer": {
+              "tp": 42.0,
+              "fp": 62.0,
+              "fn": 54.0,
+              "precision": 0.40384615384615385,
+              "recall": 0.4375,
+              "f1": 0.42,
+              "ap": 0.4323918465693252,
+              "roc_auc": 0.36593967013888884
+            }
+          }
+        }
+      },
+      "factorial_all": {
+        "all": {
+          "rows": 768.0,
+          "accuracy": 0.75390625,
+          "macro_f1": 0.42878866875217236,
+          "confusion": [
+            [
+              528.0,
+              9.0,
+              23.0,
+              16.0
+            ],
+            [
+              16.0,
+              17.0,
+              15.0,
+              16.0
+            ],
+            [
+              16.0,
+              14.0,
+              18.0,
+              16.0
+            ],
+            [
+              16.0,
+              15.0,
+              17.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.9166666666666666,
+              "recall": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "support": 576.0
+            },
+            "RemoteAction": {
+              "precision": 0.3090909090909091,
+              "recall": 0.265625,
+              "f1": 0.2857142857142857,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.2465753424657534,
+              "recall": 0.28125,
+              "f1": 0.26277372262773724,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 64.0,
+              "fp": 55.0,
+              "fn": 64.0,
+              "precision": 0.5378151260504201,
+              "recall": 0.5,
+              "f1": 0.5182186234817814,
+              "ap": 0.504248147342461,
+              "roc_auc": 0.90264892578125
+            },
+            "transfer": {
+              "tp": 67.0,
+              "fp": 70.0,
+              "fn": 61.0,
+              "precision": 0.48905109489051096,
+              "recall": 0.5234375,
+              "f1": 0.5056603773584906,
+              "ap": 0.5034822027595248,
+              "roc_auc": 0.8995178222656249
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 256.0,
+          "accuracy": 0.26171875,
+          "macro_f1": 0.26212200208550573,
+          "confusion": [
+            [
+              16.0,
+              9.0,
+              23.0,
+              16.0
+            ],
+            [
+              16.0,
+              17.0,
+              15.0,
+              16.0
+            ],
+            [
+              16.0,
+              14.0,
+              18.0,
+              16.0
+            ],
+            [
+              16.0,
+              15.0,
+              17.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "RemoteAction": {
+              "precision": 0.3090909090909091,
+              "recall": 0.265625,
+              "f1": 0.2857142857142857,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.2465753424657534,
+              "recall": 0.28125,
+              "f1": 0.26277372262773724,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 64.0,
+              "fp": 55.0,
+              "fn": 64.0,
+              "precision": 0.5378151260504201,
+              "recall": 0.5,
+              "f1": 0.5182186234817814,
+              "ap": 0.504248147342461,
+              "roc_auc": 0.51324462890625
+            },
+            "transfer": {
+              "tp": 67.0,
+              "fp": 70.0,
+              "fn": 61.0,
+              "precision": 0.48905109489051096,
+              "recall": 0.5234375,
+              "f1": 0.5056603773584906,
+              "ap": 0.5034822027595248,
+              "roc_auc": 0.497589111328125
+            }
+          }
+        }
+      }
+    },
+    "current_roles_history": {
+      "linked": {
+        "all": {
+          "rows": 192.0,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "confusion": [
+            [
+              144.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              16.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              16.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 144.0
+            },
+            "RemoteAction": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 64.0,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "confusion": [
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              16.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              16.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "RemoteAction": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            }
+          }
+        }
+      },
+      "crossed": {
+        "all": {
+          "rows": 576.0,
+          "accuracy": 0.6666666666666666,
+          "macro_f1": 0.2222222222222222,
+          "confusion": [
+            [
+              384.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              0.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              0.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.8888888888888888,
+              "recall": 0.8888888888888888,
+              "f1": 0.8888888888888888,
+              "support": 432.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.42592592592592593,
+              "roc_auc": 0.8666666666666667
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.42592592592592593,
+              "roc_auc": 0.8666666666666667
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 192.0,
+          "accuracy": 0.0,
+          "macro_f1": 0.0,
+          "confusion": [
+            [
+              0.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              0.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              0.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.42592592592592593,
+              "roc_auc": 0.33333333333333337
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.42592592592592593,
+              "roc_auc": 0.33333333333333337
+            }
+          }
+        }
+      },
+      "factorial_all": {
+        "all": {
+          "rows": 768.0,
+          "accuracy": 0.75,
+          "macro_f1": 0.41666666666666663,
+          "confusion": [
+            [
+              528.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.9166666666666666,
+              "recall": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "support": 576.0
+            },
+            "RemoteAction": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.5,
+              "roc_auc": 0.9
+            },
+            "transfer": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.5,
+              "roc_auc": 0.9
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 256.0,
+          "accuracy": 0.25,
+          "macro_f1": 0.25,
+          "confusion": [
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "RemoteAction": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            }
+          }
+        }
+      }
+    },
+    "prior_evidence_rule": {
+      "linked": {
+        "all": {
+          "rows": 192.0,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "confusion": [
+            [
+              144.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              16.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              16.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 144.0
+            },
+            "RemoteAction": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 64.0,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "confusion": [
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              16.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              16.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "RemoteAction": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 0.0,
+              "fn": 0.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "ap": 1.0,
+              "roc_auc": 1.0
+            }
+          }
+        }
+      },
+      "crossed": {
+        "all": {
+          "rows": 576.0,
+          "accuracy": 0.6666666666666666,
+          "macro_f1": 0.2222222222222222,
+          "confusion": [
+            [
+              384.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              0.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              0.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.8888888888888888,
+              "recall": 0.8888888888888888,
+              "f1": 0.8888888888888888,
+              "support": 432.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.2222222222222222,
+              "roc_auc": 0.6
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.2222222222222222,
+              "roc_auc": 0.6
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 192.0,
+          "accuracy": 0.0,
+          "macro_f1": 0.0,
+          "confusion": [
+            [
+              0.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              0.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              0.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.4444444444444445,
+              "roc_auc": 0.33333333333333337
+            },
+            "transfer": {
+              "tp": 32.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3333333333333333,
+              "f1": 0.3333333333333333,
+              "ap": 0.4444444444444445,
+              "roc_auc": 0.33333333333333337
+            }
+          }
+        }
+      },
+      "factorial_all": {
+        "all": {
+          "rows": 768.0,
+          "accuracy": 0.75,
+          "macro_f1": 0.41666666666666663,
+          "confusion": [
+            [
+              528.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.9166666666666666,
+              "recall": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "support": 576.0
+            },
+            "RemoteAction": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.3333333333333333,
+              "roc_auc": 0.7000000000000001
+            },
+            "transfer": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.3333333333333333,
+              "roc_auc": 0.7000000000000001
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 256.0,
+          "accuracy": 0.25,
+          "macro_f1": 0.25,
+          "confusion": [
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ],
+            [
+              16.0,
+              16.0,
+              16.0,
+              16.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "RemoteAction": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.25,
+              "recall": 0.25,
+              "f1": 0.25,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 64.0,
+              "fp": 64.0,
+              "fn": 64.0,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            }
+          }
+        }
+      }
+    },
+    "majority": {
+      "linked": {
+        "all": {
+          "rows": 192.0,
+          "accuracy": 0.75,
+          "macro_f1": 0.21428571428571427,
+          "confusion": [
+            [
+              144.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "support": 144.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 32.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.16666666666666666,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 32.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.16666666666666666,
+              "roc_auc": 0.5
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 64.0,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "confusion": [
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              16.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.25,
+              "recall": 1.0,
+              "f1": 0.4,
+              "support": 16.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 16.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 16.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 16.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 32.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 32.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            }
+          }
+        }
+      },
+      "crossed": {
+        "all": {
+          "rows": 576.0,
+          "accuracy": 0.75,
+          "macro_f1": 0.21428571428571427,
+          "confusion": [
+            [
+              432.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              48.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              48.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              48.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "support": 432.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 96.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.16666666666666666,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 96.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.16666666666666666,
+              "roc_auc": 0.5
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 192.0,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "confusion": [
+            [
+              48.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              48.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              48.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              48.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.25,
+              "recall": 1.0,
+              "f1": 0.4,
+              "support": 48.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 48.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 96.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 96.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            }
+          }
+        }
+      },
+      "factorial_all": {
+        "all": {
+          "rows": 768.0,
+          "accuracy": 0.75,
+          "macro_f1": 0.21428571428571427,
+          "confusion": [
+            [
+              576.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              64.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              64.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              64.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.75,
+              "recall": 1.0,
+              "f1": 0.8571428571428571,
+              "support": 576.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 128.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.16666666666666666,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 128.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.16666666666666666,
+              "roc_auc": 0.5
+            }
+          }
+        },
+        "status200_only": {
+          "rows": 256.0,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "confusion": [
+            [
+              64.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              64.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              64.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              64.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "per_class": {
+            "Neither": {
+              "precision": 0.25,
+              "recall": 1.0,
+              "f1": 0.4,
+              "support": 64.0
+            },
+            "RemoteAction": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 64.0
+            },
+            "FileTransfer": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 64.0
+            },
+            "Both": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 64.0
+            }
+          },
+          "outcomes": {
+            "remote": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 128.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            },
+            "transfer": {
+              "tp": 0.0,
+              "fp": 0.0,
+              "fn": 128.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "ap": 0.5,
+              "roc_auc": 0.5
+            }
+          }
+        }
+      }
+    }
+  },
+  "clean_paired_contrasts": [
+    {
+      "candidate": "current_roles_history",
+      "reference": "current",
+      "purpose": "Full context versus current + coverage controls",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.23460410557184752,
+        "accuracy": 0.078125,
+        "remote_precision": 0.22580645161290325,
+        "remote_recall": 0.25,
+        "remote_f1": 0.23809523809523814,
+        "remote_ap": 0.13978494623655913,
+        "remote_roc_auc": 0.02343750000000011,
+        "remote_tp": 8.0,
+        "remote_fp": -7.0,
+        "remote_fn": -8.0,
+        "transfer_precision": 0.24242424242424243,
+        "transfer_recall": 0.21875,
+        "transfer_f1": 0.23076923076923073,
+        "transfer_ap": 0.14109848484848486,
+        "transfer_roc_auc": 0.0234375,
+        "transfer_tp": 7.0,
+        "transfer_fp": -8.0,
+        "transfer_fn": -7.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.078125,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.02343750000000011,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.0234375,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.078125,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.02343750000000011,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.0234375,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.078125,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.02343750000000011,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.0234375,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current",
+      "purpose": "Full context versus current + coverage controls",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.23460410557184752,
+        "accuracy": 0.234375,
+        "remote_precision": 0.22580645161290325,
+        "remote_recall": 0.25,
+        "remote_f1": 0.23809523809523814,
+        "remote_ap": 0.13978494623655913,
+        "remote_roc_auc": 0.1171875,
+        "remote_tp": 8.0,
+        "remote_fp": -7.0,
+        "remote_fn": -8.0,
+        "transfer_precision": 0.24242424242424243,
+        "transfer_recall": 0.21875,
+        "transfer_f1": 0.23076923076923073,
+        "transfer_ap": 0.14109848484848486,
+        "transfer_roc_auc": 0.1171875,
+        "transfer_tp": 7.0,
+        "transfer_fp": -8.0,
+        "transfer_fn": -7.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.234375,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.1171875,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.1171875,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.234375,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.1171875,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.1171875,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.234375,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.1171875,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.1171875,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current",
+      "purpose": "Full context versus current + coverage controls",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": -0.09440559440559443,
+        "accuracy": -0.03125,
+        "remote_precision": -0.12121212121212122,
+        "remote_recall": -0.08333333333333337,
+        "remote_f1": -0.10144927536231885,
+        "remote_ap": -0.01381902231800014,
+        "remote_roc_auc": -0.012033420138888862,
+        "remote_tp": -8.0,
+        "remote_fp": 16.0,
+        "remote_fn": 8.0,
+        "transfer_precision": -0.07051282051282054,
+        "transfer_recall": -0.10416666666666669,
+        "transfer_f1": -0.08666666666666667,
+        "transfer_ap": -0.006465920643399348,
+        "transfer_roc_auc": -0.006521267361111027,
+        "transfer_tp": -10.0,
+        "transfer_fp": 2.0,
+        "transfer_fn": 10.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.09440559440559443,
+            "accuracy": -0.03125,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.012033420138888862,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399348,
+            "transfer_roc_auc": -0.006521267361111027,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.09440559440559443,
+            "accuracy": -0.03125,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.012033420138888862,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399348,
+            "transfer_roc_auc": -0.006521267361111027,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.09440559440559443,
+            "accuracy": -0.03125,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.012033420138888862,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399348,
+            "transfer_roc_auc": -0.006521267361111027,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current",
+      "purpose": "Full context versus current + coverage controls",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": -0.0944055944055944,
+        "accuracy": -0.09375,
+        "remote_precision": -0.12121212121212122,
+        "remote_recall": -0.08333333333333337,
+        "remote_f1": -0.10144927536231885,
+        "remote_ap": -0.01381902231800014,
+        "remote_roc_auc": -0.060167100694444364,
+        "remote_tp": -8.0,
+        "remote_fp": 16.0,
+        "remote_fn": 8.0,
+        "transfer_precision": -0.07051282051282054,
+        "transfer_recall": -0.10416666666666669,
+        "transfer_f1": -0.08666666666666667,
+        "transfer_ap": -0.006465920643399292,
+        "transfer_roc_auc": -0.03260633680555547,
+        "transfer_tp": -10.0,
+        "transfer_fp": 2.0,
+        "transfer_fn": 10.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.0944055944055944,
+            "accuracy": -0.09375,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.060167100694444364,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399292,
+            "transfer_roc_auc": -0.03260633680555547,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.0944055944055944,
+            "accuracy": -0.09375,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.060167100694444364,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399292,
+            "transfer_roc_auc": -0.03260633680555547,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.0944055944055944,
+            "accuracy": -0.09375,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.060167100694444364,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399292,
+            "transfer_roc_auc": -0.03260633680555547,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current",
+      "purpose": "Full context versus current + coverage controls",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": -0.012122002085505734,
+        "accuracy": -0.00390625,
+        "remote_precision": -0.037815126050420145,
+        "remote_recall": 0.0,
+        "remote_f1": -0.018218623481781382,
+        "remote_ap": -0.004248147342461039,
+        "remote_roc_auc": -0.002648925781249978,
+        "remote_tp": 0.0,
+        "remote_fp": 9.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.010948905109489038,
+        "transfer_recall": -0.0234375,
+        "transfer_f1": -0.005660377358490565,
+        "transfer_ap": -0.0034822027595248217,
+        "transfer_roc_auc": 0.0004821777343750888,
+        "transfer_tp": -3.0,
+        "transfer_fp": -6.0,
+        "transfer_fn": 3.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.00390625,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.002648925781249978,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.0004821777343750888,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.00390625,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.002648925781249978,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.0004821777343750888,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.00390625,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.002648925781249978,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.0004821777343750888,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current",
+      "purpose": "Full context versus current + coverage controls",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": -0.012122002085505734,
+        "accuracy": -0.01171875,
+        "remote_precision": -0.037815126050420145,
+        "remote_recall": 0.0,
+        "remote_f1": -0.018218623481781382,
+        "remote_ap": -0.004248147342461039,
+        "remote_roc_auc": -0.01324462890625,
+        "remote_tp": 0.0,
+        "remote_fp": 9.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.010948905109489038,
+        "transfer_recall": -0.0234375,
+        "transfer_f1": -0.005660377358490565,
+        "transfer_ap": -0.0034822027595248217,
+        "transfer_roc_auc": 0.002410888671875,
+        "transfer_tp": -3.0,
+        "transfer_fp": -6.0,
+        "transfer_fn": 3.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.01171875,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.01324462890625,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.002410888671875,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.01171875,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.01324462890625,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.002410888671875,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.01171875,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.01324462890625,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.002410888671875,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_history",
+      "reference": "current",
+      "purpose": "Earlier event meanings beyond current controls",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.23460410557184752,
+        "accuracy": 0.078125,
+        "remote_precision": 0.22580645161290325,
+        "remote_recall": 0.25,
+        "remote_f1": 0.23809523809523814,
+        "remote_ap": 0.13978494623655913,
+        "remote_roc_auc": 0.02343750000000011,
+        "remote_tp": 8.0,
+        "remote_fp": -7.0,
+        "remote_fn": -8.0,
+        "transfer_precision": 0.24242424242424243,
+        "transfer_recall": 0.21875,
+        "transfer_f1": 0.23076923076923073,
+        "transfer_ap": 0.14109848484848486,
+        "transfer_roc_auc": 0.0234375,
+        "transfer_tp": 7.0,
+        "transfer_fp": -8.0,
+        "transfer_fn": -7.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.078125,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.02343750000000011,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.0234375,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.078125,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.02343750000000011,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.0234375,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.078125,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.02343750000000011,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.0234375,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_history",
+      "reference": "current",
+      "purpose": "Earlier event meanings beyond current controls",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.23460410557184752,
+        "accuracy": 0.234375,
+        "remote_precision": 0.22580645161290325,
+        "remote_recall": 0.25,
+        "remote_f1": 0.23809523809523814,
+        "remote_ap": 0.13978494623655913,
+        "remote_roc_auc": 0.1171875,
+        "remote_tp": 8.0,
+        "remote_fp": -7.0,
+        "remote_fn": -8.0,
+        "transfer_precision": 0.24242424242424243,
+        "transfer_recall": 0.21875,
+        "transfer_f1": 0.23076923076923073,
+        "transfer_ap": 0.14109848484848486,
+        "transfer_roc_auc": 0.1171875,
+        "transfer_tp": 7.0,
+        "transfer_fp": -8.0,
+        "transfer_fn": -7.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.234375,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.1171875,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.1171875,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.234375,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.1171875,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.1171875,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.23460410557184752,
+            "accuracy": 0.234375,
+            "remote_precision": 0.22580645161290325,
+            "remote_recall": 0.25,
+            "remote_f1": 0.23809523809523814,
+            "remote_ap": 0.13978494623655913,
+            "remote_roc_auc": 0.1171875,
+            "remote_tp": 8,
+            "remote_fp": -7,
+            "remote_fn": -8,
+            "transfer_precision": 0.24242424242424243,
+            "transfer_recall": 0.21875,
+            "transfer_f1": 0.23076923076923073,
+            "transfer_ap": 0.14109848484848486,
+            "transfer_roc_auc": 0.1171875,
+            "transfer_tp": 7,
+            "transfer_fp": -8,
+            "transfer_fn": -7
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_history",
+      "reference": "current",
+      "purpose": "Earlier event meanings beyond current controls",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": -0.09440559440559443,
+        "accuracy": -0.03125,
+        "remote_precision": -0.12121212121212122,
+        "remote_recall": -0.08333333333333337,
+        "remote_f1": -0.10144927536231885,
+        "remote_ap": -0.01381902231800014,
+        "remote_roc_auc": -0.012033420138888862,
+        "remote_tp": -8.0,
+        "remote_fp": 16.0,
+        "remote_fn": 8.0,
+        "transfer_precision": -0.07051282051282054,
+        "transfer_recall": -0.10416666666666669,
+        "transfer_f1": -0.08666666666666667,
+        "transfer_ap": -0.006465920643399348,
+        "transfer_roc_auc": -0.006521267361111027,
+        "transfer_tp": -10.0,
+        "transfer_fp": 2.0,
+        "transfer_fn": 10.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.09440559440559443,
+            "accuracy": -0.03125,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.012033420138888862,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399348,
+            "transfer_roc_auc": -0.006521267361111027,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.09440559440559443,
+            "accuracy": -0.03125,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.012033420138888862,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399348,
+            "transfer_roc_auc": -0.006521267361111027,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.09440559440559443,
+            "accuracy": -0.03125,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.012033420138888862,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399348,
+            "transfer_roc_auc": -0.006521267361111027,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_history",
+      "reference": "current",
+      "purpose": "Earlier event meanings beyond current controls",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": -0.0944055944055944,
+        "accuracy": -0.09375,
+        "remote_precision": -0.12121212121212122,
+        "remote_recall": -0.08333333333333337,
+        "remote_f1": -0.10144927536231885,
+        "remote_ap": -0.01381902231800014,
+        "remote_roc_auc": -0.060167100694444364,
+        "remote_tp": -8.0,
+        "remote_fp": 16.0,
+        "remote_fn": 8.0,
+        "transfer_precision": -0.07051282051282054,
+        "transfer_recall": -0.10416666666666669,
+        "transfer_f1": -0.08666666666666667,
+        "transfer_ap": -0.006465920643399292,
+        "transfer_roc_auc": -0.03260633680555547,
+        "transfer_tp": -10.0,
+        "transfer_fp": 2.0,
+        "transfer_fn": 10.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.0944055944055944,
+            "accuracy": -0.09375,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.060167100694444364,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399292,
+            "transfer_roc_auc": -0.03260633680555547,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.0944055944055944,
+            "accuracy": -0.09375,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.060167100694444364,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399292,
+            "transfer_roc_auc": -0.03260633680555547,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.0944055944055944,
+            "accuracy": -0.09375,
+            "remote_precision": -0.12121212121212122,
+            "remote_recall": -0.08333333333333337,
+            "remote_f1": -0.10144927536231885,
+            "remote_ap": -0.01381902231800014,
+            "remote_roc_auc": -0.060167100694444364,
+            "remote_tp": -8,
+            "remote_fp": 16,
+            "remote_fn": 8,
+            "transfer_precision": -0.07051282051282054,
+            "transfer_recall": -0.10416666666666669,
+            "transfer_f1": -0.08666666666666667,
+            "transfer_ap": -0.006465920643399292,
+            "transfer_roc_auc": -0.03260633680555547,
+            "transfer_tp": -10,
+            "transfer_fp": 2,
+            "transfer_fn": 10
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_history",
+      "reference": "current",
+      "purpose": "Earlier event meanings beyond current controls",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": -0.012122002085505734,
+        "accuracy": -0.00390625,
+        "remote_precision": -0.037815126050420145,
+        "remote_recall": 0.0,
+        "remote_f1": -0.018218623481781382,
+        "remote_ap": -0.004248147342461039,
+        "remote_roc_auc": -0.002648925781249978,
+        "remote_tp": 0.0,
+        "remote_fp": 9.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.010948905109489038,
+        "transfer_recall": -0.0234375,
+        "transfer_f1": -0.005660377358490565,
+        "transfer_ap": -0.0034822027595248217,
+        "transfer_roc_auc": 0.0004821777343750888,
+        "transfer_tp": -3.0,
+        "transfer_fp": -6.0,
+        "transfer_fn": 3.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.00390625,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.002648925781249978,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.0004821777343750888,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.00390625,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.002648925781249978,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.0004821777343750888,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.00390625,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.002648925781249978,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.0004821777343750888,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_history",
+      "reference": "current",
+      "purpose": "Earlier event meanings beyond current controls",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": -0.012122002085505734,
+        "accuracy": -0.01171875,
+        "remote_precision": -0.037815126050420145,
+        "remote_recall": 0.0,
+        "remote_f1": -0.018218623481781382,
+        "remote_ap": -0.004248147342461039,
+        "remote_roc_auc": -0.01324462890625,
+        "remote_tp": 0.0,
+        "remote_fp": 9.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.010948905109489038,
+        "transfer_recall": -0.0234375,
+        "transfer_f1": -0.005660377358490565,
+        "transfer_ap": -0.0034822027595248217,
+        "transfer_roc_auc": 0.002410888671875,
+        "transfer_tp": -3.0,
+        "transfer_fp": -6.0,
+        "transfer_fn": 3.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.01171875,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.01324462890625,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.002410888671875,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.01171875,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.01324462890625,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.002410888671875,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.012122002085505734,
+            "accuracy": -0.01171875,
+            "remote_precision": -0.037815126050420145,
+            "remote_recall": 0.0,
+            "remote_f1": -0.018218623481781382,
+            "remote_ap": -0.004248147342461039,
+            "remote_roc_auc": -0.01324462890625,
+            "remote_tp": 0,
+            "remote_fp": 9,
+            "remote_fn": 0,
+            "transfer_precision": 0.010948905109489038,
+            "transfer_recall": -0.0234375,
+            "transfer_f1": -0.005660377358490565,
+            "transfer_ap": -0.0034822027595248217,
+            "transfer_roc_auc": 0.002410888671875,
+            "transfer_tp": -3,
+            "transfer_fp": -6,
+            "transfer_fn": 3
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_roles_wrong_history",
+      "purpose": "Correct versus wrong-source history",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.2591093117408907,
+        "accuracy": 0.08333333333333337,
+        "remote_precision": 0.2894736842105263,
+        "remote_recall": 0.15625,
+        "remote_f1": 0.22857142857142854,
+        "remote_ap": 0.1087367400996182,
+        "remote_roc_auc": 0.0244140625,
+        "remote_tp": 5.0,
+        "remote_fp": -11.0,
+        "remote_fn": -5.0,
+        "transfer_precision": 0.1923076923076923,
+        "transfer_recall": 0.34375,
+        "transfer_f1": 0.27586206896551724,
+        "transfer_ap": 0.11052570068531697,
+        "transfer_roc_auc": 0.024609375000000044,
+        "transfer_tp": 11.0,
+        "transfer_fp": -5.0,
+        "transfer_fn": -11.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.2591093117408907,
+            "accuracy": 0.08333333333333337,
+            "remote_precision": 0.2894736842105263,
+            "remote_recall": 0.15625,
+            "remote_f1": 0.22857142857142854,
+            "remote_ap": 0.1087367400996182,
+            "remote_roc_auc": 0.0244140625,
+            "remote_tp": 5,
+            "remote_fp": -11,
+            "remote_fn": -5,
+            "transfer_precision": 0.1923076923076923,
+            "transfer_recall": 0.34375,
+            "transfer_f1": 0.27586206896551724,
+            "transfer_ap": 0.11052570068531697,
+            "transfer_roc_auc": 0.024609375000000044,
+            "transfer_tp": 11,
+            "transfer_fp": -5,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.2591093117408907,
+            "accuracy": 0.08333333333333337,
+            "remote_precision": 0.2894736842105263,
+            "remote_recall": 0.15625,
+            "remote_f1": 0.22857142857142854,
+            "remote_ap": 0.1087367400996182,
+            "remote_roc_auc": 0.0244140625,
+            "remote_tp": 5,
+            "remote_fp": -11,
+            "remote_fn": -5,
+            "transfer_precision": 0.1923076923076923,
+            "transfer_recall": 0.34375,
+            "transfer_f1": 0.27586206896551724,
+            "transfer_ap": 0.11052570068531697,
+            "transfer_roc_auc": 0.024609375000000044,
+            "transfer_tp": 11,
+            "transfer_fp": -5,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.2591093117408907,
+            "accuracy": 0.08333333333333337,
+            "remote_precision": 0.2894736842105263,
+            "remote_recall": 0.15625,
+            "remote_f1": 0.22857142857142854,
+            "remote_ap": 0.1087367400996182,
+            "remote_roc_auc": 0.0244140625,
+            "remote_tp": 5,
+            "remote_fp": -11,
+            "remote_fn": -5,
+            "transfer_precision": 0.1923076923076923,
+            "transfer_recall": 0.34375,
+            "transfer_f1": 0.27586206896551724,
+            "transfer_ap": 0.11052570068531697,
+            "transfer_roc_auc": 0.024609375000000044,
+            "transfer_tp": 11,
+            "transfer_fp": -5,
+            "transfer_fn": -11
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_roles_wrong_history",
+      "purpose": "Correct versus wrong-source history",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.2591093117408907,
+        "accuracy": 0.25,
+        "remote_precision": 0.2894736842105263,
+        "remote_recall": 0.15625,
+        "remote_f1": 0.22857142857142854,
+        "remote_ap": 0.10873674009961831,
+        "remote_roc_auc": 0.1220703125,
+        "remote_tp": 5.0,
+        "remote_fp": -11.0,
+        "remote_fn": -5.0,
+        "transfer_precision": 0.1923076923076923,
+        "transfer_recall": 0.34375,
+        "transfer_f1": 0.27586206896551724,
+        "transfer_ap": 0.11052570068531697,
+        "transfer_roc_auc": 0.123046875,
+        "transfer_tp": 11.0,
+        "transfer_fp": -5.0,
+        "transfer_fn": -11.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.2591093117408907,
+            "accuracy": 0.25,
+            "remote_precision": 0.2894736842105263,
+            "remote_recall": 0.15625,
+            "remote_f1": 0.22857142857142854,
+            "remote_ap": 0.10873674009961831,
+            "remote_roc_auc": 0.1220703125,
+            "remote_tp": 5,
+            "remote_fp": -11,
+            "remote_fn": -5,
+            "transfer_precision": 0.1923076923076923,
+            "transfer_recall": 0.34375,
+            "transfer_f1": 0.27586206896551724,
+            "transfer_ap": 0.11052570068531697,
+            "transfer_roc_auc": 0.123046875,
+            "transfer_tp": 11,
+            "transfer_fp": -5,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.2591093117408907,
+            "accuracy": 0.25,
+            "remote_precision": 0.2894736842105263,
+            "remote_recall": 0.15625,
+            "remote_f1": 0.22857142857142854,
+            "remote_ap": 0.10873674009961831,
+            "remote_roc_auc": 0.1220703125,
+            "remote_tp": 5,
+            "remote_fp": -11,
+            "remote_fn": -5,
+            "transfer_precision": 0.1923076923076923,
+            "transfer_recall": 0.34375,
+            "transfer_f1": 0.27586206896551724,
+            "transfer_ap": 0.11052570068531697,
+            "transfer_roc_auc": 0.123046875,
+            "transfer_tp": 11,
+            "transfer_fp": -5,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.2591093117408907,
+            "accuracy": 0.25,
+            "remote_precision": 0.2894736842105263,
+            "remote_recall": 0.15625,
+            "remote_f1": 0.22857142857142854,
+            "remote_ap": 0.10873674009961831,
+            "remote_roc_auc": 0.1220703125,
+            "remote_tp": 5,
+            "remote_fp": -11,
+            "remote_fn": -5,
+            "transfer_precision": 0.1923076923076923,
+            "transfer_recall": 0.34375,
+            "transfer_f1": 0.27586206896551724,
+            "transfer_ap": 0.11052570068531697,
+            "transfer_roc_auc": 0.123046875,
+            "transfer_tp": 11,
+            "transfer_fp": -5,
+            "transfer_fn": -11
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_roles_wrong_history",
+      "purpose": "Correct versus wrong-source history",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": -0.07474140807474139,
+        "accuracy": -0.02430555555555558,
+        "remote_precision": -0.08108108108108109,
+        "remote_recall": -0.14583333333333337,
+        "remote_f1": -0.1111111111111111,
+        "remote_ap": 0.0003723006943191498,
+        "remote_roc_auc": -0.005761718750000089,
+        "remote_tp": -14.0,
+        "remote_fp": -1.0,
+        "remote_fn": 14.0,
+        "transfer_precision": -0.06172839506172839,
+        "transfer_recall": 0.0,
+        "transfer_f1": -0.028248587570621486,
+        "transfer_ap": -0.006131814981893247,
+        "transfer_roc_auc": -0.009993489583333348,
+        "transfer_tp": 0.0,
+        "transfer_fp": 15.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.07474140807474139,
+            "accuracy": -0.02430555555555558,
+            "remote_precision": -0.08108108108108109,
+            "remote_recall": -0.14583333333333337,
+            "remote_f1": -0.1111111111111111,
+            "remote_ap": 0.0003723006943191498,
+            "remote_roc_auc": -0.005761718750000089,
+            "remote_tp": -14,
+            "remote_fp": -1,
+            "remote_fn": 14,
+            "transfer_precision": -0.06172839506172839,
+            "transfer_recall": 0.0,
+            "transfer_f1": -0.028248587570621486,
+            "transfer_ap": -0.006131814981893247,
+            "transfer_roc_auc": -0.009993489583333348,
+            "transfer_tp": 0,
+            "transfer_fp": 15,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.07474140807474139,
+            "accuracy": -0.02430555555555558,
+            "remote_precision": -0.08108108108108109,
+            "remote_recall": -0.14583333333333337,
+            "remote_f1": -0.1111111111111111,
+            "remote_ap": 0.0003723006943191498,
+            "remote_roc_auc": -0.005761718750000089,
+            "remote_tp": -14,
+            "remote_fp": -1,
+            "remote_fn": 14,
+            "transfer_precision": -0.06172839506172839,
+            "transfer_recall": 0.0,
+            "transfer_f1": -0.028248587570621486,
+            "transfer_ap": -0.006131814981893247,
+            "transfer_roc_auc": -0.009993489583333348,
+            "transfer_tp": 0,
+            "transfer_fp": 15,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.07474140807474139,
+            "accuracy": -0.02430555555555558,
+            "remote_precision": -0.08108108108108109,
+            "remote_recall": -0.14583333333333337,
+            "remote_f1": -0.1111111111111111,
+            "remote_ap": 0.0003723006943191498,
+            "remote_roc_auc": -0.005761718750000089,
+            "remote_tp": -14,
+            "remote_fp": -1,
+            "remote_fn": 14,
+            "transfer_precision": -0.06172839506172839,
+            "transfer_recall": 0.0,
+            "transfer_f1": -0.028248587570621486,
+            "transfer_ap": -0.006131814981893247,
+            "transfer_roc_auc": -0.009993489583333348,
+            "transfer_tp": 0,
+            "transfer_fp": 15,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_roles_wrong_history",
+      "purpose": "Correct versus wrong-source history",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": -0.0747414080747414,
+        "accuracy": -0.07291666666666667,
+        "remote_precision": -0.08108108108108109,
+        "remote_recall": -0.14583333333333337,
+        "remote_f1": -0.1111111111111111,
+        "remote_ap": -0.00035172770627867056,
+        "remote_roc_auc": -0.032172309027777735,
+        "remote_tp": -14.0,
+        "remote_fp": -1.0,
+        "remote_fn": 14.0,
+        "transfer_precision": -0.06172839506172839,
+        "transfer_recall": 0.0,
+        "transfer_f1": -0.028248587570621486,
+        "transfer_ap": -0.006446426562866092,
+        "transfer_roc_auc": -0.051269531249999944,
+        "transfer_tp": 0.0,
+        "transfer_fp": 15.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": -0.0747414080747414,
+            "accuracy": -0.07291666666666667,
+            "remote_precision": -0.08108108108108109,
+            "remote_recall": -0.14583333333333337,
+            "remote_f1": -0.1111111111111111,
+            "remote_ap": -0.00035172770627867056,
+            "remote_roc_auc": -0.032172309027777735,
+            "remote_tp": -14,
+            "remote_fp": -1,
+            "remote_fn": 14,
+            "transfer_precision": -0.06172839506172839,
+            "transfer_recall": 0.0,
+            "transfer_f1": -0.028248587570621486,
+            "transfer_ap": -0.006446426562866092,
+            "transfer_roc_auc": -0.051269531249999944,
+            "transfer_tp": 0,
+            "transfer_fp": 15,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": -0.0747414080747414,
+            "accuracy": -0.07291666666666667,
+            "remote_precision": -0.08108108108108109,
+            "remote_recall": -0.14583333333333337,
+            "remote_f1": -0.1111111111111111,
+            "remote_ap": -0.00035172770627867056,
+            "remote_roc_auc": -0.032172309027777735,
+            "remote_tp": -14,
+            "remote_fp": -1,
+            "remote_fn": 14,
+            "transfer_precision": -0.06172839506172839,
+            "transfer_recall": 0.0,
+            "transfer_f1": -0.028248587570621486,
+            "transfer_ap": -0.006446426562866092,
+            "transfer_roc_auc": -0.051269531249999944,
+            "transfer_tp": 0,
+            "transfer_fp": 15,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": -0.0747414080747414,
+            "accuracy": -0.07291666666666667,
+            "remote_precision": -0.08108108108108109,
+            "remote_recall": -0.14583333333333337,
+            "remote_f1": -0.1111111111111111,
+            "remote_ap": -0.00035172770627867056,
+            "remote_roc_auc": -0.032172309027777735,
+            "remote_tp": -14,
+            "remote_fp": -1,
+            "remote_fn": 14,
+            "transfer_precision": -0.06172839506172839,
+            "transfer_recall": 0.0,
+            "transfer_f1": -0.028248587570621486,
+            "transfer_ap": -0.006446426562866092,
+            "transfer_roc_auc": -0.051269531249999944,
+            "transfer_tp": 0,
+            "transfer_fp": 15,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_roles_wrong_history",
+      "purpose": "Correct versus wrong-source history",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.008522549081101394,
+        "accuracy": 0.0026041666666666297,
+        "remote_precision": 0.010067114093959717,
+        "remote_recall": -0.0703125,
+        "remote_f1": -0.027075812274368283,
+        "remote_ap": -0.0012293211873702914,
+        "remote_roc_auc": 0.002069091796874978,
+        "remote_tp": -9.0,
+        "remote_fp": -12.0,
+        "remote_fn": 9.0,
+        "transfer_precision": 0.004672897196261683,
+        "transfer_recall": 0.0859375,
+        "transfer_f1": 0.04893617021276597,
+        "transfer_ap": -0.011043180580039613,
+        "transfer_roc_auc": -0.001281738281249889,
+        "transfer_tp": 11.0,
+        "transfer_fp": 10.0,
+        "transfer_fn": -11.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.008522549081101394,
+            "accuracy": 0.0026041666666666297,
+            "remote_precision": 0.010067114093959717,
+            "remote_recall": -0.0703125,
+            "remote_f1": -0.027075812274368283,
+            "remote_ap": -0.0012293211873702914,
+            "remote_roc_auc": 0.002069091796874978,
+            "remote_tp": -9,
+            "remote_fp": -12,
+            "remote_fn": 9,
+            "transfer_precision": 0.004672897196261683,
+            "transfer_recall": 0.0859375,
+            "transfer_f1": 0.04893617021276597,
+            "transfer_ap": -0.011043180580039613,
+            "transfer_roc_auc": -0.001281738281249889,
+            "transfer_tp": 11,
+            "transfer_fp": 10,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.008522549081101394,
+            "accuracy": 0.0026041666666666297,
+            "remote_precision": 0.010067114093959717,
+            "remote_recall": -0.0703125,
+            "remote_f1": -0.027075812274368283,
+            "remote_ap": -0.0012293211873702914,
+            "remote_roc_auc": 0.002069091796874978,
+            "remote_tp": -9,
+            "remote_fp": -12,
+            "remote_fn": 9,
+            "transfer_precision": 0.004672897196261683,
+            "transfer_recall": 0.0859375,
+            "transfer_f1": 0.04893617021276597,
+            "transfer_ap": -0.011043180580039613,
+            "transfer_roc_auc": -0.001281738281249889,
+            "transfer_tp": 11,
+            "transfer_fp": 10,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.008522549081101394,
+            "accuracy": 0.0026041666666666297,
+            "remote_precision": 0.010067114093959717,
+            "remote_recall": -0.0703125,
+            "remote_f1": -0.027075812274368283,
+            "remote_ap": -0.0012293211873702914,
+            "remote_roc_auc": 0.002069091796874978,
+            "remote_tp": -9,
+            "remote_fp": -12,
+            "remote_fn": 9,
+            "transfer_precision": 0.004672897196261683,
+            "transfer_recall": 0.0859375,
+            "transfer_f1": 0.04893617021276597,
+            "transfer_ap": -0.011043180580039613,
+            "transfer_roc_auc": -0.001281738281249889,
+            "transfer_tp": 11,
+            "transfer_fp": 10,
+            "transfer_fn": -11
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_roles_wrong_history",
+      "purpose": "Correct versus wrong-source history",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.008522549081101422,
+        "accuracy": 0.0078125,
+        "remote_precision": 0.010067114093959717,
+        "remote_recall": -0.0703125,
+        "remote_f1": -0.027075812274368283,
+        "remote_ap": -0.0017798664893836635,
+        "remote_roc_auc": 0.007781982421875,
+        "remote_tp": -9.0,
+        "remote_fp": -12.0,
+        "remote_fn": 9.0,
+        "transfer_precision": 0.004672897196261683,
+        "transfer_recall": 0.0859375,
+        "transfer_f1": 0.04893617021276597,
+        "transfer_ap": -0.01130806840968901,
+        "transfer_roc_auc": -0.00750732421875,
+        "transfer_tp": 11.0,
+        "transfer_fp": 10.0,
+        "transfer_fn": -11.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.008522549081101422,
+            "accuracy": 0.0078125,
+            "remote_precision": 0.010067114093959717,
+            "remote_recall": -0.0703125,
+            "remote_f1": -0.027075812274368283,
+            "remote_ap": -0.0017798664893836635,
+            "remote_roc_auc": 0.007781982421875,
+            "remote_tp": -9,
+            "remote_fp": -12,
+            "remote_fn": 9,
+            "transfer_precision": 0.004672897196261683,
+            "transfer_recall": 0.0859375,
+            "transfer_f1": 0.04893617021276597,
+            "transfer_ap": -0.01130806840968901,
+            "transfer_roc_auc": -0.00750732421875,
+            "transfer_tp": 11,
+            "transfer_fp": 10,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.008522549081101422,
+            "accuracy": 0.0078125,
+            "remote_precision": 0.010067114093959717,
+            "remote_recall": -0.0703125,
+            "remote_f1": -0.027075812274368283,
+            "remote_ap": -0.0017798664893836635,
+            "remote_roc_auc": 0.007781982421875,
+            "remote_tp": -9,
+            "remote_fp": -12,
+            "remote_fn": 9,
+            "transfer_precision": 0.004672897196261683,
+            "transfer_recall": 0.0859375,
+            "transfer_f1": 0.04893617021276597,
+            "transfer_ap": -0.01130806840968901,
+            "transfer_roc_auc": -0.00750732421875,
+            "transfer_tp": 11,
+            "transfer_fp": 10,
+            "transfer_fn": -11
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.008522549081101422,
+            "accuracy": 0.0078125,
+            "remote_precision": 0.010067114093959717,
+            "remote_recall": -0.0703125,
+            "remote_f1": -0.027075812274368283,
+            "remote_ap": -0.0017798664893836635,
+            "remote_roc_auc": 0.007781982421875,
+            "remote_tp": -9,
+            "remote_fp": -12,
+            "remote_fn": 9,
+            "transfer_precision": 0.004672897196261683,
+            "transfer_recall": 0.0859375,
+            "transfer_f1": 0.04893617021276597,
+            "transfer_ap": -0.01130806840968901,
+            "transfer_roc_auc": -0.00750732421875,
+            "transfer_tp": 11,
+            "transfer_fp": 10,
+            "transfer_fn": -11
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "prior_evidence_rule",
+      "purpose": "Full context versus direct prior-evidence rule",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "prior_evidence_rule",
+      "purpose": "Full context versus direct prior-evidence rule",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "prior_evidence_rule",
+      "purpose": "Full context versus direct prior-evidence rule",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.20370370370370372,
+        "remote_roc_auc": 0.2666666666666667,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.20370370370370372,
+        "transfer_roc_auc": 0.2666666666666667,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.20370370370370372,
+            "remote_roc_auc": 0.2666666666666667,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.20370370370370372,
+            "transfer_roc_auc": 0.2666666666666667,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.20370370370370372,
+            "remote_roc_auc": 0.2666666666666667,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.20370370370370372,
+            "transfer_roc_auc": 0.2666666666666667,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.20370370370370372,
+            "remote_roc_auc": 0.2666666666666667,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.20370370370370372,
+            "transfer_roc_auc": 0.2666666666666667,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "prior_evidence_rule",
+      "purpose": "Full context versus direct prior-evidence rule",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": -0.018518518518518545,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": -0.018518518518518545,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": -0.018518518518518545,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": -0.018518518518518545,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": -0.018518518518518545,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": -0.018518518518518545,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": -0.018518518518518545,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": -0.018518518518518545,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "prior_evidence_rule",
+      "purpose": "Full context versus direct prior-evidence rule",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.16666666666666669,
+        "remote_roc_auc": 0.19999999999999996,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.16666666666666669,
+        "transfer_roc_auc": 0.19999999999999996,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.16666666666666669,
+            "remote_roc_auc": 0.19999999999999996,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.16666666666666669,
+            "transfer_roc_auc": 0.19999999999999996,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.16666666666666669,
+            "remote_roc_auc": 0.19999999999999996,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.16666666666666669,
+            "transfer_roc_auc": 0.19999999999999996,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.16666666666666669,
+            "remote_roc_auc": 0.19999999999999996,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.16666666666666669,
+            "transfer_roc_auc": 0.19999999999999996,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "prior_evidence_rule",
+      "purpose": "Full context versus direct prior-evidence rule",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_history",
+      "purpose": "Roles beyond current + history",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_history",
+      "purpose": "Roles beyond current + history",
+      "condition": "clean",
+      "population": "linked",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_history",
+      "purpose": "Roles beyond current + history",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_history",
+      "purpose": "Roles beyond current + history",
+      "condition": "clean",
+      "population": "crossed",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_history",
+      "purpose": "Roles beyond current + history",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "all",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    },
+    {
+      "candidate": "current_roles_history",
+      "reference": "current_history",
+      "purpose": "Roles beyond current + history",
+      "condition": "clean",
+      "population": "factorial_all",
+      "subset": "status200_only",
+      "mean_delta": {
+        "macro_f1": 0.0,
+        "accuracy": 0.0,
+        "remote_precision": 0.0,
+        "remote_recall": 0.0,
+        "remote_f1": 0.0,
+        "remote_ap": 0.0,
+        "remote_roc_auc": 0.0,
+        "remote_tp": 0.0,
+        "remote_fp": 0.0,
+        "remote_fn": 0.0,
+        "transfer_precision": 0.0,
+        "transfer_recall": 0.0,
+        "transfer_f1": 0.0,
+        "transfer_ap": 0.0,
+        "transfer_roc_auc": 0.0,
+        "transfer_tp": 0.0,
+        "transfer_fp": 0.0,
+        "transfer_fn": 0.0
+      },
+      "per_seed": [
+        {
+          "seed": 20260922,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260923,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        },
+        {
+          "seed": 20260924,
+          "delta": {
+            "macro_f1": 0.0,
+            "accuracy": 0.0,
+            "remote_precision": 0.0,
+            "remote_recall": 0.0,
+            "remote_f1": 0.0,
+            "remote_ap": 0.0,
+            "remote_roc_auc": 0.0,
+            "remote_tp": 0,
+            "remote_fp": 0,
+            "remote_fn": 0,
+            "transfer_precision": 0.0,
+            "transfer_recall": 0.0,
+            "transfer_f1": 0.0,
+            "transfer_ap": 0.0,
+            "transfer_roc_auc": 0.0,
+            "transfer_tp": 0,
+            "transfer_fp": 0,
+            "transfer_fn": 0
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,15 @@
 # Praxis decision and research history
 
+## September 22 follow-up: context mechanism completed; new detector not established
+
+The [verified-outcome lab](../verified_stage_lab/README.md) completes a bounded follow-up to the host-role/authentication experiments. It collected 2,304 current transactions plus their earlier actions and fitted 21 fixed models. Three local processes actually exchanged requests and persisted independently checked hash results or complete dummy objects. These are controlled application outcomes, not verified lateral compromise or theft.
+
+On the deliberately predictable workflow, adding earlier event types raised four-class macro-F1 from **0.7654 to 1.0000**; an elementary prior-evidence rule also scored **1.0000**. Across the full held-out crossing of earlier and current actions, macro-F1 changed from **0.4288 to 0.4167**. Restricting that comparison to successful requests gives **0.2621 to 0.2500**. The reference already receives prior-log volume and availability controls. The three model seeds produce identical results and are not independent replications.
+
+This establishes implementation completion and exposes reliance on a deliberately repeated workflow. It provides neither a unique ML advantage nor a robust solution to missing/delayed evidence. It also does not show that useful enterprise context is impossible: the complete crossing deliberately removes the relationship between prior and current actions. The original Windows clock-recovery route is [closed as unqualified](../host_auth_context/CLOCK_RECOVERY_FINAL.md), and the full original authentication/exfiltration hypothesis remains untested.
+
+**Decision:** retain the earlier empirical findings and their detection costs. Do not promote this controlled result into a new APT algorithm claim or invest in a larger model on this generator. Any stronger continuation requires observable authorization/data-access context and genuine remote-administration and transfer telemetry on independently held-out executions, with matched legitimate activity and verified outcomes. That is an additional research study, not evidence already supplied by this lab. [Actual results](../results/verified_stage_lab_v1/REPORT.md) and [prior-art boundaries](../verified_stage_lab/LITERATURE_SCOPE.md).
+
 ## Current decision: measured improvements with explicit tradeoffs
 
 **The completed studies support an empirical praxis about improving alert efficiency while measuring which attack activity becomes less visible.** The current recommended paper is [Improving APT Alert Efficiency: Measured Gains and Lateral-Movement Tradeoffs](../lateral_protection_experiment/paper/FINDINGS_PRAXIS.md). This findings-led interpretation was developed after the results were known; it changes no original model, threshold, protocol, or scientific decision.
