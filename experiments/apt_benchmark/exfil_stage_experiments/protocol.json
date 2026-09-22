@@ -1,0 +1,95 @@
+{
+  "study": "Exfiltration attribution and stage-expert fusion",
+  "version": 1,
+  "status": "FROZEN_BEFORE_THIS_PILOT_FITS",
+  "seeds": [
+    20260922,
+    20260923,
+    20260924
+  ],
+  "data_sha256": "8e8a7474d4db03b78977a3c6a48be083d60d7648dd7548788037db721e80e565",
+  "classes": [
+    "DataExfiltration",
+    "InitialCompromise",
+    "LateralMovement",
+    "NormalTraffic",
+    "Pivoting",
+    "Reconnaissance"
+  ],
+  "fit_budget": {
+    "NormalTraffic": 1024,
+    "each_attack_stage": 32
+  },
+  "fit_sampling": "Hash EXFIL_STAGE_V1|seed|feature_group per class, original fit pool only",
+  "crossfit_folds": 3,
+  "model_parameters": {
+    "xgboost": {
+      "n_estimators": 300,
+      "max_depth": 3,
+      "learning_rate": 0.05,
+      "reg_lambda": 1.0
+    },
+    "lightgbm": {
+      "n_estimators": 300,
+      "num_leaves": 15,
+      "learning_rate": 0.05,
+      "min_child_samples": 5,
+      "reg_lambda": 1.0
+    }
+  },
+  "class_weight": null,
+  "models": [
+    "xgboost",
+    "lightgbm"
+  ],
+  "threads": 4,
+  "feature_views": [
+    "raw_73",
+    "raw_plus_18_derived"
+  ],
+  "derived_features": [
+    "log_total_bytes",
+    "log_total_packets",
+    "log_duration_raw",
+    "forward_byte_fraction",
+    "forward_packet_fraction",
+    "byte_asymmetry",
+    "packet_asymmetry",
+    "log_byte_direction_ratio",
+    "log_packet_direction_ratio",
+    "forward_bytes_per_packet",
+    "backward_bytes_per_packet",
+    "mean_packet_direction_ratio",
+    "flow_iat_cv",
+    "forward_iat_cv",
+    "backward_iat_cv",
+    "packet_length_cv",
+    "active_cv",
+    "byte_packet_fraction_difference"
+  ],
+  "fusion": "Unweighted fixed averages and L2 logistic regression C=1 trained on strictly out-of-fold clipped logit scores; no hyperparameter tuning",
+  "stage_family_selection": "Per class, highest fit-OOF average precision, ties xgboost; only used in a fixed selector arm, never to train learned fusion",
+  "threshold_selection": "Original calibration only: maximize exfil F1; ties higher threshold. Also empirical tail thresholds separately on normal and all non-exfil rows with strict score>threshold",
+  "descriptive_fpr_design_budgets": [
+    0.001,
+    0.005,
+    0.01,
+    0.02
+  ],
+  "primary_exfil_endpoint": "Test exfil-vs-all average precision; exact-exfil F1/precision/recall and false positives by true stage at calibration-selected threshold",
+  "primary_stage_endpoint": "Six-class macro-F1 and each stage F1/AP/recall/precision; binary any-attack detection reported separately",
+  "comparisons": [
+    "features: engineered minus raw within same model/task",
+    "specialization: exfil specialist minus general exfil score with same model/features",
+    "fusion: learned/fixed fusion versus engineered general models, their average, and OOF learned general-only fusion"
+  ],
+  "success_policy": "Report all directions and stage costs; no arbitrary 90% recall floor or pass/fail improvement magnitude",
+  "evaluation_status": "Previously exposed SCVIC development partitions; fitting seeds are not independent attacks",
+  "not_measured": [
+    "early detection",
+    "temporal progression reconstruction",
+    "unseen campaign generalization",
+    "missing logs",
+    "new algorithm novelty"
+  ]
+}
