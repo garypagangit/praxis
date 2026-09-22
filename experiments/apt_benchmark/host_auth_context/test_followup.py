@@ -167,6 +167,17 @@ def test_frozen_binding_rejects_modified_input_before_use(tmp_path):
         run.verify(protocol)
 
 
+def test_unqualified_windows_receipt_cannot_be_frozen(tmp_path):
+    from .freeze import freeze
+    events = tmp_path / 'events'; events.mkdir()
+    (events / 'QUALIFICATION.json').write_text(json.dumps({
+        'approved_for_event_time_replay': False,
+        'status': 'PARSED_CLOCK_QUALIFIED_PENDING_CONTINUITY_REVIEW'}))
+    with pytest.raises(ValueError, match='Event-time replay is not qualified'):
+        freeze(tmp_path, tmp_path, events, tmp_path / 'protocol.json')
+    assert not (tmp_path / 'protocol.json').exists()
+
+
 def test_independent_policy_audit_matches_all_variants_and_detects_overclaim():
     yc, pc, rc = calibration()
     yt, pt = np.array([0, 1, 2, 3, 3]), np.array([.95, .95, .95, .95, .95])

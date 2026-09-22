@@ -1,0 +1,65 @@
+{
+  "audit_status": "PASS",
+  "run_status": "COMPLETE",
+  "audited_utc": "2026-09-22T13:41:54.160636+00:00",
+  "auditor_sha256": "40eb2abfb845a2a0bcd26e7aebc461c3fa12fbcc6068490d6fb5d1c9cc09e393",
+  "auditor_metric_helper_sha256": "888090f479225ea9ce2571d3718c816797b5b11250c970019a3086470744bf7a",
+  "mode": "auth_fits_and_replay",
+  "models_audited": 21,
+  "prediction_arms_audited": 39,
+  "policies_per_arm": 9,
+  "artifact_hashes": {
+    "SUMMARY.json": "130a35acaca573de084af41a459b510600f03e4fd0000984c9c8b1d6f3e47521",
+    "STARTED.json": "f9a5aa6c5558a28d20718f8b9bb70eb013b1b6df898db0f050b03e001b0c2158",
+    "COMPLETE.json": "f5b7062093e86ad50d0cef22ee3a2572e45bd743c3665c0dfd19329617785325"
+  },
+  "protocol_sha256": "9791740e81586cab537cf014bdba1c44e684f1ebe319c576ffa1b60988fabca1",
+  "frozen_input_bindings_verified": 32,
+  "checks": {
+    "qualification": {
+      "observed_events": 286953,
+      "auth_events": 90008,
+      "raw_source_hashes_verified": 14,
+      "windows_clock_anchors_verified": 147,
+      "meaning": "Hash-bound parser output and export-offset arithmetic; absolute host synchronization and ingestion delay are not certified."
+    },
+    "features": {
+      "rows_with_strict_chronology_and_visibility_checked": 382229,
+      "anchors_with_direct_event_filtering": 98,
+      "sampling": "All movement anchors plus twelve distributed rows per acquisition split"
+    }
+  },
+  "seed_receipts": [
+    {
+      "seed": 20260922,
+      "prediction_arms_checked": 13,
+      "policies_per_arm": 9,
+      "prediction_sha256": "97e97f4607213ab8139e210a66a9416e988e01d137b224005f24ea798fadf586",
+      "complete_sha256": "5afb09fcbe0cf81de8136e453c0417c5a8ef333822f6ece64441a39e7b26d792"
+    },
+    {
+      "seed": 20260923,
+      "prediction_arms_checked": 13,
+      "policies_per_arm": 9,
+      "prediction_sha256": "85e7b51a0418cd68928e38bcfa09643e363e4c163cce6552bcb682b9fd42b23d",
+      "complete_sha256": "f8ad40a7b9250cd3cafc9ea26938da18832c16941d0518da2710341fa6a4d0c0"
+    },
+    {
+      "seed": 20260924,
+      "prediction_arms_checked": 13,
+      "policies_per_arm": 9,
+      "prediction_sha256": "8afb036aeedcd8d6c28b583b27d6b7fa5b014b07b7e0fd675a7055b27c80fcdf",
+      "complete_sha256": "da0a784cf9327151090c8d582403fba4706ee72d3f2577e5ed440f748778f708"
+    }
+  ],
+  "limitations": [
+    "No refitting, inference replay or model deserialization; model file hashes verified.",
+    "Export timezone arithmetic and saved joins verified; absolute cross-host synchronization and ingestion delay are unmeasured.",
+    "Event parser outputs hash-bound; this audit does not independently reparse every raw host message.",
+    "Direct auth arithmetic checks cover every movement anchor plus a fixed distributed sample, not every feature value.",
+    "Stage annotations are not independent proof of successful movement or data theft.",
+    "Zero movement calibration examples; support flags do not establish a movement-error guarantee.",
+    "Preservation of baseline alert flags is a policy invariant, not learned movement improvement.",
+    "One exposed campaign and shared later cases; fitting seeds are not independent attacks."
+  ]
+}

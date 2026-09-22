@@ -210,7 +210,8 @@ def policy_report(means):
 def report(evidence):
     means = evidence["means"]
     counts = means[ARMS[0]]["stage"]["per_class"]
-    lines = ["# Does earlier authentication help distinguish movement from exfiltration?", "",
+    lines = ["# Partial authentication test and movement-preserving review policies", "",
+             "**Scope gate: all Windows host events were excluded before fitting because clock alignment was unresolved.** This run uses Linux audit context. All 35 movement-stage test rows have the covered Linux source; all 3,442 exfiltration-stage test rows have the excluded Windows source. The full Windows-authentication/exfiltration hypothesis remains untested. See [host-event qualification](../../host_auth_context/HOST_EVENT_QUALIFICATION.md).", "",
              f"**Completed development comparison: 21 new fits plus 18 saved probability-arm replays. Independent calculation audit: {evidence['audit']['status']}.** Three fitting seeds share the same later-period observations from one exposed UNRAVELED campaign and IT sensor.", "",
              "Authentication histories, host roles, temporal context and fusion have direct prior art. This study tests incremental information and error costs; it does not establish a new algorithm. See the [novelty review](../../host_auth_context/NOVELTY_REVIEW.md) and [fixed design](../../host_auth_context/DESIGN.md).", "",
              "## What was measured", "",
@@ -264,6 +265,17 @@ def report(evidence):
 
 def publish(run, output, audit_path=None):
     summary, cell_hashes = validate_run(run)
+    protocol_path = Path(__file__).with_name("protocol.json")
+    if sha(protocol_path) != summary["receipt"]["protocol_sha256"]:
+        raise ValueError("Publication protocol differs from run")
+    spec = read(protocol_path)
+    qualification_path = Path(spec["events"]) / "QUALIFICATION.json"
+    expected = {Path(item["path"]).resolve(): item["sha256"] for item in spec["bindings"]}
+    if expected.get(qualification_path.resolve()) != sha(qualification_path):
+        raise ValueError("Qualification receipt changed")
+    qualification = read(qualification_path)
+    if qualification.get("status") != "QUALIFIED_LINUX_RECORD_TIME_REPLAY_WINDOWS_EXCLUDED":
+        raise ValueError("This report's declared Linux-only scope does not match its inputs")
     summary_hash = sha(run / "SUMMARY.json")
     audit = None
     audit_status = "PENDING"
@@ -278,7 +290,8 @@ def publish(run, output, audit_path=None):
         audit_status = "PASS"
     evidence = {
         "status": "COMPLETE_RUNNER_OUTPUTS" if audit_status == "PENDING" else "COMPLETE_AUDITED",
-        "scope": "One exposed UNRAVELED campaign, same IT sensor and later-flow development partition; author stage annotations",
+        "scope": "Partial Linux authentication ablation; all Windows events excluded. One exposed UNRAVELED campaign, later-flow development, author stage annotations. Full Windows-authentication/exfiltration hypothesis untested.",
+        "event_qualification": {"status": qualification["status"], "receipt_sha256": sha(qualification_path), "observed_records": qualification["observed_records"], "auth_context_records": qualification["auth_context_records"], "excluded_windows_records": qualification["excluded_after_dedup"], "scope_gate": qualification["scope_gate"]},
         "source_summary_sha256": summary_hash, "source_complete_sha256": sha(run / "COMPLETE.json"),
         "source_cell_complete_sha256": cell_hashes,
         "protocol_sha256": summary["receipt"]["protocol_sha256"],
