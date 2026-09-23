@@ -1,0 +1,57 @@
+{
+  "experiment": "PX-081",
+  "frozen_at": "2026-09-23T13:19:54.576106+00:00",
+  "status": "FROZEN_BEFORE_FITS",
+  "input_sha256": "b2a491474e722f4dabcd4c419c83a4a6b49f08dfc3bc059aa42ef2aaa4c3de14",
+  "source_sha256": {
+    "run.py": "4f6e0ec2f46dadfff38a9ad6a23950113642a4261767595033ec88fd3b2de421",
+    "audit.py": "167c4fe1093d0d84a6dfc7aeea86d2767b74a493a525437b64c773348f39ee6a",
+    "test_px081.py": "67cd4397c23d78f97fdd1c1504a090929aae015fc792e27082888409fc64112e",
+    "PROTOCOL.md": "68e9730976588d1a916651d28be09c164b285d9113a2645aae88e3ac42aa0f0d"
+  },
+  "seeds": [
+    8101,
+    8102,
+    8103
+  ],
+  "classes": [
+    "benign",
+    "other_attack",
+    "movement",
+    "exfiltration"
+  ],
+  "stage_error_weights": [
+    1.0,
+    1.0,
+    4.0,
+    4.0
+  ],
+  "costs": [
+    1.0,
+    2.0
+  ],
+  "nominal_delays": [
+    0.25,
+    0.75
+  ],
+  "deadline": 1.0,
+  "budgets": [
+    1,
+    2,
+    3
+  ],
+  "conditions": [
+    "clean",
+    "delayed_unavailable",
+    "wrong_host_history"
+  ],
+  "policies": [
+    "none",
+    "roles_first",
+    "history_first",
+    "random",
+    "entropy",
+    "harm"
+  ],
+  "compute": "CPU LightGBM; AWS if available"
+}

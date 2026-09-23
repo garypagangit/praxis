@@ -1,0 +1,20 @@
+{
+  "experiment": "PX-082",
+  "version": 1,
+  "question": "How do time-mixed training and conventional random row splits change measured attack-stage recognition?",
+  "data_sha256": "b2a491474e722f4dabcd4c419c83a4a6b49f08dfc3bc059aa42ef2aaa4c3de14",
+  "seeds": [20260923, 20260924, 20260925],
+  "views": ["current", "current_history"],
+  "arms": ["past_only_anchor", "time_mixed_anchor", "conventional_random"],
+  "anchor": "Within each original later capture and author class, sort observable event SHA256 and retain the first ceiling-half. Identical anchor for both primary training arms and every seed/view.",
+  "past_pool": "Original fitting captures only, excluding all current-feature fingerprints found in the common anchor.",
+  "mixed_pool": "Original fitting and non-anchor later-test rows, excluding original calibration and every current-feature fingerprint found in the common anchor. Allows future training deliberately as a diagnostic, not deployment-valid evaluation.",
+  "training_counts": "Per class minimum of past and mixed eligible support and caps [20000,5000,5000,5000]; same counts for all arms. Deterministic seeded hash sample without replacement.",
+  "conventional_random": "Seeded stratified 55 percent test from all prepared rows; remaining rows form training pool, sampled to the same class counts. No calibration or threshold selection. This secondary comparison changes the test population; its difference is not a pure temporal-leakage estimate.",
+  "model": {"name": "LightGBM", "n_estimators": 200, "num_leaves": 15, "learning_rate": 0.05, "min_child_samples": 10, "reg_lambda": 1.0, "n_jobs": 2},
+  "predictors": "Qualified current-flow features, optionally prior-only history. No absolute time, host identity, capture identity or target in model inputs. No preprocessing fit on test.",
+  "metrics": "All four class F1/precision/recall/AP/ROC-AUC, macro-F1, normal false attack count/rate, any-attack movement recall, exact-fingerprint overlaps and temporal ordering diagnostics.",
+  "uncertainty": "Primary paired capture bootstrap over common-anchor captures, 1000 draws per seed/view. Only five later captures from one campaign; descriptive conditional intervals, not independent-campaign uncertainty. Report individual seed outcomes and mean; seeds are not independent datasets.",
+  "decision": "Report directions and effect sizes with limitations, not an arbitrary pass magnitude. Positive time-mixed-minus-past score is protocol sensitivity on these data, not proof that every published result is inflated; null is not certification.",
+  "scope": "Previously exposed UNRAVELED single campaign, author-stage labels, full current flows. No early warning, proof of successful lateral movement/theft, or claim of first APT temporal evaluation."
+}
