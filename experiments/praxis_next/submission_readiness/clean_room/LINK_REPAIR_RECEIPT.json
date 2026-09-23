@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "utc": "2026-09-23T19:50:53.347532+00:00",
+  "wrapper_sha256": "6b5951594addfe09f470838061489b918885b81791971050c6e9460e24025509",
+  "prior_receipt_sha256": "080b249572fb7a8b593732dd48e73b7c0953dd749117c718be8a5fdf586199cf",
+  "prior_status": "FAIL",
+  "repair": "Copy byte-identical downloaded ZIP to its README-linked location; no original file edits",
+  "original_archive_sha256": "3dcc1e67dad8a74eebca1ac71c7fce3d1dd721ea67901c3f4ad869b126055bd3",
+  "added_archive_sha256": "3dcc1e67dad8a74eebca1ac71c7fce3d1dd721ea67901c3f4ad869b126055bd3",
+  "original_extracted_members_changed": [],
+  "added_members": [
+    "experiments\\praxis_next\\measurement_praxis\\apt_evaluation_praxis_evidence.zip"
+  ],
+  "original_archive_unchanged": true,
+  "verification_run": {
+    "command": [
+      "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "-c",
+      "\nimport json, os, runpy, sys\nfrom pathlib import Path\nscript, receipt, audit_path = map(Path, sys.argv[1:4])\nroots = [Path(p).resolve() for p in json.loads(sys.argv[4])]\nopened=[]; denied=[]\ndef inside(path):\n    for root in roots:\n        try: path.relative_to(root); return True\n        except ValueError: pass\n    return False\ndef hook(event,args):\n    if event != 'open' or not args or isinstance(args[0],int): return\n    try: p=Path(os.fsdecode(args[0])).resolve()\n    except (TypeError,ValueError): return\n    ok=inside(p)\n    opened.append({'path':str(p),'mode':str(args[1]),'allowed':ok})\n    if not ok:\n        denied.append(str(p))\n        raise PermissionError('Public verification attempted outside-runtime access: '+str(p))\nsys.addaudithook(hook)\nsys.argv=[str(script),'--receipt',str(receipt)]\ntry:\n    runpy.run_path(str(script),run_name='__main__')\nfinally:\n    payload={'scope':'Python open audit events only; not an operating-system sandbox',\n      'allowed_roots':[str(p) for p in roots],'open_events':opened,'denied':denied,\n      'sys_prefix':sys.prefix,'sys_base_prefix':sys.base_prefix,'sys_path':sys.path,\n      'isolated_mode':sys.flags.isolated,'no_user_site':sys.flags.no_user_site}\n    audit_path.write_text(json.dumps(payload,indent=2)+'\\n',encoding='utf-8')\n",
+      "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted\\experiments\\praxis_next\\measurement_praxis\\verify_package.py",
+      "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\results\\REPAIRED_PACKAGE_VERIFICATION.json",
+      "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\results\\REPAIRED_PACKAGE_FILE_ACCESS.json",
+      "[\"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\extracted\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\results\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\venv\", \"C:\\\\Users\\\\garyp\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\"]"
+    ],
+    "cwd": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted",
+    "returncode": 0,
+    "elapsed_seconds": 0.266,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"utc\": \"2026-09-23T19:50:53.226515+00:00\",\n  \"manifest_sha256\": \"b3d2595713455d5b8ddd5bdcf828a23ed1bcedd2cf933b033765d920feb7f33d\",\n  \"checks\": [\n    {\n      \"name\": \"manifest_hashes\",\n      \"passed\": true,\n      \"files\": 206\n    },\n    {\n      \"name\": \"completed_computational_audits\",\n      \"passed\": true,\n      \"paired_comparisons\": 36\n    },\n    {\n      \"name\": \"paper_assembly_render_and_visual_review\",\n      \"passed\": true,\n      \"pages\": 24\n    },\n    {\n      \"name\": \"manuscript_and_handoff_local_links\",\n      \"passed\": true,\n      \"links\": 74\n    }\n  ],\n  \"new_model_fits\": 0,\n  \"new_aws_spend_usd\": 0,\n  \"scope\": \"Complete bounded measurement manuscript and aggregate evidence; not independent-campaign or institutional approval.\"\n}\n\n",
+    "stderr": ""
+  },
+  "verification_receipt": {
+    "status": "PASS",
+    "utc": "2026-09-23T19:50:53.226515+00:00",
+    "manifest_sha256": "b3d2595713455d5b8ddd5bdcf828a23ed1bcedd2cf933b033765d920feb7f33d",
+    "checks": [
+      {
+        "name": "manifest_hashes",
+        "passed": true,
+        "files": 206
+      },
+      {
+        "name": "completed_computational_audits",
+        "passed": true,
+        "paired_comparisons": 36
+      },
+      {
+        "name": "paper_assembly_render_and_visual_review",
+        "passed": true,
+        "pages": 24
+      },
+      {
+        "name": "manuscript_and_handoff_local_links",
+        "passed": true,
+        "links": 74
+      }
+    ],
+    "new_model_fits": 0,
+    "new_aws_spend_usd": 0,
+    "scope": "Complete bounded measurement manuscript and aggregate evidence; not independent-campaign or institutional approval."
+  },
+  "open_audit": {
+    "sha256": "8559fc7519e5bb105def75f9d34b6ff1e7cb33522ab1f734c7add4e5c1b13a39",
+    "events": 249,
+    "denied": []
+  },
+  "public_arithmetic_rerun": false,
+  "public_arithmetic_status": "PASS",
+  "new_model_fits": 0,
+  "aws_used": false,
+  "status": "PASS"
+}

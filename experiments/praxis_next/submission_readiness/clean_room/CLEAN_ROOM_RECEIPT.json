@@ -1,0 +1,560 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-09-23T19:48:52.766389+00:00",
+  "status": "FAIL",
+  "wrapper_sha256": "a57261b49d4748ca52bd0e96b3a6cb323e849e9873847c21deab7b6610f1f3c2",
+  "root": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z",
+  "original_archive": "C:\\w\\apt_benchmark_20260920\\experiments\\praxis_next\\measurement_praxis\\apt_evaluation_praxis_evidence.zip",
+  "archive_sha256": "3dcc1e67dad8a74eebca1ac71c7fce3d1dd721ea67901c3f4ad869b126055bd3",
+  "original_archive_bytes": 2588607,
+  "operations": [
+    {
+      "command": [
+        "C:\\w\\tabular_batch_env_20260921\\Scripts\\python.exe",
+        "-I",
+        "-m",
+        "venv",
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv"
+      ],
+      "cwd": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z",
+      "returncode": 0,
+      "elapsed_seconds": 21.328,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+        "-I",
+        "-m",
+        "pip",
+        "--isolated",
+        "--disable-pip-version-check",
+        "install",
+        "--only-binary=:all:",
+        "--no-deps",
+        "numpy==2.2.6"
+      ],
+      "cwd": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z",
+      "returncode": 0,
+      "elapsed_seconds": 20.172,
+      "stdout": "Collecting numpy==2.2.6\n  Using cached numpy-2.2.6-cp311-cp311-win_amd64.whl.metadata (60 kB)\nUsing cached numpy-2.2.6-cp311-cp311-win_amd64.whl (12.9 MB)\nInstalling collected packages: numpy\nSuccessfully installed numpy-2.2.6\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+        "-I",
+        "-c",
+        "import sys,numpy,json,importlib.metadata as m;print(json.dumps(dict(python=sys.version,executable=sys.executable,prefix=sys.prefix,base_prefix=sys.base_prefix,numpy=numpy.__version__,installed={d.metadata[\"Name\"]:d.version for d in m.distributions()},isolated=sys.flags.isolated)))"
+      ],
+      "cwd": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z",
+      "returncode": 0,
+      "elapsed_seconds": 1.547,
+      "stdout": "{\"python\": \"3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]\", \"executable\": \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\venv\\\\Scripts\\\\python.exe\", \"prefix\": \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\venv\", \"base_prefix\": \"C:\\\\Users\\\\garyp\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\", \"numpy\": \"2.2.6\", \"installed\": {\"numpy\": \"2.2.6\", \"pip\": \"24.0\", \"setuptools\": \"65.5.0\"}, \"isolated\": 1}\n",
+      "stderr": ""
+    }
+  ],
+  "new_model_fits": 0,
+  "aws_used": false,
+  "zip_validation": {
+    "status": "PASS",
+    "entries": 209,
+    "expanded_bytes": 10473011,
+    "paths_validated_before_member_writes": true,
+    "symlinks_allowed": false,
+    "source_prediction_archive_entries": []
+  },
+  "runtime": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+    "prefix": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv",
+    "base_prefix": "C:\\Users\\garyp\\AppData\\Local\\Programs\\Python\\Python311",
+    "numpy": "2.2.6",
+    "installed": {
+      "numpy": "2.2.6",
+      "pip": "24.0",
+      "setuptools": "65.5.0"
+    },
+    "isolated": 1
+  },
+  "venv_configuration": "home = C:\\Users\\garyp\\AppData\\Local\\Programs\\Python\\Python311\ninclude-system-site-packages = false\nversion = 3.11.9\nexecutable = C:\\w\\tabular_batch_env_20260921\\Scripts\\python.exe\ncommand = C:\\w\\tabular_batch_env_20260921\\Scripts\\python.exe -m venv C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\n",
+  "verification_runs": [
+    {
+      "command": [
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-c",
+        "\nimport json, os, runpy, sys\nfrom pathlib import Path\nscript, receipt, audit_path = map(Path, sys.argv[1:4])\nroots = [Path(p).resolve() for p in json.loads(sys.argv[4])]\nopened=[]; denied=[]\ndef inside(path):\n    for root in roots:\n        try: path.relative_to(root); return True\n        except ValueError: pass\n    return False\ndef hook(event,args):\n    if event != 'open' or not args or isinstance(args[0],int): return\n    try: p=Path(os.fsdecode(args[0])).resolve()\n    except (TypeError,ValueError): return\n    ok=inside(p)\n    opened.append({'path':str(p),'mode':str(args[1]),'allowed':ok})\n    if not ok:\n        denied.append(str(p))\n        raise PermissionError('Public verification attempted outside-runtime access: '+str(p))\nsys.addaudithook(hook)\nsys.argv=[str(script),'--receipt',str(receipt)]\ntry:\n    runpy.run_path(str(script),run_name='__main__')\nfinally:\n    payload={'scope':'Python open audit events only; not an operating-system sandbox',\n      'allowed_roots':[str(p) for p in roots],'open_events':opened,'denied':denied,\n      'sys_prefix':sys.prefix,'sys_base_prefix':sys.base_prefix,'sys_path':sys.path,\n      'isolated_mode':sys.flags.isolated,'no_user_site':sys.flags.no_user_site}\n    audit_path.write_text(json.dumps(payload,indent=2)+'\\n',encoding='utf-8')\n",
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted\\experiments\\praxis_next\\measurement_praxis\\evidence\\paired_reanalysis\\verify_public.py",
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\results\\PUBLIC_VERIFICATION.json",
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\results\\PUBLIC_FILE_ACCESS.json",
+        "[\"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\extracted\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\results\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\venv\", \"C:\\\\Users\\\\garyp\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\"]"
+      ],
+      "cwd": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted",
+      "returncode": 0,
+      "elapsed_seconds": 0.844,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"utc\": \"2026-09-23T19:49:39.924274+00:00\",\n  \"verifier_source_sha256\": \"dc8b37452b277cf96b312601e733467175ee851f941b5474daf7630771a512a6\",\n  \"inputs_sha256\": {\n    \"CAPTURE_CONFUSIONS.json\": \"472b4fb90188ca001c86c2c7bc9fb5c65fe797da9f77e3a1e246a880854b878f\",\n    \"CAPTURE_DRAWS.json\": \"12276015d49aa724ea4579530cfa20c69315ff76a83f01888dc18e6172aa9a07\",\n    \"PAIRED_RESULTS.json\": \"26512313fd0df44b81c418e4f839a1c958b028e9d90dfd2324cc637eea23991c\",\n    \"MEANS.json\": \"98cdd5c0200aff6e43045bfb0db72cc603da8cff2fc1441f95448f362910a361\",\n    \"DIRECTION_COUNTS.json\": \"773fb6eba80b88a9b8c78177a2b843e9cd7801dea2c9f3fdbfdfc22b38755641\",\n    \"AUDIT.json\": \"2b79c46c6c23d4bbb6f7979ed3734ee586dca6294536db2c87fc05e1610c4f15\",\n    \"PUBLICATION_AUDIT.json\": \"a5872e20ed8ca335f688cad226e270557da6104fd9ef6a4ac05813135a658abc\"\n  },\n  \"private_files_opened\": 0,\n  \"project_analysis_modules_imported\": 0,\n  \"source_fits\": 0,\n  \"public_prediction_tables\": 66,\n  \"paired_comparisons\": 36,\n  \"independently_recomputed_metric_intervals\": 720,\n  \"three_seed_mean_groups\": 12,\n  \"capture_draws_regenerated\": 2000,\n  \"capture_count\": 5,\n  \"stage_direction_summaries\": 6,\n  \"original_receipt_hash_bindings_verified\": true,\n  \"unverified_from_public_aggregates\": [\n    \"Original individual-row identities and pairing\",\n    \"Original probability-to-hard-label conversion\",\n    \"Ground-truth author-label validity\",\n    \"Model-fitting provenance beyond linked receipts\",\n    \"Independence or generalization across campaigns\"\n  ],\n  \"interpretation\": \"Public aggregate arithmetic verification; this does not convert five fragments into independent campaigns\"\n}\n\n",
+      "stderr": "",
+      "name": "public",
+      "receipt": {
+        "status": "PASS",
+        "utc": "2026-09-23T19:49:39.924274+00:00",
+        "verifier_source_sha256": "dc8b37452b277cf96b312601e733467175ee851f941b5474daf7630771a512a6",
+        "inputs_sha256": {
+          "CAPTURE_CONFUSIONS.json": "472b4fb90188ca001c86c2c7bc9fb5c65fe797da9f77e3a1e246a880854b878f",
+          "CAPTURE_DRAWS.json": "12276015d49aa724ea4579530cfa20c69315ff76a83f01888dc18e6172aa9a07",
+          "PAIRED_RESULTS.json": "26512313fd0df44b81c418e4f839a1c958b028e9d90dfd2324cc637eea23991c",
+          "MEANS.json": "98cdd5c0200aff6e43045bfb0db72cc603da8cff2fc1441f95448f362910a361",
+          "DIRECTION_COUNTS.json": "773fb6eba80b88a9b8c78177a2b843e9cd7801dea2c9f3fdbfdfc22b38755641",
+          "AUDIT.json": "2b79c46c6c23d4bbb6f7979ed3734ee586dca6294536db2c87fc05e1610c4f15",
+          "PUBLICATION_AUDIT.json": "a5872e20ed8ca335f688cad226e270557da6104fd9ef6a4ac05813135a658abc"
+        },
+        "private_files_opened": 0,
+        "project_analysis_modules_imported": 0,
+        "source_fits": 0,
+        "public_prediction_tables": 66,
+        "paired_comparisons": 36,
+        "independently_recomputed_metric_intervals": 720,
+        "three_seed_mean_groups": 12,
+        "capture_draws_regenerated": 2000,
+        "capture_count": 5,
+        "stage_direction_summaries": 6,
+        "original_receipt_hash_bindings_verified": true,
+        "unverified_from_public_aggregates": [
+          "Original individual-row identities and pairing",
+          "Original probability-to-hard-label conversion",
+          "Ground-truth author-label validity",
+          "Model-fitting provenance beyond linked receipts",
+          "Independence or generalization across campaigns"
+        ],
+        "interpretation": "Public aggregate arithmetic verification; this does not convert five fragments into independent campaigns"
+      },
+      "file_access_audit": {
+        "events": 146,
+        "denied": [],
+        "sha256": "7d001ef85d36937689ec7706a5bc1c4bfebccba84dd17107752873817eda4fd8",
+        "isolated_mode": 1,
+        "no_user_site": 1
+      }
+    },
+    {
+      "command": [
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-c",
+        "\nimport json, os, runpy, sys\nfrom pathlib import Path\nscript, receipt, audit_path = map(Path, sys.argv[1:4])\nroots = [Path(p).resolve() for p in json.loads(sys.argv[4])]\nopened=[]; denied=[]\ndef inside(path):\n    for root in roots:\n        try: path.relative_to(root); return True\n        except ValueError: pass\n    return False\ndef hook(event,args):\n    if event != 'open' or not args or isinstance(args[0],int): return\n    try: p=Path(os.fsdecode(args[0])).resolve()\n    except (TypeError,ValueError): return\n    ok=inside(p)\n    opened.append({'path':str(p),'mode':str(args[1]),'allowed':ok})\n    if not ok:\n        denied.append(str(p))\n        raise PermissionError('Public verification attempted outside-runtime access: '+str(p))\nsys.addaudithook(hook)\nsys.argv=[str(script),'--receipt',str(receipt)]\ntry:\n    runpy.run_path(str(script),run_name='__main__')\nfinally:\n    payload={'scope':'Python open audit events only; not an operating-system sandbox',\n      'allowed_roots':[str(p) for p in roots],'open_events':opened,'denied':denied,\n      'sys_prefix':sys.prefix,'sys_base_prefix':sys.base_prefix,'sys_path':sys.path,\n      'isolated_mode':sys.flags.isolated,'no_user_site':sys.flags.no_user_site}\n    audit_path.write_text(json.dumps(payload,indent=2)+'\\n',encoding='utf-8')\n",
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted\\experiments\\praxis_next\\measurement_praxis\\verify_package.py",
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\results\\PACKAGE_VERIFICATION.json",
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\results\\PACKAGE_FILE_ACCESS.json",
+        "[\"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\extracted\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\results\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\venv\", \"C:\\\\Users\\\\garyp\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\"]"
+      ],
+      "cwd": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted",
+      "returncode": 1,
+      "elapsed_seconds": 0.219,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 24, in <module>\n  File \"<frozen runpy>\", line 291, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted\\experiments\\praxis_next\\measurement_praxis\\verify_package.py\", line 65, in <module>\n    result=verify();encoded=json.dumps(result,indent=2)+'\\n'\n           ^^^^^^^^\n  File \"C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\extracted\\experiments\\praxis_next\\measurement_praxis\\verify_package.py\", line 54, in verify\n    if not (file.parent/unquote(url.path)).exists():raise ValueError('Missing local link: '+target)\n                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Missing local link: apt_evaluation_praxis_evidence.zip\n",
+      "name": "package",
+      "file_access_audit": {
+        "events": 244,
+        "denied": [],
+        "sha256": "282d5052dda80d040f6c1f1d72e75987af84bb1e8ee9e524232f55443d3ded8f",
+        "isolated_mode": 1,
+        "no_user_site": 1
+      }
+    }
+  ],
+  "independent_manifest_check": {
+    "files": 206,
+    "mismatches": [],
+    "manifest_sha256": "b3d2595713455d5b8ddd5bdcf828a23ed1bcedd2cf933b033765d920feb7f33d"
+  },
+  "independent_relative_link_check": {
+    "checked": 74,
+    "missing": [
+      {
+        "file": "README.md",
+        "target": "apt_evaluation_praxis_evidence.zip",
+        "exists": false
+      }
+    ],
+    "links": [
+      {
+        "file": "manuscript.md",
+        "target": "LITERATURE_AND_CLAIMS.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "evidence/paired_reanalysis/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "figures/temporal_effects.png",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "evidence/paired_reanalysis/PAIRED_METRICS.csv",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "figures/warning_destinations.png",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "evidence/paired_reanalysis/AUDIT.json",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "../px083_policy_transfer/README.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "../paper/REFERENCES.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "evidence/qualification_audit/VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "figures/dapt_stage_support.png",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "../px082_temporal_audit/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "evidence/paired_reanalysis/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "../px082_temporal_audit/SUMMARY.json",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "evidence/qualification_audit/VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "../d1_benchmark_audit/DATASET_QUALIFICATION.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "LITERATURE_AND_CLAIMS.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "EVIDENCE_INDEX.md",
+        "exists": true
+      },
+      {
+        "file": "manuscript.md",
+        "target": "REPRODUCE.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "apt_evaluation_praxis.docx",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "apt_evaluation_praxis.pdf",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "EVIDENCE_INDEX.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "apt_evaluation_praxis_evidence.zip",
+        "exists": false
+      },
+      {
+        "file": "README.md",
+        "target": "evidence/paired_reanalysis/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "evidence/paired_reanalysis/PUBLIC_VERIFIER.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "evidence/qualification_audit/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "SCIENTIFIC_REVIEW.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "REPRODUCE.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "REVIEW_CHECKLIST.md",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "FINAL_VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "README.md",
+        "target": "PACKAGE_MANIFEST.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "apt_evaluation_praxis.docx",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "apt_evaluation_praxis.pdf",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "manuscript.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "REPRODUCE.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "REVIEW_CHECKLIST.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "LITERATURE_AND_CLAIMS.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "references.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "FINAL_VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "PACKAGE_MANIFEST.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px082_temporal_audit/METRICS.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px082_temporal_audit/SUMMARY.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px082_temporal_audit/DESIGN.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/PAIRED_RESULTS.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/PAIRED_METRICS.csv",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/DIRECTION_COUNTS.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/PAPER_SECTION.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px082_temporal_audit/SUMMARY.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/MEANS.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../d1_benchmark_audit/SUPPORT_CUTOFF_AUDIT.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/qualification_audit/VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/qualification_audit/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../d1_benchmark_audit/SOURCE_ACCESS_CHECK.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/qualification_audit/SOURCE_REVIEW.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/qualification_audit/NATIVE_CLASS_COUNTS.csv",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/ANALYSIS_PLAN.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/AUDIT.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/PUBLICATION_AUDIT.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/CAPTURE_CONFUSIONS.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/CAPTURE_DRAWS.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/paired_reanalysis/PUBLIC_VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/qualification_audit/verify_qualification.py",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "evidence/qualification_audit/VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../FINAL_VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../d1_benchmark_audit/FREEZE.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../d1_benchmark_audit/METRIC_SPEC.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../d1_benchmark_audit/PORT_VERIFICATION.json",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px080_context_selector/results/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px081_evidence_acquisition/README.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px082_temporal_audit/REPORT.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../px083_policy_transfer/README.md",
+        "exists": true
+      },
+      {
+        "file": "EVIDENCE_INDEX.md",
+        "target": "../d1_benchmark_audit/README.md",
+        "exists": true
+      },
+      {
+        "file": "REPRODUCE.md",
+        "target": "evidence/paired_reanalysis/INPUTS.json",
+        "exists": true
+      },
+      {
+        "file": "REPRODUCE.md",
+        "target": "../d1_benchmark_audit/QUALIFICATION.json",
+        "exists": true
+      }
+    ]
+  },
+  "extracted_members_unchanged": true,
+  "archive_unchanged": true,
+  "completed_utc": "2026-09-23T19:49:40.318987+00:00",
+  "scope": "Fresh venv without system-site packages, Python isolated mode, new cwd, Python-level open allowlist; same local host and base Python, not OS/container isolation. Public arithmetic and artifact integrity only."
+}

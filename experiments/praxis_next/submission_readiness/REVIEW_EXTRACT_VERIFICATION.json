@@ -1,0 +1,537 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "utc": "2026-09-23T20:00:51.239746+00:00",
+  "original_archive_sha256": "3dcc1e67dad8a74eebca1ac71c7fce3d1dd721ea67901c3f4ad869b126055bd3",
+  "review_bundle_sha256": "5c27853e2fa81f2cc9cc2bddcbec8dc9f3cd17ecedaed2467dd225942bd3d1a5",
+  "review_manifest_sha256": "193ebae262391e16937e5cadcbd7d41d8f1280f58e2e0446914f0c3b9199c590",
+  "extraction_root": "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\extracted",
+  "runtime": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+    "prefix": "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv",
+    "base_prefix": "C:\\Users\\garyp\\AppData\\Local\\Programs\\Python\\Python311",
+    "numpy": "2.2.6",
+    "isolated": 1
+  },
+  "isolation": "Prior fresh venv reused; new extraction/cwd and Python -I -B with Python-open allowlist. Same local host, not OS/container isolation.",
+  "zip_paths_validated_before_member_writes": true,
+  "expanded_bytes": 15949404,
+  "original_members_verified": 209,
+  "original_manifest_hashes_verified": 206,
+  "new_manifest_hashes_verified": 271,
+  "extracted_members_verified": 272,
+  "extracted_bytes_unchanged_after_verification": true,
+  "source_changes_during_build": [],
+  "verifier_runs": [
+    {
+      "command": [
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-c",
+        "\nimport json, os, runpy, sys\nfrom pathlib import Path\nscript, receipt, audit_path = map(Path, sys.argv[1:4])\nroots = [Path(p).resolve() for p in json.loads(sys.argv[4])]\nopened=[]; denied=[]\ndef inside(path):\n    for root in roots:\n        try: path.relative_to(root); return True\n        except ValueError: pass\n    return False\ndef hook(event,args):\n    if event != 'open' or not args or isinstance(args[0],int): return\n    try: p=Path(os.fsdecode(args[0])).resolve()\n    except (TypeError,ValueError): return\n    ok=inside(p)\n    opened.append({'path':str(p),'mode':str(args[1]),'allowed':ok})\n    if not ok:\n        denied.append(str(p))\n        raise PermissionError('Public verification attempted outside-runtime access: '+str(p))\nsys.addaudithook(hook)\nsys.argv=[str(script),'--receipt',str(receipt)]\ntry:\n    runpy.run_path(str(script),run_name='__main__')\nfinally:\n    payload={'scope':'Python open audit events only; not an operating-system sandbox',\n      'allowed_roots':[str(p) for p in roots],'open_events':opened,'denied':denied,\n      'sys_prefix':sys.prefix,'sys_base_prefix':sys.base_prefix,'sys_path':sys.path,\n      'isolated_mode':sys.flags.isolated,'no_user_site':sys.flags.no_user_site}\n    audit_path.write_text(json.dumps(payload,indent=2)+'\\n',encoding='utf-8')\n",
+        "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\extracted\\experiments\\praxis_next\\measurement_praxis\\evidence\\paired_reanalysis\\verify_public.py",
+        "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\results\\PUBLIC_VERIFICATION.json",
+        "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\results\\PUBLIC_FILE_ACCESS.json",
+        "[\"C:\\\\w\\\\praxis_review_bundle_20260923T200042270469Z\\\\extracted\", \"C:\\\\w\\\\praxis_review_bundle_20260923T200042270469Z\\\\results\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\venv\", \"C:\\\\Users\\\\garyp\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\"]"
+      ],
+      "cwd": "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\extracted",
+      "returncode": 0,
+      "elapsed_seconds": 1.234,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"utc\": \"2026-09-23T20:00:50.653094+00:00\",\n  \"verifier_source_sha256\": \"dc8b37452b277cf96b312601e733467175ee851f941b5474daf7630771a512a6\",\n  \"inputs_sha256\": {\n    \"CAPTURE_CONFUSIONS.json\": \"472b4fb90188ca001c86c2c7bc9fb5c65fe797da9f77e3a1e246a880854b878f\",\n    \"CAPTURE_DRAWS.json\": \"12276015d49aa724ea4579530cfa20c69315ff76a83f01888dc18e6172aa9a07\",\n    \"PAIRED_RESULTS.json\": \"26512313fd0df44b81c418e4f839a1c958b028e9d90dfd2324cc637eea23991c\",\n    \"MEANS.json\": \"98cdd5c0200aff6e43045bfb0db72cc603da8cff2fc1441f95448f362910a361\",\n    \"DIRECTION_COUNTS.json\": \"773fb6eba80b88a9b8c78177a2b843e9cd7801dea2c9f3fdbfdfc22b38755641\",\n    \"AUDIT.json\": \"2b79c46c6c23d4bbb6f7979ed3734ee586dca6294536db2c87fc05e1610c4f15\",\n    \"PUBLICATION_AUDIT.json\": \"a5872e20ed8ca335f688cad226e270557da6104fd9ef6a4ac05813135a658abc\"\n  },\n  \"private_files_opened\": 0,\n  \"project_analysis_modules_imported\": 0,\n  \"source_fits\": 0,\n  \"public_prediction_tables\": 66,\n  \"paired_comparisons\": 36,\n  \"independently_recomputed_metric_intervals\": 720,\n  \"three_seed_mean_groups\": 12,\n  \"capture_draws_regenerated\": 2000,\n  \"capture_count\": 5,\n  \"stage_direction_summaries\": 6,\n  \"original_receipt_hash_bindings_verified\": true,\n  \"unverified_from_public_aggregates\": [\n    \"Original individual-row identities and pairing\",\n    \"Original probability-to-hard-label conversion\",\n    \"Ground-truth author-label validity\",\n    \"Model-fitting provenance beyond linked receipts\",\n    \"Independence or generalization across campaigns\"\n  ],\n  \"interpretation\": \"Public aggregate arithmetic verification; this does not convert five fragments into independent campaigns\"\n}\n\n",
+      "stderr": "",
+      "name": "public",
+      "receipt": {
+        "status": "PASS",
+        "utc": "2026-09-23T20:00:50.653094+00:00",
+        "verifier_source_sha256": "dc8b37452b277cf96b312601e733467175ee851f941b5474daf7630771a512a6",
+        "inputs_sha256": {
+          "CAPTURE_CONFUSIONS.json": "472b4fb90188ca001c86c2c7bc9fb5c65fe797da9f77e3a1e246a880854b878f",
+          "CAPTURE_DRAWS.json": "12276015d49aa724ea4579530cfa20c69315ff76a83f01888dc18e6172aa9a07",
+          "PAIRED_RESULTS.json": "26512313fd0df44b81c418e4f839a1c958b028e9d90dfd2324cc637eea23991c",
+          "MEANS.json": "98cdd5c0200aff6e43045bfb0db72cc603da8cff2fc1441f95448f362910a361",
+          "DIRECTION_COUNTS.json": "773fb6eba80b88a9b8c78177a2b843e9cd7801dea2c9f3fdbfdfc22b38755641",
+          "AUDIT.json": "2b79c46c6c23d4bbb6f7979ed3734ee586dca6294536db2c87fc05e1610c4f15",
+          "PUBLICATION_AUDIT.json": "a5872e20ed8ca335f688cad226e270557da6104fd9ef6a4ac05813135a658abc"
+        },
+        "private_files_opened": 0,
+        "project_analysis_modules_imported": 0,
+        "source_fits": 0,
+        "public_prediction_tables": 66,
+        "paired_comparisons": 36,
+        "independently_recomputed_metric_intervals": 720,
+        "three_seed_mean_groups": 12,
+        "capture_draws_regenerated": 2000,
+        "capture_count": 5,
+        "stage_direction_summaries": 6,
+        "original_receipt_hash_bindings_verified": true,
+        "unverified_from_public_aggregates": [
+          "Original individual-row identities and pairing",
+          "Original probability-to-hard-label conversion",
+          "Ground-truth author-label validity",
+          "Model-fitting provenance beyond linked receipts",
+          "Independence or generalization across campaigns"
+        ],
+        "interpretation": "Public aggregate arithmetic verification; this does not convert five fragments into independent campaigns"
+      },
+      "file_access": {
+        "path": "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\results\\PUBLIC_FILE_ACCESS.json",
+        "sha256": "5e5fb8292ab7788eda84b53939ca92accdc7c82b9b353b3def280339a1edc256",
+        "events": 146,
+        "denied": []
+      }
+    },
+    {
+      "command": [
+        "C:\\w\\praxis_review_cleanroom_20260923T194852766389Z\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-c",
+        "\nimport json, os, runpy, sys\nfrom pathlib import Path\nscript, receipt, audit_path = map(Path, sys.argv[1:4])\nroots = [Path(p).resolve() for p in json.loads(sys.argv[4])]\nopened=[]; denied=[]\ndef inside(path):\n    for root in roots:\n        try: path.relative_to(root); return True\n        except ValueError: pass\n    return False\ndef hook(event,args):\n    if event != 'open' or not args or isinstance(args[0],int): return\n    try: p=Path(os.fsdecode(args[0])).resolve()\n    except (TypeError,ValueError): return\n    ok=inside(p)\n    opened.append({'path':str(p),'mode':str(args[1]),'allowed':ok})\n    if not ok:\n        denied.append(str(p))\n        raise PermissionError('Public verification attempted outside-runtime access: '+str(p))\nsys.addaudithook(hook)\nsys.argv=[str(script),'--receipt',str(receipt)]\ntry:\n    runpy.run_path(str(script),run_name='__main__')\nfinally:\n    payload={'scope':'Python open audit events only; not an operating-system sandbox',\n      'allowed_roots':[str(p) for p in roots],'open_events':opened,'denied':denied,\n      'sys_prefix':sys.prefix,'sys_base_prefix':sys.base_prefix,'sys_path':sys.path,\n      'isolated_mode':sys.flags.isolated,'no_user_site':sys.flags.no_user_site}\n    audit_path.write_text(json.dumps(payload,indent=2)+'\\n',encoding='utf-8')\n",
+        "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\extracted\\experiments\\praxis_next\\measurement_praxis\\verify_package.py",
+        "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\results\\PACKAGE_VERIFICATION.json",
+        "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\results\\PACKAGE_FILE_ACCESS.json",
+        "[\"C:\\\\w\\\\praxis_review_bundle_20260923T200042270469Z\\\\extracted\", \"C:\\\\w\\\\praxis_review_bundle_20260923T200042270469Z\\\\results\", \"C:\\\\w\\\\praxis_review_cleanroom_20260923T194852766389Z\\\\venv\", \"C:\\\\Users\\\\garyp\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\"]"
+      ],
+      "cwd": "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\extracted",
+      "returncode": 0,
+      "elapsed_seconds": 0.359,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"utc\": \"2026-09-23T20:00:51.052273+00:00\",\n  \"manifest_sha256\": \"b3d2595713455d5b8ddd5bdcf828a23ed1bcedd2cf933b033765d920feb7f33d\",\n  \"checks\": [\n    {\n      \"name\": \"manifest_hashes\",\n      \"passed\": true,\n      \"files\": 206\n    },\n    {\n      \"name\": \"completed_computational_audits\",\n      \"passed\": true,\n      \"paired_comparisons\": 36\n    },\n    {\n      \"name\": \"paper_assembly_render_and_visual_review\",\n      \"passed\": true,\n      \"pages\": 24\n    },\n    {\n      \"name\": \"manuscript_and_handoff_local_links\",\n      \"passed\": true,\n      \"links\": 74\n    }\n  ],\n  \"new_model_fits\": 0,\n  \"new_aws_spend_usd\": 0,\n  \"scope\": \"Complete bounded measurement manuscript and aggregate evidence; not independent-campaign or institutional approval.\"\n}\n\n",
+      "stderr": "",
+      "name": "package",
+      "receipt": {
+        "status": "PASS",
+        "utc": "2026-09-23T20:00:51.052273+00:00",
+        "manifest_sha256": "b3d2595713455d5b8ddd5bdcf828a23ed1bcedd2cf933b033765d920feb7f33d",
+        "checks": [
+          {
+            "name": "manifest_hashes",
+            "passed": true,
+            "files": 206
+          },
+          {
+            "name": "completed_computational_audits",
+            "passed": true,
+            "paired_comparisons": 36
+          },
+          {
+            "name": "paper_assembly_render_and_visual_review",
+            "passed": true,
+            "pages": 24
+          },
+          {
+            "name": "manuscript_and_handoff_local_links",
+            "passed": true,
+            "links": 74
+          }
+        ],
+        "new_model_fits": 0,
+        "new_aws_spend_usd": 0,
+        "scope": "Complete bounded measurement manuscript and aggregate evidence; not independent-campaign or institutional approval."
+      },
+      "file_access": {
+        "path": "C:\\w\\praxis_review_bundle_20260923T200042270469Z\\results\\PACKAGE_FILE_ACCESS.json",
+        "sha256": "5624501bcda19c9e4b945e7af67ae0b8b9abe528463d1fa744e801b51365dc47",
+        "events": 249,
+        "denied": []
+      }
+    }
+  ],
+  "new_markdown_links": {
+    "existing_links": 76,
+    "expected_external_delivery_links": [
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "praxis_review_bundle.zip",
+        "resolved": "experiments/praxis_next/submission_readiness/praxis_review_bundle.zip"
+      }
+    ],
+    "unexpected_missing": [],
+    "details": [
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/FEATURE_COMPATIBILITY.md",
+        "target": "FEATURE_COMPATIBILITY.json",
+        "resolved": "experiments/apt_benchmark/tabular_followup/FEATURE_COMPATIBILITY.json"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "SANDWORM_QUALIFICATION.json",
+        "resolved": "experiments/apt_benchmark/tabular_followup/SANDWORM_QUALIFICATION.json"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "prepare_sandworm.py",
+        "resolved": "experiments/apt_benchmark/tabular_followup/prepare_sandworm.py"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "FEATURE_COMPATIBILITY.md",
+        "resolved": "experiments/apt_benchmark/tabular_followup/FEATURE_COMPATIBILITY.md"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "FEATURE_COMPATIBILITY.json",
+        "resolved": "experiments/apt_benchmark/tabular_followup/FEATURE_COMPATIBILITY.json"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "protocol_sandworm_transfer.json",
+        "resolved": "experiments/apt_benchmark/tabular_followup/protocol_sandworm_transfer.json"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "run_sandworm_transfer.py",
+        "resolved": "experiments/apt_benchmark/tabular_followup/run_sandworm_transfer.py"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "audit_sandworm_transfer.py",
+        "resolved": "experiments/apt_benchmark/tabular_followup/audit_sandworm_transfer.py"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "UNRAVELED_QUALIFICATION.json",
+        "resolved": "experiments/apt_benchmark/tabular_followup/UNRAVELED_QUALIFICATION.json"
+      },
+      {
+        "file": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "target": "audit_unraveled.py",
+        "resolved": "experiments/apt_benchmark/tabular_followup/audit_unraveled.py"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "CLEAN_ROOM_RECEIPT.json",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/CLEAN_ROOM_RECEIPT.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "PACKAGE_FILE_ACCESS.json",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/PACKAGE_FILE_ACCESS.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "LINK_REPAIR_RECEIPT.json",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/LINK_REPAIR_RECEIPT.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "REPAIRED_PACKAGE_VERIFICATION.json",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/REPAIRED_PACKAGE_VERIFICATION.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "PUBLIC_VERIFICATION.json",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/PUBLIC_VERIFICATION.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "run_clean_room.py",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/run_clean_room.py"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "run_link_repair.py",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/run_link_repair.py"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md",
+        "target": "MANIFEST.json",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/MANIFEST.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE.md",
+        "target": "../../apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md",
+        "resolved": "experiments/apt_benchmark/tabular_followup/HOLDOUT_QUALIFICATION.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE.md",
+        "target": "../../apt_benchmark/results/tabular_followup_v1/TRANSFER_SUMMARY.json",
+        "resolved": "experiments/apt_benchmark/results/tabular_followup_v1/TRANSFER_SUMMARY.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE.md",
+        "target": "NEXT_REPLICATION_SOURCE_METADATA.json",
+        "resolved": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE_METADATA.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE.md",
+        "target": "../px083_policy_transfer/README.md",
+        "resolved": "experiments/praxis_next/px083_policy_transfer/README.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/LITERATURE_AND_CLAIMS.md",
+        "resolved": "experiments/praxis_next/measurement_praxis/LITERATURE_AND_CLAIMS.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/evidence/paired_reanalysis/REPORT.md",
+        "resolved": "experiments/praxis_next/measurement_praxis/evidence/paired_reanalysis/REPORT.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/figures/temporal_effects.png",
+        "resolved": "experiments/praxis_next/measurement_praxis/figures/temporal_effects.png"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/evidence/paired_reanalysis/PAIRED_METRICS.csv",
+        "resolved": "experiments/praxis_next/measurement_praxis/evidence/paired_reanalysis/PAIRED_METRICS.csv"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/figures/warning_destinations.png",
+        "resolved": "experiments/praxis_next/measurement_praxis/figures/warning_destinations.png"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/evidence/paired_reanalysis/AUDIT.json",
+        "resolved": "experiments/praxis_next/measurement_praxis/evidence/paired_reanalysis/AUDIT.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../px083_policy_transfer/README.md",
+        "resolved": "experiments/praxis_next/px083_policy_transfer/README.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../paper/REFERENCES.md",
+        "resolved": "experiments/praxis_next/paper/REFERENCES.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/evidence/qualification_audit/VERIFICATION.json",
+        "resolved": "experiments/praxis_next/measurement_praxis/evidence/qualification_audit/VERIFICATION.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/figures/dapt_stage_support.png",
+        "resolved": "experiments/praxis_next/measurement_praxis/figures/dapt_stage_support.png"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../px082_temporal_audit/REPORT.md",
+        "resolved": "experiments/praxis_next/px082_temporal_audit/REPORT.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/evidence/paired_reanalysis/REPORT.md",
+        "resolved": "experiments/praxis_next/measurement_praxis/evidence/paired_reanalysis/REPORT.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../px082_temporal_audit/SUMMARY.json",
+        "resolved": "experiments/praxis_next/px082_temporal_audit/SUMMARY.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/evidence/qualification_audit/VERIFICATION.json",
+        "resolved": "experiments/praxis_next/measurement_praxis/evidence/qualification_audit/VERIFICATION.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../d1_benchmark_audit/DATASET_QUALIFICATION.md",
+        "resolved": "experiments/praxis_next/d1_benchmark_audit/DATASET_QUALIFICATION.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/LITERATURE_AND_CLAIMS.md",
+        "resolved": "experiments/praxis_next/measurement_praxis/LITERATURE_AND_CLAIMS.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/EVIDENCE_INDEX.md",
+        "resolved": "experiments/praxis_next/measurement_praxis/EVIDENCE_INDEX.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "../measurement_praxis/REPRODUCE.md",
+        "resolved": "experiments/praxis_next/measurement_praxis/REPRODUCE.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "sensitivity/REPORT.md",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "sensitivity/AUDIT.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/AUDIT.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "clean_room/REPORT.md",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "NEXT_REPLICATION_SOURCE.md",
+        "resolved": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "praxis_defense_brief.md",
+        "resolved": "experiments/praxis_next/submission_readiness/praxis_defense_brief.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/praxis_review_edition.md",
+        "target": "ADVISER_HANDOFF.md",
+        "resolved": "experiments/praxis_next/submission_readiness/ADVISER_HANDOFF.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "apt_praxis_review_edition.pdf",
+        "resolved": "experiments/praxis_next/submission_readiness/apt_praxis_review_edition.pdf"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "apt_praxis_review_edition.docx",
+        "resolved": "experiments/praxis_next/submission_readiness/apt_praxis_review_edition.docx"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "praxis_defense_brief.pdf",
+        "resolved": "experiments/praxis_next/submission_readiness/praxis_defense_brief.pdf"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "ADVISER_HANDOFF.md",
+        "resolved": "experiments/praxis_next/submission_readiness/ADVISER_HANDOFF.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "praxis_review_edition.md",
+        "resolved": "experiments/praxis_next/submission_readiness/praxis_review_edition.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "sensitivity/REPORT.md",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "sensitivity/AUDIT.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/AUDIT.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "sensitivity/PUBLICATION.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/PUBLICATION.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "clean_room/REPORT.md",
+        "resolved": "experiments/praxis_next/submission_readiness/clean_room/REPORT.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "NEXT_REPLICATION_SOURCE.md",
+        "resolved": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "NEXT_REPLICATION_SOURCE_METADATA.json",
+        "resolved": "experiments/praxis_next/submission_readiness/NEXT_REPLICATION_SOURCE_METADATA.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "REVIEWER_CLAIM_CHECK.md",
+        "resolved": "experiments/praxis_next/submission_readiness/REVIEWER_CLAIM_CHECK.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "DOCUMENT_RECEIPT.json",
+        "resolved": "experiments/praxis_next/submission_readiness/DOCUMENT_RECEIPT.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "REVIEW_MANIFEST.json",
+        "resolved": "experiments/praxis_next/submission_readiness/REVIEW_MANIFEST.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "../measurement_praxis/REPRODUCE.md",
+        "resolved": "experiments/praxis_next/measurement_praxis/REPRODUCE.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "build_review_bundle.py",
+        "resolved": "experiments/praxis_next/submission_readiness/build_review_bundle.py"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/README.md",
+        "target": "build_review_documents.py",
+        "resolved": "experiments/praxis_next/submission_readiness/build_review_documents.py"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/REVIEWER_CLAIM_CHECK.md",
+        "target": "REVIEW_APPENDIX_VISUAL.json",
+        "resolved": "experiments/praxis_next/submission_readiness/REVIEW_APPENDIX_VISUAL.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "AGGREGATE_EQUIVALENCE.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/AGGREGATE_EQUIVALENCE.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "CAPTURE_OMISSIONS.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/CAPTURE_OMISSIONS.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "CAPTURE_OMISSIONS.csv",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/CAPTURE_OMISSIONS.csv"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "SEED_OMISSIONS.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/SEED_OMISSIONS.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "SEED_OMISSIONS.csv",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/SEED_OMISSIONS.csv"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "CAPTURE_OMISSION_MEANS.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/CAPTURE_OMISSION_MEANS.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "SUMMARY.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/SUMMARY.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "FULL_POINTS.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/FULL_POINTS.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "ANALYSIS_PLAN.md",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/ANALYSIS_PLAN.md"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "INPUTS.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/INPUTS.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "FREEZE.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/FREEZE.json"
+      },
+      {
+        "file": "experiments/praxis_next/submission_readiness/sensitivity/REPORT.md",
+        "target": "AUDIT.json",
+        "resolved": "experiments/praxis_next/submission_readiness/sensitivity/AUDIT.json"
+      }
+    ]
+  },
+  "private_inputs_needed": false,
+  "new_model_fits": 0,
+  "aws_used": false
+}
