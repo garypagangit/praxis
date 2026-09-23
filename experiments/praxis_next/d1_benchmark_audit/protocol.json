@@ -1,0 +1,27 @@
+{
+  "experiment": "PX-084",
+  "batch": "D1",
+  "version": 1,
+  "sources_requested": ["SCVIC-APT-2021", "DAPT2020", "DSRL-APT-2023", "S-DAPT-2026"],
+  "seeds": [20260923, 20260924, 20260925],
+  "models": {
+    "lightgbm": {"n_estimators": 200, "num_leaves": 15, "learning_rate": 0.05, "min_child_samples": 10, "reg_lambda": 1.0, "n_jobs": 2, "deterministic": true, "force_col_wise": true},
+    "random_forest": {"n_estimators": 300, "min_samples_leaf": 5, "max_features": "sqrt", "class_weight": null, "n_jobs": 2}
+  },
+  "views": ["current", "history_if_qualified"],
+  "arms": ["past_only_anchor", "time_mixed_anchor"],
+  "fitting_caps": {"benign": 20000, "each_native_attack_stage": 5000},
+  "minimum_matched_fit_per_class": 2,
+  "minimum_anchor_per_class": 1,
+  "bootstrap": {"draws": 2000, "seed": 20260923, "shared_plan": "one per dataset and fixed anchor, reused across every fitting seed/model/contrast", "percentiles": [2.5, 97.5], "unit": "verified real source group", "minimum_groups": 2, "unsupported_class": "null; disclose eligible draw count"},
+  "sign_flag_tolerance": 1e-12,
+  "fit_ceiling": 96,
+  "local_wall_seconds_ceiling": 7200,
+  "max_concurrent_workers": 2,
+  "aws_total_usd_ceiling_including_reserve": 5.0,
+  "aws_total_instance_seconds_ceiling": 3600,
+  "primary_contrast": "time_mixed_anchor minus past_only_anchor; lightgbm current; same rows and native class counts",
+  "primary_outcomes": ["macro_f1_delta", "per_native_stage_exact_recall_delta", "per_native_stage_warning_recall_delta", "benign_false_alert_rate_delta"],
+  "interpretation": "Measurement contribution; no new detector, first metric, successful theft or universal robustness claim",
+  "data_exposure": "Existing source data and earlier study outcomes have been examined; a new code freeze is not untouched independent confirmation"
+}

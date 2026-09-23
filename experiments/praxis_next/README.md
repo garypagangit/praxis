@@ -8,6 +8,7 @@ This completed development batch follows the two requested method ideas and the 
 | PX-081 | Can selecting extra evidence reduce stage errors under acquisition limits? | Offline replay with declared simulated costs, delays, and unavailable evidence. |
 | PX-082 | How much do time-mixed training and ordinary row splits change measured stage recognition? | Same-anchor and conventional random-versus-temporal comparisons, with explicit duplicate and class-support audits. |
 | PX-083 | Can a CasinoLimit-trained selector transfer between native experts on CAM-LDS? | Secondary T1105 score-policy replication across all 21 views per dataset; the base models do not transfer. |
+| [PX-084 / D1](d1_benchmark_audit/README.md) | Can the temporal audit and paired stage/warning measures be extended to four requested APT releases? | Preregistered core and completed data/support qualification; no new fits, and no source yet qualifies for the unchanged temporal comparison. |
 
 ## Results in plain language
 
@@ -29,3 +30,5 @@ The existing UNRAVELED artifact contains 382,229 flows from one previously exami
 The 143 new lightweight model fits ran locally on CPU. AWS was used for a separately bounded new-data acquisition and qualification attempt after authentication succeeded; see the [compute record](compute/README.md) for actual outcomes and verified shutdown. No GPU acceleration is claimed for these fits.
 
 See [attachment assessment](ATTACHMENT_ASSESSMENT.md), [registry](REGISTRY.json), and each experiment directory. Scientific evidence is preserved regardless of result direction. No historical experiment is overwritten.
+
+The [D1 extension](d1_benchmark_audit/README.md) develops the measurement-praxis contribution. It keeps the completed four studies intact, verifies the proposed dataset expansion and documents actual support limitations before any new model training. Paired warning/stage reporting uses established metrics; the contribution being developed is the controlled evidence and reproducible audit.
