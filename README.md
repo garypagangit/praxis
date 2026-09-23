@@ -1,83 +1,107 @@
-# Praxis Research
+# Pagan Praxis
 
-Praxis Research is a future-work-to-experiment program. The project reviews 2025-2026 AI/ML papers, identifies practical opportunities from future-work sections and reproducibility gaps, proposes bounded experiments, and tracks whether each experiment produced a positive result, a negative result, a blocked result, or a future research lead.
+### Experimental AI/ML & Cybersecurity Research
 
-## Public Research Dashboard
+**Pagan Praxis** is a research portfolio for turning published research gaps, reproducibility questions, and operational AI-security problems into falsifiable experiments.
 
-- Public dashboard URL: https://garypagangit.github.io/praxis/
-- [Praxis Research Experiment Tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html)
-- [Praxis Recon app](apps/praxis-recon/index.html)
-- [Praxis Recon latest daily literature scan](reports/praxis_recon_daily/PRAXIS_RECON_DAILY_SCAN_latest.md)
-- [Final positive report export with tracker](reports/praxis_final_positive_reports_20260701/PRAXIS_FINAL_POSITIVE_REPORTS_WITH_TRACKER_EXPORT_20260705.txt)
-- [Final positive report index](reports/praxis_final_positive_reports_20260701/README.md)
-- [Defense-ready full praxis text drafts](reports/praxis_defense_ready_full_praxis_20260706/README.txt)
-- [PX-002 final bounded lookup package](reports/gnn_attribution_ttp_graph_embeddings/px002_final_defense_package_export_20260706/PX002_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md)
-- [Recommendation implementation audit](reports/PRAXIS_RECOMMENDATION_IMPLEMENTATION_20260705.md)
-- [D1 agent-defense deconfliction and new candidate queue](reports/agentic_deployment_defense/D1_AGENTIC_DEFENSE_DECONFLICTION_20260705.md)
-- [D1 new experiment follow-on rollup](reports/agentic_deployment_defense/d1_followon_rollup_20260705/D1_NEW_EXPERIMENT_FOLLOWON_ROLLUP_20260705.md)
-- [PX-050 final manuscript](reports/agentic_deployment_defense/px050_final_manuscript_20260705/PX050_FINAL_MANUSCRIPT_20260705.md)
-- [PX-050 final defense package export](reports/agentic_deployment_defense/px050_final_defense_package_export_20260705/PX050_FINAL_DEFENSE_PACKAGE_EXPORT_20260705.md)
-- [PX-050 held-out third-model boundary](reports/agentic_deployment_defense/px050_heldout_third_model_20260705/PX050_HELDOUT_THIRD_MODEL_REPLICATION_20260705.md)
-- [PX-050R strict held-out repair](reports/agentic_deployment_defense/px050r_strict_heldout_repair_20260705/PX050R_STRICT_HELDOUT_REPAIR_SYNTHESIS_20260705.md)
-- [PX-050S controller/extractor held-out repair](reports/agentic_deployment_defense/px050s_controller_extractor_20260705/PX050S_CONTROLLER_EXTRACTOR_HELDOUT_SYNTHESIS_20260705.md)
-- [PX-050T controller/extractor adaptive stress](reports/agentic_deployment_defense/px050t_controller_adaptive_stress_20260705/PX050T_CONTROLLER_EXTRACTOR_ADAPTIVE_STRESS_20260705.md)
-- [PX-050U live-agent tool-boundary gate](reports/agentic_deployment_defense/px050u_live_agent_tool_boundary_20260705/PX050U_LIVE_AGENT_TOOL_BOUNDARY_SYNTHESIS_20260705.md)
-- [PX-050 two-model live-agent final determination](reports/agentic_deployment_defense/px050_live_agent_two_model_determination_20260705/PX050_LIVE_AGENT_TWO_MODEL_FINAL_DETERMINATION_20260705.md)
-- [PX-051V live-agent policy refresh](reports/agentic_deployment_defense/px051v_live_agent_policy_refresh_20260705/PX051V_LIVE_AGENT_POLICY_REFRESH_20260705.md)
-- [PX-052V live-agent provenance refresh](reports/agentic_deployment_defense/px052v_live_agent_provenance_refresh_20260705/PX052V_LIVE_AGENT_PROVENANCE_REFRESH_20260705.md)
-- [PX-054 final manuscript](reports/refusal_geometry_recurrent_depth/px054_final_manuscript_20260706/PX054_FINAL_MANUSCRIPT_20260706.md)
-- [PX-054 final defense package export](reports/refusal_geometry_recurrent_depth/px054_final_defense_package_export_20260706/PX054_FINAL_DEFENSE_PACKAGE_EXPORT_20260706.md)
+The program preserves **positive, negative, mixed, blocked, and diagnostic results**. A failed experiment is not erased; it becomes evidence about what did not work and why.
 
-The HTML tracker is the front-door overview for the research portfolio. It lists each experiment by stable `PX-###` ID with title, objective, status, short finding, and links to supporting evidence.
+> **Numbering standard:** the public catalog now uses one permanent sequential scheme — **Experiment 001, Experiment 002, ...**. Historical `PX-###`, Praxis, and Final Praxis identifiers remain inside source artifacts only for provenance.
 
-Public viewers can read, clone, and download the repository. Write access remains controlled by GitHub repository permissions for the owner and invited collaborators.
+[Public research site](https://garypagangit.github.io/praxis/) · [Full catalog 001–034](catalog/EXPERIMENTS_001_034.md) · [Full catalog 035–068](catalog/EXPERIMENTS_035_068.md) · [Legacy detailed tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html) · [Praxis Recon](apps/praxis-recon/index.html)
 
-## Current Positive Results
+---
 
-The strongest Praxis candidates currently tracked are:
+## Research Dashboard
 
-- `PX-001`: DAPT graph/ML routing experiments.
-- `PX-002`: ATT&CK TTP-set profile retrieval, packaged as a bounded lookup-style positive and not as a defense pillar.
-- `PX-003/PX-034`: CTI relationship-evidence prompting and source-support risk stratification.
-- `PX-004`: Hallucination-resistant source-locked QA.
-- `PX-005`: MoE standing-committee/router observability, now positioned as a bounded confirmation/extension result.
-- `PX-011`: HalluHard deterministic verification gate.
+### Final Research Series
 
-`PX-002` is now packaged as a bounded CTI lookup result: five observed ATT&CK techniques retrieve the correct group profile with overlap top-5 `0.960` and SVD top-5 `0.879` under the standard known-profile protocol, compared with random `0.028` and frequency prior `0.041`. The defense audit blocks a stronger defense-pillar claim because leave-query-out stress produced overlap top-5 `0.000` and SVD top-5 `0.299`; use the result only as analyst-triage profile retrieval.
+| Experiment | What it is trying to prove — simple language | Status |
+|---|---|---|
+| [**Experiment 066 — Outcome-State Verification**](final_praxis/001_outcome_state_verification/) | Can we verify what an AI agent **actually changed** instead of trusting another AI that says the task succeeded? | 🔴 **Negative — verified complete** |
+| [**Experiment 067 — Multi-Agent Cascade Containment**](final_praxis/002_cascade_containment/) | Can deterministic checkpoints stop one AI agent's mistake from spreading through a chain of AI agents? | 🔴 **Negative — verified complete** |
+| [**Experiment 068 — Adaptive Cyber Investigation Stopping**](final_praxis/003_adaptive_investigation_stopping/) | Can a security AI stop investigating before additional reasoning turns a correct answer into a wrong one? | 🔴 **Negative — verified complete** |
 
-The latest PX-003/PX-034 full-bucket AWS audit found relationship-evidence prompting improved Qwen2.5-7B accuracy from `0.614` to `0.822` across 500 CTI rows. The result supports the relationship-evidence lift claim, while narrowing the router claim to source-support and conflict-risk stratification rather than a hard answerability oracle.
+These three experiments are scientifically complete and independently verified. Their negative determinations are retained as first-class results; any redesign requires a new protocol.
 
-The new D1 agent-defense branch has now been tested through follow-on gates. `PX-050` is a publishable bounded positive with a final manuscript draft, final defense package export, and final two-model live-agent determination: it cleared fixed, Qwen live, DeepSeek replication, 984-row parser-stress, PX-050S controller/extractor repair, PX-050T adaptive stress, PX-050U Qwen dry-run live-agent, and PX-050V DeepSeek dry-run live-agent gates with zero observed hardened invalid-package escapes, while keeping the registry-uplift claim model-dependent. Raw and strict one-line StarCoder2 promotion gates failed, so they are published as boundary evidence. `PX-050S` passed the deployment-shaped controller/extractor repair on a fresh StarCoder2 held-out namespace. `PX-050T` then stress-tested that repair over `1,440` crafted raw-output strings: `1,140` invalid cases, invalid allows `0`, valid allow rate `1.0000`, and registry-only invalid allows `300`. `PX-050U/PX-050V` then prompted Qwen2.5-Coder-7B and DeepSeek-Coder-6.7B as dry-run coding agents over `288` combined tool-call tasks: install-action rate `1.0000`, raw unsafe rate `0.9453`, controller recovery `0.9757`, hardened invalid allows `0`, and valid allow rate `1.0000`. `PX-051V` passed the 288-row live-agent policy refresh with hardened invalid escape `0.0000`, utility preserved `1.0000`, and review rate `0.0243`. `PX-052V` passed the 288-row live-agent provenance refresh with alert recall `1.0000`, clean false-positive rate `0.0000`, and trace completeness `1.0000`. `PX-054` is now packaged as a defense-ready bounded characterization positive: the safe Huginn scale gate captured `600/600` activation rows over `120` prompts and depths `[4, 8, 16, 32, 64]`, with cross-depth stability `0.9257`, CI `[0.9067, 0.9273]`, benign-control FPR `0.0000`, and worst refusal TPR `0.9750`. `PX-049` failed its earlier live agentic slopsquatting gate because the model produced zero install actions, and `PX-053` failed its synthetic approval-fatigue gate.
+### Selected Completed / High-Value Results
 
-## Repository Layout
+| Experiment | Simple purpose | Status |
+|---|---|---|
+| [**001 — Safety-Gated TTA for Streaming APT Detection**](reports/tta_streaming_apt/PRAXIS06_PAPER_READY_FINAL_REPORT_20260513.md) | Safely adapt an APT detector when incoming data changes. | 🟢 Defense-ready positive |
+| [**003 — Retrieval-Conditioned CTI Compliance**](reports/relationship_evidence_cti_compliance/PRAXIS07_RESULT_SYNTHESIS_20260517.md) | Give a CTI model the right relationship evidence before it answers. | 🟢 Defense-ready positive |
+| [**004 — FalseCite-Code Citation Poisoning**](reports/falsecite_code/FALSECITE_CODE_SHORT_PAPER_20260628.md) | Verify software references before an agent trusts them. | 🟢 Bounded defense-positive |
+| [**005 — MoE Router Audit**](reports/moe_standing_committee/README.md) | Test whether MoE expert routing is stable and repeatable. | 🟢 Bounded positive |
+| [**011 — HalluHard Source-Backed Verification**](reports/halluhard_source_verifier/) | Check hallucinated claims against authoritative sources. | 🟢 Bounded positive |
+| [**050 — Deterministic Agent Defenses**](reports/agentic_deployment_defense/px050_final_manuscript_20260705/PX050_FINAL_MANUSCRIPT_20260705.md) | Stop unsafe agent package actions with deterministic verification. | 🟢 Lead bounded positive |
+| [**051 — Security-Utility Agent Gates**](reports/agentic_deployment_defense/px051v_live_agent_policy_refresh_20260705/PX051V_LIVE_AGENT_POLICY_REFRESH_20260705.md) | Block bad actions without blocking useful work. | 🟢 Live-agent policy pass |
+| [**052 — Tool-Boundary Provenance**](reports/agentic_deployment_defense/px052v_live_agent_provenance_refresh_20260705/PX052V_LIVE_AGENT_PROVENANCE_REFRESH_20260705.md) | Track where agent tool arguments came from before trusting them. | 🟢 Live-agent provenance pass |
+| [**054 — Refusal Geometry Across Recurrent Depth**](reports/refusal_geometry_recurrent_depth/px054_final_manuscript_20260706/PX054_FINAL_MANUSCRIPT_20260706.md) | Measure whether refusal-related internal directions stay stable across depth. | 🟢 Defense-ready bounded positive |
+| [**056 — Model-Registry Identifier Hallucination**](reports/model_registry_hallucination/gate2a_live_pilot_20260721/px056-gate2a-live-pilot-20260721-202454/PX056_GATE2A_DETERMINATION_20260721.md) | Detect invented model/dataset identifiers before code trusts them. | 🔵 Live pilot positive; full study pending |
 
-- `reports/`: dashboards, final reports, audit reports, and downloadable exports.
-- `apps/praxis-recon/`: static Praxis Recon app for paper-to-experiment triage and packaging workflow.
-- `.github/workflows/praxis-recon-daily.yml`: scheduled literature scan that opens GitHub Issues when new papers are flagged.
-- `cloud_jobs/`: AWS experiment job packages and run wrappers.
-- `scripts/`: local analysis, export, and experiment helper scripts.
-- `src/praxis/`: reusable Praxis package code.
-- `configs/`: experiment and training configuration files.
-- `tests/`: local test coverage for supported utilities and workflows.
+### Portfolio at a Glance
 
-Large model artifacts, datasets, checkpoints, caches, and local run outputs are intentionally excluded from Git unless a small artifact is needed as supporting evidence.
+The repository currently catalogs **68 numbered experiments** spanning:
 
-## Reproducing Or Reviewing Results
+- APT detection, provenance graphs, concept drift, and rare-stage classification;
+- cyber threat intelligence retrieval and evidence grounding;
+- agentic AI security, deterministic verification, provenance, and tool boundaries;
+- interpretability, refusal geometry, MoE routing, and test-time reasoning;
+- model/software supply-chain security;
+- federated learning, privacy, world models, robotics, and multimodal research.
 
-Start with the tracker, then follow each experiment's evidence links into its report, code, logs, and result tables.
+For the complete dashboard with every experiment's **name, simple research purpose, status, and direct evidence link**, use:
 
-For local development, install the project dependencies in a Python 3.11 environment and run focused scripts from `scripts/` or experiment-specific wrappers in `cloud_jobs/`. AWS-backed runs expect the caller to have valid AWS SSO credentials and access to the project S3 bucket.
+### [Experiments 001–034 →](catalog/EXPERIMENTS_001_034.md)
 
-## GitHub Access
+### [Experiments 035–068 →](catalog/EXPERIMENTS_035_068.md)
 
-Canonical repository:
+---
 
-```text
-https://github.com/garypagangit/praxis
-```
+## Status Convention
 
-Recommended public branch:
+| Status | Meaning |
+|---|---|
+| 🟢 **Positive** | The frozen scientific gate was cleared within the stated claim boundary. |
+| 🔵 **Active / Ready** | The experiment has a viable next gate or active execution path. |
+| 🟡 **Mixed / Diagnostic** | Useful evidence exists, but the full hypothesis did not cleanly pass. |
+| 🔴 **Negative / Closed** | The registered gate failed or the current formulation was closed. |
+| ⚪ **Blocked / Deferred** | Missing data, infrastructure, novelty, labels, or another prerequisite prevents a defensible run. |
+
+---
+
+## Repository Organization
+
+The repository is being normalized around a simple public-facing structure:
 
 ```text
-praxis-research
+Pagan Praxis
+├── README.md                  # front door / dashboard
+├── catalog/                   # canonical Experiment 001... numbering
+├── final_praxis/              # completed final-series evidence
+├── reports/                   # scientific reports and determinations
+├── paper/                     # manuscript packages
+├── configs/                   # frozen experiment configurations
+├── scripts/                   # experiment and analysis code
+├── cloud_jobs/                # AWS execution packages
+├── runs/ / results/           # measured outputs
+└── archive/                   # future home for legacy presentation artifacts
 ```
+
+Historical filenames and PX identifiers are intentionally preserved so citations, hashes, reports, and scientific provenance do not break.
+
+---
+
+## Research Rule
+
+**Scientific integrity is the success criterion.**
+
+Pagan Praxis does not require an experiment to be positive. Thresholds are frozen before scientific evaluation where applicable; negative results and boundary conditions are retained; and a result is promoted only to the strength supported by its evidence.
+
+---
+
+## Legacy and Provenance
+
+The original research history remains available through [EXPERIMENTS.md](EXPERIMENTS.md) and the [legacy HTML tracker](reports/PRAXIS_RESEARCH_EXPERIMENT_TRACKER.html). Those files preserve historical PX naming and detailed development lineage.
+
+New public-facing work should use the canonical **Experiment ###** identifier from the Pagan Praxis catalog.
