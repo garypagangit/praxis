@@ -1,0 +1,53 @@
+{
+  "frozen_utc": "2026-09-23T13:18:05.638046+00:00",
+  "binding": {
+    "files": {
+      "experiments/praxis_next/px080_context_selector/PROTOCOL.md": "8b8a2ef368e3906c36d86a51aa34c49315fdc91e43893e1643133a2fb0b9d0f3",
+      "experiments/praxis_next/px080_context_selector/run.py": "9d8910a40c997796dd12237a73bbff0b26bb9b2e166738a8094eb867d79c98ec",
+      "experiments/praxis_next/px080_context_selector/test_selector.py": "478aa84b62e96a7edf173007444de16dfe0ae583453ae9ede263d7e5975f6999",
+      "experiments/apt_benchmark/host_history_exfil/context.py": "d99bd56ef4d4ebafc33aa370a24eefae5b7517dd1610e317cf634efb52e98074"
+    },
+    "data_sha256": "b2a491474e722f4dabcd4c419c83a4a6b49f08dfc3bc059aa42ef2aaa4c3de14",
+    "seeds": [
+      20260924,
+      20260925,
+      20260926
+    ],
+    "base_parameters": {
+      "n_estimators": 180,
+      "num_leaves": 15,
+      "learning_rate": 0.05,
+      "min_child_samples": 10,
+      "reg_lambda": 1.0
+    },
+    "selector_parameters": {
+      "n_estimators": 120,
+      "num_leaves": 7,
+      "learning_rate": 0.05,
+      "min_child_samples": 30,
+      "reg_lambda": 5.0
+    },
+    "stage_costs": [
+      1.0,
+      1.0,
+      4.0,
+      4.0
+    ],
+    "conditions": [
+      "clean",
+      "missing_half",
+      "missing_all",
+      "stale_5min",
+      "wrong_host"
+    ],
+    "arms": [
+      "current_roles",
+      "context",
+      "fixed_fusion",
+      "confidence_gate",
+      "ordinary_gate",
+      "stage_harm_gate",
+      "context_dropout"
+    ]
+  }
+}
