@@ -19,7 +19,7 @@ The existing `experiments/apt_final/native_graph/cloud_control.py` provides a pr
 1. Bind the protocol, downloader, worker shell, and bundle builder hashes before launch. Root commits/reviews the executable payload and generated freeze.
 2. Upload the checked bundle to the unique private prefix. The existing controller verifies the account, stopped instance and scheduled stop before starting.
 3. Wait for SSM Online within the existing bounded readiness window. Send the worker through `AWS-RunShellScript` with an explicit timeout and absolute publication deadline.
-4. Worker checks the archive and each file hash, uses an existing Python with pandas/requests if available, and records package/runtime versions. No package installation is required by this worker; unavailable prerequisites produce a published failure receipt.
+4. Worker checks the archive and each file hash, selects an existing Python 3.10–3.13 interpreter with standard venv/ensurepip support, verifies at least 2 GB free disk and ordinary PyPI access, and creates an isolated per-run virtual environment. It installs only binary packages with pinned numpy 2.2.6, pandas 2.3.3 and requests 2.32.5 under a 180-second install cap, then records the full package/runtime versions. Shared environments remain unchanged. Unavailable prerequisites produce a published setup-failure receipt.
 5. Download public files normally, qualify actual bytes, and publish the source subset plus reports as a checksummed private result archive. A complete worker run can still report `acquisition_incomplete`.
 6. Root requests stop in its unconditional cleanup path and verifies stopped state before deleting only this attempt's watchdog. Collect and verify the result archive; do not extract links, traversal paths, or oversized content.
 
@@ -28,3 +28,7 @@ The existing `experiments/apt_final/native_graph/cloud_control.py` provides a pr
 - No signals: retain acquisition failure, do not fit substitutes labeled as new data.
 - Signals acquired: inspect clocks, dimensions, missingness, explicit skipped/failed annotations and event coverage before defining a new study. A physical-only subset is an ICS signal development resource, not validated movement/exfiltration telemetry.
 - All identity, shutdown and result checks are factual receipts. Do not claim AWS ran, the host stopped, or data were obtained before those actions are observed.
+
+## Setup amendment after attempt 1
+
+Attempt 1 on September 23, 2026 verified the bundle and bootstrap Python but found no pandas in the candidate environments. It published its failure logs, returned no data, and was verified stopped. This is an environment-setup failure, not a failed data-acquisition or scientific experiment. Attempt 2 uses a new private directory/prefix and adds only the bounded isolated installation and disk/network preflight above. Source revision pinning, seven-file scope, scientific qualification code, stop/cost limits and zero-model-fit scope are unchanged. Attempt 1's frozen bundle and receipts are retained.

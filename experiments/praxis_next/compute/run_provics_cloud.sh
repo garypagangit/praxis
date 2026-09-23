@@ -74,11 +74,28 @@ for candidate in \
  /opt/pytorch/bin/python \
  /usr/bin/python3; do
   printf 'Checking %s\n' "$candidate" >> outputs/ENV_SELECTION.log
-  if test -x "$candidate" && bounded 20 "$candidate" -c 'import sys,pandas,requests; assert sys.version_info >= (3,10)' >> outputs/ENV_SELECTION.log 2>&1; then
+  if test -x "$candidate" && bounded 20 "$candidate" -c 'import sys,venv,ensurepip; print(sys.version); assert (3,10) <= sys.version_info < (3,14)' >> outputs/ENV_SELECTION.log 2>&1; then
     python_bin="$candidate"; break
   fi
 done
 test -n "$python_bin"
+bounded 25 "$python_bin" - <<'PY' > outputs/SETUP_PREFLIGHT.json
+import json,pathlib,shutil,urllib.request
+disk=shutil.disk_usage(pathlib.Path.cwd())
+if disk.free < 2_000_000_000:raise ValueError('At least 2 GB free space required for bounded acquisition')
+with urllib.request.urlopen('https://pypi.org/simple/pandas/',timeout=15) as response:
+    status=response.status
+    if status != 200:raise ValueError('Ordinary PyPI access unavailable')
+print(json.dumps({'free_disk_bytes':disk.free,'required_free_bytes':2_000_000_000,
+                  'pypi_http_status':status,'shared_environment_modified':False},indent=2))
+PY
+bounded 60 "$python_bin" -m venv "$run_dir/venv" > outputs/VENV_SETUP.log 2>&1
+python_bin="$run_dir/venv/bin/python"
+bounded 180 "$python_bin" -m pip install --only-binary=:all: --no-input \
+ --disable-pip-version-check --no-cache-dir --retries 1 --timeout 20 \
+ --index-url https://pypi.org/simple numpy==2.2.6 pandas==2.3.3 requests==2.32.5 \
+ > outputs/DEPENDENCIES.log 2>&1
+bounded 15 "$python_bin" -m pip freeze > outputs/PIP_FREEZE.txt
 bounded 20 "$python_bin" - <<'PY' > outputs/ENVIRONMENT.json
 import datetime,importlib.metadata,json,platform,sys
 print(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),

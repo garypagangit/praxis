@@ -18,8 +18,9 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def build(repo,output,settings_source=None):
+def build(repo,output,settings_source=None,attempt_id=1):
     repo=repo.resolve(strict=True);output=output.resolve()
+    if not isinstance(attempt_id,int) or attempt_id < 1:raise ValueError('Positive attempt identity required')
     if output.is_relative_to(repo):raise ValueError('Private cloud artifacts must remain outside Git')
     if (output/'ACTIVE_RUN.json').exists():raise ValueError('Attempt already started')
     output.mkdir(parents=True,exist_ok=True)
@@ -53,7 +54,7 @@ def build(repo,output,settings_source=None):
         old=json.loads(settings_source.read_text(encoding='utf8'))
         keep=['profile','region','account','instance','bucket','stop_role_arn','usd_per_hour','rate_source']
         settings={k:old[k] for k in keep if k in old}
-        settings['prefix']='praxis-next/provics-qualification/20260923-attempt1/'
+        settings['prefix']=f'praxis-next/provics-qualification/20260923-attempt{attempt_id}/'
         target=output/'settings.json'
         if target.exists() and json.loads(target.read_text())!=settings:raise ValueError('Private settings differ')
         target.write_text(json.dumps(settings,indent=2)+'\n',encoding='utf8')
@@ -63,5 +64,6 @@ def build(repo,output,settings_source=None):
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--repo',required=True,type=Path)
     p.add_argument('--output',required=True,type=Path);p.add_argument('--settings-source',type=Path)
-    a=p.parse_args();f=build(a.repo,a.output,a.settings_source)
+    p.add_argument('--attempt-id',type=int,default=1)
+    a=p.parse_args();f=build(a.repo,a.output,a.settings_source,a.attempt_id)
     print(json.dumps({k:f[k] for k in ['bundle_sha256','bundle_bytes','model_fits','cloud_calls_by_builder','launch_status']},indent=2))
