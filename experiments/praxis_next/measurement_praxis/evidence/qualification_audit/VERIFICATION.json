@@ -1,0 +1,774 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-09-23T18:27:35.105046+00:00",
+  "verification_commit": "e6b5799",
+  "verifier_sha256": {
+    "experiments/praxis_next/measurement_praxis/evidence/qualification_audit/verify_qualification.py": "24431743389b567b6e85db1a198dc5da3cf5a25c4f28424417c642f9b6ff3733",
+    "experiments/praxis_next/measurement_praxis/evidence/qualification_audit/test_verify_qualification.py": "aadd9c8e891bcaef0b5cfce2be554cda70e55d5a17bcf4469a92fa7e097dabe6"
+  },
+  "model_fits": 0,
+  "aws_used": false,
+  "independence": "Different CSV parser and complete tied-time count sweep; imports no prior audit algorithms. Same agent team and same previously exposed source files, not an external blinded replication.",
+  "existing_evidence_sha256": {
+    "experiments\\praxis_next\\d1_benchmark_audit\\QUALIFICATION.json": "2b6f3533f5a57202668c98f90ba4812f6ce66da6f2f1cd11887afa60036f4978",
+    "experiments\\praxis_next\\d1_benchmark_audit\\SUPPORT_CUTOFF_AUDIT.json": "13d1569d56996b05c74ec92a60cfb1dbe129d5804a24686fb848cddcfe825f59"
+  },
+  "datasets": {
+    "SCVIC-APT-2021": {
+      "rows": 259120,
+      "native_counts": {
+        "DataExfiltration": 527,
+        "InitialCompromise": 73,
+        "LateralMovement": 729,
+        "NormalTraffic": 254836,
+        "Pivoting": 2122,
+        "Reconnaissance": 833
+      },
+      "date_counts": {
+        "1970-01-17": {
+          "NormalTraffic": 220
+        },
+        "2015-10-21": {
+          "DataExfiltration": 527,
+          "InitialCompromise": 73,
+          "LateralMovement": 729,
+          "NormalTraffic": 254616,
+          "Pivoting": 2122,
+          "Reconnaissance": 833
+        }
+      },
+      "columns": [
+        "Flow ID",
+        "Src IP",
+        "Src Port",
+        "Dst IP",
+        "Dst Port",
+        "Protocol",
+        "Timestamp",
+        "Flow Duration",
+        "Total Fwd Packet",
+        "Total Bwd packets",
+        "Total Length of Fwd Packet",
+        "Total Length of Bwd Packet",
+        "Fwd Packet Length Max",
+        "Fwd Packet Length Min",
+        "Fwd Packet Length Mean",
+        "Fwd Packet Length Std",
+        "Bwd Packet Length Max",
+        "Bwd Packet Length Min",
+        "Bwd Packet Length Mean",
+        "Bwd Packet Length Std",
+        "Flow Bytes/s",
+        "Flow Packets/s",
+        "Flow IAT Mean",
+        "Flow IAT Std",
+        "Flow IAT Max",
+        "Flow IAT Min",
+        "Fwd IAT Total",
+        "Fwd IAT Mean",
+        "Fwd IAT Std",
+        "Fwd IAT Max",
+        "Fwd IAT Min",
+        "Bwd IAT Total",
+        "Bwd IAT Mean",
+        "Bwd IAT Std",
+        "Bwd IAT Max",
+        "Bwd IAT Min",
+        "Fwd PSH Flags",
+        "Bwd PSH Flags",
+        "Fwd URG Flags",
+        "Bwd URG Flags",
+        "Fwd Header Length",
+        "Bwd Header Length",
+        "Fwd Packets/s",
+        "Bwd Packets/s",
+        "Packet Length Min",
+        "Packet Length Max",
+        "Packet Length Mean",
+        "Packet Length Std",
+        "Packet Length Variance",
+        "FIN Flag Count",
+        "SYN Flag Count",
+        "RST Flag Count",
+        "PSH Flag Count",
+        "ACK Flag Count",
+        "URG Flag Count",
+        "CWR Flag Count",
+        "ECE Flag Count",
+        "Down/Up Ratio",
+        "Average Packet Size",
+        "Fwd Segment Size Avg",
+        "Bwd Segment Size Avg",
+        "Fwd Bytes/Bulk Avg",
+        "Fwd Packet/Bulk Avg",
+        "Fwd Bulk Rate Avg",
+        "Bwd Bytes/Bulk Avg",
+        "Bwd Packet/Bulk Avg",
+        "Bwd Bulk Rate Avg",
+        "Subflow Fwd Packets",
+        "Subflow Fwd Bytes",
+        "Subflow Bwd Packets",
+        "Subflow Bwd Bytes",
+        "FWD Init Win Bytes",
+        "Bwd Init Win Bytes",
+        "Fwd Act Data Pkts",
+        "Fwd Seg Size Min",
+        "Active Mean",
+        "Active Std",
+        "Active Max",
+        "Active Min",
+        "Idle Mean",
+        "Idle Std",
+        "Idle Max",
+        "Idle Min",
+        "Label"
+      ],
+      "schemas_equal": true,
+      "source_receipts": [
+        {
+          "path": "C:\\Users\\garyp\\Downloads\\SCVIC-APT-2021-Training.csv",
+          "sha256": "a67b7a24196fc8c9e3b15ec7cf7b48b6a62f316fe24fc05fd9067dc745b3cf6e",
+          "bytes": 128590331,
+          "rows": 259120,
+          "headerless_first_row_preserved": false
+        }
+      ],
+      "native_counts_match_prior": true,
+      "row_total_matches_prior": true,
+      "cutoff_verification": {
+        "matches_registered_count_support_claim": true,
+        "direct_all_boundary_sweep": {
+          "distinct_tied_timestamp_blocks": 11694,
+          "membership_intervals_checked": 11693,
+          "feasible_membership_intervals": 9475,
+          "possible": true,
+          "lower_exclusive": "2015-10-21T10:21:12",
+          "upper_inclusive": "2015-10-21T22:56:16",
+          "totals": {
+            "DataExfiltration": 527,
+            "InitialCompromise": 73,
+            "LateralMovement": 729,
+            "NormalTraffic": 254836,
+            "Pivoting": 2122,
+            "Reconnaissance": 833
+          },
+          "minimum_fit_per_class": 2,
+          "minimum_test_per_class": 1,
+          "ties_preserved": true,
+          "clock_or_duration_validity_claim": false
+        },
+        "direct_counts_at_registered_bounds": {
+          "lower_exclusive_at_bound": {
+            "recorded_cutoff": "2015-10-21T10:21:12",
+            "counts": {
+              "DataExfiltration": {
+                "fit": 1,
+                "test": 526
+              },
+              "InitialCompromise": {
+                "fit": 18,
+                "test": 55
+              },
+              "LateralMovement": {
+                "fit": 89,
+                "test": 640
+              },
+              "NormalTraffic": {
+                "fit": 160587,
+                "test": 94249
+              },
+              "Pivoting": {
+                "fit": 60,
+                "test": 2062
+              },
+              "Reconnaissance": {
+                "fit": 79,
+                "test": 754
+              }
+            }
+          },
+          "lower_exclusive_one_microsecond_after": {
+            "recorded_cutoff": "2015-10-21T10:21:12.000001",
+            "counts": {
+              "DataExfiltration": {
+                "fit": 2,
+                "test": 525
+              },
+              "InitialCompromise": {
+                "fit": 18,
+                "test": 55
+              },
+              "LateralMovement": {
+                "fit": 89,
+                "test": 640
+              },
+              "NormalTraffic": {
+                "fit": 160587,
+                "test": 94249
+              },
+              "Pivoting": {
+                "fit": 60,
+                "test": 2062
+              },
+              "Reconnaissance": {
+                "fit": 79,
+                "test": 754
+              }
+            }
+          },
+          "upper_inclusive_at_bound": {
+            "recorded_cutoff": "2015-10-21T22:56:16",
+            "counts": {
+              "DataExfiltration": {
+                "fit": 521,
+                "test": 6
+              },
+              "InitialCompromise": {
+                "fit": 72,
+                "test": 1
+              },
+              "LateralMovement": {
+                "fit": 727,
+                "test": 2
+              },
+              "NormalTraffic": {
+                "fit": 252200,
+                "test": 2636
+              },
+              "Pivoting": {
+                "fit": 2051,
+                "test": 71
+              },
+              "Reconnaissance": {
+                "fit": 800,
+                "test": 33
+              }
+            }
+          },
+          "upper_inclusive_one_microsecond_after": {
+            "recorded_cutoff": "2015-10-21T22:56:16.000001",
+            "counts": {
+              "DataExfiltration": {
+                "fit": 521,
+                "test": 6
+              },
+              "InitialCompromise": {
+                "fit": 72,
+                "test": 1
+              },
+              "LateralMovement": {
+                "fit": 729,
+                "test": 0
+              },
+              "NormalTraffic": {
+                "fit": 252200,
+                "test": 2636
+              },
+              "Pivoting": {
+                "fit": 2051,
+                "test": 71
+              },
+              "Reconnaissance": {
+                "fit": 800,
+                "test": 33
+              }
+            }
+          }
+        },
+        "temporal_separation_proof": null,
+        "previous_data_exposure": true,
+        "cutoff_chosen_for_model_evaluation": false,
+        "all_original_rows_retained": true
+      }
+    },
+    "DAPT2020": {
+      "rows": 86691,
+      "native_counts": {
+        "Benign": 63712,
+        "Data Exfiltration": 15,
+        "Establish Foothold": 8604,
+        "Lateral Movement": 2451,
+        "Reconnaissance": 11909
+      },
+      "date_counts": {
+        "2019-07-15": {
+          "Benign": 12132
+        },
+        "2019-07-16": {
+          "Benign": 19992,
+          "Reconnaissance": 11865
+        },
+        "2019-07-17": {
+          "Benign": 10288,
+          "Establish Foothold": 8592,
+          "Reconnaissance": 44
+        },
+        "2019-07-18": {
+          "Benign": 11348,
+          "Lateral Movement": 2451
+        },
+        "2019-07-19": {
+          "Benign": 9952,
+          "Data Exfiltration": 15,
+          "Establish Foothold": 12
+        }
+      },
+      "columns": [
+        "Flow ID",
+        "Src IP",
+        "Src Port",
+        "Dst IP",
+        "Dst Port",
+        "Protocol",
+        "Timestamp",
+        "Flow Duration",
+        "Total Fwd Packet",
+        "Total Bwd packets",
+        "Total Length of Fwd Packet",
+        "Total Length of Bwd Packet",
+        "Fwd Packet Length Max",
+        "Fwd Packet Length Min",
+        "Fwd Packet Length Mean",
+        "Fwd Packet Length Std",
+        "Bwd Packet Length Max",
+        "Bwd Packet Length Min",
+        "Bwd Packet Length Mean",
+        "Bwd Packet Length Std",
+        "Flow Bytes/s",
+        "Flow Packets/s",
+        "Flow IAT Mean",
+        "Flow IAT Std",
+        "Flow IAT Max",
+        "Flow IAT Min",
+        "Fwd IAT Total",
+        "Fwd IAT Mean",
+        "Fwd IAT Std",
+        "Fwd IAT Max",
+        "Fwd IAT Min",
+        "Bwd IAT Total",
+        "Bwd IAT Mean",
+        "Bwd IAT Std",
+        "Bwd IAT Max",
+        "Bwd IAT Min",
+        "Fwd PSH Flags",
+        "Bwd PSH Flags",
+        "Fwd URG Flags",
+        "Bwd URG Flags",
+        "Fwd Header Length",
+        "Bwd Header Length",
+        "Fwd Packets/s",
+        "Bwd Packets/s",
+        "Packet Length Min",
+        "Packet Length Max",
+        "Packet Length Mean",
+        "Packet Length Std",
+        "Packet Length Variance",
+        "FIN Flag Count",
+        "SYN Flag Count",
+        "RST Flag Count",
+        "PSH Flag Count",
+        "ACK Flag Count",
+        "URG Flag Count",
+        "CWR Flag Count",
+        "ECE Flag Count",
+        "Down/Up Ratio",
+        "Average Packet Size",
+        "Fwd Segment Size Avg",
+        "Bwd Segment Size Avg",
+        "Fwd Bytes/Bulk Avg",
+        "Fwd Packet/Bulk Avg",
+        "Fwd Bulk Rate Avg",
+        "Bwd Bytes/Bulk Avg",
+        "Bwd Packet/Bulk Avg",
+        "Bwd Bulk Rate Avg",
+        "Subflow Fwd Packets",
+        "Subflow Fwd Bytes",
+        "Subflow Bwd Packets",
+        "Subflow Bwd Bytes",
+        "FWD Init Win Bytes",
+        "Bwd Init Win Bytes",
+        "Fwd Act Data Pkts",
+        "Fwd Seg Size Min",
+        "Active Mean",
+        "Active Std",
+        "Active Max",
+        "Active Min",
+        "Idle Mean",
+        "Idle Std",
+        "Idle Max",
+        "Idle Min",
+        "Activity",
+        "Stage"
+      ],
+      "schemas_equal": true,
+      "source_receipts": [
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-monday-pvt.pcap_Flow.csv",
+          "sha256": "3cebfbaf532e746be971a8712cdba1943b75585b0d49e074d95fa85b42bc8521",
+          "bytes": 1784312,
+          "rows": 3404,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-monday.pcap_Flow.csv",
+          "sha256": "1360c9f6cde280c044bdae5957466e05699cfdeec220e38201ffa7d3c9ff05f4",
+          "bytes": 4662958,
+          "rows": 8728,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-thursday.pcap_Flow.csv",
+          "sha256": "c8fe367dd11256b91ef1ffd997b2f1afd5dafdddede91d9c6476978306c4d642",
+          "bytes": 4782427,
+          "rows": 9685,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-tuesday.pcap_Flow.csv",
+          "sha256": "c6e9cf224671e9c4f6c3f89e7bbe55597c837f05d50a8c4dc480b0655c896477",
+          "bytes": 14956019,
+          "rows": 29242,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-wednesday.pcap_Flow.csv",
+          "sha256": "da190a584e38ca0542436e867e732aaa231739b230b3cb0a31189d38d7a82318",
+          "bytes": 9319296,
+          "rows": 17487,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-thursday.pcap_Flow.csv",
+          "sha256": "8c13fcf7899a04e9100a4b4b977439a8b6ff964aeae4bf2f26b2323bda085f77",
+          "bytes": 2045832,
+          "rows": 4114,
+          "headerless_first_row_preserved": true
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-tuesday.pcap_Flow.csv",
+          "sha256": "6bc442e95aeb3f43516bc917a8a48444ea140004b054693354c7a6251a642105",
+          "bytes": 1411018,
+          "rows": 2615,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-wednesday.pcap_Flow.csv",
+          "sha256": "11bcbabb3041ab95fea546e2d7973560f93abf570a6eb7020534af671eb7b2d4",
+          "bytes": 792544,
+          "rows": 1437,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-tcpdump-friday.pcap_Flow.csv",
+          "sha256": "805fc0d6baa64466766c5af7deeacf0d0bd3ce5e03ca9055549a64bde18300eb",
+          "bytes": 3664621,
+          "rows": 7361,
+          "headerless_first_row_preserved": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-tcpdump-pvt-friday.pcap_Flow.csv",
+          "sha256": "a8e998e9148933366a88d67c99cdad352737ee982b39d11e680b87ae9255f6a8",
+          "bytes": 1440895,
+          "rows": 2618,
+          "headerless_first_row_preserved": false
+        }
+      ],
+      "native_counts_match_prior": true,
+      "row_total_matches_prior": true,
+      "cutoff_verification": {
+        "matches_registered_count_support_claim": true,
+        "direct_all_boundary_sweep": {
+          "distinct_tied_timestamp_blocks": 28942,
+          "membership_intervals_checked": 28941,
+          "feasible_membership_intervals": 0,
+          "possible": false,
+          "lower_exclusive": null,
+          "upper_inclusive": null,
+          "totals": {
+            "Benign": 63712,
+            "Data Exfiltration": 15,
+            "Establish Foothold": 8604,
+            "Lateral Movement": 2451,
+            "Reconnaissance": 11909
+          },
+          "minimum_fit_per_class": 2,
+          "minimum_test_per_class": 1,
+          "ties_preserved": true,
+          "clock_or_duration_validity_claim": false
+        },
+        "direct_counts_at_registered_bounds": {
+          "lower_exclusive_at_bound": {
+            "recorded_cutoff": "2019-07-19T16:38:37",
+            "counts": {
+              "Benign": {
+                "fit": 57518,
+                "test": 6194
+              },
+              "Data Exfiltration": {
+                "fit": 1,
+                "test": 14
+              },
+              "Establish Foothold": {
+                "fit": 8592,
+                "test": 12
+              },
+              "Lateral Movement": {
+                "fit": 2451,
+                "test": 0
+              },
+              "Reconnaissance": {
+                "fit": 11909,
+                "test": 0
+              }
+            }
+          },
+          "lower_exclusive_one_microsecond_after": {
+            "recorded_cutoff": "2019-07-19T16:38:37.000001",
+            "counts": {
+              "Benign": {
+                "fit": 57521,
+                "test": 6191
+              },
+              "Data Exfiltration": {
+                "fit": 2,
+                "test": 13
+              },
+              "Establish Foothold": {
+                "fit": 8592,
+                "test": 12
+              },
+              "Lateral Movement": {
+                "fit": 2451,
+                "test": 0
+              },
+              "Reconnaissance": {
+                "fit": 11909,
+                "test": 0
+              }
+            }
+          },
+          "upper_inclusive_at_bound": {
+            "recorded_cutoff": "2019-07-17T19:24:55",
+            "counts": {
+              "Benign": {
+                "fit": 38867,
+                "test": 24845
+              },
+              "Data Exfiltration": {
+                "fit": 0,
+                "test": 15
+              },
+              "Establish Foothold": {
+                "fit": 8511,
+                "test": 93
+              },
+              "Lateral Movement": {
+                "fit": 0,
+                "test": 2451
+              },
+              "Reconnaissance": {
+                "fit": 11908,
+                "test": 1
+              }
+            }
+          },
+          "upper_inclusive_one_microsecond_after": {
+            "recorded_cutoff": "2019-07-17T19:24:55.000001",
+            "counts": {
+              "Benign": {
+                "fit": 38867,
+                "test": 24845
+              },
+              "Data Exfiltration": {
+                "fit": 0,
+                "test": 15
+              },
+              "Establish Foothold": {
+                "fit": 8511,
+                "test": 93
+              },
+              "Lateral Movement": {
+                "fit": 0,
+                "test": 2451
+              },
+              "Reconnaissance": {
+                "fit": 11909,
+                "test": 0
+              }
+            }
+          }
+        },
+        "temporal_separation_proof": {
+          "latest_reconnaissance_start": "2019-07-17T19:24:55",
+          "earliest_exfiltration_start": "2019-07-19T16:31:47",
+          "every_reconnaissance_row_precedes_every_exfiltration_row": true,
+          "logical_implication": "A cutoff retaining any later reconnaissance row has no earlier exfiltration row. A cutoff after exfiltration fitting rows leaves no later reconnaissance row."
+        },
+        "previous_data_exposure": true,
+        "cutoff_chosen_for_model_evaluation": false,
+        "all_original_rows_retained": true
+      }
+    },
+    "DSRL-APT-2023": {
+      "rows": 65000,
+      "native_counts": {
+        "Benign": 10000,
+        "Data Exfiltration": 5002,
+        "Establish Foothold": 22968,
+        "Lateral Movement": 12664,
+        "Reconnaissance": 14366
+      },
+      "date_counts": {
+        "2019-07-15": {
+          "Benign": 1929
+        },
+        "2019-07-16": {
+          "Benign": 3106,
+          "Data Exfiltration": 2,
+          "Establish Foothold": 1822,
+          "Lateral Movement": 1724,
+          "Reconnaissance": 9814
+        },
+        "2019-07-17": {
+          "Benign": 1625,
+          "Establish Foothold": 15087,
+          "Lateral Movement": 1642,
+          "Reconnaissance": 2873
+        },
+        "2019-07-18": {
+          "Benign": 1738,
+          "Establish Foothold": 1059,
+          "Lateral Movement": 9275,
+          "Reconnaissance": 1588
+        },
+        "2019-07-19": {
+          "Benign": 1602,
+          "Data Exfiltration": 5000,
+          "Establish Foothold": 5000,
+          "Lateral Movement": 23,
+          "Reconnaissance": 91
+        }
+      },
+      "columns": [
+        "Flow ID",
+        "Src IP",
+        "Src Port",
+        "Dst IP",
+        "Dst Port",
+        "Protocol",
+        "Timestamp",
+        "Flow Duration",
+        "Total Fwd Packet",
+        "Total Bwd packets",
+        "Total Length of Fwd Packet",
+        "Total Length of Bwd Packet",
+        "Fwd Packet Length Max",
+        "Fwd Packet Length Min",
+        "Fwd Packet Length Mean",
+        "Fwd Packet Length Std",
+        "Bwd Packet Length Max",
+        "Bwd Packet Length Min",
+        "Bwd Packet Length Mean",
+        "Bwd Packet Length Std",
+        "Flow Bytes/s",
+        "Flow Packets/s",
+        "Flow IAT Mean",
+        "Flow IAT Std",
+        "Flow IAT Max",
+        "Flow IAT Min",
+        "Fwd IAT Total",
+        "Fwd IAT Mean",
+        "Fwd IAT Std",
+        "Fwd IAT Max",
+        "Fwd IAT Min",
+        "Bwd IAT Total",
+        "Bwd IAT Mean",
+        "Bwd IAT Std",
+        "Bwd IAT Max",
+        "Bwd IAT Min",
+        "Fwd PSH Flags",
+        "Bwd PSH Flags",
+        "Fwd URG Flags",
+        "Bwd URG Flags",
+        "Fwd Header Length",
+        "Bwd Header Length",
+        "Fwd Packets/s",
+        "Bwd Packets/s",
+        "Packet Length Min",
+        "Packet Length Max",
+        "Packet Length Mean",
+        "Packet Length Std",
+        "Packet Length Variance",
+        "FIN Flag Count",
+        "SYN Flag Count",
+        "RST Flag Count",
+        "PSH Flag Count",
+        "ACK Flag Count",
+        "URG Flag Count",
+        "CWR Flag Count",
+        "ECE Flag Count",
+        "Down/Up Ratio",
+        "Average Packet Size",
+        "Fwd Segment Size Avg",
+        "Bwd Segment Size Avg",
+        "Fwd Bytes/Bulk Avg",
+        "Fwd Packet/Bulk Avg",
+        "Fwd Bulk Rate Avg",
+        "Bwd Bytes/Bulk Avg",
+        "Bwd Packet/Bulk Avg",
+        "Bwd Bulk Rate Avg",
+        "Subflow Fwd Packets",
+        "Subflow Fwd Bytes",
+        "Subflow Bwd Packets",
+        "Subflow Bwd Bytes",
+        "FWD Init Win Bytes",
+        "Bwd Init Win Bytes",
+        "Fwd Act Data Pkts",
+        "Fwd Seg Size Min",
+        "Active Mean",
+        "Active Std",
+        "Active Max",
+        "Active Min",
+        "Idle Mean",
+        "Idle Std",
+        "Idle Max",
+        "Idle Min",
+        "Activity",
+        "Stage"
+      ],
+      "schemas_equal": true,
+      "source_receipts": [
+        {
+          "path": "C:\\w\\apt_benchmark_data_20260920\\tabular_batch_v1\\dsrl\\DSRL-APT-2023.csv",
+          "sha256": "883001548b93c05152ae60a1851e0cb3b939a7f3aea0808f16e4c4c997bdf7bd",
+          "bytes": 31278194,
+          "rows": 65000,
+          "headerless_first_row_preserved": false
+        }
+      ],
+      "native_counts_match_prior": true,
+      "row_total_matches_prior": true,
+      "temporal_support_sweep_performed": false,
+      "reason": "Generated attack dates do not qualify physical campaign chronology."
+    }
+  },
+  "dsrl_pinned_release": {
+    "source_commit": "31bd0987bf84a4616fc9f9a60410a704a0ce4967",
+    "actual_artifact_hash_matches": {
+      "DSRL-APT-2023.csv": true,
+      "LICENSE": true,
+      "README.md": true,
+      "CITATION.cff": true
+    },
+    "license_header_is_mit": true,
+    "claim_scope": "MIT file in pinned author repository; not a new independent recording. Paper source review is documented separately."
+  },
+  "s_dapt_2026": {
+    "acquired_rows": null,
+    "raw_data_verification_performed": false,
+    "status": "No source bytes qualified; release status reviewed in SOURCE_REVIEW.json. No paper counts converted into observed counts."
+  },
+  "all_registered_verification_checks_passed": true,
+  "status": "COMPLETED_MEASUREMENT_VERIFICATION",
+  "completed_utc": "2026-09-23T18:27:39.853230+00:00"
+}

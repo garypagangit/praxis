@@ -1,5 +1,7 @@
 # New praxis experiments: September 23, 2026
 
+**Completed measurement praxis:** [When Better APT Scores Hide Missed Attack Warnings](measurement_praxis/README.md) - [Word](measurement_praxis/apt_evaluation_praxis.docx), [PDF](measurement_praxis/apt_evaluation_praxis.pdf), [evidence index](measurement_praxis/EVIDENCE_INDEX.md). Includes the complete retrospective paired reanalysis and independently verified benchmark-support audit.
+
 This completed development batch follows the two requested method ideas and the attached recommendation to study evaluation itself. Each experiment has its own number, frozen protocol, source, actual outputs, and interpretation. The studies produced measurable tradeoffs and an evaluation finding; they did not establish a novel superior detector.
 
 | ID | Question | Initial evidence scope |

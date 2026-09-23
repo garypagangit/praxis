@@ -1,0 +1,75 @@
+{
+  "checked_utc": "2026-09-23T18:26:06.635512+00:00",
+  "checks": [
+    {
+      "name": "sdapt_arxiv",
+      "url": "https://arxiv.org/abs/2601.06690",
+      "checked_utc": "2026-09-23T18:26:01.260427+00:00",
+      "http_status": 200,
+      "bytes": 42186,
+      "sha256": "aad5a9d5560577733c6cae5b969307d0d5c2cbb3c543d141209366beb8dd9b4a",
+      "raw_response_committed": false,
+      "withdrawn_and_analysis_error_text_present": true
+    },
+    {
+      "name": "dsrl_publisher_pdf",
+      "url": "https://www.isecure-journal.com/article_214212_40f652111c696f5eb8da62fe518390fa.pdf",
+      "checked_utc": "2026-09-23T18:26:01.260427+00:00",
+      "http_status": 200,
+      "bytes": 807893,
+      "sha256": "1413cd135054976a4522925d34b87f1523588e45d973b817ddfb161eb7151ab3",
+      "raw_response_committed": false
+    },
+    {
+      "name": "dsrl_author_readme",
+      "url": "https://raw.githubusercontent.com/shadab75/DSRL-APT-2023/31bd0987bf84a4616fc9f9a60410a704a0ce4967/README.md",
+      "checked_utc": "2026-09-23T18:26:01.260427+00:00",
+      "http_status": 200,
+      "bytes": 1810,
+      "sha256": "ff85057ba40addd86dbb8979f7e0e0f456c2514d54efc4b63eb9141ba030cb77",
+      "raw_response_committed": false,
+      "ctgan_and_dapt2020_present": true
+    },
+    {
+      "name": "dsrl_author_license",
+      "url": "https://raw.githubusercontent.com/shadab75/DSRL-APT-2023/31bd0987bf84a4616fc9f9a60410a704a0ce4967/LICENSE",
+      "checked_utc": "2026-09-23T18:26:01.261104+00:00",
+      "http_status": 200,
+      "bytes": 1073,
+      "sha256": "54f34f49eca4fa1dcb7ad6d4e7e04b187f2fc95d7199af8e80806cdb2842bf73",
+      "raw_response_committed": false,
+      "mit_license_header": true
+    }
+  ],
+  "dsrl_method_finding": {
+    "source_url": "https://www.isecure-journal.com/article_214212_40f652111c696f5eb8da62fe518390fa.pdf",
+    "paper": "Shadabfar, Dehghan, and Sadeghian (2025), The ISC International Journal of Information Security, 17(2), 107-116",
+    "doi": "10.22042/isecure.2025.214212",
+    "location": "Section 5, printed page112, PDF page6",
+    "verification": "Primary publisher PDF text read earlier on September23 in the same work session; latest binary retrieval status recorded above",
+    "finding": "Attack rows were generated with CTGAN trained on DAPT2020;10,000 benign rows were sampled from DAPT2020. This is not independent validation of its parent dataset."
+  },
+  "sdapt_finding": {
+    "source_url": "https://arxiv.org/abs/2601.06690",
+    "finding": "Current arXiv v2 remains withdrawn April1,2026. No corrected author-controlled data/generator artifact or dataset license was qualified. The later SSRN6603942 posting does not itself establish corrected accessible data.",
+    "limits": "A bounded source-access finding, not proof no artifact exists anywhere; paper-reported row counts are not measured rows."
+  },
+  "scvic_last_source_check": {
+    "date": "2026-09-23",
+    "repeated_in_this_check": false,
+    "sources": [
+      "https://api.github.com/repos/IoT-CPS-Labs/SCVIC-APT-2021",
+      "https://api.datacite.org/dois/10.21227/g2z5-ep97",
+      "https://www.site.uottawa.ca/~bkantarc/",
+      "https://ieee-dataport.org/documents/scvic-apt-2021"
+    ],
+    "observations": [
+      "Author GitHub API and raw README returned404 in bounded preceding check",
+      "DataCite returned200,CC-BY-4.0,contentUrl null,no relatedIdentifiers,and DataPort landing link",
+      "Author homepage points to DataPort;cached primary DataPort HTML lists a test set requiring login",
+      "No author-supported2015/1970clock correction or row-to-round mapping verified"
+    ],
+    "decision": "No newly accessible artifact resolved clock,holdout,or execution-group qualification. Do not invent repairs or rounds."
+  },
+  "overall_scope": "Public primary-source review; no fit, AWS, authentication bypass, raw dataset redistribution, or author messages."
+}
