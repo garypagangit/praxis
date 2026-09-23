@@ -2,9 +2,10 @@
   "created": "2026-09-23",
   "branch": "praxis-next-20260923",
   "experiments": [
-    {"id": "PX-080", "directory": "px080_context_selector", "title": "Learning when historical context worsens attack-stage decisions", "status": "BUILDING"},
-    {"id": "PX-081", "directory": "px081_evidence_acquisition", "title": "Selecting stage evidence under availability and deadline constraints", "status": "BUILDING"},
-    {"id": "PX-082", "directory": "px082_temporal_audit", "title": "Measuring time-split sensitivity in attack-stage classification", "status": "BUILDING"}
+    {"id": "PX-080", "directory": "px080_context_selector", "title": "Learning when historical context worsens attack-stage decisions", "status": "COMPLETE_AUDIT_PASS", "finding": "Higher movement recall than ordinary gating, with more false alerts and higher weighted error in all five conditions"},
+    {"id": "PX-081", "directory": "px081_evidence_acquisition", "title": "Selecting stage evidence under availability and deadline constraints", "status": "COMPLETE_AUDIT_PASS", "finding": "Lower simulated spend but no robust detection advantage; some better F1 comparisons suppress attack warnings"},
+    {"id": "PX-082", "directory": "px082_temporal_audit", "title": "Measuring time-split sensitivity in attack-stage classification", "status": "COMPLETE_AUDIT_PASS", "finding": "Time-mixed training raises macro-F1 by .0632/.0383 on identical anchor rows; diagnostic, not deployment improvement"},
+    {"id": "PX-083", "directory": "px083_policy_transfer", "title": "Transferring a context-selection score policy between recent security datasets", "status": "COMPLETE_AUDIT_PASS", "finding": "Cost-sensitive hard decisions match context in all 42 views; no added decision benefit. Secondary T1105 policy transfer, not movement/exfiltration confirmation"}
   ],
   "inference_rule": "These are exposed-data development studies. Freeze source and protocol before fitting; keep all registered outcomes. Do not infer independent-campaign efficacy, novelty, or a guarantee from a good score."
 }
