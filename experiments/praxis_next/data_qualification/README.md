@@ -1,42 +1,50 @@
 # New data qualification: ProvICS and Windows-APT 2025
 
-**Checked September 23, 2026. This is an acquisition/measurement qualification, not a completed external model evaluation.**
+**Final status, September 23, 2026: AWS successfully acquired and qualified the small ProvICS subset. This is a completed measurement audit, not a completed external model evaluation.**
 
-## Acquisition status
+## What was acquired
 
-The primary candidate is [ProvICS](https://huggingface.co/datasets/trucyberlab/multimodal-ICS-provenance), linked to the authors' [July 2026 preprint](https://arxiv.org/abs/2607.05989). The intended small subset contains the README, two physical-state CSV files, and four campaign annotation CSV files. No large provenance graph or PCAP was requested.
+The source is [ProvICS](https://huggingface.co/datasets/trucyberlab/multimodal-ICS-provenance), linked to the authors' [July 2026 preprint](https://arxiv.org/abs/2607.05989). All seven requested files came from the same author revision, `18b4b0e1359d3d02347301c55f97c3d98f5dab5c`: the README, two physical-state CSV files and four campaign annotation files. No large provenance graph or PCAP was requested. The acquired files total **29,308,373 bytes**, and all seven SHA-256 digests were rechecked after private result retrieval.
 
-The local Python and curl requests to Hugging Face timed out, including the IPv4 route and all four currently resolved service addresses. The public dataset card remained visible through the research browser, but source-card access is not a signal-file download. [Acquisition receipts](results/provics_acquisition.json) and [qualification output](results/provics_qualification.json) are authoritative for the completed byte acquisition. The downloader records hashes only for files actually present.
+| Downloaded signals | Actual rows | UTC range | Process variables |
+|---|---:|---|---:|
+| `benign48h/physical_state.csv` | 130,940 | April 18, 01:40:04 to April 20, 05:40:02, 2026 | 22 |
+| `attack22h/physical_state.csv` | 51,425 | April 16, 08:19:46 to April 17, 05:19:46, 2026 | 22 |
 
-The alternative [Windows-APT 2025 version 4](https://data.mendeley.com/datasets/b8fmtzvpy8/4) has a [peer-reviewed 2026 Data in Brief paper](https://doi.org/10.1016/j.dib.2026.112569) and a CC BY 4.0 landing-page license. Its ordinary local download/API requests returned HTTP 403 with an interactive Cloudflare challenge. That access attempt was stopped; no challenge was bypassed. No Windows-APT event rows were acquired in this task. Its paper's observable stage limitations still require checking against actual release bytes, and scenario names cannot substitute for completed exfiltration evidence.
+The four annotation files contain **32 phase intervals across four campaign scripts**. All intervals fall within the attack recording's clock range. They are not 32 verified successful attacks or independent campaign repetitions. The dataset card declares CC BY-NC 4.0 and includes additional research-use/nonredistribution text; raw files remain private and are not committed to Git.
 
-## What the visible ProvICS annotations establish
+Evidence: [acquisition hashes](results/provics_cloud_attempt3/provics_acquisition.json), [frozen-worker qualification](results/provics_cloud_attempt3/provics_qualification.json), [post-acquisition measurement audit](results/provics_cloud_attempt3/measurement_support.json), and [AWS completion/stop receipt](../compute/PROVICS_ATTEMPT3_RESULT.json).
 
-The source card states CC BY-NC 4.0 and describes four campaign scripts within one testbed attack recording. Raw files remain outside Git. Physical-only measurements would not establish authentication acquisition cost, log arrival times, or enterprise exfiltration outcomes.
+## What the actual bytes can support
 
-The public annotation preview includes three explicit exceptions to successful stage execution:
+Physical measurements can support a carefully scoped study of process changes and whether earlier process measurements help a decision. They do not certify cross-host movement, stolen data, authentication acquisition cost, or log arrival times.
 
-| Campaign / phase | Observed qualification issue | Required treatment |
-|---|---|---|
-| C2 / historian_tamper | Token capture failed and the action was aborted. | Preserve attempted/aborted status; do not score as completed impact. |
-| C4 / lateral_influxdb | Credential acquisition is marked `token=FAILED`. | A movement-stage name does not certify successful movement. |
-| C4 / historian_poison | The action is explicitly marked `SKIPPED`. | Exclude from completed-action positives; do not relabel as benign automatically. |
+| Target or issue | Measured support and interpretation |
+|---|---|
+| Lateral movement annotations | Three intervals contain 5, 1 and 0 physical samples. The zero-sample interval explicitly reports credential failure. This is insufficient physical-only support for a completed-movement classifier. |
+| Credential collection phase named `cred_exfil` | Its 0.010-second interval contains zero physical samples, and the source tactic is **Collection**. No annotation tactic is Exfiltration. Successful exfiltration count remains unverified. |
+| Failed or skipped execution | C2 historian tampering is aborted; C4 historian credential acquisition fails; C4 historian poisoning is skipped. These cannot be counted as completed-action positives. |
+| Exact annotation coverage | 4,256 physical rows overlap any annotated interval; 47,169 do not. Unannotated attack-recording rows are not automatically verified benign, since adversarial effects and persistence can outlast phase boundaries. |
+| Phase sample coverage | Four intervals contain no physical rows. Broadening windows might create overlap with another activity; that would not prove the original action occurred. |
 
-The C2 credential-collection annotation lasts approximately 0.010 seconds; the card states 1 Hz physical sampling. Compute actual interval coverage before fitting. A nearby anomalous window cannot establish that a skipped action occurred.
+The remaining descriptions record intended or described execution, not independently validated success. No completed-action labels were generated by this audit. An [independent CSV review](results/provics_cloud_attempt3/INDEPENDENT_REVIEW.md) reproduced the counts and found a material boundary ambiguity: a phase describing 60 seconds of tcpdump spans only 178 milliseconds in its annotation. Physical timestamps also have second precision against sub-second annotations. Exact overlap counts therefore do not certify full action durations or absence of evidence in other modalities.
 
-These are preview observations, not downloaded rows or reproduced results. The 32 labeled phases are not 32 verified successful attacks. No classification or exfiltration count was measured here.
+## Clock and split implications
 
-## Reproducible qualification
+The two exported clocks are valid, unique and increasing, but the actual spans are approximately **52 hours benign and 21 hours attack**. Effective rates are 0.699 and 0.680 rows/second; the largest gaps are 348 and 1,110 seconds. History must use actual elapsed time and preserve missingness rather than assume a complete 1 Hz grid. One benign row has missing process values; the attack file has none. Export metadata (`Unnamed: 0`, `result`, `table`) must be excluded from model predictors; absolute timestamps should serve splitting and causal window construction rather than session identification.
 
-```powershell
-& 'C:/w/tabular_batch_env_20260921/Scripts/python.exe' `
-  'experiments/praxis_next/data_qualification/acquire_provics.py' `
-  --data-root 'C:/w/apt_benchmark_data_20260920/praxis_next/newdata/provics' `
-  --report-dir 'experiments/praxis_next/data_qualification/results'
-```
+**The benign recording occurs after the attack recording.** Fitting on that benign file and testing the attack file would be a retrospective evaluation across separate recordings, not forward-in-time deployment. A new study must describe that distinction and freeze its training/calibration/test boundaries. Four scripts in one testbed recording do not establish independent repeated campaigns, and physical-clock alignment does not validate every other modality's clock.
 
-The acquisition is bounded to seven files, three parallel connections, and 100 MB per file. The script stores source URLs and byte hashes, checks clocks and numeric columns, calculates physical rows falling within annotation intervals, and screens explicit skipped/failed language without certifying success. It never enables model fitting automatically. A successful download still requires outcome review, leakage inspection, and a frozen execution-level split.
+## Reproduce the byte audit
+
+Run `inspect_provics_bytes.py` using the private data directory documented in [compute status](../compute/README.md), the published `results/provics_cloud_attempt3/provics_acquisition.json` as `--acquisition`, and a new `--output` path. The deterministic audit verifies hashes, inspects clocks and support, and never fits a model. The frozen acquisition program remains unchanged; the measurement supplement is explicitly post-acquisition review.
+
+## Preserved acquisition history and alternative
+
+Local Hugging Face attempts timed out; their [original acquisition receipt](results/provics_acquisition.json) and [original qualification result](results/provics_qualification.json) remain historical evidence. AWS resolved the network access problem after two documented environment preflight failures. All three allocations ended with verified stopped workers; see [compute status](../compute/README.md).
+
+The alternative [Windows-APT 2025 version 4](https://data.mendeley.com/datasets/b8fmtzvpy8/4) has a [2026 Data in Brief paper](https://doi.org/10.1016/j.dib.2026.112569). Its local requests returned HTTP 403 with an interactive challenge; that attempt was stopped without bypassing the challenge. No Windows-APT rows were acquired or evaluated.
 
 ## Decision
 
-**New-data confirmation is not ready.** Continue the separately identified development experiments on already qualified data and label them as development. A fresh-data validation becomes eligible only after actual signals are acquired and their clocks, target observability, annotations, and independent execution units pass qualification. A cloud GPU cannot resolve unavailable evidence or increase the number of independent campaigns.
+**ProvICS data acquisition is complete. Confirmation of the existing enterprise movement/exfiltration claims is not supported by this physical-only subset.** A separate ICS process-history development experiment is potentially feasible, with a target grounded in observable physical effects, explicit treatment of failed/skipped actions, causal windows that respect gaps, and a frozen session-aware evaluation. Acquiring data is not evidence that a proposed model improves performance. Zero model fits ran in this qualification task.

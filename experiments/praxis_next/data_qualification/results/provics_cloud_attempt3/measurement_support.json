@@ -1,0 +1,180 @@
+{
+  "hashes_verified": 7,
+  "model_fits": 0,
+  "dataset_revision": "18b4b0e1359d3d02347301c55f97c3d98f5dab5c",
+  "physical_files": {
+    "benign48h": {
+      "rows": 130940,
+      "process_variables": 22,
+      "metadata_columns_to_exclude_from_predictors": [
+        "Unnamed: 0",
+        "result",
+        "table",
+        "_time"
+      ],
+      "rows_with_missing_process_value": 1,
+      "clock_span_seconds": 187198.0,
+      "first_timestamp": "2026-04-18T01:40:04+00:00",
+      "last_timestamp": "2026-04-20T05:40:02+00:00",
+      "timestamp_delta_seconds_quantiles": {
+        "0": 1.0,
+        "0.5": 1.0,
+        "0.9": 2.0,
+        "0.99": 2.0,
+        "1": 348.0
+      },
+      "timestamp_gaps_above_two_seconds": 64,
+      "timestamp_gaps_above_ten_seconds": 1,
+      "timestamp_gaps_above_sixty_seconds": 1,
+      "effective_rows_per_second": 0.6994679430335794,
+      "constant_process_columns": [
+        "override_sp"
+      ]
+    },
+    "attack22h": {
+      "rows": 51425,
+      "process_variables": 22,
+      "metadata_columns_to_exclude_from_predictors": [
+        "Unnamed: 0",
+        "result",
+        "table",
+        "_time"
+      ],
+      "rows_with_missing_process_value": 0,
+      "clock_span_seconds": 75600.0,
+      "first_timestamp": "2026-04-16T08:19:46+00:00",
+      "last_timestamp": "2026-04-17T05:19:46+00:00",
+      "timestamp_delta_seconds_quantiles": {
+        "0": 1.0,
+        "0.5": 1.0,
+        "0.9": 2.0,
+        "0.99": 2.0,
+        "1": 1110.0
+      },
+      "timestamp_gaps_above_two_seconds": 30,
+      "timestamp_gaps_above_ten_seconds": 3,
+      "timestamp_gaps_above_sixty_seconds": 1,
+      "effective_rows_per_second": 0.6802116402116403,
+      "constant_process_columns": []
+    }
+  },
+  "target_qualification": {
+    "annotation_rows": 32,
+    "distinct_script_ids": 4,
+    "physical_rows_in_any_annotated_interval": 4256,
+    "physical_rows_outside_all_annotations": 47169,
+    "all_intervals_within_attack_recording_clock": true,
+    "zero_row_intervals": [
+      {
+        "campaign": "C2_stealthy_20260416_173519",
+        "sub_phase": "passive_recon",
+        "tactic": "Discovery",
+        "physical_rows": 0,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "execution_described_outcome_unverified"
+      },
+      {
+        "campaign": "C2_stealthy_20260416_173519",
+        "sub_phase": "cred_exfil",
+        "tactic": "Collection",
+        "physical_rows": 0,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "execution_described_outcome_unverified"
+      },
+      {
+        "campaign": "C4_fullspectrum_20260417_020413",
+        "sub_phase": "lateral_influxdb",
+        "tactic": "Lateral Movement",
+        "physical_rows": 0,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "contains_failure_or_abort_requires_review"
+      },
+      {
+        "campaign": "C4_fullspectrum_20260417_020413",
+        "sub_phase": "historian_poison",
+        "tactic": "Impact",
+        "physical_rows": 0,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "explicitly_skipped"
+      }
+    ],
+    "movement_intervals": [
+      {
+        "campaign": "C1_aggressive_20260416_130841",
+        "sub_phase": "brute_force",
+        "tactic": "Lateral Movement",
+        "physical_rows": 5,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "execution_described_outcome_unverified"
+      },
+      {
+        "campaign": "C2_stealthy_20260416_173519",
+        "sub_phase": "credential_use",
+        "tactic": "Lateral Movement",
+        "physical_rows": 1,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "execution_described_outcome_unverified"
+      },
+      {
+        "campaign": "C4_fullspectrum_20260417_020413",
+        "sub_phase": "lateral_influxdb",
+        "tactic": "Lateral Movement",
+        "physical_rows": 0,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "contains_failure_or_abort_requires_review"
+      }
+    ],
+    "annotation_tactic_counts": {
+      "Discovery": 5,
+      "Defense Evasion": 5,
+      "Impact": 4,
+      "Lateral Movement": 3,
+      "Collection": 3,
+      "None": 3,
+      "Inhibit Response Function": 2,
+      "Impair Process Control": 2,
+      "Persistence": 2,
+      "Initial Access": 1,
+      "Execution": 1,
+      "Credential Access": 1
+    },
+    "exfiltration_tactic_annotations": 0,
+    "successful_exfiltration_events_verified": null,
+    "independent_repeated_campaigns_verified": 0,
+    "skipped_or_failed_screen": [
+      {
+        "campaign": "C2_stealthy_20260416_173519",
+        "sub_phase": "historian_tamper",
+        "tactic": "Impact",
+        "physical_rows": 1,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "contains_failure_or_abort_requires_review"
+      },
+      {
+        "campaign": "C4_fullspectrum_20260417_020413",
+        "sub_phase": "lateral_influxdb",
+        "tactic": "Lateral Movement",
+        "physical_rows": 0,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "contains_failure_or_abort_requires_review"
+      },
+      {
+        "campaign": "C4_fullspectrum_20260417_020413",
+        "sub_phase": "historian_poison",
+        "tactic": "Impact",
+        "physical_rows": 0,
+        "within_attack_recording_clock": true,
+        "outcome_screen": "explicitly_skipped"
+      }
+    ]
+  },
+  "decisions": {
+    "enterprise_movement_or_exfiltration_confirmation": "not_supported_by_physical_subset",
+    "measured_logging_cost_or_latency_evaluation": "not_supported",
+    "ics_process_history_development": "potentially_feasible_after_frozen_target_and_time_split",
+    "allow_model_fitting_automatically": false,
+    "unannotated_attack_recording_rows_are_verified_benign": false,
+    "annotation_overlap_counts_certify_completed_actions": false,
+    "timestamp_alignment_proves_all_modality_clocks_synchronized": false
+  }
+}
