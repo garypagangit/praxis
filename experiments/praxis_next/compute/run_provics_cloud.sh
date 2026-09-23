@@ -40,9 +40,58 @@ bounded() {
   if test "$maximum" -gt "$remaining"; then maximum="$remaining"; fi
   timeout --signal=TERM --kill-after=5s "${maximum}s" "$@"
 }
+bounded 10 python3 -c 'import sys; assert sys.version_info >= (3,9), "Bootstrap requires Python >= 3.9"' > outputs/BOOTSTRAP_PYTHON.log 2>&1
+bounded 30 python3 - "$run_id" <<'PY'
+import json,os,pathlib,shutil,subprocess,sys
+minimum=2_000_000_000
+raw=subprocess.check_output(['findmnt','--json','--output','TARGET,FSTYPE,SOURCE,OPTIONS'],text=True)
+pathlib.Path('outputs/FINDMNT.json').write_text(raw)
+df=subprocess.check_output(['df','-Pk'],text=True)
+pathlib.Path('outputs/DF.txt').write_text(df)
+def flatten(items):
+    for item in items:
+        yield item
+        yield from flatten(item.get('children',[]))
+inventory=[];eligible=[]
+for item in flatten(json.loads(raw)['filesystems']):
+    target=str(item.get('target',''));path=pathlib.Path(target)
+    record={k:item.get(k) for k in ['target','fstype','source','options']}
+    try:
+        record['directory']=path.is_dir();record['writable']=os.access(path,os.W_OK)
+        usage=shutil.disk_usage(path);record['free_bytes']=usage.free;record['total_bytes']=usage.total
+        physical=item.get('fstype') in {'ext4','xfs','btrfs','zfs','ext3'}
+        system=any(target==p or target.startswith(p+'/') for p in ['/boot','/proc','/sys','/dev','/run'])
+        read_only='ro' in str(item.get('options','')).split(',')
+        record['eligible']=physical and not system and record['directory'] and record['writable'] and not read_only and usage.free>=minimum
+        if record['eligible']:eligible.append(record)
+    except OSError as error:record.update(eligible=False,error_type=type(error).__name__)
+    inventory.append(record)
+report={'required_free_bytes':minimum,'mount_or_format_or_delete_performed':False,'filesystems':inventory}
+if not eligible:
+    report['selection']='no_qualified_existing_filesystem'
+    pathlib.Path('outputs/MOUNT_INVENTORY.json').write_text(json.dumps(report,indent=2))
+    raise ValueError('No already mounted writable physical filesystem has at least2GB free')
+chosen=max(eligible,key=lambda r:(r['target']!='/',r['free_bytes']))
+# A child directly under the chosen mount avoids a different nested mount.
+base=pathlib.Path(chosen['target'])/'praxis-acquisition-runs'
+if base.exists() and (not base.is_dir() or base.resolve()!=base or os.stat(base).st_dev!=os.stat(chosen['target']).st_dev):
+    raise ValueError('Existing scratch parent is not on selected filesystem')
+destination=base/sys.argv[1]
+if destination.exists():raise ValueError('Unique scratch run already exists')
+report.update(selection='qualified_existing_filesystem',selected_mount=chosen['target'],
+              selected_free_bytes=chosen['free_bytes'],selected_run_directory=str(destination))
+pathlib.Path('outputs/MOUNT_INVENTORY.json').write_text(json.dumps(report,indent=2))
+pathlib.Path('outputs/SELECTED_RUN_DIRECTORY.txt').write_text(str(destination))
+PY
+selected_run_dir="$(cat outputs/SELECTED_RUN_DIRECTORY.txt)"
+[[ "$selected_run_dir" == /*/praxis-acquisition-runs/"$run_id" || "$selected_run_dir" == /praxis-acquisition-runs/"$run_id" ]]
+test ! -e "$selected_run_dir"
+mkdir -p "$selected_run_dir/outputs/reports" "$selected_run_dir/outputs/data"
+cp outputs/BOOTSTRAP_PYTHON.log outputs/FINDMNT.json outputs/DF.txt outputs/MOUNT_INVENTORY.json outputs/SELECTED_RUN_DIRECTORY.txt "$selected_run_dir/outputs/"
+run_dir="$selected_run_dir"
+cd "$run_dir"
 bounded 90 aws s3 cp "$bundle_uri" bundle.tar.gz --only-show-errors
 printf '%s  bundle.tar.gz\n' "$bundle_sha" | sha256sum -c -
-bounded 10 python3 -c 'import sys; assert sys.version_info >= (3,9), "Bootstrap requires Python >= 3.9"' > outputs/BOOTSTRAP_PYTHON.log 2>&1
 bounded 30 python3 - <<'PY'
 import hashlib,json,tarfile
 from pathlib import Path,PurePosixPath

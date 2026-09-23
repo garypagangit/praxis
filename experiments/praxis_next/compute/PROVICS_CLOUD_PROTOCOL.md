@@ -32,3 +32,9 @@ The existing `experiments/apt_final/native_graph/cloud_control.py` provides a pr
 ## Setup amendment after attempt 1
 
 Attempt 1 on September 23, 2026 verified the bundle and bootstrap Python but found no pandas in the candidate environments. It published its failure logs, returned no data, and was verified stopped. This is an environment-setup failure, not a failed data-acquisition or scientific experiment. Attempt 2 uses a new private directory/prefix and adds only the bounded isolated installation and disk/network preflight above. Source revision pinning, seven-file scope, scientific qualification code, stop/cost limits and zero-model-fit scope are unchanged. Attempt 1's frozen bundle and receipts are retained.
+
+## Final storage-readiness amendment after attempt 2
+
+Attempt 2 selected Python 3.10.12, but its original run filesystem had less than the required 2 GB free. It stopped before installing packages or contacting Hugging Face, published its logs, and was verified stopped. The capacity threshold is an operational setup bound, not a scientific acceptance criterion.
+
+The final attempt records `findmnt`, `df`, and actual free bytes for existing mounted filesystems, then selects an already-mounted writable ext3/ext4/xfs/btrfs/zfs filesystem with at least 2 GB free. System pseudo-filesystems and boot mounts are excluded. A unique directory directly under the selected mount avoids accidentally using another nested filesystem. Small diagnostic files are initially written to the original per-run location so a no-capacity result can be published; package/data writes begin only on the qualified location. No mounting, formatting, deleting existing data, changing shared environments, creating volumes, or provisioning instances is allowed. If no filesystem qualifies or the data endpoint fails, publish the inventory/failure and stop; no further automatic retry follows this final attempt. Other execution and scientific bounds remain unchanged.
