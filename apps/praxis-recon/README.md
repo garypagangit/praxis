@@ -1,22 +1,35 @@
 # Praxis Recon
 
-Praxis Recon is a static single-page prototype for the Praxis Engine design. It runs directly from `index.html` and stores demo changes in browser `localStorage`.
+**Pagan Praxis research-to-experiment command center**
 
-## Open
+Live app: https://garypagangit.github.io/praxis/apps/praxis-recon/
 
-Open `apps/praxis-recon/index.html` in a browser.
+Updated: 2026-09-23
 
-## Included Views
+Praxis Recon now reflects the canonical Pagan Praxis portfolio and the latest verified findings, including:
 
-- Dashboard: metrics, pipeline board, activity feed, budget and gate status.
-- Topics: topic creation and active discovery query specs.
-- Papers: discovered/reviewed paper queue.
-- Ideas: praxis idea scoring and plan export.
-- Experiments: plan/run/evaluation status.
-- Packages: defense-ready publishing queue.
+- Experiment 050 deterministic agent defenses;
+- Experiment 054 refusal geometry;
+- Experiment 056 model-registry hallucination pilot;
+- Experiment 057/058 legacy stopping and explanation-drift determinations;
+- Experiment 062 coding-agent skill provenance/existence;
+- **Experiment 066 outcome-state verification — verified Negative**;
+- **Experiment 067 multi-agent cascade containment — verified Negative**;
+- **Experiment 068 adaptive cyber investigation stopping — verified Negative**;
+- the September 2026 migration to canonical **Experiment 001–068** numbering.
 
-## Notes
+## Important state behavior
 
-This is a frontend implementation of the workflow console. The backend services from the engineering design, including FastAPI, PostgreSQL, Redis workers, object storage, Claude API calls, and Claude Code sandbox execution, are represented as local state transitions and export actions.
+The browser application stores interactive state in local storage. The September refresh changes the storage namespace to `praxisReconState.v3`, so the updated seeded portfolio loads cleanly instead of being hidden behind an older July browser snapshot.
 
-Daily alerts are handled outside the static app by `.github/workflows/praxis-recon-daily.yml`. That workflow runs `scripts/praxis_recon_daily_scan.py`, updates `reports/praxis_recon_daily/`, and opens a GitHub issue when new work is flagged.
+## Scientific interpretation
+
+Praxis Recon is a portfolio/navigation console. The repository reports, frozen protocols, raw artifacts, and independent-verification outputs remain the authoritative scientific record. Negative results are displayed as completed findings rather than removed from the application.
+
+## Source files
+
+- `index.html` — application shell
+- `styles.css` — visual design
+- `app.js` — seeded portfolio state and application logic
+
+Return to the [Pagan Praxis dashboard](../../README.md).
