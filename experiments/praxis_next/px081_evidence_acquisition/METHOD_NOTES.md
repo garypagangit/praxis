@@ -1,0 +1,12 @@
+# PX-081 implementation and interpretation notes
+
+These notes clarify the frozen implementation; they do not change models, selectors, budgets, costs, conditions or metrics.
+
+- The four forward selector folds contain **18 author movement rows**: 4,5,0,9 in captures1–4. Capture0's nine movement rows only train the first forward classifiers. Every final classifier trains on all27 original fitting movement examples; the evaluation period contains35. This scarcity limits the harm selector's movement-specific learning.
+- Every classifier decision uses a completed flow. Retrieving earlier history in this replay is not an early-stage forecast. Optional history is previously qualified, label-free and strictly earlier than the current flow start.
+- The acquisition deadline governs whether an arriving channel can alter the prediction. `elapsed` is the simulated accumulated response duration and may exceed the deadline when a query arrives late. Such a query still costs budget, supplies no usable evidence, and prevents another query. It is not a measurement of actual model inference or operational response time. A prediction at the deadline uses the last delivered subset.
+- Fixed roles-first and history-first policies acquire any still-eligible group without estimating its utility. Learned policies may stop immediately or after one attempt. Equal permitted budget is not equal spend; the report includes actual simulated spend and query frequency.
+- The unrestricted reference always reads both groups, including evidence marked unavailable in a constrained replay. It is an information-access diagnostic and is excluded from matched policy conclusions. More context is not guaranteed to improve its classification score.
+- Wrong-host history substitutes the existing paired wrong-history features. Earlier-history validity is retained, but host correspondence is deliberately wrong. This tests a specific corruption and cannot stand in for independent real workflows.
+- Reported false alerts concern benign flows classified into any author attack stage. Exact-stage errors also penalize movement classified as another attack stage. Those are distinct operational outcomes; the full confusion matrices preserve the distinction.
+- A harm policy's target uses hard decision errors weighted by true class; an entropy policy's target uses predicted probability uncertainty. Either may fail after a temporal shift. These are modest practical comparators, not claimed reproductions of the full methods in the related-work papers.
