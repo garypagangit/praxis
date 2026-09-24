@@ -1,0 +1,164 @@
+{
+  "schema_version": "px062-gate2.2-v1.2-task-lineage-v1",
+  "experiment_id": "px062-skill-selection-gate2-2-v1-2-20260728",
+  "status": "PROSPECTIVE_LABEL_AUDIT_INFORMED_TARGET_OUTCOME_BLIND",
+  "source": {
+    "experiment_id": "px062-skill-selection-gate2-2-v1-1-20260728",
+    "tasks_sha256": "68f776fe51ce3d2bd7eef42124448a1a6f58c0b0c6213fbd34b4b1e1e155ddbb",
+    "invalidation_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_1_20260728/label_audit_invalidation.json",
+    "invalidation_sha256": "5fb5e72d9db7cde210041baea33ab551b89a43772580ccf7d74391a50ba4f09e",
+    "conflicts_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_1_20260728/label_audit_conflicts.jsonl",
+    "conflicts_sha256": "bf89fd32a617e90315bd9f3aaa08aee3cbf4ab8f2e47db08455c249233bdeea6",
+    "audit_pair_manifest_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_1_20260728/label_audit_evidence_manifest.json",
+    "audit_pair_manifest_sha256": "5ad6e4631d82095d60bc46d736a795b330d27742018554e4b6fff1954a562654"
+  },
+  "target": {
+    "seed_bank_sha256": "b504f37942c6bb4103cfa20ac9b89cc2bb56b6e49ad9187883cff9e3aa201cce",
+    "tasks_sha256": "e9a4c387781b7299884d75ebbb59f3ba1dcd398599821fb586db95e02fabea16",
+    "answer_key_sha256": "c9fb2c8be3ee200050f709a046109c42884aea741e980371837bd58f741f3913",
+    "registry_catalog_sha256": "90a6f8cd28a489a448fae49198fde3ff34514b2b4a2aab421f05314441523212",
+    "benchmark_manifest_sha256": "93a126f0fed68d259caae32bd2a0eae8af4f656bbebdcda07dac880aa9e3eb57"
+  },
+  "invariants": {
+    "old_tasks": 1032,
+    "new_tasks": 1032,
+    "retained_prompt_ids": 1022,
+    "replaced_prompt_ids": 10,
+    "new_prompt_ids": 10,
+    "registered_labels": 516,
+    "none_labels": 516,
+    "task_type_counts": {
+      "available_single_skill": 344,
+      "misleading_name_none": 172,
+      "misleading_name_real_skill": 172,
+      "unavailable_capability": 344
+    },
+    "lexical_balanced_accuracy": 0.823643,
+    "lexical_balanced_accuracy_limit_exclusive": 0.85,
+    "all_construction_gates_passed": true,
+    "two_fresh_full_1032_row_audits_required": true,
+    "source_audits_reusable_for_acceptance": false
+  },
+  "replacements": [
+    {
+      "seed_location": "skill_scenarios/figma-implement-design/misleading_requests[1]",
+      "old_task_id": "g22-025e0d91f08447ad6b56",
+      "new_task_id": "g22-d13ef9177f21766c2247",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "figma-implement-design",
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": null,
+      "semantic_boundary": "Make the frozen Figma-source prerequisite explicit.",
+      "old_request": "Match the reference interface precisely in code, including spacing, states, and breakpoints.",
+      "new_request": "Implement the supplied Figma frame as production React components with pixel-accurate spacing, states, and responsive breakpoints."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/misleading_scenarios[1]",
+      "old_task_id": "g22-090cf3dbcfda1374058e",
+      "new_task_id": "g22-30e5c6841145d39c80c0",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "pdf",
+      "semantic_boundary": "Specify a Word-native editable-document operation outside the PDF workflow.",
+      "old_request": "Replace manual font formatting with named styles across the entire policy document.",
+      "new_request": "In Microsoft Word, replace manual font formatting with named paragraph and character styles and save the editable .docx."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/requests[0]",
+      "old_task_id": "g22-34f70a7c6824f712d531",
+      "new_task_id": "g22-d08cbcea5f5e2172230c",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "pdf",
+      "semantic_boundary": "Specify Word-only style and table-of-contents controls outside the PDF workflow.",
+      "old_request": "Apply consistent heading styles throughout this Microsoft Word .docx manuscript without changing its wording.",
+      "new_request": "Use Microsoft Word's Styles pane to redefine Heading 1 through Heading 3 in this editable .docx and refresh its automatic table of contents."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/requests[4]",
+      "old_task_id": "g22-3c32b30f73db5c8c604d",
+      "new_task_id": "g22-52be56561ec321f8a169",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "linear",
+      "semantic_boundary": "Identify Jira explicitly so the request is not misread as Linear work.",
+      "old_request": "Build a dashboard showing sprint progress, aging blockers, and defects by component.",
+      "new_request": "Build a Jira dashboard showing sprint progress, aging blockers, and defects grouped by component."
+    },
+    {
+      "seed_location": "unsupported_domains/redis-data-store/requests[5]",
+      "old_task_id": "g22-4916f14d99b5770e0a99",
+      "new_task_id": "g22-f2d8b040fe58589432d2",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "aspnet-core",
+      "semantic_boundary": "Identify Redis explicitly so the request is outside ASP.NET Core SignalR.",
+      "old_request": "Build a publish and subscribe channel for short-lived application notifications.",
+      "new_request": "Implement a Redis Pub/Sub channel for short-lived application notifications, including subscriber reconnect handling."
+    },
+    {
+      "seed_location": "skill_scenarios/figma-implement-design/misleading_requests[2]",
+      "old_task_id": "g22-bd27c1476142d5a78ab6",
+      "new_task_id": "g22-270a8d5b611c01dc8790",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "figma-implement-design",
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": null,
+      "semantic_boundary": "Make the frozen Figma-source prerequisite explicit.",
+      "old_request": "Translate this approved mobile flow into accessible production components and navigation.",
+      "new_request": "Translate the linked Figma mobile flow into accessible production components and navigation while matching every screen and state."
+    },
+    {
+      "seed_location": "skill_scenarios/render-deploy/misleading_requests[1]",
+      "old_task_id": "g22-d2415b909af629557321",
+      "new_task_id": "g22-a3d30ca7826f77d575cb",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "render-deploy",
+      "source_audit_1_predicted_skill": "render-deploy",
+      "source_audit_2_predicted_skill": null,
+      "semantic_boundary": "Identify the frozen Render deployment platform and Blueprint workflow.",
+      "old_request": "Configure the web service, worker, database connection, and environment values for release.",
+      "new_request": "Update this Render Blueprint so its web service and worker share the managed database connection and environment group before deployment."
+    },
+    {
+      "seed_location": "skill_scenarios/plugin-creator/requests[7]",
+      "old_task_id": "g22-e7f3ef2a5e2330274261",
+      "new_task_id": "g22-002376b0b2382bbaa705",
+      "task_type": "available_single_skill",
+      "expected_skill": "plugin-creator",
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "plugin-creator",
+      "semantic_boundary": "Align the task with the frozen plugin structure and marketplace-entry scope.",
+      "old_request": "Prepare an existing local plugin for a cache-busted reinstall during development.",
+      "new_request": "Add the missing optional capability folders to this existing Codex plugin and update its repo-root marketplace entry for ordering and availability."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/requests[6]",
+      "old_task_id": "g22-f66eb19f297bf8044a57",
+      "new_task_id": "g22-34675d06cad55d9e3cae",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "linear",
+      "semantic_boundary": "Identify Jira explicitly so the request is not misread as Linear work.",
+      "old_request": "Set component leads and default assignees for the newly reorganized engineering areas.",
+      "new_request": "In Jira, set component leads and default assignees for the newly reorganized engineering areas."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-teams/misleading_scenarios[0]",
+      "old_task_id": "g22-f6970c9769c63fa33cee",
+      "new_task_id": "g22-2057edd26372c2fd55d5",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "linear",
+      "semantic_boundary": "Identify Microsoft Teams explicitly so the request is not misread as Linear work.",
+      "old_request": "Create a team from the approved template and assign the two designated owners.",
+      "new_request": "Create a Microsoft Teams team from the approved template and assign the two designated owners."
+    }
+  ]
+}

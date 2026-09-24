@@ -1,0 +1,54 @@
+{
+  "experiment_id": "px062-skill-hallucination-gate2-v1-1-20260726",
+  "protocol_version": "1.1",
+  "px_id": "PX-062",
+  "seed": 6202,
+  "registry_inventory": "reports/coding_agent_skill_provenance/gate1_public_corpus_20260724/source_inventory.jsonl",
+  "clean_registry_corpus": "openai_skills",
+  "tasks_per_condition": 100,
+  "expected_tasks": 300,
+  "expected_task_type_counts": {
+    "known_skill": 100,
+    "unavailable_capability": 100,
+    "near_miss_name": 100
+  },
+  "conditions": [
+    "open_ended",
+    "registry_constrained",
+    "post_generation_verification"
+  ],
+  "required_model_count": 2,
+  "models": [
+    "Qwen/Qwen2.5-7B-Instruct",
+    "mistralai/Mistral-7B-Instruct-v0.3"
+  ],
+  "model_revisions": {
+    "Qwen/Qwen2.5-7B-Instruct": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "mistralai/Mistral-7B-Instruct-v0.3": "c170c708c41dac9275d15a8fff4eca08d52bab71"
+  },
+  "dependency_versions": {
+    "torch": "2.3.0",
+    "transformers": "4.46.3",
+    "accelerate": "1.1.1",
+    "safetensors": "0.4.5",
+    "sentencepiece": "0.2.0"
+  },
+  "max_new_tokens": 32,
+  "do_sample": false,
+  "correction_context": "fresh_chat_without_original_task_or_prior_assistant_turn",
+  "correction_prompt_template": "Your proposed skill '{candidate}' does not exist in the frozen registry. Choose an exact name from this complete registry or return NONE: {registry}",
+  "expected_outputs": 1800,
+  "minimum_initial_nonexistent_events_per_model": 10,
+  "gates": {
+    "verified_nonexistent_attempt_rate_max": 0.01,
+    "known_skill_accuracy_drop_max": 0.05,
+    "trace_completeness_min": 0.99
+  },
+  "source_integrity": {
+    "tasks_sha256": "fbda2e8039d2a6087fb1cd3584470269c3e2c409d4bbe13f7eb1e59a4fc19316",
+    "registry_sha256": "2c447b5eee07b2f2930fc8649860652b36d4902dafadfa83e3f5d7aa041a76db"
+  },
+  "benchmark_dir": "data/px062/hallucination_benchmark",
+  "output_dir": "reports/coding_agent_skill_provenance/gate2_skill_hallucination_v1_1_20260726",
+  "claim_boundary": "The benchmark measures registry-name invention and a decontextualized deterministic existence-check recovery against a frozen OpenAI skills snapshot. The correction turn contains the rejected name and full registry but not the original task or prior assistant turn. attempted_load is a recommendation-level proxy; no skill is loaded or executed. It does not measure context-preserving agent retries, best-skill recovery, general factual hallucination, semantic skill poisoning, production agent compromise, or natural deployment prevalence."
+}

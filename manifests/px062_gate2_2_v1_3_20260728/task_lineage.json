@@ -1,0 +1,181 @@
+{
+  "schema_version": "px062-gate2.2-v1.3-task-lineage-v1",
+  "experiment_id": "px062-skill-selection-gate2-2-v1-3-20260728",
+  "status": "PROSPECTIVE_LABEL_AUDIT_INFORMED_TARGET_OUTCOME_BLIND",
+  "source": {
+    "experiment_id": "px062-skill-selection-gate2-2-v1-2-20260728",
+    "tasks_sha256": "e9a4c387781b7299884d75ebbb59f3ba1dcd398599821fb586db95e02fabea16",
+    "invalidation_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_2_20260728/label_audit_invalidation.json",
+    "invalidation_sha256": "dc9a66283ad4a0a7cd7e5fd384f4d369232018aef1e4431bc2073cf8e23728fa",
+    "conflicts_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_2_20260728/label_audit_conflicts.jsonl",
+    "conflicts_sha256": "76188a8817ef236ef0a9afe7859d4e28546e08df388a5a553a337c6143780693",
+    "audit_pair_manifest_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_v1_2_20260728/label_audit_evidence_manifest.json",
+    "audit_pair_manifest_sha256": "f34151882216c35196bd0c26d80f7603bb371187efe3862fa6eacc96ef4b90c0"
+  },
+  "target": {
+    "seed_bank_sha256": "d4d927f642c8b33d381901f629f20a68fee30a4f7a6a586a574578d7e9ea910c",
+    "tasks_sha256": "79becaa213147f98146777bdf1e0cee7baf0afd2cdbfb4226daae6a961d58b0c",
+    "answer_key_sha256": "e7de909cce9b8e10a8d148cac4a60012dfe4ac6e61d6034bdc7919dfbb0e44e1",
+    "registry_catalog_sha256": "97b751849bd26e6bd9f347d5153f4237d995e4e0f8eda289faaa18d75523b905",
+    "benchmark_manifest_sha256": "31d2c24f916b805bc9f70d9a582aead26468ae67788bf1e4bba6a11e94c06c30"
+  },
+  "governance_redesign": {
+    "policy": "BALANCED_FOUR_PASS_3_OF_4_WITH_FAMILY_SUPPORT",
+    "prospectively_frozen_before_target_collection": true,
+    "target_model_outcomes_available": false,
+    "retained_row_stochasticity": {
+      "retained_prompts_compared": 1022,
+      "sol_same_decisions": 1020,
+      "sol_changed_decisions": 2,
+      "terra_same_decisions": 1017,
+      "terra_changed_decisions": 5,
+      "changed_decision_union": 7,
+      "previously_unanimous_with_key_rows": 7,
+      "all_changed_rows_were_previously_unanimous_with_key": true,
+      "interpretation": "The old all-1032 two-pass unanimity gate is sensitive to isolated fresh-run label noise on unchanged prompts."
+    }
+  },
+  "retained_task_projection": {
+    "retained_prompt_ids": 1023,
+    "retained_prompt_text_unchanged": 1023,
+    "byte_identical_full_task_rows": 433,
+    "option_map_rotated_rows": 590,
+    "cyclic_rotation_offset_counts": {
+      "1": 327,
+      "2": 249,
+      "3": 14
+    },
+    "reason": "Label-independent option maps are assigned from corpus-wide sorted prompt rank; replacing nine prompts changes some retained ranks.",
+    "construction_algorithm_changed": false
+  },
+  "invariants": {
+    "old_tasks": 1032,
+    "new_tasks": 1032,
+    "retained_prompt_ids": 1023,
+    "replaced_prompt_ids": 9,
+    "new_prompt_ids": 9,
+    "registered_labels": 516,
+    "none_labels": 516,
+    "task_type_counts": {
+      "available_single_skill": 344,
+      "misleading_name_none": 172,
+      "misleading_name_real_skill": 172,
+      "unavailable_capability": 344
+    },
+    "lexical_balanced_accuracy": 0.823643,
+    "lexical_balanced_accuracy_limit_exclusive": 0.85,
+    "all_construction_gates_passed": true,
+    "four_fresh_full_1032_row_audits_required": true,
+    "source_audits_reusable_for_acceptance": false
+  },
+  "replacements": [
+    {
+      "seed_location": "skill_scenarios/plugin-creator/misleading_requests[3]",
+      "old_task_id": "g22-fad3a4ce2fca544b9b5f",
+      "new_task_id": "g22-05009a213453e7d6dff0",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "plugin-creator",
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "plugin-creator",
+      "semantic_boundary": "State the frozen Codex plugin-manifest and marketplace-entry scope.",
+      "old_request": "Update this development extension, increment its cache marker, and prepare it for reinstall.",
+      "new_request": "Correct this local Codex plugin's `.codex-plugin/plugin.json`, then add its missing `.agents/plugins/marketplace.json` record with ordering and availability fields."
+    },
+    {
+      "seed_location": "skill_scenarios/openai-docs/misleading_requests[3]",
+      "old_task_id": "g22-82761cfbfa94dfae99b2",
+      "new_task_id": "g22-7c684da2b061c269d0a3",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "openai-docs",
+      "source_audit_1_predicted_skill": "openai-docs",
+      "source_audit_2_predicted_skill": null,
+      "semantic_boundary": "Identify the OpenAI API and first-party documentation boundary explicitly.",
+      "old_request": "Check the official platform guidance for handling streaming events in this integration.",
+      "new_request": "Use current official OpenAI API documentation to identify the server-sent event types emitted while the Responses API streams output, and cite the relevant reference pages."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/requests[5]",
+      "old_task_id": "g22-8b7b56e190f2312fb283",
+      "new_task_id": "g22-98530a80b5f25e0032d1",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "linear",
+      "semantic_boundary": "Identify Jira Service Management so the task cannot be treated as Linear work.",
+      "old_request": "Configure an automation rule that assigns new incidents according to the affected service.",
+      "new_request": "In Jira Service Management, configure an automation rule that looks up the owner of the selected Affected service asset and assigns each newly created incident to that owner."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/requests[6]",
+      "old_task_id": "g22-bb0d7c7edce005804187",
+      "new_task_id": "g22-a714fb66f15b32e3c59e",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "pdf",
+      "semantic_boundary": "Specify Word-native editable DOCX controls outside the PDF workflow.",
+      "old_request": "Create a protected Word form with text, date, checkbox, and dropdown controls.",
+      "new_request": "In Microsoft Word, create a repeating-section content control for line items, bind its child controls to custom XML, restrict editing to filling the form, and save the editable `.docx`."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/requests[0]",
+      "old_task_id": "g22-d08cbcea5f5e2172230c",
+      "new_task_id": "g22-39d85e405d26fb74a7b8",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "pdf",
+      "semantic_boundary": "Specify a Word-native dynamic field outside the PDF workflow.",
+      "old_request": "Use Microsoft Word's Styles pane to redefine Heading 1 through Heading 3 in this editable .docx and refresh its automatic table of contents.",
+      "new_request": "In Microsoft Word, insert a `STYLEREF` field in each section header so it automatically displays the nearest Heading 1 text in the editable `.docx`."
+    },
+    {
+      "seed_location": "unsupported_domains/confluence-wiki/misleading_scenarios[2]",
+      "old_task_id": "g22-d858bafd874846ce9561",
+      "new_task_id": "g22-5d1fc14574ec10e69e04",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "notion-knowledge-capture",
+      "semantic_boundary": "Identify Confluence-native properties and macros outside Notion capture.",
+      "old_request": "Label and reorganize the incident retrospectives so they can be browsed by service.",
+      "new_request": "In Confluence Cloud, add a Service page property to each incident retrospective and configure a Page Properties Report macro that lets readers filter those pages by service."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/misleading_scenarios[1]",
+      "old_task_id": "g22-30e5c6841145d39c80c0",
+      "new_task_id": "g22-00775f6db2ed35aca4d5",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "pdf",
+      "semantic_boundary": "Specify Word-native multilevel-list behavior outside the PDF workflow.",
+      "old_request": "In Microsoft Word, replace manual font formatting with named paragraph and character styles and save the editable .docx.",
+      "new_request": "In Microsoft Word, link a custom multilevel list to the Heading 1, Heading 2, and Heading 3 styles so section numbers update automatically in the editable `.docx`."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/misleading_scenarios[3]",
+      "old_task_id": "g22-33dfe355b2fcd2f68dd9",
+      "new_task_id": "g22-46d79ad163f4d04440f5",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "pdf",
+      "semantic_boundary": "Specify a Word-native DOTX Building Block operation outside PDF work.",
+      "old_request": "Turn this finished Microsoft Word report into a reusable .dotx template with locked branding elements.",
+      "new_request": "In Microsoft Word, save the approved legal clause as an AutoText Building Block in a reusable `.dotx` template, preserving its gallery and category metadata."
+    },
+    {
+      "seed_location": "skill_scenarios/notion-spec-to-implementation/requests[5]",
+      "old_task_id": "g22-a5ed94aa6c8c52b9e472",
+      "new_task_id": "g22-638ceef53d502be0613e",
+      "task_type": "available_single_skill",
+      "expected_skill": "notion-spec-to-implementation",
+      "source_audit_1_predicted_skill": null,
+      "source_audit_2_predicted_skill": "notion-spec-to-implementation",
+      "semantic_boundary": "State the Notion feature-specification and tracked implementation scope.",
+      "old_request": "Convert the feature requirements into a sequenced plan with ownership fields.",
+      "new_request": "Use the linked Notion feature specification to create workspace tasks, assign owners, record dependencies, group the work into milestones, and track delivery status."
+    }
+  ]
+}
