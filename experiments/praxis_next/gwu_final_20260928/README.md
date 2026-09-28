@@ -30,3 +30,7 @@ The dated release includes the integrated review package and the original/full-r
 Reproduction scripts retain recorded workstation paths. Adjust these when extracting on another machine and record the amendments. The supplied build scripts require their recorded Python dependencies and, for slides, artifact-tool. Computational checks do not represent committee approval.
 
 The local delivery manifest preserves the original delivered files' hashes. EVIDENCE_INDEX.json here additionally supplies release download URLs.
+
+## Downloading full reproduction archives
+
+The two large reproduction ZIPs are distributed as 64 MiB parts because whole-file uploads timed out. Download all `.part` files, `REPRODUCTION_PARTS.json` and `reassemble_evidence.py` into one folder, then run `python reassemble_evidence.py`. The script verifies every part and the reconstructed ZIP against SHA256. The review ZIPs can be downloaded directly.
