@@ -1,0 +1,55 @@
+{
+  "status": "FROZEN_BEFORE_NEW_FULL_RELEASE_FITS",
+  "utc": "2026-09-28T02:37:39.694912+00:00",
+  "inventory_sha256": "d73dd624f29bf12a52cb9da4250990f143ebd3fe1cb72aaf6fafc9f60a73a183",
+  "source_commit": "d2ea90055d82fa448ab20588a13e3ec8bfd74816",
+  "files": 173,
+  "raw_rows_expected": 6877157,
+  "sensors": [
+    "net1011x",
+    "net1012x",
+    "net1013x",
+    "net1014x",
+    "net1015x",
+    "netgw"
+  ],
+  "classes": [
+    "Benign",
+    "OtherAttackStage",
+    "MovementAuthorLabel",
+    "ExfiltrationAuthorLabel"
+  ],
+  "native_mapping": {
+    "Benign": 0,
+    "Reconnaissance": 1,
+    "Establish Foothold": 1,
+    "Cover up": 1,
+    "Lateral Movement": 2,
+    "Data Exfiltration": 3
+  },
+  "calibration_start_utc": "2021-06-27T00:00:00Z",
+  "test_start_utc": "2021-06-28T00:00:00Z",
+  "boundary_policy": "Exclude flows crossing a cutoff; train completion precedes calibration start; calibration completion precedes test start.",
+  "training": "Every eligible training row, no class cap, no resampling, no class weighting.",
+  "arms": [
+    "current",
+    "current_roles"
+  ],
+  "model_parameters": {
+    "n_estimators": 300,
+    "num_leaves": 15,
+    "learning_rate": 0.05,
+    "min_child_samples": 10,
+    "reg_lambda": 1.0,
+    "random_state": 20260927,
+    "n_jobs": 6,
+    "deterministic": true,
+    "force_col_wise": true,
+    "verbosity": -1
+  },
+  "decision": "Multiclass argmax; align probability columns to fixed schema.",
+  "role_features": "Eight coarse topology indicators; other does not mean Internet.",
+  "selection_rule": "On calibration choose highest macro-F1, ties current. Conservative review permits roles only if macro-F1 increases, each supported attack-stage warning recall is no more than 0.01 below current, and benign FPR no more than 0.001 above current. Unsupported attack classes make review provisional. Evaluate fixed choices on test without retuning.",
+  "analysis": "Report all sensor views individually; no pooled independent-sensor confidence interval. One deterministic fit per arm; original seed sensitivity remains.",
+  "scope": "Full released flow-table coverage. Same exposed campaign and dependent sensors, not independent replication. This extends population/training coverage for a roles comparison, not a rerun of every historical acquisition intervention. No new history, future-feature or source-sensor identity inputs."
+}

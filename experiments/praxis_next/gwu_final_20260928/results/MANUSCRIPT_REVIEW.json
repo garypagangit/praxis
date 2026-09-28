@@ -1,0 +1,172 @@
+{
+  "review_date": "2026-09-24",
+  "status": "PASS_WITH_ALL_REQUESTED_CORRECTIONS_RESOLVED",
+  "scope": "Read-only scientific/editorial check of assembled Markdown manuscript and abstract against completed published experiment outputs, source qualification, sensitivity evidence, and the bound publication supplement. No new fitting, literature retrieval, or manuscript edit.",
+  "reviewed_files": [
+    {
+      "path": "manuscript.md",
+      "sha256": "04fe5a36f0453a095aa8a5c92a9a1daf79fd0d828b9c6ece8a7e85cae68bcd88",
+      "bytes": 152695
+    },
+    {
+      "path": "abstract.md",
+      "sha256": "22a1c092e83884ab105d8538be6616d89171c97174eb65d91409eda688d49927",
+      "bytes": 1691
+    },
+    {
+      "path": "references.json",
+      "sha256": "59bf9029a5494aafcd5238f3dabfae4cb47691230cdcecd43154058e526208d9",
+      "bytes": 28013
+    },
+    {
+      "path": "results/COVERAGE.json",
+      "sha256": "e16148c529f5e68d7b1de94c76809572aea75579e4f0546a1d6332bd68ff7644",
+      "bytes": 1337
+    },
+    {
+      "path": "results/SOURCE_MANIFEST.json",
+      "sha256": "69dccf2c52cde7d55d9054c3686d283478e67541cd34171b4b1a4d5f7e28c336",
+      "bytes": 6341
+    }
+  ],
+  "checked_claims": [
+    {
+      "claim": "Clean budget-three acquisition: macro-F1 .7148 to .7379; exfiltration warning recall 85.18% to 76.25%; benign flags 111.3 to 122.3",
+      "result": "PASS",
+      "source": "PX081 saved results and paired group means"
+    },
+    {
+      "claim": "All nine acquisition means: eight higher F1, all nine lower exfiltration warning recall",
+      "result": "PASS",
+      "source": "Complete paired means; unfavorable wrong-host budget-three retained"
+    },
+    {
+      "claim": "19/27 paired reversals or 17/24 aggregate signatures are dependent, not independent replications",
+      "result": "PASS",
+      "source": "Aggregate-equivalence audit and complete paired records"
+    },
+    {
+      "claim": "Chronological history: macro-F1 .7365 to .7582; benign alerts 24.0 to 14.3; exfiltration-to-benign increments 7/6/8 among 1,722",
+      "result": "PASS",
+      "source": "PX082 saved confusion counts and paired reanalysis"
+    },
+    {
+      "claim": "Fixed-anchor current-feature macro-F1 improvement .0632 and movement recall improvement 35.19 percentage points",
+      "result": "PASS",
+      "source": "PX082 matched population and published metrics; random test population explicitly separate"
+    },
+    {
+      "claim": "Stage-harm selector tradeoffs and context-dropout controls",
+      "result": "PASS",
+      "source": "PX080 complete arm/condition metrics"
+    },
+    {
+      "claim": "32.24% simulated spending reduction",
+      "result": "PASS",
+      "detail": "Ratio of mean clean-budget-three spends gives 32.241479%; it is not the mean per-seed percentage reduction, which is 25.951017%. Current wording is consistent with the mean-spend contrast."
+    },
+    {
+      "claim": "Sensitivity: 180 capture omissions, 36 seed-omission means, strong influence of seed 8101",
+      "result": "PASS",
+      "source": "Frozen sensitivity output; no omission treated as refitting or independent replication"
+    },
+    {
+      "claim": "588 records, 308 means, 1,764 class records and 5,880 confusion cells",
+      "result": "PASS",
+      "source": "Publication coverage and full CSVs"
+    },
+    {
+      "claim": "Complete printed mean inventory",
+      "result": "PASS",
+      "detail": "All 308 data rows and five source table-header lines occur verbatim in assembled Appendix A."
+    },
+    {
+      "claim": "T1105 supplement has different annotation units and negatives, with gate/context hard-decision equivalence",
+      "result": "PASS",
+      "source": "PX083 saved metrics and diagnostics; not described as stage replication or benign false-alarm evidence"
+    },
+    {
+      "claim": "DAPT, SCVIC, DSRL and S-DAPT qualification findings",
+      "result": "PASS",
+      "source": "Exact native counts, necessary-cutoff audit and primary-source review receipts; no invented S-DAPT count"
+    },
+    {
+      "claim": "Actual aggregate example and feature/label semantics",
+      "result": "PASS",
+      "source": "PX080 capture-six confusion counts and upstream feature implementation"
+    },
+    {
+      "claim": "Abstract separates observations from unmeasured operational benefits",
+      "result": "PASS",
+      "detail": "Retrospective scope, previously examined campaign and absence of early forecasting/generalization are explicit."
+    }
+  ],
+  "reference_findings": [
+    {
+      "id": "R1",
+      "severity": "required_citation_consistency",
+      "status": "RESOLVED_VERIFIED_IN_CURRENT_MANUSCRIPT",
+      "locations": [
+        "manuscript.md:115",
+        "manuscript.md:255",
+        "manuscript.md:970",
+        "manuscript.md:972"
+      ],
+      "finding": "Body uses Liu et al., 2022a and 2022b, but both bibliography entries use unsuffixed 2022, and the dataset discussion uses Liu et al. (2022).",
+      "requested_fix": "Use 2022a for the journal paper and 2022b for the dataset in the bibliography/reference assembly; use 2022a for the journal-paper narrative citation."
+    },
+    {
+      "id": "R2",
+      "severity": "reference_completeness",
+      "status": "RESOLVED_VERIFIED_IN_CURRENT_MANUSCRIPT",
+      "reference_ids": [
+        "ke2017lightgbm",
+        "lightgbm_features_460",
+        "lightgbm_classifier_460",
+        "lightgbm_regressor_460",
+        "lightgbm_parameters_460",
+        "pedregosa2011sklearn",
+        "sklearn_logistic_19",
+        "sklearn_ridge_17"
+      ],
+      "finding": "Eight bibliography entries omit the URL present in their structured reference records. Methods contain links, but the final reference entries are incomplete as standalone retrievable entries.",
+      "requested_fix": "Append each existing verified url field during reference rendering; do not invent a DOI."
+    }
+  ],
+  "editorial_findings": [
+    {
+      "id": "E1",
+      "severity": "final_manuscript_cleanup",
+      "status": "RESOLVED_VERIFIED_IN_CURRENT_MANUSCRIPT",
+      "location": "3.6.19",
+      "finding": "Reviewer instructions such as Replace, Describe and Keep are included as manuscript prose.",
+      "requested_fix": "Convert to declarative implementation qualifications or keep the commands only in the implementation audit."
+    },
+    {
+      "id": "E2",
+      "severity": "minor",
+      "status": "RESOLVED_VERIFIED_IN_CURRENT_MANUSCRIPT",
+      "location": "5.3",
+      "finding": "The phrase proposed applied reporting proposal is redundant.",
+      "requested_fix": "Use proposed reporting procedure."
+    }
+  ],
+  "unsupported_positive_or_novelty_claims_found": [],
+  "literature_status": "Compared with existing primary-source audits, not a new live literature search. StageFinder author identity and preprint status, Othman task distinction, S-DAPT withdrawal, CasinoLimit/CAM-LDS source identity, and n.d. documentation suffix ordering are consistent.",
+  "local_link_check": {
+    "links_checked": 51,
+    "missing": []
+  },
+  "limits": "This is a same-team computational/editorial review. It does not independently validate author labels, supply a new campaign, inspect the concurrently rendered document, or guarantee scholarly acceptance.",
+  "corrections_verified": {
+    "R1": "Liu 2022a journal and 2022b dataset suffixes now match narrative and bibliography.",
+    "R2": "All eight existing verified URLs appear in rendered bibliography; structured references retain separate url fields.",
+    "E1": "Imperative reviewer instructions removed or converted to declarative qualifications.",
+    "E2": "Now proposed reporting procedure."
+  },
+  "complete_inventory_recheck": {
+    "lines": 313,
+    "missing": [],
+    "scope": "Current assembled manuscript preserves every complete group-mean table row. Added compact stage overview has separate model-audit verification."
+  }
+}

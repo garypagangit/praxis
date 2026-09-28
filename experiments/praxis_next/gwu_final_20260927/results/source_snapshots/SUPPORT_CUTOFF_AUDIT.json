@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-23T17:45:09.944307+00:00",
+  "algorithm_commit": "ea9956c",
+  "algorithm_sha256": {
+    "experiments/praxis_next/d1_benchmark_audit/support_cutoff_audit.py": "420f5ddad94a4e1c1ab62130c2aa1f419ef6a1525d31055542b0cf73f1ff7978",
+    "experiments/praxis_next/d1_benchmark_audit/test_support_cutoff_audit.py": "3ba05fa0297cc0d3170b4e1b562841e4a09e453ea36c69066c6b18f22ce359ec"
+  },
+  "model_fits": 0,
+  "aws_used": false,
+  "prior_data_exposure": true,
+  "datasets": {
+    "SCVIC-APT-2021": {
+      "minimum_fit_rows_per_native_class": 2,
+      "minimum_test_rows_per_native_class": 1,
+      "fit_rule": "start < cutoff",
+      "test_rule": "start >= cutoff",
+      "cutoff_interval": "(lower_exclusive, upper_inclusive]",
+      "lower_exclusive": 1445422872000000000,
+      "upper_inclusive": 1445468176000000000,
+      "lower_binding_classes": [
+        "DataExfiltration"
+      ],
+      "upper_binding_classes": [
+        "LateralMovement"
+      ],
+      "classes_with_fewer_than_two_rows": [],
+      "start_only_count_support_possible": true,
+      "status": "POSSIBLE_START_ONLY_SUPPORT_NOT_SPLIT_QUALIFICATION",
+      "classes": {
+        "DataExfiltration": {
+          "rows": 527,
+          "second_earliest_start": 1445422872000000000,
+          "latest_start": 1445468462000000000,
+          "second_earliest_recorded_timestamp": "2015-10-21T10:21:12",
+          "latest_recorded_timestamp": "2015-10-21T23:01:02"
+        },
+        "InitialCompromise": {
+          "rows": 73,
+          "second_earliest_start": 1445421474000000000,
+          "latest_start": 1445468340000000000,
+          "second_earliest_recorded_timestamp": "2015-10-21T09:57:54",
+          "latest_recorded_timestamp": "2015-10-21T22:59:00"
+        },
+        "LateralMovement": {
+          "rows": 729,
+          "second_earliest_start": 1445421956000000000,
+          "latest_start": 1445468176000000000,
+          "second_earliest_recorded_timestamp": "2015-10-21T10:05:56",
+          "latest_recorded_timestamp": "2015-10-21T22:56:16"
+        },
+        "NormalTraffic": {
+          "rows": 254836,
+          "second_earliest_start": 1427340000000000,
+          "latest_start": 1445471940000000000,
+          "second_earliest_recorded_timestamp": "1970-01-17T12:29:00",
+          "latest_recorded_timestamp": "2015-10-21T23:59:00"
+        },
+        "Pivoting": {
+          "rows": 2122,
+          "second_earliest_start": 1445421951000000000,
+          "latest_start": 1445468468000000000,
+          "second_earliest_recorded_timestamp": "2015-10-21T10:05:51",
+          "latest_recorded_timestamp": "2015-10-21T23:01:08"
+        },
+        "Reconnaissance": {
+          "rows": 833,
+          "second_earliest_start": 1445421622000000000,
+          "latest_start": 1445468415000000000,
+          "second_earliest_recorded_timestamp": "2015-10-21T10:00:22",
+          "latest_recorded_timestamp": "2015-10-21T23:00:15"
+        }
+      },
+      "uses_flow_durations_or_arrival_times": false,
+      "deployment_validity_established": false,
+      "independent_campaign_support_established": false,
+      "lower_exclusive_recorded_timestamp": "2015-10-21T10:21:12",
+      "upper_inclusive_recorded_timestamp": "2015-10-21T22:56:16",
+      "dataset": "SCVIC-APT-2021",
+      "source_receipts": [
+        {
+          "path": "C:\\Users\\garyp\\Downloads\\SCVIC-APT-2021-Training.csv",
+          "sha256": "a67b7a24196fc8c9e3b15ec7cf7b48b6a62f316fe24fc05fd9067dc745b3cf6e",
+          "bytes": 128590331,
+          "rows": 259120,
+          "headerless_read_with_reference_schema": false
+        }
+      ],
+      "rows": 259120,
+      "native_label_column": "Label",
+      "timestamp_formats": [
+        "%Y-%m-%d %H:%M:%S",
+        "%m/%d/%Y %H:%M"
+      ],
+      "numeric_time_unit": "nanoseconds",
+      "timestamp_timezone": "not established; naive as recorded; not assigned UTC",
+      "anomalous_clock_rows_retained": true,
+      "rows_removed": 0,
+      "duplicate_policy": "all original rows retained; duplicate purging can only reduce support",
+      "prior_data_exposure": true,
+      "scope": "Optimistic necessary bound on native-label start-time support; no eligible cutoff selected."
+    },
+    "DAPT2020": {
+      "minimum_fit_rows_per_native_class": 2,
+      "minimum_test_rows_per_native_class": 1,
+      "fit_rule": "start < cutoff",
+      "test_rule": "start >= cutoff",
+      "cutoff_interval": "(lower_exclusive, upper_inclusive]",
+      "lower_exclusive": 1563554317000000000,
+      "upper_inclusive": 1563391495000000000,
+      "lower_binding_classes": [
+        "Data Exfiltration"
+      ],
+      "upper_binding_classes": [
+        "Reconnaissance"
+      ],
+      "classes_with_fewer_than_two_rows": [],
+      "start_only_count_support_possible": false,
+      "status": "NO_ALL_CLASS_CUTOFF_EVEN_WITH_START_ONLY_COUNTS",
+      "classes": {
+        "Benign": {
+          "rows": 63712,
+          "second_earliest_start": 1563198338000000000,
+          "latest_start": 1563575363000000000,
+          "second_earliest_recorded_timestamp": "2019-07-15T13:45:38",
+          "latest_recorded_timestamp": "2019-07-19T22:29:23"
+        },
+        "Data Exfiltration": {
+          "rows": 15,
+          "second_earliest_start": 1563554317000000000,
+          "latest_start": 1563575132000000000,
+          "second_earliest_recorded_timestamp": "2019-07-19T16:38:37",
+          "latest_recorded_timestamp": "2019-07-19T22:25:32"
+        },
+        "Establish Foothold": {
+          "rows": 8604,
+          "second_earliest_start": 1563374746000000000,
+          "latest_start": 1563561895000000000,
+          "second_earliest_recorded_timestamp": "2019-07-17T14:45:46",
+          "latest_recorded_timestamp": "2019-07-19T18:44:55"
+        },
+        "Lateral Movement": {
+          "rows": 2451,
+          "second_earliest_start": 1563454034000000000,
+          "latest_start": 1563485531000000000,
+          "second_earliest_recorded_timestamp": "2019-07-18T12:47:14",
+          "latest_recorded_timestamp": "2019-07-18T21:32:11"
+        },
+        "Reconnaissance": {
+          "rows": 11909,
+          "second_earliest_start": 1563279140000000000,
+          "latest_start": 1563391495000000000,
+          "second_earliest_recorded_timestamp": "2019-07-16T12:12:20",
+          "latest_recorded_timestamp": "2019-07-17T19:24:55"
+        }
+      },
+      "uses_flow_durations_or_arrival_times": false,
+      "deployment_validity_established": false,
+      "independent_campaign_support_established": false,
+      "lower_exclusive_recorded_timestamp": "2019-07-19T16:38:37",
+      "upper_inclusive_recorded_timestamp": "2019-07-17T19:24:55",
+      "dataset": "DAPT2020",
+      "source_receipts": [
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-monday-pvt.pcap_Flow.csv",
+          "sha256": "3cebfbaf532e746be971a8712cdba1943b75585b0d49e074d95fa85b42bc8521",
+          "bytes": 1784312,
+          "rows": 3404,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-monday.pcap_Flow.csv",
+          "sha256": "1360c9f6cde280c044bdae5957466e05699cfdeec220e38201ffa7d3c9ff05f4",
+          "bytes": 4662958,
+          "rows": 8728,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-thursday.pcap_Flow.csv",
+          "sha256": "c8fe367dd11256b91ef1ffd997b2f1afd5dafdddede91d9c6476978306c4d642",
+          "bytes": 4782427,
+          "rows": 9685,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-tuesday.pcap_Flow.csv",
+          "sha256": "c6e9cf224671e9c4f6c3f89e7bbe55597c837f05d50a8c4dc480b0655c896477",
+          "bytes": 14956019,
+          "rows": 29242,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-wednesday.pcap_Flow.csv",
+          "sha256": "da190a584e38ca0542436e867e732aaa231739b230b3cb0a31189d38d7a82318",
+          "bytes": 9319296,
+          "rows": 17487,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-thursday.pcap_Flow.csv",
+          "sha256": "8c13fcf7899a04e9100a4b4b977439a8b6ff964aeae4bf2f26b2323bda085f77",
+          "bytes": 2045832,
+          "rows": 4114,
+          "headerless_read_with_reference_schema": true
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-tuesday.pcap_Flow.csv",
+          "sha256": "6bc442e95aeb3f43516bc917a8a48444ea140004b054693354c7a6251a642105",
+          "bytes": 1411018,
+          "rows": 2615,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-wednesday.pcap_Flow.csv",
+          "sha256": "11bcbabb3041ab95fea546e2d7973560f93abf570a6eb7020534af671eb7b2d4",
+          "bytes": 792544,
+          "rows": 1437,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-tcpdump-friday.pcap_Flow.csv",
+          "sha256": "805fc0d6baa64466766c5af7deeacf0d0bd3ce5e03ca9055549a64bde18300eb",
+          "bytes": 3664621,
+          "rows": 7361,
+          "headerless_read_with_reference_schema": false
+        },
+        {
+          "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-tcpdump-pvt-friday.pcap_Flow.csv",
+          "sha256": "a8e998e9148933366a88d67c99cdad352737ee982b39d11e680b87ae9255f6a8",
+          "bytes": 1440895,
+          "rows": 2618,
+          "headerless_read_with_reference_schema": false
+        }
+      ],
+      "rows": 86691,
+      "native_label_column": "Stage",
+      "timestamp_formats": [
+        "%d/%m/%Y %I:%M:%S %p"
+      ],
+      "numeric_time_unit": "nanoseconds",
+      "timestamp_timezone": "not established; naive as recorded; not assigned UTC",
+      "anomalous_clock_rows_retained": true,
+      "rows_removed": 0,
+      "duplicate_policy": "all original rows retained; duplicate purging can only reduce support",
+      "prior_data_exposure": true,
+      "scope": "Optimistic necessary bound on native-label start-time support; no eligible cutoff selected."
+    }
+  }
+}

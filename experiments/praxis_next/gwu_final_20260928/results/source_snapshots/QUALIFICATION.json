@@ -1,0 +1,1216 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-09-23",
+  "model_fits": 0,
+  "aws_started": false,
+  "large_downloads": false,
+  "scope": "D1 measurement qualification; no model performance or frozen split qualification",
+  "datasets": {
+    "SCVIC-APT-2021": {
+      "tier": "RANDOM_ONLY_DEVELOPMENT_QUALIFIED",
+      "temporal_measurement": "Recorded-time sorting is possible; physical chronology is not qualified.",
+      "raw_stage_column": "Label",
+      "benign_label": "NormalTraffic",
+      "independent_execution_or_campaign_id": null,
+      "source_groups": 1,
+      "author_holdout": "Cached primary DataPort page lists a separate 22.06 MB test set; absent from searched local downloads/workspaces. Holdout independence not inspected.",
+      "clock_issues": [
+        "220 benign rows parse to 1970-01-17; all other rows parse to 2015-10-21",
+        "Mixed minute and second resolution; timezone and clock-correction provenance unavailable",
+        "No native execution-round column"
+      ],
+      "derivative_status": "Local file attributed to author training release; no author checksum available for external byte comparison.",
+      "license": "CC-BY-4.0 in cached DataCite registration",
+      "closed_set_temporal_protocol_ready": false,
+      "group_only_possible": "Exact-feature groups only; not execution/campaign groups",
+      "adapter": "experiments/apt_benchmark/tabular_batch/prepare_scvic.py",
+      "prepared_path": "C:/w/apt_benchmark_data_20260920/tabular_batch_v1/scvic_prepared/DATA.npz",
+      "prior_exposure": "Used for E1/E2/E3 development; not fresh confirmation",
+      "measured": {
+        "inputs": [
+          {
+            "path": "C:\\Users\\garyp\\Downloads\\SCVIC-APT-2021-Training.csv",
+            "bytes": 128590331,
+            "sha256": "a67b7a24196fc8c9e3b15ec7cf7b48b6a62f316fe24fc05fd9067dc745b3cf6e",
+            "rows": 259120,
+            "headerless_repaired_in_memory": false
+          }
+        ],
+        "rows": 259120,
+        "columns": [
+          "Flow ID",
+          "Src IP",
+          "Src Port",
+          "Dst IP",
+          "Dst Port",
+          "Protocol",
+          "Timestamp",
+          "Flow Duration",
+          "Total Fwd Packet",
+          "Total Bwd packets",
+          "Total Length of Fwd Packet",
+          "Total Length of Bwd Packet",
+          "Fwd Packet Length Max",
+          "Fwd Packet Length Min",
+          "Fwd Packet Length Mean",
+          "Fwd Packet Length Std",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Min",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Flow Bytes/s",
+          "Flow Packets/s",
+          "Flow IAT Mean",
+          "Flow IAT Std",
+          "Flow IAT Max",
+          "Flow IAT Min",
+          "Fwd IAT Total",
+          "Fwd IAT Mean",
+          "Fwd IAT Std",
+          "Fwd IAT Max",
+          "Fwd IAT Min",
+          "Bwd IAT Total",
+          "Bwd IAT Mean",
+          "Bwd IAT Std",
+          "Bwd IAT Max",
+          "Bwd IAT Min",
+          "Fwd PSH Flags",
+          "Bwd PSH Flags",
+          "Fwd URG Flags",
+          "Bwd URG Flags",
+          "Fwd Header Length",
+          "Bwd Header Length",
+          "Fwd Packets/s",
+          "Bwd Packets/s",
+          "Packet Length Min",
+          "Packet Length Max",
+          "Packet Length Mean",
+          "Packet Length Std",
+          "Packet Length Variance",
+          "FIN Flag Count",
+          "SYN Flag Count",
+          "RST Flag Count",
+          "PSH Flag Count",
+          "ACK Flag Count",
+          "URG Flag Count",
+          "CWR Flag Count",
+          "ECE Flag Count",
+          "Down/Up Ratio",
+          "Average Packet Size",
+          "Fwd Segment Size Avg",
+          "Bwd Segment Size Avg",
+          "Fwd Bytes/Bulk Avg",
+          "Fwd Packet/Bulk Avg",
+          "Fwd Bulk Rate Avg",
+          "Bwd Bytes/Bulk Avg",
+          "Bwd Packet/Bulk Avg",
+          "Bwd Bulk Rate Avg",
+          "Subflow Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Subflow Bwd Packets",
+          "Subflow Bwd Bytes",
+          "FWD Init Win Bytes",
+          "Bwd Init Win Bytes",
+          "Fwd Act Data Pkts",
+          "Fwd Seg Size Min",
+          "Active Mean",
+          "Active Std",
+          "Active Max",
+          "Active Min",
+          "Idle Mean",
+          "Idle Std",
+          "Idle Max",
+          "Idle Min",
+          "Label"
+        ],
+        "label_column": "Label",
+        "stage_counts": {
+          "DataExfiltration": 527,
+          "InitialCompromise": 73,
+          "LateralMovement": 729,
+          "NormalTraffic": 254836,
+          "Pivoting": 2122,
+          "Reconnaissance": 833
+        },
+        "source_by_stage": {
+          "SCVIC-APT-2021-Training.csv": {
+            "DataExfiltration": 527,
+            "InitialCompromise": 73,
+            "LateralMovement": 729,
+            "NormalTraffic": 254836,
+            "Pivoting": 2122,
+            "Reconnaissance": 833
+          }
+        },
+        "missing_labels": 0,
+        "candidate_feature_columns": [
+          "Protocol",
+          "Flow Duration",
+          "Total Fwd Packet",
+          "Total Bwd packets",
+          "Total Length of Fwd Packet",
+          "Total Length of Bwd Packet",
+          "Fwd Packet Length Max",
+          "Fwd Packet Length Min",
+          "Fwd Packet Length Mean",
+          "Fwd Packet Length Std",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Min",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Flow Bytes/s",
+          "Flow Packets/s",
+          "Flow IAT Mean",
+          "Flow IAT Std",
+          "Flow IAT Max",
+          "Flow IAT Min",
+          "Fwd IAT Total",
+          "Fwd IAT Mean",
+          "Fwd IAT Std",
+          "Fwd IAT Max",
+          "Fwd IAT Min",
+          "Bwd IAT Total",
+          "Bwd IAT Mean",
+          "Bwd IAT Std",
+          "Bwd IAT Max",
+          "Bwd IAT Min",
+          "Fwd PSH Flags",
+          "Bwd PSH Flags",
+          "Fwd URG Flags",
+          "Bwd URG Flags",
+          "Fwd Header Length",
+          "Bwd Header Length",
+          "Fwd Packets/s",
+          "Bwd Packets/s",
+          "Packet Length Min",
+          "Packet Length Max",
+          "Packet Length Mean",
+          "Packet Length Std",
+          "Packet Length Variance",
+          "FIN Flag Count",
+          "SYN Flag Count",
+          "RST Flag Count",
+          "PSH Flag Count",
+          "ACK Flag Count",
+          "URG Flag Count",
+          "CWR Flag Count",
+          "ECE Flag Count",
+          "Down/Up Ratio",
+          "Average Packet Size",
+          "Fwd Segment Size Avg",
+          "Bwd Segment Size Avg",
+          "Fwd Bytes/Bulk Avg",
+          "Fwd Packet/Bulk Avg",
+          "Fwd Bulk Rate Avg",
+          "Bwd Bytes/Bulk Avg",
+          "Bwd Packet/Bulk Avg",
+          "Bwd Bulk Rate Avg",
+          "Subflow Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Subflow Bwd Packets",
+          "Subflow Bwd Bytes",
+          "FWD Init Win Bytes",
+          "Bwd Init Win Bytes",
+          "Fwd Act Data Pkts",
+          "Fwd Seg Size Min",
+          "Active Mean",
+          "Active Std",
+          "Active Max",
+          "Active Min"
+        ],
+        "excluded_idle_reason": "SCVIC idle summaries contain epoch-scale values; exclude all four a priori from shared pilot feature surface.",
+        "nonfinite_feature_cells": 3618,
+        "nonfinite_feature_rows": 1809,
+        "idle_epoch_scale_counts_gt_1e12": {
+          "Idle Mean": 259107,
+          "Idle Std": 7194,
+          "Idle Max": 259120,
+          "Idle Min": 251926
+        },
+        "duplicate_feature_rows": 105200,
+        "feature_groups_with_conflicting_labels": 1,
+        "unique_feature_groups_by_stage": {
+          "DataExfiltration": 527,
+          "InitialCompromise": 73,
+          "LateralMovement": 720,
+          "NormalTraffic": 149646,
+          "Pivoting": 2122,
+          "Reconnaissance": 833
+        },
+        "budget_feasibility_counts_only": {
+          "32": true,
+          "64": true,
+          "128": false,
+          "256": false,
+          "512": false,
+          "1024": false
+        },
+        "budget_feasibility_caveat": "Counts only, before independent development/calibration/test reserves or incident grouping. Not split qualification.",
+        "timestamp": {
+          "formats": [
+            "%Y-%m-%d %H:%M:%S",
+            "%m/%d/%Y %H:%M"
+          ],
+          "unparsed": 0,
+          "min": "1970-01-17 12:29:00",
+          "max": "2015-10-21 23:59:00",
+          "dates": 2
+        },
+        "date_by_stage": {
+          "1970-01-17": {
+            "DataExfiltration": 0,
+            "InitialCompromise": 0,
+            "LateralMovement": 0,
+            "NormalTraffic": 220,
+            "Pivoting": 0,
+            "Reconnaissance": 0
+          },
+          "2015-10-21": {
+            "DataExfiltration": 527,
+            "InitialCompromise": 73,
+            "LateralMovement": 729,
+            "NormalTraffic": 254616,
+            "Pivoting": 2122,
+            "Reconnaissance": 833
+          }
+        },
+        "stage_time_ranges": {
+          "DataExfiltration": {
+            "first": "2015-10-21 10:21:00",
+            "last": "2015-10-21 23:01:02",
+            "dates": 1
+          },
+          "InitialCompromise": {
+            "first": "2015-10-21 09:57:54",
+            "last": "2015-10-21 22:59:00",
+            "dates": 1
+          },
+          "LateralMovement": {
+            "first": "2015-10-21 10:05:51",
+            "last": "2015-10-21 22:56:16",
+            "dates": 1
+          },
+          "NormalTraffic": {
+            "first": "1970-01-17 12:29:00",
+            "last": "2015-10-21 23:59:00",
+            "dates": 2
+          },
+          "Pivoting": {
+            "first": "2015-10-21 10:05:04",
+            "last": "2015-10-21 23:01:08",
+            "dates": 1
+          },
+          "Reconnaissance": {
+            "first": "2015-10-21 10:00:13",
+            "last": "2015-10-21 23:00:15",
+            "dates": 1
+          }
+        },
+        "chronological_60_15_10_15_diagnostic": {
+          "fit": {
+            "NormalTraffic": 155369,
+            "LateralMovement": 57,
+            "InitialCompromise": 18,
+            "Pivoting": 16,
+            "Reconnaissance": 12
+          },
+          "development": {
+            "NormalTraffic": 37060,
+            "Pivoting": 846,
+            "DataExfiltration": 467,
+            "Reconnaissance": 310,
+            "LateralMovement": 184,
+            "InitialCompromise": 1
+          },
+          "calibration": {
+            "NormalTraffic": 25817,
+            "Reconnaissance": 34,
+            "Pivoting": 23,
+            "LateralMovement": 22,
+            "InitialCompromise": 16
+          },
+          "test": {
+            "NormalTraffic": 36590,
+            "Pivoting": 1237,
+            "Reconnaissance": 477,
+            "LateralMovement": 466,
+            "DataExfiltration": 60,
+            "InitialCompromise": 38
+          }
+        },
+        "chronological_diagnostic_caveat": "Support diagnostic only; tied timestamps, overlapping flows, duplicate groups and scenario independence not yet split-qualified."
+      }
+    },
+    "DAPT2020": {
+      "tier": "TEMPORAL_MEASUREMENT_CONDITIONAL",
+      "temporal_measurement": "Native capture start times parse; descriptive time-order and capture-day sensitivity possible after endpoint/tie rules and label support are frozen.",
+      "raw_stage_column": "Stage",
+      "benign_label": "Benign (normalize BENIGN spelling only)",
+      "independent_execution_or_campaign_id": null,
+      "source_groups": 10,
+      "capture_dates": 5,
+      "author_holdout": "No separate frozen author train/test artifact qualified in local files or checked author README.",
+      "clock_issues": [
+        "Timestamp is flow start, not completed-flow availability or ingestion time",
+        "Timezone and duration units need explicit qualification before end-before-start guarantees",
+        "Movement occurs only July 18; all 15 exfiltration rows occur July 19"
+      ],
+      "derivative_status": "Private CSVs attributed to original emulated public/private-network capture; ten files are not ten independent campaigns.",
+      "license": "Redistribution license not independently verified; raw files remain private",
+      "closed_set_temporal_protocol_ready": false,
+      "group_only_possible": "Day and public/private collection units; same attack progression, not independent campaigns",
+      "adapter": "experiments/apt_benchmark/tabular_batch/audit_datasets.py:audit; repairs headerless Thursday-private input in memory using verified reference schema",
+      "prior_exposure": "Previously used in local DAPT detector/TTA development; not fresh confirmation",
+      "measured": {
+        "inputs": [
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-monday-pvt.pcap_Flow.csv",
+            "bytes": 1784312,
+            "sha256": "3cebfbaf532e746be971a8712cdba1943b75585b0d49e074d95fa85b42bc8521",
+            "rows": 3404,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-monday.pcap_Flow.csv",
+            "bytes": 4662958,
+            "sha256": "1360c9f6cde280c044bdae5957466e05699cfdeec220e38201ffa7d3c9ff05f4",
+            "rows": 8728,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-thursday.pcap_Flow.csv",
+            "bytes": 4782427,
+            "sha256": "c8fe367dd11256b91ef1ffd997b2f1afd5dafdddede91d9c6476978306c4d642",
+            "rows": 9685,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-tuesday.pcap_Flow.csv",
+            "bytes": 14956019,
+            "sha256": "c6e9cf224671e9c4f6c3f89e7bbe55597c837f05d50a8c4dc480b0655c896477",
+            "rows": 29242,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-public-wednesday.pcap_Flow.csv",
+            "bytes": 9319296,
+            "sha256": "da190a584e38ca0542436e867e732aaa231739b230b3cb0a31189d38d7a82318",
+            "rows": 17487,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-thursday.pcap_Flow.csv",
+            "bytes": 2045832,
+            "sha256": "8c13fcf7899a04e9100a4b4b977439a8b6ff964aeae4bf2f26b2323bda085f77",
+            "rows": 4114,
+            "headerless_repaired_in_memory": true
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-tuesday.pcap_Flow.csv",
+            "bytes": 1411018,
+            "sha256": "6bc442e95aeb3f43516bc917a8a48444ea140004b054693354c7a6251a642105",
+            "rows": 2615,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-pvt-wednesday.pcap_Flow.csv",
+            "bytes": 792544,
+            "sha256": "11bcbabb3041ab95fea546e2d7973560f93abf570a6eb7020534af671eb7b2d4",
+            "rows": 1437,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-tcpdump-friday.pcap_Flow.csv",
+            "bytes": 3664621,
+            "sha256": "805fc0d6baa64466766c5af7deeacf0d0bd3ce5e03ca9055549a64bde18300eb",
+            "rows": 7361,
+            "headerless_repaired_in_memory": false
+          },
+          {
+            "path": "C:\\Users\\garyp\\OneDrive\\Documents\\codex\\data\\raw\\dapt2020\\enp0s3-tcpdump-pvt-friday.pcap_Flow.csv",
+            "bytes": 1440895,
+            "sha256": "a8e998e9148933366a88d67c99cdad352737ee982b39d11e680b87ae9255f6a8",
+            "rows": 2618,
+            "headerless_repaired_in_memory": false
+          }
+        ],
+        "rows": 86691,
+        "columns": [
+          "Flow ID",
+          "Src IP",
+          "Src Port",
+          "Dst IP",
+          "Dst Port",
+          "Protocol",
+          "Timestamp",
+          "Flow Duration",
+          "Total Fwd Packet",
+          "Total Bwd packets",
+          "Total Length of Fwd Packet",
+          "Total Length of Bwd Packet",
+          "Fwd Packet Length Max",
+          "Fwd Packet Length Min",
+          "Fwd Packet Length Mean",
+          "Fwd Packet Length Std",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Min",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Flow Bytes/s",
+          "Flow Packets/s",
+          "Flow IAT Mean",
+          "Flow IAT Std",
+          "Flow IAT Max",
+          "Flow IAT Min",
+          "Fwd IAT Total",
+          "Fwd IAT Mean",
+          "Fwd IAT Std",
+          "Fwd IAT Max",
+          "Fwd IAT Min",
+          "Bwd IAT Total",
+          "Bwd IAT Mean",
+          "Bwd IAT Std",
+          "Bwd IAT Max",
+          "Bwd IAT Min",
+          "Fwd PSH Flags",
+          "Bwd PSH Flags",
+          "Fwd URG Flags",
+          "Bwd URG Flags",
+          "Fwd Header Length",
+          "Bwd Header Length",
+          "Fwd Packets/s",
+          "Bwd Packets/s",
+          "Packet Length Min",
+          "Packet Length Max",
+          "Packet Length Mean",
+          "Packet Length Std",
+          "Packet Length Variance",
+          "FIN Flag Count",
+          "SYN Flag Count",
+          "RST Flag Count",
+          "PSH Flag Count",
+          "ACK Flag Count",
+          "URG Flag Count",
+          "CWR Flag Count",
+          "ECE Flag Count",
+          "Down/Up Ratio",
+          "Average Packet Size",
+          "Fwd Segment Size Avg",
+          "Bwd Segment Size Avg",
+          "Fwd Bytes/Bulk Avg",
+          "Fwd Packet/Bulk Avg",
+          "Fwd Bulk Rate Avg",
+          "Bwd Bytes/Bulk Avg",
+          "Bwd Packet/Bulk Avg",
+          "Bwd Bulk Rate Avg",
+          "Subflow Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Subflow Bwd Packets",
+          "Subflow Bwd Bytes",
+          "FWD Init Win Bytes",
+          "Bwd Init Win Bytes",
+          "Fwd Act Data Pkts",
+          "Fwd Seg Size Min",
+          "Active Mean",
+          "Active Std",
+          "Active Max",
+          "Active Min",
+          "Idle Mean",
+          "Idle Std",
+          "Idle Max",
+          "Idle Min",
+          "Activity",
+          "Stage"
+        ],
+        "label_column": "Stage",
+        "stage_counts": {
+          "Benign": 63712,
+          "Data Exfiltration": 15,
+          "Establish Foothold": 8604,
+          "Lateral Movement": 2451,
+          "Reconnaissance": 11909
+        },
+        "source_by_stage": {
+          "enp0s3-monday-pvt.pcap_Flow.csv": {
+            "Benign": 3404,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          },
+          "enp0s3-monday.pcap_Flow.csv": {
+            "Benign": 8728,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          },
+          "enp0s3-public-thursday.pcap_Flow.csv": {
+            "Benign": 9548,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 137,
+            "Reconnaissance": 0
+          },
+          "enp0s3-public-tuesday.pcap_Flow.csv": {
+            "Benign": 17377,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 11865
+          },
+          "enp0s3-public-wednesday.pcap_Flow.csv": {
+            "Benign": 8855,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 8588,
+            "Lateral Movement": 0,
+            "Reconnaissance": 44
+          },
+          "enp0s3-pvt-thursday.pcap_Flow.csv": {
+            "Benign": 1800,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 2314,
+            "Reconnaissance": 0
+          },
+          "enp0s3-pvt-tuesday.pcap_Flow.csv": {
+            "Benign": 2615,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          },
+          "enp0s3-pvt-wednesday.pcap_Flow.csv": {
+            "Benign": 1433,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 4,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          },
+          "enp0s3-tcpdump-friday.pcap_Flow.csv": {
+            "Benign": 7340,
+            "Data Exfiltration": 9,
+            "Establish Foothold": 12,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          },
+          "enp0s3-tcpdump-pvt-friday.pcap_Flow.csv": {
+            "Benign": 2612,
+            "Data Exfiltration": 6,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          }
+        },
+        "missing_labels": 0,
+        "candidate_feature_columns": [
+          "Protocol",
+          "Flow Duration",
+          "Total Fwd Packet",
+          "Total Bwd packets",
+          "Total Length of Fwd Packet",
+          "Total Length of Bwd Packet",
+          "Fwd Packet Length Max",
+          "Fwd Packet Length Min",
+          "Fwd Packet Length Mean",
+          "Fwd Packet Length Std",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Min",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Flow Bytes/s",
+          "Flow Packets/s",
+          "Flow IAT Mean",
+          "Flow IAT Std",
+          "Flow IAT Max",
+          "Flow IAT Min",
+          "Fwd IAT Total",
+          "Fwd IAT Mean",
+          "Fwd IAT Std",
+          "Fwd IAT Max",
+          "Fwd IAT Min",
+          "Bwd IAT Total",
+          "Bwd IAT Mean",
+          "Bwd IAT Std",
+          "Bwd IAT Max",
+          "Bwd IAT Min",
+          "Fwd PSH Flags",
+          "Bwd PSH Flags",
+          "Fwd URG Flags",
+          "Bwd URG Flags",
+          "Fwd Header Length",
+          "Bwd Header Length",
+          "Fwd Packets/s",
+          "Bwd Packets/s",
+          "Packet Length Min",
+          "Packet Length Max",
+          "Packet Length Mean",
+          "Packet Length Std",
+          "Packet Length Variance",
+          "FIN Flag Count",
+          "SYN Flag Count",
+          "RST Flag Count",
+          "PSH Flag Count",
+          "ACK Flag Count",
+          "URG Flag Count",
+          "CWR Flag Count",
+          "ECE Flag Count",
+          "Down/Up Ratio",
+          "Average Packet Size",
+          "Fwd Segment Size Avg",
+          "Bwd Segment Size Avg",
+          "Fwd Bytes/Bulk Avg",
+          "Fwd Packet/Bulk Avg",
+          "Fwd Bulk Rate Avg",
+          "Bwd Bytes/Bulk Avg",
+          "Bwd Packet/Bulk Avg",
+          "Bwd Bulk Rate Avg",
+          "Subflow Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Subflow Bwd Packets",
+          "Subflow Bwd Bytes",
+          "FWD Init Win Bytes",
+          "Bwd Init Win Bytes",
+          "Fwd Act Data Pkts",
+          "Fwd Seg Size Min",
+          "Active Mean",
+          "Active Std",
+          "Active Max",
+          "Active Min"
+        ],
+        "excluded_idle_reason": "SCVIC idle summaries contain epoch-scale values; exclude all four a priori from shared pilot feature surface.",
+        "nonfinite_feature_cells": 0,
+        "nonfinite_feature_rows": 0,
+        "idle_epoch_scale_counts_gt_1e12": {
+          "Idle Mean": 0,
+          "Idle Std": 0,
+          "Idle Max": 0,
+          "Idle Min": 0
+        },
+        "duplicate_feature_rows": 12673,
+        "feature_groups_with_conflicting_labels": 337,
+        "unique_feature_groups_by_stage": {
+          "Benign": 56819,
+          "Data Exfiltration": 15,
+          "Establish Foothold": 6163,
+          "Lateral Movement": 866,
+          "Reconnaissance": 10495
+        },
+        "budget_feasibility_counts_only": {
+          "32": false,
+          "64": false,
+          "128": false,
+          "256": false,
+          "512": false,
+          "1024": false
+        },
+        "budget_feasibility_caveat": "Counts only, before independent development/calibration/test reserves or incident grouping. Not split qualification.",
+        "timestamp": {
+          "formats": [
+            "%d/%m/%Y %I:%M:%S %p"
+          ],
+          "unparsed": 0,
+          "min": "2019-07-15 13:45:37",
+          "max": "2019-07-19 22:29:23",
+          "dates": 5
+        },
+        "date_by_stage": {
+          "2019-07-15": {
+            "Benign": 12132,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          },
+          "2019-07-16": {
+            "Benign": 19992,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 11865
+          },
+          "2019-07-17": {
+            "Benign": 10288,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 8592,
+            "Lateral Movement": 0,
+            "Reconnaissance": 44
+          },
+          "2019-07-18": {
+            "Benign": 11348,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 2451,
+            "Reconnaissance": 0
+          },
+          "2019-07-19": {
+            "Benign": 9952,
+            "Data Exfiltration": 15,
+            "Establish Foothold": 12,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          }
+        },
+        "stage_time_ranges": {
+          "Benign": {
+            "first": "2019-07-15 13:45:37",
+            "last": "2019-07-19 22:29:23",
+            "dates": 5
+          },
+          "Data Exfiltration": {
+            "first": "2019-07-19 16:31:47",
+            "last": "2019-07-19 22:25:32",
+            "dates": 1
+          },
+          "Establish Foothold": {
+            "first": "2019-07-17 14:45:40",
+            "last": "2019-07-19 18:44:55",
+            "dates": 2
+          },
+          "Lateral Movement": {
+            "first": "2019-07-18 12:28:54",
+            "last": "2019-07-18 21:32:11",
+            "dates": 1
+          },
+          "Reconnaissance": {
+            "first": "2019-07-16 12:12:20",
+            "last": "2019-07-17 19:24:55",
+            "dates": 2
+          }
+        },
+        "chronological_60_15_10_15_diagnostic": {
+          "fit": {
+            "Benign": 33498,
+            "Reconnaissance": 11865,
+            "Establish Foothold": 6651
+          },
+          "development": {
+            "Benign": 10327,
+            "Establish Foothold": 1941,
+            "Lateral Movement": 692,
+            "Reconnaissance": 44
+          },
+          "calibration": {
+            "Benign": 7507,
+            "Lateral Movement": 1162
+          },
+          "test": {
+            "Benign": 12380,
+            "Lateral Movement": 597,
+            "Data Exfiltration": 15,
+            "Establish Foothold": 12
+          }
+        },
+        "chronological_diagnostic_caveat": "Support diagnostic only; tied timestamps, overlapping flows, duplicate groups and scenario independence not yet split-qualified."
+      }
+    },
+    "DSRL-APT-2023": {
+      "tier": "RANDOM_ONLY_DERIVATIVE_SCREEN",
+      "temporal_measurement": "Generated attack-row Timestamp values are not observed campaign chronology.",
+      "raw_stage_column": "Stage",
+      "benign_label": "Benign",
+      "independent_execution_or_campaign_id": null,
+      "source_groups": 1,
+      "author_holdout": "One CSV and metadata in pinned repository; no generator-held-out realization or author train/test assignment qualified.",
+      "clock_issues": [
+        "Parsing DAPT-era dates is not semantic time validation",
+        "No generator-seed, execution, campaign or sequence identifier"
+      ],
+      "derivative_status": "CTGAN attacks trained on DAPT2020; publisher paper states 10,000 benign rows were sampled from DAPT2020, not synthesized.",
+      "parent_dataset": "DAPT2020",
+      "independent_confirmation_of_parent": false,
+      "source_commit": "31bd0987bf84a4616fc9f9a60410a704a0ce4967",
+      "license": "MIT author repository",
+      "closed_set_temporal_protocol_ready": false,
+      "group_only_possible": "Exact-feature groups only; no independent generator/campaign groups",
+      "adapter": "experiments/apt_benchmark/tabular_batch/acquire_dsrl.py (already acquired); audit_datasets.py:audit for counts; no temporal adapter qualified",
+      "measured": {
+        "inputs": [
+          {
+            "path": "C:\\w\\apt_benchmark_data_20260920\\tabular_batch_v1\\dsrl\\DSRL-APT-2023.csv",
+            "bytes": 31278194,
+            "sha256": "883001548b93c05152ae60a1851e0cb3b939a7f3aea0808f16e4c4c997bdf7bd",
+            "rows": 65000,
+            "headerless_repaired_in_memory": false
+          }
+        ],
+        "rows": 65000,
+        "columns": [
+          "Flow ID",
+          "Src IP",
+          "Src Port",
+          "Dst IP",
+          "Dst Port",
+          "Protocol",
+          "Timestamp",
+          "Flow Duration",
+          "Total Fwd Packet",
+          "Total Bwd packets",
+          "Total Length of Fwd Packet",
+          "Total Length of Bwd Packet",
+          "Fwd Packet Length Max",
+          "Fwd Packet Length Min",
+          "Fwd Packet Length Mean",
+          "Fwd Packet Length Std",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Min",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Flow Bytes/s",
+          "Flow Packets/s",
+          "Flow IAT Mean",
+          "Flow IAT Std",
+          "Flow IAT Max",
+          "Flow IAT Min",
+          "Fwd IAT Total",
+          "Fwd IAT Mean",
+          "Fwd IAT Std",
+          "Fwd IAT Max",
+          "Fwd IAT Min",
+          "Bwd IAT Total",
+          "Bwd IAT Mean",
+          "Bwd IAT Std",
+          "Bwd IAT Max",
+          "Bwd IAT Min",
+          "Fwd PSH Flags",
+          "Bwd PSH Flags",
+          "Fwd URG Flags",
+          "Bwd URG Flags",
+          "Fwd Header Length",
+          "Bwd Header Length",
+          "Fwd Packets/s",
+          "Bwd Packets/s",
+          "Packet Length Min",
+          "Packet Length Max",
+          "Packet Length Mean",
+          "Packet Length Std",
+          "Packet Length Variance",
+          "FIN Flag Count",
+          "SYN Flag Count",
+          "RST Flag Count",
+          "PSH Flag Count",
+          "ACK Flag Count",
+          "URG Flag Count",
+          "CWR Flag Count",
+          "ECE Flag Count",
+          "Down/Up Ratio",
+          "Average Packet Size",
+          "Fwd Segment Size Avg",
+          "Bwd Segment Size Avg",
+          "Fwd Bytes/Bulk Avg",
+          "Fwd Packet/Bulk Avg",
+          "Fwd Bulk Rate Avg",
+          "Bwd Bytes/Bulk Avg",
+          "Bwd Packet/Bulk Avg",
+          "Bwd Bulk Rate Avg",
+          "Subflow Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Subflow Bwd Packets",
+          "Subflow Bwd Bytes",
+          "FWD Init Win Bytes",
+          "Bwd Init Win Bytes",
+          "Fwd Act Data Pkts",
+          "Fwd Seg Size Min",
+          "Active Mean",
+          "Active Std",
+          "Active Max",
+          "Active Min",
+          "Idle Mean",
+          "Idle Std",
+          "Idle Max",
+          "Idle Min",
+          "Activity",
+          "Stage"
+        ],
+        "label_column": "Stage",
+        "stage_counts": {
+          "Benign": 10000,
+          "Data Exfiltration": 5002,
+          "Establish Foothold": 22968,
+          "Lateral Movement": 12664,
+          "Reconnaissance": 14366
+        },
+        "source_by_stage": {
+          "DSRL-APT-2023.csv": {
+            "Benign": 10000,
+            "Data Exfiltration": 5002,
+            "Establish Foothold": 22968,
+            "Lateral Movement": 12664,
+            "Reconnaissance": 14366
+          }
+        },
+        "missing_labels": 0,
+        "candidate_feature_columns": [
+          "Protocol",
+          "Flow Duration",
+          "Total Fwd Packet",
+          "Total Bwd packets",
+          "Total Length of Fwd Packet",
+          "Total Length of Bwd Packet",
+          "Fwd Packet Length Max",
+          "Fwd Packet Length Min",
+          "Fwd Packet Length Mean",
+          "Fwd Packet Length Std",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Min",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Flow Bytes/s",
+          "Flow Packets/s",
+          "Flow IAT Mean",
+          "Flow IAT Std",
+          "Flow IAT Max",
+          "Flow IAT Min",
+          "Fwd IAT Total",
+          "Fwd IAT Mean",
+          "Fwd IAT Std",
+          "Fwd IAT Max",
+          "Fwd IAT Min",
+          "Bwd IAT Total",
+          "Bwd IAT Mean",
+          "Bwd IAT Std",
+          "Bwd IAT Max",
+          "Bwd IAT Min",
+          "Fwd PSH Flags",
+          "Bwd PSH Flags",
+          "Fwd URG Flags",
+          "Bwd URG Flags",
+          "Fwd Header Length",
+          "Bwd Header Length",
+          "Fwd Packets/s",
+          "Bwd Packets/s",
+          "Packet Length Min",
+          "Packet Length Max",
+          "Packet Length Mean",
+          "Packet Length Std",
+          "Packet Length Variance",
+          "FIN Flag Count",
+          "SYN Flag Count",
+          "RST Flag Count",
+          "PSH Flag Count",
+          "ACK Flag Count",
+          "URG Flag Count",
+          "CWR Flag Count",
+          "ECE Flag Count",
+          "Down/Up Ratio",
+          "Average Packet Size",
+          "Fwd Segment Size Avg",
+          "Bwd Segment Size Avg",
+          "Fwd Bytes/Bulk Avg",
+          "Fwd Packet/Bulk Avg",
+          "Fwd Bulk Rate Avg",
+          "Bwd Bytes/Bulk Avg",
+          "Bwd Packet/Bulk Avg",
+          "Bwd Bulk Rate Avg",
+          "Subflow Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Subflow Bwd Packets",
+          "Subflow Bwd Bytes",
+          "FWD Init Win Bytes",
+          "Bwd Init Win Bytes",
+          "Fwd Act Data Pkts",
+          "Fwd Seg Size Min",
+          "Active Mean",
+          "Active Std",
+          "Active Max",
+          "Active Min"
+        ],
+        "excluded_idle_reason": "SCVIC idle summaries contain epoch-scale values; exclude all four a priori from shared pilot feature surface.",
+        "nonfinite_feature_cells": 0,
+        "nonfinite_feature_rows": 0,
+        "idle_epoch_scale_counts_gt_1e12": {
+          "Idle Mean": 0,
+          "Idle Std": 0,
+          "Idle Max": 0,
+          "Idle Min": 0
+        },
+        "duplicate_feature_rows": 659,
+        "feature_groups_with_conflicting_labels": 0,
+        "unique_feature_groups_by_stage": {
+          "Benign": 9341,
+          "Data Exfiltration": 5002,
+          "Establish Foothold": 22968,
+          "Lateral Movement": 12664,
+          "Reconnaissance": 14366
+        },
+        "budget_feasibility_counts_only": {
+          "32": true,
+          "64": true,
+          "128": true,
+          "256": true,
+          "512": true,
+          "1024": true
+        },
+        "budget_feasibility_caveat": "Counts only, before independent development/calibration/test reserves or incident grouping. Not split qualification.",
+        "timestamp": {
+          "formats": [
+            "%d/%m/%Y %I:%M:%S %p"
+          ],
+          "unparsed": 0,
+          "min": "2019-07-15 13:45:38",
+          "max": "2019-07-19 22:29:21",
+          "dates": 5
+        },
+        "date_by_stage": {
+          "2019-07-15": {
+            "Benign": 1929,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 0,
+            "Lateral Movement": 0,
+            "Reconnaissance": 0
+          },
+          "2019-07-16": {
+            "Benign": 3106,
+            "Data Exfiltration": 2,
+            "Establish Foothold": 1822,
+            "Lateral Movement": 1724,
+            "Reconnaissance": 9814
+          },
+          "2019-07-17": {
+            "Benign": 1625,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 15087,
+            "Lateral Movement": 1642,
+            "Reconnaissance": 2873
+          },
+          "2019-07-18": {
+            "Benign": 1738,
+            "Data Exfiltration": 0,
+            "Establish Foothold": 1059,
+            "Lateral Movement": 9275,
+            "Reconnaissance": 1588
+          },
+          "2019-07-19": {
+            "Benign": 1602,
+            "Data Exfiltration": 5000,
+            "Establish Foothold": 5000,
+            "Lateral Movement": 23,
+            "Reconnaissance": 91
+          }
+        },
+        "stage_time_ranges": {
+          "Benign": {
+            "first": "2019-07-15 13:45:38",
+            "last": "2019-07-19 22:29:21",
+            "dates": 5
+          },
+          "Data Exfiltration": {
+            "first": "2019-07-16 13:31:57",
+            "last": "2019-07-19 22:21:43",
+            "dates": 2
+          },
+          "Establish Foothold": {
+            "first": "2019-07-16 13:36:15",
+            "last": "2019-07-19 18:44:55",
+            "dates": 4
+          },
+          "Lateral Movement": {
+            "first": "2019-07-16 12:12:20",
+            "last": "2019-07-19 22:25:32",
+            "dates": 4
+          },
+          "Reconnaissance": {
+            "first": "2019-07-16 12:12:20",
+            "last": "2019-07-19 22:25:32",
+            "dates": 4
+          }
+        },
+        "chronological_60_15_10_15_diagnostic": {
+          "fit": {
+            "Establish Foothold": 16738,
+            "Reconnaissance": 12408,
+            "Benign": 6527,
+            "Lateral Movement": 3325,
+            "Data Exfiltration": 2
+          },
+          "development": {
+            "Lateral Movement": 5583,
+            "Reconnaissance": 1531,
+            "Benign": 1522,
+            "Establish Foothold": 1114
+          },
+          "calibration": {
+            "Lateral Movement": 3733,
+            "Data Exfiltration": 1335,
+            "Benign": 980,
+            "Reconnaissance": 336,
+            "Establish Foothold": 116
+          },
+          "test": {
+            "Establish Foothold": 5000,
+            "Data Exfiltration": 3665,
+            "Benign": 971,
+            "Reconnaissance": 91,
+            "Lateral Movement": 23
+          }
+        },
+        "chronological_diagnostic_caveat": "Support diagnostic only; tied timestamps, overlapping flows, duplicate groups and scenario independence not yet split-qualified."
+      }
+    },
+    "S-DAPT-2026": {
+      "tier": "BLOCKED_NO_QUALIFIED_ARTIFACT",
+      "temporal_measurement": null,
+      "actual_rows": null,
+      "raw_stage_column": null,
+      "benign_label": null,
+      "independent_execution_or_campaign_id": null,
+      "author_holdout": "No dataset/generator bytes acquired or qualified",
+      "derivative_status": "Proposed synthetic alert dataset; corrected release provenance unverified",
+      "license": "Dataset terms unverified; manuscript license is not dataset permission",
+      "closed_set_temporal_protocol_ready": false,
+      "author_arxiv_status": "Withdrawn v2 April 1, 2026; verified live September 23, 2026",
+      "later_posting": "SSRN 6603942 known; current full-text retrieval 403, correction/data status unverified",
+      "adapter": "experiments/apt_benchmark/sdapt2026/EVALUATION_PLAN.json describes planned qualification only",
+      "required_before_use": [
+        "Corrected authoritative data/generator release and data rights",
+        "Inspect actual clocks, campaign/generator identities, benign/stage labels",
+        "Audit alert-type-to-stage shortcut and generator-only metadata before fitting"
+      ]
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://gitlab.com/asu22/dapt2020/-/raw/main/README.md",
+      "status": "Read live; author staged five-day capture"
+    },
+    {
+      "url": "https://gitlab.com/asu22/dapt2020/-/raw/main/csv/README.md",
+      "status": "Read live; Timestamp means flow start; Activity/Stage are added labels"
+    },
+    {
+      "url": "https://github.com/shadab75/DSRL-APT-2023",
+      "status": "Read live; CTGAN dependence and MIT"
+    },
+    {
+      "url": "https://www.isecure-journal.com/article_214212_40f652111c696f5eb8da62fe518390fa.pdf",
+      "status": "Read publisher PDF; section 5 states synthetic attacks and 10,000 sampled DAPT benign rows"
+    },
+    {
+      "url": "https://arxiv.org/abs/2601.06690",
+      "status": "Read live; withdrawn April 1 v2"
+    },
+    {
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6603942",
+      "status": "403 this check; correction/artifact unverified"
+    },
+    {
+      "url": "https://ieee-dataport.org/documents/scvic-apt-2021",
+      "status": "Current web robots block; cached primary HTML inspected for train/test inventory and login"
+    },
+    {
+      "url": "https://api.datacite.org/dois/10.21227/g2z5-ep97",
+      "status": "Current web tool unavailable; cached primary JSON inspected for CC-BY-4.0 license"
+    }
+  ],
+  "qualification_rules": [
+    "Retain native labels; do not silently collapse six SCVIC classes into four PX082 classes.",
+    "File/day/feature-hash groups do not establish independent campaigns.",
+    "No present dataset is a drop-in PX082 prepared archive.",
+    "60/15/10/15 chronological counts are diagnostic, not proof that every possible time split fails.",
+    "Parseable timestamps are insufficient for arrival-time or early-warning claims.",
+    "DAPT and DSRL are one related source family, not two independent validations.",
+    "Feature-deduplicated random splits remain development; do not report campaign confidence intervals."
+  ],
+  "recount_utc": "2026-09-23T17:38:11.505522+00:00",
+  "recount_adapter_sha256": "11c9a366a0cfe00f32c6d616876c69603edcf155f14eb1163ad0278bda9e8f39"
+}

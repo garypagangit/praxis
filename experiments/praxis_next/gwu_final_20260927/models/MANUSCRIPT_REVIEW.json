@@ -1,0 +1,212 @@
+{
+  "status": "METHODS_AND_MATHEMATICS_PASS",
+  "created_utc": "2026-09-24T13:58:09.884133+00:00",
+  "scope": "Independent read-only audit of assembled model methods, equations, abstract qualifications and citation consistency; no new fitting or manuscript modification.",
+  "input_sha256": {
+    "manuscript.md": "04fe5a36f0453a095aa8a5c92a9a1daf79fd0d828b9c6ece8a7e85cae68bcd88",
+    "abstract.md": "22a1c092e83884ab105d8538be6616d89171c97174eb65d91409eda688d49927",
+    "references.json": "59bf9029a5494aafcd5238f3dabfae4cb47691230cdcecd43154058e526208d9",
+    "models/MODEL_INVENTORY.json": "d988f9c8b24bb8f7edcbbf493aedb1bd222dda6eb529e7442effe009f954f74d",
+    "models/MODEL_EXPLANATION.md": "171a062e73d3fa0fc4546ee6bb07871ff545404f3bd2f6321334c8911542d22c",
+    "results/tables/all_class_group_means.csv": "aaf73a9b6527f35df8cd418dd1ab83089816a9a356bc813b6ad7413ab1186b98"
+  },
+  "stage_ranking_table": {
+    "status": "PASS",
+    "source": "results/tables/all_class_group_means.csv",
+    "filter": {
+      "study": "PX082",
+      "arm": "past_only_anchor"
+    },
+    "rows_checked": 8,
+    "rounded_numeric_cells_checked": 40,
+    "checks": "Every displayed cell equals the corresponding source mean rounded to four decimals; every metric is available for all three views; class supports sum to the 104051-row common anchor in each feature view.",
+    "rows": [
+      {
+        "label": "Current / Benign",
+        "source_support": 96098,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.9938",
+          "exact_recall": "0.9998",
+          "f1": "0.9968",
+          "roc_auc": "0.9988",
+          "average_precision": "0.9999"
+        }
+      },
+      {
+        "label": "Current / Other attack",
+        "source_support": 6213,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.9997",
+          "exact_recall": "0.9679",
+          "f1": "0.9836",
+          "roc_auc": "0.9967",
+          "average_precision": "0.9886"
+        }
+      },
+      {
+        "label": "Current / Movement",
+        "source_support": 18,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.1788",
+          "exact_recall": "0.2593",
+          "f1": "0.2091",
+          "roc_auc": "0.9992",
+          "average_precision": "0.2035"
+        }
+      },
+      {
+        "label": "Current / Exfiltration",
+        "source_support": 1722,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.8644",
+          "exact_recall": "0.6725",
+          "f1": "0.7565",
+          "roc_auc": "0.9680",
+          "average_precision": "0.6688"
+        }
+      },
+      {
+        "label": "History / Benign",
+        "source_support": 96098,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.9934",
+          "exact_recall": "0.9999",
+          "f1": "0.9966",
+          "roc_auc": "0.9959",
+          "average_precision": "0.9996"
+        }
+      },
+      {
+        "label": "History / Other attack",
+        "source_support": 6213,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.9986",
+          "exact_recall": "0.9726",
+          "f1": "0.9855",
+          "roc_auc": "0.9999",
+          "average_precision": "0.9991"
+        }
+      },
+      {
+        "label": "History / Movement",
+        "source_support": 18,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.2758",
+          "exact_recall": "0.2963",
+          "f1": "0.2836",
+          "roc_auc": "0.9910",
+          "average_precision": "0.1474"
+        }
+      },
+      {
+        "label": "History / Exfiltration",
+        "source_support": 1722,
+        "source_n_views": 3,
+        "displayed_metrics": {
+          "precision": "0.9081",
+          "exact_recall": "0.6640",
+          "f1": "0.7671",
+          "roc_auc": "0.9780",
+          "average_precision": "0.7500"
+        }
+      }
+    ],
+    "ranking_explanation_review": "ROC-AUC summarizes class-versus-rest ranking, whereas average precision is the recall-increment-weighted precision summary, not trapezoidal PR area. Neither is determined by one confusion matrix or guarantees the multiclass argmax operating decision. The informal rank interpretation includes half credit for tied scores.",
+    "primary_checks": [
+      {
+        "url": "https://scikit-learn.org/1.7/modules/generated/sklearn.metrics.average_precision_score.html",
+        "verified_on": "2026-09-24",
+        "locator": "Definition preceding Parameters; weighted precision by recall increments and explicit non-trapezoidal distinction."
+      },
+      {
+        "url": "https://scikit-learn.org/1.7/modules/model_evaluation.html#roc-metrics",
+        "verified_on": "2026-09-24",
+        "locator": "Section 3.4.4.15, Receiver operating characteristic and score-based evaluation."
+      }
+    ]
+  },
+  "equations": {
+    "assembled_blocks": 13,
+    "audited_model_blocks": 8,
+    "model_blocks_preserved_in_order_after_line_ending_normalization": true,
+    "additional_logistic_equation_review": "Binary sigmoid of intercept plus the inner product of coefficients and hashed-text/metadata features matches the saved binary LogisticRegression model; class-balanced logistic loss and inverse regularization C descriptions are correct. A sigmoid score is not claimed calibrated.",
+    "metric_blocks_review": "Precision, recall, F1, macro-F1, exact-stage recall, warning recall and benign false-alert equations are ordinary confusion-matrix definitions. Unsupported true-class handling is explicitly described."
+  },
+  "passed_method_checks": [
+    "141 main LightGBM fits: 111 classifiers and 30 regressors; supplementary two Ridge fits; reused native classifiers excluded from new-fit total.",
+    "Stage costs modify selector regression responses, not class/sample weights of main base classifiers.",
+    "PX080 target is context-minus-current loss and selects context for negative score; PX081 target is before-minus-after loss and requests positive gain.",
+    "Forward-held-out expert predictions train selectors; source exposure and retrospective warning analysis remain explicit.",
+    "Acquisition is greedy gain-per-cost with regime-supplied availability priors and simulated costs/delays, not globally optimized planning or guaranteed deadline success.",
+    "History augmentation is identified as data augmentation; GOSS, DART, TabM, GNNs and LLMs are not claimed as fitted models.",
+    "Ridge alpha 10, SVD solver, intercept and no scaling match source; decision score is not represented as a probability.",
+    "T1105 transfer is a different target with native per-source experts; only two deterministic selectors transfer, with other-technique negatives rather than verified benign traffic.",
+    "Main CPU execution and software-version differences are stated accurately.",
+    "Abstract keeps one exposed campaign, retrospective sensitivity and unmeasured operational/forecasting benefits explicit; numerical headline effects agree with the previously independently checked result reports."
+  ],
+  "recommended_general_prose": "Stage costs changed the numerical targets learned by the selectors; the base stage classifiers used ordinary multiclass training. The cost penalized every wrong destination equally within a true class, so it did not specifically protect attack-to-benign warnings.",
+  "findings": [
+    {
+      "id": "R01",
+      "severity": "publication_presentation",
+      "location": "Methodology model section: Corrections and qualifications for the final manuscript",
+      "observation": "Internal editing instructions are copied into the publication body.",
+      "required_change": "Remove the internal instruction subsection, or replace it with declarative methodological qualifications. Move duplicated full bibliographic entries and locators out of methods if appropriate.",
+      "open": false,
+      "status": "RESOLVED_BY_CURRENT_ASSEMBLY"
+    },
+    {
+      "id": "R02",
+      "severity": "citation_consistency",
+      "location": "Sections 2.5 and 3.3.7; References; references.json liu2022 and liu2022dataset",
+      "observation": "The text cites Liu 2022a/2022b, but both bibliography entries initially retained unsuffixed 2022; the benchmark paragraph used unsuffixed Liu et al. (2022).",
+      "required_change": "Use journal article 2022a and dataset 2022b consistently in APA strings and in-text references; this follows alphabetical title order for identical authors and year.",
+      "open": false,
+      "status": "RESOLVED_BY_CURRENT_ASSEMBLY"
+    },
+    {
+      "id": "R03",
+      "severity": "method_terminology",
+      "location": "Section 3.4, temporal classifier settings",
+      "observation": "The summary says 200 estimators, 15 leaves, whereas detailed methods correctly distinguish boosting iterations and class-specific trees.",
+      "required_change": "Use 200 boosting iterations and at most 15 leaves per tree.",
+      "open": false,
+      "status": "RESOLVED_BY_CURRENT_ASSEMBLY"
+    },
+    {
+      "id": "R04",
+      "severity": "method_terminology",
+      "location": "Section 3.8, paired identity/schema validation",
+      "observation": "The main task uses a grouped four-class schema, while this sentence calls its class meanings native.",
+      "required_change": "Replace native class meanings with declared evaluation-class meanings in this sentence. Preserve native terminology for the separate D1 source-qualification task.",
+      "open": false,
+      "status": "RESOLVED_BY_CURRENT_ASSEMBLY"
+    },
+    {
+      "id": "R05",
+      "severity": "bibliographic_completeness",
+      "location": "End References, eight model/software entries",
+      "observation": "Model reference records retain APA strings and URLs separately, so a renderer that emits only apa omits the primary source URL.",
+      "required_change": "Append the record URL when rendering an APA entry that does not already contain it. Keep the machine-readable url field.",
+      "open": false,
+      "status": "RESOLVED_BY_CURRENT_ASSEMBLY"
+    },
+    {
+      "id": "R06",
+      "severity": "APA_style_recommendation",
+      "location": "Model-source attributions in Methodology",
+      "observation": "Direct primary-source hyperlinks identify the relevant documentation; author-date citations make matching to the end bibliography clearer, particularly after removing the duplicated in-method reference list.",
+      "required_change": "Use LightGBM developers n.d.-a/b/c/d for features/classifier/regressor/parameters respectively; Scikit-learn developers n.d.-a/b for LogisticRegression/Ridge; cite Pedregosa et al. (2011) for software. Documentation suffix ordering is already correct.",
+      "open": false,
+      "status": "RESOLVED_BY_CURRENT_ASSEMBLY"
+    }
+  ],
+  "limits": "This pass checks assembled methods against the already verified source/model inventory and prior primary-reference audit, plus all 40 displayed stage-ranking cells against the published class-mean CSV. It does not refit models, recompute ranking areas from raw probabilities, conduct an exhaustive literature search, or perform visual document QA."
+}

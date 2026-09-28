@@ -1,0 +1,293 @@
+SLIDE 1: When Better APT Scores Hide Missed Attack Warnings
+
+Opening: This praxis studies how to evaluate an APT stage classifier before accepting a higher headline score. The contribution is controlled measurement and an executable review procedure. It does not claim a new detector architecture. Today I will connect the research problem, experimental controls, observed tradeoffs, full-release extension and limits of the resulting claim. This is the completed computational manuscript and defense review edition; committee approval, defense scheduling and degree certification are not asserted. This integrated edition includes the completed AIT validation in the main presentation, with updated limitations and conclusions.
+
+SOURCE: Integrated praxis and evidence, September 28, 2026
+
+============================================================
+
+SLIDE 2: A better score can hide a lost warning
+
+Illustration, not an experimental result: among 100 exfiltration-labeled flows, 60 correct stage predictions plus 20 predictions of another attack stage give 60% exact-stage recall and 80% warning recall. Calling all flows attacks would preserve every warning but create excessive workload. Therefore neither stage recognition nor warning retention alone is enough. The measured outcome is a non-benign model label, not a real analyst response. Uddin and colleagues already distinguish attacks called normal from wrong attack types.
+
+SOURCE: Chapter 1; Uddin et al. (2025)
+
+============================================================
+
+SLIDE 3: Problem, purpose and thesis
+
+The engineering decision is whether to accept a proposed model or evidence change. This study makes the consequences visible rather than optimizing an isolated score. The thesis is empirical: it is supported by saved paired predictions, fixed evaluation populations and transparent sensitivity checks. Dataset qualification matters because a chronological experiment is not meaningful if the source clock or class coverage cannot support it. The contribution is deliberately bounded to the inspected author labels and completed network flows.
+
+SOURCE: Chapter 1, Sections 1.3–1.4
+
+============================================================
+
+SLIDE 4: Three research questions
+
+RQ1 is the primary question. RQ2 holds the evaluation anchor, architecture and per-class fitting counts fixed while changing training composition. RQ3 tests necessary conditions for the declared all-native-class chronological comparison. Fitted historical experiments had frozen protocols, but the warning-loss interpretation was inspected afterward. I therefore call these analytical propositions, not retrospectively preregistered hypotheses. The new full-release role-feature protocol was frozen before its own fitting jobs.
+
+SOURCE: Chapter 1, Section 1.6; FULL_RELEASE_PROTOCOL.json
+
+============================================================
+
+SLIDE 5: The applied contribution
+
+Novelty is the specific assembled controlled evidence and reproducible applied procedure. Temporal validation, wrong-stage versus benign errors, contextual features and gradient boosting all have substantial prior art. The contribution does not depend on inventing a new metric or architecture. The full-release extension directly addresses two practical review questions: whether every upstream flow file was accounted for, and whether the new comparison trains on all eligible observations. It does not replace the population of the historical acquisition experiment.
+
+SOURCE: Chapters 2 and 5; Section 4.10
+
+============================================================
+
+SLIDE 6: What the closest work already establishes
+
+Pendlebury et al. (2019), TESSERACT, USENIX Security: https://www.usenix.org/conference/usenixsecurity19/presentation/pendlebury. Bilot et al. (2025), Sometimes Simpler Is Better: https://www.usenix.org/conference/usenixsecurity25/presentation/bilot. Guerra et al. (2026), preprint version 3: https://arxiv.org/abs/2608.01454v3. The manuscript references and literature audit distinguish the accessible Uddin author manuscript from its 2025 journal record. This is a targeted review, not an exhaustive priority search. Do not state that no one previously considered warning retention.
+
+SOURCE: Chapter 2; complete primary-source references in paper
+
+============================================================
+
+SLIDE 7: The evidence has four distinct scopes
+
+Keep the populations distinct. The original controlled and full-release UNRAVELED results remain the same campaign. AIT adds a different public source with six development and two later held-out laboratory executions. Its native three classes and one optional history group differ from the original four-class/two-group contract. The original policy direction is unreplicated; a small opposite-order warning tradeoff appears on Wilson. SCVIC, DAPT, DSRL and S-DAPT qualification findings remain source-specific.
+
+SOURCE: Sections 1.7, 3.11-3.12 and 4.10-4.11
+
+============================================================
+
+SLIDE 8: Graphical model of the research
+
+Walk from the applied evaluation problem through three evidence branches: contextual evidence decisions, fixed-anchor training composition, and source qualification. The outputs join in a report of exact-stage recognition, warning retention and benign workload. The historical GMR is retained in the appendix for provenance. The September 27 full-release extension belongs to the coverage and model-review branch: it broadens row coverage and removes fitting caps for its declared role comparison. It does not alter the original research questions or introduce a forecasting claim. The source-qualification branch now includes the separate AIT execution test described in Sections 3.12 and 4.11.
+
+SOURCE: Chapter 3, GMR; extension in Section 3.11
+
+============================================================
+
+SLIDE 9: Controls for a valid comparison
+
+Fixed rows prevent a score change from being explained merely by a different evaluation population. The fixed-anchor experiment still changes composition and diversity when it permits later observations, so time is not isolated from all other distributional effects. The original history/acquisition interventions include synthetic missing, delayed and wrong-host evidence; these are stress conditions, not estimated production incident rates. The new extension freezes calibration choices before their test evaluation.
+
+SOURCE: Chapter 3; historical protocols; FULL_RELEASE_PROTOCOL.json
+
+============================================================
+
+SLIDE 10: Read the score and the error destination
+
+Warning recall for stage k is one minus the benign-prediction fraction among true stage-k observations. Its denominator differs from false-alert rate. Per-class precision, ROC AUC, average precision and complete confusion matrices are also retained. The extension fixes macro-F1 to four labels with zero for absent labels; a perfect benign-only control therefore scores .25. Cross-sensor headline comparisons are not equivalent tasks when stage support differs. Unsupported recall is unavailable, not zero or perfect.
+
+SOURCE: Chapter 3 metrics; Appendix D
+
+============================================================
+
+SLIDE 11: Higher F1, fewer exfiltration warnings
+
+This is the main clean acquisition comparison at the largest registered budget, using identical test rows. Across three fits, macro-F1 rises from .7148 to .7379 while exfiltration warning recall falls from 85.18% to 76.25%, a decline of 8.93 percentage points. The warning denominator is 3,442 exfiltration-labeled rows. These are means across fits, not pooled independent observations. Read the complete benign-workload and adverse-condition results in Table 4-1 and the machine-readable supplement before choosing a policy. The next slide shows why the magnitude must be qualified. The policies are entropy acquisition and error-focused acquisition, both at budget three. Mean benign false alerts increase from 111.3 to 122.3 on the same 192,193 benign records.
+
+SOURCE: Chapter 4, acquisition results; Table 4-1
+
+============================================================
+
+SLIDE 12: The warning-loss size is seed-sensitive
+
+The specified mean warning-loss direction survives every single-seed and single-capture omission in the retrospective analysis, but its size is highly sensitive. Omitting seed 8101 reduces the clean largest-budget loss from about 8.93 to about .36 percentage point. This is evidence against presenting 8.93 points as a stable deployment effect. Capture fragments share a workflow; resampling them does not estimate uncertainty across independent campaigns. The defense claim is that the observed tradeoff can occur and should be made visible, not that a universal effect size has been estimated.
+
+SOURCE: Chapter 4 seed/capture sensitivity; original sensitivity evidence
+
+============================================================
+
+SLIDE 13: Training composition changes the score
+
+The same-anchor design is a control against evaluation-population shifts. The anchor includes 96,098 benign rows and only 18 movement-author-label rows. Permitting later observations changes composition and diversity even with equal class-specific counts. Random-row evaluations have a different denominator and are therefore reported separately rather than subtracted as a clean paired temporal effect. This result supports temporal hygiene but does not quantify an isolated causal effect of chronology.
+
+SOURCE: Chapter 4, temporal results; Table 4-5
+
+============================================================
+
+SLIDE 14: History can help and still lose warnings
+
+This example prevents an oversimplified conclusion that context is bad. History improved the aggregate score and reduced benign workload in the chronological comparison, while a smaller warning loss remained. False-alert counts use the same benign denominator within this comparison. The complete stage metrics and three-fit means are in the paper. A practitioner must judge whether the warning change is acceptable in the intended use; these experiments do not estimate analyst response or actual incident outcomes.
+
+SOURCE: Chapter 4 chronological-history results
+
+============================================================
+
+SLIDE 15: Full release: frozen before new fitting
+
+The exact date logic uses flow start and completion: training completion precedes June 27; calibration starts June 27 or later and completes before June 28; testing starts June 28 or later. Boundary-crossing flows are excluded. Observable identity includes endpoints, timestamps and current numeric measurements; exact consistent copies are deduplicated and conflicting labels quarantined. Numeric fields come from the stable prefix and annotation fields from the right edge because unquoted commas can shift application fields. The correction for one-class probability alignment changes implementation, not the protocol.
+
+SOURCE: Section 3.11; FULL_RELEASE_PROTOCOL.json
+
+============================================================
+
+SLIDE 16: Every released flow row is accounted for
+
+There are 6,877,157 source rows across six sensor views. After declared handling, the extension has 5,353,688 training, 39,399 calibration and 1,484,036 test rows. It removes 0 exact duplicates, quarantines 0 conflicting-label rows and excludes 34 cutoff-crossing rows. Training is uncapped for each declared arm. These are sensor observation counts, not deduplicated cross-network events or independent incidents. The evidence includes all 173 source-file hashes and row counts.
+
+SOURCE: Section 4.10; per-sensor PREPARATION.json
+
+============================================================
+
+SLIDE 17: Full-release results retain support limits
+
+Roles increase test macro-F1 in 2 of six sensor views. Views with an F1 increase and a warning-recall decline for at least one supported attack stage: netgw. Single-class training sensors: net1011x, net1012x, net1014x. Sensors with all four classes in both train and test: net1013x. The fixed four-class macro-F1 denominator gives absent classes zero; read class support before interpreting a bar. This new role-feature comparison does not rerun historical acquisition interventions. At the gateway, F1 changes only from 0.49909446 to 0.49911102, with one fewer benign false alert and one more OtherAttackStage warning missed: 25,429 to 25,430 out of 26,712. This tiny change does not establish practical significance or a stable replicated effect. The principal sensor slightly improves both F1 and exfiltration warnings.
+
+SOURCE: Unequal class support across sensors | Section 4.10 and Appendix D
+
+============================================================
+
+SLIDE 18: Why another dataset name is not enough
+
+These are eligibility conclusions for the unchanged all-native-class chronological classifier comparison. They do not declare the datasets useless for every task. The support interval tests whether a single cutoff can put the required native classes in both earlier training and later testing. DAPT can support different session timing or survival questions. CAM-LDS and Casino supply technique contexts but do not provide the same native benign-versus-exfiltration flow target. The UNRAVELED expansion addresses coverage. The following AIT slides report a separately qualified three-class history test with two later executions held out; an exact four-class/two-group replication remains unresolved.
+
+SOURCE: Chapter 4 qualification results; Table 4-8
+
+============================================================
+
+SLIDE 19: Two later executions were held out
+
+Completed an adapted validation on a different public source, using six development executions and two later held-out executions. This is not an exact replication of the original four-class, two-evidence-group experiment. The source is separate from UNRAVELED. All eight publisher archives were acquired and verified by publisher MD5 and ZIP CRC. The final execution split is calendar-separated. Exclusions: 942 empty labels, 10 invalid numeric rows and 21 exact duplicate rows. The source has generated legitimate background activity. Different executions share a scenario generator; they are not unrelated real APT families.
+
+SOURCE: AIT v2, Zenodo 13168643; PREPARATION.json; FREEZE.json
+
+============================================================
+
+SLIDE 20: Policy outcomes on held-out runs
+
+Order is entropy then error-focused throughout. Values are means across three seeds on the same held-out population. Warning recall counts any non-benign prediction among true publisher-labeled exfiltration flows; it differs from exact-stage recall. Fractional alert counts average integer seed results. The same available budget does not mean equal realized spending. Full current-only and always-history baselines, exact-stage scores, full confusion matrices and each seed are in RESULTS.json and the addendum. The original direction (higher macro-F1 together with lower exfiltration warning recall under error-focused selection) appeared in 0 of the 6 execution-by-seed comparisons and 0 of the 3 pooled seed comparisons. The adapted experiment did not reproduce that direction on either held-out execution.
+
+SOURCE: RESULTS.json; pooled means across seeds 8101, 8102, 8103
+
+============================================================
+
+SLIDE 21: Results differ across executions
+
+Deltas are error-focused minus entropy-focused selection, averaged across seeds within execution. The original direction requires BOTH a higher macro-F1 and a lower exfiltration warning recall; it is not defined merely by a warning change. All six per-execution and per-seed comparisons are reported in SUMMARY.json. Seeds assess fitting sensitivity and do not create additional independent campaigns. The original direction (higher macro-F1 together with lower exfiltration warning recall under error-focused selection) appeared in 0 of the 6 execution-by-seed comparisons and 0 of the 3 pooled seed comparisons. The adapted experiment did not reproduce that direction on either held-out execution. Wilson shows a small score/warning tradeoff in the opposite policy order: entropy has higher F1 but misses 1, 3 and 8 more exfiltration warnings across seeds (4 of 21,219 on average, or 0.018851 percentage points). On Harrison, entropy improves both F1 and warning recall. This secondary descriptive finding is small and execution-specific; the frozen primary direction remains unreplicated.
+
+SOURCE: Error-focused minus entropy; three-seed means | SUMMARY.json
+
+============================================================
+
+SLIDE 22: Limits that bound the claim
+
+The original movement target is author-annotated remote discovery on a narrow host pair, with only 35 evaluation rows. In the full release, retain the native movement label without claiming every sensor means the same operational action. The warning analysis is retrospective. Simulated evidence failures are controlled conditions rather than estimated real failure distributions. Prior exposure prevents presenting the expanded source as a fresh external benchmark. These limitations are part of the defended claim, not hidden in an appendix. AIT adds genuine execution-disjoint, calendar-separated testing for an adapted task. It does not reproduce the original policy direction. Its movement class is absent, history is the sole optional group, and its exfiltration labels follow publisher rules. The small Wilson tradeoff cannot establish a practically large or universal effect.
+
+SOURCE: Sections 3.12, 4.11 and 5.4; Appendices D-E
+
+============================================================
+
+SLIDE 23: The deliverable is reviewable evidence
+
+The integrated edition retains the original arithmetic and source evidence, the full UNRAVELED role-feature extension, and the separately frozen AIT test. The full-release audit passes 622 checks and the AIT audit passes 1,245. The AIT archive includes all eight publisher archives, prepared arrays, 42 models and every saved prediction. The original evidence bundles remain alongside the integrated delivery. Hash identity and computational consistency do not verify label truth or constitute external peer review.
+
+SOURCE: Integrated delivery manifest; full-release and AIT audits
+
+============================================================
+
+SLIDE 24: The next test must retain the full task
+
+The adapted AIT execution test is complete. Its negative primary result and small secondary tradeoff narrow the claim. The next exact replication must retain the original four-class and two-evidence-group contract with reliable chronology and legitimate background. Unrelated real campaigns would test broader generalization. Analyst or deployment trials require measured operational outcomes and an explicit comparison design.
+
+SOURCE: Section 5.5; completed AIT test in Section 4.11
+
+============================================================
+
+SLIDE 25: Defensible conclusion
+
+The conclusion integrates favorable and adverse evidence. The original UNRAVELED policy result is sensitive in magnitude. The complete AIT release supplies two later held-out executions, but the original error-focused score-up/warnings-down direction is unreplicated. Wilson shows a much smaller tradeoff under entropy relative to error-focused selection: one, three and eight extra missed warnings; Harrison improves both. The thesis supports joint, source-qualified reporting, not universal warning loss or a universally superior acquisition policy. Technical backups begin at slide 26.
+
+SOURCE: Chapter 5 synthesis; Section 4.11; Appendix E
+
+============================================================
+
+SLIDE 26: Backup: original denominators
+
+These are original prepared-artifact split populations, before the historical per-class fitting caps. They sum to 382,229 rows across the eleven complete sensor files. Do not substitute the full-release counts into historical metric denominators. The absence of movement in calibration is a practical support limitation. The expanded extension has its own deduplication, chronology and class support recorded in Appendix D.
+
+SOURCE: Original data inventory; Chapters 3–4
+
+============================================================
+
+SLIDE 27: Backup: warning accounting
+
+This formula is stage-conditioned binary attack recall and is not proposed as a novel metric. Warning recall equals exact-stage recall plus the fraction sent to another attack stage. It says nothing about alert deduplication, analyst attention, response time or successful remediation. Benign workload is a separate conditional rate and must be shown alongside it. Saved full confusion matrices allow a reviewer to recompute every count and understand which error destination changed.
+
+SOURCE: Chapter 3; metric definitions and audit script
+
+============================================================
+
+SLIDE 28: Backup: full-release class support
+
+Vectors follow the fixed order benign, other attack stage, movement author label, exfiltration author label. These are complete eligible training counts after duplicate and boundary handling. Full calibration and test vectors appear in Appendix D. All-zero attack support means a sensor cannot learn those classes under the frozen cutoff; changing the cutoff after results would change the question. The machine-readable preparation records preserve every file and every native-stage source count.
+
+SOURCE: Order: benign, other, movement, exfiltration | Appendix D
+
+============================================================
+
+SLIDE 29: Backup: roles and prediction inputs
+
+The role function maps selected topology subnets into four categories per endpoint; unknown/other is not synonymous with Internet. Ports inform three coarse service flags but raw numeric ports are excluded. Timestamps and endpoints participate in the duplicate identity and split verification but are not direct predictor columns. The source feature list is in each PREPARATION.json. This is an explicit contextual-feature ablation under one campaign topology, so transfer across networks is not established.
+
+SOURCE: Section 3.11; full_release.py; feature lists
+
+============================================================
+
+SLIDE 30: Backup: full-release fit uncertainty
+
+Every eligible training row enters each extension arm; there is no class cap or sampling weight. A single deterministic fit cannot estimate seed variability. The historical study has its own multiple-fit sensitivity and correlated capture resampling. It is misleading to treat millions of dependent flow records as millions of independent campaign trials. The number of jobs counts executed fits, with one-class jobs marked degenerate rather than credited as successful multiclass learning.
+
+SOURCE: FULL_RELEASE_PROTOCOL.json; historical sensitivity audit
+
+============================================================
+
+SLIDE 31: Backup: calibration choices
+
+Each choice is made using calibration only and tested on the corresponding fixed later population. Read missing-stage flags alongside the choices. A score tie favors current flow. A review tie or constraint failure also favors current flow. Equal choices do not prove the review procedure adds operational benefit; they may show that the observed candidates do not trigger its veto. The evidence records both selected test metrics so this result remains inspectable, including a failure to produce a different decision.
+
+SOURCE: Table 4-14; calibration_selection records
+
+============================================================
+
+SLIDE 32: Backup: closest primary sources
+
+Primary URLs: https://www.usenix.org/conference/usenixsecurity19/presentation/pendlebury ; https://www.usenix.org/conference/usenixsecurity25/presentation/bilot ; https://arxiv.org/abs/2608.01454v3 ; https://gitlab.com/asu22/unraveled . The full manuscript contains 33 references with the retrieved version and scope audit. Guerra is cited as an available preprint, not as a future conference proceeding already published. Scores from unrelated papers are not presented as reproduced baselines.
+
+SOURCE: Complete APA references and reference audit in paper
+
+============================================================
+
+SLIDE 33: Backup: likely committee questions
+
+Answer the validation question with the actual result, not a blanket yes or no. AIT provides eight laboratory executions, with two later executions held out after a pre-fit freeze. It uses three classes and one history group. The original named-policy direction does not recur; Wilson has a small opposite-order tradeoff while Harrison improves both metrics under entropy. The original four-class/two-group configuration remains distinct. All historical interventions were not retrained on both full releases: each extension has its declared task and population.
+
+SOURCE: Integrated praxis, September 28, 2026; Section 4.11
+
+============================================================
+
+SLIDE 34: Backup: complete fitting inventory
+
+The complete recorded inventory is 197 fitting jobs: 143 historical/supplementary, 12 full-release and 42 AIT. The count includes regressors and constant-class controls, and is not a count of independent attacks. AIT fits use every eligible training row and three seeds under its own frozen protocol. Model inventories and code/data hashes retain separate experimental provenance.
+
+SOURCE: Sections 3.6, 3.10-3.12; fitting inventories
+
+============================================================
+
+SLIDE 35: Backup: executable calibration review
+
+The example allows roles only when calibration macro-F1 increases, each supported attack-stage warning recall loses no more than one percentage point and benign false-positive rate rises no more than 0.1 percentage point. Ties favor current flow. These thresholds were frozen for this computational illustration; they are not learned operational preferences. Missing classes make review provisional. A calibration constraint cannot guarantee test behavior. The evidence stores both selected test outcomes, with no retuning on test. Read the per-sensor choices in Table 4-14.
+
+SOURCE: Sections 3.11 and 4.10; calibration_selection records
+
+============================================================
+
+SLIDE 36: Backup: the adapted AIT method
+
+This is an adapted one-group test. No native flow-level movement class exists here, and publisher topology/role fields participate in label construction, so they are excluded from model inputs. Current features exclude IPs, ports, FQDNs, time, roles, networks and execution identifiers. History only uses same-initiator flows completed strictly before current start in the prior hour. Five forward development execution folds produce OOF predictions; overlapping development calendar intervals mean these are not strict online-calendar folds. Final models use all six development executions. LightGBM classifiers: 150 iterations, 15 leaves; selectors: 100 iterations, nine leaves. Error weights [1,1,4] are illustrative. Clean simulated per-row budget/cost 2, latency .75 and deadline 1. No measurements of real collection overhead.
+
+SOURCE: Frozen protocol; 36 classifier fits and six selector fits
+
+============================================================
+
+SLIDE 37: Backup: AIT interpretation limits
+
+The original direction (higher macro-F1 together with lower exfiltration warning recall under error-focused selection) appeared in 0 of the 6 execution-by-seed comparisons and 0 of the 3 pooled seed comparisons. The adapted experiment did not reproduce that direction on either held-out execution. This strengthens the empirical scope by adding an audited, execution-disjoint evaluation while retaining the original claim boundary. The native UDP labeling notebook marks residual unlabeled flows as exfiltration; no new payload-level forensic verification was performed. An exact replication needs a separate execution with defensible four-class flow labels and the original role/history evidence groups. Operational claims also require measured retrieval and analyst outcomes. 1245 independent computational checks passed. Primary source: Soro et al., AIT Netflow Data Set v2, https://doi.org/10.5281/zenodo.13168643. Underlying source paper: Landauer et al., Maintainable Log Datasets for Evaluation of Intrusion Detection Systems, IEEE TDSC 20(4), 3466-3482; https://arxiv.org/abs/2203.08580.
+
+SOURCE: Campaign validation addendum; AUDIT.json; publisher label rules

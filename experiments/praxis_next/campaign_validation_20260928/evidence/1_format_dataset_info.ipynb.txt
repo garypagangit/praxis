@@ -1,0 +1,28 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+from glob import glob
+
+full_page = requests.get("https://zenodo.org/record/5789064#.YjM7v-rMJPZ")
+
+soup = BeautifulSoup(full_page.text, 'html.parser')
+
+tab = pd.read_html(str(soup.body.table))
+
+dataset_info = tab[0]
+
+dataset_info = dataset_info.set_index("Dataset")
+
+dataset_info["IP to filter"] = ""
+
+for index, row in dataset_info.iterrows():
+    
+    complete_filelist = glob("./{}_logs/log*/*.out/log_tcp_complete".format(index), recursive=True)
+    tcp_complete = pd.concat([pd.read_csv(filename, sep=" ") for filename in complete_filelist])
+    to_filter = [i for i in list(tcp_complete.groupby("#15#c_ip:1").size().index) if "10.9.0" in i][0]
+    print(index, to_filter)
+    dataset_info.loc[index, "IP to filter"] = to_filter
+
+dataset_info
+
+dataset_info.to_csv("simulation_lists.csv")

@@ -1,0 +1,299 @@
+Assumptions:
+
+    - Network topology and attacker position in the network always known
+    - The network components which are not involved in the attack phase are to be considered benign
+    - Malicious traffic is mixed to benign (legitimate access to mail servers, etc.)
+Note:
+
+    - Requires the tstat flow files (path for the csv files is local)
+    - We remove IP 10.9.0.X (mananging address from other network - ignore)
+    - Flows with FQDN containing wpscan represent the tool update at the attacker's side
+
+import pandas as pd
+from glob import glob
+import numpy as np
+import yaml
+import json
+from datetime import datetime, timedelta
+from difflib import SequenceMatcher
+from functools import reduce
+
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
+
+### Label TCP complete 
+TCP flows with complete handshake and teardown, mostly with actual payload exchange.
+
+def label_benign(x):
+    
+    if (x["role_serv"] == "external"):
+        # browser traffic towards the internet
+        return "browsing/update"
+    elif (x["role_cli"] == "cloud_share") and (x["role_serv"] == "internal_share"):
+        # standard communication between cloud share and internal share
+        return "benign_share"
+    elif (("mail" in x["role_cli"]) | ("inet-firewall" in x["role_cli"] )) and (("mail" in x["role_serv"]) | ("inet-firewall" in x["role_serv"] )) and (x["s_port:16"] in [25, 465, 587, 993]):
+        # communication between mailservers on standard mail well-known ports - some traffic is passigng through the fw
+        return "mail"
+    elif x["role_serv"] == "monitoring":
+        # communication to monitoring address
+        return "monitoring"
+    elif ("internal_employee" in x["role_cli"]) & (x["role_serv"] == "intranet_server"):
+        # communication to internal web server (port 80 or 443)
+        return "HTTP(S) intra"
+    elif ("internal_employee" in x["role_cli"]) & (x["role_serv"] == "webserver"):
+        # communication to DMZ web server (port 80 or 443)
+        return "HTTP(S) DMZ"
+    elif (x["s_port:16"] == 22) & ((x["role_serv"] == "mail") | (x["role_serv"] == "intranet_server") | (x["role_serv"] == "cloud_share")) & (x["role_cli"] != "attacker_0"):
+        # users' login with SSH protocol
+        return "SSH"
+    elif ((x["s_port:16"] == 443) |(x["s_port:16"] == 80))  & (x["role_cli"] == "webserver") & ((x["role_serv"] == "intranet_server") | (x["role_serv"] == "webserver") | (x["role_serv"] == "cloud_share") | (x["role_serv"] == "mail")):
+        # webserver acting as a http or https proxy
+        return "proxy"
+    else:
+        return ""
+    
+        
+
+def label_port_based(x):
+    # Bening flows not belonging to the categories defined in label_benign - to run after having labelled the attack phases
+    if x["label"] == "":
+        if x["s_port:16"] == 443:
+            return "HTTPS"
+        elif x["s_port:16"] == 80:
+            return "HTTP"
+        elif x["s_port:16"] == 53:
+            return "DNS"
+        elif x["s_port:16"] > 1024:
+            return "update/command on unassigned port"
+    else:
+        return x["label"]
+
+company_name = "russellmitchell"
+
+simulation_list = pd.read_csv("simulation_lists.csv") #downloaded from dataset webpage - check format_dataset_info.ipynb to generate file
+
+simulation_list = simulation_list.set_index("Dataset")
+
+times = simulation_list.loc[company_name, "Simulation time"].split(" - ")
+
+start_date = times[0].replace(" ", "T")
+end_date = times[1].replace(" ", "T")
+
+complete_filelist = glob("./{}_logs/log*/*.out/log_tcp_complete".format(company_name), recursive=True)
+
+tcp_complete = pd.concat([pd.read_csv(filename, sep=" ") for filename in complete_filelist])
+tcp_complete.shape
+
+ip_to_filter = simulation_list.loc[company_name, "IP to filter"] #different for every company - also taken from the simulation_list.csv
+
+tcp_complete.shape
+
+tcp_complete = tcp_complete[(tcp_complete["#15#c_ip:1"] != ip_to_filter) & (tcp_complete["s_ip:15"] != ip_to_filter)]
+
+tcp_complete.shape
+
+tcp_complete["timestamp"] = pd.to_datetime(tcp_complete["first:29"], unit='ms')
+tcp_complete = tcp_complete[(tcp_complete["timestamp"] > start_date) & (tcp_complete["timestamp"] < end_date)]
+tcp_complete.shape
+
+with open('.\{}\processing\config\servers.yaml'.format(company_name)) as file:
+    # The FullLoader parameter handles the conversion from YAML
+    # scalar values to Python the dictionary format
+    servers = yaml.load(file, Loader=yaml.FullLoader)
+
+df_roles = pd.DataFrame([], columns = ["role", "ipv4_address", "network"])
+networks = ["internet", "dmz", "intranet", "firewall"]
+
+for key in servers.keys():
+    
+    to_append = {} # create df instance: role, ip, network (if more IPs are assigned to the same role, create multiple instances e.g. firewall)
+    to_append["role"] = key 
+    
+    groups = servers[key]["groups"]
+    
+    for group in groups:
+        if group in networks:
+            to_append["network"] = group
+    
+    addr = servers[key]["ipv4_addresses"]
+    if len(addr) == 1:
+        to_append["ipv4_address"] = addr[0]
+        df_roles = df_roles.append(to_append, ignore_index=True)
+    else:
+        for ip in addr:
+            to_append["ipv4_address"] = ip
+            df_roles = df_roles.append(to_append, ignore_index=True)
+    
+    
+
+tcp_complete = tcp_complete.merge(df_roles, right_on="ipv4_address", left_on="#15#c_ip:1", how="left").fillna("external")
+tcp_complete = tcp_complete.rename(columns={"role":"role_cli", "ipv4_address": "ipv4_address_cli", "network":"network_cli"})
+
+tcp_complete = tcp_complete.merge(df_roles, right_on="ipv4_address", left_on="s_ip:15", how="left").fillna("external")
+tcp_complete = tcp_complete.rename(columns={"role":"role_serv", "ipv4_address": "ipv4_address_serv", "network":"network_serv"})
+
+tcp_complete["label"] = tcp_complete.apply(label_benign, axis=1)
+
+Label attack phases
+
+with open('./{}/processing/config/attacker/foothold.yaml'.format(company_name)) as file:
+    foothold = yaml.load(file, Loader=yaml.FullLoader)
+
+foothold.keys()
+
+pwd_cracking = simulation_list.loc[company_name, "Password cracking"]
+
+if pwd_cracking == "No":
+    keys_to_pop = ["start", "stop", 'online_cracking', 'run_cracking']
+    for pop in keys_to_pop: 
+        foothold.pop(pop, None)
+else:
+    keys_to_pop = ["start", "stop"]
+    for pop in keys_to_pop: 
+        foothold.pop(pop, None)
+
+foothold.keys()
+
+for k in foothold.keys():
+        
+    if k != "host_recon_commands":
+        
+        timestamp_start = datetime.strptime(foothold[k]["start"], "%Y-%m-%dT%H:%M:%S.%fZ")
+        timestamp_stop = datetime.strptime(foothold[k]["stop"], "%Y-%m-%dT%H:%M:%S.%fZ")
+        
+        tcp_complete.loc[(tcp_complete["timestamp"] > timestamp_start) & (tcp_complete["timestamp"] < timestamp_stop) & (tcp_complete["label"] == ""),"label"] = k
+    else:
+        commands_list = foothold[k]
+
+        for command in commands_list:
+            timestamp_start = datetime.strptime(command["start"], "%Y-%m-%dT%H:%M:%S.%fZ")
+            timestamp_stop = datetime.strptime(command["stop"], "%Y-%m-%dT%H:%M:%S.%fZ")
+            tcp_complete.loc[(tcp_complete["timestamp"] > timestamp_start) & (tcp_complete["timestamp"] < timestamp_stop) & (tcp_complete["label"] == ""),"label"] = command["id"]
+
+
+tcp_complete["label"] = tcp_complete.apply(label_port_based, axis=1)
+
+tcp_complete.label.value_counts()
+
+### Label TCP no-complete
+TCP broken flows or scanning attempts
+
+nocomplete_filelist = glob("./{}_logs/log*/*.out/log_tcp_nocomplete".format(company_name), recursive=True)
+
+tcp_nocomplete = pd.concat([pd.read_csv(filename, sep=" ") for filename in nocomplete_filelist])
+tcp_nocomplete.shape
+
+tcp_nocomplete = tcp_nocomplete[(tcp_nocomplete["#15#c_ip:1"] != ip_to_filter) & (tcp_nocomplete["s_ip:15"] != ip_to_filter)]
+tcp_nocomplete.shape
+
+tcp_nocomplete["timestamp"] = pd.to_datetime(tcp_nocomplete["first:29"], unit='ms')
+tcp_nocomplete = tcp_nocomplete[(tcp_nocomplete["timestamp"] > start_date) & (tcp_nocomplete["timestamp"] < end_date)]
+tcp_nocomplete.shape
+
+tcp_nocomplete = tcp_nocomplete.merge(df_roles, right_on="ipv4_address", left_on="#15#c_ip:1", how="left").fillna("external")
+tcp_nocomplete = tcp_nocomplete.rename(columns={"role":"role_cli", "ipv4_address": "ipv4_address_cli", "network":"network_cli"})
+
+tcp_nocomplete = tcp_nocomplete.merge(df_roles, right_on="ipv4_address", left_on="s_ip:15", how="left").fillna("external")
+tcp_nocomplete = tcp_nocomplete.rename(columns={"role":"role_serv", "ipv4_address": "ipv4_address_serv", "network":"network_serv"})
+
+tcp_nocomplete["label"] = ""
+
+for k in foothold.keys():
+    
+    if (k != "start") & (k != "stop"):
+        
+        if k != "host_recon_commands":
+        
+            timestamp_start = datetime.strptime(foothold[k]["start"], "%Y-%m-%dT%H:%M:%S.%fZ")
+            timestamp_stop = datetime.strptime(foothold[k]["stop"], "%Y-%m-%dT%H:%M:%S.%fZ")
+            
+            
+            tcp_nocomplete.loc[(tcp_nocomplete["timestamp"] > timestamp_start) & (tcp_nocomplete["timestamp"] < timestamp_stop) & (tcp_nocomplete["label"] == ""),"label"] = k
+        else:
+            commands_list = foothold[k]
+            
+            for command in commands_list:
+                timestamp_start = datetime.strptime(command["start"], "%Y-%m-%dT%H:%M:%S.%fZ")
+                timestamp_stop = datetime.strptime(command["stop"], "%Y-%m-%dT%H:%M:%S.%fZ")
+                tcp_nocomplete.loc[(tcp_nocomplete["timestamp"] > timestamp_start) & (tcp_nocomplete["timestamp"] < timestamp_stop) & (tcp_nocomplete["label"] == ""),"label"] = command["id"]
+                
+
+tcp_nocomplete["label"] = tcp_nocomplete["label"].apply(lambda x: "broken flow - benign" if x == "" else x)
+
+tcp_nocomplete.label.value_counts()
+
+### Label UDP
+All UDP flows (defined by standard timeout on Tstat)
+
+def label_udp(x):
+    # benign labelling based on port (useful for configuration protocols on standard ports and QUIC browsing)
+    
+    if x["s_port:11"] == 123:
+        return "NTP"
+    elif (x["s_port:11"] == 67) | (x["s_port:11"] == 68):
+        return "bootp" #dhcp
+    elif (x["s_port:11"] == 1194) | (x["c_port:2"] == 1194):
+        return "OpenVPN" #
+    elif (x["s_port:11"] == 3478) | (x["c_port:2"] == 3478) | (x["s_port:11"] == 19302) | (x["c_port:2"] == 19302):
+        return "STUN VoIP" #
+    elif (x["s_port:11"] == 137) | (x["s_port:11"] == 138):
+        return "NetBIOS"
+    elif (x["s_port:11"] == 443) & (x["role_serv"] == "external"):
+        return "QUIC"
+    elif (x["s_ip:10"] == "224.0.0.251") & (x["s_port:11"] == 5353):
+        return "mDNS"
+    elif (x["s_ip:10"] == "ff02::00fb") & (x["s_port:11"] == 5353):
+        return "mDNSv6"
+    elif (x["s_ip:10"] == "8.8.8.8"):
+        return "GoogleDNS"
+    elif (x["s_ip:10"] == "127.0.0.53"):
+        return "systemd-resolver (local)"
+    elif (x["role_cli"] != "attacker_0") & (x["role_serv"] != "attacker_0") & ((x["s_port:11"] == 53) | (x["c_port:2"] == 53)):
+        return "benign DNS"
+    elif (x["role_cli"] == "attacker_0") & (x["s_port:11"] == 53):
+        return "benign DNS - attacker requesting updates"
+    else:
+        return ""
+
+udp_filelist = glob("./{}_logs/log*/*.out/log_udp_complete".format(company_name), recursive=True)
+
+udp = pd.concat([pd.read_csv(filename, sep=" ") for filename in udp_filelist])
+udp.shape
+
+udp = udp[(udp["#c_ip:1"] != ip_to_filter) & (udp["s_ip:10"] != ip_to_filter)]
+udp.shape
+
+udp["timestamp"] = pd.to_datetime(udp["c_first_abs:3"], unit='ms')
+udp = udp[(udp["timestamp"] > start_date) & (udp["timestamp"] < end_date)]
+udp.shape
+
+udp["rounded_timestamp"] = udp["timestamp"].dt.round("1s")
+
+udp = udp.merge(df_roles, right_on="ipv4_address", left_on="#c_ip:1", how="left").fillna("external")
+udp = udp.rename(columns={"role":"role_cli", "ipv4_address": "ipv4_address_cli", "network":"network_cli"})
+
+udp = udp.merge(df_roles, right_on="ipv4_address", left_on="s_ip:10", how="left").fillna("external")
+udp = udp.rename(columns={"role":"role_serv", "ipv4_address": "ipv4_address_serv", "network":"network_serv"})
+
+udp.shape
+
+udp["check_loops"] = udp.apply(lambda x: (x["role_cli"] == "attacker_0") & (x["role_serv"] == "attacker_0"), axis=1)
+
+udp = udp[udp["check_loops"] == False]
+
+udp = udp.drop("check_loops", axis=1)
+
+udp["label"] = udp.apply(label_udp, axis=1)
+
+udp[udp["label"] == ""].groupby(["#c_ip:1", "role_cli", "s_ip:10", "role_serv","s_port:11", "label"]).size()
+
+udp["label"] = udp["label"].apply(lambda x: x if x != "" else "data exfiltration")
+
+udp["label"].value_counts()
+
+### Save files
+
+tcp_complete.to_csv("./{}/labelled_logs/tcp_complete.csv".format(company_name), index=False)
+tcp_nocomplete.to_csv("./{}/labelled_logs/tcp_nocomplete.csv".format(company_name), index=False)
+udp.to_csv("./{}/labelled_logs/udp_complete.csv".format(company_name), index=False)

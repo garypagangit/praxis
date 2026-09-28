@@ -1,3 +1,5 @@
+> **Latest integrated edition (September 28, 2026):** [paper, complete defense and evidence](gwu_final_20260928/README.md). [Download release](https://github.com/garypagangit/praxis/releases/tag/praxis-integrated-20260928).
+
 # New praxis experiments: September 23, 2026
 
 **Completed measurement praxis:** [When Better APT Scores Hide Missed Attack Warnings](measurement_praxis/README.md) - [Word](measurement_praxis/apt_evaluation_praxis.docx), [PDF](measurement_praxis/apt_evaluation_praxis.pdf), [evidence index](measurement_praxis/EVIDENCE_INDEX.md). Includes the complete retrospective paired reanalysis and independently verified benchmark-support audit.
