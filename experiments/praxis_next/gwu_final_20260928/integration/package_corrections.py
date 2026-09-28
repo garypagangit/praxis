@@ -1,4 +1,4 @@
-import json,hashlib,shutil,zipfile
+import json,hashlib,shutil,zipfile,subprocess
 from pathlib import Path
 R=Path(__file__).resolve().parent; B=R.parents[1]
 O=B/'output/praxis_committee_review_20260928'; OLD=B/'output/praxis_integrated_20260928'
@@ -34,6 +34,7 @@ Run integration/integrate_paper.py for the integrated baseline, then integration
 for name in ['Gary_Pagan_GWU_Praxis_Defense.pptx','Gary_Pagan_GWU_Praxis_Defense.pdf','Defense_Speaker_Notes.txt','EVIDENCE_INDEX.json','DECK_QA.json']:
  shutil.copy2(OLD/name,O/name)
 for name in ['COMMITTEE_QA.json','COMMITTEE_RENDER_RECEIPT.json','COMMITTEE_CORRECTIONS.json']:shutil.copy2(R/name,O/name)
+(O/'EVIDENCE_INDEX.json').write_bytes(subprocess.check_output(['git','show','6f0b558:experiments/praxis_next/gwu_final_20260928/delivery/EVIDENCE_INDEX.json'],cwd=P))
 shutil.copy2(P/'figures/ait_paired_deltas.png',O/'ait_paired_deltas.png')
 m={'edition':'2026-09-28 corrected committee review','paper_pages':155,'main_slides':25,'backup_slides':12,'visual_qa':'PASS','formal_submission_status':'Committee details and approved certification wording required','evidence_release':'https://github.com/garypagangit/praxis/releases/tag/praxis-integrated-20260928','files':[{'name':p.name,'bytes':p.stat().st_size,'sha256':sha(p)} for p in sorted(O.iterdir()) if p.is_file() and p.suffix!='.zip' and p.name!='FINAL_MANIFEST.json']};write(O/'FINAL_MANIFEST.json',m)
 zpath=O/'Praxis_Committee_Review_Corrected.zip'
@@ -44,6 +45,6 @@ with zipfile.ZipFile(zpath) as z:assert z.testzip() is None
 for p in O.iterdir():
  if p.is_file() and p.suffix!='.zip' and p.name not in ['manuscript.md','abstract.md','README.md','ait_paired_deltas.png']:shutil.copy2(p,P/'delivery'/p.name)
 for name in ['correct_committee.py','check_committee.py','refresh_corrected_pdf.py','package_corrections.py','COMMITTEE_QA.json','COMMITTEE_RENDER_RECEIPT.json','COMMITTEE_CORRECTIONS.json']:shutil.copy2(R/name,P/'integration'/name)
-read=P/'README.md';s=read.read_text(encoding='utf-8').replace('**153-page paper;','**155-page paper;');s=s.replace('The local delivery manifest preserves the original delivered files\' hashes.','The delivery manifest records the corrected review files\' hashes.');s+='\n## Corrected committee review\n\nSee [six corrections and verification](delivery/CORRECTIONS.md). [Download the corrected review package](https://github.com/garypagangit/praxis/releases/tag/praxis-committee-review-20260928). Formal committee certification details remain required before submission.\n';read.write_text(s,encoding='utf-8')
+read=P/'README.md';s=read.read_text(encoding='utf-8').replace('**153-page paper;','**155-page paper;');s=s.replace('The local delivery manifest preserves the original delivered files\' hashes.','The delivery manifest records the corrected review files\' hashes.');s=s.split('\n## Corrected committee review')[0];s+='\n## Corrected committee review\n\nSee [six corrections and verification](delivery/CORRECTIONS.md). [Download the corrected review package](https://github.com/garypagangit/praxis/releases/tag/praxis-committee-review-20260928). Formal committee certification details remain required before submission.\n';read.write_text(s,encoding='utf-8')
 read=P.parent/'README.md';s=read.read_text(encoding='utf-8');s=s.replace('[Download release](https://github.com/garypagangit/praxis/releases/tag/praxis-integrated-20260928)','[Download corrected review release](https://github.com/garypagangit/praxis/releases/tag/praxis-committee-review-20260928)',1);read.write_text(s,encoding='utf-8')
 print(json.dumps({'archive':str(zpath),'bytes':zpath.stat().st_size,'sha256':sha(zpath),'qa':q['status']}))
