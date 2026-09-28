@@ -86,7 +86,7 @@ Chapter 2 reviews the relevant literature and identifies the narrow empirical co
 
 ## 2.1 Introduction
 
-This review positions the study relative to recent APT evaluation, temporal validity and error-destination research. It is a targeted primary-source review completed September 23, 2026, centred on 2024-2026 publications and supplemented with original dataset and method sources. It identifies overlap and concrete distinctions; it is not a systematic review or an exhaustive priority claim.
+This review positions the study relative to recent APT evaluation, temporal validity and error-destination research. It is a targeted primary-source review initially completed September 23, 2026 and supplemented on September 28, 2026 with the AIT dataset and its foundational sources, centred on 2024-2026 publications and supplemented with original dataset and method sources. It identifies overlap and concrete distinctions; it is not a systematic review or an exhaustive priority claim.
 
 
 ## 2.2 Temporal Validity in Security Evaluation
@@ -990,6 +990,10 @@ Wilson supplies a smaller score/warning tradeoff with the opposite policy orderi
 |harrison|8101|-0.080391|-0.1577|+37|+13029|
 |harrison|8102|-0.081340|-0.0512|+12|+13584|
 |harrison|8103|-0.084697|-0.0981|+23|+13907|
+
+![AIT paired deltas](figures/ait_paired_deltas.png)
+
+Figure 4-9. AIT paired deltas for all six execution-by-seed comparisons. Both panels show error-focused minus entropy selection on matched rows. The frozen original direction requires positive macro-F1 change together with negative warning-recall change; none of the six comparisons meets both conditions. Wilson shows a small opposite-order tradeoff, while Harrison favors entropy on both outcomes. The panels use different horizontal units; fitting seeds are repeated fits, not independent campaigns.
 
 Giving each execution equal weight yields mean macro-F1 0.993536 and warning recall 99.781% for entropy, compared with 0.951903 and 99.739% for error-focused selection. Complete per-class precision, recall and F1, confusion matrices, unweighted and weighted errors, acquisition fractions and per-seed baselines are retained in the evidence and Appendix E. The 1,245-check audit passed with no failures.
 

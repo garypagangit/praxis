@@ -1,4 +1,4 @@
-> **Latest integrated edition (September 28, 2026):** [paper, complete defense and evidence](gwu_final_20260928/README.md). [Download release](https://github.com/garypagangit/praxis/releases/tag/praxis-integrated-20260928).
+> **Latest integrated edition (September 28, 2026):** [paper, complete defense and evidence](gwu_final_20260928/README.md). [Download corrected review release](https://github.com/garypagangit/praxis/releases/tag/praxis-committee-review-20260928).
 
 # New praxis experiments: September 23, 2026
 
