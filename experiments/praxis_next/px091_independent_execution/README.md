@@ -1,9 +1,9 @@
 # PX-091: Independent four-class two-evidence replication
 
-Status: REGISTERED_REQUIRES_NEW_QUALIFIED_DATA.
+Status: QUALIFICATION_COMPLETE_REPLICATION_BLOCKED.
 
-[Shared protocol and mathematical corrections](../warning_control_20260930/PROTOCOL.md).
+Renewed data qualification complete; no newly qualified independent four-class/two-evidence release. Windows-APT metadata requests remain inaccessible.
 
-Registered follow-on. No model fits or paid experiment have been launched for this idea. The shared protocol lists its readiness requirements.
+[Results and interpretation](../closeout_20260930/RESULTS.md) | [Frozen protocol](../closeout_20260930/PROTOCOL.md) | [Audit](../closeout_20260930/AUDIT.json) | [Data and literature qualification](../closeout_20260930/QUALIFICATION.md)
 
-Novelty is unconfirmed. Prior data have been exposed; no prospective confirmation is claimed.
+Novelty remains unconfirmed. These are exposed-data development studies; no independent efficacy confirmation is claimed.

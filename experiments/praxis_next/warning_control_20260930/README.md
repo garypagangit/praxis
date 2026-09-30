@@ -7,10 +7,10 @@
 | PX-085 | Stage-conditioned warning-risk calibration | Complete exploratory replay; main warning failure remains |
 | PX-086 | Recoverability audit and seed ensembles | Complete; mean loses warnings, union retains them with costs |
 | PX-087 | Cost-ordered evidence and stopping | Complete; narrow simulated acquisition saving |
-| PX-088 | Selective risk control and analyst capacity | Registered; requires selective protocol and stage support |
-| PX-089 | Chronological recalibration | Registered; requires qualified windows and label timing |
-| PX-090 | Constrained binary warning model | Registered; requires justified feature directions |
-| PX-091 | Independent execution replication | Registered; requires new qualified data |
+| PX-088 | Selective risk control and analyst capacity | Complete exploratory replay; see closeout |
+| PX-089 | Chronological recalibration | Complete simulated-delay replay; see closeout |
+| PX-090 | Constrained binary warning model | Complete expert-score adaptation; see closeout |
+| PX-091 | Independent execution replication | Qualification complete; exact replication data-blocked |
 
 ## Execution
 
@@ -31,3 +31,7 @@ These are results on a previously exposed campaign. Movement has no calibration 
 ## Reproduction
 
 Run scripts from this directory or by file path, in an environment with numpy; preparation additionally requires the existing PX-081 data, models, LightGBM and joblib. `run.py --self-test` needs no datasets. `prepare.py --output <private-input-directory>` derives calibration predictions and verifies replay equivalence. `run.py --data <private-input-directory> --out <new-output-directory> --workers 2` executes the frozen scientific replay. `summarize.py` renders the current workspace's verified local/cloud artifacts. Cloud control requires explicit run settings and a fresh bounded allocation; the completed allocation must not be restarted.
+
+## Subsequent closeout
+
+[PX-088--091 results, audit and qualification](../closeout_20260930/README.md). The original frozen protocol and completed PX-085--087 outputs remain preserved.

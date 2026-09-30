@@ -1,9 +1,9 @@
 # PX-089: Chronological risk degradation and recalibration
 
-Status: REGISTERED_REQUIRES_WINDOW_AND_LABEL_QUALIFICATION.
+Status: COMPLETE_EXPLORATORY_REPLAY.
 
-[Shared protocol and mathematical corrections](../warning_control_20260930/PROTOCOL.md).
+Chronological recalibration with simulated label delays recovers warnings at very high false-alert cost; no deployment guarantee.
 
-Registered follow-on. No model fits or paid experiment have been launched for this idea. The shared protocol lists its readiness requirements.
+[Results and interpretation](../closeout_20260930/RESULTS.md) | [Frozen protocol](../closeout_20260930/PROTOCOL.md) | [Audit](../closeout_20260930/AUDIT.json) | [Data and literature qualification](../closeout_20260930/QUALIFICATION.md)
 
-Novelty is unconfirmed. Prior data have been exposed; no prospective confirmation is claimed.
+Novelty remains unconfirmed. These are exposed-data development studies; no independent efficacy confirmation is claimed.
