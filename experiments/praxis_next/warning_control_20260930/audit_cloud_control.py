@@ -13,7 +13,9 @@ def main():
             for s in ['other_attack','movement','exfiltration']:v.extend([r[s]['missed'],r[s]['warning_recall'],r[s]['exact_recall']])
             if key in records:assert records[key]['values']==v
             records[key]={'cm':cm,'values':v};total+=1
-    data=json.dumps({'records':list(records.values()),'represented_result_rows':total},separators=(',',':')).encode()
+    values=[[round(float(v),9) for v in r['values']] for r in records.values()]
+    digest=hashlib.sha256(json.dumps(values,separators=(',',':')).encode()).hexdigest()
+    data=json.dumps({'records':[r['cm'] for r in records.values()],'expected_metrics_sha256':digest,'represented_result_rows':total},separators=(',',':')).encode()
     (PRIVATE/'CLOUD_AUDIT_INPUT.json').write_bytes(data)
     encoded=base64.b64encode(zlib.compress(data,9)).decode();source=base64.b64encode(zlib.compress((HERE/'cloud_audit.py').read_bytes(),9)).decode()
     directory='/opt/dlami/nvme/praxis-warning-audit-'+c.active()['run_id'][:16]
