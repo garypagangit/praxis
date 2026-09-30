@@ -1,4 +1,4 @@
-> **September 30 extension:** [PX-085--091 warning-control experiments](warning_control_20260930/PROTOCOL.md). PX-085--087 are prepared for parallel AWS replay; PX-088--091 have explicit qualification requirements.
+> **September 30 extension:** [PX-085--091 warning-control experiments](warning_control_20260930/PROTOCOL.md). [PX-085--087 results](warning_control_20260930/RESULTS.md) are complete: local replay and independent parallel AWS audit. PX-088--091 remain registered with explicit qualification requirements.
 
 > **Latest integrated edition (September 28, 2026):** [paper, complete defense and evidence](gwu_final_20260928/README.md). [Download corrected review release](https://github.com/garypagangit/praxis/releases/tag/praxis-committee-review-20260928).
 
