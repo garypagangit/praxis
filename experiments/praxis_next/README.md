@@ -1,3 +1,5 @@
+> **PX-092 completed:** [OR-gate generalization, seed-count and adversity results](or_gate_20260930/FINDINGS.md), including seven new roles fits, all 120 triples, adapted AIT results and an independent per-row audit.
+
 > **September 30 extension:** [PX-085--091 warning-control experiments](warning_control_20260930/PROTOCOL.md). [PX-085--087 results](warning_control_20260930/RESULTS.md) are complete: local replay and independent parallel AWS audit. [PX-088--090 closeout results](closeout_20260930/RESULTS.md) are complete (PX-090 uses an explicit expert-score adaptation). PX-091 qualification is complete; exact replication remains data-blocked.
 
 > **Latest integrated edition (September 28, 2026):** [paper, complete defense and evidence](gwu_final_20260928/README.md). [Download corrected review release](https://github.com/garypagangit/praxis/releases/tag/praxis-committee-review-20260928).
