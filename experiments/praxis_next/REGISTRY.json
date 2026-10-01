@@ -229,6 +229,16 @@
       "results": "ssh_policy_20261001/FINDINGS.md",
       "novelty": "CLASSICAL_POLICY_RULE_NOT_NOVEL",
       "finding": "Original OR plus blanket TCP destination-port 22 rule covers 18/18 episode proxies versus 6/18; adds 510 benign-labeled flows and 460 grouped cases. No production enforcement or independent efficacy claim."
+    },
+    {
+      "id": "PX-097",
+      "directory": "ssh_transfer_20261001",
+      "title": "Fixed TCP22 Policy Transfer to AIT Executions",
+      "status": "COMPLETE_NO_ADDITIONAL_EXFIL_COVERAGE",
+      "protocol": "ssh_transfer_20261001/PROTOCOL.md",
+      "results": "ssh_transfer_20261001/FINDINGS.md",
+      "novelty": "CLASSICAL_POLICY_RULE_NOT_NOVEL",
+      "finding": "No exfiltration recovery on Wilson/Harrison: all labeled exfiltration uses UDP53. Wilson adds 30 benign warnings and 15 cases; Harrison unchanged. Previously exposed execution-disjoint transfer, not untouched confirmation."
     }
   ],
   "inference_rule": "These are exposed-data development studies. Freeze source and protocol before fitting; keep all registered outcomes. Do not infer independent-campaign efficacy, novelty, or a guarantee from a good score.",

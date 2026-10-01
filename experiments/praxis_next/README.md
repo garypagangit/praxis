@@ -1,3 +1,5 @@
+> **PX-097 completed:** [Fixed TCP/22 policy transfer](ssh_transfer_20261001/FINDINGS.md). No additional exfiltration coverage on AIT; its labeled exfiltration uses UDP/53.
+
 > **PX-096 completed:** [Deterministic TCP/22 policy overlay](ssh_policy_20261001/FINDINGS.md). Offline blanket-rule scenario covers 18/18 episode proxies with original OR; adds 510 benign-labeled flow warnings and 460 grouped cases.
 
 > **PX-095 completed:** [Diagnosis of the twelve missed exfiltration episode proxies](missed_episode_20261001/FINDINGS.md). All are singleton flows from one endpoint pair; source qualification is required before claiming missed incidents.
