@@ -1,3 +1,5 @@
+> **PX-094 completed:** [Exfiltration episode coverage, grouped investigations and SOC workload scenarios](soc_workload_20261001/RESULTS.md). Existing predictions only; qualified episode proxies and simulated review times.
+
 > **PX-093 completed:** [Heterogeneous warning-gate extension and Plan B assessment](heterogeneous_gate_20260930/FINDINGS.md). Two new local fits; all ablations and duplicate control retained.
 
 > **PX-092 completed:** [OR-gate generalization, seed-count and adversity results](or_gate_20260930/FINDINGS.md), including seven new roles fits, all 120 triples, adapted AIT results and an independent per-row audit.
