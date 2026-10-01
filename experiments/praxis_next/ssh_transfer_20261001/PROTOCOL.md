@@ -1,0 +1,7 @@
+# PX-097: Fixed TCP/22 rule transfer to AIT executions
+
+Freeze the PX-096 rule unchanged: TCP destination/server port 22, all monitored rows in scope, no approval exceptions. Use saved Wilson and Harrison predictions and source port metadata. These executions were excluded from fitting but already examined; this is an exposed-data transfer test, not untouched confirmation. No training, new thresholds, AWS or production changes.
+
+Compare rule alone, original OR, original OR plus rule, full OR, and full OR plus rule. Report flow warning recall, benign-labeled warnings, all-attack warnings, episode coverage using PX-094's 60-minute definition, and 15-minute source/destination case grouping. Report incremental cases and exfiltration flow recovery relative to original OR. Quantify TCP/22 support by label and residual missed exfiltration ports; these are diagnostics, not permission to extend the rule after observing failure. Do not invent an allowlist or infer egress status.
+
+Verify frozen source hashes and native prepared row identities, labels, times, endpoints and destination ports. Independently recover ports directly from raw CSV members and check equality. Independently reconstruct grouped-case counts with dictionary grouping. Preserve results even if zero additional episodes or no exfiltration coverage from the rule. The guarantee is only that matching unapproved in-scope traffic cannot lose its policy warning; it is not a general exfiltration guarantee.
