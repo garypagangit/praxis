@@ -1,3 +1,5 @@
+> **Latest primary paper, October 1:** [Revised paper and one-page executive summary](gwu_revision_20261001/README.md). Plain-language revision with PX-092 through PX-097 and the limits of the TCP/22 repair.
+
 > **PX-097 completed:** [Fixed TCP/22 policy transfer](ssh_transfer_20261001/FINDINGS.md). No additional exfiltration coverage on AIT; its labeled exfiltration uses UDP/53.
 
 > **PX-096 completed:** [Deterministic TCP/22 policy overlay](ssh_policy_20261001/FINDINGS.md). Offline blanket-rule scenario covers 18/18 episode proxies with original OR; adds 510 benign-labeled flow warnings and 460 grouped cases.
