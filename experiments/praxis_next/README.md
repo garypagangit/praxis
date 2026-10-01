@@ -1,3 +1,5 @@
+> **PX-095 completed:** [Diagnosis of the twelve missed exfiltration episode proxies](missed_episode_20261001/FINDINGS.md). All are singleton flows from one endpoint pair; source qualification is required before claiming missed incidents.
+
 > **PX-094 completed:** [Exfiltration episode coverage, grouped investigations and SOC workload scenarios](soc_workload_20261001/RESULTS.md). Existing predictions only; qualified episode proxies and simulated review times.
 
 > **PX-093 completed:** [Heterogeneous warning-gate extension and Plan B assessment](heterogeneous_gate_20260930/FINDINGS.md). Two new local fits; all ablations and duplicate control retained.

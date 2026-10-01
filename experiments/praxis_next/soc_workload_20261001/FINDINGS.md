@@ -1,5 +1,7 @@
 # PX-094 interpretation: preserving warnings does not guarantee episode coverage
 
+> **Follow-up qualification (PX-095):** the twelve missed episode proxies are twelve singleton flows from one endpoint pair, including eleven two-packet exchanges. They are not twelve independently confirmed theft incidents. The numerical PX-094 results are unchanged; [the source diagnosis](../missed_episode_20261001/FINDINGS.md) explains this limitation and the absent training support.
+
 ## Decision
 
 Retain the original three-member OR gate as the warning-preservation baseline for further research. These results do not support adding both heterogeneous members to improve exfiltration episode coverage. They also do not establish that the original gate solves missed exfiltration: it still misses 12 of 18 UNRAVELED episodes under the primary definition.
