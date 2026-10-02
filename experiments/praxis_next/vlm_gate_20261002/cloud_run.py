@@ -1,5 +1,5 @@
 """One watchdog-protected allocation, collection, and verified shutdown."""
-import hashlib,json,shlex,tarfile,time
+import argparse,hashlib,json,shlex,tarfile,time
 from pathlib import Path
 from experiments.praxis_next.compute.provics_cloud_control import control
 from botocore.config import Config
@@ -8,14 +8,17 @@ HERE=Path(__file__).resolve().parent
 PRIVATE=Path('C:/w/vlm_pilots_20261002')
 
 def main():
+    global PRIVATE
+    ap=argparse.ArgumentParser();ap.add_argument('--private',type=Path,default=PRIVATE);ap.add_argument('--freeze',type=Path,default=HERE/'FREEZE.json');args=ap.parse_args()
+    PRIVATE=args.private
     c=control.Controller(PRIVATE/'settings.json');s=c.settings
     c._clients['s3']=c.session.client('s3',endpoint_url='https://s3.us-east-1.amazonaws.com',config=Config(connect_timeout=5,read_timeout=30,retries={'total_max_attempts':2},s3={'addressing_style':'path'}))
-    freeze=json.loads((HERE/'FREEZE.json').read_text())
+    freeze=json.loads(args.freeze.read_text())
     assert hashlib.sha256((PRIVATE/'bundle.tar.gz').read_bytes()).hexdigest()==freeze['bundle_sha256']
     for p,h in freeze['runtime_files'].items():assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==h,p
     print(json.dumps(c.transfer('upload',PRIVATE/'bundle.tar.gz',s['prefix']+'bundle.tar.gz')),flush=True)
     try:
-        print(json.dumps(c.start(HERE/'PROTOCOL.md',HERE/'FREEZE.json')),flush=True)
+        print(json.dumps(c.start(HERE/'PROTOCOL.md',args.freeze)),flush=True)
         ready=False
         for _ in range(36):
             info=c.client('ssm').describe_instance_information(Filters=[{'Key':'InstanceIds','Values':[s['instance']]}])['InstanceInformationList']
