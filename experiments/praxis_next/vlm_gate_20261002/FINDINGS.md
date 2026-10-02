@@ -1,5 +1,7 @@
 # PX-098 — Visual Host Windows as an Additional Warning-Gate Member
 
+**Latest update:** the local numeric follow-up below found useful warning recovery from five-minute host summaries, with more benign alerts than the frozen research limit allowed. The original VLM pilot remains negative.
+
 ## Input qualification completed
 
 | Existing detector, clean replay | Exfiltration flows missed out of 3,442 |
@@ -48,3 +50,45 @@ A [posthoc aggregation check](AGGREGATION_DIAGNOSTIC.json) found that the missed
 Visual intrusion detection and visual time-series analysis already exist. The proposed contribution must be the controlled residual-warning and workload comparison; [literature review remains incomplete](LITERATURE_CHECK.md).
 
 [Protocol](PROTOCOL.md) | [Input audit](INPUT_AUDIT.json) | [Frozen inputs](FREEZE.json)
+
+## Local follow-up: four numeric fits
+
+Completed locally with four fixed LightGBM fits and no new AWS or VLM calls. All models use outgoing bytes, incoming bytes, flow count, DNS-associated flow count and distinct peers. Original train, calibration and test captures remain separate. Training uses exfiltration-positive groups and wholly benign groups; other-attack groups remain in evaluation. Thresholds were selected on calibration data to allow at most 14 alerts among its 1,450 benign host-hours.
+
+The hour views contain twelve five-minute bins. The five-minute views contain one five-minute summary each; they use shorter decision windows, not finer within-bin timestamps. Destination/service views partition the same observed traffic. Partitioning and shorter windows also change the number of training examples, so this is not a causal test of rendering alone.
+
+### Same-unit comparison against the original gate
+
+Test support: 19,469 endpoint-hours, including 136 exfiltration-positive hours and 19,023 wholly benign hours. The original gate warns on 124 exfiltration-positive hours and 48 benign hours. Count each added endpoint-hour once even when several subgroups fire.
+
+| View | Additional exfil-positive hours warned | Additional benign alerts | Increase in benign FPR | Frozen screen |
+|---|---:|---:|---:|---|
+| Hour, all host traffic | 7 | 385 | 2.02 percentage points | Fail |
+| Five minutes, all host traffic | **11** | **360** | **1.89 percentage points** | Fail |
+| Hour, destination/service groups | 7 | 492 | 2.59 percentage points | Fail |
+| Five minutes, destination/service groups | 7 | 624 | 3.28 percentage points | Fail |
+
+All four met the calibration budget, but test alert rates rose. None met the predeclared test screen of at least one additional exfil-positive hour with no more than a one-percentage-point increase in benign alerts. That screen is a research choice, not a measured analyst capacity or a universal definition of acceptable cost.
+
+### Best observed tradeoff: five-minute host summaries
+
+- Added to the original gate: exfil-positive hour coverage rises from **124/136 to 135/136**, with **360 additional benign alerts** and **375 additional cases of all labels**.
+- Added to the full five-member gate: coverage rises from **134/136 to 136/136**, with **247 additional benign alerts** and **253 additional cases of all labels**. Its added benign FPR is 1.30 percentage points, also above the screen.
+- Among the full gate's 26 missed exfiltration flows, **23 occur in a five-minute group that the numeric model warns on**. Median group-close delay for those 23 is **77.24 seconds after flow completion**, excluding inference time. This does not prove the model identified each individual flow or warned before data transfer.
+- Twenty-three covered flows are not 23 newly recovered incidents. Only two previously unwarned exfil-positive host-hours are added beyond the full gate.
+
+### What the representation check established
+
+Across the 26 missed flows, the median share of outgoing bytes attributable to missed exfiltration flows in the assigned group rises from **0.16%** in hour views to **1.14%** in five-minute host summaries, **92.31%** in destination/service hour groups, and **100%** in destination/service five-minute groups. The corresponding counts of missed flows covered by their own scored group are **21, 23, 2 and 1**.
+
+Making the target flow more prominent did not make it easier for these models to classify. Removing surrounding traffic can also remove useful context. No exact exfil-versus-benign feature duplicates were found in the evaluated groups, but that does not establish generalizable separation.
+
+The trained numeric model can recover warnings using the original hour representation. Therefore, the VLM pilot's failures do not establish that the input lacked all useful information. This is not a matched training comparison: the numeric models received supervised training and Qwen did not.
+
+### Decision and limits
+
+**Do not scale up the unchanged VLM pilot.** The five-minute numeric member is the best lead from this comparison. Its next test should address calibration-to-test alert growth and transfer to a separately qualified execution under a new freeze. Do not adjust the threshold against these test outcomes and call it independent confirmation.
+
+The result is from one previously exposed campaign, one fixed seed per representation, and observed endpoint addresses rather than a verified managed-asset inventory. The hour fits contain only 31 positive training groups; the five-minute fits contain 349. There is no new novelty or production-readiness claim. The separate audit passed 154,440 checks, including source reconstruction for all 26 missed flows and 12 wholly benign controls per view.
+
+[Frozen local protocol](local_followup/PROTOCOL.json) | [Results](local_followup/RESULTS.json) | [Audit](local_followup/AUDIT.json) | [Tradeoff chart](local_followup/tradeoff.png) | [Diagnostic byte views](local_followup/diagnostic_views.png) | [Benign byte views](local_followup/benign_views.png)

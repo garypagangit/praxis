@@ -244,12 +244,20 @@
       "id": "PX-098",
       "directory": "vlm_gate_20261002",
       "title": "Visual Host Windows as an Additional Warning-Gate Member",
-      "status": "PILOT_COMPLETE_NO_ADDITIONAL_EXFIL_WARNINGS",
+      "status": "LOCAL_FOLLOWUP_COMPLETE_WARNING_RECOVERY_ABOVE_ALERT_BUDGET",
       "protocol": "vlm_gate_20261002/PROTOCOL.md",
       "results": "vlm_gate_20261002/FINDINGS.md",
       "novelty": "UNCONFIRMED_LITERATURE_OVERLAP_FOUND",
       "scope": "Bounded exploratory pilot on exposed UNRAVELED data; not independent confirmation",
-      "finding": "24 host-hours, 48 Qwen2.5-VL replies. Strict JSON rejected fenced outputs; syntax-only replay: image/text both flag 0/8 diagnostic exfil windows; image adds 1/14 benign warnings, text 0/14. No gate improvement established."
+      "finding": "24 host-hours, 48 Qwen2.5-VL replies. Strict JSON rejected fenced outputs; syntax-only replay: image/text both flag 0/8 diagnostic exfil windows; image adds 1/14 benign warnings, text 0/14. No gate improvement established.",
+      "local_followup": {
+        "protocol": "vlm_gate_20261002/local_followup/PROTOCOL.json",
+        "results": "vlm_gate_20261002/local_followup/RESULTS.json",
+        "audit": "vlm_gate_20261002/local_followup/AUDIT.json",
+        "fits": 4,
+        "aws_calls": 0,
+        "finding": "Five-minute numeric host summaries add 11/12 missed exfil-positive hours over original gate with 360 added benign hours; add both remaining hours over full gate with 247 added benign hours. No view meets frozen one-percentage-point alert-increase screen."
+      }
     },
     {
       "id": "PX-099",
