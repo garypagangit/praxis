@@ -51,4 +51,13 @@ The 143 new lightweight model fits ran locally on CPU. AWS was used for a separa
 
 See [attachment assessment](ATTACHMENT_ASSESSMENT.md), [registry](REGISTRY.json), and each experiment directory. Scientific evidence is preserved regardless of result direction. No historical experiment is overwritten.
 
+## Visual-model pilots registered October 2, 2026
+
+| ID | Title | Initial scope |
+|---|---|---|
+| [PX-098](vlm_gate_20261002/FINDINGS.md) | Visual Host Windows as an Additional Warning-Gate Member | Qwen2.5-VL images versus matched text on 24 host-hours; residual warning recovery and added alert counts. |
+| [PX-099](vlm_stages_20261002/FINDINGS.md) | Visual Reconstruction of APT Stages and Transitions | Two traffic timeline pages; source-label qualification and inference feasibility before stage/transition efficacy scoring. |
+
+Both use exposed data and remain exploratory. [Existing visual-detection literature overlaps with the idea](vlm_gate_20261002/LITERATURE_CHECK.md); no novelty clearance or new Praxis success is claimed.
+
 The [D1 extension](d1_benchmark_audit/README.md) develops the measurement-praxis contribution. It keeps the completed four studies intact, verifies the proposed dataset expansion and documents actual support limitations before any new model training. Paired warning/stage reporting uses established metrics; the contribution being developed is the controlled evidence and reproducible audit.

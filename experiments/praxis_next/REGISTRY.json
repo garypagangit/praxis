@@ -244,21 +244,23 @@
       "id": "PX-098",
       "directory": "vlm_gate_20261002",
       "title": "Visual Host Windows as an Additional Warning-Gate Member",
-      "status": "REGISTERED_INPUTS_PREPARED_INFERENCE_PENDING",
+      "status": "PILOT_COMPLETE_NO_ADDITIONAL_EXFIL_WARNINGS",
       "protocol": "vlm_gate_20261002/PROTOCOL.md",
       "results": "vlm_gate_20261002/FINDINGS.md",
       "novelty": "UNCONFIRMED_LITERATURE_OVERLAP_FOUND",
-      "scope": "Bounded exploratory pilot on exposed UNRAVELED data; not independent confirmation"
+      "scope": "Bounded exploratory pilot on exposed UNRAVELED data; not independent confirmation",
+      "finding": "24 host-hours, 48 Qwen2.5-VL replies. Strict JSON rejected fenced outputs; syntax-only replay: image/text both flag 0/8 diagnostic exfil windows; image adds 1/14 benign warnings, text 0/14. No gate improvement established."
     },
     {
       "id": "PX-099",
       "directory": "vlm_stages_20261002",
       "title": "Visual Reconstruction of APT Stages and Transitions",
-      "status": "REGISTERED_INPUTS_PREPARED_INFERENCE_PENDING",
+      "status": "SMOKE_COMPLETE_SCHEMA_AND_CONTEXT_LIMIT_FAILURES",
       "protocol": "vlm_stages_20261002/PROTOCOL.md",
       "results": "vlm_stages_20261002/FINDINGS.md",
       "novelty": "UNCONFIRMED_LITERATURE_OVERLAP_FOUND",
-      "scope": "Bounded exploratory pilot on exposed UNRAVELED data; not independent confirmation"
+      "scope": "Bounded exploratory pilot on exposed UNRAVELED data; not independent confirmation",
+      "finding": "Two image replies fail required schema and cover only one of eight hosts each; two matched text inputs exceed 8192-token cap. Native labels verified but stage/transition accuracy not established."
     }
   ],
   "inference_rule": "These are exposed-data development studies. Freeze source and protocol before fitting; keep all registered outcomes. Do not infer independent-campaign efficacy, novelty, or a guarantee from a good score.",
