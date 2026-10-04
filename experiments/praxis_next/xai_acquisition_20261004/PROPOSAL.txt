@@ -1,0 +1,77 @@
+PX-107: Can explanations select evidence that recovers missed exfiltration episodes?
+Date: 2026-10-04. Status: exploratory qualification begun; no efficacy result.
+Authorized AWS pilot cap: USD 1,000 total, including compute and storage. Authentication verified. No new cloud resources launched.
+
+WORKING TITLE
+Explanation-Guided Evidence Acquisition for Recovering Missed Exfiltration Episodes
+
+SIMPLE IDEA
+When the detector says benign, ask what observed evidence supports that answer and which additional, available log source could most usefully test it. Retrieve that source, then classify again. Explanations direct an investigation; they do not themselves prove an attack. Evaluate all eligible benign-predicted cases, not a hindsight-selected set of known misses.
+
+PROBLEM
+Limited telemetry can make exfiltration look benign. Retrieving every possible log for every case is costly. It remains to be tested whether explanations choose useful additional evidence better than equally funded non-explanation methods. The specific opportunity is timestamp-valid retrieval of evidence bundles for previously unwarned transfer episodes, with explicit attribution of recovery to the retrieval choice.
+
+NOVELTY STATUS: UNCONFIRMED CANDIDATE
+Generic explanation-guided intervention is established. Generic explanation-guided feature acquisition is also established. Applying those methods to APT data alone is insufficient. The proposed extension jointly accounts for (a) source bundles available by the decision time, (b) diminishing value of repeated warnings about an already-covered case, and (c) verifiable observed evidence after retrieval. Each component has prior art; their combination needs a closer implementation-level comparison and empirical advantage. Do not claim a first or a new causal explanation.
+
+PRIMARY QUESTION AND HYPOTHESIS
+RQ1: At equal evidence-query and review-case budgets, does the proposed acquisition policy recover more baseline-missed exfiltration episodes than the strongest calibration-selected baseline on withheld executions?
+H1: The paired difference in episode recovery is positive, with an execution-grouped 95% confidence interval excluding zero. Select a practical minimum improvement and sample size from development-only power analysis before final evaluation. Repeated packets or flows do not supply independent replication.
+
+RQ2: Is any gain attributable to explanation information rather than additional telemetry, model capacity or tuning?
+H2: The real-explanation policy exceeds both a matched raw-feature policy and a shuffled-explanation policy, holding acquired-source costs, model capacity, tuning effort and evaluation cases constant. Label-free shuffles are defined on development data and frozen.
+
+RQ3: Are recommended evidence checks supported by retrieved records and robust to realistic source delay or absence?
+H3: The verifier accepts only recommendations whose cited records, availability timestamps and recomputed score change agree; missing support produces abstention. This is a deterministic consistency test, not proof of causal attack explanation or analyst benefit. Compare with an ordinary evidence trace; no superiority claim when tied.
+
+IMPLEMENTATION TO QUALIFY
+Start with a small LightGBM classifier and fixed, time-indexed host/destination cases. Inputs have three candidate bundles: basic flow summaries; DNS content/response summaries; past-only host/destination history. Metadata such as scenario names, fixed domains, absolute capture dates and source identifiers must not become shortcuts.
+Use grouped TreeSHAP on the currently observable representation to summarize support for benign versus attack. Train a small acquisition policy on development-only masked-source replays. Its target is the measured usefulness of acquiring each source, with costs and duplicated case coverage included. A policy never sees the actual withheld source values before requesting them. Evaluate whether signed group contributions add anything beyond scores, missingness indicators and raw observed features. This is a proposed implementation, not a proven new algorithm.
+Classify again using the actually retrieved evidence. Save source records, timestamps, original and revised scores, cost and explanation. Counterfactual imputations are predictions about missing evidence, never factual citations. Use received timestamps when available; otherwise report simulated availability separately. Completed-flow summaries cannot support a claim of early detection before flow completion.
+
+BASELINES AND ABLATIONS
+1. Current telemetry only, with calibrated decision threshold.
+2. Random eligible source retrieval and a fixed source order.
+3. Uncertainty-based retrieval.
+4. Learned value-of-information selection using scores/raw features, with matched capacity.
+5. Published AFA-SHAP and EDFA, implemented faithfully or explicitly documented adaptations.
+6. Full telemetry, as a cost-unconstrained empirical upper comparator (not a mathematical oracle).
+7. Same policy with permuted explanations and without duplicate-case discount.
+Every practical method gets the same evidence-query allowance and review-case cap. A warning counts as recovery only if the flagged record/window overlaps the labeled transfer interval under a frozen matching rule. No credit for an unrelated alert on the same host.
+
+DATA QUALIFICATION
+All eight existing AIT executions were previously used. They and UNRAVELED are development evidence only. A newer release of the same captures is not independent confirmation.
+Korving DNS tunneling repository inspected: 136 downloadable archives, 116 in file-transfer directories and 20 in C2 directories, approximately 705 MB compressed. A 4.48 MB transfer sample contains packet capture, DNS query logs, metadata and terminal recordings. This is evidence of usable source formats, not 116 independently validated exfiltration episodes. C2 is not automatically exfiltration.
+Sample follow-up: the terminal recording reaches 100% completion but shows a server-to-client pull. It is not demonstrated outbound exfiltration. This sample is NOT QUALIFIED as a primary exfiltration episode; the collection may support a separate tunneling stress test.
+Before fitting: establish transfer direction, successful-transfer start/end times, shared templates and duplicates, benign workloads, source permissions and source availability. Reserve entire tool/configuration/run groups. If benign and malicious traffic come from separable collection environments, do not report classification as exfiltration generalization.
+AIT raw logs are a development option for cross-source joins; existing local archives contain adapted netflows, not all raw sources.
+BCCC-CIC-Bell-DNS-2024 is a further qualification candidate; do not call it independent from its 2021 source datasets. No dataset is yet qualified for the final efficacy test.
+If public data cannot support a fair test, collect paired benign and authorized dummy-file transfers inside an isolated lab, using the same hosts, tools and schedule distribution where possible. Randomize size, rate and workload independently of class. Reserve tool/run groups and retain evidence of transfer success. Such results remain controlled-lab findings and do not establish operational APT detection. Do not execute downloaded archive scripts automatically.
+
+STAGED COMPUTE PLAN (SPENDING ALLOCATIONS, NOT PRICE QUOTES)
+Up to USD 100: data qualification, timestamp joins, parsing benchmark and development pilot.
+Up to USD 250 more: matched baselines and explanation ablations, if source checks pass.
+Up to USD 450 more: frozen replication on qualified untouched runs, if a promising development effect survives controls.
+Reserve USD 200: storage, verification and controlled reruns. Total <= USD 1,000.
+Check current regional prices and enforce instance/runtime limits before launch; budget notifications alone are not hard spending caps. Prefer CPU extraction and tree models initially. GPU or LLM inference requires a concrete methodological need.
+
+STOP RULES
+Stop this candidate if explanation features tie the strong raw-feature acquisition baseline; if full evidence adds no recoverable episodes; if the effect is explained by source shortcuts; if independent episode support is insufficient; or if faithful closest-method comparisons remove the proposed distinction. Record the negative outcome rather than trying many variants on the final test set.
+
+CLOSEST SOURCES CHECKED
+Kukar (2026), Active Feature Acquisition by Prediction Explanations: https://ev.fe.uni-lj.si/1-2-2026/Kukar.pdf
+Local explanations already guide feature acquisition; AFA-SHAP is a required methodological comparison.
+Galwaduge and Samarabandu (2026), Explanations-Driven Active Feature Acquisition for Algorithmic Recourse: https://arxiv.org/abs/2609.12179
+Preprint; explanation-driven acquisition with costs and recourse is established prior work. Evaluated on finance/healthcare tabular tasks.
+Almufarreh et al. (2026), Enhancing cybersecurity with Explainable Artificial Intelligence: technical framework and applications in training labs: https://doi.org/10.3389/fcomp.2026.1863891
+IDS explanation-guided intervention is already published; merely turning explanations into actions is not a new claim.
+Mia et al. (2024), Visually Analyze SHAP Plots to Diagnose Misclassifications in ML-based Intrusion Detection: https://doi.org/10.1109/ICDMW65004.2024.00088
+Explaining false negatives already studied.
+Yang et al. (2021), CADE: https://www.usenix.org/conference/usenixsecurity21/presentation/yang-limin
+Detection and explanation of security drift already studied; explanation-space anomaly discovery is not a clean fallback novelty claim.
+Dataset: https://github.com/Korving-F/dns-tunnel-dataset
+Dataset: https://zenodo.org/records/19483937
+Dataset: https://www.yorku.ca/research/bccc/ucs-technical/cybersecurity-datasets-cds/malicious-dns-and-attacks-bccc-cic-bell-dns-2024/
+
+THIS TURN'S RESULT
+AWS authentication verified. Targeted novelty screen completed. Public sample downloaded and inspected without execution. Qualification findings saved with source revision and hash. No detector trained, no recovered-episode result, no new AWS job launched. The USD 1,000 is a ceiling, not a spending target.

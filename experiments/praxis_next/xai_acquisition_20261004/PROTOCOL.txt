@@ -1,0 +1,57 @@
+PX-107A development feasibility pilot. Frozen before the new selector fits.
+This is a narrowed prerequisite test for PX-107, not its final three-source experiment.
+All AIT executions have been exposed in earlier work. No independent confirmation claim.
+
+Use existing 10-feature current-only and 18-feature current-plus-history LightGBM
+classifiers, three seeds 8101/8102/8103. Retrain only the acquisition selector.
+Use 50,000 label-independent randomly sampled development rows per seed from
+forward out-of-fold records whose current classifier predicts benign. Sample
+uniformly across eligible pooled rows, RNG 107000+seed. Explain each sampled row
+using exactly its own forward-fold classifier. No full-data explanation on OOF rows.
+History is the only optional evidence in this pilot; no DNS payload claim.
+
+Target: realized history-warning utility on benign-predicted rows: +4 for exfil,
++1 for other attack, -1 for benign when the history classifier warns; otherwise 0.
+This target prices a warning opportunity; it is not monetary or clinical utility.
+Selectors: identical LightGBM regressors, 100 trees, 9 leaves, learning rate .05,
+min_child_samples 30, reg_lambda 1, n_jobs 2, seed fixed, no tuning.
+RAW uses current features plus all three current probabilities.
+XAI uses RAW plus ten TreeSHAP contributions to the exfil-versus-benign raw margin.
+SHUFFLED uses RAW plus the same contribution vectors permuted across training rows;
+evaluation vectors are separately permuted without labels. SHAP_ONLY uses ten
+contributions plus the three current probabilities. RAW_PADDED adds ten zeros to RAW
+to diagnose dimensional padding effects. Same training rows, target and tree capacity.
+Baselines: uncertainty (1 - benign probability), deterministic random, chronological.
+No claims of comparison with full EDFA or AFA-SHAP; those remain required if promoted.
+
+Evaluate on all original eligible Wilson/Harrison rows, retaining their class mix.
+Freeze review cases as source/destination pair plus 5-minute completion-time bucket.
+Do not merge cases using labels. Case indices depend on metadata only, not predictors.
+Only cases with no current-only warning are candidates. A source query obtains
+history for all rows in that case, for one simulated query unit. Rank each case by
+maximum row acquisition score, then deterministic case index for ties. Select top
+10, 50 and 200 cases per execution; report actual warnings and query counts separately.
+The review cap is the query cap, so no method emits more than K new case warnings.
+Existing warnings remain. No human inspection of selected cases is simulated.
+
+Count new exfil-positive cases, new benign-only warning cases, new other-attack cases,
+new warned exfil rows, and incremental exfil episode coverage. Native exfiltration
+episode proxies use source/destination pairs and >30-minute gaps between labeled
+flow starts within execution, frozen identically for every method. Such groups are
+label-derived evaluation proxies, not independently verified theft incidents.
+Report base episode coverage and the all-history acquisition ceiling first.
+If the baseline already covers every episode, the primary recovery endpoint is
+saturated. Do not redefine windows as independent episodes to obtain a gain.
+
+Check TreeSHAP additivity and reproduced current probabilities against saved outputs.
+Save case tables and rankings so an independent script can reconstruct every count.
+Three seeds are sensitivity checks, not three independent campaigns. No p-values
+or confidence interval for general APT efficacy from these two exposed executions.
+If no primary episode headroom exists, stop promotion regardless of flow-level gains.
+If XAI does not improve beyond RAW and SHUFFLED, no XAI efficacy claim.
+
+AWS: use the existing stopped g5.xlarge, verified $1.006/hour Linux on-demand price
+in us-east-1 on 2026-10-04. One 45-minute maximum allocation, independent stop at
+40 minutes, work/publication deadline 30 minutes, controlled command <=25 minutes.
+Reserve $2 for this allocation including incidental allowance, within $1,000 pilot cap.
+Do not stop the separately running data-loader. No new IAM policy or inbound access.
