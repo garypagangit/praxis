@@ -1,0 +1,58 @@
+PX-108 / PX-109: Feasibility and literature findings
+4 October 2026
+
+COMPLETED
+- Developed two numbered, testable proposals with aligned research questions,
+  hypotheses, comparison methods, metrics, safeguards against leakage, and stops.
+- Checked direct published overlap. Neither broad idea supports a first-of-its-
+  kind claim. See EXPERIMENT_PLAN.txt and the two detailed candidate reviews.
+- Accessed the official CIC directory through the user's authenticated browser.
+- Inspected two existing local publisher download archives without extracting or
+  executing their contents. Recorded SHA-256 hashes and verified ZIP member CRCs.
+- Audited two benign raw captures using two independent readers: eight packet-
+  count, captured-byte and time-bound checks passed using dpkt 1.9.8.
+
+ACTUAL DATA RESULTS
+File          Packets   Incompletely captured packets   Duration (seconds)
+benign_1      275,855    143,675                         33,795.231494
+benign_2      201,425    107,741                         19,950.809778
+Total         477,280    251,416                         53,746.041272
+
+Both captures use a 96-byte snap length. An incomplete packet has fewer stored
+bytes than its recorded original length. This is a source collection limitation,
+not evidence of a damaged ZIP. It restricts claims about full payload recovery.
+The two capture intervals total about 14.93 hours; this is not a measured number
+of independent benign host-hours. Their 530 backward timestamp steps require a
+documented ordering rule before past-only history is computed.
+
+The independent decoder found 84,040 UDP destination-port-53 packets, including
+84,000 decodable DNS queries and 40 DNS parsing errors. These are bounded decoder
+results, not an assertion that every possible DNS packet was identified.
+
+Original stateless CSVs contain timestamps and total 221,073 rows. Stateful CSVs
+contain 86,998 rows and no timestamp column. They cannot simply be joined by row
+number, and packet-to-feature/window alignment has not been established.
+
+WHAT REMAINS OPEN
+The automated download click was blocked by Edge (ERR_BLOCKED_BY_CLIENT).
+The user has been asked to manually download Attacks.zip and Benign.zip from both
+PCAP/Attack_Light_Benign and PCAP/Attack_heavy_Benign. Current audited files are
+benign only; attack execution counts, successful outbound transfer evidence,
+attack capture completeness and missed-episode headroom remain unverified.
+
+No new detector was fitted, no recovery score was measured, and no paid AWS job
+was launched in this phase. These proposals do not reverse PX-107's prior AIT
+finding of zero eligible exfiltration-episode recovery headroom.
+
+RECOMMENDATION
+Continue source qualification, then run a small PX-108 feasibility comparison.
+Proceed with PX-109 only after transfer validity can be demonstrated. Use a
+shared $50 first-stage ceiling within the already authorized $1,000 total cap.
+If the publication-quality claim requires verified payload-preserving transfers,
+truncated captures alone may be insufficient; use an isolated dummy-file sender/
+receiver experiment with recorded hashes. Existing CIC data can still support a
+limited observational comparison, subject to label and split qualification.
+
+The key success criterion is more missed executions surfaced at equal workload
+than the strongest simple method. A convincing SHAP plot, a stable explanation,
+or passing an arithmetic check is not that result.

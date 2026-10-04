@@ -1,0 +1,71 @@
+ROBUSTNESS CANDIDATE — literature-qualified design, 4 October 2026
+Status: proposal only. No experiments executed, no cloud resources launched, no novelty established.
+
+DECISION
+Do not present "perturb IDS traffic, measure SHAP stability, and apply a fixed gate" as novel. Direct overlap exists. A defensible candidate is a runtime-computable gate evaluated on verified exfiltration transfers under protocol-valid perturbations, with episode recovery and review workload measured together. Even this narrower contribution needs further literature comparison and successful controls.
+
+CLOSEST PRIMARY SOURCES
+1. Maseno, E. M., Sun, Y., & Wang, Z. (2026, July 15). Detecting adversarial evasion in deep learning intrusion detection systems using explainable AI. International Journal of Information Security, 25, Article 125.
+https://doi.org/10.1007/s10207-026-01299-x
+Publisher full text inspected. This is direct overlap: SHAP drift and top-k overlap feed a threshold rule and a learned detector. Experiments use LSTM/GRU, TON_IoT flow windows, and FGSM/PGD feature perturbations. The monitoring features compare known clean and adversarial counterparts. That reference pair is available to the experimenter but generally unavailable for an incoming production flow. Methods describe splitting overlapping windows after construction; our proposal must split source executions before windows. The displayed rule and its following label explanation appear inconsistent; reproduce the conceptual threshold baseline with explicit warning semantics rather than copying that equation. Do not call our proposed threshold wrapper the first such detector.
+
+2. Rajhans, M., & Khawarey, V. (2026). Beyond gradient-based attacks: Adversarial robustness and explainability stability in cybersecurity classifiers. arXiv:2607.01679v1. Preprint.
+https://arxiv.org/html/2607.01679v1
+Full text inspected. Already studies TreeSHAP instability, multiple attack methods, and prediction robustness versus explanation stability on four security datasets. Section 11.1 explicitly states its feature perturbations do not enforce network validity. Therefore the valid-traffic distinction is a specific extension to investigate, not a new discovery that explanations can change while labels do not.
+
+3. Vourganas, I. J., & Michala, A. L. (2026). Stabilising explainability fragility in cybersecurity AI: The impact and mitigation of multicollinearity in public benchmark datasets. arXiv:2605.22529. Preprint; abstract inspected.
+https://arxiv.org/abs/2605.22529
+Already proposes grouped attributions and a training penalty to reduce instability from correlated features. Grouping correlated network features cannot be claimed as our invention. Obtain full text before implementing its specific methods as a comparator.
+
+4. Advanced persistent threat identification with boosting and explainable AI (2023). SN Computer Science.
+https://doi.org/10.1007/s42979-023-01744-x
+Publisher full text inspected. SCVIC-APT boosting comparison includes SHAP summary and force plots. This paper supports the APT application foundation, not absence of broader explanation robustness research.
+
+5. Shaker, B. N., Al-Musawi, B., & Hassan, M. F. (2025). Explainable AI for enhancing IDS against advanced persistent kill chain. arXiv:2506.07480. Abstract inspected.
+https://arxiv.org/abs/2506.07480
+SHAP also selects stage-relevant features for an XGBoost detector on SCVIC-APT. Therefore it is inaccurate to say all SCVIC-APT work stops at visualization. Full-text checking remains necessary before a complete novelty claim.
+
+PROPOSED TITLE
+Testing Explanation-Based Review Gates Under Valid Exfiltration Traffic Changes
+
+SIMPLE QUESTION
+When an attacker changes the shape of a successful data transfer, can an explanation instability signal identify missed transfers better than ordinary prediction scores, without increasing the number of cases analysts must review?
+
+DATA REQUIREMENTS BEFORE COMPUTE
+- CIC Bell DNS EXF 2021 is a candidate, conditional on raw captures and documentation establishing outbound transfer direction, original execution boundaries, tools/configurations, timestamps, and benign controls.
+- Treat DNS exfiltration as one APT behavior, not a complete APT campaign.
+- Require a development split with initially missed, independently executed transfers. If every episode already warns, recovery is impossible at that operating point; do not manufacture headroom by selecting a worse model after examining confirmation data.
+- All variants from one execution belong to one split. Hold out complete executions and, where feasible, a tool/configuration. Overlapping windows never cross splits.
+- A modified capture alone does not prove the modified transfer would execute successfully. Validate decoded payload identity where supported; otherwise use isolated sender/receiver replays with dummy files and receiver-side hash equality. Label purely timestamp-edited captures as offline sensitivity tests.
+
+THREAT AND CONTROL ARMS
+Original transfer; ordinary network variation; controlled traffic shaping; and bounded adaptive search against the full detector-plus-gate. Keep endpoints, transfer direction, payload bytes and reconstruction intact. Vary pacing and permitted transfer batching in the isolated harness; recompute every derived count/rate/history feature from observations. Do not independently add noise to feature columns. Enforce a declared maximum completion time and overhead. Invalid or incomplete transfers are separate outcomes, not successful evasions.
+
+Separate four outcomes: warning retained/stable explanation; warning retained/changed explanation; warning lost/stable explanation; warning lost/changed explanation. A correct explanation may change because genuinely relevant timing changed. Instability is therefore a candidate review signal, not proof that an explanation is wrong. The ground truth is transfer completion and introduced transformations; it is not a unique causal SHAP vector.
+
+RUNTIME-COMPUTABLE GATE
+For each incoming candidate window, calculate explanations for a frozen set of permissible local transformations of that observed window. Score normalized attribution dispersion plus top-k group disagreement. The gate cannot use the original clean counterpart, true label, or future traffic. Use a fixed explanation target, such as exfiltration-versus-benign raw margin, across transformations. Record near-zero attribution mass as an explicit state rather than dividing by an arbitrarily tiny value. Group derived features before comparing ranks; report ungrouped sensitivity separately.
+
+The gate routes high-scoring otherwise benign cases to a bounded review queue. It never deletes an existing warning. This is a review recommendation, not a claim that the episode has been identified as confirmed exfiltration. Offline labels measure how many true exfiltration episodes enter that queue. Recovery by an automated second detector or an actual analyst must be evaluated separately.
+
+COMPARATORS AND CONTROLS
+A. Frozen base classifier and probability ranking.
+B. Predictive uncertainty, ensemble disagreement, and prediction sensitivity under the identical transformations.
+C. Feature-distance/anomaly ranking with the same compute and case budget.
+D. Maseno-style paired clean/adversarial drift rule as an offline oracle-reference comparator, explicitly not deployable as written.
+E. Learned monitor using the same runtime features; learned non-XAI monitor of equal capacity.
+F. Proposed attribution gate; repeat with shuffled or removed attributions.
+All methods see the same admissible evidence and operate under identical deduplication and review budgets. Include a combined model-score plus explanation monitor and compare it against model-score-only to establish incremental information.
+
+PREREGISTRATION DRAFT — FREEZE ONLY AFTER DATA QUALIFICATION
+On development/calibration executions choose feature groups, transformations, probe count, review-case definition and one primary case budget. Select a threshold using calibration benign cases to target no more than one additional review case per 100 benign host-hours; this is a research operating point, not a claimed SOC capacity. Also report a preregistered budget curve. If host-hour denominators cannot be reconstructed, replace this endpoint before the freeze and disclose why.
+Primary H: at the fixed review-case budget, the explanation-enhanced method recovers more initially missed exfiltration executions than the strongest score-only comparator selected on calibration. Require a positive execution-level paired confidence interval; report raw discordant counts and limitations when independent executions are few.
+Secondary H: the explanation component retains incremental benefit with held-out shaping configurations and under adaptive optimization against both base classifier and gate.
+Falsification control: shuffled explanations must materially reduce the incremental gain; an unchanged result defeats an XAI-specific claim.
+Report warning recall, episode recovery, added benign cases, queue overflow, detection delay, observed benign gate rate, latency, valid-transfer rate, and valid evasions accepted by the gate. A gate rejection is not itself attack recovery. Thresholds are empirical, not distribution-free robustness guarantees.
+
+CHEAP NEXT STEP
+Build a local qualification manifest from a small documented capture sample: execution IDs, transfer direction, payload verification status, benign duration, tool/configuration and split eligibility. Then validate one harmless pacing transform and re-extraction on one episode. Only if both succeed should the main agent allocate a numbered experiment and freeze a small CPU pilot. Use existing LightGBM and TreeSHAP first; a GPU or LLM is not needed. No paid jobs were launched by this candidate task. Future runs share the existing parent-task spending cap.
+
+STOP CONDITIONS
+No verified execution labels; no missed-episode headroom; transforms cannot preserve transfer semantics; a required score uses an unavailable clean reference; score-only baselines match XAI; improvement disappears under equal review budgets; or adaptive tests erase the claimed benefit. A negative feasibility result is preferable to expensive replication of existing work.

@@ -1,0 +1,170 @@
+PX-108 / PX-109: Can explanations help surface missed exfiltration?
+4 October 2026 | Registered feasibility proposals; not completed efficacy studies
+
+DECISION IN SIMPLE WORDS
+Both ideas are worth a small feasibility test, but their broad novelty claims are
+already contradicted by published work. Our possible contribution is narrower:
+use explanation evidence to select otherwise missed data-transfer episodes for
+review, and show that this works better than ordinary prediction scores at the
+same review workload. Applying SHAP to another dataset is not enough.
+
+Priority for implementation: PX-108 first because it reuses ordinary captures
+and requires fewer moving parts. PX-109 has a clearer traffic-validity question
+but needs verified transfers and a controlled traffic-generation harness.
+Neither is yet a confirmed novel or defense-ready Praxis.
+
+COMMON PROBLEM STATEMENT
+A network detector can label a data transfer benign even when it carries stolen
+data. A SOC then receives no warning. An explanation may expose an unsupported
+benign decision, but explanation quality alone does not establish that a transfer
+is malicious. We need to measure whether acting on explanation information puts
+more real exfiltration episodes into a limited review queue than simpler scores.
+
+PIPELINE
+Observed traffic -> frozen LightGBM detector -> existing warnings retained
+                                           -> otherwise silent cases
+                                              -> explanation or baseline score
+                                              -> equal-sized review queue
+                                              -> measure labeled episodes surfaced
+
+An entry in the review queue is an opportunity to investigate. It is not a
+confirmed analyst detection. No human performance or financial savings will be
+claimed from label-based replay. A failed explanation check never deletes an
+existing warning. All methods use identical traffic and grouping rules.
+
+PX-108: Testing Evidence-Validity Gates for Exfiltration Triage
+Question: Can checking whether the model responds to the evidence highlighted by
+its explanation help select missed transfers for review?
+
+Technique: Explain the fixed exfiltration-versus-benign model margin using
+TreeSHAP. Group dependent features into DNS syntax, volume/direction, timing,
+and peer behavior. Apply supported group replacements, recomputing dependent
+features together. Compare the margin response from replacing the explanation's
+top group with responses from matched random groups. A low agreement score or
+unsupported replacement may trigger referral; unsupported cases must count
+against coverage and workload, not disappear from evaluation.
+
+This tests model-response agreement, not the true cause of an attack. SHAP
+additivity is a useful implementation check but cannot establish this claim.
+Attack labels do not provide the correct feature-attribution vector. Okhankhuele's
+real/synthetic ranking parity is a different, aggregate agreement test.
+
+RQ1 / H1: Does the explanation-based selector surface more initially missed
+exfiltration executions than the strongest calibrated non-XAI selector at an
+equal review-case budget? H1 predicts a positive paired difference on independent
+confirmation executions. Report a 95% execution-clustered interval and raw counts.
+RQ2 / H2: Does explanation content cause the measured selection advantage?
+H2 predicts lower recovery after removing or shuffling attributions, with all
+other inputs, capacity, and review budget held fixed.
+RQ3 / H3: Does the advantage persist with coherent group replacements and a held-
+out execution/configuration? H3 predicts positive recovery gain in that arm.
+If it exists only with arbitrary column deletion, reject the proposed claim.
+
+Baselines: confidence; random; generic anomaly; equal-capacity full-feature
+selector; conventional deletion fidelity; proposed score; proposed score with
+removed/shuffled attributions. Select the strongest baseline on calibration,
+never by choosing the one easiest to beat on confirmation data.
+
+PX-109: Testing Explanation-Based Review Gates Under Valid Exfiltration Changes
+Question: When a successful transfer changes its timing or permitted batching,
+can explanation instability expose missed transfers better than ordinary model
+scores or their instability?
+
+Technique: First test documented original captures. Then use harmless dummy-file
+transfers in an isolated sender/receiver harness. Change pacing/batching within
+declared bounds; verify successful reconstruction using sender/receiver hashes.
+Re-extract all features from recorded traffic. An edited PCAP is an offline
+sensitivity test until successful execution has been independently verified.
+
+The runtime score uses only the incoming observation and a frozen set of allowed
+local probes. It measures attribution dispersion and top-group disagreement.
+It must not require the unavailable original clean attack. Near-zero attribution
+mass and unsupported probes are explicit abstention states. Instability can be
+legitimate; it is a review signal, not automatic proof of explanation failure.
+
+RQ1 / H1: At the same review budget, does the explanation-enhanced selector surface
+more missed verified transfers than a score-only selector? H1 predicts a positive
+paired recovery difference on independent confirmation executions.
+RQ2 / H2: Is that benefit specific to explanations? H2 predicts improvement over
+prediction sensitivity under identical probes, and reduced benefit with shuffled
+attributions. Include an equal-capacity monitor of the original features.
+RQ3 / H3: Does the benefit survive held-out shaping settings and a bounded test
+against the full detector-plus-gate? H3 predicts a positive paired difference in
+that arm. Search and probe budgets are frozen before confirmation.
+
+Controls: ordinary network variation; original transfers; valid modified
+transfers; invalid/incomplete transfers separately counted. Report both changed-
+prediction and unchanged-prediction cases. A clean/adversarial paired SHAP drift
+method may be an offline oracle comparator but is not a deployable runtime gate.
+
+COMMON DATA AND SPLIT REQUIREMENTS
+Primary candidate: CIC-Bell-DNS-EXF-2021, official raw captures and original CSVs.
+It represents laboratory DNS exfiltration, one APT behavior, not full APT campaigns.
+Check execution identifiers, direction, timing, tool/configuration, benign
+coverage, truncation, duplicate packets and collection shortcuts before fitting.
+Do not count capture files, random seeds, or transformed copies as independent
+attack executions. Keep all derivatives of one execution in one split.
+
+Reserve entire executions for confirmation before model development. No random
+row split. Exclude literal domain names, endpoint addresses, date and file names
+from model inputs; evaluate remaining collection artifacts. Reconstruct past-only
+history from timestamps. No future packets or completed-transfer features in a
+claim about earlier warnings. Published stateful CSVs need their window and row
+alignment established before combining them with packet-level CSVs.
+
+No recovery headroom means stop: the development baseline must actually miss
+independent episodes under a prespecified operating-point rule. Never inspect
+confirmation outcomes and then weaken the detector to manufacture misses.
+AIT's existing fully warned episode proxies cannot establish a recovery benefit.
+
+OPERATING POINT AND METRICS
+Use three fitting seeds as sensitivity checks, not independent samples.
+Primary pilot review budget: 5% of initially silent cases; 1% and 10% secondary.
+This is a research budget, not a measured SOC capacity. Establish the case-window
+size, tie rules and threshold on calibration only. Freeze exact definitions,
+split manifests, feature groups, software, seeds and hashes before confirmation.
+Report realized queue size and overflow when a calibration threshold is deployed;
+also compare retrospective equal-budget rankings with their status made explicit.
+
+Primary: distinct initially missed executions surfaced at the same case budget.
+Secondary: total execution warning coverage, benign referrals, false-alert rate,
+time to first warning, bytes before warning when verifiable, latency, probe cost,
+abstention coverage, valid-transfer rate, and preservation of existing warnings.
+Use paired execution-level uncertainty estimates; report insufficient power when
+execution counts are small. More packets do not solve too few independent runs.
+Keep diagnostic attribution-fidelity scores separate from operational recovery.
+
+COMPUTE AND STOP RULES
+One shared initial ceiling of $50 across PX-108 and PX-109, within the user's
+existing $1,000 total cap. Local qualification first. CPU LightGBM/TreeSHAP;
+no LLM/GPU required for these pilots. No new paid jobs launched for these proposals.
+Fit the small baseline only after source qualification. Do not fit XAI selectors
+until development headroom checks pass. Confirmation data remain untouched.
+Stop expansion if XAI ties confidence/full-feature selection, the explanation
+ablation makes no difference, valid perturbations erase the result, or independent
+executions are unavailable. Retain negative findings in the registry.
+
+WHAT THE LITERATURE CHECK ESTABLISHED
+1. SCVIC-APT work uses SHAP feature selection as well as plots. The supplied
+   characterization was too narrow.
+   https://arxiv.org/abs/2506.07480
+2. Maseno et al. already audit fidelity, stability and spurious features in IDS.
+   https://doi.org/10.1007/s11416-026-00664-7
+3. HiFi-XAI addresses explanation fidelity and dependent features.
+   https://opus.lib.uts.edu.au/handle/10453/195167
+4. Confusion-Aware Explainable Alert Triage is a September 2026 preprint combining
+   explanation testing and reliability routing; it reports a confidence-baseline
+   tie in error coverage. It is not yet peer reviewed.
+   https://www.preprints.org/manuscript/202609.0988
+5. Maseno et al. already test explanation drift, top-k overlap, a rule-based gate
+   and a learned detector under adversarial IDS perturbations.
+   https://doi.org/10.1007/s10207-026-01299-x
+6. Rajhans and Khawarey already test TreeSHAP instability, including unchanged
+   predictions. Their July 2026 preprint leaves network-validity constraints open.
+   https://arxiv.org/html/2607.01679v1
+7. Dataset foundation and collection protocol:
+   https://www.unb.ca/cic/datasets/dns-exf-2021.html
+
+The possible research contribution is a tested incremental episode-recovery
+benefit under valid traffic, independent executions and matched workload. This
+is a hypothesis to investigate, not a verified novelty claim.

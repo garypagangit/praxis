@@ -1,0 +1,71 @@
+EXPLANATION FIDELITY GATE: NOVELTY CHECK AND FEASIBILITY DESIGN
+Date: 2026-10-04
+Status: Candidate only. No registry number assigned by this author; no compute launched.
+
+DECISION
+Do not claim the first IDS explanation-fidelity gate. The broad idea overlaps existing work. A cheap pilot is justified only as a test of incremental operational value, not as confirmation that a novel contribution already exists.
+
+The narrower candidate is: Can a gate that checks whether an explanation survives realistic, episode-level evidence tests identify missed outbound transfers better than confidence alone, at the same investigation budget?
+
+WHAT THE SOURCE CHECK CHANGED
+1. Shaker, Al-Musawi, and Hassan (2025), Explainable AI for Enhancing IDS Against Advanced Persistent Kill Chain. Full 26-page author manuscript inspected. This SCVIC-APT work uses SHAP for feature selection and compares classifiers; saying it only shows plots is inaccurate. It does not establish our proposed episode-level operational gate.
+   https://arxiv.org/abs/2506.07480
+   https://arxiv.org/pdf/2506.07480
+2. The same authors' initial-compromise paper also uses SHAP feature selection, reducing 77 features to four. It is adjacent APT evidence, not an explanation-fidelity acceptance experiment.
+   https://arxiv.org/abs/2506.12108
+3. Maseno, Sun, and Wang (2026), Reliability auditing of explanations for machine-learning-based intrusion detection systems. Peer-reviewed, open access. Already combines attribution agreement, functional tests, retraining stability, and spurious-feature injection across IDS datasets and model families. An audit with these metrics is not a new method.
+   https://doi.org/10.1007/s11416-026-00664-7
+4. Awasthi et al. (2026), HiFi-XAI: A Fidelity-Aware, LLM-Powered Framework for Trustworthy Intrusion Detection. IEEE author manuscript at UTS inspected. Uses conditional feature attribution and evaluates explanations on two IDS datasets; adds natural-language explanations. Preserving feature dependencies and adding an LLM cannot serve as our novelty claim.
+   https://opus.lib.uts.edu.au/handle/10453/195167
+5. Confusion-Aware Explainable Alert Triage for Network Intrusion Detection (September 2026), preprint. Checks explanations with feature deletion and compares reliability routing with confidence at matched workload; its reported reliability routing does not outperform confidence. This is a particularly important baseline and warning against assuming explanation metrics improve triage.
+   https://www.preprints.org/manuscript/202609.0988
+6. Explainable AI Analytics for Intrusion Detection in Healthcare IoT: From Federated Model Updates to Risk-Aware Decision Support (2026). Publisher search-indexed PDF explicitly describes a validation-calibrated faithfulness threshold and accept/abstain/refer actions. Direct publisher full-text requests failed after a domain redirect, so full methods and publication quality remain unverified. It is nevertheless sufficient to prohibit an unqualified 'nobody has proposed a fidelity gate' assertion. Do not rely on its numerical results as validated evidence.
+   https://inatgi.in/index.php/jaiaa/article/download/664/615
+
+LOCAL PRAXIS COMPARISON
+Read the supplied Okhankhuele thesis extraction at C:/w/praxis_format_review_20261004/Okhankhuele_gwu_0075A_17704.txt. Section 4.7 compares aggregate SHAP rankings between real and synthetic validation data: top-ten overlap 0.90 and Spearman correlation 0.9633. This is distribution-level parity, not event-level agreement with true attack causes. Its synthetic-data merge gates and cost-based policy are useful design precedents. The parity result itself does not establish causal correctness, formal privacy, or a validated threshold for rejecting individual explanations. Do not copy those stronger interpretations.
+
+THREE DIFFERENT QUESTIONS THAT MUST REMAIN SEPARATE
+- Model fidelity: Does the explanation describe how this fitted classifier behaves? Exact TreeSHAP additivity verifies a mathematical decomposition, not security relevance.
+- Security relevance: Does the highlighted evidence concern the actual transfer behavior rather than a capture address or other shortcut? This requires independent provenance or controlled interventions.
+- Decision usefulness: Does acting on the explanation recover more missed episodes at a fixed cost? Good answers to the first two do not guarantee this third result.
+
+APT stage labels, binary malicious labels, and an analyst's preferred feature list are not ground-truth feature attributions. Correlated features can substitute for each other; disagreement with a presumed list is not automatically explanation failure. Gate abstention must never erase an existing attack warning. Explanation failure means 'insufficient support for automatic closure,' not 'benign.'
+
+WORKING TITLE
+Testing Evidence-Validity Gates for Exfiltration Triage Under a Fixed Investigation Budget
+
+RESEARCH QUESTIONS / PROSPECTIVE HYPOTHESES
+RQ1: On independent transfer executions, does an episode-level evidence-validity score distinguish trustworthy from deliberately corrupted explanations beyond detector confidence?
+H1: Its paired AUROC exceeds confidence for the independently constructed corrupted/valid explanation task, with a run-clustered 95% confidence interval above zero. This is a controlled diagnostic claim only.
+RQ2: Among cases initially classified benign, does referral based on this gate recover more missed outbound-transfer episodes than a confidence selector using the same number of investigation cases?
+H2: The paired difference in recovered-episode count is positive on frozen confirmation runs, with a run-clustered 95% interval above zero. The gate may reject H2 even if H1 succeeds.
+RQ3: Does any recovery advantage depend on explanation content rather than generic anomaly or uncertainty information?
+H3: Removing or shuffling the explanation signal reduces recovery at the same review budget. A full-feature selector must also be included; a tie means no demonstrated XAI advantage.
+
+CHEAP EXPERIMENT
+Start with LightGBM plus logistic regression, three seeds, CPU only. Use real CIC outbound DNS transfer captures only after direction, timestamps, run IDs, and file-transfer provenance are verified. Existing UNRAVELED/AIT data are development material; AIT's zero episode headroom disqualifies it for the primary recovery endpoint.
+
+Define cases without labels: source host plus fixed time window, merging adjacent windows under a frozen rule. Define ground-truth episodes separately from author run/transfer records. Every method receives the same chronological information. Fit using whole development runs, calibrate thresholds on different runs, and reserve whole independent runs/tools for confirmation. Split duplicate packet/flow identities and related executions together. Seeds are sensitivity checks, not independent experiments.
+
+Explain a fixed binary attack-vs-benign margin with grouped traffic evidence (direction/volume, DNS syntax, rate/timing, peers). Keep groups fixed before scoring. Evaluate local model responses with plausible reference episodes and coherent group replacements; recompute dependent features together. Do not delete arbitrary columns into physically impossible records. Check model-output space consistently: raw-margin attribution is not probability attribution.
+
+Primary candidate score: the paired margin-response advantage of the explanation-selected group over random groups under the same admissible replacements, plus a validity flag for replacement support. Unsupported replacements produce abstention and count against coverage. A richer score or conditional explainer is an ablation, not a reason to keep tuning after test exposure.
+
+The gate is a referral rule on otherwise silent cases. At the same review budget, compare random, detector confidence, generic anomaly score, direct full-feature learned selector, conventional insertion/deletion fidelity, and proposed grouped evidence-validity score. Include no-gate, shuffled attribution, and zero-attribution ablations. Review uses a frozen deterministic test of newly retrieved real evidence; an oracle review arm is labeled an upper bound and never reported as achieved analyst performance.
+
+Select the gate threshold on calibration runs to fill a declared case budget (for example 5%, with 1% and 10% secondary). Freeze case order, ties, feature groups, replacement method, thresholds, and all hashes before confirmation. The percentage is an experimental operating point, not an established SOC capacity or guarantee. For each method report full budget curves, false referrals, recovered distinct episodes, bytes transferred before first warning if observable, delay, CPU time, unsupported evaluations, and initial warning retention.
+
+GROUND-TRUTH OPTIONS
+Existing data can support a functional fidelity test but ordinarily cannot supply true explanatory causes. For a separate mechanism experiment, generate benign dummy-file transfers in an isolated controlled lab with recorded sender/receiver hashes, start/stop times, and controlled traffic changes. Counterbalance endpoint identities across benign/malicious behaviors. Use recorded transformations that preserve transfer completion. Interventions validate the manipulated mechanism, not a complete causal account of an APT.
+
+STOP RULES AND BUDGET
+- Before model training, confirm a nonzero episode-recovery ceiling and enough independent episodes to estimate an effect. No positive headroom means stop this endpoint.
+- Reject claims based only on shuffled-rationale detection: a checksum could do that. Include real approximation failures and supported correlated alternatives.
+- If every exact attribution passes by construction, the gate is only an integrity check. Stop the XAI recovery claim.
+- If fidelity selection ties confidence or full-feature selection, do not expand paid runs without a concrete new mechanism.
+- If corrected feature perturbations remove the apparent gain, report the evaluation artifact.
+- Cap initial CPU feasibility at $50 within the shared $1,000 cap; coordinate the cap with the parent task, not an additional allowance. No GPU or LLM is necessary for this test.
+
+OVERALL ASSESSMENT
+Feasibility: moderate once new episode data qualify. Novelty: unresolved and substantially narrower than the user-supplied claim. The strongest possible result would establish incremental episode recovery from a valid explanation signal, under controlled costs and independent execution splits. Merely adding a threshold to SHAP agreement is insufficient.
