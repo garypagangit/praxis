@@ -1,0 +1,68 @@
+PX-110: Controlled DNS transfer feasibility, 4 October 2026
+
+Purpose: build usable experimental data instead of assuming a published release
+contains the required labels. This is a laboratory feasibility study, not a new
+APT benchmark, a novelty claim, or proof that XAI improves detection.
+
+Primary source: original loopback UDP DNS transactions carrying harmless generated
+bytes. Receiver reconstruction and SHA-256 equality verify completed transfers.
+Every received request and sent response is saved in full as a timestamped DNS
+message record. These are application-observed datagrams, NOT a link-layer PCAP;
+do not report IP/ethernet sizes or packet-loss/arrival measurements from them.
+No external destinations, existing user files, malware or credential collection.
+
+The research question is whether explanation-based referral improves discovery
+of labeled transfers beyond ordinary scores at the same review capacity. First
+verify data and non-XAI headroom; do not implement an XAI arm merely for a plot.
+
+Fit split: 24 verified transfer runs plus 480 benign runs.
+Calibration split: 12 verified transfer runs plus 240 benign runs.
+Development evaluation: 24 verified transfer runs plus 480 benign runs.
+Total: 60 transfers and 1,200 generated benign sequences. These are separate
+executions of one harness, not 60 independent real-world attacks. No pristine
+confirmation test is claimed. Per-split seeds are fixed at 11001,11002,11003.
+
+Every sequence contains 8,16,or32 DNS messages. Both classes share endpoint,
+base domain, sequence numbering, run-ID format and query-count distribution.
+Benign generator: ordinary service-style names, hash-like telemetry names and
+base32-like telemetry names. Transfer payloads: generated text or random bytes.
+Encoding style and timing schedules are varied independently of class.
+This limited benign generator does not reproduce enterprise DNS diversity.
+Receiver reconstruction is hidden from detector features. Receiver logs supply
+ground truth only. Domain literal, run ID, file hash and class label are excluded.
+
+Per-sequence features: data-label length mean/std/max, data-label entropy mean/std,
+digit fraction, message count, application DNS message byte sum, inter-request
+gap mean/std. No features from future sequences. One whole sequence is one review
+case; this is an end-of-sequence test, not an early-warning or host-hour result.
+
+Baselines: logistic regression; fixed small LightGBM; equal-weight benign-fit
+percentile composite of length, entropy, DNS-message bytes and query count.
+The composite matches this message-only observation boundary. It is NOT the
+full host byte-asymmetry baseline from PX-108, which requires network capture.
+PX-108/109 protocols and their stop decisions remain unchanged.
+
+Review budget: ceil(5% * evaluation cases). Rank each method at that same budget;
+ties by deterministic case ID. Select strongest on calibration recovered transfers,
+then fewer benign referrals, then fixed method name. Evaluate selection once.
+Count identified transfers, missed transfers, benign cases reviewed and precision.
+Go to a larger XAI pilot only if selected method misses >=3 verified development
+transfers. This checks feasibility; it does not guarantee power or novelty.
+Keep failures and ties. No model weakening or data retuning to create misses.
+
+External evidence: AIT-LDS 2.1 has author event labels, DNS/audit logs and attack
+timelines (https://zenodo.org/records/19483937). It is simulated enterprise traffic.
+Its DNS visibility exclusions must be respected. Existing local AIT netflow work
+already found saturated episode coverage, so do not claim it can independently
+confirm recovery gains. AIT raw 2.1 has not been downloaded/qualified in this study.
+CIC-Bell release remains a documented source-qualification result, not training data.
+
+Prior art: explanation-driven IDS monitoring and triage already exist:
+https://doi.org/10.1007/s10207-026-01299-x
+https://www.preprints.org/manuscript/202609.0988
+Controlled exfiltration generation/reconstruction is also prior art:
+https://arxiv.org/abs/2512.20423 (DoH toolkit, 2025 preprint).
+The proposed incremental recovery advantage remains an unproven hypothesis.
+
+Compute: local CPU only for this feasibility run. $0 AWS. All larger runs stay
+within the previously authorized shared cap; no cloud launch follows automatically.
