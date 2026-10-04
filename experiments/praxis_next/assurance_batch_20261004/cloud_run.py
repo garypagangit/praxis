@@ -4,7 +4,7 @@ from pathlib import Path
 from experiments.praxis_next.compute.provics_cloud_control import control
 from botocore.config import Config
 HERE=Path(__file__).parent
-PRIVATE=Path('C:/w/assurance_aws_20261004')
+PRIVATE=Path('C:/w/assurance_aws_20261004_attempt2')
 
 def main():
     c=control.Controller(PRIVATE/'settings.json');s=c.settings
