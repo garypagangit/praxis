@@ -2,10 +2,10 @@ import json,hashlib,tarfile
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[2]
-PRIVATE=Path('C:/w/assurance_aws_20261004_attempt4')
+PRIVATE=Path('C:/w/assurance_aws_20261004_attempt5')
 PRIVATE.mkdir(exist_ok=True)
 settings=json.loads(Path('C:/w/px107_aws_pilot/settings.json').read_text())
-settings['prefix']='praxis-next/assurance/20261004-attempt4/'
+settings['prefix']='praxis-next/assurance/20261004-attempt5/'
 (PRIVATE/'settings.json').write_text(json.dumps(settings,indent=2))
 with tarfile.open(PRIVATE/'bundle.tar.gz','w:gz') as a:
     a.add(HERE/'run_language.py',arcname='run_language.py')
@@ -13,7 +13,7 @@ with tarfile.open(PRIVATE/'bundle.tar.gz','w:gz') as a:
         a.add(Path('C:/w/assurance_batch_20261004')/name,arcname='inputs/'+name)
 source=(HERE.parent/'xai_acquisition_20261004/cloud_run.py').read_text()
 source=source.replace('Bounded PX-107A allocation','Bounded PX-114/115 GPU allocation')
-source=source.replace("C:/w/px107_aws_pilot","C:/w/assurance_aws_20261004_attempt4")
+source=source.replace("C:/w/px107_aws_pilot","C:/w/assurance_aws_20261004_attempt5")
 source=source.replace("HERE/'FREEZE.json'","HERE/'CLOUD_FREEZE.json'")
 source=source.replace("HERE/'PROTOCOL.txt'","HERE/'CLOUD_PROTOCOL.txt'")
 source=source.replace('praxis-px107-','praxis-assurance-').replace('PRAXIS_PX107','PRAXIS_ASSURANCE')

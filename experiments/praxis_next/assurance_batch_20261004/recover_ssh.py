@@ -3,7 +3,7 @@ import ipaddress,json,subprocess,time,os
 from pathlib import Path
 import boto3,requests
 HERE=Path(__file__).resolve().parent
-OUT=Path(os.environ.get('PRAXIS_AWS_PRIVATE','C:/w/assurance_aws_20261004_attempt4'))
+OUT=Path(os.environ.get('PRAXIS_AWS_PRIVATE','C:/w/assurance_aws_20261004_attempt5'))
 INSTANCE='i-07178e293e8df2a60'
 s=boto3.Session(profile_name='praxis-build',region_name='us-east-1')
 ec=s.client('ec2')
@@ -22,10 +22,11 @@ try:
     sent=s.client('ec2-instance-connect').send_ssh_public_key(InstanceId=INSTANCE,InstanceOSUser='ubuntu',SSHPublicKey=Path(str(key)+'.pub').read_text(),AvailabilityZone=i['Placement']['AvailabilityZone'])
     assert sent['Success']
     cmd=['ssh','-i',str(key),'-o','BatchMode=yes','-o','IdentitiesOnly=yes','-o','StrictHostKeyChecking=accept-new','-o','UserKnownHostsFile='+str(OUT/'repair_known_hosts'),'-o','ConnectTimeout=15','ubuntu@'+target,'sudo bash -s']
-    r=subprocess.run(cmd,input=(HERE/'recover_disk.sh').read_text(),text=True,capture_output=True,timeout=70)
-    (OUT/'DISK_RECOVERY.txt').write_text(r.stdout+'\n'+r.stderr)
-    print(r.stdout[-1800:]); print('Recovery exit',r.returncode)
-    assert r.returncode==0,r.stderr
+    r=subprocess.run(cmd,input=(HERE/'recover_disk.sh').read_text().encode('utf-8'),capture_output=True,timeout=70)
+    stdout=r.stdout.decode('utf-8',errors='replace'); stderr=r.stderr.decode('utf-8',errors='replace')
+    (OUT/'DISK_RECOVERY.txt').write_text(stdout+'\n'+stderr)
+    print(stdout[-1800:]); print('Recovery exit',r.returncode)
+    assert r.returncode==0,stderr
 finally:
     if attached: ec.modify_instance_attribute(InstanceId=INSTANCE,Groups=prior)
     if group: ec.delete_security_group(GroupId=group)

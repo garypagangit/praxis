@@ -10,7 +10,7 @@ def main(pid):
     deadline=time.monotonic()+1800
     while proc is not None and proc.is_running() and time.monotonic()<deadline: time.sleep(10)
     if proc is not None and proc.is_running(): raise TimeoutError('Prior controller still active')
-    old=Path('C:/w/assurance_aws_20261004_attempt3')
+    old=Path('C:/w/assurance_aws_20261004_attempt4')
     c=control.Controller(old/'settings.json')
     while c.instance()['State']['Name']!='stopped' and time.monotonic()<deadline:time.sleep(10)
     assert c.instance()['State']['Name']=='stopped'
