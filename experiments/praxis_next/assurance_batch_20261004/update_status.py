@@ -8,11 +8,14 @@ TITLES={112:'Deferred explanation cost and sampling assumptions',
         114:'Verification claims checked against tool receipts',
         115:'SHAP narrative consistency versus deterministic rendering'}
 def refresh():
+    contextfile=HERE/'RUN_CONTEXT.json'
+    context=json.loads(contextfile.read_text()) if contextfile.exists() else {}
+    data_dir=Path(context.get('data_dir',str(OUT)))
     registry=HERE.parent/'REGISTRY.json'; reg=json.loads(registry.read_text(encoding='utf-8-sig'))
     entries={r['id']:r for r in reg['experiments']}
     lines=['ASSURANCE FEASIBILITY BATCH: PX-112 THROUGH PX-115',
            'Updated UTC: '+datetime.datetime.now(datetime.timezone.utc).isoformat(),
-           'AWS/API spending: $0. Local CPU and Ollama only.',
+           context.get('compute_note','AWS/API spending: $0. Local CPU and Ollama only.'),
            'Broad novelty is NOT established for any of the four ideas.',
            'The protocol was frozen before results. No thresholds were tuned to outcomes.','']
     complete=0
@@ -49,10 +52,10 @@ def refresh():
                     'Unrestricted prose semantics NOT CERTIFIED; no causal, legal or comprehension claim.')
             entry.update(status='COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED',results=HERE.name+'/'+file.name,finding=finding)
         else:
-            log=OUT/('verification_answers.jsonl' if n==114 else 'narrative_answers.jsonl')
+            log=data_dir/('verification_answers.jsonl' if n==114 else 'narrative_answers.jsonl')
             done=len(log.read_text(encoding='utf-8').splitlines()) if log.exists() else 0
-            finding=f'Running local Qwen2.5:3b pilot; {done} answers saved. Results pending; no efficacy finding.'
-            entry.update(status='RUNNING_LOCAL_FEASIBILITY',finding=finding)
+            finding=f'Qwen2.5:3b pilot on {context.get("backend","local CPU")}; {done} answers collected locally. Results pending; no efficacy finding.'
+            entry.update(status='RUNNING_AWS_FEASIBILITY' if context else 'RUNNING_LOCAL_FEASIBILITY',finding=finding)
         if ident not in entries: reg['experiments'].append(entry)
         lines.extend([ident+' - '+title,entry['status'],finding,''])
     lines += ['DATA FIT',
@@ -65,11 +68,11 @@ def refresh():
         'PX114/115 require actual generated results and stronger comparisons before a contribution claim. Generic tool-receipt gates and SHAP narrative audits already exist.',
         'A constrained reason-code renderer may provide a limited, testable consistency guarantee; that is narrower than verifying arbitrary prose or satisfying Article86.',
         'See ASSURANCE_PRIOR_ART.txt and NARRATIVE_PRIOR_ART.txt for closest papers and exclusions.','',
-        'EVIDENCE',str(OUT),'Frozen protocol: PROTOCOL.txt / FREEZE.json',
+        'EVIDENCE',str(data_dir),'Frozen protocol: PROTOCOL.txt / FREEZE.json; AWS amendment: CLOUD_PROTOCOL.txt / CLOUD_FREEZE.json',
         'Numeric replay audit: NUMERIC_AUDIT.json. Language raw records remain outside git; outputs preserve every completion and error.']
     registry.write_text(json.dumps(reg,indent=2)+'\n',encoding='utf-8')
     (HERE/'FINDINGS.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    manifest={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in OUT.iterdir() if p.is_file()}
+    manifest={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in list(OUT.iterdir())+(list(data_dir.iterdir()) if data_dir!=OUT and data_dir.exists() else []) if p.is_file()}
     (HERE/'EVIDENCE_MANIFEST.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
     print(f'{complete}/4 studies have results',flush=True)
     return complete==4
