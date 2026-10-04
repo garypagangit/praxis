@@ -33,7 +33,7 @@ for i,p in enumerate(pdf,1):
 assert not outside,outside
 doc=Document(O/'Gary_Pagan_Praxis_Review.docx')
 assert doc.styles['Normal'].font.name=='Times New Roman'
-(O/'Gary_Pagan_Praxis_Accessible.txt').write_text('\n\n'.join(texts),encoding='utf-8')
+(O/'Gary_Pagan_Praxis_Accessible.txt').write_text('\n'.join(line.rstrip() for line in '\n\n'.join(texts).splitlines()).rstrip()+'\n',encoding='utf-8')
 receipt={'status':'PASS','pages':len(pdf),'historical_chapter4_unchanged':True,'original_equation_blocks_preserved':len(re.findall(r'\$\$(.*?)\$\$',new,re.S)),'original_result_table_rows_preserved':True,'original_references_preserved':True,'new_references':5,'px106_table_matches_saved_results':True,'outside_page_text':outside,'sparse_pages':empty,'locations':locations,'visual_review':'PENDING'}
 (H/'CONTENT_QA.json').write_text(json.dumps(receipt,indent=2)+'\n')
 print(json.dumps(receipt,indent=2))
