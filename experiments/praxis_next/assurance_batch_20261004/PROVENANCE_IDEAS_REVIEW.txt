@@ -1,0 +1,134 @@
+REVIEW: FIVE XAI / PROVENANCE PRAXIS IDEAS
+4 October 2026. Literature and design review; no new experiment results.
+
+MAIN FINDING
+The top two proposed gaps have close published precedents omitted from the draft.
+Do not carry forward its "nobody has done this" language. A narrow comparative
+application may remain possible, but changing the dataset alone is not sufficient.
+
+1. NARRATIVE-TO-PROVENANCE GATE: HIGH OVERLAP
+EviGuard, published 8 September 2026, already proposes provenance-grounded claim
+compilation, deterministic checks, temporal/identity/policy relations, three-valued
+verdicts and an action gate for industrial incident reasoning. This is direct
+architectural overlap, not merely adjacent CTI-text research. Its public data
+statement promises a later archival release; an accessible benchmark DOI was not
+established in this review. Its reported results are not independently reproduced.
+https://www.mdpi.com/2076-3417/16/18/8925
+DOI: 10.3390/app16188925
+Publisher-indexed full-text sections were accessible through search; direct page
+downloads returned 403/429. Do not describe the data as downloaded or runnable.
+
+Additional related methods: SHIELD, Auto-Prov, TRACE-CTI, FAX, and Reasoning
+Externalization. The last two were already identified in our earlier review.
+https://arxiv.org/abs/2507.10873
+https://arxiv.org/abs/2603.17100
+https://arxiv.org/abs/2607.24563
+
+Data correction: DARPA TC releases logs and attack documentation; a ready, complete
+label for every graph edge and every narrative assertion is not thereby established.
+https://github.com/darpa-i2o/Transparent-Computing
+Our UNRAVELED flow table is not automatically a process/file provenance graph.
+Verify actual entity IDs, edge semantics, ordering/clock uncertainties and the
+mapping to source attack documentation before claiming claim-level ground truth.
+An absent event can mean incomplete observation; it does not prove the claim false.
+Keep graph-supported facts, unknown claims and causal interpretations distinct.
+
+Possible research question: under incomplete telemetry, which verified explanation
+procedure retains useful incident evidence at a fixed review workload? This requires
+explicit comparison with the closest gate, a template and a citation-only checker.
+It remains a proposed question; neither novelty nor data adequacy is confirmed.
+
+2. EXPLANATION DIVERGENCE AS MIMICRY WARNING: BROAD IDEA ALREADY STUDIED
+Detecting adversarial evasion in deep learning intrusion detection systems using
+explainable AI already defines SHAP drift and top-k overlap checks and learned
+explanation-based detection. Its paired clean/adversarial construction is a material
+limit for deployment, where the original clean counterpart may be unavailable.
+https://link.springer.com/article/10.1007/s10207-026-01299-x
+The research opportunity would have to go beyond that comparison: a detector that
+uses only deployment-available evidence, valid attack executions and equal review
+budgets. Feature-space changes alone cannot prove the attack still works.
+
+Verified mimicry foundation:
+Goyal et al., NDSS 2023, Sometimes, You Aren't What You Do.
+https://www.ndss-symposium.org/wp-content/uploads/2023/02/ndss2023_f207_paper.pdf
+Do not assume its reported success rates transfer to a new detector or dataset.
+Compare explanation signals with score, input-drift/density and behavior-based
+controls; retain all perturbation failures and unchanged-prediction cases.
+
+3. STAGE-AWARE COUNTERFACTUALS: POTENTIALLY DISTINCT, HARD TO VALIDATE
+ProvX already applies counterfactual explanation to provenance-based detection and
+uses explanation feedback for robustness. The NIDS diffusion paper already studies
+actionable counterfactuals and global filtering rules. Neither supports an automatic
+claim that stage constraints are new.
+https://arxiv.org/abs/2508.06073
+https://arxiv.org/abs/2507.17161
+A smaller defensible target is validity of an intervention against measured
+protocol/causal prerequisites. An ATT&CK stage list is not a universal mandatory
+linear execution order. Changing a prediction to benign can represent evasion,
+not successful prevention. Evaluate what happened to the actual transfer/attack,
+not only what happened to the model label.
+This requires executable scenarios, observed prerequisites and completion evidence;
+the current flow-only data cannot establish all of these. Defer as a simple Praxis.
+
+4. PROGRESSIVE DISCLOSURE: HUMAN STUDY OPPORTUNITY, NOT AUTOMATIC NOVELTY
+The current v2 of Too Much to Trust? includes the CORTEX framework and reports a
+survey plus analyst interviews. Its v1 has a different title; pin the version.
+https://arxiv.org/html/2503.02065v2
+The cited January 2026 interface paper explicitly studies decision accuracy and
+cognitive load as well as trust. The draft's "trust rather than performance"
+distinction overstates the gap.
+https://arxiv.org/abs/2601.22653
+Measure correctly resolved incidents per unit time, missed attacks, wrong actions
+and workload; do not maximize alerts/hour in isolation. Randomize matched cases,
+account for repeated analyst/case observations and record task difficulty.
+Tier-specific conclusions need enough people within each tier. A small team can
+establish feasibility, not broad workforce benefit. Bot ratings cannot establish
+human throughput or comprehension.
+
+5. EXPLANATIONS FOR LABEL QA: CHEAPEST QUALIFICATION PILOT, NOT PROVEN NOVEL
+There is existing IDS work on counterfactual-based contaminated-label correction:
+X-NetIntrospector (2026).
+https://www.sciencedirect.com/science/article/pii/S138912862600616X
+Publisher search text supports the overlap; full-text retrieval was not available.
+Do not equate a model-label disagreement with a labeling error.
+Compare attribution-based review ranking with out-of-fold loss, confidence,
+ensemble disagreement and established label-error methods, at equal review count.
+The primary outcome is independently confirmed label errors found per review.
+
+Best candidate source to qualify: original CICIDS2017 captures plus the published
+correction pipeline and releases from Engelen et al.
+https://intrusion-detection.distrinet-research.be/WTMC2021/
+Their corrections affect flow construction/features as well as labels. Do not
+join old and regenerated rows by row number or assume a one-to-one correspondence.
+First establish shared packet/flow identities or a label-only correction subset.
+Do not train on all corrected labels and call rediscovering the supplied corrections
+new error detection. Keep adjudicated test corrections hidden from fitting/selection.
+This is a dataset-QA study; CICIDS2017 is not an independent APT exfiltration study.
+
+OTHER CLAIMS TO FIX IN THE DRAFT
+- High accuracy alone does not prove a dataset artifact. Demonstrate leakage,
+  duplicates, shortcuts or split sensitivity before attributing the result to them.
+- ProvX is not the only relevant explanation work; our earlier CyberShapley
+  full-text review also found APT explanation and analyst-facing evaluation.
+- A graph edge records a represented relationship, not automatically maliciousness
+  or successful data theft. Keep observational support separate from attack labels.
+- A low unsupported-claim rate does not prove useful explanations: a system that
+  says almost nothing can achieve it. Report claim coverage and essential omissions.
+- Sampling bounds require the specified population and independent units. Related
+  claims/flows from one incident cannot be counted as independent incidents.
+
+FEASIBILITY ORDER
+1. Label-QA qualification: smallest engineering pilot if trustworthy row identity
+   and independently corrected labels can be established.
+2. Narrow narrative consistency comparison: strongest thesis fit but direct prior
+   art makes the contribution narrower than the attachment claims.
+3. Deployable explanation-based mimicry detection: worthwhile only with valid
+   attacks and a clean-counterpart-free inference rule; currently unqualified.
+4. Human progressive-disclosure study: requires actual analysts and suitable tasks.
+5. Stage-constrained counterfactuals: largest validity and execution burden.
+
+RECOMMENDATION
+Use this list to refine questions, not launch five supposedly novel studies.
+First qualify the label-QA mapping and the narrative claim reference set. Compare
+against the direct precedents before spending on another model batch. No new
+experiment IDs were assigned or paid experiments launched for these five ideas.
