@@ -1,0 +1,75 @@
+PX-110: controlled data pipeline and baseline feasibility
+4 October 2026
+
+RECOMMENDATION
+Use a controlled transfer dataset for the verified-transfer experiment, and AIT
+as a separately qualified external source for author-labeled attack activity.
+Do not recommend another public ZIP as ready before inspecting it. Do not claim
+AIT episode recovery: the prior AIT experiment had saturated episode coverage.
+AIT-LDS 2.1 source: https://zenodo.org/records/19483937
+
+WHAT NOW EXISTS
+Executed real UDP request/response transactions between loopback sockets with
+generated harmless bytes. Sixty transfers have matching sender/receiver SHA-256
+values. Generated 1,200 benign sequences. Complete request/response DNS messages,
+timestamps, received files, per-run labels, splits, model objects, predictions
+and evidence hashes are saved at C:/w/px110_controlled_dns_20261004_attempt2.
+No external traffic or user files were used. These message logs are NOT a PCAP.
+This establishes a functioning controlled pipeline, not a field-ready dataset.
+
+DEVELOPMENT RESULTS: EACH METHOD GETS 26 REVIEW CASES OUT OF 504
+Method              Transfers surfaced / 24   Missed   Benign reviews
+Logistic regression           10               14          16
+LightGBM                       9               15          17
+Heuristic composite            2               22          24
+
+On calibration, logistic and LightGBM both surfaced 7/12 using 13 reviews.
+The frozen alphabetical tie rule selected LightGBM before development scoring.
+The selected method leaves 15 missed transfers, passing the >=3 feasibility
+headroom gate. Even the best method on development leaves 14. This is NOT an
+XAI recovery result. No explanation-based method was fitted or claimed to help.
+
+The composite uses length, entropy, DNS-message bytes and query count. Its scope
+is the application-message evidence available here. It is not the complete
+host/network baseline proposed for PX-108 and does not replace that comparison.
+Budget rounding uses ceil(5% * cases); 504 cases therefore allow 26 reviews.
+
+INDEPENDENT AUDIT
+audit.py reconstructs each transfer anew from saved received DNS messages and
+checks both manifest hashes and receiver files. It independently replays review
+rankings/counts from saved predictions. See AUDIT.json for executed results.
+
+LIMITATIONS THAT MATTER BEFORE EXPANDING
+- One custom generator on one machine; not an enterprise network or real APT.
+- Separate runs share templates. No tool-independent or campaign-independent
+  generalization is established, and repeated text payloads can be shortcuts.
+- Base32-like benign telemetry and randomly encoded transfers deliberately
+  overlap. For conditionally identical observations, a classifier or explanation
+  cannot infer hidden intent. Missed-transfer headroom is necessary but NOT
+  sufficient evidence of recoverability. Separate these controls before claiming
+  that an explanation should rescue them; do not relabel or drop difficult runs.
+- End-of-sequence features only; no claim of earlier detection or analyst benefit.
+- The labels identify authorized laboratory transfer versus generated benign
+  traffic, not real malicious intent. Controlled simulation must be explicit.
+- Forty-eight/fewer rows in a split do not become many independent attacks merely
+  because they contain many messages. Report run counts and uncertainty honestly.
+- A full PX-109 test still needs verified timing changes and capture evidence at
+  the declared network observation boundary. This pilot does not complete PX-109.
+- Novelty remains unproven. Controlled transfer reconstruction already exists,
+  for example https://arxiv.org/abs/2512.20423. Explanation monitoring and triage
+  also have direct precedents cited in PROTOCOL.txt.
+
+EXECUTION RECORD
+The first generator execution completed transactions but failed while serializing
+a NumPy integer into JSON. No model results existed at that point. Its raw messages
+and receiver files are preserved at C:/w/px110_controlled_dns_20261004. The fix
+casts numeric features to floats and reruns the same frozen design in attempt2.
+No generator parameters, labels or model settings were changed to improve scores.
+No AWS resources launched; additional AWS spending $0.
+
+NEXT EXPERIMENT
+Freeze the XAI referral arm and its same-information non-XAI monitor before any
+new comparison. Keep generated-overlap controls explicit. Before a publication
+claim, replace single-template dependence with independently generated workloads
+and held-out configurations, then add external labeled evidence. Do not spend
+the remaining budget simply to amplify these preliminary percentages.

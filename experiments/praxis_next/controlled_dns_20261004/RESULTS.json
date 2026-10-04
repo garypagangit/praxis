@@ -1,0 +1,90 @@
+{
+  "experiment": "PX-110",
+  "status": "CONTROLLED_DEVELOPMENT_FEASIBILITY_ONLY",
+  "features": [
+    "length_mean",
+    "length_std",
+    "length_max",
+    "entropy_mean",
+    "entropy_std",
+    "digit_fraction",
+    "query_count",
+    "dns_message_bytes",
+    "gap_mean",
+    "gap_std"
+  ],
+  "verified_transfers": 60,
+  "benign_sequences": 1200,
+  "rows": [
+    {
+      "split": "calibration",
+      "method": "logistic",
+      "cases": 252,
+      "budget": 13,
+      "verified_transfers": 12,
+      "transfers_surfaced": 7,
+      "transfers_missed": 5,
+      "benign_referrals": 6
+    },
+    {
+      "split": "calibration",
+      "method": "lightgbm",
+      "cases": 252,
+      "budget": 13,
+      "verified_transfers": 12,
+      "transfers_surfaced": 7,
+      "transfers_missed": 5,
+      "benign_referrals": 6
+    },
+    {
+      "split": "calibration",
+      "method": "composite",
+      "cases": 252,
+      "budget": 13,
+      "verified_transfers": 12,
+      "transfers_surfaced": 1,
+      "transfers_missed": 11,
+      "benign_referrals": 12
+    },
+    {
+      "split": "development",
+      "method": "logistic",
+      "cases": 504,
+      "budget": 26,
+      "verified_transfers": 24,
+      "transfers_surfaced": 10,
+      "transfers_missed": 14,
+      "benign_referrals": 16
+    },
+    {
+      "split": "development",
+      "method": "lightgbm",
+      "cases": 504,
+      "budget": 26,
+      "verified_transfers": 24,
+      "transfers_surfaced": 9,
+      "transfers_missed": 15,
+      "benign_referrals": 17
+    },
+    {
+      "split": "development",
+      "method": "composite",
+      "cases": 504,
+      "budget": 26,
+      "verified_transfers": 24,
+      "transfers_surfaced": 2,
+      "transfers_missed": 22,
+      "benign_referrals": 24
+    }
+  ],
+  "calibration_selected_method": "lightgbm",
+  "headroom_gate": true,
+  "xai_benefit_tested": false,
+  "aws_spend_usd": 0,
+  "limits": [
+    "One custom loopback harness; not real APT traffic.",
+    "Complete DNS message logs are not PCAPs.",
+    "No receiver metadata used as detector input.",
+    "No new confirmation or novelty claim."
+  ]
+}
