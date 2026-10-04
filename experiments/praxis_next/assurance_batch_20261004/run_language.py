@@ -1,9 +1,9 @@
 """PX114/115: incremental local generation, receipts and deterministic audits."""
-import json, time, hashlib, datetime, copy
+import json, time, hashlib, datetime, copy, os
 from pathlib import Path
 import requests
-OUT=Path('C:/w/assurance_batch_20261004')
-HERE=Path(__file__).resolve().parent
+OUT=Path(os.environ.get('PRAXIS_DATA','C:/w/assurance_batch_20261004'))
+HERE=Path(os.environ.get('PRAXIS_RESULTS',str(Path(__file__).resolve().parent)))
 MODEL='qwen2.5:3b'
 def save(p,x): p.write_text(json.dumps(x,indent=2),encoding='utf-8')
 def generate(prompt,limit):
@@ -34,6 +34,8 @@ def sidecar(a,expected):
 def main():
     tags=requests.get('http://localhost:11434/api/tags',timeout=15).json()
     model=next(m for m in tags['models'] if m['name']==MODEL)
+    expected=os.environ.get('PRAXIS_MODEL_DIGEST')
+    if expected: assert model['digest']==expected, 'Model digest changed'
     save(OUT/'model_manifest.json',model)
     targets=['numpy','pandas','requests','scipy','scikit-learn','lightgbm','flask','django','pydantic','pytest']
     targets += [f'praxis-nonexistent-20261004-{i:02d}-7a89c2' for i in range(10)]

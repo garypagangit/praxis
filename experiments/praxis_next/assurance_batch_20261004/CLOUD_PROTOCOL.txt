@@ -1,0 +1,18 @@
+PX-114/115 infrastructure amendment, 2026-10-04
+User explicitly prefers fast AWS execution over slow local execution. This changes
+compute only. Keep prompts, seed, temperature, context size, token limits, package
+snapshots, credit records, method and headroom thresholds unchanged.
+Use the existing stopped g5.xlarge i-07178e293e8df2a60 in us-east-1.
+Reuse bounded controller: 30-minute worker budget, stop watchdog at 40 minutes,
+45-minute observed-stop ceiling, estimated reserve $2 (not an invoice).
+Existing cumulative authorized user cap remains $1000; this is not a fresh cap.
+Run all 200 verification answers and 32 narratives afresh on GPU. Do not merge CPU
+and GPU answers or select whichever run looks better. GPU is the amended primary
+feasibility run; partial CPU output remains an infrastructure pilot. Preserve it.
+Ollama 0.17.0; Qwen2.5:3b Q4_K_M digest:
+357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b
+CPU/GPU numerical differences remain possible despite identical settings.
+No thresholds or prompt alterations based on the partial CPU results.
+All artifacts private in the existing S3 bucket and downloaded for local review.
+No new public network access; inference binds localhost on the worker.
+GPU must be confirmed by Ollama's running-model memory allocation before inference.
