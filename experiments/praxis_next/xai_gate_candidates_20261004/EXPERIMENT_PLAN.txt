@@ -1,170 +1,146 @@
-PX-108 / PX-109: Can explanations help surface missed exfiltration?
-4 October 2026 | Registered feasibility proposals; not completed efficacy studies
+PX-108 / PX-109 amendment: qualification before headroom before XAI
+Date: 2026-10-04. This amendment takes precedence over the initial candidate notes.
 
-DECISION IN SIMPLE WORDS
-Both ideas are worth a small feasibility test, but their broad novelty claims are
-already contradicted by published work. Our possible contribution is narrower:
-use explanation evidence to select otherwise missed data-transfer episodes for
-review, and show that this works better than ordinary prediction scores at the
-same review workload. Applying SHAP to another dataset is not enough.
+EXPOSURE AND SCOPE
+Attack ZIP contents, counts, time ranges, truncation and DNS decoding summaries
+were already inspected before this amendment. No CIC model has been fitted and
+no CIC prediction/headroom results have been inspected. This is a prospective
+development freeze, not an untouched-data preregistration or public registry.
+Any confirmation claim requires a separately reserved set of independent runs.
 
-Priority for implementation: PX-108 first because it reuses ordinary captures
-and requires fewer moving parts. PX-109 has a clearer traffic-validity question
-but needs verified transfers and a controlled traffic-generation harness.
-Neither is yet a confirmed novel or defense-ready Praxis.
+GO / NO-GO (applied in this order)
+G0: At least one defensible episode manifest with independent execution IDs,
+outbound direction, start/end evidence, and transfer-completion evidence. A
+capture filename or publisher's general description of the tool is insufficient
+to verify a particular successful episode. Lack of provenance is NOT zero
+headroom. It is NOT EVALUABLE, and fitting stops before headroom measurement.
+G1: Required baseline inputs are observable without label-dependent missingness.
+Required DNS length/entropy cannot be inferred from a truncated question name.
+No zero filling, parse-failure flag, captured length or snap length as predictors.
+If the complete composite cannot be evaluated, do not silently weaken it and
+claim superiority to the strongest baseline. Header-only studies are separate.
+G2: Proceed to the XAI pilot only if the calibration-selected strongest non-XAI
+baseline misses at least THREE verified successful independent development
+episodes at B = 5% of eligible cases. Require at least six verified successful
+development episodes overall. N=3 is a minimal feasibility rule, NOT a power
+calculation or a publication threshold. Freeze a powered confirmation design
+after the pilot; do not treat three rescued episodes as sufficient proof.
+G3: Do not change the operating point/model after seeing G2 failure. Report each
+registered baseline, the selected winner, and missed counts for all methods.
+If any registered alternative recovers all episodes, report that fact explicitly.
+G4: PX-109 cannot proceed without an isolated dummy-file transfer arm with
+receiver hash equality, start/end records and complete captures. Re-timing the
+existing PCAPs is sensitivity analysis, not a validated successful transfer.
 
-COMMON PROBLEM STATEMENT
-A network detector can label a data transfer benign even when it carries stolen
-data. A SOC then receives no warning. An explanation may expose an unsupported
-benign decision, but explanation quality alone does not establish that a transfer
-is malicious. We need to measure whether acting on explanation information puts
-more real exfiltration episodes into a limited review queue than simpler scores.
+LABEL QUALIFICATION
+Grade independently: author capture category; packet/flow membership supported
+by documented endpoint/tool/session criteria; transfer completion independently
+verified. Do not promote one grade to the next. Inspect archive documentation,
+publisher schedule, capture bounds and available receiver logs/hashes. Unknown
+packets remain unknown; never mark every packet in Attacks/ malicious. Check
+duplicate archives, duplicate capture hashes and exact duplicate packet records.
+Author schedules are evidence, not a license to shift clocks until labels fit.
+Timezone conversions require documentation. Record mismatches without relabeling.
 
-PIPELINE
-Observed traffic -> frozen LightGBM detector -> existing warnings retained
-                                           -> otherwise silent cases
-                                              -> explanation or baseline score
-                                              -> equal-sized review queue
-                                              -> measure labeled episodes surfaced
+ORDERING AND FEATURES
+Discard published stateful CSVs for this study. Do not join by row number.
+Reconstruct features directly from packet observations. Preserve original record
+indices. For offline replay, stable-sort within each capture by (timestamp in
+integer microseconds, original record index). Equal timestamps retain capture
+order. Do not repair clock resets by inventing timestamps or merge separately
+captured clocks. Flag backward steps, maximum backward jump, moved rows and
+affected capture IDs; episode counts affected remain unknown until labels qualify.
+History uses strictly earlier timestamps. Build source-host five-minute cases
+on UTC boundaries; emit at window close, with no later packets. No claim of
+real-time arrival ordering or early warning follows from this offline sorting.
+Keep capture groups separate in splits; all derivatives from an execution stay
+together. Host addresses identify cases but never enter model features.
+Retain repeated packets unless proven duplicate timestamp+bytes+wire length;
+report a deduplicated sensitivity arm before adopting deduplication as truth.
 
-An entry in the review queue is an opportunity to investigate. It is not a
-confirmed analyst detection. No human performance or financial savings will be
-claimed from label-based replay. A failed explanation check never deletes an
-existing warning. All methods use identical traffic and grouping rules.
+STRONG NON-XAI COMPARATORS
+At the same case budget include: LightGBM exfiltration probability; logistic
+regression probability; anomaly score; individual operational heuristics; and
+an equal-weight composite of benign-calibration percentile ranks for:
+  1. outbound/inbound byte asymmetry per host window;
+  2. complete DNS question-name length;
+  3. complete-name entropy times query rate;
+  4. outbound wire volume per host window.
+Direction requires a documented monitored-host role. Original wire lengths and
+validated IP lengths are distinct measurements; never call either payload bytes.
+Also include a small learned full-feature selector with the same input evidence
+and capacity as any learned XAI selector. Pick the winner by calibration episode
+coverage, then fewer benign referrals, then lower CPU cost, then method name.
+Do not choose a deliberately weak base model to manufacture misses.
 
-PX-108: Testing Evidence-Validity Gates for Exfiltration Triage
-Question: Can checking whether the model responds to the evidence highlighted by
-its explanation help select missed transfers for review?
+BUDGET AND HEADROOM ENDPOINT
+For headroom, B=5% of all label-independently constructed observed host/windows;
+the count is ceil(0.05*n), separately on each evaluation partition. Each method
+ranks these cases; deterministic ties use case IDs. This equal-budget offline
+ranking is a feasibility comparison, not a deployed threshold guarantee.
+Existing warning preservation is an independent later endpoint: first report
+base warnings, then the additional 5% budget among previously silent cases.
+Never mix total-budget headroom and additional-review-budget recovery counts.
+Split complete verified executions into disjoint training, calibration and
+development-evaluation groups before baseline fitting; publish the manifest.
+Without those groups G0 fails. No row split or random seed supplies independence.
 
-Technique: Explain the fixed exfiltration-versus-benign model margin using
-TreeSHAP. Group dependent features into DNS syntax, volume/direction, timing,
-and peer behavior. Apply supported group replacements, recomputing dependent
-features together. Compare the margin response from replacing the explanation's
-top group with responses from matched random groups. A low agreement score or
-unsupported replacement may trigger referral; unsupported cases must count
-against coverage and workload, not disappear from evaluation.
+PX-108 THESIS FIT: PASS/FAIL REFERRAL, NOT AN UNDECLARED RANKER
+Primary gate: a previously silent case passes only if its explanation has
+supported evidence and a group-response fidelity score >= tau. Unsupported or
+below-threshold cases fail automatic closure and become referral candidates.
+Existing warnings are always retained. No rule demotes an attack warning.
+Calibrate tau once on calibration runs to respect the additional 5% referral
+budget; freeze it before evaluation. Overflow uses chronological FIFO and records
+deferred cases and delay. Underfill stays underfill. Compare confidence and
+composite threshold gates with the same queue policy and maximum capacity.
+Continuous top-B scoring remains a secondary analysis, labeled XAI-as-feature.
+Gate score: margin-response advantage of explanation-selected feature groups
+over equally sized random groups under supported joint replacements. The exact
+group/replacement manifest must be frozen after source qualification and before
+fitting the XAI gate. Do not implement this gate on unqualified input.
+There is no justified top-k causal-feature ground truth in CIC labels. A threshold
+on an investigator's preferred feature list would not establish causality.
+Novelty cannot rest on a threshold or deterministic wrapper alone.
 
-This tests model-response agreement, not the true cause of an attack. SHAP
-additivity is a useful implementation check but cannot establish this claim.
-Attack labels do not provide the correct feature-attribution vector. Okhankhuele's
-real/synthetic ranking parity is a different, aggregate agreement test.
+RQ1/H1: At equal maximum added-review workload, does the frozen fidelity gate
+surface more previously missed verified episodes than the strongest calibrated
+non-XAI gate? H1 predicts a positive paired execution-level difference.
+RQ2/H2: Does explanation content supply incremental benefit? H2 predicts reduced
+benefit when attributions are removed/shuffled, with evidence, capacity and queue
+rules held fixed. Compare a full-feature selector and prediction sensitivity.
+RQ3/H3: Does benefit persist on independent executions with coherent replacements?
+H3 predicts a positive paired difference there. Use execution-level uncertainty;
+do not call seeds or thousands of packets independent replications.
 
-RQ1 / H1: Does the explanation-based selector surface more initially missed
-exfiltration executions than the strongest calibrated non-XAI selector at an
-equal review-case budget? H1 predicts a positive paired difference on independent
-confirmation executions. Report a 95% execution-clustered interval and raw counts.
-RQ2 / H2: Does explanation content cause the measured selection advantage?
-H2 predicts lower recovery after removing or shuffling attributions, with all
-other inputs, capacity, and review budget held fixed.
-RQ3 / H3: Does the advantage persist with coherent group replacements and a held-
-out execution/configuration? H3 predicts positive recovery gain in that arm.
-If it exists only with arbitrary column deletion, reject the proposed claim.
+LITERATURE AND ONE-SENTENCE DELTA
+Maseno, E. M., Sun, Y., & Wang, Z. (2026). Detecting adversarial evasion in deep
+learning intrusion detection systems using explainable AI. International Journal
+of Information Security, 25, 125. Published July 15, 2026.
+https://doi.org/10.1007/s10207-026-01299-x
+Already tests explanation drift, feature overlap, threshold and learned monitors.
+Epalle, T. E., & Dara, R. (2026). Confusion-Aware Explainable Alert Triage for
+Network Intrusion Detection. Preprints.org, posted September 14; not peer reviewed.
+https://www.preprints.org/manuscript/202609.0988
+Already combines explanation testing and reliability routing; reports a tie with
+confidence on error coverage.
+Proposed delta: test whether a fixed explanation-validity referral gate surfaces
+additional verified exfiltration episodes beyond strong operational non-XAI gates
+at the same review capacity on independent executions. This remains unproven.
 
-Baselines: confidence; random; generic anomaly; equal-capacity full-feature
-selector; conventional deletion fidelity; proposed score; proposed score with
-removed/shuffled attributions. Select the strongest baseline on calibration,
-never by choosing the one easiest to beat on confirmation data.
+LABEL-AUDIT FOUNDATION (different dataset; no allegation of these exact CIC errors)
+Engelen, G., Rimmer, V., & Joosen, W. (2021). Troubleshooting an Intrusion Detection
+Dataset: The CICIDS2017 Case Study. IEEE SPW, 7-12.
+https://doi.org/10.1109/SPW53761.2021.00009
+Lanvin, M., Gimenez, P. F., Han, Y., Majorczyk, F., Me, L., & Totel, E. (2023).
+Errors in the CICIDS2017 Dataset and the Significant Differences in Detection
+Performances It Makes. CRiSIS 2022 revised proceedings, 18-33.
+https://doi.org/10.1007/978-3-031-31108-6_2
+These motivate inspecting labels and packet ordering; they do not establish
+errors in CIC-Bell-DNS-EXF-2021. Official source:
+https://www.unb.ca/cic/datasets/dns-exf-2021.html
 
-PX-109: Testing Explanation-Based Review Gates Under Valid Exfiltration Changes
-Question: When a successful transfer changes its timing or permitted batching,
-can explanation instability expose missed transfers better than ordinary model
-scores or their instability?
-
-Technique: First test documented original captures. Then use harmless dummy-file
-transfers in an isolated sender/receiver harness. Change pacing/batching within
-declared bounds; verify successful reconstruction using sender/receiver hashes.
-Re-extract all features from recorded traffic. An edited PCAP is an offline
-sensitivity test until successful execution has been independently verified.
-
-The runtime score uses only the incoming observation and a frozen set of allowed
-local probes. It measures attribution dispersion and top-group disagreement.
-It must not require the unavailable original clean attack. Near-zero attribution
-mass and unsupported probes are explicit abstention states. Instability can be
-legitimate; it is a review signal, not automatic proof of explanation failure.
-
-RQ1 / H1: At the same review budget, does the explanation-enhanced selector surface
-more missed verified transfers than a score-only selector? H1 predicts a positive
-paired recovery difference on independent confirmation executions.
-RQ2 / H2: Is that benefit specific to explanations? H2 predicts improvement over
-prediction sensitivity under identical probes, and reduced benefit with shuffled
-attributions. Include an equal-capacity monitor of the original features.
-RQ3 / H3: Does the benefit survive held-out shaping settings and a bounded test
-against the full detector-plus-gate? H3 predicts a positive paired difference in
-that arm. Search and probe budgets are frozen before confirmation.
-
-Controls: ordinary network variation; original transfers; valid modified
-transfers; invalid/incomplete transfers separately counted. Report both changed-
-prediction and unchanged-prediction cases. A clean/adversarial paired SHAP drift
-method may be an offline oracle comparator but is not a deployable runtime gate.
-
-COMMON DATA AND SPLIT REQUIREMENTS
-Primary candidate: CIC-Bell-DNS-EXF-2021, official raw captures and original CSVs.
-It represents laboratory DNS exfiltration, one APT behavior, not full APT campaigns.
-Check execution identifiers, direction, timing, tool/configuration, benign
-coverage, truncation, duplicate packets and collection shortcuts before fitting.
-Do not count capture files, random seeds, or transformed copies as independent
-attack executions. Keep all derivatives of one execution in one split.
-
-Reserve entire executions for confirmation before model development. No random
-row split. Exclude literal domain names, endpoint addresses, date and file names
-from model inputs; evaluate remaining collection artifacts. Reconstruct past-only
-history from timestamps. No future packets or completed-transfer features in a
-claim about earlier warnings. Published stateful CSVs need their window and row
-alignment established before combining them with packet-level CSVs.
-
-No recovery headroom means stop: the development baseline must actually miss
-independent episodes under a prespecified operating-point rule. Never inspect
-confirmation outcomes and then weaken the detector to manufacture misses.
-AIT's existing fully warned episode proxies cannot establish a recovery benefit.
-
-OPERATING POINT AND METRICS
-Use three fitting seeds as sensitivity checks, not independent samples.
-Primary pilot review budget: 5% of initially silent cases; 1% and 10% secondary.
-This is a research budget, not a measured SOC capacity. Establish the case-window
-size, tie rules and threshold on calibration only. Freeze exact definitions,
-split manifests, feature groups, software, seeds and hashes before confirmation.
-Report realized queue size and overflow when a calibration threshold is deployed;
-also compare retrospective equal-budget rankings with their status made explicit.
-
-Primary: distinct initially missed executions surfaced at the same case budget.
-Secondary: total execution warning coverage, benign referrals, false-alert rate,
-time to first warning, bytes before warning when verifiable, latency, probe cost,
-abstention coverage, valid-transfer rate, and preservation of existing warnings.
-Use paired execution-level uncertainty estimates; report insufficient power when
-execution counts are small. More packets do not solve too few independent runs.
-Keep diagnostic attribution-fidelity scores separate from operational recovery.
-
-COMPUTE AND STOP RULES
-One shared initial ceiling of $50 across PX-108 and PX-109, within the user's
-existing $1,000 total cap. Local qualification first. CPU LightGBM/TreeSHAP;
-no LLM/GPU required for these pilots. No new paid jobs launched for these proposals.
-Fit the small baseline only after source qualification. Do not fit XAI selectors
-until development headroom checks pass. Confirmation data remain untouched.
-Stop expansion if XAI ties confidence/full-feature selection, the explanation
-ablation makes no difference, valid perturbations erase the result, or independent
-executions are unavailable. Retain negative findings in the registry.
-
-WHAT THE LITERATURE CHECK ESTABLISHED
-1. SCVIC-APT work uses SHAP feature selection as well as plots. The supplied
-   characterization was too narrow.
-   https://arxiv.org/abs/2506.07480
-2. Maseno et al. already audit fidelity, stability and spurious features in IDS.
-   https://doi.org/10.1007/s11416-026-00664-7
-3. HiFi-XAI addresses explanation fidelity and dependent features.
-   https://opus.lib.uts.edu.au/handle/10453/195167
-4. Confusion-Aware Explainable Alert Triage is a September 2026 preprint combining
-   explanation testing and reliability routing; it reports a confidence-baseline
-   tie in error coverage. It is not yet peer reviewed.
-   https://www.preprints.org/manuscript/202609.0988
-5. Maseno et al. already test explanation drift, top-k overlap, a rule-based gate
-   and a learned detector under adversarial IDS perturbations.
-   https://doi.org/10.1007/s10207-026-01299-x
-6. Rajhans and Khawarey already test TreeSHAP instability, including unchanged
-   predictions. Their July 2026 preprint leaves network-validity constraints open.
-   https://arxiv.org/html/2607.01679v1
-7. Dataset foundation and collection protocol:
-   https://www.unb.ca/cic/datasets/dns-exf-2021.html
-
-The possible research contribution is a tested incremental episode-recovery
-benefit under valid traffic, independent executions and matched workload. This
-is a hypothesis to investigate, not a verified novelty claim.
+SPENDING
+Local qualification first; zero paid jobs if G0 or G1 fails. Shared initial $50
+ceiling within the existing $1,000 total authorization. No paid expansion without
+a qualified input, published split manifest and passing development headroom gate.
