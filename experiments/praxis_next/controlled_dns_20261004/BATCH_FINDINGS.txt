@@ -1,0 +1,99 @@
+PX-111: six XAI approaches compared in one fixed batch
+4 October 2026
+
+WHAT WE ARE DOING
+We are testing whether explanation information adds measurable detection value
+beyond ordinary model scores at the same investigation workload. A positive
+result is possible but not required. We keep the entire planned comparison;
+we do not repeatedly change methods, data or endpoints until something wins.
+CIC failed target-row qualification. AIT failed recovery-headroom qualification.
+PX110 established a controlled data pipeline. PX111 now tests six XAI candidates.
+
+EXECUTED RESULTS
+The fixed anchor warned on 17 development cases, containing 9/24 transfers.
+There were 487 silent cases containing the remaining 15 transfers. Every ranking
+method received 25 additional review slots; existing warnings were retained.
+
+Approach                                  Added transfers   Added benign reviews
+Non-XAI calibrated comparator                     3                 22
+A. Positive attack-support SHAP mass               2                 23
+B. Conflicting attack/benign attribution mass      0                 25
+C. Explanation change under timing probes         1                 24
+D. Attribution disagreement across fitted models  2                 23
+E. Nearest neighbors in explanation space          0                 25
+F. Group-response fidelity discrepancy             0                 25
+
+The calibrated comparator was prediction change under the SAME timing probes
+used by approach C. Logistic confidence, ensemble mean and ensemble probability
+variance also each surfaced three transfers on development. The ordinary base
+confidence and raw-feature neighbors each surfaced two. The heuristic composite
+surfaced one; isolation forest and group prediction change surfaced none.
+Thus the conclusion is not dependent on choosing a weak confidence comparator.
+
+These numbers are additional labeled transfers put in the review queue, not
+confirmed detections by a SOC analyst. No XAI ranking improves over the selected
+non-XAI comparator. All six exploratory Bonferroni-adjusted one-sided paired
+discordance p-values are 1.0; there is no positive significance claim.
+
+DETERMINISTIC GATES WERE ALSO TESTED
+Thresholds were fixed using silent calibration cases, then applied once to
+development. Referrals were admitted in sequence order up to 25 extra slots.
+Actual queue use varies; underfill was retained, not topped up after scoring.
+Method                     Added transfers   Actual reviews   Overflow
+Selected non-XAI gate             2                22              0
+A                                1                22              0
+B                                0                18              0
+C                                1                16              0
+D                                2                25              0
+E                                0                 3              0
+F                                0                21              0
+
+D ties recovered transfers but uses three more reviews than the selected
+non-XAI gate. It does not demonstrate an improvement. Other non-XAI gates reach
+three transfers on development; they were not retroactively selected as winners.
+All gates preserve every anchor warning. Sixty independent decision-cell replay
+checks passed. TreeSHAP additivity passed; it is an implementation check, not a
+causal or operational explanation-quality result. Shuffled controls and every
+method/split outcome are retained in BATCH_RESULTS.json.
+
+WHAT THESE SIX METHODS REPRESENT
+These are six inexpensive attribution-based approaches, not an exhaustive test
+of all explainable AI. They address hidden positive evidence, conflicting
+evidence, stability, fit disagreement, explanation similarity and functional
+fidelity. The batch cannot rule out future value from explanation-guided model
+repair, intelligible rule learning, evidence retrieval or human investigation.
+Those would need distinct hypotheses and fresh evaluation, not retrospective
+renaming of the same negative result.
+
+EXTERNAL DATA: REQUIRED, BUT NOT YET VALIDATION
+Independent review recalculated the existing AIT evaluation from saved arrays:
+Wilson has 629,553 rows and Harrison 437,658. Their two episode proxies are
+already warned for all three fitting seeds. There are zero exfiltration cases
+without an existing warning. All six arms receive external status:
+NOT_EVALUABLE_NO_ELIGIBLE_EXFIL_CASES.
+
+That is a source qualification result. We did not run six pointless classifiers
+and label the result a replication. AIT records real testbed executions with
+simulated users/scripted attacks; it is not operational breach telemetry.
+https://zenodo.org/records/13168643
+https://zenodo.org/records/19483937
+Exact files, protocol limitations and independent recalculation are documented
+in EXTERNAL_VALIDATION_REVIEW.txt. Previously examined executions are not an
+untouched confirmation set. Repeated seeds are not new attacks.
+
+ONGOING RESEARCH RULE
+1. State one measurable question and predefine a finite batch and strong controls.
+2. Qualify the development source AND proposed external source for that endpoint.
+3. Run all methods, retain failures, use multiplicity-aware summaries.
+4. Freeze any selected candidate before testing fresh external recorded data.
+5. Require the same benefit at comparable workload externally before claiming
+   generalized recovery. Report separately whether evidence is controlled lab,
+   independently recorded lab or operational organization data.
+6. A synthetic-only win stays exploratory. A null batch is a result, not a reason
+   to keep tuning until it wins. Human/SOC benefit requires its own evaluation.
+
+DECISION
+This batch does not support a positive XAI recovery contribution. Do not promote
+any of A-F as a successful repair or spend AWS money expanding the same comparison
+without a distinct justified mechanism and an eligible external dataset.
+No paid compute used. The original audit/OR-gate findings remain separate.

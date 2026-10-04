@@ -1,0 +1,100 @@
+External validation review for the XAI comparison batch
+4 October 2026
+
+DECISION
+External recorded-data validation is required before promoting any controlled
+PX-110 finding to an APT detection claim. It must test the same stated outcome;
+changing the endpoint because the external data have no misses is exploratory.
+The available AIT data can support an external qualification now, but do not
+provide episode-recovery headroom under the existing warning-preserving protocol.
+No new public dataset is declared ready on the strength of its title alone.
+
+WHAT "REAL" MEANS HERE
+PX-110 consists of custom generated benign sequences and executed loopback file
+transfers. AIT is independently recorded laboratory network activity: actual
+testbed executions with simulated users and scripted attacks. Its publishers
+explicitly call the released logs and netflows synthetic. It is external to our
+generator, but it is not operational breach telemetry. AIT therefore tests some
+generator-specific shortcuts, not real-world SOC effectiveness. Such a claim
+would need operational data and its own labeling and privacy qualification.
+
+PRIMARY SOURCES VERIFIED
+AIT Netflow Data Set, version v2 (2 August 2024):
+https://zenodo.org/records/13168643
+The release provides labeled TCP/UDP flows derived from eight enterprise
+testbeds and includes DNSteal exfiltration. This is the source of our local AIT
+arrays. Labeling notebooks and source documentation are distributed with it.
+
+AIT Log Data Set V2.1 (9 April 2026):
+https://zenodo.org/records/19483937
+The release includes host logs, packet captures, labels, labeling rules and
+environment code. This newer package is not automatically an independent
+campaign from the earlier netflows; shared source executions must be checked.
+No new download or claim of unseen executions was made in this review.
+
+EXECUTED EXTERNAL QUALIFICATION
+Independently recalculated episode coverage and unwarned exfiltration cases
+directly from saved prediction and case arrays on 4 October 2026. No refitting,
+threshold tuning, AWS job or paid resource was used.
+
+Execution  Rows       Seeds             Episode proxies  Warned  Unwarned exfil cases
+Wilson     629,553    8101/8102/8103     1 per seed       1       0
+Harrison   437,658    8101/8102/8103     1 per seed       1       0
+
+These are the same episodes reused across seeds, not six independent episodes.
+Cases use source/destination pairs and five-minute completion buckets. Episodes
+use label-derived pairs and gaps over 30 minutes. These are evaluation proxies,
+not independently confirmed stolen files. All these executions were inspected
+previously; they are not an untouched confirmation set.
+
+Result: NO PRIMARY EPISODE-RECOVERY HEADROOM under the existing protocol that
+preserves existing warnings and adds referrals from otherwise unwarned cases.
+There is no opportunity for any XAI arm to recover an additional episode here.
+This is a task/data qualification result, not evidence that XAI cannot help.
+
+EXACT USABLE LOCAL PATHS
+Raw publisher archives:
+C:/w/campaign_validation_20260928/ait/{execution}_netflows.zip
+Prepared features and labels:
+C:/w/campaign_validation_20260928/prepared/{execution}.npz
+Fitted current-only models:
+C:/w/campaign_validation_20260928/models/s{8101,8102,8103}_final_state0.joblib
+Fitted current-plus-history models: corresponding final_state1.joblib files.
+Frozen evaluation cases and episode IDs:
+C:/w/px107_aws_pilot/input/eval_{wilson,harrison}.npz
+Saved matching probabilities:
+C:/w/px107_aws_pilot/input/pred_{8101,8102,8103}_{wilson,harrison}.npz
+Ten-feature current model text:
+C:/w/px107_aws_pilot/input/model_{8101,8102,8103}_final.txt
+Source preparation and audit code:
+experiments/praxis_next/campaign_validation_20260928/evidence/validate.py
+Prior headroom evidence:
+experiments/praxis_next/xai_acquisition_20261004/HEADROOM_AUDIT.json
+experiments/praxis_next/xai_acquisition_20261004/HEADROOM_RESULTS.csv
+Independent existing audit implementation:
+experiments/praxis_next/xai_acquisition_20261004/headroom_audit.py
+
+HOW TO USE THE EXTERNAL STAGE WITHOUT CHANGING THE QUESTION
+1. Report the qualification above for every batch arm; do not disguise it as
+   unexecuted data collection or force six pointless model runs on a ceiling.
+2. A controlled-data winner remains a candidate only. The current AIT result
+   cannot confirm an episode-recovery improvement, however good its SHAP plots.
+3. A new, fixed-budget prioritization experiment on AIT is possible, but it is
+   a different operating point from preserving all current warnings. Freeze
+   the budget and endpoint before fitting; label it exploratory on exposed data.
+   Do not lower a budget after scoring simply to manufacture missed episodes.
+4. Transport the method, not the PX-110 numeric thresholds or raw feature names.
+   AIT current/history features differ from DNS message features. Fit only on
+   development executions, freeze calibration, and prohibit test-label tuning.
+5. Existing AIT contains only two evaluation episode proxies in this split, so
+   it cannot meet a minimum of three missed episodes even if both were missed.
+   A larger genuinely independent execution set is needed for that gate.
+6. Do not rebrand flow-level gains, repeated windows, or seeds as recovery of
+   separate attacks. Flow and case findings can remain secondary outcomes.
+
+STOP AND INTERPRETATION RULE
+Run the planned controlled batch once, retain every result, and promote only
+methods beating matched non-XAI baselines with the declared workload. If none
+improves, report the negative. If one improves, require eligible external data
+before the thesis claims generalization. External replication is a condition of
+the claim, not a promise already fulfilled by having a public dataset available.
