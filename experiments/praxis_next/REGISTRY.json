@@ -399,6 +399,40 @@
       "finding": "Six attribution-based approaches recover 0-2 additional transfers at 25 reviews versus 3 for calibrated non-XAI comparator. Fixed-threshold gates also show no advantage; 60 replay cells pass. External AIT qualification: no eligible episode headroom; external efficacy not validated. No AWS spend.",
       "external_validation_required": true,
       "external_validation_passed": false
+    },
+    {
+      "id": "PX-112",
+      "title": "Deferred explanation cost and sampling assumptions",
+      "directory": "assurance_batch_20261004",
+      "protocol": "assurance_batch_20261004/PROTOCOL.txt",
+      "status": "COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED",
+      "results": "assurance_batch_20261004/PX112_RESULTS.json",
+      "finding": "200 evaluation rows. Eager batch 9.60 ms; single-row on-demand scenarios (requests: milliseconds): 2: 8.51, 20: 58.05, 100: 323.59, 200: 611.11. Exact replay in all cases. Input/probability JSON 24864 bytes; with contributions 111366 bytes. Lazy is not always cheaper. One timing per condition; no deployment-cost or Article86 compliance claim."
+    },
+    {
+      "id": "PX-113",
+      "title": "Explanation stability as a model-release gate",
+      "directory": "assurance_batch_20261004",
+      "protocol": "assurance_batch_20261004/PROTOCOL.txt",
+      "status": "COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED",
+      "results": "assurance_batch_20261004/PX113_RESULTS.json",
+      "finding": "Three chronological releases: performance gate accepted all; combined stability gate accepted 1. Evaluation accuracy changes: -0.20 pp, +3.05 pp, +2.05 pp. Stability rejected both beneficial updates. No release crossed the frozen >1 pp harm threshold. No evidence the explanation gate improves release decisions; only three dependent cycles."
+    },
+    {
+      "id": "PX-114",
+      "title": "Verification claims checked against tool receipts",
+      "directory": "assurance_batch_20261004",
+      "protocol": "assurance_batch_20261004/PROTOCOL.txt",
+      "status": "RUNNING_LOCAL_FEASIBILITY",
+      "finding": "Running local Qwen2.5:3b pilot; 10 answers saved. Results pending; no efficacy finding."
+    },
+    {
+      "id": "PX-115",
+      "title": "SHAP narrative consistency versus deterministic rendering",
+      "directory": "assurance_batch_20261004",
+      "protocol": "assurance_batch_20261004/PROTOCOL.txt",
+      "status": "RUNNING_LOCAL_FEASIBILITY",
+      "finding": "Running local Qwen2.5:3b pilot; 0 answers saved. Results pending; no efficacy finding."
     }
   ],
   "inference_rule": "These are exposed-data development studies. Freeze source and protocol before fitting; keep all registered outcomes. Do not infer independent-campaign efficacy, novelty, or a guarantee from a good score.",

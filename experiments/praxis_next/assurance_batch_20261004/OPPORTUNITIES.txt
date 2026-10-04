@@ -1,0 +1,103 @@
+PRAXIS OPPORTUNITIES: WHAT THESE FOUR STUDIES CAN AND CANNOT ESTABLISH
+4 October 2026
+
+Recommendation
+Keep these as a feasibility batch, not four confirmed novel Praxis topics.
+The attached proposal's claims of first use and automatic certification do not
+survive the closest-prior-work check. No positive result is guaranteed.
+
+PX-112: Deferred explanation cost and sampling assumptions
+Question: When do explanations generated on request save computation or storage,
+while reproducing the explanation produced at decision time?
+Testable hypothesis: At the frozen request fractions, deferred explanations use
+less CPU time than explaining all 200 decisions together, with exact replay.
+Evidence: corrected South German Credit, 600 fit / 200 calibration / 200 test.
+Measures: elapsed time, record bytes, replay difference. Fractions are scenarios.
+Current result: exact replay; cheaper elapsed time only at the smallest fraction
+in this one timing run. Batch computation defeats a blanket lazy-is-cheaper claim.
+Praxis opportunity: limited engineering component, not a new XAI method.
+Sampling bounds are established mathematics. Zero failures among 300 independent
+audits gives a 95% one-sided upper bound of 0.9936%, under the binomial assumptions.
+It does not establish individual correctness, future robustness or legal compliance.
+No request-rate data, human-review costs, privacy test or synthetic-twin validation
+was supplied. Those parts of the attachment are not claimed as tested.
+
+PX-113: Explanation stability as a model-release gate
+Question: Does rejecting changed explanations prevent harmful model updates beyond
+an accuracy-only release check?
+Testable hypothesis: The combined gate accepts fewer harmful updates, without
+rejecting beneficial updates, than the performance-only gate on the same releases.
+Evidence: 45,312 chronological Electricity records; three frozen retraining cycles.
+Measures: >1 percentage-point accuracy deterioration, accepted harmful releases,
+rejected beneficial releases, calibration top-three attribution overlap.
+Current result: no harmful updates under the frozen definition; two beneficial
+updates rejected. This batch does not support the proposed gate's benefit.
+Important: this is contemporaneous market classification, not a forecast. Price
+features are available in the benchmark, and its original normalization is global.
+Related work already studies explanation change and retraining stability:
+Meyer et al. (2023): https://proceedings.mlr.press/v216/meyer23a.html
+Mougan et al.: https://arxiv.org/abs/2303.08081
+Possible later contribution: evidence of which explanation changes predict harmful
+release behavior at equal rejection cost. This needs independent release examples,
+stronger drift baselines and held-out confirmation; three cycles cannot supply it.
+
+PX-114: Verification claims checked against tool receipts
+Question: Can an exact receipt check reduce accepted unsupported verification claims
+at the same acceptance budget as confidence ranking and a model judge?
+Testable hypothesis: With the registered natural-error headroom, the receipt gate
+accepts fewer unsupported verification claims at the common acceptance count.
+Evidence: snapshots of ten real PyPI packages and ten deliberately nonexistent
+control names; 200 local Qwen answers. No packages installed or registered.
+Measures: malformed answers, unsupported claims, unique affected targets,
+acceptance coverage, accepted unsupported claims, generation time.
+Headroom: at least five unsupported verification claims over three targets.
+If that fails, stop the efficacy claim. Injection tests cannot replace headroom.
+No private reasoning traces are requested. Evidence consists of visible answers
+and visible receipts. Same-model judges are correlated, not independent experts.
+Very close precedent: Basu (2026), Tool Receipts, Not Zero-Knowledge Proofs:
+Practical Hallucination Detection for AI Agents. https://arxiv.org/abs/2603.10060
+This makes the broad deterministic-receipt-gate novelty claim untenable.
+Name existence is not malicious-package detection, and deliberately nonexistent
+controls cannot establish performance on hallucinated names that have been squatted.
+
+PX-115: SHAP narrative consistency versus deterministic rendering
+Question: What does a structured explanation check actually guarantee, and what
+errors can still pass in the accompanying text?
+Testable hypothesis: The checker detects wrong feature/sign/order fields but fails
+to reject contradictory prose when the structured fields are correct.
+Evidence: first 32 frozen test records from corrected South German Credit,
+model attributions and Qwen-generated text; deterministic rendering comparator.
+Measures: parseability, exact reason consistency, acceptance, injected-fault
+detection and elapsed time. Natural errors and injected diagnostics stay separate.
+Closest precedents:
+How good is my story? https://arxiv.org/abs/2412.10220
+FAX: https://arxiv.org/abs/2605.27879
+Reasoning Externalization: https://arxiv.org/abs/2609.38869
+These already cover narrative evaluation, evidence verification and the distinction
+between structured verification and unrestricted prose. German Credit plus a SHAP
+checker is not first use. Corrected South German is not an independent dataset
+relative to the original German Credit records.
+Possible later contribution: independently measured residual contradictions at
+matched coverage, with constrained rendering and published narrative-verification
+baselines. A comparison with a weak ungated model alone is insufficient.
+No human comprehension or human-authored cost benefit is measured in this pilot.
+
+Data sources
+https://archive.ics.uci.edu/dataset/522/south+german+credit
+https://www.openml.org/api/v1/json/data/151
+https://openml.org/data/v1/download/2419/electricity.arff
+https://pypi.org/pypi/numpy/json (one of the preserved read-only snapshots)
+
+Article 86 primary source
+https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
+It does not prescribe SHAP or say that a sampled technical check replaces the
+affected person's explanation rights. This batch does not certify compliance.
+
+Operational notes
+run_numeric.py completed; audit_numeric.py passed 40 checks.
+run_language.py saves one JSONL record per generation and resumes by case ID.
+update_status.py --watch refreshes FINDINGS.txt and the registry while the local
+run executes, for at most six hours. It does not launch paid jobs or push to git.
+If interrupted, rerun run_language.py with the same local data and model digest;
+do not change prompt/model settings and mix the new outputs into this run.
+All final language results remain pending until their RESULTS.json files exist.
