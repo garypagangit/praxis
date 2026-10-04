@@ -1,0 +1,74 @@
+PX-111: fixed six-method XAI batch, 4 October 2026
+
+Scope: all six methods below will run on saved PX-110 data and every result is
+retained. Prior baseline development outcomes are exposed. This is exploratory
+screening, not confirmation, novelty, or evidence of real SOC improvement.
+No method tuning after looking at development comparisons. No unreported retries.
+
+Shared anchor: saved LightGBM. Choose its probability threshold on calibration
+to flag as many cases as possible without exceeding ceil(5% * calibration cases),
+conservatively excluding boundary ties if necessary. Freeze the threshold.
+Retain every anchor warning on development. Among silent cases, each method has
+an additional capacity ceil(5% * silent cases). One sequence is one review case.
+Attack labels and receiver hashes are ground truth, never predictor features.
+
+Six fixed methods, binary attack-margin TreeSHAP via LightGBM pred_contrib:
+A. Positive attribution mass: sum of positive feature contributions.
+B. Conflicting attribution mass: min(sum positive, absolute sum negative).
+C. Timing-probe attribution instability: mean normalized L1 attribution change
+   under 0.8x and 1.25x scaling of both observed gap mean and std. This is an
+   offline feature sensitivity test, not proof of a protocol-valid changed run.
+D. Across-fit attribution disagreement: mean feature variance across the original
+   model plus two models with seeds 11102 and 11103, 100 trees, 9 leaves, learning
+   rate .05, row subsampling .8 each iteration and feature subsampling .8.
+E. Explanation-neighbor vote: 15-nearest-neighbor transfer proportion in signed
+   attribution space, standardized on training data only.
+F. Group-response fidelity discrepancy: for content/volume columns 0:8 and timing
+   columns 8:10, replace a whole group using 16 label-independently selected
+   training donors (seed11101). Compare actual raw-margin change with the change
+   suggested by donor-minus-original group attributions; score mean absolute
+   discrepancy divided by 1+absolute actual change. This tests a local additive
+   approximation under supported group substitutions, not causal truth.
+
+Comparators: saved LightGBM confidence; saved logistic confidence; PX110 heuristic
+composite; 15-NN on raw features; benign-trained isolation forest (100 trees,
+seed11101); mean ensemble probability; ensemble probability variance; timing-probe
+probability change; group-substitution raw-margin change. The last three give
+non-XAI monitors the identical extra model calls/evidence used by their XAI peers.
+Training-space NN excludes self when generating train diagnostic scores; no
+training-score endpoints are reported. Select strongest non-XAI method using
+calibration added transfers, then fewer benign reviews, then method name.
+Evaluate on development once; show the best development comparator as descriptive
+only and do not retrospectively replace the calibrated winner.
+
+Primary exploratory table: top-B rankings among silent cases, identical number
+of added reviews and deterministic case-ID ties. Report newly surfaced transfers,
+added benign cases, anchor+added coverage and difference from calibrated baseline.
+These rankings are XAI-as-feature, explicitly not the primary deterministic-gate
+contribution. Gate table: separately freeze each referral threshold on silent
+calibration cases to use at most B. Apply without refitting; admit failed cases
+in original sequence order up to the same added capacity. Report underfill,
+overflow, admitted benign cases and recovered transfers; preserve anchor warnings.
+Explanation-check failure is referral, never benign demotion.
+
+Controls: row-permute each candidate score using seed11199 independently within
+each split; report the resulting transfer count. This checks association, not
+causal value. A full-feature NN, identical-query non-XAI monitors and confidence
+must be compared. No XAI claim merely for beating a shuffled score.
+
+Multiple comparisons: show all six; attach Bonferroni-adjusted exploratory paired
+episode discordance p-values for XAI vs calibrated comparator (six tests). No
+significance claim from an unadjusted best result, and any synthetic-only advantage
+remains unconfirmed even if adjusted p<.05. Small counts and common generator
+templates limit inference. Conditional observational overlap can be irreducible.
+
+Mandatory external stage: check recorded independently produced data under the
+same endpoint. Existing AIT saved evaluation supplies a real-execution laboratory
+source, not a real-world breach source. Re-run its source/headroom gate for all
+six methods: if no previously unwarned exfil cases or episodes exist, report
+NOT_EVALUABLE_NO_HEADROOM, do not fabricate a recovery score or weaken the anchor.
+Neither simulated data nor this external qualification is confirmatory success.
+Require a new eligible recorded source and frozen configuration for any Praxis
+recovery claim. Until that stage passes the project status is exploratory.
+
+Local CPU only. Shared original spending cap remains; no paid cloud jobs here.
