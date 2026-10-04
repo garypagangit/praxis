@@ -1,0 +1,75 @@
+PX-108: timestamped CSV validation and observational-pilot decision
+4 October 2026
+
+DECISION
+Do not train the proposed exfiltration-recovery baseline from these CSVs yet.
+The new files are readable and timestamp-linked, but the attack-directory rows
+are overwhelmingly not standard port-53 DNS traffic. File membership cannot
+stand in for verified exfiltration-row labels. This result is independent of
+the earlier missing receiver-hash requirement: even an author-labeled activity
+study still needs defensible mapping from rows to the target attack behavior.
+Headroom remains NOT EVALUABLE, not zero. No model fitted; no AWS job launched.
+
+ACTUAL RESULTS
+All 18 stateless CSVs: 757,211 rows.
+Exact timestamp match to a unique packet: 672,491 rows.
+Timestamp matches more than one packet: 84,720 rows.
+Unmatched timestamps: 0.
+No timestamp offsets were fitted and no row-position joins were used.
+The CSVs mix whole-second and fractional-second timestamp representations;
+the parser accepts both without modifying the values. All timestamps parse.
+No row-level label/class/attack/malicious column is present in these CSVs.
+
+Attack-directory CSVs alone: 294,353 rows across 12 files.
+Of these, 244,783 have unique timestamp matches and 49,570 are ambiguous.
+Among uniquely matched rows:
+  243,927 = UDP with neither endpoint on port 53 (99.65%).
+      835 = UDP destination port 53.
+       21 = UDP source port 53.
+Observed non-53 traffic includes port pairs involving 5355, 5353 and 137.
+These are measurements of packet headers, not declarations that every non-53
+packet is benign. Port 53 alone also does not establish exfiltration.
+The ambiguous rows are not assigned to whichever packet supports a desired label.
+
+The 835 uniquely matched attack-file query rows equal the previously measured
+835 complete question sections. The CSVs therefore do not establish coverage
+of the 251,612 incomplete/invalid port-53 question sections in attack captures.
+Do not infer that every missing row is malicious, or that the paper's results
+are invalid; this audit establishes a coverage/label problem for OUR intended
+DNS-exfiltration recovery evaluation on the downloaded release.
+
+FEATURE CHECK
+For all 173,412 uniquely matched rows with a decodable port-53 question across
+attack and benign captures, publisher FQDN_count equals decoded query-name
+length. This is useful evidence that this feature is aligned in the observable
+subset. It does not validate entropy, all other features, unseen truncated
+questions, successful transfer, or attack membership. No nonfinite numeric
+cells were found in the audited numeric columns. Named identifier columns
+(sld, longest_word) were not treated as numeric and must not leak capture identity.
+
+INDEPENDENT VERIFICATION
+align_stateless.py uses dpkt for packet decoding.
+audit_alignment_ports.py independently reads raw Ethernet/IPv4/IPv6/UDP header
+bytes and repeats the unique-time port classification.
+All 54 per-file protocol-count comparisons agree (18 files x 3 categories).
+STATELESS_ALIGNMENT.json and ALIGNMENT_PORT_AUDIT.json contain the evidence.
+No downloaded code executed; no stateful CSVs joined; no predictions generated.
+
+WHAT THIS CHANGES
+The provisional hope that publisher CSVs would restore the missing attack-DNS
+features is not supported for the required rows by this audit. They are still
+usable for source/feature studies and potentially a carefully scoped capture-
+classification task, but that would not establish recovery of missed exfiltration.
+Training from directory labels could reward recognition of collection context.
+We have not measured that possible shortcut's predictive performance.
+
+NEXT VALID PATH
+Keep this CIC release as a documented external-source qualification result.
+For an exfiltration-recovery experiment, obtain corrected attack-row mapping and
+complete features from the source, or build an isolated controlled DNS transfer
+dataset with benign workloads, complete captures, execution IDs and verified
+receipt. Any self-generated dataset must be identified as such; it demonstrates
+a controlled mechanism, not independent real-world APT generalization.
+The previously frozen N=3, B=5% headroom requirement remains unchanged for the
+verified-transfer study. No weaker detector or substitute labels were chosen
+after discovering the coverage problem. PX-109 still waits on its valid-transfer arm.
