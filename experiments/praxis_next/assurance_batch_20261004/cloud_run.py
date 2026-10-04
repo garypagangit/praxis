@@ -4,7 +4,7 @@ from pathlib import Path
 from experiments.praxis_next.compute.provics_cloud_control import control
 from botocore.config import Config
 HERE=Path(__file__).parent
-PRIVATE=Path('C:/w/assurance_aws_20261004_attempt2')
+PRIVATE=Path('C:/w/assurance_aws_20261004_attempt3')
 
 def main():
     c=control.Controller(PRIVATE/'settings.json');s=c.settings
@@ -22,21 +22,32 @@ def main():
         else:raise TimeoutError('Worker did not become ready')
         active=c.active()
         args=[f"s3://{s['bucket']}/{s['prefix']}bundle.tar.gz",freeze['bundle_sha256'],f"s3://{s['bucket']}/{s['prefix']}outputs",'praxis-assurance-'+active['run_id'][:16]]
-        script='bash -s -- '+' '.join(shlex.quote(x) for x in args)+" <<'PRAXIS_ASSURANCE'\n"+(HERE/'cloud.sh').read_text()+"\nPRAXIS_ASSURANCE\n"
+        remote='/opt/dlami/nvme/'+args[3]+'-worker.sh'
+        script="cat > "+shlex.quote(remote)+" <<'ASSURANCE_WORKER'\n"+(HERE/'cloud.sh').read_text()+"\nASSURANCE_WORKER\n"
+        script+='systemd-run --unit='+shlex.quote(args[3])+' --property=RuntimeMaxSec=1500 /bin/bash '+shlex.quote(remote)+' '+' '.join(shlex.quote(x) for x in args)+'\n'
         (PRIVATE/'bootstrap.sh').write_text(script,encoding='utf-8',newline='\n')
-        sent=c.send(PRIVATE/'bootstrap.sh',1380);command=sent['command_id'];print(json.dumps(sent),flush=True)
-        for _ in range(280):
+        sent=c.send(PRIVATE/'bootstrap.sh',120);command=sent['command_id'];print(json.dumps(sent),flush=True)
+        for _ in range(30):
             try:
                 receipt=c.poll(command);r=json.loads(Path(receipt['receipt']).read_text())
                 if r['status'] in control.TERMINAL_STATES:
-                    print(json.dumps({'worker_status':r['status'],'response_code':r.get('response_code'),'stderr':r.get('stderr')}),flush=True);break
+                    assert r['status']=='Success',r
+                    print('Detached GPU job launched',flush=True);break
             except c.client('ssm').exceptions.InvocationDoesNotExist:pass
-            time.sleep(5)
-        else:raise TimeoutError('Polling deadline')
+            time.sleep(3)
+        else:raise TimeoutError('Detached launch timeout')
+        for _ in range(145):
+            try:
+                c.client('s3').head_object(Bucket=s['bucket'],Key=s['prefix']+'outputs/result.sha256')
+                print('Worker evidence published',flush=True);break
+            except Exception as exc:
+                if getattr(exc,'response',{}).get('Error',{}).get('Code') not in ['404','NoSuchKey','NotFound']:raise
+            time.sleep(10)
+        else:raise TimeoutError('No GPU result before deadline')
     finally:
         if c.active_path.exists():
             print(json.dumps(c.stop()),flush=True)
-            for _ in range(60):
+            for _ in range(120):
                 final=c.finalize()
                 if final['status']=='CLOSED_VERIFIED_STOPPED':
                     report=json.loads(Path(final['receipt']).read_text());(PRIVATE/'COMPUTE.json').write_text(json.dumps(report,indent=2));print(json.dumps(final),flush=True);break

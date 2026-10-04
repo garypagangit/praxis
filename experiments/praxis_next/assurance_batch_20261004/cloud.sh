@@ -21,13 +21,16 @@ publish() {
 }
 trap publish EXIT
 nvidia-smi > outputs/gpu.txt
+df -h > outputs/disk_before.txt
+free -m > outputs/memory_before.txt
+aws s3 cp outputs/disk_before.txt "$output_url/disk_before.txt" --only-show-errors
 aws s3 cp "$input_url" bundle.tar.gz --only-show-errors
 echo "$input_sha  bundle.tar.gz" | sha256sum -c -
 tar -xzf bundle.tar.gz
 cp inputs/receipts.json inputs/narrative_inputs.json outputs/data/
 python3 -m venv --system-site-packages venv
 venv/bin/python -m pip install requests > outputs/install.log 2>&1
-cache=/opt/praxis/ollama-017
+cache="$base/praxis_ollama_017"
 mkdir -p "$cache"
 df -h > outputs/disk.txt
 if ! test -x "$cache/bin/ollama"; then
