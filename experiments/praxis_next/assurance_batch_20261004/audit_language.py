@@ -1,8 +1,8 @@
 """Audit complete AWS language outputs independently of summary calculation."""
 import json,hashlib
 from pathlib import Path
-ROOT=Path('C:/w/assurance_aws_20261004_attempt2/collected/outputs')
 HERE=Path(__file__).resolve().parent
+ROOT=Path(json.loads((HERE/'RUN_CONTEXT.json').read_text())['data_dir']).parent
 checks=[]
 def ck(name,value):
     checks.append({'check':name,'pass':bool(value)})

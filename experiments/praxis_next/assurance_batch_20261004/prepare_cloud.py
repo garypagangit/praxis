@@ -2,10 +2,10 @@ import json,hashlib,tarfile
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[2]
-PRIVATE=Path('C:/w/assurance_aws_20261004_attempt3')
+PRIVATE=Path('C:/w/assurance_aws_20261004_attempt4')
 PRIVATE.mkdir(exist_ok=True)
 settings=json.loads(Path('C:/w/px107_aws_pilot/settings.json').read_text())
-settings['prefix']='praxis-next/assurance/20261004-attempt3/'
+settings['prefix']='praxis-next/assurance/20261004-attempt4/'
 (PRIVATE/'settings.json').write_text(json.dumps(settings,indent=2))
 with tarfile.open(PRIVATE/'bundle.tar.gz','w:gz') as a:
     a.add(HERE/'run_language.py',arcname='run_language.py')
@@ -13,7 +13,7 @@ with tarfile.open(PRIVATE/'bundle.tar.gz','w:gz') as a:
         a.add(Path('C:/w/assurance_batch_20261004')/name,arcname='inputs/'+name)
 source=(HERE.parent/'xai_acquisition_20261004/cloud_run.py').read_text()
 source=source.replace('Bounded PX-107A allocation','Bounded PX-114/115 GPU allocation')
-source=source.replace("C:/w/px107_aws_pilot","C:/w/assurance_aws_20261004_attempt3")
+source=source.replace("C:/w/px107_aws_pilot","C:/w/assurance_aws_20261004_attempt4")
 source=source.replace("HERE/'FREEZE.json'","HERE/'CLOUD_FREEZE.json'")
 source=source.replace("HERE/'PROTOCOL.txt'","HERE/'CLOUD_PROTOCOL.txt'")
 source=source.replace('praxis-px107-','praxis-assurance-').replace('PRAXIS_PX107','PRAXIS_ASSURANCE')
@@ -43,8 +43,22 @@ source=source[:start]+'''        remote='/opt/dlami/nvme/'+args[3]+'-worker.sh'
         else:raise TimeoutError('No GPU result before deadline')
 ''' + source[end:]
 source=source.replace('for _ in range(60):','for _ in range(120):')
+needle='        for _ in range(36):'
+repair='''        import subprocess,sys
+        for _ in range(36):
+            if c.instance()['State']['Name']=='running':break
+            time.sleep(5)
+        else:raise TimeoutError('EC2 did not start')
+        time.sleep(25)
+        for attempt in range(3):
+            recovered=subprocess.run([sys.executable,str(HERE/'recover_ssh.py')])
+            if recovered.returncode==0:break
+            time.sleep(15)
+        else:raise RuntimeError('Disk recovery failed; stop before inference')
+'''
+source=source.replace(needle,repair+needle,1)
 (HERE/'cloud_run.py').write_text(source,encoding='utf-8')
-files=['run_language.py','cloud.sh','cloud_run.py','CLOUD_PROTOCOL.txt']
+files=['run_language.py','cloud.sh','cloud_run.py','CLOUD_PROTOCOL.txt','recover_ssh.py','recover_disk.sh']
 freeze={'bundle_sha256':hashlib.sha256((PRIVATE/'bundle.tar.gz').read_bytes()).hexdigest(),
         'runtime_files':{str((HERE/f).relative_to(ROOT)).replace('\\','/'):hashlib.sha256((HERE/f).read_bytes()).hexdigest() for f in files},
         'model_digest':'357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b',

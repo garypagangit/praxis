@@ -4,7 +4,7 @@ from pathlib import Path
 from experiments.praxis_next.compute.provics_cloud_control import control
 from botocore.config import Config
 HERE=Path(__file__).parent
-PRIVATE=Path('C:/w/assurance_aws_20261004_attempt3')
+PRIVATE=Path('C:/w/assurance_aws_20261004_attempt4')
 
 def main():
     c=control.Controller(PRIVATE/'settings.json');s=c.settings
@@ -15,6 +15,17 @@ def main():
     print(json.dumps(c.transfer('upload',PRIVATE/'bundle.tar.gz',s['prefix']+'bundle.tar.gz')),flush=True)
     try:
         print(json.dumps(c.start(HERE/'CLOUD_PROTOCOL.txt',HERE/'CLOUD_FREEZE.json')),flush=True)
+        import subprocess,sys
+        for _ in range(36):
+            if c.instance()['State']['Name']=='running':break
+            time.sleep(5)
+        else:raise TimeoutError('EC2 did not start')
+        time.sleep(25)
+        for attempt in range(3):
+            recovered=subprocess.run([sys.executable,str(HERE/'recover_ssh.py')])
+            if recovered.returncode==0:break
+            time.sleep(15)
+        else:raise RuntimeError('Disk recovery failed; stop before inference')
         for _ in range(36):
             info=c.client('ssm').describe_instance_information(Filters=[{'Key':'InstanceIds','Values':[s['instance']]}])['InstanceInformationList']
             if c.instance()['State']['Name']=='running' and any(i['PingStatus']=='Online' for i in info):break
