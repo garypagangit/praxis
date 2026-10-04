@@ -1,0 +1,146 @@
+PX-108 / PX-109 amendment: qualification before headroom before XAI
+Date: 2026-10-04. This amendment takes precedence over the initial candidate notes.
+
+EXPOSURE AND SCOPE
+Attack ZIP contents, counts, time ranges, truncation and DNS decoding summaries
+were already inspected before this amendment. No CIC model has been fitted and
+no CIC prediction/headroom results have been inspected. This is a prospective
+development freeze, not an untouched-data preregistration or public registry.
+Any confirmation claim requires a separately reserved set of independent runs.
+
+GO / NO-GO (applied in this order)
+G0: At least one defensible episode manifest with independent execution IDs,
+outbound direction, start/end evidence, and transfer-completion evidence. A
+capture filename or publisher's general description of the tool is insufficient
+to verify a particular successful episode. Lack of provenance is NOT zero
+headroom. It is NOT EVALUABLE, and fitting stops before headroom measurement.
+G1: Required baseline inputs are observable without label-dependent missingness.
+Required DNS length/entropy cannot be inferred from a truncated question name.
+No zero filling, parse-failure flag, captured length or snap length as predictors.
+If the complete composite cannot be evaluated, do not silently weaken it and
+claim superiority to the strongest baseline. Header-only studies are separate.
+G2: Proceed to the XAI pilot only if the calibration-selected strongest non-XAI
+baseline misses at least THREE verified successful independent development
+episodes at B = 5% of eligible cases. Require at least six verified successful
+development episodes overall. N=3 is a minimal feasibility rule, NOT a power
+calculation or a publication threshold. Freeze a powered confirmation design
+after the pilot; do not treat three rescued episodes as sufficient proof.
+G3: Do not change the operating point/model after seeing G2 failure. Report each
+registered baseline, the selected winner, and missed counts for all methods.
+If any registered alternative recovers all episodes, report that fact explicitly.
+G4: PX-109 cannot proceed without an isolated dummy-file transfer arm with
+receiver hash equality, start/end records and complete captures. Re-timing the
+existing PCAPs is sensitivity analysis, not a validated successful transfer.
+
+LABEL QUALIFICATION
+Grade independently: author capture category; packet/flow membership supported
+by documented endpoint/tool/session criteria; transfer completion independently
+verified. Do not promote one grade to the next. Inspect archive documentation,
+publisher schedule, capture bounds and available receiver logs/hashes. Unknown
+packets remain unknown; never mark every packet in Attacks/ malicious. Check
+duplicate archives, duplicate capture hashes and exact duplicate packet records.
+Author schedules are evidence, not a license to shift clocks until labels fit.
+Timezone conversions require documentation. Record mismatches without relabeling.
+
+ORDERING AND FEATURES
+Discard published stateful CSVs for this study. Do not join by row number.
+Reconstruct features directly from packet observations. Preserve original record
+indices. For offline replay, stable-sort within each capture by (timestamp in
+integer microseconds, original record index). Equal timestamps retain capture
+order. Do not repair clock resets by inventing timestamps or merge separately
+captured clocks. Flag backward steps, maximum backward jump, moved rows and
+affected capture IDs; episode counts affected remain unknown until labels qualify.
+History uses strictly earlier timestamps. Build source-host five-minute cases
+on UTC boundaries; emit at window close, with no later packets. No claim of
+real-time arrival ordering or early warning follows from this offline sorting.
+Keep capture groups separate in splits; all derivatives from an execution stay
+together. Host addresses identify cases but never enter model features.
+Retain repeated packets unless proven duplicate timestamp+bytes+wire length;
+report a deduplicated sensitivity arm before adopting deduplication as truth.
+
+STRONG NON-XAI COMPARATORS
+At the same case budget include: LightGBM exfiltration probability; logistic
+regression probability; anomaly score; individual operational heuristics; and
+an equal-weight composite of benign-calibration percentile ranks for:
+  1. outbound/inbound byte asymmetry per host window;
+  2. complete DNS question-name length;
+  3. complete-name entropy times query rate;
+  4. outbound wire volume per host window.
+Direction requires a documented monitored-host role. Original wire lengths and
+validated IP lengths are distinct measurements; never call either payload bytes.
+Also include a small learned full-feature selector with the same input evidence
+and capacity as any learned XAI selector. Pick the winner by calibration episode
+coverage, then fewer benign referrals, then lower CPU cost, then method name.
+Do not choose a deliberately weak base model to manufacture misses.
+
+BUDGET AND HEADROOM ENDPOINT
+For headroom, B=5% of all label-independently constructed observed host/windows;
+the count is ceil(0.05*n), separately on each evaluation partition. Each method
+ranks these cases; deterministic ties use case IDs. This equal-budget offline
+ranking is a feasibility comparison, not a deployed threshold guarantee.
+Existing warning preservation is an independent later endpoint: first report
+base warnings, then the additional 5% budget among previously silent cases.
+Never mix total-budget headroom and additional-review-budget recovery counts.
+Split complete verified executions into disjoint training, calibration and
+development-evaluation groups before baseline fitting; publish the manifest.
+Without those groups G0 fails. No row split or random seed supplies independence.
+
+PX-108 THESIS FIT: PASS/FAIL REFERRAL, NOT AN UNDECLARED RANKER
+Primary gate: a previously silent case passes only if its explanation has
+supported evidence and a group-response fidelity score >= tau. Unsupported or
+below-threshold cases fail automatic closure and become referral candidates.
+Existing warnings are always retained. No rule demotes an attack warning.
+Calibrate tau once on calibration runs to respect the additional 5% referral
+budget; freeze it before evaluation. Overflow uses chronological FIFO and records
+deferred cases and delay. Underfill stays underfill. Compare confidence and
+composite threshold gates with the same queue policy and maximum capacity.
+Continuous top-B scoring remains a secondary analysis, labeled XAI-as-feature.
+Gate score: margin-response advantage of explanation-selected feature groups
+over equally sized random groups under supported joint replacements. The exact
+group/replacement manifest must be frozen after source qualification and before
+fitting the XAI gate. Do not implement this gate on unqualified input.
+There is no justified top-k causal-feature ground truth in CIC labels. A threshold
+on an investigator's preferred feature list would not establish causality.
+Novelty cannot rest on a threshold or deterministic wrapper alone.
+
+RQ1/H1: At equal maximum added-review workload, does the frozen fidelity gate
+surface more previously missed verified episodes than the strongest calibrated
+non-XAI gate? H1 predicts a positive paired execution-level difference.
+RQ2/H2: Does explanation content supply incremental benefit? H2 predicts reduced
+benefit when attributions are removed/shuffled, with evidence, capacity and queue
+rules held fixed. Compare a full-feature selector and prediction sensitivity.
+RQ3/H3: Does benefit persist on independent executions with coherent replacements?
+H3 predicts a positive paired difference there. Use execution-level uncertainty;
+do not call seeds or thousands of packets independent replications.
+
+LITERATURE AND ONE-SENTENCE DELTA
+Maseno, E. M., Sun, Y., & Wang, Z. (2026). Detecting adversarial evasion in deep
+learning intrusion detection systems using explainable AI. International Journal
+of Information Security, 25, 125. Published July 15, 2026.
+https://doi.org/10.1007/s10207-026-01299-x
+Already tests explanation drift, feature overlap, threshold and learned monitors.
+Epalle, T. E., & Dara, R. (2026). Confusion-Aware Explainable Alert Triage for
+Network Intrusion Detection. Preprints.org, posted September 14; not peer reviewed.
+https://www.preprints.org/manuscript/202609.0988
+Already combines explanation testing and reliability routing; reports a tie with
+confidence on error coverage.
+Proposed delta: test whether a fixed explanation-validity referral gate surfaces
+additional verified exfiltration episodes beyond strong operational non-XAI gates
+at the same review capacity on independent executions. This remains unproven.
+
+LABEL-AUDIT FOUNDATION (different dataset; no allegation of these exact CIC errors)
+Engelen, G., Rimmer, V., & Joosen, W. (2021). Troubleshooting an Intrusion Detection
+Dataset: The CICIDS2017 Case Study. IEEE SPW, 7-12.
+https://doi.org/10.1109/SPW53761.2021.00009
+Lanvin, M., Gimenez, P. F., Han, Y., Majorczyk, F., Me, L., & Totel, E. (2023).
+Errors in the CICIDS2017 Dataset and the Significant Differences in Detection
+Performances It Makes. CRiSIS 2022 revised proceedings, 18-33.
+https://doi.org/10.1007/978-3-031-31108-6_2
+These motivate inspecting labels and packet ordering; they do not establish
+errors in CIC-Bell-DNS-EXF-2021. Official source:
+https://www.unb.ca/cic/datasets/dns-exf-2021.html
+
+SPENDING
+Local qualification first; zero paid jobs if G0 or G1 fails. Shared initial $50
+ceiling within the existing $1,000 total authorization. No paid expansion without
+a qualified input, published split manifest and passing development headroom gate.
