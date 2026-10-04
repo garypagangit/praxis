@@ -1,0 +1,148 @@
+REVIEW OF THE THREE NEW XAI-GATE SPECIFICATIONS
+4 October 2026. Review only; no new experimental results or paid runs.
+
+DECISION
+Two proposals extend existing PX-114 and PX-115. Do not reuse their placeholder
+PX-110/111/112 IDs or count them as three independent new contributions.
+The activation/probe proposal is distinct but lacks valid squatting labels.
+None is ready for the stated novelty or certification claim as drafted.
+
+1. REGISTRY-GROUNDED PROBE / SAE / ACTIVATION ORACLE
+Status: HOLD for label and comparator qualification before a new experiment number.
+Created after training cutoff does not mean hallucinated, malicious or squatted.
+Legitimate new packages belong to that category too; retrieval and prompt context
+can legitimately supply newer facts. A registry timestamp cannot establish what
+the model knew, why it emitted a name, or who registered it for what purpose.
+Separate three possible targets: absence, unsupported recommendation, and malicious
+package. Each requires its own reference labels and false-accept definition.
+For malicious registration claims, require a documented sequence linking original
+nonexistence/model emission, later registration, and independent abuse evidence.
+For unsupported recommendations, judge whether the real package actually supplies
+the requested documented capability. This is a potentially practical revised
+question but requires its own prior-art review, labels and function-level controls.
+No registration of package names is needed or authorized by this review.
+
+Data available: Spracklen et al. release Python/JavaScript prompts, package lists,
+code and mitigation methods. Their public artifact withholds the master hallucinated
+name list and per-prompt detailed results; it is not a ready labeled squatting set.
+https://www.usenix.org/conference/usenixsecurity25/presentation/spracklen
+https://github.com/Spracks/PackageHallucination
+DepScope publishes daily name observations, but source attribution, selection and
+malicious-registration labels require validation. A crawler/user-agent observation
+alone does not prove a particular model hallucinated a package in an answer.
+https://github.com/cuttalo/depscope-hallucinations-dataset
+
+Novelty: activation explanation and SAE hallucination detection already exist:
+https://proceedings.mlr.press/v306/karvonen26a.html
+https://arxiv.org/abs/2604.16430
+https://arxiv.org/abs/2510.02917
+HalluSAE uses Gemma-2-9B with HaluEval and TriviaQA; an identifier application would
+be a domain extension, not a new SAE detection principle.
+The Activation Oracles paper reports substantial H100 training, so the draft's
+one-small-GPU cost assumptions do not establish oracle feasibility.
+
+Required fixes:
+- The pilot must measure the target hard class. Absent-versus-existing AUROC does
+  not establish ability to separate malicious registered packages from legitimate
+  registered packages. Twenty-five proxy examples cannot certify 1% conditional risk.
+- Include metadata/provenance, age/popularity and task-documentation baselines.
+  Internal activations are not the only information beyond name existence.
+- SAE feature indices are exchangeable across independently trained dictionaries.
+  Match features by decoder/activation similarity before comparing stability;
+  raw top-20 index Jaccard across seeds is not a meaningful semantic test.
+- Freeze model checkpoint, layer and SAE compatibility. LoRA and quantization can
+  change representation distributions. A fixed base SAE is not automatically valid.
+- Group splits by prompt family and identifier. Separate probe fitting and feature
+  selection from risk calibration. Validate on another model/source afterward.
+
+2. VERIFICATION-CLAIM CONSISTENCY
+Status: extension of PX-114, not a new generic gate.
+The direct precedent missing from the draft exists:
+Basu (2026), Tool Receipts, Not Zero-Knowledge Proofs.
+https://arxiv.org/abs/2603.10060
+It compares claims to signed tool receipts on injected scenarios. A carefully
+measured natural-error agent study could add empirical evidence, but first-use
+deterministic verification is not available as the novelty claim.
+
+Critical baseline problem: if fabrication means registry absence and lookup-only
+uses an accurate complete registry snapshot, lookup already rejects all such
+fabrications. Gate+lookup cannot reduce accepted fabrications below zero.
+Do not weaken that baseline to create a positive result. Use a distinct outcome
+such as false assertions that verification occurred, or task-fit claims that mere
+registry existence cannot settle. Keep these outcomes separate from name absence.
+Require successful relevant tool OUTPUT, matching target and time, not merely
+an invocation: failed calls, wrong versions and irrelevant responses are not proof.
+Collect explicit user-visible verification statements and tool events. Private
+reasoning is not necessary. Token offsets alone are not a reliable cross-channel
+event ordering; use recorded monotonic event sequence/timestamps.
+Regex must handle negation, quotations and hypothetical language, with separate
+precision/recall validation. If a hard gate exceeds a 10% rejection budget, report
+that constraint failure; do not silently allow unsupported claims to fill quota.
+
+3. NARRATIVE FIDELITY FOR SOC USE
+Status: best thematic fit, as a narrower PX-115 extension; novelty unestablished.
+Direct prior work omitted in the draft:
+https://arxiv.org/abs/2412.10220
+https://arxiv.org/abs/2605.27879
+https://arxiv.org/abs/2609.38869
+The latest one explicitly separates structured-claim checks from prose semantics.
+An IDS-related attribution/narrative precedent is HiFi-XAI:
+https://opus.lib.uts.edu.au/handle/10453/195167
+
+G1-G3 check the JSON sidecar, not its paragraph. A correct feature/sign list can
+accompany prose with reversed meaning. G4 needs typed claim-to-field bindings,
+units and rounding rules; matching a number somewhere in a record is insufficient.
+A limited language with deterministic rendering can enforce defined factual
+consistency. It does not certify unrestricted prose, causal validity or usefulness.
+Compare template, unrestricted prose, sidecar-checked prose and constrained
+rendering on identical decisions. A template is already faithful by construction;
+the LLM must add useful communication at non-inferior fidelity, not just beat an
+ungated weak model. The human-usefulness claim requires real human participants.
+A bot review is an engineering proxy and cannot replace evidence of SOC benefit.
+
+Existing data qualification matters:
+Local SCVIC training CSV: 259,120 rows, 527 exfiltration rows, 220 anomalous 1970
+timestamps, no qualified execution IDs and no acquired author test split in the
+existing audit. Random stratification is not independent APT replication.
+See ../d1_benchmark_audit/DATASET_QUALIFICATION.md and
+../closeout_20260930/QUALIFICATION.md. Recheck any newly acquired source separately.
+The already saved detector outputs and real recorded inputs can support a
+retrospective explanation pilot, explicitly exposed-data development. They cannot
+prove recovery of new independent exfiltration episodes or human analyst outcomes.
+AIT's zero missed-episode headroom does not prohibit an explanation-fidelity test;
+it does prohibit presenting that test as improved recovery of missed episodes.
+
+Article86 applies to specified decisions about affected people, not automatically
+to a predicted attack flow. Label this an explanation-assurance procedure for SOC
+alerts, not an Article86 compliance demonstration. Synthetic aggregate parity
+does not establish individual fidelity or privacy protection.
+https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
+
+SHARED STATISTICAL FIXES
+Define the denominator: bad-and-accepted/all cases, accepted/bad cases, and
+bad/accepted cases are different risks. Report both risk and coverage.
+LTT requires valid tests and the stated calibration/sampling assumptions. A
+predeclared grid and fixed sequence do not by themselves certify arbitrary data.
+https://arxiv.org/abs/2110.01052
+Zero failures in 25 independent cases gives an upper 95% bound about 11.3%; 299
+zero-failure independent cases are needed for a bound below 1%. Repeated prompts
+and correlated flows do not create independent cases. Report cluster structure.
+Pass rate >=90% and a <=5% upper bound on generation failure are different
+requirements; the latter is stronger. Accepted-output error is another denominator.
+Use identical cases across explanation methods, randomized/blinded order and
+analysis accounting for repeated raters/cases. Fifty different items per method
+does not automatically support the proposed paired test. Bots are not three analysts.
+Measure request fraction and per-request overhead or clearly call them scenarios.
+PX112 already showed lazy single-row generation can lose to efficient batching.
+Independent code review must be real and identified; do not fabricate a signed
+reviewer or use another account as a substitute for independent review.
+
+RECOMMENDED SEQUENCE
+1. Complete PX114/115 after resolving the AWS runner failure; preserve the CPU pilot.
+2. Prioritize a small constrained-rendering versus sidecar-check comparison on
+   recorded SOC inputs. Freeze the exact supported claim grammar and independent
+   prose audit before outputs. No Article86, analyst-benefit or exfil-recovery claim.
+3. Qualify the identifier labels separately before any SAE/LoRA/oracle spending.
+4. Advance only if there is incremental value beyond the strong simple comparator.
+   A negative result can be useful evidence, but does not automatically establish
+   doctoral novelty or a publishable research contribution.
