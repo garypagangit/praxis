@@ -1,6 +1,23 @@
 PX-108 / PX-109: Feasibility and literature findings
 4 October 2026
 
+DOWNLOAD FOLLOW-UP (supersedes the download blocker below)
+All requested PCAP archives are now present. After SHA-256 deduplication there
+are 12 attack capture files (1,547,716 packets) and 6 benign capture files
+(975,750 packets). Two archive downloads are exact duplicates. All 72 independent
+packet-count, byte-count and time-bound checks pass for the 18 distinct captures.
+The files have been preserved locally outside Git; hashes and audits are saved.
+
+Attack captures contain 1,163,997 truncated packets (about 75.2%). Of 252,447
+identified UDP destination-port-53 packets in attack files, 251,612 fail full DNS
+parsing with dpkt. Only 114 of 172,694 such packets in benign files fail parsing.
+This sharp difference requires care: a classifier could learn missing-content
+artifacts. It does not establish accurate exfiltration detection. Full DNS and
+payload reconstruction cannot be claimed from these truncated captures alone.
+Capture-file count is not independent successful-transfer count. Episode
+provenance and usable feature qualification remain open; no model was fitted.
+See CIC_DOWNLOAD_FINDINGS.json and CIC_COMPLETE_AUDIT.json for the new evidence.
+
 COMPLETED
 - Developed two numbered, testable proposals with aligned research questions,
   hypotheses, comparison methods, metrics, safeguards against leakage, and stops.
