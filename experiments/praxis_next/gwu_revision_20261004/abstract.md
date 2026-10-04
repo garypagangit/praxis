@@ -1,0 +1,7 @@
+An APT stage classifier can improve its overall score while warning on fewer attacks. This praxis develops a reproducible audit of stage labels, retained attack warnings and benign false alerts on the same network-flow records. It checks chronology, source support and the software decisions that produce warnings.
+
+In the primary UNRAVELED comparison, mean macro-F1 rose from 0.7148 to 0.7379 while exfiltration warning recall fell from 85.18% to 76.25%. Effects varied across fitting seeds. An adapted AIT test did not reproduce the original policy ordering. In one primary run, 901 exfiltration records lost their warning; 893 previously had the wrong attack-stage label. Exact-stage regression omits those losses; binary warning regression captures them.
+
+An OR rule preserves member warnings but cannot recover events missed by all members. A post hoc TCP/22 policy raised UNRAVELED episode-proxy coverage from 6/18 to 18/18, adding 510 benign-labeled flow warnings and 460 grouped cases. It added no exfiltration coverage on AIT's UDP/53 activity. Explanation replay reproduced recorded decisions but did not outperform an ordinary complete trace. A proposed ranking rule tied confidence ranking.
+
+The contribution is a tested audit of stage-specific warning changes and repair limits. It supports review of these laboratory pipelines. A new XAI algorithm, general operational benefit and improved human review were not established.

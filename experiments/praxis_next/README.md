@@ -1,4 +1,8 @@
-> **Latest primary paper, October 1:** [Revised paper and one-page executive summary](gwu_revision_20261001/README.md). Plain-language revision with PX-092 through PX-097 and the limits of the TCP/22 repair.
+> **Latest primary paper, October 4:** [180-page review manuscript, Word/PDF and one-page summary](gwu_revision_20261004/README.md). Auditable-AI framing, explanation-study outcomes, new PX-106 warning-transition analysis and explicit prior-art limits.
+
+> **PX-106 completed:** [Warning loss versus exact-class regression](warning_transitions_20261004/FINDINGS.md). 27 saved comparisons, 945 checks; binary warning accounting captures losses that exact-stage changes omit.
+
+> **Previous primary paper, October 1:** [Revised paper and one-page executive summary](gwu_revision_20261001/README.md). Plain-language revision with PX-092 through PX-097 and the limits of the TCP/22 repair.
 
 > **PX-097 completed:** [Fixed TCP/22 policy transfer](ssh_transfer_20261001/FINDINGS.md). No additional exfiltration coverage on AIT; its labeled exfiltration uses UDP/53.
 

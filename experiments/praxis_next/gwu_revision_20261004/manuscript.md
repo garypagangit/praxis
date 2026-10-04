@@ -1,0 +1,2224 @@
+# Chapter 1: Introduction
+
+
+## 1.1 Background
+
+A security analyst needs to know whether an event deserves investigation. Naming the exact attack stage is useful, but calling an attack benign can hide it entirely.
+
+Consider 100 records labeled as exfiltration. A model correctly names 60, calls 20 another attack stage, and calls 20 benign. Its exact-stage recall is 60%, while its warning recall is 80%. Both the correctly named attacks and the wrong-stage attacks still receive a warning. This is an illustration, not an experimental result.
+
+A useful evaluation must also count false alerts on benign traffic. Warning on every record would catch every labeled attack while overwhelming an analyst. This paper therefore reports stage accuracy, missed attack warnings and benign alerts together.
+
+Earlier work already distinguishes attack-type mistakes from attacks called normal (Uddin et al., 2025). Recent APT studies also question whether conventional scores reflect useful detection behavior (Bilot et al., 2025; Guerra et al., 2026). This praxis adds controlled measurements and a reproducible review procedure to that established problem.
+
+## 1.2 Research Motivation
+
+A higher model score can look like a clear improvement. The decisions behind that score may tell a different story. A model can correct some attack-stage mistakes while sending other attacks into the benign class, where they receive no warning.
+
+This study began by testing when models should use historical context and request extra evidence. Those tests revealed cases in which the overall score improved but exfiltration warnings decreased. The main question became how to expose that tradeoff before accepting a model change.
+
+Later experiments tested possible repairs. They examined rules that preserve any member model's warning, the workload created by extra warnings, and a fixed restriction on TCP destination port 22. These follow-ups extend the evaluation; they do not replace the primary research questions or prove a generally effective detector.
+
+## 1.3 Problem Statement
+
+**Problem statement.** An APT model can receive a better overall score while missing more attack warnings. A score alone also does not show how much benign traffic an analyst must investigate.
+
+The purpose of this praxis is to measure those differences on the same records and provide a repeatable model-review procedure. It also checks whether each dataset has the labels and timestamps needed for the proposed test.
+
+The practical risk is accepting a model update that sends fewer true attacks for investigation. Another risk is overstating the evidence: many related flows are not necessarily many separate incidents, and related datasets are not necessarily independent replications. This paper checks both issues.
+
+## 1.4 Thesis Statement
+
+A model review should explain what happens to an attack warning, not just whether the final stage label is correct. This praxis provides a reproducible audit of three decisions: which evidence is used, how model outputs are combined, and when a fixed policy adds a warning. The audit connects those decisions to missed attacks and extra review cases on the same recorded events.
+
+The proposed contribution is specific: paired accounting of stage-label changes and warning loss in an APT flow pipeline, with saved decision records, checks that reproduce those decisions, and measured limits of attempted repairs. The pipeline is the sequence of software steps between input data and a final warning. The contribution is an applied audit and its evidence, rather than a new classifier or a new definition of recall.
+
+This study does not claim the first discovery of performance regression. Earlier work already reports improving scores alongside lost detections. The contribution must be judged on the controlled APT-stage comparisons, their reproducibility and the practical questions the audit answers. Chapter 2 compares the closest work directly.
+
+## 1.5 Research Objectives
+
+The objectives are to:
+
+1. Compare overall scores, attack-stage recognition, missed warnings and benign alerts when models use different historical evidence.
+2. Measure how adding later-period training records changes performance on a fixed test set with the same per-class training counts.
+3. Check whether four proposed APT datasets support the requested chronological comparison with every native class represented.
+4. Deliver traceable results, readable methods and a repeatable review procedure that retains unfavorable outcomes.
+
+The later ensemble and policy studies are extensions of the first and fourth objectives. Their retrospective status is reported separately.
+
+## 1.6 Research Questions and Analytical Propositions
+
+**RQ1, primary:** When historical-evidence choices improve an APT model's overall score, what happens to exfiltration warnings and false alarms on the same test records?
+
+**RQ2, supporting:** How much do later-period training observations change reported performance when the model family, test records and per-class training counts stay fixed?
+
+**RQ3, supporting:** Which proposed datasets support the requested chronological comparison with every native class represented, and what prevents the others from supporting it?
+
+RQ1 tests whether a higher macro-F1 score can coexist with fewer warnings for an attack stage. RQ2 measures sensitivity to the training timeline and the records included in training. RQ3 checks a necessary condition: a time cutoff must leave the required examples of every class on both sides.
+
+The original experiments fixed their protocols before training. The warning-loss pattern was identified after inspecting results. These questions describe that retrospective analysis; they are not new hypotheses registered before the pattern was known. Later studies likewise retain their original experiment numbers, freezes and failed criteria.
+
+## 1.7 Scope of Research
+
+The main experiments use four classes from the prepared UNRAVELED flow data. History selection, evidence collection and training-time comparisons account for 141 fits. A separate technique-recognition supplement adds two fits. These numbers count model-fitting jobs, not independent attacks.
+
+The September 27 extension checks all 173 released UNRAVELED flow files, covering 6,877,157 rows and six sensor views. It adds 12 jobs that compare current-flow features with added host roles, using all eligible training rows. It broadens coverage of the same campaign; it does not repeat every earlier intervention or supply another campaign.
+
+The September 28 AIT extension inspects 3,465,342 source rows. It uses 2,397,158 eligible rows from six executions for final training and 1,067,211 rows from Wilson and Harrison for testing. Its 42 fits bring the recorded inventory for those evidence branches to 197 jobs. AIT uses three classes and one optional history group, so it is an adapted test rather than an exact repeat of the original experiment.
+
+The source review also checks SCVIC-APT-2021, DAPT2020, DSRL-APT-2023 and the acquisition status of S-DAPT-2026. It does not claim four further fitted replications. CasinoLimit and CAM-LDS support a separate technique-recognition task with different negative labels.
+
+The October 1 evidence branch adds PX-092 through PX-097. PX-092 adds seven seed fits and PX-093 adds two logistic-regression fits. PX-094 through PX-097 reuse saved predictions without new training. Their ensemble, episode, workload and policy results are recorded separately from the earlier 197-job inventory. All these follow-ups use data already examined during the project.
+
+## 1.8 Research Limitations
+
+The main study uses one previously examined campaign. Its movement class describes author-labeled remote discovery on one host pair, with only 35 test records and 18 records in the fixed temporal test set. Features describe completed flows, so these experiments do not measure early detection before a flow ends.
+
+Source attack-stage labels do not independently prove successful compromise or stolen-file delivery. Many flows belong to the same activity. Changing a random fitting seed or dividing activity into time windows does not create independent incidents.
+
+The AIT experiments hold out two executions from training, but both come from a shared laboratory generator. Their classes and available evidence differ from the original task. The original named-policy score/warning result did not repeat; a smaller tradeoff appeared in the opposite policy order on Wilson.
+
+The latest episode counts are defined from labels, endpoints and time gaps. They are not confirmed SOC incidents. Workload uses assumed case grouping and handling times. The TCP/22 rule was chosen after examining misses, and its AIT transfer test uses previously examined executions. Neither establishes independent deployment effectiveness.
+
+The October 4 review edition integrates PX-098 through PX-105 and adds PX-106, a descriptive reanalysis of saved prediction changes. PX-106 uses 27 paired comparisons and adds no model fits. The explanation and ranking studies did not demonstrate a new algorithm that improves on their strongest simple controls. No human-review study was completed.
+
+## 1.9 How to Read This Paper
+
+The executive summary gives the practical result without requiring machine-learning background. Chapter 2 explains the related research. Chapter 3 states what was tested, how the models work and how outcomes are counted. Chapter 4 presents both favorable and unfavorable results. Chapter 5 gives the review procedure, limitations and conclusions.
+
+Readers interested in repairs can start with Sections 3.13 and 4.12-4.15. Sections 3.14 and 4.16 explain the audit extensions; Sections 3.15 and 4.17 compare lost warnings with exact-stage regression. Appendix G gives a plain-language guide and the evidence map. The appendices preserve detailed tables, equations, source records and reproduction instructions. A flow is one recorded network exchange; an episode groups labeled flows using an explicit time rule; an investigation case groups warnings for review. These are different units and are not used interchangeably.
+
+# Chapter 2: Literature Review
+
+
+## 2.1 Introduction
+
+This targeted review covers APT evaluation, training timelines, attack-stage errors and dataset origins. The initial review was completed September 23, 2026 and extended September 28 for AIT. The October 1 revision also uses the ensemble and policy claim checks recorded with PX-093 and PX-096. The October 4 update includes full-text comparisons of CyberShapley and AlertPro and a further search on model regression. It is not an exhaustive literature review or proof of priority.
+
+The question is what this study measures beyond established work. Temporal evaluation, attacks mislabeled as benign, classifier combination and network filtering already have substantial prior work. The contribution must rest on the specific controlled comparisons and their practical interpretation.
+
+## 2.2 Temporal Validity in Security Evaluation
+
+TESSERACT established temporal and distributional constraints for evaluating malware classifiers and showed why inappropriate splits can produce misleading conclusions (Pendlebury et al., 2019). This is foundational prior art rather than part of the recent-literature window. Holding out random records is not equivalent to asking whether a model trained earlier will work later.
+
+Bilot et al. (2025) examine provenance-based intrusion detectors in a common framework, identify practical and evaluation shortcomings, and include simple alternatives. Their work supports the use of strong simple controls and detection-relevant outcomes. Guerra et al. (2026) directly address APT provenance benchmarking, including temporally separated evaluation and the influence of benchmark semantics on conclusions. Consequently, neither temporal hygiene nor critical measurement of APT detection is new in itself.
+
+The present temporal contrast is narrower: it keeps the later evaluation rows and per-class fitting budget constant while changing access to later-period training observations. This avoids attributing a difference caused by a different test population to training chronology alone. It still changes training composition and diversity; it cannot identify an effect of time independently of every other property of those added observations.
+
+
+## 2.3 Correct Attack Stages and Retained Warnings
+
+Uddin et al. (2025) compare hierarchical and flat intrusion classifiers across ten datasets and ten algorithms. The available author manuscript (Uddin et al., 2024) reports exact attack recognition, attacks classified as normal, confusion matrices, and false-positive tradeoffs. The distinction between a wrong attack type and a missed attack therefore has direct prior coverage. Renaming stage-conditioned binary recall would not create a new metric.
+
+The empirical question addressed here is whether a fixed experimental comparison can improve macro-F1 while reducing warnings for an author-defined consequential stage. The answer must include benign workload and error destinations, because a warning-retention objective alone can be satisfied trivially. The paper reports this tradeoff from saved predictions and preserves its retrospective discovery status.
+
+
+## 2.4 Recent Flow and Attack-Stage Research
+
+The 2026 TAN-IDS framework provides a deployment-oriented, shared NetFlow evaluation interface with in-domain and cross-domain comparisons (Ha Thanh, 2026). Its stated limitations leave multiclass or family discrimination and systematic feature ablation for further work. This is a concrete scope boundary that motivates examining stage-specific errors under controlled changes in data and evidence.
+
+Recent APT research already investigates temporal and contextual attack-stage recognition. StageFinder combines structural and temporal information for stage estimation (Phan & Bauschert, 2026). Other contemporary flow studies and dataset efforts investigate sequence or graph representations. The current work therefore does not claim that temporal context, ensembles, or flow-based APT stages are unexplored. It evaluates how particular contextual decisions affect a useful warning and how much the evaluation design contributes to the reported score.
+
+Recent model comparisons and flow-sequence studies include Luengo Viñuela et al. (2026), Iturbe et al. (2026), and Ibrahim et al. (2025). SANGL also examines sequential network patterns and graph learning for APT detection (M K et al., 2026). These are direct application precedents; their published scores are not reproduced baselines in this paper. Bibliographic name forms follow the publishers' records, with source details retained in the reference audit.
+
+Othman et al. (2026) study DAPT stage durations and residual time-to-compromise through a survival-modelling task. Their session-based timing question differs from requiring every native class in both earlier training and later testing for a closed-set classifier. The support limitation measured here applies to the latter requirement and does not invalidate the former use of DAPT.
+
+
+## 2.5 Dataset Origin and Benchmark Independence
+
+UNRAVELED is a semi-synthetic APT dataset published in 2023 (Myneni et al., 2023). Its use here is necessary data provenance, not a claim to use a newly released 2026 corpus. The proposed expansion includes SCVIC-APT-2021 (Liu et al., 2022a, 2022b), DAPT2020 (Myneni et al., 2020), DSRL-APT-2023 (Shadabfar et al., 2025), and S-DAPT-2026 (Tijjani et al., 2026, withdrawn). Release names and paper dates do not establish independent executions, valid event clocks, or accessible source bytes.
+
+DSRL is especially relevant to independence: its paper describes synthetic attacks generated from DAPT and benign examples sampled from DAPT. These relationships must be retained in any evidence count. Likewise, the inspected S-DAPT arXiv record is withdrawn, and the present project did not acquire a qualified replacement data release. An unavailable artifact cannot become a performance result through its citation alone.
+
+
+The AIT netflow release (Soro et al., 2024) derives TCP and UDP flow records from eight executions of the AIT laboratory environment. Its simulated legitimate activity and attack scenarios are described by Landauer et al. (2023), building on the model-driven testbed approach of Landauer et al. (2021). The released flow labels support benign activity, other attacks and DNS exfiltration. They do not supply the same movement class or evidence channels as the original UNRAVELED experiment. This distinction motivates the explicitly adapted validation in Section 3.12, rather than treating a dataset name as proof of an unchanged replication.
+
+## 2.6 Literature Gap and Contribution Positioning
+
+The broad problem is established. AlertPro already reports a higher F1 score with lower attack recall. In its LLDOS comparison, basic features produce F1 of 0.6188 and recall of 90.78%; basic plus context produces F1 of 0.8151 and recall of 73.75% (Wang et al., 2024, Table 4). Its authors discuss this recall loss. That result motivates the present audit; it is not a discovery claimed here.
+
+CyberShapley explains and prioritizes security alerts using connected groups of events and Shapley importance. It evaluates APT-related data, includes a small human study and illustrates ChatGPT-4 as a virtual analyst (Malach et al., 2025). Explainable APT triage, event-removal checks and bot-assisted review therefore already have direct precedents. This praxis did not implement or outperform CyberShapley.
+
+Yan et al. (2021) call a previously correct prediction that becomes incorrect a negative flip. Their work also uses ensembles and training constraints to reduce these changes. Ghiani et al. (2026) apply regression-aware learning to Android malware. Thus, preserving detections across model updates is already an established research problem. Our saved policy comparisons are not a continual-learning benchmark or an evaluation of their training methods.
+
+The narrower question is what happens when a stage prediction is already wrong but still provides an attack warning. If that record later becomes benign, the warning disappears without a correct-to-incorrect stage change. PX-106 counts these cases explicitly. Standard binary negative-flip counting also catches them. The value is making both levels visible in the same APT review, not renaming an existing binary metric.
+
+The proposed research product combines paired stage and warning accounting, recorded evidence decisions, episode and case counts, source qualification, and reproducible checks. Each component has prior art. The contribution is the specific tested procedure and the evidence showing where its decisions and attempted repairs matter. Neither a new dataset application alone nor the absence of an identical title establishes novelty.
+
+| Closest work | What is already established | What this study evaluates |
+|---|---|---|
+| TESSERACT (2019) | Time and distribution affect security evaluation | Same-test-set APT training-composition contrast |
+| Uddin et al. (2025) | Wrong attack type differs from attack called normal | Paired stage destinations under evidence changes |
+| AlertPro (2024) | Alert ranking, limited review budgets, F1 up with recall down | Lost stage warnings, attempted repairs and case costs |
+| CyberShapley (2025) | APT alert explanations, triage and reviewer evaluation | Recorded warning loss inside an evidence pipeline |
+| Yan et al. (2021); Ghiani et al. (2026) | Negative flips and regression-aware training | Exact-stage versus binary warning transitions |
+| Kittler et al. (1998) | Combining classifier decisions | Limits and measured costs of retaining any warning |
+
+The review is targeted. The full-text comparison and source hashes are recorded in the literature-review evidence folder. It supersedes earlier access limitations for CyberShapley and AlertPro. No empirical superiority over these published systems is claimed. Committee assessment of whether this applied contribution meets the Praxis requirement remains necessary.
+
+## 2.7 Machine-Learning Foundations and Their Role
+
+The main experiments use gradient-boosted decision trees for multiclass prediction and scalar regression. Boosting adds trees sequentially to improve a specified loss; using the same family across comparisons limits architecture changes as an explanation for a score difference. Chapter 3 distinguishes the multiclass experts from the regressors that select history or additional evidence, and reports their actual objectives.
+
+The separate policy-transfer supplement uses previously fitted logistic-regression experts and newly fitted Ridge selectors. These models provide a deliberately modest test of whether a learned context-selection score changes the decisions of its source experts. The model-specific primary references and equations are given alongside their implementations in Chapter 3. No graph-neural model, TabM architecture or large language model was fitted in that original measurement batch. The separate PX-098/PX-099 pilot later used a pretrained visual-language model; its results are reported separately.
+
+
+## 2.8 Literature Review Summary
+
+Earlier research shows that training time, source labels and the kinds of mistakes a model makes matter in security evaluation. This study uses established metrics to examine those issues together on specific flow datasets.
+
+Its contribution is the controlled comparison and reusable audit: test the same records, count attacks called benign, show the false-alert cost and verify that the source supports the question. The ensemble and TCP/22 follow-ups do not make classifier voting or port filtering new methods. Their value is showing what those rules recover, what they miss and what extra work they create.
+
+# Chapter 3: Methodology
+
+
+## 3.1 Introduction and Graphical Model of Research
+
+The Graphical Model of Research (GMR) summarizes the completed workflow. It follows the numbered What/Why/How convention in the author's earlier GWU GML praxis (Pagan, 2026), with the content adapted to the present measurement study. The original graph-construction, architecture-training and tuning diagram is retained separately as a historical reference in Appendix C.
+
+![Graphical Model of Research for the completed APT evaluation study. The six stages connect source qualification, controlled fitting, error destinations, sensitivity checks and a reproducible evidence package.](../gwu_final_20260928/figures/gmr_current.png)
+
+The first two stages establish which records, targets and chronology are available. The third fits the declared comparison models without selecting a new architecture from evaluation scores. The fourth records what each prediction does to the attack warning and the benign workload. The fifth evaluates conditional uncertainty and source support. The sixth assembles the completed evidence into a reproducible praxis. The figure is a workflow description, not an additional empirical result.
+
+
+## 3.2 Research Design and Analysis Chronology
+
+The study combines completed controlled experiments with a retrospective analysis of their saved predictions and a separate benchmark-qualification study. These components answer different questions and have different limits on what they establish.
+
+The history-selection, evidence-acquisition, and temporal experiments each froze protocol and executable source before their fitting runs. The source corpus and portions of the broader task had already been examined in project development. The first warning-loss observation was added after inspecting an acquisition seed; it remains exploratory. The new paired reanalysis freezes its computation before execution, but neither that freeze nor its intervals convert an observed pattern into a prospectively confirmed hypothesis.
+
+The D1 extension separately registers future comparisons and source eligibility requirements. Qualification and support checks completed before any new model fits. Those checks are reported as results. No model comparison is reported for a source that failed its applicable requirements.
+
+**Table 3-1. Components of the evidence and their roles.**
+
+| Component | Completed scope | Role in this paper |
+|---|---|---|
+| History selection | 39 fits; 7 arms; 5 conditions; 3 seeds | Context tradeoffs and simple controls |
+| Evidence acquisition | 84 fits; 3 budgets; 3 conditions; 3 seeds | Paired stage/warning outcomes |
+| Temporal comparison | 18 fits; 2 feature views; 3 split arms; 3 seeds | Fixed-anchor protocol sensitivity |
+| Paired reanalysis | 36 comparisons; no new fits | Retrospective, capture-conditional uncertainty |
+| Benchmark qualification | 4 requested sources; no new fits | Native support, timing and dependencies |
+| Full-release extension | 173 files; 6,877,157 rows; 12 fitting jobs | Uncapped current-flow versus role-feature comparison; same campaign |
+| Policy-transfer supplement | 2 fits; T1105 recognition | Separate task; not stage replication |
+| AIT external-source validation | 8 executions; 3,465,342 rows; 42 fits | Three-class history acquisition; 2 later executions held out |
+| PX-092 and PX-093 | Seven additional seed fits and two logistic-regression fits | Warning combinations and added-member workload |
+| PX-094 through PX-097 | Saved predictions; no new fits | Episode proxies, case workload, missed-flow diagnosis and fixed policy replay |
+
+The directional expectations were that later-period training may increase reported performance, that context or evidence selection may change stage and warning outcomes differently, and that some releases may not support an all-stage temporal comparison. Results in either direction are informative. No 90% recall requirement or minimum favorable effect determines whether an observed finding is retained.
+
+
+## 3.3 Datasets, Evaluation Support and Feature Interpretation
+
+### 3.3.1 Why source qualification is part of the experiment
+
+An APT dataset name does not establish an independent attack execution, a valid clock, or a label for successful movement or theft. This study therefore separates datasets used for completed predictions from artifacts inspected for possible extension. The qualification decisions below describe the inspected releases and the registered comparison, not the usefulness of each dataset for every research question. Source-status statements are inherited from the verified September 23, 2026 audit; these historical qualification outcomes are preserved. The full-release extension in Section 3.11 additionally verifies all UNRAVELED flow-file bytes and performs new fitting.
+
+| Dataset | Role in this paper | Inspected support | Interpretation boundary |
+|---|---|---|---|
+| UNRAVELED | Historical controlled experiments | 382,229 prepared flows; eleven IT-sensor captures | One previously examined campaign; author stages |
+| SCVIC-APT-2021 | Extension qualification | 259,120 rows; six native classes | Recorded timestamps do not establish physical chronology |
+| DAPT2020 | Extension qualification | 86,691 rows; five native classes | No all-native-class single chronological cutoff under the stated rule |
+| DSRL-APT-2023 | Extension qualification | 65,000 rows; five native classes | Synthetic attacks and reused benign rows derived from DAPT |
+| S-DAPT-2026 | Source-access qualification | No qualified source bytes | No measured dataset count or model result |
+| CasinoLimit | Secondary T1105 policy development | Evaluation: 920 targets, 17 T1105 positives | Annotation-onset proxies; negatives are other techniques |
+| CAM-LDS | Secondary T1105 policy transfer | Evaluation: 4,209 targets, 100 T1105 positives | Labeled interval proxies; distinct decision unit |
+
+### 3.3.2 Primary corpus: UNRAVELED
+
+UNRAVELED is the semi-synthetic APT corpus of Myneni et al. (2023), published in *Computer Networks*. The pinned author release is the [UNRAVELED repository](https://gitlab.com/asu22/unraveled), commit `d2ea90055d82fa448ab20588a13e3ec8bfd74816`. The upstream inventory records 173 network-flow files, 31 capture directories, and 6,877,157 rows. The historical controlled experiments use a fixed subset of eleven complete locally available `net1013x` IT-sensor capture files, not all source traffic and not eleven independent attacks. Using a single sensor avoids indiscriminately pooling overlapping gateway/subnet observations. It does not establish complete visibility of the network.
+
+The 382,229-row prepared artifact is bound by SHA-256 `b2a491474e722f4dabcd4c419c83a4a6b49f08dfc3bc059aa42ef2aaa4c3de14`. It was already examined in prior development. Captures 0–4 provide earlier fitting data, capture 5 is the original calibration partition, and captures 6–10 provide later evaluation. All history entries finish before the corresponding current flow begins. Current features describe completed flows, so the model decision is not an early forecast.
+
+| Partition | Benign | Other attack stage | Movement label | Exfiltration label |
+|---|---:|---:|---:|---:|
+| Earlier fitting pool | 147,087 | 12,362 | 27 | 1,740 |
+| Original calibration | 8,929 | 2,659 | 0 | 1,331 |
+| Later evaluation | 192,193 | 12,424 | 35 | 3,442 |
+| Fixed temporal anchor, a subset of later evaluation | 96,098 | 6,213 | 18 | 1,722 |
+
+The original calibration partition contains no movement examples and cannot calibrate movement recall. The fixed temporal anchor totals 104,051 rows. The temporal study's conventional random comparison has a different 210,226-row population, including 191,515 benign, 15,095 other-stage, 34 movement, and 3,582 exfiltration labels. These denominators must not be substituted for the fixed-anchor denominators.
+
+### 3.3.3 Source parsing and target mapping
+
+The upstream preparation found unquoted commas in descriptive DPI fields of the source CSVs. It recovered the four annotation fields from the right end of each row, preserving the stable numeric prefix and excluding the ambiguous text region. This correction preceded the studied fits. A fixed-position parser would have interpreted some descriptive values as spurious stages. The raw source files and prior frozen artifacts were not rewritten.
+
+The models use a declared four-class target: Benign, OtherAttackStage, LateralMovement, and DataExfiltration. The mapping combines source Reconnaissance, Establish Foothold, and Cover up labels into OtherAttackStage; it does not claim that the source has only four native stages. In the selected eleven captures, the other-stage rows consist of foothold and cover-up annotations. The mapping and full native-source inventory remain in the upstream qualification artifacts.
+
+For this sensor, the movement activity is **Remote System Discovery on one directed host pair**. Those labels do not establish successful remote login, compromise, or movement to a new host. The exfiltration class is also the author's stage annotation, not independently verified stolen-file receipt. Annotation fields, including Stage, Activity, DefenderResponse, and Signature, are prohibited as predictors. In particular, a DefenderResponse value of Benign is not the traffic's true benign label.
+
+### 3.3.4 Prepared feature groups
+
+| Feature group | Actual representation | Availability and excluded information |
+|---|---|---|
+| Current completed flow | Numeric duration, packet/byte counts, packet-size and inter-arrival summaries, TCP flag counts; three destination-service indicators | Full-flow measurements; no literal host identities, absolute dates, capture names, or annotation columns |
+| Coarse endpoint roles | Eight one-hot values: four source categories and four destination categories | Department, public services, private services, other address; derived from documented static topology |
+| Earlier activity | Thirty-six summaries: nine state values × source/destination × five/thirty-minute windows | Only previously completed flows, ending strictly before current-flow start |
+| Selector availability signals | Relative history age and declared availability indicators where included in the protocol | Observable signals; no true stage provided to the deployed selector |
+
+The nine history values are logged completed-flow count, transmitted bytes, received bytes, distinct peers, initiated flows, remote-administration flows, internal-peer flows, whether the current peer appeared in the window, and whether the host had appeared previously. Numerical counts use the source's `log1p` transformation. Other address does not automatically mean public Internet, and coarse role is not a verified per-user or per-machine business function. These definitions come from the existing [feature preparation](../../apt_benchmark/host_history_exfil/run.py) and [history implementation](../../apt_benchmark/host_history_exfil/context.py).
+
+The acquisition experiment treats precomputed role and history summaries as hypothetical information requests. A role lookup costs one simulated unit; history costs two. Delivery and failure schedules are shared across compared policies. This is a test of acquisition decisions under declared assumptions, not measurement of actual sensor costs or latency. Missing, stale, and wrong-host histories are explicit synthetic interventions.
+
+### 3.3.5 A real published aggregate example
+
+No previously published individual feature-value row was found in the inspected public evidence. An individual flow is therefore not fabricated or presented as though it were observed. The documented schema above shows the actual prepared fields; the following example is an **actual aggregate evidence record**, with endpoint identities absent.
+
+| Field in saved clean evaluation, seed 20260924 | Recorded value |
+|---|---|
+| Model arm | Current flow plus roles |
+| Evaluation capture group | 6 |
+| Total flow records | 70,451 |
+| True-class counts: benign / other / movement / exfiltration | 62,400 / 5,780 / 18 / 2,253 |
+| Movement label predictions: benign / other / movement / exfiltration | 3 / 0 / 15 / 0 |
+
+This example is copied from the source aggregate in `PX080` and can be independently checked in [the bound source snapshot](../gwu_final_20260928/results/source_snapshots/PX080_METRICS.json). It illustrates both the denominator and the distinction between exact-stage recognition and a missed warning. It contains no invented feature values or assertion that the eighteen labels represent eighteen independent intrusions.
+
+### 3.3.6 Extension artifacts and native stage support
+
+The native-class support chart is reported with the qualification results in Chapter 4.
+
+### 3.3.7 SCVIC-APT-2021
+
+Liu et al. (2022a) published the benchmark in *IEEE Networking Letters*, with a separate [IEEE DataPort dataset record](https://doi.org/10.21227/g2z5-ep97). The inspected training CSV contains 254,836 NormalTraffic, 73 InitialCompromise, 833 Reconnaissance, 729 LateralMovement, 2,122 Pivoting, and 527 DataExfiltration rows. All six classes remain distinct in qualification.
+
+A recorded-time ordering can be computed, and the necessary all-class start-time support interval is nonempty. Physical chronology remains unresolved: 220 benign rows parse to January 17, 1970; the other rows parse to October 21, 2015; timestamps mix minute and second resolution; and no qualified row-to-execution mapping or author-supported clock correction was found. A cached source page lists a separate test artifact, but its contents and independence were not qualified in the inspected workspace. These findings permit a carefully scoped random/grouped development question, not an unchanged deployment-valid temporal claim.
+
+### 3.3.8 DAPT2020
+
+Myneni et al. (2020) describe DAPT2020 as a benchmark for advanced persistent threats. The inspected ten CSVs cover five capture dates and contain 63,712 benign, 11,909 reconnaissance, 8,604 foothold, 2,451 movement, and fifteen exfiltration labels. Ten files are collection units within an attack progression, not ten campaigns.
+
+The necessary single-cutoff support test requires at least two earlier fitting rows and one later evaluation row for every native class. The cutoff must exceed each class's second-earliest start and be no later than every class's latest start. The resulting lower bound is July 19, 2019 at 16:38:37, imposed by exfiltration; the upper bound is July 17 at 19:24:55, imposed by reconnaissance. The interval is empty. Thus no single cutoff satisfies that stated all-class rule on these bytes. Completed-flow availability and duplicate controls can only make the rule more restrictive.
+
+This is a precise support result, not a failed detector or a judgment that DAPT is unusable. Different questions, such as unknown-stage recognition or stage-duration/survival analysis, require different protocols. The benchmark can remain useful for those tasks without meeting this paper's closed-set chronological requirement.
+
+### 3.3.9 DSRL-APT-2023
+
+Shadabfar et al. (2025) describe DSRL as a synthetic dataset. The inspected file has 10,000 benign, 14,366 reconnaissance, 22,968 foothold, 12,664 movement, and 5,002 exfiltration rows. The publisher paper's Section 5 states that the attack generation was trained on DAPT2020 and that the benign rows were sampled from DAPT. A generated timestamp is not evidence of an observed campaign clock, and the release has no qualified execution or generator-realization grouping. DSRL can support a declared synthetic-development question; it cannot serve as independent confirmation of its parent simply by being a different file.
+
+### 3.3.10 S-DAPT-2026
+
+The inspected arXiv version of Tijjani et al. (2026) was withdrawn on April 1, 2026. The source audit did not acquire a corrected, qualified dataset or generator release. A later posting was noted, but corrected data access, source lineage, clock semantics, and dataset rights remained unverified. Consequently there is no measured row count, fitted result, or ROC-AUC for S-DAPT in this work. The finding is bounded to inspected sources; it is not proof that no usable artifact exists anywhere.
+
+### 3.3.11 Secondary technique datasets
+
+CasinoLimit was published by Kilian et al. (2025) at RAID; CAM-LDS has a 2026 journal version by Landauer et al. Both supply additional log-based context for the secondary T1105 experiment, but neither changes the primary UNRAVELED estimand by being listed alongside it.
+
+CasinoLimit selector development uses 1,494 clean-calibration targets, including 87 T1105 positives, across eighteen runs. Evaluation uses 920 targets with seventeen positives across eighteen runs. CAM-LDS evaluation uses 4,209 targets with 100 positives across eighteen runs from one held-out family. The small CAM-LDS calibration set of 68 targets/eight positives is not used to fit or tune the transferred selectors. The underlying source-specific classifiers remain unchanged.
+
+CasinoLimit targets are annotation-onset proxies; CAM-LDS targets are labeled interval-state proxies. Negative targets are other author techniques, not verified benign activity. The project had already examined both datasets. Thus this supplement provides previously exposed score-policy transfer evidence, not an untouched independent replication of exfiltration detection, a common-unit pooled accuracy, or a legitimate-background false-positive rate.
+
+### 3.3.12 Source references and reproduction materials
+
+Dataset citations and verified publication status are supplied in [REFERENCES.json](../gwu_final_20260928/results/REFERENCES.json). Complete native counts appear in [native_class_counts.csv](../gwu_final_20260928/results/tables/native_class_counts.csv); source qualification and exact cutoff bounds are preserved in the source snapshots. The [source manifest](../gwu_final_20260928/results/SOURCE_MANIFEST.json) binds the publication inputs. Raw network/host traces and private row-linked predictions are not redistributed by this publication assembly.
+
+The completed scope is therefore explicit: one primary flow-stage measurement campaign, two secondary technique datasets with a different target, and four documented extension-qualification decisions. More files, fitting seeds, or synthetic rows do not independently broaden the number of real attack executions represented by a result.
+
+
+## 3.4 Evaluation Anchor and Temporal Controls
+
+In plain terms, this test keeps the test records fixed and changes which records the model may use for training. That lets the comparison measure the effect of the training pool without also changing the test population.
+
+The temporal experiment selects the first ceiling-half of each class within each later capture, ordered by observable-event hash. This common anchor contains 104,051 rows: 96,098 benign, 6,213 other stage, 18 movement, and 1,722 exfiltration. Both training arms and all three fitting seeds predict the same anchor.
+
+Both eligible training pools exclude any row whose current-feature fingerprint appears in the anchor. After this purge, the earlier pool has 93,470 rows and the mixed pool 149,536. Matched fitting counts are 20,000 benign, 5,000 other-stage, 20 movement, and 1,740 exfiltration. Exact-feature purging removes one identifiable overlap channel; it does not make adjacent events independent or eliminate every source of dataset-specific dependence.
+
+The temporal experiment uses fixed LightGBM models with 200 boosting iterations, at most 15 leaves per tree, learning rate 0.05, minimum child samples 10, L2 regularization 1, and two CPU threads. Fitting seeds are 20260923, 20260924, and 20260925. Each seed evaluates current features and current-plus-history features.
+
+The past-only arm samples from the earlier pool. The time-mixed arm may additionally sample non-anchor later observations. Sampling is by fixed seeded hashes without replacement, with identical class counts across arms. Calibration records do not enter either pool. All earlier training flows finish before later evaluation begins.
+
+The mixed arm deliberately has access to data unavailable to a model trained earlier. For contextual features, some later training histories can also include earlier anchor-flow observations. The treatment is therefore a change in training composition and temporal access, including those dependencies. It is not a pure causal estimate of access to future labels.
+
+A conventional stratified random-row comparison is retained as a secondary result. It changes the test population and permits some shared current-feature fingerprints across its boundary. Its difference from the chronological arm is reported separately, rather than being called the isolated temporal effect.
+
+
+## 3.5 Historical-Evidence and Acquisition Interventions
+
+These experiments ask whether extra context helps enough to justify using it. Some runs choose whether to use history; others choose which evidence to request under a simulated budget. A selector is the small model that makes that choice.
+
+The history-selection experiment compares current-flow-plus-role evidence with context-assisted evidence, equal probability fusion, maximum-confidence selection, ordinary learned selection, stage-weighted selection, and context-dropout training. Four forward folds generate held-out expert predictions for selector fitting. The stage-weighted selector estimates the additional classification error associated with choosing history, using weight four for movement and exfiltration and one for the other true classes.
+
+Five fixed evaluation conditions preserve the true labels: clean history, half missing, all missing, a five-minute-old snapshot, and wrong-host history. The last is a deliberate linkage corruption, not a measured incident. Availability and relative evidence age are observable selector inputs; the true stage is not an inference input. The selector-target weights are illustrative priorities, not a literature-derived loss ratio.
+
+The acquisition experiment has two optional evidence groups: roles and history. Four fixed LightGBM classifiers cover current evidence and each optional subset. Forward-held-out transition targets train greedy acquisition policies that estimate either stage-weighted error reduction or entropy reduction. Unacquired evidence values are unavailable to the policy.
+
+Costs are one unit for roles and two for history; budgets are one, two, and three. Nominal delays are 0.25 and 0.75 with a decision deadline of one simulated time unit. Failed or late requests still consume budget. Conditions are clean delivery, delayed/unavailable evidence, and wrong-host history. Shared row-specific schedules permit paired policy comparisons. A policy ends with the classifier for the last successfully delivered subset. No unresolved case receives an automatic correct label.
+
+These conditions probe behavior under explicit assumptions. They do not measure live collection prices, real sensor outage rates, or deployment latency. The system does not reproduce complete published acquisition architectures; those approaches establish context for the problem rather than reproduced baselines.
+
+
+## 3.6 Implemented Models and Mathematical Summary
+
+**Implementation audit: September 24, 2026.** This material describes the frozen PX080–PX083 implementations and their saved artifacts. It does not report new fitting or attribute proposed architectures to completed experiments. The accompanying [machine-readable inventory](models/MODEL_INVENTORY.json) binds source hashes and records configuration details, retained estimator metadata and model counts.
+
+### 3.6.1 What the models do, in ordinary language
+
+The main classifier is a collection of small decision trees. Each new set of trees improves on the scores already produced. One expert sees the current flow; another can also see summaries of earlier activity. A selector learns which expert is less likely to make a stage mistake. A separate acquisition policy estimates whether asking for another evidence group is worth its simulated cost. The chronological experiment changes the training population while keeping the classifier configuration fixed.
+
+The three main experiments fitted **141 LightGBM estimators: 111 multiclass classifiers and 30 regressors**. These are repeated model fits for cross-fitting, controls and seeds, not 141 different architectures. The supplementary T1105 study fitted **two Ridge regressors** and reused previously fitted binary logistic classifiers. Thus the batch contains **143 new fits**, while the T1105 models address a different target from the four-class flow experiments.
+
+| Experiment | Classifier fits | Regressor fits | Derivation |
+|---|---:|---:|---|
+| PX080: choose whether to use history | 33 | 6 | Per seed: eight forward-fold experts, two final experts, one augmented expert and two selectors; three seeds |
+| PX081: choose which evidence to request | 60 | 24 | Per seed: sixteen forward-fold subset experts, four final experts and eight transition regressors; three seeds |
+| PX082: compare training composition | 18 | 0 | Three seeds × two feature views × three training/evaluation protocols |
+| PX083: supplementary score-policy transfer | 0 new | 2 | One ordinary and one target-cost Ridge selector; six existing T1105 classifier controls reused across two datasets |
+
+Counts are verified against [PX080 completion](../px080_context_selector/results/COMPLETE.json), [PX081 receipt](../px081_evidence_acquisition/RUN_RECEIPT.json), [PX082 completion](../px082_temporal_audit/COMPLETE.json), and [PX083 completion](../px083_policy_transfer/results/COMPLETE.json). The four evaluation classes in the main experiments are the prepared grouping Benign, OtherAttackStage, LateralMovement and DataExfiltration. They are **declared evaluation classes**, not a universal source class definitions. Movement in the inspected sensor represents author Remote System Discovery progress, not independently verified successful movement.
+
+### 3.6.2 LightGBM multiclass experts
+
+### 3.6.3 Simple explanation
+
+A tree asks a sequence of questions about numeric features, such as a flow size or a count of earlier contacts. Boosting adds trees sequentially to improve the model's scores. LightGBM uses binned feature values and grows a selected leaf at a time; these are library capabilities, not algorithmic inventions in this praxis. The primary algorithm reference is Ke et al. (2017, Section 2.1); implementation details follow the versioned LightGBM developers (n.d.-a) [feature documentation](https://lightgbm.readthedocs.io/en/v4.6.0/Features.html#leaf-wise-best-first-tree-growth).
+
+### 3.6.4 Mathematical summary
+
+An additive representation of the four class scores and their softmax transformation is:
+
+$$
+F_k(x)=F_{0,k}+\eta\sum_{m=1}^{M}h_{mk}(x),\qquad
+p_k(x)=\frac{\exp(F_k(x))}{\sum_{j=0}^{3}\exp(F_j(x))}.
+$$
+
+Here, x is the supplied feature vector, h is a class-specific tree contribution, M is the number of boosting iterations, and η is the learning rate.
+
+The multiclass data-fit loss and the implemented decision rule are:
+
+$$
+\mathcal L_{\mathrm{CE}}=-\sum_{i=1}^{n}\log p_{y_i}(x_i),\qquad
+\widehat y_i=\operatorname*{arg\,max}_{k\in\{0,1,2,3\}}p_k(x_i).
+$$
+
+Here, y is the declared class of fitting example i; the largest class score determines its predicted class, with NumPy argmax selecting the first class in a tie.
+
+The equation specifies the data-fit loss; LightGBM's tree-growing procedure and L2 leaf regularization determine the fitted ensemble. The code uses the ordinary `multiclass` objective inferred by `LGBMClassifier`, not a custom warning-retention objective. The expert fitting calls do not supply the stage cost vector as class or sample weights. Class-specific sampling caps change the fitting composition; that is different from weighting the classifier's loss. The scores are `predict_proba` outputs, but the main experiments perform no probability calibration. LightGBM developers (n.d.-b), [classifier API, `objective`, `class_weight`, `reg_lambda`, `predict_proba`](https://lightgbm.readthedocs.io/en/v4.6.0/pythonapi/lightgbm.LGBMClassifier.html).
+
+### 3.6.5 Exact configured settings
+
+| Model role | Boosting iterations | Maximum leaves/tree | Learning rate |
+|---|---:|---:|---:|
+| PX080 experts, including augmented comparator | 180 | 15 | 0.05 |
+| PX080 selector regressors | 120 | 7 | 0.05 |
+| PX081 subset experts | 150 | 15 | 0.05 |
+| PX081 acquisition regressors | 100 | 9 | 0.05 |
+| PX082 experts | 200 | 15 | 0.05 |
+
+| Model role | Minimum child samples | L2 leaf regularization | CPU threads |
+|---|---:|---:|---:|
+| PX080 experts, including augmented comparator | 10 | 1 | 4 |
+| PX080 selector regressors | 30 | 5 | 4 |
+| PX081 subset experts | 10 | 1 | 2 |
+| PX081 acquisition regressors | 20 | 1 | 2 |
+| PX082 experts | 10 | 1 | 2 |
+
+`n_estimators` is a boosting-iteration setting. A four-class LightGBM iteration builds class-specific trees; it is inaccurate to describe 180 multiclass iterations as 180 total trees. Saved PX080 classifiers inspected in this audit have 180 iterations and 720 trees, and the retained PX081 classifiers have 150 iterations and 600 trees. PX082 saved probabilities and receipts, not serialized estimators, so its inventory records configured iterations without asserting an independently inspected final tree count. LightGBM developers (n.d.-d), [parameters, `num_iterations`](https://lightgbm.readthedocs.io/en/v4.6.0/Parameters.html#num_iterations).
+
+All these fits use `boosting_type='gbdt'`. Common unchanged wrapper defaults include `max_depth=-1`, `min_child_weight=0.001`, `min_split_gain=0`, `reg_alpha=0`, `subsample=1`, `subsample_freq=0`, `colsample_bytree=1`, and `subsample_for_bin=200000`. No validation-based early stopping or hyperparameter search is invoked. PX080 and PX082 explicitly set `deterministic=True` and `force_col_wise=True`; PX081 does not set those two flags. GOSS and DART were not selected. The implementations use CPU execution. PX080, PX082 and PX083 completion receipts explicitly record no AWS use, while PX081 records local CPU compute; cloud data-acquisition activity elsewhere is not a GPU model-fitting result. Full constructor and saved-booster parameters are preserved in [MODEL_INVENTORY.json](models/MODEL_INVENTORY.json).
+
+### 3.6.6 PX080: learning when history adds a mistake
+
+### 3.6.7 Features and honest comparison targets
+
+The current expert sees 62 current-flow features and eight role features: 70 inputs. The context expert adds 36 history summaries, the log-transformed age of the newest available earlier event, and a history-channel availability flag: 108 inputs. The 20 selector inputs comprise the two four-class probability vectors, their four differences, each expert's maximum score/margin/entropy, and the two history-status values. These are observable prediction/status features; the true class is not supplied at inference. See [implementation](../px080_context_selector/run.py), functions `observe`, `selector_features`, `gate_target` and `fit_experts` (lines 59–93).
+
+Four forward folds produce selector-training predictions: fit on captures earlier than 1 and predict capture 1, then repeat for captures 2, 3 and 4. Fitting completion times must precede validation start times. Within a fold, the same clean-fitted experts score clean, half-missing and stale histories. The ordinary and stage-cost regressors learn from these held-out comparisons; final experts are then fitted on the designated earlier period. This is forward cross-fitting, not random-fold cross-validation, nested tuning, or untouched external confirmation. The held-out comparison data belong to the already exposed development campaign.
+
+Fitting row caps are 20,000 benign and 5,000 for each other class. Per-capture selector-validation caps are 12,000 benign and 5,000 for each other class. Seeds are 20260924, 20260925 and 20260926. Capture 5 is unused by these fits; captures 6–10 supply later descriptive evaluation. See the [frozen protocol](../px080_context_selector/PROTOCOL.md) and runner lines 133–169.
+
+### 3.6.8 Selector target and decision
+
+Define weighted stage error as:
+
+$$
+\ell_w(y,p)=w_y\,\mathbf 1\{\operatorname*{arg\,max}_k p_k\ne y\},\qquad
+w=(1,1,4,4).
+$$
+
+Here, w assigns a self-imposed cost to the true evaluation class; every wrong destination for that class receives the same cost.
+
+The gate's training response and deployment choice are:
+
+$$
+t_i=\ell_w(y_i,p_i^{H})-\ell_w(y_i,p_i^{C}),\qquad
+p_i^{\mathrm{gate}}=
+\begin{cases}
+p_i^{H},&g(z_i)<0,\\
+p_i^{C},&g(z_i)\ge 0.
+\end{cases}
+$$
+
+Here, C and H denote the current and context experts, z contains the selector's observable inputs, and g is the fitted regression function.
+
+The ordinary gate uses cost one for every class. A LightGBM regressor fits the numerical response using squared-error regression; it predicts a signed incremental loss, **not a calibrated probability that history is harmful**. The weight of four multiplies the response on selected true classes; it is not passed as `sample_weight` and is not a fourfold weight on the regressor's residual loss. LightGBM developers (n.d.-c), [regressor API, `objective`](https://lightgbm.readthedocs.io/en/v4.6.0/pythonapi/lightgbm.LGBMRegressor.html); [source target and fitting calls](../px080_context_selector/run.py), lines 79–86 and 149–158.
+
+This error definition treats exfiltration called benign and exfiltration called another attack stage equally: both cost four. It therefore does not explicitly optimize the retention of an attack warning. That implementation fact helps interpret the measured tradeoff, but does not establish that a replacement loss would improve it.
+
+### 3.6.9 Fixed and augmentation controls
+
+The seven arms are current-plus-roles, context, equal probability fusion, maximum-confidence gate, ordinary learned gate, stage-harm gate and context-dropout classifier. Fusion averages the two probability vectors. The confidence gate chooses context only when its largest probability exceeds the current expert's largest probability; ties choose current. Neither control is another fitted selector.
+
+The dropout comparator is one additional LightGBM classifier trained on two copies of each fitting row: a clean-history copy and a copy with history removed for the deterministic hash-defined half-missing subset. Each copy receives sample weight 0.5, preserving the row's total training weight. Removed history and age are zeroed and the availability flag is zero. This is feature-loss data augmentation, **not neural dropout or LightGBM DART**. Five evaluation conditions are retained: clean, half missing, all missing, a five-minute-old historical snapshot, and wrong-host history. The stale condition is a simulated cached-state intervention, not a measurement of real log-delivery delay. [Source](../px080_context_selector/run.py), lines 63–71, 107–113 and 162–177.
+
+### 3.6.10 PX081: selecting a useful evidence request
+
+### 3.6.11 What is fitted
+
+Four multiclass experts represent the evidence already delivered: current only (62 inputs), current plus roles (70), current plus history (98), and all three groups (106). The state is a two-bit code: roles contributes bit 1 and history bit 2. Four legal transitions are learned: request roles or history from the empty optional state, history after roles, and roles after history. Each transition has an entropy regressor and an error-reduction regressor. Their inputs are the features already present in that state plus its four class probabilities; they do not include the unacquired group's values. Dimensions are 66, 74 or 102 depending on the transition's initial state. See [runner](../px081_evidence_acquisition/run.py), lines 18–19, 33–59 and 172–190.
+
+The four subset experts are cross-fitted over the same four earlier-to-later capture folds. A capped sample of the resulting held-out rows fits the transition regressors. Fitting and selector caps are 12,000 benign and 4,000 per other class. Final experts use the designated earlier fitting captures. Seeds are 8101, 8102 and 8103. The learned responses come from clean evidence; delayed/unavailable and wrong-host conditions are later simulated evaluations, not alternative labels used to train the policy.
+
+### 3.6.12 Learned gains
+
+The two responses for acquiring group a in delivered state S are:
+
+$$
+u_i^{\mathrm{harm}}(S,a)=\ell_w(y_i,p_i^{S})-\ell_w(y_i,p_i^{S\cup\{a\}}),\qquad
+u_i^{\mathrm{entropy}}(S,a)=H(p_i^{S})-H(p_i^{S\cup\{a\}}).
+$$
+
+Here, positive u means a favorable before-to-after change. H is predictive entropy: the negative sum of each class probability multiplied by its natural logarithm. The code clips logarithm inputs at 10⁻¹⁵.
+
+These signs are the reverse of the history gate's incremental-loss response: acquisition seeks positive predicted improvement, whereas the history gate chooses context for negative predicted extra loss. Each transition regressor uses ordinary squared-error fitting to predict its response. Entropy reduction measures sharper model scores; it does not certify a more accurate decision.
+
+### 3.6.13 Actual greedy policy and simulated constraints
+
+For eligible groups, the policy chooses:
+
+$$
+a^*=\operatorname*{arg\,max}_{a\in\mathcal E(S)}
+\frac{q_a\,\widehat u(S,a)}{c_a},\qquad
+\text{request only if }\frac{q_{a^*}\,\widehat u(S,a^*)}{c_{a^*}}>0.
+$$
+
+Here, c is the simulated request cost, q is a supplied availability prior, and the hatted u is the fitted gain for that transition.
+
+The eligibility conditions are:
+
+$$
+a\notin A_{\mathrm{attempted}},\qquad
+C_{\mathrm{spent}}+c_a\le B,\qquad
+T_{\mathrm{elapsed}}+d_a^{\mathrm{nominal}}\le D.
+$$
+
+Here, B is the budget, D is the decision deadline, and the elapsed time accumulates realized delays after a request. The code applies a 10⁻⁷ numerical tolerance to deadline comparisons.
+
+Roles cost one unit and nominally take 0.25 time units; history costs two and nominally takes 0.75. Budgets are 1, 2 and 3; the deadline is one unit. The delayed/unavailable regime supplies priors 0.8 and 0.65, respectively. Other regimes supply priors of one. Delayed requests add 0, 0.5 or 1.5 time units with simulated probabilities 0.60, 0.25 and 0.15. A request consumes cost and realized delay even if unavailable or late. The delivered state changes only if the requested evidence is available and arrives by the deadline. There are at most two requests and no retry of an attempted group. [Exact replay implementation](../px081_evidence_acquisition/run.py), lines 68–112.
+
+This is a **greedy one-step gain-per-cost heuristic**, not a globally optimized sequential planner, learned delay model, or deadline guarantee. It knows the declared regime's availability priors; it does not know the row's hidden availability/delay outcome before requesting. Multiplying by availability does not fully model the probability of timely arrival. Offline code precomputes all state scores, but the replay selects only the score indexed by the evidence actually delivered. Cost, delay and severity values are design choices rather than industry measurements or literature-mandated thresholds.
+
+The six policies are no request, roles first, history first, random order, predicted entropy reduction and predicted stage-error reduction. All conditions and budgets are retained. An all-evidence reference is separately marked `reference_only`; it bypasses the sequential delivery constraints and is not a deployable policy. None of these acquisition arms is a reproduced SEFA or Learning-to-Measure implementation.
+
+### 3.6.14 PX082: holding the model fixed while changing temporal access
+
+This experiment uses ordinary unweighted multiclass LightGBM with current features (62 inputs) or current plus the 36 history summaries (98). It does **not** use the PX080 role, age or availability additions. Eighteen fits cover three seeds (20260923–20260925), two feature views and three protocols. No selector is fitted here. All models use argmax, with no threshold or probability calibration.
+
+Past-only and time-mixed fitting share a 104,051-row later anchor and matched class counts of 20,000 benign, 5,000 other stage, 20 movement and 1,740 exfiltration. Anchor feature fingerprints are excluded from both fitting pools. The separate random-row protocol reserves 55% for evaluation and changes the evaluation population. Consequently, the controlled past/mixed contrast concerns training composition and temporal access; the random-row difference cannot be interpreted as the same isolated contrast. These are evaluation controls, not a new LightGBM architecture. See [protocol](../px082_temporal_audit/protocol.json), [design](../px082_temporal_audit/DESIGN.json), and [runner](../px082_temporal_audit/run.py), lines 85–130.
+
+### 3.6.15 Supplementary PX083: a Ridge policy on a different recognition task
+
+### 3.6.16 Scope and reused experts
+
+The target is **T1105 Ingress Tool Transfer versus other author technique labels**. The negatives are not independently verified benign flows. CasinoLimit and CAM-LDS use different annotated units. This experiment therefore does not establish movement recognition, exfiltration prediction or benign false-alarm reduction. Only the selector transfers unchanged from Casino to CAM-LDS; each dataset retains its own native experts.
+
+The reused current, context and mixed-dropout experts are binary `LogisticRegression` models, not LightGBM, GNNs or language models. Their frozen settings are `C=1`, `class_weight='balanced'`, `solver='liblinear'`, `max_iter=2000`, and `random_state=20260920`. Stored models use L2 regularization (`l1_ratio=0` in their original scikit-learn 1.9.0 state). They use fixed hashed text features rather than learned language-model embeddings. Each input has 65,546 columns: two 32,768-column hashed blocks plus ten metadata columns. The original mixed-dropout comparator uses six views—clean, random 25% loss, random 50% loss, EXECVE absent, PROCTITLE absent and both command records absent—with sample weight 1/6 per view, multiplied by the classifier's automatic class-balancing weights. No such native model was refitted in PX083. [Original runner](../../apt_benchmark/robustness_v2/run.py), functions `fit_lr` and `run`; [original protocol](../../apt_benchmark/robustness_v2/protocol.json), `classifier`, `text_features` and `arms`; Scikit-learn developers (n.d.-a), [official logistic-regression documentation](https://scikit-learn.org/1.9/modules/generated/sklearn.linear_model.LogisticRegression.html).
+
+The logistic experts transform a linear score into a bounded binary score:
+
+$$
+p(T1105\mid x)=\frac{1}{1+\exp[-(b+\beta^\top\phi(x))]}.
+$$
+
+Here, phi is the fixed hashed-text and metadata representation, beta contains learned coefficients, and b is the intercept. Fitting minimizes a class-balanced logistic loss with L2 regularization; the configured C controls inverse regularization strength. This compact score equation explains the classifier, while the saved library configuration above fixes its implementation. The scikit-learn software is described by Pedregosa et al. (2011). A bounded logistic score is not evidence of calibration on the later evaluation population.
+
+### 3.6.17 Two deterministic linear selectors
+
+Both selectors fit the same 1,494 Casino clean-calibration rows, including 87 target-positive rows. Only 11 rows have a nonzero expert-error comparison response; the full calibration sample size is not the number of informative disagreements. The ordinary response is context error minus current error at the strict score threshold 0.5. The target-cost response multiplies this difference by four for target-positive rows and one otherwise. The 12 observable inputs are the two scores, their signed/absolute difference, both binary confidences and margins, two visibility flags, threshold-decision disagreement, and the product of the scores. No scaler is fitted.
+
+Ridge estimates the linear selector by:
+
+$$
+(\widehat b,\widehat\beta)=\operatorname*{arg\,min}_{b,\beta}
+\left[\sum_{i=1}^{n}(t_i-b-z_i^\top\beta)^2+10\lVert\beta\rVert_2^2\right].
+$$
+
+Here, t is the ordinary or target-cost error-difference response, z is the 12-feature vector, b is the fitted intercept, and the coefficient penalty is `alpha=10`.
+
+The solver is SVD, with `fit_intercept=True`; there is no random fitting seed or tuning search. A negative fitted linear score chooses context, otherwise current. The chosen expert's score is retained, and an alarm requires **strictly greater than 0.5**. The Ridge output is an unbounded regression score, not a probability. If neither expert observes a target, all arms force its final score to zero while retaining the row in the denominator. Original calibrated native-control thresholds remain separate descriptive controls and were not selected anew for these policies. Scikit-learn developers (n.d.-b), [Ridge objective and solver documentation](https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.Ridge.html); [PX083 source](../px083_policy_transfer/run.py), lines 74–129.
+
+Two fits generate evaluations of seven arms across 21 perturbation views per dataset: 294 tables in total. The 21 views comprise 15 conditions, with repeated random-loss seeds; these are not 21 datasets or three new Ridge fitting seeds. Original native models were fitted with scikit-learn 1.9.0; the new Ridge selectors use 1.7.2. PX083 consumes previously saved probabilities and does not reload those older classifiers for new inference. This implementation audit likewise used their stored attributes only; it did not recompute cross-version predictions.
+
+### 3.6.18 Implemented versus proposed approaches
+
+| Approach | Status in PX080–PX083 |
+|---|---|
+| LightGBM four-class experts and regression selectors | Fitted in the main experiments |
+| Fixed averaging, confidence gates and fixed acquisition order | Evaluated decision rules; no extra model fit |
+| Missing-history and record-loss augmentation | Implemented comparator training, as specified above |
+| Ridge score-policy transfer | Two supplementary fits on T1105 |
+| TabM, GNN/graph-machine-learning architecture, Qwen or another LLM | Not fitted or evaluated in this batch |
+| New warning-destination loss or a guard against attack-to-benign changes | Not evaluated in PX080-PX083; later warning gates and policy overlays are reported in Sections 3.13 and 4.12-4.15 |
+| SEFA, Learning-to-Measure, reinforcement-learning planner | Literature context or proposed direction; not reproduced algorithms in these runs |
+
+
+## 3.7 Stage, Warning and Workload Metrics
+
+Read the metrics as three questions: Did the model name the correct stage? Did it warn at all? How many benign records did it flag? The formulas below define those counts precisely.
+
+Let C(s,j) count records with true class s and predicted class j, let b denote benign, and let N(s) be the number of true-s records. For an attack stage s:
+
+- Exact-stage recall = C(s,s) / N(s).
+- Warning recall = 1 - C(s,b) / N(s).
+- Missed-warning rate = C(s,b) / N(s).
+- Wrong-stage warning rate = warning recall minus exact-stage recall.
+
+The three destinations - correct stage, another attack stage, and benign - partition each true attack stage. Warning recall is ordinary binary attack recall conditioned on the true stage. The warning is a non-benign model label, not evidence that a production alert was displayed, triaged, or prevented harm.
+
+The study also reports precision, per-class F1, unweighted macro-F1, benign false-alert counts and rates, and full confusion matrices. Available probability metrics remain in original experiment tables. ROC-AUC and average precision do not replace operating-point counts or establish a latency result.
+
+A descriptive sign reversal occurs when a specified comparison increases macro-F1 and decreases a stage's warning recall on the same rows. Candidate-minus-baseline signs use a numerical tolerance of 1e-12 to suppress floating-point artifacts. This tolerance is not a practical-significance threshold. Every declared stage and condition is retained, including zero changes and opposite directions.
+
+Compact reanalysis tables scale differences by 100. For recall this gives percentage points; for F1, one displayed score point means 0.01 on the original zero-to-one scale. Absolute F1 tables retain the zero-to-one scale.
+
+For clarity, let TP, FP and FN denote true positives, false positives and false negatives for one class. Precision measures how many predictions of that class are correct; recall measures how many true members of that class were recovered. Their harmonic mean is F1. Macro-F1 averages class-specific F1 values equally, so a rare class has the same nominal weight as a common class.
+
+$$
+P_s=\frac{TP_s}{TP_s+FP_s},\qquad R_s=\frac{TP_s}{TP_s+FN_s}
+$$
+
+$$
+F1_s=\frac{2TP_s}{2TP_s+FP_s+FN_s},\qquad F1_{macro}=\frac{1}{K}\sum_{s=1}^{K}F1_s
+$$
+
+With the confusion count C and benign label b defined above, the central decomposition is:
+
+$$
+R_{stage,s}=\frac{C_{s,s}}{N_s},\qquad R_{warning,s}=1-\frac{C_{s,b}}{N_s}
+$$
+
+$$
+FPR_b=\frac{\sum_{j\ne b}C_{b,j}}{N_b}
+$$
+
+These equations define ordinary confusion-matrix quantities. The model family does not change their meaning. The complete tables retain the original metric conventions; the paired reanalysis additionally marks unsupported true classes as undefined rather than silently excluding them.
+
+
+## 3.8 Paired Reanalysis, Uncertainty and Sensitivity
+
+Each comparison uses the same records for both policies. The sensitivity checks ask whether the reported difference changes when a fitting seed or capture fragment is omitted. They describe this dataset; they do not turn related flows into independent campaigns.
+
+The reanalysis compares error-focused versus entropy acquisition at every registered condition and budget, and evaluates three temporal contrasts: mixed versus past-only current features, mixed versus past-only historical features, and past-only history versus past-only current features. No model is refitted or threshold tuned. Ordered row identities, truth labels, source groups, and declared evaluation-class meanings must match before a contrast is computed.
+
+One shared bootstrap plan per evaluation population samples its five source captures with replacement 2,000 times, using seed 20260923. All fitting seeds and contrasts on that population reuse the same group multiplicities. Confusion counts repeat with each selected capture; equivalent whole-row replication is tested independently. The statistic remains event-weighted within a replicate, rather than becoming an unweighted average of capture scores.
+
+Intervals are 95% percentile intervals for paired differences. If a resample contains no examples of a target stage, its recall difference is undefined; those draws are counted and excluded from that interval. Fixed-schema macro-F1 is undefined if a true class is absent from a resample. This convention is specific to the new reanalysis and does not overwrite the original temporal bootstrap convention. Every interval discloses its number of valid draws.
+
+With five captures from one campaign, these are conditional, descriptive intervals. Captures are fragments of a shared attack workflow, not independent campaigns. Three fitting seeds quantify algorithmic variation on those same events; they do not triple the sample of attacks. No family-wide significance claim follows from selecting a favorable interval among stages, conditions, or seeds.
+
+Bootstrap resampling is a general tool for measuring variation in a statistic (Efron, 1979). Here the resampling unit is a capture fragment, with shared multiplicities for each paired prediction comparison. That choice preserves the paired calculation but cannot make correlated fragments into independent campaigns. The reported intervals are explicitly conditional and descriptive.
+
+The additional frozen sensitivity audit exhaustively removes each of five captures from each of 36 comparisons, holding predictions fixed, and removes each fitting seed from each of 12 three-seed means. The remaining seed metrics are averaged without pooling repeated flows. These finite omission ranges are not confidence intervals or unseen-campaign validation. Ordered per-capture confusion signatures identify repeated sufficient statistics among acquisition comparisons; equal signatures do not prove identical row-level predictions.
+
+
+## 3.9 Necessary Chronological-Support Test
+
+Before training, check whether a single time cutoff can leave enough examples of every required class in both training and testing. If not, the requested test cannot be performed as written.
+
+For each native class, the start-only diagnostic identifies its second-earliest and latest recorded starts. A cutoff c with training starts strictly before c and evaluation starts at or after c can have two earlier and one later records of every class only if:
+
+`max(second-earliest start across classes) < c <= min(latest start across classes)`
+
+An empty interval rules out every single cutoff under that rule. It is stronger than finding one unsuccessful train/test percentage. A nonempty interval establishes necessary start-time count support only; flow completion, history availability, duplicate purging, and source-clock qualification impose additional constraints. Tied timestamps stay tied. No rows or native classes are discarded and no clock is repaired.
+
+The support algorithm was committed before execution on the source CSVs. Its tests include tied event sequences, infeasible intervals, insufficient classes, and a counterexample distinguishing start-only from completion-time support. A separate implementation sweeps actual timestamp blocks and counts records on each side, independently checking the interval and class totals without importing the original bound function.
+
+
+## 3.10 Reproducibility, Implementation and Compute
+
+The three main experiments contain 141 model fits: 39 history-selection fits, 84 acquisition fits, and 18 temporal fits. A separate two-fit policy-transfer study brings the broader project batch to 143; it is supplementary and is not counted as another movement/exfiltration experiment. Main model fitting used local CPU. Earlier cloud data-acquisition work is documented separately and did not produce an additional qualifying APT-stage replication.
+
+The historical completion added reanalysis, source checks and document assembly without new model fits. Frozen source commits, input hashes, private row-level predictions, public aggregates, and independent audit receipts are preserved. The evidence index provides commands and access limits. The D1 $5 future-compute ceiling is a limit, not money spent or evidence of a cloud experiment.
+
+The September 24 GWU edition assembled existing results without additional model fitting. The September 27 edition retains that evidence and adds the 12 full-release fitting jobs described in Section 3.11. The accompanying build records bind the original input artifacts, generated tables, charts, references and final document. Human authorship review and institutional approval remain distinct from computational verification.
+
+
+The fit counts above describe the historical batch. The full-release extension adds 12 fitting jobs and the AIT validation adds 42, yielding 197 recorded jobs across the distinct evidence branches. Job counts include regressors and constant-class controls and do not count independent campaigns.
+
+## 3.11 Full-Release, Uncapped Extension
+
+The original controlled history and acquisition study used eleven complete net1013x files (382,229 source rows), with class-specific fitting caps. To address the distinction between a complete prepared artifact and the complete upstream release, the new extension binds the original source inventory by SHA-256 and checks every released flow file against its recorded byte hash, row count and right-anchored native-stage totals. The pinned author repository revision is d2ea90055d82fa448ab20588a13e3ec8bfd74816. All 173 files across 31 capture directories are included; six sensor views remain separate because simultaneous network observations are dependent. A source row is not an independent attack execution.
+
+The extension protocol was written before its new fitting jobs. It fixes training to flows completed before June 27, 2021 UTC, calibration to flows starting on or after June 27 and completed before June 28, and testing to flows starting on or after June 28. Flows spanning a boundary are excluded and counted. Exact within-sensor observable identities combine endpoints, service ports, timestamps and numeric current-flow measurements. Identical copies with consistent labels are counted once; conflicting copies are quarantined. Near-duplicates and cross-sensor dependence remain limitations.
+
+The parser takes stable numeric fields from the first 77 columns and native annotation fields from the final four columns; variable unquoted comma-containing application fields are not treated as additional numeric inputs. Benign remains benign; reconnaissance, foothold and cover-up map to OtherAttackStage; movement and exfiltration retain their author labels. Flow identifiers, absolute timestamps, endpoint addresses, MAC addresses, raw ports, VLAN and tunnel identifiers are excluded from predictors. Three coarse destination-service indicators are included. The roles arm adds eight coarse topology indicators from the two endpoints. An 'other' role is not an independently verified Internet or attacker designation.
+
+Each sensor has a current-flow arm and a current-flow-plus-roles arm. Every eligible training row is used without a class cap, downsampling or class weighting. LightGBM 4.7.0 uses 300 boosting iterations, 15 leaves, learning rate 0.05, minimum child support 10, L2 regularization 1.0, deterministic mode and seed 20260927. The extension environment uses NumPy 2.4.6, scikit-learn 1.9.0 and joblib 1.5.3; the historical environment remains recorded separately. No new history, future-event feature, source-sensor identity or alternative architecture is introduced. Prediction is multiclass argmax. A sensor with only one training class receives the corresponding constant-class probability vector: that is a degenerate control, not evidence of attack-learning ability. A probability-column alignment failure first exposed this library edge case; the implementation was corrected without changing cutoffs, source rows, features or selection thresholds.
+
+Metrics include the complete four-by-four confusion matrix, exact-stage precision and recall, per-class F1, stage-conditioned non-benign warning recall, benign false-alert counts and rates, one-versus-rest ROC AUC and average precision where supported. Macro-F1 always averages the four declared classes, assigning zero to unsupported classes. It is not comparable across different support patterns as if they were equivalent tasks; for example, perfect benign-only prediction yields 0.25 on that fixed four-class measure. Unsupported warning recall is reported as unavailable, not as zero or success. Per-capture tables and every calibration/test prediction are retained.
+
+A small applied review example freezes two choices on calibration alone. The score-only choice selects the higher macro-F1 arm, with ties favoring current flow. The conservative choice allows roles only if macro-F1 increases, warning recall for every supported attack stage falls by at most one percentage point, and benign false-positive rate rises by at most 0.1 percentage point. A missing calibration attack class makes the decision provisional. These tolerances are illustrative engineering choices, not validated analyst preferences or a guarantee on later data. Both choices are evaluated on the unchanged test population without retuning.
+
+The new source inventory, frozen protocol, per-sensor results, prediction files, model objects and independent count-based audit are retained in the accompanying evidence. One deterministic fit per arm estimates this declared contrast; it adds no campaign-level confidence interval. The original fitting-seed sensitivity remains the evidence about historical run variation.
+
+## 3.12 Adapted External-Execution Validation on AIT
+
+AIT asks whether the observation also appears on another source. Its labels and available features differ from UNRAVELED, so the experiment states those changes before interpreting its results.
+
+### 3.12.1 Question, source and pre-fit freeze
+
+The added experiment tests the score, warning and false-alert comparison on a different source with entire executions held out. The acquisition objective comparison is retained, but the source class definitions and evidence contract require an adaptation: benign, other attack and exfiltration replace the original four classes, and prior history is the only optional group. No movement label is inferred. Publisher roles, networks, ports and identities participate in source labeling and are excluded from model inputs. Thus this is an external-source execution test of an adapted configuration, not an exact PX081 replication.
+
+All eight archives of AIT Netflow Data Set version 2, DOI 10.5281/zenodo.13168643, were downloaded and checked against publisher MD5s, local SHA256 hashes and every ZIP member's CRC (Soro et al., 2024). The laboratory generator supplies simulated legitimate traffic and repeated attack scenarios (Landauer et al., 2021, 2023). Qualification counts and timestamps were examined before fitting. PROTOCOL.md fixes the comparisons; FREEZE.json, written before the first fit, binds code, prepared data, software, features, execution membership and seeds. No result-dependent tuning or source omission followed evaluation.
+
+### 3.12.2 Complete population and execution split
+
+The complete source contains 3,465,342 rows. Preparation excludes 942 empty/unknown labels, ten invalid numeric records and 21 exact duplicate records; no conflicting-identity group was found. All 3,464,369 eligible rows remain. Exact observable identity combines protocol, endpoints, ports, times, packet counts and byte counts. Zero identity-hash intersections occur between final training and evaluation. Probe identities are absent from the aggregated release, so near-duplicate observations of the same activity may remain within an execution.
+
+Executions are ordered by earliest observed start, with alphabetical tie-breaking. Santos, Fox, Wardbeck, Russellmitchell, Shaw and Wheeler provide 2,397,158 training rows. Wilson and Harrison provide 1,067,211 held-out rows. The latest training completion is January 30, 2022 at 23:58 UTC, before the first held-out observation on February 3 at 00:00 UTC. Final evaluation is both execution-disjoint and calendar-separated. Development forward folds use preceding executions to predict the next one; overlapping development execution intervals mean those folds are not a strict calendar-forward stream simulation.
+
+**Table 3-10. Complete AIT source coverage and final allocation.** Counts are source observations, not independent attack counts.
+
+|Execution|Use|Raw rows|Eligible rows|Other attack|Exfiltration|
+|---|---|---|---|---|---|
+|santos|Train|288,547|288,536|5,937|12,848|
+|fox|Train|351,908|351,902|56,505|14,668|
+|wardbeck|Train|390,224|390,220|5,099|15,076|
+|russellmitchell|Train|377,704|377,702|155,250|15,778|
+|shaw|Train|453,541|452,598|2,357|60,898|
+|wheeler|Train|536,206|536,200|93,393|19,177|
+|wilson|Test|629,553|629,553|40,321|21,219|
+|harrison|Test|437,659|437,658|76,895|23,457|
+
+### 3.12.3 Features, fitted models and acquisition rule
+
+Ten current-flow features encode TCP/UDP, log duration, directional packet and byte totals, directional fractions and mean bytes per packet. Eight optional history features summarize flows from the same initiating endpoint that ended strictly before the current start and within the preceding hour: count, byte and packet totals and means, mean log duration, UDP fraction and time since the latest eligible completion. Empty histories are zero. Labels never enter history. Raw endpoint identifiers only key grouping; identifiers, ports, absolute timestamps, FQDNs, publisher roles, network names and execution identifiers are not predictors. Decisions describe completed flows.
+
+For each of seeds 8101, 8102 and 8103, two LightGBM classifiers use current features or current plus history. Each has 150 boosting iterations, 15 leaves, learning rate .05, minimum child support ten and L2 regularization one, with deterministic execution and four CPU threads. Every eligible fitting row is used without class caps, class weighting, tuning or early stopping. Five forward development folds supply out-of-fold probabilities. Two regressors, each with 100 boosting iterations and nine leaves, estimate entropy reduction or weighted hard-error reduction after obtaining history. The illustrative error weights are [1,1,4]. Selectors observe only current features and current probabilities; optional history and post-acquisition probabilities are excluded from their inputs. Final classifiers fit all six development executions. The inventory is 36 classifier fits and six selector fits.
+
+Policies are current-only, always-history, acquire if predicted entropy reduction is positive, and acquire if predicted weighted-error reduction is positive. All receive the same per-row budget of two; history costs two and arrives after .75 time units before a deadline of one. These are clean-delivery offline simulations. Equal available budgets do not imply equal realized spending, so acquisition fractions are reported. The implementation uses Python 3.11.9, NumPy 2.4.6, pandas 2.3.3 and LightGBM 4.7.0; full dependency pins accompany the evidence.
+
+### 3.12.4 Outcome definitions and label limits
+
+The frozen primary direction is higher macro-F1 accompanied by lower exfiltration warning recall under error-focused versus entropy-focused selection. Every policy, seed and held-out execution is reported, along with pooled and equal-execution summaries. Three-class macro-F1 cannot be read as equivalent to the original four-class score. Warning recall counts any non-benign prediction on an exfiltration-labeled row. Exact-stage recall, complete confusion matrices, false alerts, errors and acquisition counts remain separately available. Fitting seeds do not multiply the number of independent executions; no campaign-population confidence interval is claimed.
+
+Publisher labels use topology, service ports and attack timing. The released UDP notebook labels residual unmatched traffic as exfiltration. A descriptive audit confirms that all 183,121 native exfiltration rows use DNS port 53 and a publisher-identified attacker endpoint. This establishes consistency with the published scenario, not independent payload verification. Those fields remain excluded from predictors. The computational audit independently recomputes reported results and verifies frozen hashes, strict prior-history boundaries, fitting populations, OOF targets, acquisition actions, selected probabilities and budget constraints. It passes all 1,245 checks.
+
+
+## 3.13 Follow-up Tests: Warning Gates, Episodes and Policy Rules
+
+### 3.13.1 What was tested and when
+
+PX-092 through PX-097 ask whether the warning problem can be repaired and what extra work follows. They use existing UNRAVELED and AIT data already examined by the project. Freezing their code and comparisons preserves the analysis; it does not turn these records into untouched validation. The original research questions and results remain unchanged.
+
+PX-092 adds seven fits with new random seeds to the three original models. PX-093 adds one logistic-regression model per dataset and reuses a current-feature model. Its full ensemble has five members: three original models, a current-only model and logistic regression. PX-094 through PX-097 reuse saved predictions without retraining.
+
+### 3.13.2 Preserving a warning
+
+Probability averaging combines each member's class probabilities and selects the class with the largest average. The OR gate instead retains an attack warning whenever at least one member predicts any attack class. Stage refinement is separate from deciding whether to warn.
+
+This gives a simple guarantee: a member's warning cannot disappear in the OR combination. It does not guarantee detection of attacks missed by every member, and it does not guarantee an acceptable false-alert cost. More models can add both attack warnings and benign warnings. A duplicate member cannot add coverage even if a diversity statistic changes.
+
+Classifier combination and error diversity are established research areas (Kittler et al., 1998; Kuncheva & Whitaker, 2003). Brabec and Machlica (2018) also study aggregation for rare classes in intrusion detection. The PX-093 literature check records the overlap and distinctions. This paper claims the measured comparison and audit, not invention of OR combination or proof that it is the only possible repair.
+
+### 3.13.3 Counting flows, episodes and investigation cases
+
+PX-094 distinguishes three units. A flow is a recorded network exchange. An exfiltration episode proxy groups true-exfiltration flows from the same initiating host within one capture or execution; a new episode begins when consecutive start times are more than 60 minutes apart. Sensitivity checks use 30 and 120 minutes. An episode is warned only if one of its true-exfiltration flows receives a non-benign prediction.
+
+An investigation case groups warned flows by capture/execution, source, destination and a fixed 15-minute window of flow-end time. Sensitivity checks use 5 and 60 minutes and source-only grouping. Cases are released at the window end, after their included flows have completed. Unwarned attacks that happen to share a group receive no detection credit.
+
+The queue simulation uses one, two or four analysts and 5, 15 or 30 minutes per case. The reference is one analyst working daily 09:00-17:00 UTC at 15 minutes per case, with cases reviewed in arrival order. Handling time is assumed, not measured. Finishing a review slot does not mean an analyst recognized an attack. The protocol preserves 216 episode-result rows and 648 queue scenarios.
+
+### 3.13.4 Checking the misses
+
+PX-095 traces all test exfiltration rows to the original UNRAVELED CSV records. It examines episode size, the five members' predictions, training support, exact matches with benign model inputs and earlier warnings from the same source. The earlier-warning windows are 5, 30 and 60 minutes, using only flows completed before the current start. Post-hoc source details are labeled separately.
+
+### 3.13.5 A fixed TCP/22 policy
+
+PX-096 adds a policy warning for in-scope TCP destination-port 22 traffic without approval. Restricting network access to authorized traffic is established guidance (MITRE, 2026). The final warning is the model warning OR the policy warning. A policy approval removes only the policy restriction; it never clears a model warning. Policy violation and attack-stage prediction remain separate outputs.
+
+The replay assumes all monitored flows are in scope and no exceptions are approved. The datasets do not contain an authoritative organizational allowlist or verified egress boundary. Therefore this is a blanket-port scenario, not proof that each match violates an actual organization's policy. It produces a deny recommendation but makes no firewall change.
+
+The rule was chosen after inspecting the UNRAVELED misses. PX-097 applies it unchanged to Wilson and Harrison. Those executions were excluded from model training but their results had already been examined. Native destination ports are recovered from source rows and independently checked. No DNS restriction is added after observing the transfer result.
+
+
+## 3.14 Auditable-AI and Explanation Follow-ups
+
+Here, auditable AI means that a reviewer can inspect the evidence used for a decision and check the reported outcome. It does not mean that every learned feature has a causal explanation. The audit asks a concrete question: where did an available warning disappear?
+
+PX-100 replays the recorded acquisition actions for 54 combinations of seed, evidence condition, budget and policy. It checks the resulting evidence state, spending, elapsed time and final probabilities against saved outputs. This verifies the effects of recorded actions; it does not regenerate the selector's score or prove that the selected action was optimal. A separate replay compares mean and OR combination with the same model outputs.
+
+PX-101 examines feature explanations on 512 diagnostic records: 128 missed exfiltration records, 128 warned exfiltration records, 128 correctly benign records and 128 false alerts. Three saved models explain the same benign-minus-exfiltration raw-score difference. TreeSHAP contributions (Lundberg et al., 2020) are checked against raw scores and compared across fitting seeds. Top-five overlap is the size of the shared feature set divided by the size of its union. These balanced diagnostic groups do not estimate their prevalence in normal traffic. Attribution agreement does not prove causal validity.
+
+PX-102 prepared 12 review cases but recruited no participants. PX-104 instead tested deterministic software reviewers on six information conditions using three fixed review rules, producing 216 reviews. The rules calculate, follow or verify a supplied explanation. This is a software consistency test. It cannot measure how a SOC analyst understands an explanation or how much time an analyst saves.
+
+PX-103 replays a proposed rule that prioritizes sources without a recent warning. It compares that rule with confidence, earliest-first and ten random rankings under 1, 5 or 20 extra case slots per 15-minute window. The existing alert queue is not capacity limited in this test. Cases and time-defined episodes are proxies, not measured investigations or independently confirmed incidents. The primary episode gap is 60 minutes, with 30- and 120-minute sensitivity checks.
+
+PX-105 injects known aggregation, evidence-selection and deadline failures into recorded examples. It compares an ordinary decision trace with the same trace plus replay. The 170 scenarios contain 90 unique record hashes; repeated scenarios are not independent attacks. Missing-timing controls test whether the conservative reviewer abstains when required evidence is absent. No new SHAP diagnosis baseline is run in this study.
+
+The separate PX-098 pilot uses frozen Qwen2.5-VL-7B-Instruct inference on 24 host-hour windows with twelve five-minute bins. Image and numeric-text inputs contain the same flow aggregates; eight windows form an enriched diagnostic set. PX-099 supplies two eight-host timeline images and corresponding text. These are feasibility checks, not population estimates. Raw replies and the later syntax-only parser correction are retained. Four local numerical follow-ups compare alternative window summaries under a fixed added benign-hour allowance.
+
+All these follow-ups use previously examined data. Their protocols fix the stated comparisons before their own calculations, but they remain exploratory. Their purpose is to test the proposed audit extensions against simple controls, including outcomes that do not support the proposed extension.
+
+## 3.15 Warning Transitions and Exact-Stage Regression: PX-106
+
+PX-106 compares the saved entropy and error-focused predictions in all 27 PX-081 pairs: three fitting seeds, three evidence conditions and three budgets. The entropy policy is the reference and the error-focused policy is the candidate. Both predict the same 208,094 test records. This is a policy comparison using saved models, not a simulated stream of production model updates.
+
+For each true attack stage, a four-by-four table records the old and new predicted labels. The audit separates two losses: a correct stage label becoming benign, and a wrong attack-stage label becoming benign. Both remove a warning. It also counts benign-to-attack gains, which can offset losses in a net recall measure.
+
+The arithmetic check is simple: new warnings minus lost warnings must equal the change in total warned records. Exact-class negative flips count previously correct labels that become incorrect. Binary negative flips instead count previously warned attacks that become benign and therefore include both loss types above. Neither is a new metric. Keeping both identifies what a stage-only comparison omits.
+
+The primary display uses the already established clean, budget-three comparison, with every fitting seed shown. All 27 pairs and all three attack stages remain in the saved tables. No significance test treats repeated rows or fitting seeds as independent attacks.
+
+For a descriptive check only, PX-106 also applies the earlier illustrative tolerances to test results: F1 must rise, no supported attack stage may lose more than one percentage point of warning recall, and benign false-alert rate may rise by no more than 0.1 percentage point. This is not the calibration-only acceptance procedure in Section 3.11. Its outcome is not evidence of a prospective deployment gate.
+
+The new protocol and input hashes were frozen before this calculation. An independent calculation reconstructs the transition tables and F1 values from saved predictions. No training or threshold search is performed.
+
+# Chapter 4: Results
+
+
+## 4.1 Primary Finding: Overall Scores and Missed Exfiltration Warnings
+
+The main result is a tradeoff: the error-focused policy scores better overall but warns on fewer exfiltration records. The tables show the size of that tradeoff, its false-alert cost and its variation across runs.
+
+**Table 4-1. Acquisition comparisons at the largest registered budget.** The policies share the same rows and available budget. A warning is any non-benign predicted label. False alerts use the same 192,193 benign evaluation rows; warning and exact exfiltration recall use the same 3,442 exfiltration rows. Means are across three fits.
+
+| Condition / policy | Macro-F1 | Exact exfil. recall | Exfil. warning recall | Benign alerts |
+|---|---|---|---|---|
+| Clean / Entropy | 0.7148 | 67.29% | 85.18% | 111.3 |
+| Clean / Error focused | 0.7379 | 67.18% | 76.25% | 122.3 |
+| Delayed / Entropy | 0.7180 | 67.43% | 81.00% | 144.0 |
+| Delayed / Error focused | 0.7427 | 67.43% | 69.20% | 146.3 |
+| Wrong host / Entropy | 0.6873 | 67.22% | 77.52% | 73.0 |
+| Wrong host / Error focused | 0.6763 | 67.01% | 77.37% | 87.0 |
+
+In clean replay, error-focused acquisition improves macro-F1 by 0.0231 over entropy acquisition, but warning recall for exfiltration falls by 8.93 percentage points. The number of such records dismissed as benign consequently increases. Under delayed or unavailable evidence, macro-F1 also rises while warning recall falls. The wrong-host condition and lower budgets are included in the full analysis rather than omitted when their directions differ.
+
+This result concerns destinations of classification errors. Some entropy-policy mistakes assign exfiltration to another attack stage, preserving an attack label. Other decisions from the error-focused policy assign benign. The true-class weighted objective charges both mistakes the same weight. The observed pattern is therefore consistent with an objective that fails to distinguish those destinations, although it does not establish that changing the loss alone would fix the behavior.
+
+Across all registered conditions and budgets, 19 of 27 paired seed comparisons raise macro-F1 while reducing exfiltration warning recall. In 17 of 27, the descriptive macro-F1 interval lies above zero and the warning-recall interval below zero. These comparisons share data and fitted components; budget-one clean and wrong-history outcomes are identical because that budget cannot acquire history. They are correlated repetitions of specified comparisons, not 27 independent tests or campaigns.
+
+| Condition | Budget | Mean Δ F1 (x100) | Mean Δ exfil warning (pp) | Mean extra lost warnings | F1 up / warning down seeds |
+| --- | --- | --- | --- | --- | --- |
+| clean | 1 | 3.61 | -20.12 | 692.67 | 2 |
+| clean | 2 | 3.70 | -20.26 | 697.33 | 2 |
+| clean | 3 | 2.31 | -8.93 | 307.33 | 2 |
+| delayed unavailable | 1 | 3.42 | -13.81 | 475.33 | 2 |
+| delayed unavailable | 2 | 3.57 | -13.95 | 480.00 | 2 |
+| delayed unavailable | 3 | 2.47 | -11.80 | 406.00 | 3 |
+| wrong host history | 1 | 3.61 | -20.12 | 692.67 | 2 |
+| wrong host history | 2 | 12.34 | -20.33 | 699.67 | 3 |
+| wrong host history | 3 | -1.10 | -0.15 | 5.33 | 1 |
+
+Clean budget-three means conceal marked fitting-seed variation. Exfiltration-to-benign counts range from 203 to 1,105 for entropy and 206 to 1,127 for harm. The paired increases are 897, 3 and 22 lost warnings, respectively (mean 307.33). Macro-F1 improves in two seeds and declines slightly in one. For seed 8101, exact exfiltration errors change only from 1,122 to 1,130, while wrong-attack-stage predictions fall from 900 to 11 and benign predictions rise from 222 to 1,119. This concrete error-destination shift explains why nearly unchanged exact exfiltration recall can coexist with a large loss of warnings. It does not identify a generally effective policy.
+
+| Seed | Δ F1 (x100) | Exfil → benign | All exact exfil errors | Δ warning pp [95% paired interval] |
+| --- | --- | --- | --- | --- |
+| 8101 | 5.65 | 222 → 1119 | 1122 → 1130 | -26.06 [-92.42, -0.88] |
+| 8102 | -0.08 | 203 → 206 | 1128 → 1129 | -0.09 [-0.52, 0.00] |
+| 8103 | 1.38 | 1105 → 1127 | 1128 → 1130 | -0.64 [-3.06, -0.15] |
+
+All three attack stages, including zero changes and reverse directions, are included in [the complete paired table](../measurement_praxis/evidence/paired_reanalysis/PAIRED_METRICS.csv). The full set was specified before this reanalysis, after selected warning-loss observations had already been inspected; it remains retrospective.
+
+![Figure 2. Exfiltration error destinations in clean replay at budget three. Exact-stage predictions and wrong-stage attack predictions both retain a warning; benign predictions do not. These are model-label outcomes on the same author-labeled records.](../measurement_praxis/figures/warning_destinations.png)
+
+
+![Complete acquisition comparisons. Each condition and budget is shown with paired F1, exfiltration warning and benign false-alert changes; all fitting seeds remain in the accompanying tables.](../gwu_final_20260928/results/figures/fig04_acquisition_complete_tradeoffs.png)
+
+
+Across the complete acquisition inventory, the error-focused policy has higher mean macro-F1 in eight of nine condition/budget groups and lower exfiltration warning recall in all nine. Wrong-host budget three has both lower F1 and lower warning recall. The complete tables retain that unfavorable combination, the unrestricted references and every declared policy. Lower simulated request expenditure is reported as a replay result, not a measured collection saving.
+
+
+## 4.2 Chronological History Gains and Their Tradeoff
+
+Under past-only fitting, adding history improves macro-F1 from 0.7365 to 0.7582, movement F1 from 0.2091 to 0.2836, and exfiltration F1 from 0.7565 to 0.7671. Mean benign false alerts decrease from 24.0 to 14.3. These are positive changes under the stricter training protocol.
+
+The exfiltration warning outcome moves differently: exfiltration-to-benign mistakes increase in each fitting seed. Thus, even a comparison with both better F1 and fewer benign alerts can lose some warnings for a specific attack stage. The size and uncertainty of that loss belong beside the favorable metrics, rather than being removed from a positive account.
+
+On the same 1,722 exfiltration-labeled anchor rows, adding history increases benign predictions by 7, 6 and 8 across the three fitting seeds. Mean warning recall decreases by 0.41 percentage points, while macro-F1 rises by 2.17 points. This is a much smaller warning loss than the acquisition contrast. Only the final seed’s warning-difference interval excludes zero; the other two include zero. Both favorable and unfavorable outcomes should be read at that scale.
+
+| Fitting seed | Δ macro-F1 x100 [95% interval] | Exfil → benign, current → history | Δ exfil warning pp [95% interval] |
+| --- | --- | --- | --- |
+| 20260923 | 2.98 [0.42, 6.41] | 565 → 572 | -0.41 [-2.62, 0.00] |
+| 20260924 | 1.08 [-2.11, 4.20] | 563 → 569 | -0.35 [-2.09, 0.00] |
+| 20260925 | 2.45 [0.43, 3.07] | 563 → 571 | -0.46 [-2.88, -0.09] |
+
+Intervals for the added missed-warning counts are [0, 17], [0, 14] and [1, 17], respectively. They reuse the same capture draws as the temporal contrasts. These are descriptive fragment-resampling intervals, not independent-campaign or prospective validation. The [reanalysis audit](../measurement_praxis/evidence/paired_reanalysis/AUDIT.json) verifies unchanged input hashes, paired identities and independently recomputed arithmetic.
+
+
+## 4.3 Supporting Finding: Fixed-Anchor Temporal Sensitivity
+
+**Table 4-5. Temporal experiment.** Values are means of three fits. Primary past/mixed rows share the 104,051-row anchor with 96,098 benign rows; random-row evaluations contain 210,226 rows with 191,515 benign rows. Benign alert rates accompany counts because these denominators differ. Movement denotes the author label described in Chapter 3.
+
+| Features / fit | Macro-F1 | Movement recall | Movement F1 | Exfil. F1 | Benign alerts (rate) |
+|---|---|---|---|---|---|
+| Current / Past | 0.7365 | 25.93% | 0.2091 | 0.7565 | 24.0 (0.025%) |
+| Current / Mixed | 0.7997 | 61.11% | 0.2582 | 0.9523 | 88.7 (0.092%) |
+| Current / Random | 0.8093 | 57.84% | 0.3116 | 0.9404 | 84.0 (0.044%) |
+| Current + history / Past | 0.7582 | 29.63% | 0.2836 | 0.7671 | 14.3 (0.015%) |
+| Current + history / Mixed | 0.7964 | 57.41% | 0.2798 | 0.9092 | 47.7 (0.050%) |
+| Current + history / Random | 0.8507 | 64.71% | 0.4336 | 0.9753 | 49.3 (0.026%) |
+
+With current features, time-mixed fitting increases macro-F1 by 0.0632 and exact movement-label recall by 35.19 percentage points. Adding history yields a mixed-minus-past macro-F1 increase of 0.0383. These effects arise while the classifier family, anchor rows, and class fitting counts are held fixed. They establish sensitivity to the declared training-pool change on these observations.
+
+The higher scores also accompany more benign false alerts: the current-feature mean count increases from 24.0 to 88.7. A model ranking based on F1 alone would conceal this workload change. The conventional random-row score is retained but is not used to estimate the controlled temporal effect.
+
+The complete retrospective reanalysis gives positive current-feature macro-F1 differences in all three seeds, with each descriptive capture interval above zero. For current-plus-history, all point differences are positive, but the final seed interval spans zero. The intervals vary widely because the resampling units are only five capture fragments from the same campaign; they do not establish a population-wide inflation factor.
+
+| Features | Fitting seed | Δ macro-F1 (x100) | 95% F1 interval (x100) | Δ exfil warning (pp) |
+| --- | --- | --- | --- | --- |
+| Current | 20260923 | 7.52 | [1.96, 26.31] | 32.11 |
+| Current + history | 20260923 | 3.32 | [1.20, 17.24] | 12.66 |
+| Current | 20260924 | 6.99 | [1.65, 24.36] | 32.00 |
+| Current + history | 20260924 | 2.97 | [0.62, 15.49] | 9.29 |
+| Current | 20260925 | 4.46 | [0.12, 20.62] | 31.94 |
+| Current + history | 20260925 | 5.18 | [-0.75, 25.69] | 31.59 |
+
+For every comparison, 1,981 of 2,000 draws support fixed-four-class macro-F1 and movement recall; 19 draws omit the true movement class and are excluded from those intervals. All 2,000 draws support exfiltration warning recall and benign false-alert rate. The same capture multiplicities are reused across all seeds and contrasts. These new support-conditional intervals are distinct from the original temporal experiment’s 1,000-draw bootstrap. Every stage, count and paired interval is retained in [the complete reanalysis](../measurement_praxis/evidence/paired_reanalysis/REPORT.md).
+
+![Figure 1. Fixed-anchor training-composition differences. Bars show means of three fits on the same events. The adjacent table reports per-seed conditional capture-bootstrap intervals.](../measurement_praxis/figures/temporal_effects.png)
+
+
+## 4.4 History Selection and Simple Controls
+
+The stage-weighted history selector improves movement-label recall over ordinary selection in all five conditions, by 4.76 to 14.29 percentage points. It also increases benign false alerts and weighted classification error in every condition. The current-plus-roles classifier retains higher movement recall than the weighted selector throughout. It is a learned LightGBM baseline, not a deterministic rule.
+
+**Table 4-7. History-selection tradeoffs.** Recall and false alerts are three-fit means. The same 35 movement rows and 192,193 benign rows recur across conditions.
+
+| Condition | Ordinary recall | Weighted recall | Dropout recall | Alerts: ordinary / weighted |
+|---|---|---|---|---|
+| Clean | 64.76% | 69.52% | 51.43% | 85.7 / 109.0 |
+| Half missing | 52.38% | 60.95% | 62.86% | 74.3 / 93.7 |
+| All missing | 36.19% | 42.86% | 68.57% | 62.3 / 77.0 |
+| Stale | 49.52% | 63.81% | 48.57% | 85.0 / 113.3 |
+| Wrong host | 35.24% | 44.76% | 68.57% | 61.7 / 81.3 |
+
+With all history missing, the dropout-trained comparator reaches 68.57% movement recall versus 42.86% for weighted selection. The acquisition policy lowers simulated spending by 32.24% relative to entropy acquisition in clean, largest-budget replay, but does not consistently reduce the weighted error outcome. These results show why a measurement praxis should retain simple controls and multiple outcomes. They do not require a claim that complex detectors generally fail.
+
+
+![History-selection movement recall and benign false-alert outcomes across all five evidence conditions. Stage weights affect selector targets, while the current-plus-roles model supplies a strong simple control.](../gwu_final_20260928/results/figures/fig05_selector_stage_workload.png)
+
+
+## 4.5 Dataset Evaluation and Qualification Results
+
+**Table 4-8. Results of source qualification.** These counts describe the inspected files; eligibility refers to the unchanged all-native-class temporal comparison.
+
+| Source | Inspected rows | Native classes | Completed finding |
+|---|---|---|---|
+| SCVIC-APT-2021 | 259,120 | 6 | Possible recorded-start support; clocks and execution mapping unqualified |
+| DAPT2020 | 86,691 | 5 | No all-class single cutoff; 15 exfiltration rows |
+| DSRL-APT-2023 | 65,000 | 5 | DAPT-derived synthetic source; no natural event chronology |
+| S-DAPT-2026 | None acquired | Not verified | No qualified acquired release |
+
+For DAPT2020, the cutoff would need to be later than July 19, 2019, 16:38:37 to include two earlier exfiltration examples, yet no later than July 17, 2019, 19:24:55 to retain a reconnaissance example in evaluation. The conditions contradict each other. The diagnosis uses all 86,691 rows and the five native classes; it is not caused by choosing an inconvenient 60/15/10/15 split. The release can support other questions, including a separately designed unknown-stage evaluation, but the unchanged closed-set temporal comparison cannot be run honestly on those bytes.
+
+SCVIC's recorded-start necessary interval is nonempty: after October 21, 2015, 10:21:12 through 22:56:16. The support test therefore does not reject every possible SCVIC cutoff. However, 220 benign rows have 1970 dates, remaining rows have 2015 dates, time resolution is mixed, and a source-supported row-to-execution map and physical-clock interpretation were not obtained. The author-listed test file is absent from the inspected local sources. The completed analysis is a recorded-time support diagnostic, not a certified temporal model evaluation.
+
+DSRL's 65,000-row artifact combines synthetic attacks derived from DAPT with 10,000 benign rows sampled from DAPT. Its generated timestamps do not demonstrate real event order, and its shared source prevents treating it as independent real-campaign confirmation. S-DAPT contributes an availability result: the inspected arXiv record remains withdrawn and no verified corrected, accessible data artifact was acquired. A separate inaccessible listing does not resolve that status.
+
+A separate CSV-parser implementation enumerated all tied-time membership states: 0 of 28,941 DAPT states met the all-native-class two-earlier/one-later rule, whereas 9,475 of 11,693 SCVIC states met recorded-start support. The latter did not resolve its clock or execution-identity limitations. Native-class totals and input hashes matched before and after the separate reads. The verifier did not import the original bound function. Its [verification receipt](../measurement_praxis/evidence/qualification_audit/VERIFICATION.json) records all 16 checks and source identities.
+
+![Figure 3. Why DAPT cannot support the unchanged all-stage cutoff. Ranges run from each native class's second-earliest to latest recorded start. A cut that trains on exfiltration cannot retain later reconnaissance in this release.](../measurement_praxis/figures/dapt_stage_support.png)
+
+
+![Observed class support and source eligibility. Dataset counts and qualification decisions describe the inspected artifacts and the declared task.](../gwu_final_20260928/results/figures/fig07_native_support_and_lineage.png)
+
+
+## 4.6 Capture and Fitting-Seed Sensitivity
+
+The frozen sensitivity audit (`e9de91d`) includes every registered pair: 180 leave-one-capture-out calculations and 36 leave-one-fitting-seed-out means. Predictions are fixed, and the remaining seed metrics are averaged without pooling flows. Omission ranges are finite sensitivity summaries, not confidence intervals or independent replications.
+
+For clean budget three, higher mean F1 and lower exfiltration warning recall remain in all five capture omissions and all three fitting-seed omissions. The magnitude is strongly sensitive to seed 8101: excluding it reduces the warning loss from 8.93 to 0.36 percentage points and the mean extra missed warnings from 307.33 to 12.50. Thus the qualitative mean tradeoff survives this deletion, but the original mean is not a stable estimate of its magnitude.
+
+Macro-F1 changes in the tables are score points (raw score differences multiplied by 100); warning-recall changes are percentage points.
+
+| Omitted unit | Δ macro-F1 (×100) | Δ exfil warning pp | Mean extra missed warnings |
+| --- | --- | --- | --- |
+| None (three-seed mean) | 2.31 | -8.93 | 307.33 |
+| Fit seed 8101 | 0.65 | -0.36 | 12.50 |
+| Fit seed 8102 | 3.51 | -13.35 | 459.50 |
+| Fit seed 8103 | 2.78 | -13.07 | 450.00 |
+| Capture 6 (three-seed mean) | 1.57 | -25.71 | 305.67 |
+| Capture 7 (three-seed mean) | 3.67 | -8.95 | 307.33 |
+| Capture 8 (three-seed mean) | 2.26 | -9.12 | 293.00 |
+| Capture 9 (three-seed mean) | 2.16 | -7.74 | 246.33 |
+| Capture 10 (three-seed mean) | 1.52 | -2.80 | 77.00 |
+
+At individual-seed level, the clean budget-three tradeoff occurs in 10/15 capture-omission pairs: all five for seed 8101, none for seed 8102, and all five for seed 8103. Across all 12 group means, the nine original F1-up/warning-down groups retain that direction under every specified single-seed and single-capture omission; this stability statement concerns means on the same campaign.
+
+Current-feature mixed-minus-past F1 stays positive in all 15 fitting-seed/capture-omission pairs. Per-seed ranges are:
+
+| Fitting seed | Positive omission differences | Δ macro-F1 (×100) range |
+| --- | --- | --- |
+| 20260923 | 5/5 | 4.80 to 21.78 |
+| 20260924 | 5/5 | 4.29 to 20.56 |
+| 20260925 | 5/5 | 1.83 to 15.95 |
+
+The history-feature mixed-minus-past comparison is also positive in 15/15 pairs. Chronological history-minus-current is positive in 14/15; seed 20260924 becomes −0.13 macro-F1 score points when capture 9 is omitted. No omission loses support for a declared evaluation class (unsupported omission IDs: none).
+
+The 27 PX081 contrasts form 24 distinct ordered per-capture confusion signatures. The higher-F1/lower-warning count is 19/27 registered pairs or 17/24 aggregate-equivalent signature classes. These are not independent replication counts. Equal confusion signatures do not establish identical individual predictions; all signatures still share events, models and one previously examined campaign.
+
+All omitted-capture identities, per-seed supports, directions and numerical values remain in the [complete sensitivity report](../submission_readiness/sensitivity/REPORT.md) and [arithmetic receipt](../submission_readiness/sensitivity/AUDIT.json). Original main-study results and their limitations are unchanged.
+
+
+![Fitting-seed influence on the clean budget-three warning tradeoff. The full mean and each leave-one-seed-out mean expose the effect-size dependence.](../gwu_final_20260928/results/figures/fig06_fitting_seed_influence.png)
+
+
+## 4.7 Supplementary Technique-Policy Transfer
+
+The secondary study targets **T1105, Ingress Tool Transfer**. It is not a replication of lateral-movement recognition or exfiltration warnings. Negative examples have other author technique labels, so their flags cannot be called benign false alarms. CasinoLimit onset proxies and CAM-LDS labeled interval proxies also represent different target units; results are not pooled across them.
+
+![Secondary policy transfer across all conditions](../gwu_final_20260928/results/figures/fig08_secondary_policy_transfer.png)
+
+**Figure. Secondary transfer under all fifteen condition names.** Values are target-cost gate minus current expert in percentage points. A positive recall difference and a negative other-label flag difference are favorable in their respective columns; colors indicate the numerical sign, not a common benefit direction. Random-loss conditions average three perturbations of the same events. Other conditions use one deterministic view.
+
+On clean CasinoLimit data, the current expert and ordinary gate both achieve F1 0.7368, recall 82.35%, and seven other-label flags. The target-cost gate and context expert achieve F1 0.5957 with the same recall and sixteen flags. On clean CAM-LDS, the current expert achieves F1 0.0495, recall 87%, and 3,329 other-label flags; the target-cost gate/context expert achieves F1 0.0534, recall 88%, and 3,108 flags. High target recall therefore coexists with poor discrimination against other technique labels.
+
+A saved post-result diagnostic found only eleven nonzero expert-error comparisons among 1,494 CasinoLimit calibration rows. The target-cost selector's hard decisions match the context expert in every one of the 21 views on each source; different probability vectors do not establish a different operational decision. The ordinary selector matches the current expert in all CasinoLimit views and nine CAM-LDS views. These findings do not support a new adaptive advantage. Original native thresholds are preserved separately; they were not used to tune the transferred policies.
+
+
+## 4.8 Ranking Metrics and Operating Decisions
+
+The supplements retain per-class average precision and ROC-AUC wherever the original source reported them. They are not reconstructed from hard labels or replaced with approximations. The normalized CSV uses blank fields when a metric was unavailable; source JSON preserves original null values. A class can have strong ranking performance while precision or its selected operating decision remains problematic.
+
+For a concrete existing result, the clean current-plus-roles fit with seed 20260924 identifies 26 of 35 movement-labeled flows. Its movement ROC-AUC is 0.998918, average precision is 0.210308, precision is 0.184397, and recall is 0.742857. The 141 movement predictions include 26 correct labels. This is an actual aggregate from the saved evaluation, not a fabricated example or a production alert rate. Reporting ROC-AUC alone would not describe that operating-point burden. No new ROC curves are inferred from the aggregate tables.
+
+
+**Table 4-11. Stage-level discrimination under chronological fitting.** Each entry is the arithmetic mean of three fitting-seed metrics on the same 104,051-row anchor. Current means current-flow features; History adds earlier-activity summaries. These class metrics are not pooled across seeds. Movement retains the narrow author-label interpretation.
+
+| Feature view / class | Precision | Exact recall | F1 | ROC-AUC | Avg. precision |
+|---|---:|---:|---:|---:|---:|
+| Current / Benign | 0.9938 | 0.9998 | 0.9968 | 0.9988 | 0.9999 |
+| Current / Other attack | 0.9997 | 0.9679 | 0.9836 | 0.9967 | 0.9886 |
+| Current / Movement | 0.1788 | 0.2593 | 0.2091 | 0.9992 | 0.2035 |
+| Current / Exfiltration | 0.8644 | 0.6725 | 0.7565 | 0.9680 | 0.6688 |
+| History / Benign | 0.9934 | 0.9999 | 0.9966 | 0.9959 | 0.9996 |
+| History / Other attack | 0.9986 | 0.9726 | 0.9855 | 0.9999 | 0.9991 |
+| History / Movement | 0.2758 | 0.2963 | 0.2836 | 0.9910 | 0.1474 |
+| History / Exfiltration | 0.9081 | 0.6640 | 0.7671 | 0.9780 | 0.7500 |
+
+ROC-AUC measures ranking across score thresholds: how often a true member of one class is ranked above a nonmember. Average precision summarizes precision across recall levels and is useful when a class is rare; it is not interchangeable with trapezoidal area under a precision-recall curve. Neither ranking summary fixes the argmax decision or the resulting warning destination. The reported areas are retained source metrics; no curve is reconstructed from a single confusion matrix.
+
+
+## 4.9 Answers to the Research Questions
+
+**RQ1:** The completed comparisons demonstrate that an improved overall score can accompany fewer exfiltration warnings on the same records. In the clean budget-three acquisition comparison, mean macro-F1 rose while warning recall fell and benign false alerts increased. Chronological history also produced useful gains and a smaller warning tradeoff. Error destinations and benign workload are therefore material to interpretation.
+
+**RQ2:** The fixed-anchor comparison demonstrates sensitivity to training composition and temporal access. The current-feature macro-F1 difference was +0.0632, and movement-label recall increased by 35.19 percentage points. Architecture, evaluation rows and class counts were controlled; every property of the training distributions was not isolated.
+
+**RQ3:** The inspected DAPT artifact cannot satisfy the unchanged all-native-class single-cut support rule. SCVIC has possible recorded-start support but unresolved physical chronology. DSRL derives from DAPT, and no qualified S-DAPT release was acquired. These are source-specific qualification results, not four fitted replications.
+
+The numerical comparisons answer the declared questions within the inspected records. Neither a minimum favorable score nor a self-imposed 90% recall threshold determines whether a finding is retained.
+
+
+## 4.10 Full-Release Results and Calibration Review
+
+This extension checks whether the host-role comparison holds when all eligible training records and all six released sensor views are used. It broadens coverage of the same campaign, not the number of independent campaigns.
+
+The source audit accounts for all **6,877,157 rows in 173 files**. Across the six sensor views, 0 exact duplicate rows were removed, 0 conflicting-label rows were quarantined and 34 retained rows crossed a temporal boundary. The resulting analysis contains 5,353,688 training rows, 39,399 calibration rows and 1,484,036 test rows. These are sensor observations rather than independent-event totals. All eligible training rows were used in each arm. The independent computational audit passed 622 checks of source coverage, row conservation, temporal separation, unique identities, prediction populations, probability normalization, confusion matrices, macro-F1, class support and warning counts.
+
+**Table 4-12. Complete release coverage and chronological allocation.** Source rows precede duplicate and boundary handling. Training, calibration and test counts are after handling. The three numbers in the final column follow that order.
+
+|Sensor|Files|Source rows|Train / cal / test|
+|---|---|---|---|
+|net1011x|28|1,792,756|1,466,865 / 5,527 / 320,359|
+|net1012x|29|734,331|597,531 / 5,132 / 131,664|
+|net1013x|30|1,072,368|851,355 / 8,683 / 212,323|
+|net1014x|30|210,371|163,270 / 2,966 / 44,135|
+|net1015x|30|175,662|144,218 / 2,790 / 28,646|
+|netgw|26|2,891,669|2,130,449 / 14,301 / 746,909|
+
+The single-class training sensors are net1011x, net1012x, net1014x. Their constant-class outcomes document a support limit. Sensors with all four mapped classes represented in both training and testing are net1013x. Class support is detailed in Appendix D; more files do not automatically supply every attack stage at every cutoff.
+
+**Table 4-13. Full-release paired test results.** Current and roles use identical evaluation rows within a sensor. Macro-F1 uses a fixed four-class denominator. Unsupported exfiltration recall is not estimable. False-alert counts must be read with the benign support in Appendix D.
+
+|Sensor|Macro-F1 current / roles|Exfil warnings current / roles|Benign alerts current / roles|
+|---|---|---|---|
+|net1011x|0.2500 / 0.2500|Unsupported / Unsupported|0 / 0|
+|net1012x|0.2500 / 0.2500|Unsupported / Unsupported|0 / 0|
+|net1013x|0.7574 / 0.7598|71.03% / 71.06%|13 / 11|
+|net1014x|0.2414 / 0.2414|Unsupported / Unsupported|0 / 0|
+|net1015x|0.3268 / 0.3250|0.00% / 0.00%|12 / 13|
+|netgw|0.4991 / 0.4991|Unsupported / Unsupported|2105 / 2104|
+
+Roles improve test macro-F1 in 2 of the six views. Views with a macro-F1 increase and a decline in warning recall for at least one supported attack stage are netgw. At netgw, macro-F1 changes from 0.49909446 to 0.49911102, benign false alerts decrease from 2,105 to 2,104, and OtherAttackStage warnings decrease by one: missed warnings increase from 25,429 to 25,430 among 26,712 such rows. This tiny one-event reversal is not evidence of a stable or practically large effect. At net1013x, both exfiltration warning recall and macro-F1 improve slightly; that arm does not reproduce the historical exfiltration-warning loss. This is the declared role-feature contrast under uncapped chronological fitting. It neither estimates the historical acquisition-budget effect on the expanded release nor converts sensor views into independent replications. The historical warning-loss finding retains its own population and sensitivity limits.
+
+**Table 4-14. Calibration-only model choices.** A review with absent attack-stage support remains provisional. Test results for the selected arms are exactly the corresponding Table 4-13 arm outcomes; no second test optimization occurs.
+
+|Sensor|Score choice|Review choice|Missing calibration stages|
+|---|---|---|---|
+|net1011x|current|current|Other, Movement, Exfiltration|
+|net1012x|current|current|Other, Movement, Exfiltration|
+|net1013x|current|current|Movement|
+|net1014x|current|current|Movement, Exfiltration|
+|net1015x|current|current|Other, Movement, Exfiltration|
+|netgw|current|current|Exfiltration|
+
+This applied example demonstrates an executable audit decision and reveals which stages its calibration data can assess. 6 of the six views lack at least one attack stage in calibration. Their review decisions are therefore provisional; the extension does not demonstrate a fully supported all-stage calibration safeguard. A favorable calibration decision does not establish later warning preservation, an optimal tolerance, or actual analyst benefit. The complete per-capture confusion matrices and stage metrics accompany the table, including the unfavorable outcomes.
+
+## 4.11 Adapted AIT Validation Results
+
+The original named-policy result did not repeat on AIT. A smaller tradeoff appeared in the opposite policy order on Wilson. Both outcomes are retained.
+
+The frozen primary direction did not recur: error-focused acquisition had higher macro-F1 with lower exfiltration warning recall in zero of six execution-by-seed comparisons and zero of three pooled seed comparisons. This is an adverse generalization result for the original named-policy contrast under the adapted task. It is retained without modifying the learned policies or decision thresholds.
+
+**Table 4-15. Pooled AIT held-out results.** Means over seeds 8101-8103 on the same 1,067,211 rows. Fractional counts average integer seed outcomes. These are three fits of the same evaluation population.
+
+|Policy|Macro-F1|Exfil warnings|Missed warnings|Benign alerts|Acquire|
+|---|---|---|---|---|---|
+|Current|0.946050|99.698%|135.0|14448.7|0.000%|
+|Always history|0.994053|99.772%|102.0|913.7|100.000%|
+|Entropy|0.993970|99.772%|102.0|971.3|74.400%|
+|Error-focused|0.946233|99.727%|122.0|14443.3|2.450%|
+
+Entropy selection has mean macro-F1 0.993970 versus 0.946233 for error-focused selection, exfiltration warning recall 99.772% versus 99.727%, and 971.3 versus 14,443.3 benign false alerts. History acquisition differs substantially: 74.400% versus 2.450%. These results compare the frozen policies with equal available budgets; they do not establish superiority at matched spending. The always-history reference attains macro-F1 0.994053 and 913.7 benign false alerts while retrieving history for every row.
+
+**Table 4-16. Separate AIT held-out executions.** Means across three fitting seeds, retaining distinct execution populations.
+
+|Execution|Policy|Macro-F1|Exfil warnings|Benign alerts|
+|---|---|---|---|---|
+|wilson|Current|0.993423|99.989%|55.7|
+|wilson|Always history|0.994906|99.970%|52.7|
+|wilson|Entropy|0.994800|99.970%|82.3|
+|wilson|Error-focused|0.993678|99.989%|47.7|
+|harrison|Current|0.909964|99.434%|14393.0|
+|harrison|Always history|0.992345|99.592%|861.0|
+|harrison|Entropy|0.992271|99.592%|889.0|
+|harrison|Error-focused|0.910128|99.490%|14395.7|
+
+Wilson supplies a smaller score/warning tradeoff with the opposite policy ordering. Entropy has higher F1 than error-focused selection but misses one, three and eight additional exfiltration warnings for seeds 8101, 8102 and 8103. The mean difference is four of 21,219 exfiltration observations, or 0.018851 percentage points, with 34.7 additional benign false alerts. This is a secondary descriptive observation, not a replacement for the frozen primary direction. Its small absolute size limits practical significance. On Harrison, entropy improves both F1 and exfiltration warning recall; the two executions therefore do not support a uniform score/warning reversal.
+
+**Table 4-17. AIT paired sensitivity by execution and seed.** All deltas are error-focused minus entropy-focused selection. Positive missed-exfiltration counts mean more true exfiltration rows classified as benign.
+
+|Execution|Seed|Delta F1|Warning pp|Missed exfil|Benign alerts|
+|---|---|---|---|---|---|
+|wilson|8101|-0.001048|+0.0047|-1|-36|
+|wilson|8102|-0.000982|+0.0141|-3|-36|
+|wilson|8103|-0.001338|+0.0377|-8|-32|
+|harrison|8101|-0.080391|-0.1577|+37|+13029|
+|harrison|8102|-0.081340|-0.0512|+12|+13584|
+|harrison|8103|-0.084697|-0.0981|+23|+13907|
+
+![AIT paired deltas](../gwu_final_20260928/figures/ait_paired_deltas.png)
+
+Figure 4-9. AIT paired deltas for all six execution-by-seed comparisons. Both panels show error-focused minus entropy selection on matched rows. The frozen original direction requires positive macro-F1 change together with negative warning-recall change; none of the six comparisons meets both conditions. Wilson shows a small opposite-order tradeoff, while Harrison favors entropy on both outcomes. The panels use different horizontal units; fitting seeds are repeated fits, not independent campaigns.
+
+Giving each execution equal weight yields mean macro-F1 0.993536 and warning recall 99.781% for entropy, compared with 0.951903 and 99.739% for error-focused selection. Complete per-class precision, recall and F1, confusion matrices, unweighted and weighted errors, acquisition fractions and per-seed baselines are retained in the evidence and Appendix E. The 1,245-check audit passed with no failures.
+
+In relation to RQ1, the separate source shows a small score/warning divergence in one held-out execution under the opposite policy ordering, while failing to reproduce the original primary direction. For RQ3, AIT qualifies for this declared three-class history task, not the unchanged four-class, two-group contract. RQ2 remains the original fixed-anchor temporal-composition experiment; the AIT extension does not re-estimate that effect.
+
+
+## 4.12 Preserving Model Warnings: PX-092 and PX-093
+
+On the clean UNRAVELED comparison at budget two, the original three-member OR gate warns on 98.7798% of exfiltration flows, compared with 68.0418% for probability averaging. Benign flow warnings rise from 182 to 196. The models are the same; only their combination changes. This is a warning-preservation result on previously examined records.
+
+The benefit is not uniform across model selections or sources. The OR recall across three-member subsets ranges from about 68.22% to 98.87%. Adding seeds to reach ten members raises clean recall to 98.8669% and benign warnings to 259. PX-092's requirement to improve strictly over the best individual member in both AIT executions fails: Wilson ties its best member, while Harrison improves slightly. That failed criterion remains failed.
+
+PX-093 adds a current-only model and logistic regression. The full five-member OR recovers more exfiltration flows but adds many benign warnings. Its fixed combined benefit-and-workload criteria fail.
+
+**Table 4-18. Original versus full heterogeneous OR.** These are flow warnings; neither column establishes an incident was detected.
+
+| Source | Original OR exfil. recall | Full OR exfil. recall | Original benign warnings | Full benign warnings |
+|---|---|---|---|---|
+| UNRAVELED | 98.7798% | 99.2446% | 196 | 1,991 |
+| AIT Wilson | 99.9859% | 100.0000% | 54 | 1,751 |
+| AIT Harrison | 99.6035% | 99.6078% | 1,404 | 15,420 |
+
+The added exfiltration warnings are sixteen UNRAVELED flows, three Wilson flows and one Harrison flow. Other attack warnings also increase. The next test asks whether those extra flows cover another exfiltration episode rather than adding warnings to activity already flagged.
+
+## 4.13 Episode Coverage and Review Workload: PX-094
+
+Additional models produce no extra exfiltration episode coverage under any tested episode definition. On UNRAVELED, averaging warns on four of eighteen primary episode proxies; original OR warns on six; full OR also warns on six. Both AIT executions contain one primary episode proxy, which all these policies already warn on. Full OR warns earlier on the Harrison episode, but the current-only addition already supplies that earlier warning.
+
+**Table 4-19. Primary episode coverage and extra grouped cases.** Cases use 15-minute source/destination windows. Extra cases compare full OR with original OR.
+
+| Source | Averaging episodes | Original OR episodes | Full OR episodes | Extra cases | Extra hours at 15 min/case |
+|---|---|---|---|---|---|
+| UNRAVELED | 4/18 | 6/18 | 6/18 | 1,550 | 387.50 |
+| AIT Wilson | 1/1 | 1/1 | 1/1 | 151 | 37.75 |
+| AIT Harrison | 1/1 | 1/1 | 1/1 | 758 | 189.50 |
+
+The hours are assumed service effort, not measured analyst workload. The reference queue becomes heavily overloaded under all policies; no exfiltration-linked review slot finishes within 60 minutes of its episode's earliest completed flow. These queue outcomes depend on the stated schedule, grouping and handling time. They are not production forecasts.
+
+The important measurement lesson is that 98.78% flow recall can coexist with only 6/18 episode coverage. Large episodes contribute many flows and dominate the flow score. Episode counts weight each defined group once. The next diagnostic shows why those groups must also be checked before calling them incidents.
+
+## 4.14 What the Twelve Missed Proxies Represent: PX-095
+
+All twelve completely missed UNRAVELED episode proxies contain a single flow. They use the same source and destination and TCP destination port 22. Eleven are two-packet exchanges totaling 121 bytes and lasting 0-1 milliseconds. The remaining flow contains 73 packets, 14,823 bytes and lasts 120.254 seconds. The native source labels each as Data Exfiltration with an APT signature.
+
+These are twelve time-defined proxies, not twelve independently confirmed thefts. The grouping rule separates repeated activity from one endpoint pair across two captures. Port 22 does not by itself verify an SSH application or stolen-file transfer.
+
+All five members predict benign on these flows. The lowest benign score across the members and missed flows is 99.8775%; this is a model score, not calibrated certainty. Their shared protocol, host-role and service category contains no exfiltration training examples. It contains seven eligible benign training rows, two retained by capped fitting. The absence of positive examples therefore predates subsampling.
+
+No missed flow has an exactly identical current-plus-roles input among the checked benign fitting or test rows. No earlier same-source warning exists within the tested 5-, 30- or 60-minute windows. These findings are consistent with a shared information or training limitation, but do not isolate its cause. They do show that rearranging the existing members' hard warnings cannot recover these flows.
+
+## 4.15 What a TCP/22 Rule Repairs, and What It Does Not: PX-096 and PX-097
+
+The blanket TCP/22 rule adds a warning even when the models predict benign. Combined with original OR, it warns on all eighteen UNRAVELED episode proxies. It recovers thirteen exfiltration flows: the twelve completely missed proxies plus one flow in an already warned episode. The price is 510 additional benign-labeled flow warnings and 460 additional grouped cases. Twenty-nine exfiltration flows still receive no warning, within episodes that have another warning.
+
+**Table 4-20. Unchanged TCP/22 overlay on original OR.** UNRAVELED is the exposed development result; AIT is an already-examined transfer test. Episode counts are proxies.
+
+| Source | Exfil. flow recall before/after | Episodes before/after | Extra exfil. flows | Extra benign flows | Extra cases |
+|---|---|---|---|---|---|
+| UNRAVELED | 98.7798% / 99.1575% | 6/18 / 18/18 | 13 | 510 | 460 |
+| AIT Wilson | 99.9859% / 99.9859% | 1/1 / 1/1 | 0 | 30 | 15 |
+| AIT Harrison | 99.6035% / 99.6035% | 1/1 / 1/1 | 0 | 0 | 0 |
+
+Every labeled exfiltration flow in Wilson and Harrison uses UDP destination/server port 53. The TCP/22 rule therefore recovers none of the three Wilson or 93 Harrison exfiltration flows missed by original OR. AIT supplies no matching exfiltration examples with which to validate the rule's benefit on new SSH activity. The protocol was not widened after this result.
+
+The rule alone is also insufficient on UNRAVELED: it warns on only thirteen of eighteen episode proxies and thirteen of 3,442 exfiltration flows. The combined result comes from retaining both model and policy warnings.
+
+This is a successful warning repair for the inspected matching traffic, with a demonstrated boundary on another channel. It is not evidence that the model learned exfiltration, that every data transfer was blocked, or that port filtering is novel. Because the rule was selected after inspecting misses, a future confirmatory test must fix the actual organizational policy and exceptions before examining untouched executions.
+
+
+## 4.16 What the Explanation and Ranking Tests Established
+
+PX-100 reproduced 54 acquisition cells with zero mismatches across 11,237,076 row-condition replays. That large count repeats the same 208,094 records under different conditions. It shows that the saved actions account for the recorded outcomes. It is not evidence from eleven million independent attacks.
+
+The aggregation check reproduces a useful distinction. On UNRAVELED, mean combination warns on 2,342 of 3,442 exfiltration flows; OR warns on 3,400. Benign warnings rise from 182 to 196. On AIT Harrison, the same change adds only two exfiltration warnings while benign warnings rise from 857 to 1,404. The rule guarantees retention of member warnings, but its practical price depends on the source.
+
+**Table 4-21. Explanation and prioritization follow-ups.** These are exposed-data studies. Successful arithmetic checks do not establish a novel detection method or human benefit.
+
+| Study | Main finding | What it supports |
+|---|---|---|
+| PX-100: decision replay | 54 acquisition cells reproduced without mismatch | The recorded actions explain the saved routing outcome |
+| PX-101: feature explanations | 512 rows; top-five overlap 0.658 for missed and 0.776 for warned exfiltration | Explanation stability differs between these diagnostic groups |
+| PX-102: human review | 12 cases prepared; zero participants | No conclusion about analyst benefit |
+| PX-103: budgeted ranking | Same selected cases as confidence in all nine primary comparisons | No added value for the proposed source-coverage rule |
+| PX-104: reviewer bot | 216 deterministic reviews; calculator and verifier both correct on 12 valid cases | Software consistency, without a gain over direct calculation |
+| PX-105: cause diagnosis | Trace and trace-plus-replay both correct on 170/170 scenarios | Replay supplied no diagnosis gain over the ordinary trace |
+
+PX-101's probability checks agree with saved models within 3e-8 and its attribution sums agree with raw scores within 1.7e-14. Those checks establish numerical consistency. They do not establish whether a feature causes an attack or whether an explanation helps an analyst. The top-five overlap figures are descriptive cohort summaries, not evidence of a statistically established difference between independent populations.
+
+PX-103's five-slot rule adds two UNRAVELED episode proxies relative to mean aggregation, but requires 331 additional grouped cases. Only 13 of those are benign-only cases; reporting just those 13 would substantially understate the review queue. Its selections match confidence ranking. Neither AIT execution gains another exfiltration episode proxy; each already has one detected proxy under the primary gap definition.
+
+PX-104 rejects 36 deliberately contradictory explanations and abstains on 12 missing-evidence cases under its verification condition. The ordinary calculator already answers the valid cases correctly. The test contains 11 unique score vectors across its 12 cases, not 12 independent incidents. It does not replace the unfinished human study.
+
+PX-105's two complete-trace methods also agree on all 510 repair-feasibility questions. Twenty-one pairs have identical final expert inputs and scores but different selection-versus-deadline causes. This shows why pipeline metadata can be needed to explain a software outcome. It is an information limit, not an observed accuracy win over SHAP. Removing timing causes 106 conservative abstentions.
+
+The separate visual pilot, PX-098/PX-099, did not establish a repair. After a documented syntax-only parser correction, the visual model flagged none of eight diagnostic positive windows. The timeline task did not produce usable stage coverage. Four local numerical follow-ups also failed their stated one-percentage-point benign-hour budget screen. These results do not show that every visual model will fail. They provide no basis for presenting this pilot as a positive contribution.
+
+## 4.17 Which Lost Warnings a Stage-Only Regression Count Misses
+
+PX-106 verifies every transition count in 27 policy pairs. The separate audit passes 945 checks. Table 4-22 shows the clean, budget-three exfiltration comparison; the true-stage support is 3,442 records in every row.
+
+**Table 4-22. Exfiltration warning changes, entropy to error-focused selection.** Losses count individual records that were warned before and benign afterward. Gains count the opposite change. Rows are repeated fits on the same events.
+
+| Seed | All losses | Correct stage to benign | Wrong attack stage to benign | Gains | Net warnings |
+|---|---|---|---|---|---|
+| 8101 | 901 | 8 | 893 | 4 | -897 |
+| 8102 | 4 | 2 | 2 | 1 | -3 |
+| 8103 | 25 | 4 | 21 | 3 | -22 |
+
+Seed 8101 provides the clearest example: 901 records lose their warning, but only eight had previously received the exact exfiltration label. The other 893 were previously labeled as another attack stage. A correct-stage-to-incorrect-stage count cannot capture that second group because its old stage label was already wrong. Four other records gain warnings, leaving a net decrease of 897.
+
+The other seeds limit the interpretation. Seed 8102 loses four warnings and gains one; seed 8103 loses 25 and gains three. The large loss in the first seed is not a uniform effect across fitting runs. All three runs are retained rather than presenting the largest as typical.
+
+Binary attack-versus-benign negative flips capture all these losses. PX-106 therefore supports reporting both stage and warning transitions, not superiority over a correctly configured binary regression audit. It also shows why lost and gained counts should accompany net recall: gains elsewhere can hide which previously warned records became silent.
+
+Only two of the 27 pairs pass the illustrative test-outcome review rule. This number describes already inspected test results. It does not show that a calibration gate would have made the same decisions before deployment, and passing the tolerance does not mean zero warning losses.
+
+# Chapter 5: Discussion and Conclusions
+
+
+## 5.1 What the Results Mean
+
+A better overall score does not guarantee that fewer attacks pass without a warning. The primary experiment demonstrates that difference on the same test records. The training-time experiment also shows that scores can change when later records enter training, even with the model family and test set fixed.
+
+The AIT extension limits how widely the primary result can be applied. The original policy ordering did not repeat on either held-out execution. Wilson showed a much smaller tradeoff in the opposite ordering; Harrison improved both score and warning recall. The amount of evidence requested also differed, so these policies were not compared at equal realized spending.
+
+The later repairs add a second lesson: retaining more flow warnings does not necessarily cover another attack episode. Extra models recovered some flows but no additional episode proxies in PX-094. The TCP/22 rule recovered the twelve missing UNRAVELED proxies, but none of AIT's exfiltration flows used that port. A policy works on the traffic it covers; its presence does not prove general detection capability.
+
+The explanation follow-ups narrow the conclusion further. Recorded decision traces can explain where the software lost an available warning. Extra replay did not improve diagnosis over a complete trace, and the proposed ranking rule did not improve on confidence. The evidence supports an auditable procedure; it does not support a new XAI algorithm or improved human triage.
+
+## 5.2 Contributions
+
+The main contribution is a reproducible comparison of stage accuracy, missed attack warnings and benign alerts on the same records. The paper retains favorable, unfavorable and unchanged results, and shows how strongly some differences depend on the fitting seed.
+
+The supporting contributions are a fixed-test-set comparison of training composition and an executable check of dataset labels, timing and source relationships. The complete AIT extension adds an adapted test on executions excluded from fitting, including the failure to reproduce the original named-policy result.
+
+PX-092 through PX-097 extend the review from scores to warning combination, episode coverage and policy scope. They show a useful local repair and an explicit transfer limit. They also reveal why twelve missing time-defined episodes cannot be read as twelve independent theft incidents.
+
+PX-106 adds a direct comparison with exact-class regression: a wrong-stage warning can become benign without creating an exact-class negative flip. A binary regression audit catches that change. The paper therefore makes both views explicit and reports gains as well as losses.
+
+These are applied measurement and engineering contributions. The work does not claim a new metric, a new OR rule, a novel firewall policy or proof that one intervention is the only possible repair.
+
+## 5.3 Applied Evaluation Procedure
+
+For every consequential stage, a model evaluation should report exact-stage recall, warning recall, and their underlying counts on the same rows. It should include benign false alerts and the evaluated population size. The report should identify the decision time, feature availability, class support in each split, source groups, and whether the evaluated source has already informed development.
+
+This is a proposed reporting procedure, not a new industry standard or a mathematically new metric. The present evidence shows why the pair is useful in this setting. It does not prove that every omitted pair hides a loss or that every warning is actionable.
+
+**Table 5-1. Minimum audit record for a stage-classifier comparison.**
+
+| Audit item | Required record | Decision it supports |
+|---|---|---|
+| Source and targets | Release hash, native labels, benign definition, label semantics | Whether the claim matches what was annotated |
+| Timing | Training/evaluation boundaries, event completion, history availability | Whether the intended earlier-to-later comparison is possible |
+| Dependence | Capture/run/campaign definitions, duplicate overlap, derivative sources | What constitutes independent evidence |
+| Paired outcomes | Exact-stage and warning recall, wrong-stage and benign destinations | Whether stage improvement retains warnings |
+| Workload | Benign false-alert count/rate, grouped cases and explicit handling-time assumptions | Whether extra warnings create more review work |
+| Episode support | Flow count, grouping rule, episode coverage and confirmed incident IDs if available | Whether extra flow warnings cover additional activity |
+| Policy scope | Observable rule, approved exceptions, covered channels and test exposure | What a deterministic policy protects and what it leaves untested |
+| Decision trace | Member outputs, selected evidence, delivery times and combination rule | Where an available warning was retained or discarded |
+| Warning transitions | Previously warned attacks now benign, previously missed attacks now warned, and true stage | Whether net improvement masks losses on particular records |
+| Uncertainty | Per-seed values, actual resampling units, unsupported draws | How much variation the available evidence describes |
+| Reproducibility | Protocol/source commits, input/output hashes, all declared results | Whether another analyst can trace and recompute the claim |
+
+1. Define the operational decision and when its features become available. A full-flow detector should be evaluated as a completed-flow decision.
+2. Inventory the actual release, target semantics, timestamps, and source relationships. Preserve uncertain fields explicitly.
+3. Test native-class support and chronology before fitting. If the intended split is impossible, record that finding and register a different question separately.
+4. Freeze the compared models, feature sets, operating rules, populations, and resource limits. Include simple controls.
+5. Preserve row-linked predictions privately and calculate paired metrics from those same rows. Report all declared conditions.
+6. Interpret stage accuracy, warning loss, and benign workload jointly. Use independent executions for a generalization claim and an appropriate calibration design for matched-workload claims.
+
+The delivered planner, metric library, support diagnostic, and evidence receipts implement the corresponding parts of this workflow. They are a portable audit core, not a completed four-source fitting executor. The AIT adapter now implements a separate qualified three-class history contract; the original four-source contracts remain limited as reported. A generic tool cannot infer the meaning of a timestamp or turn a dataset name into an independent campaign.
+
+
+## 5.4 Construct, Internal and External Validity
+
+### 5.4.1 Construct validity
+
+Author-stage labels are the targets. They are not independent attestations of successful host compromise, attacker intent, or stolen-file receipt. The movement target in the inspected UNRAVELED sensor concerns discovery. A non-benign prediction is called a warning for clarity, but no analyst workflow or downstream response was measured. The paper consistently separates these measured proxies from stronger operational outcomes.
+
+### 5.4.2 Internal validity
+
+The temporal contrast fixes architecture, anchor, and class budgets but changes training composition and access to later observations. It does not isolate every distributional or dependence mechanism. Removing identical current-feature fingerprints addresses a specific overlap channel and leaves possible near-duplicate and workflow effects. The four-class source grouping and prior artifact preparation are part of the design.
+
+History and acquisition interventions preserve targets, but wrong-host and missing-evidence conditions are synthetic perturbations. Their severity and frequency do not estimate real sensor failures. Prior acquisition costs, stage weights, and deadlines are illustrative choices. The reanalysis uses existing predictions and fixed decisions, so it cannot attribute a warning tradeoff to one mechanism by itself.
+
+### 5.4.3 Statistical and external validity
+
+The main campaign supplies only 35 movement evaluation rows and 18 in the temporal anchor. Five later captures contain correlated events from one workflow. Conditional capture-bootstrap intervals and fitting-seed variation cannot support population claims over organizations or APT campaigns. Missing-stage resamples require support-conditional interpretation, especially when a stage occurs in few captures.
+
+The main data were already exposed during development. The warning-loss analysis was retrospective, and the complete paired reanalysis remains exploratory. Multiple stages and conditions are reported without a selective significance claim. The extension audit does not produce independent replications by counting related or unavailable datasets.
+
+### 5.4.4 Reproducibility and access limits
+
+Public code, aggregate tables, support bounds, protocols, and hashes allow independent inspection of the analysis. Full recomputation requires the same qualified source artifacts and private row-linked prediction files, whose locations and hashes are recorded. The AIT reproduction archive additionally includes all eight unchanged publisher archives under CC BY 4.0 with attribution, prepared arrays, 42 model objects and every saved prediction. Source access, licensing, and authentication conditions can limit external reproduction. A hash establishes byte identity, not label correctness or authorization to redistribute data.
+
+Independent computational checks establish consistency of specified calculations and source bindings. They are not a substitute for an external ground-truth review. No human annotation audit, deployment evaluation, ethics approval, or committee acceptance is represented as completed when it was not performed. No human subjects were recruited by these computational experiments.
+
+The full-release extension removes the original file-coverage and class-cap restrictions for its own role-feature comparison. It retains one exposed campaign, sensor dependence and author-stage semantics. Its fixed four-class macro-F1 penalizes unsupported classes; comparisons across sensors with different class support are descriptive. Calibration-only review tolerances are illustrative, and a missing stage cannot be protected by an unobserved calibration measurement.
+
+### 5.4.5 Scope of the finished manuscript
+
+The completed manuscript makes a measurement claim on the available evidence and provides the full supporting artifact record. It does not wait for every desirable future study to report the results already obtained. The AIT extension adds two held-out laboratory executions for an adapted configuration. Their mixed findings broaden the empirical record while leaving exact four-class replication, unrelated-campaign generalization and operational benefit unresolved.
+
+
+### 5.4.6 Validity of the external-execution extension
+
+Whole-execution separation, final calendar separation, all-row fitting and strict prior-history construction strengthen the AIT test. They do not make two generated scenarios representative of independent real APT families. Native exfiltration labels are verified against the publisher's port/topology rule, not payload contents. The release aggregates probes without retaining sensor identity, so repeated observations may persist. Source taxonomies and evidence groups differ from PX081. The original-direction outcome was frozen before fitting, whereas the opposite-order Wilson interpretation is explicitly secondary and descriptive. Three seeds assess fitting sensitivity; no flow-level significance test or universal effect claim is made.
+
+### 5.4.7 Limits of the repair studies
+
+PX-092 through PX-097 use previously examined data. Their source and code freezes preserve the comparisons but do not make those data fresh validation. PX-092's required improvement over the best individual member in both AIT executions failed. PX-093's combined benefit-and-workload criteria also failed. The OR rule only preserves warnings available from its members; it cannot recover an event that all members call benign without changing their decisions or adding information.
+
+An episode proxy is not a confirmed incident. PX-095 traced the twelve wholly missed UNRAVELED proxies to twelve flows from one endpoint pair, eleven containing only two packets. The assumed analyst service times in PX-094 were not measured. The blanket TCP/22 scenario has no verified organizational allowlist or egress boundary. A benign attack label and a policy violation answer different questions. Neither replay proves that a real firewall prevented a transfer.
+
+### 5.4.8 Explanation, novelty and reviewer limits
+
+CyberShapley and AlertPro already address explainable triage and contextual alert review. Negative-flip research already examines regression after model changes. The present study does not establish first use of XAI on APT data, a new warning metric, a new classifier-combination rule or the first observation of score improvement with detection loss.
+
+The follow-ups use inspected records and small diagnostic groups. The bot is deterministic software with a known answer rule. No recruited analysts, handling-time measurements or independent explanation annotations support a claim of human usefulness. Complete trace replay checks a software mechanism, not the real-world cause of an attack. More repeated replay cells do not expand the independent campaign sample.
+
+## 5.5 Next Research Steps
+
+The next validation should define the policy and permitted exceptions before examining test labels, then use untouched executions containing legitimate administration and attacks on more than one channel. It should keep model warnings, policy violations and attack-stage predictions separate.
+
+For the twelve UNRAVELED singleton proxies, packet/session records or attack-execution evidence would help establish what activity the labels represent. If available, host/process, file-access and completed-session evidence could provide information that the existing flow features lack. This paper does not claim those signals have already repaired the misses.
+
+An exact four-class, two-evidence-group replication and unrelated campaigns remain needed. AIT supplies a different three-class test. More models alone cannot fill that evidence gap.
+
+An operational study would need measured case handling and analyst decisions. It could test whether the combined report changes model-review choices or improves timely investigation. Simulated service time cannot replace that evidence.
+
+Earlier source intake does not fill that gap. Sandworm lacks a native exfiltration flow class. The CAM-LDS check linked 3,332 flows to four T1041 actions ambiguously, with several candidate flows per action. Verified legitimate-user labels, untouched executions and a verified complete-archive checksum remain absent.
+
+Any further method claim should first compare with the appropriate simple control: binary negative-flip accounting for lost warnings, ordinary traces for pipeline diagnosis, and confidence ranking for the tested review queue. The current results do not justify additional paid model runs merely to seek a favorable result. A new data source or a genuinely different mechanism would be needed to test a broader claim.
+
+## 5.6 Conclusions
+
+The primary comparison shows a better classification score with fewer attack warnings: mean macro-F1 rose from 0.7148 to 0.7379 while exfiltration warning recall fell from 85.18% to 76.25%. The size depended strongly on the fitting seed. The adapted AIT test did not reproduce the original policy ordering.
+
+The repairs have clear limits. OR retains available member warnings but covers only six of eighteen UNRAVELED episode proxies. Adding a post hoc TCP/22 policy raises coverage to eighteen, with 510 additional benign-labeled flow warnings and 460 grouped cases. The twelve recovered proxies are singleton flows from one endpoint pair. The unchanged policy adds no exfiltration coverage on AIT's UDP/53 traffic.
+
+PX-106 makes the review question more precise. A previously wrong stage label can still warn on an attack. Count the loss if that record becomes benign. Standard binary regression accounting captures it; exact-stage regression alone does not. Report gained and lost warnings beside net recall.
+
+The research product is a reproducible audit of sources, decisions, warnings and repair costs. Explanation checks reproduce recorded software outcomes, but added replay and the proposed ranking rule did not beat their simple controls. No human benefit or general exfiltration prevention was established. The contribution is the tested APT audit and its evidence, offered for academic review.
+
+# References
+
+Bilot, T., Jiang, B., Li, Z., El Madhoun, N., Al Agha, K., Zouaoui, A., & Pasquier, T. (2025). Sometimes simpler is better: A comprehensive analysis of state-of-the-art provenance-based intrusion detection systems. In *34th USENIX Security Symposium* (pp. 7193–7212). USENIX Association. https://www.usenix.org/conference/usenixsecurity25/presentation/bilot
+
+Brabec, J., & Machlica, L. (2018). Decision-forest voting scheme for classification of rare classes in network intrusion detection. *2018 IEEE International Conference on Systems, Man, and Cybernetics*. https://doi.org/10.1109/SMC.2018.00563. Author manuscript: https://arxiv.org/abs/2107.11862
+
+Efron, B. (1979). Bootstrap methods: Another look at the jackknife. *The Annals of Statistics, 7*(1), 1-26. https://doi.org/10.1214/aos/1176344552
+
+Ghiani, D., Angioni, D., Piras, G., Sotgiu, A., Minnei, L., Gupta, S., Pintor, M., Roli, F., & Biggio, B. (2026). Regression-aware continual learning for Android malware detection. *IEEE Transactions on Information Forensics and Security, 21*, 6845-6854. https://doi.org/10.1109/TIFS.2026.3714132. Inspected author version: https://arxiv.org/html/2507.18313v2
+
+Guerra, L., Chapuis, T., Duc, G., Mozharovskyi, P., & Nguyen, V.-T. (2026). *How benchmarks and evaluation protocols shape conclusions in provenance-based intrusion detection* (Version 3) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2608.01454
+
+Ha Thanh, D. (2026). A transfer-aware, deployment-oriented evaluation framework for NetFlow-based intrusion detection systems (TAN-IDS). *PLOS One, 21*(4), e0346801. https://doi.org/10.1371/journal.pone.0346801
+
+Ibrahim, N., Rajalakshmi, N. R., Sivakumar, V., & Sharmila, L. (2025). An optimized hybrid ensemble machine learning model combining multiple classifiers for detecting advanced persistent threats in networks. *Journal of Big Data, 12*, Article 212. https://doi.org/10.1186/s40537-025-01272-w
+
+Iturbe, E., Dalamagkas, C., Radoglou-Grammatikis, P., Rios, E., & Toledo, N. (2026). A pattern-aware LSTM-based approach for APT detection leveraging a realistic dataset for critical infrastructure security. *Future Generation Computer Systems, 178*, Article 108308. https://doi.org/10.1016/j.future.2025.108308
+
+Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., & Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. In *Advances in Neural Information Processing Systems* (Vol. 30). Curran Associates. https://proceedings.neurips.cc/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html
+
+Kilian, S., Viet Triem Tong, V., Lalande, J.-F., Majorczyk, F., Sanchez, A., Talon, N., Besson, P.-V., Orsini, H., Lledo, P., & Gimenez, P.-F. (2025). CasinoLimit: An offensive dataset labeled with MITRE ATT&CK techniques. In *2025 28th International Symposium on Research in Attacks, Intrusions and Defenses (RAID)*. IEEE. https://doi.org/10.1109/RAID67961.2025.00039
+
+Kittler, J., Hatef, M., Duin, R. P. W., & Matas, J. (1998). On combining classifiers. *IEEE Transactions on Pattern Analysis and Machine Intelligence, 20*(3), 226-239. https://doi.org/10.1109/34.667881
+
+Kuncheva, L. I., & Whitaker, C. J. (2003). Measures of diversity in classifier ensembles and their relationship with the ensemble accuracy. *Machine Learning, 51*(2), 181-207. https://doi.org/10.1023/A:1022859003006
+
+Landauer, M., Hotwagner, W., Boenke, T., Skopik, F., & Wurzenberger, M. (2026). CAM-LDS: Cyber attack manifestations for automatic interpretation of system logs and security alerts. *International Journal of Information Security, 25*(5), Article 148. https://doi.org/10.1007/s10207-026-01318-x
+
+Landauer, M., Skopik, F., Frank, M., Hotwagner, W., Wurzenberger, M., & Rauber, A. (2023). Maintainable log datasets for evaluation of intrusion detection systems. *IEEE Transactions on Dependable and Secure Computing, 20*(4), 3466-3482. https://arxiv.org/abs/2203.08580
+
+Landauer, M., Skopik, F., Wurzenberger, M., Hotwagner, W., & Rauber, A. (2021). Have it your way: Generating customized log datasets with a model-driven simulation testbed. *IEEE Transactions on Reliability, 70*(1), 402-415. https://doi.org/10.1109/TR.2020.3031317
+
+LightGBM developers. (n.d.-a). *Features* (Version 4.6.0 documentation). Retrieved September 24, 2026, from https://lightgbm.readthedocs.io/en/v4.6.0/Features.html
+
+LightGBM developers. (n.d.-b). *lightgbm.LGBMClassifier* (Version 4.6.0 documentation). Retrieved September 24, 2026, from https://lightgbm.readthedocs.io/en/v4.6.0/pythonapi/lightgbm.LGBMClassifier.html
+
+LightGBM developers. (n.d.-c). *lightgbm.LGBMRegressor* (Version 4.6.0 documentation). Retrieved September 24, 2026, from https://lightgbm.readthedocs.io/en/v4.6.0/pythonapi/lightgbm.LGBMRegressor.html
+
+LightGBM developers. (n.d.-d). *Parameters* (Version 4.6.0 documentation). Retrieved September 24, 2026, from https://lightgbm.readthedocs.io/en/v4.6.0/Parameters.html
+
+Liu, J., Shen, Y., Simsek, M., Kantarci, B., Mouftah, H. T., Bagheri, M., & Djukic, P. (2022a). A new realistic benchmark for advanced persistent threats in network traffic. *IEEE Networking Letters, 4*(3), 162–166. https://doi.org/10.1109/LNET.2022.3185553
+
+Liu, J., Shen, Y., Simsek, M., Kantarci, B., Mouftah, H. T., Bagheri, M., & Djukic, P. (2022b). *SCVIC-APT-2021* [Dataset]. IEEE DataPort. https://doi.org/10.21227/g2z5-ep97
+
+Luengo Viñuela, M., Román-Gallego, J.-Á., Pérez-Delgado, M.-L., Conde, M. A., Vega-Hernández, M.-C., & Silva Varela, H. (2026). Detection of APTs by machine learning: A performance comparison. *Expert Systems, 43*(1), e70181. https://doi.org/10.1111/exsy.70181
+
+Lundberg, S. M., Erion, G., Chen, H., DeGrave, A., Prutkin, J. M., Nair, B., Katz, R., Himmelfarb, J., Bansal, N., & Lee, S.-I. (2020). From local explanations to global understanding with explainable AI for trees. *Nature Machine Intelligence, 2*, 56-67. https://doi.org/10.1038/s42256-019-0138-9
+
+M K, V. P., S, S., H, A. G., Aggarwal, M., & V S, S. S. (2026). Advanced persistent threat detection through sequential analysis of network patterns with graph based learning approach. *Scientific Reports, 16*, Article 19998. https://doi.org/10.1038/s41598-026-42756-w
+
+Malach, A., Wudali, P. N., Momiyama, S., Furukawa, J., Araki, T., Elovici, Y., & Shabtai, A. (2025). CyberShapley: Explanation, prioritization, and triage of cybersecurity alerts using informative graph representation. *Computers & Security, 150*, 104270. https://doi.org/10.1016/j.cose.2024.104270
+
+MITRE. (2026). *Filter network traffic (M1037), version 1.2*. MITRE ATT&CK. Updated May 12, 2026; reviewed October 1, 2026. https://attack.mitre.org/mitigations/M1037/
+
+Myneni, S., Chowdhary, A., Sabur, A., Sengupta, S., Agrawal, G., Huang, D., & Kang, M. (2020). DAPT 2020 - Constructing a benchmark dataset for advanced persistent threats. In G. Wang, A. Ciptadi, & A. Ahmadzadeh (Eds.), Deployable machine learning for security defense (Communications in Computer and Information Science, Vol. 1271, pp. 138–163). Springer. https://doi.org/10.1007/978-3-030-59621-7_8
+
+Myneni, S., Jha, K., Sabur, A., Agrawal, G., Deng, Y., Chowdhary, A., & Huang, D. (2023). Unraveled—A semi-synthetic dataset for advanced persistent threats. *Computer Networks, 227*, Article 109688. https://doi.org/10.1016/j.comnet.2023.109688
+
+Othman, F. M., Mejri, M., & Alabdulatif, A. (2026). Temporal MITRE ATT&CK modelling for residual time-to-compromise estimation in multi-stage attacks. *Symmetry, 18*(9), Article 1439. https://doi.org/10.3390/sym18091439
+
+Pagan, G. (2026). *Advanced persistent threat event detection using graph machine learning* [Unpublished praxis manuscript]. The George Washington University.
+
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. *Journal of Machine Learning Research, 12*(85), 2825–2830. https://jmlr.org/papers/v12/pedregosa11a.html
+
+Pendlebury, F., Pierazzi, F., Jordaney, R., Kinder, J., & Cavallaro, L. (2019). TESSERACT: Eliminating experimental bias in malware classification across space and time. In *28th USENIX Security Symposium* (pp. 729–746). USENIX Association. https://www.usenix.org/conference/usenixsecurity19/presentation/pendlebury
+
+Phan, T. V., & Bauschert, T. (2026). *Learning the APT kill chain: Temporal reasoning over provenance data for attack stage estimation* (Version 2) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2603.07560
+
+Scikit-learn developers. (n.d.-a). *LogisticRegression* (Version 1.9 documentation, displayed as 1.9.1 at retrieval). Retrieved September 24, 2026, from https://scikit-learn.org/1.9/modules/generated/sklearn.linear_model.LogisticRegression.html
+
+Scikit-learn developers. (n.d.-b). *Ridge* (Version 1.7.2 documentation). Retrieved September 24, 2026, from https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.Ridge.html
+
+Shadabfar, H., Dehghan, M., & Sadeghian, B. (2025). DSRL-APT-2023: A new synthetic dataset for advanced persistent threats. *ISeCure, 17*(2), 107–116. https://doi.org/10.22042/isecure.2025.214212
+
+Soro, F., Landauer, M., Skopik, F., Hotwagner, W., & Wurzenberger, M. (2024). *AIT Netflow Data Set* (Version 2) [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.13168643
+
+Tijjani, S. I., Ghita, B., Clarke, N., & Craven, M. (2026). *S-DAPT-2026: A stage-aware synthetic dataset for advanced persistent threat detection* (Version 2) [Withdrawn preprint]. arXiv. https://doi.org/10.48550/arXiv.2601.06690
+
+Uddin, M. A., Aryal, S., Bouadjenek, M. R., Al-Hawawreh, M., & Talukder, M. A. (2024). *Hierarchical classification for intrusion detection system: Effective design and empirical analysis* [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2403.13013
+
+Uddin, M. A., Aryal, S., Bouadjenek, M. R., Al-Hawawreh, M., & Talukder, M. A. (2025). Hierarchical classification for intrusion detection system: Effective design and empirical analysis. *Ad Hoc Networks, 178*, Article 103982. https://doi.org/10.1016/j.adhoc.2025.103982
+
+Wang, X., Yang, X., Liang, X., Zhang, X., Zhang, W., & Gong, X. (2024). Combating alert fatigue with AlertPro: Context-aware alert prioritization using reinforcement learning for multi-step attack detection. *Computers & Security, 137*, 103583. https://doi.org/10.1016/j.cose.2023.103583
+
+Yan, S., Xiong, Y., Kundu, K., Yang, S., Deng, S., Wang, M., Xia, W., & Soatto, S. (2021). Positive-congruent training: Towards regression-free model updates. In *Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition*. https://openaccess.thecvf.com/content/CVPR2021/papers/Yan_Positive-Congruent_Training_Towards_Regression-Free_Model_Updates_CVPR_2021_paper.pdf
+
+# Appendix A: Complete Results and Dataset Reporting
+
+
+## A.1 Complete Evaluation Inventory
+
+The completed experiments support an applied measurement contribution: a higher aggregate APT-stage score does not necessarily preserve warnings for a particular attack stage. This result is reported alongside improvements, unsuccessful method comparisons, false-alert costs, and the limits of the source labels. This chapter adds a complete publication inventory to the main paired-results narrative; it introduces no new model fit, inference run, threshold, or favorable-condition selection.
+
+| Completed study | Saved evaluations | Comparison coverage | Evaluation population |
+|---|---:|---|---|
+| Context selection (PX080) | 105 | Seven arms × five conditions × three fits | 208,094 UNRAVELED flows |
+| Evidence acquisition (PX081) | 171 | Six policies × three budgets × three conditions × three fits, plus nine unrestricted references | Same 208,094 flows |
+| Temporal composition (PX082) | 18 | Two feature views × three fitting protocols × three fits | Fixed anchor 104,051 flows; random comparison 210,226 flows |
+| Secondary technique-policy transfer (PX083) | 294 | Seven arms × 21 views × two datasets | CasinoLimit: 920 targets; CAM-LDS: 4,209 targets |
+
+An evaluation record is one saved arm/condition/seed result, not a new dataset or independent attack. Primary fitting seeds reuse the same events. In the supplement, the 21 views represent 15 condition names: each of three random-loss conditions has three perturbations, and the remaining twelve conditions have one deterministic view. The supplement's underlying classifiers were previously trained on their respective sources; only the two score selectors were fitted on CasinoLimit calibration predictions and applied unchanged to CAM-LDS.
+
+The [complete printable mean tables](../gwu_final_20260928/results/COMPLETE_GROUP_TABLES.md) retain all **308 group means**. Machine-readable supplements contain all **588 evaluation records**, **1,764 class-metric records**, and **5,880 confusion cells**, plus **6,732 subgroup records** and **16,344 subgroup-class records** where the original experiments supplied them. Full source JSON preserves fields beyond the normalized tables. The acquisition reference-only arms have no matched acquisition budget and cannot support same-budget superiority claims.
+
+
+## A.2 All Reported Group Means
+
+All 308 arm/condition/budget group means are retained. PX080-082 means use three fits on the same records. PX083 uses three perturbations for random-loss conditions and one deterministic view otherwise. Counts may therefore be fractional. No displayed group is an independent campaign.
+
+Full per-fit precision, recall, F1, average precision, ROC-AUC, class supports, warning destinations and confusion counts are in the CSV tables. Blank ranking metrics mean unavailable; they are not replaced with invented estimates.
+
+### A.2.1 PX080
+
+| Condition / view / budget | Arm | Macro-F1 | Exact recall: movement / exfil. | Exfil. warning recall | Benign flags |
+|---|---|---:|---:|---:|---:|
+| clean | current_roles | 0.7545 | 78.10% / 67.50% | 67.60% | 139.33 |
+| clean | context | 0.7658 | 52.38% / 67.21% | 67.64% | 48.33 |
+| clean | fixed_fusion | 0.7655 | 60.00% / 67.42% | 67.54% | 76.00 |
+| clean | confidence_gate | 0.7650 | 60.00% / 67.42% | 67.54% | 77.00 |
+| clean | ordinary_gate | 0.7659 | 64.76% / 67.36% | 67.68% | 85.67 |
+| clean | stage_harm_gate | 0.7560 | 69.52% / 67.28% | 67.81% | 109.00 |
+| clean | context_dropout | 0.7589 | 51.43% / 67.41% | 67.83% | 68.67 |
+| missing_half | current_roles | 0.7545 | 78.10% / 67.50% | 67.60% | 139.33 |
+| missing_half | context | 0.6626 | 29.52% / 66.99% | 67.27% | 28.67 |
+| missing_half | fixed_fusion | 0.7602 | 44.76% / 67.33% | 67.41% | 54.33 |
+| missing_half | confidence_gate | 0.7592 | 44.76% / 67.33% | 67.40% | 54.33 |
+| missing_half | ordinary_gate | 0.7598 | 52.38% / 67.30% | 67.52% | 74.33 |
+| missing_half | stage_harm_gate | 0.7561 | 60.95% / 67.17% | 67.55% | 93.67 |
+| missing_half | context_dropout | 0.7595 | 62.86% / 67.43% | 67.77% | 95.00 |
+| missing_all | current_roles | 0.7545 | 78.10% / 67.50% | 67.60% | 139.33 |
+| missing_all | context | 0.4339 | 0.00% / 66.75% | 66.75% | 0.00 |
+| missing_all | fixed_fusion | 0.7285 | 18.10% / 67.30% | 67.30% | 29.67 |
+| missing_all | confidence_gate | 0.7265 | 18.10% / 67.29% | 67.29% | 29.67 |
+| missing_all | ordinary_gate | 0.7419 | 36.19% / 67.23% | 67.23% | 62.33 |
+| missing_all | stage_harm_gate | 0.7422 | 42.86% / 67.02% | 67.11% | 77.00 |
+| missing_all | context_dropout | 0.7587 | 68.57% / 67.50% | 67.64% | 116.00 |
+| stale_5min | current_roles | 0.7545 | 78.10% / 67.50% | 67.60% | 139.33 |
+| stale_5min | context | 0.7261 | 21.90% / 67.22% | 67.83% | 37.67 |
+| stale_5min | fixed_fusion | 0.7491 | 41.90% / 67.41% | 67.56% | 67.67 |
+| stale_5min | confidence_gate | 0.7485 | 41.90% / 67.42% | 67.57% | 69.00 |
+| stale_5min | ordinary_gate | 0.7456 | 49.52% / 67.30% | 67.68% | 85.00 |
+| stale_5min | stage_harm_gate | 0.7472 | 63.81% / 67.33% | 67.88% | 113.33 |
+| stale_5min | context_dropout | 0.7514 | 48.57% / 67.39% | 67.88% | 77.67 |
+| wrong_host | current_roles | 0.7545 | 78.10% / 67.50% | 67.60% | 139.33 |
+| wrong_host | context | 0.4559 | 0.00% / 66.80% | 66.80% | 0.00 |
+| wrong_host | fixed_fusion | 0.7286 | 19.05% / 67.31% | 67.31% | 32.33 |
+| wrong_host | confidence_gate | 0.7267 | 19.05% / 67.30% | 67.30% | 32.67 |
+| wrong_host | ordinary_gate | 0.7406 | 35.24% / 67.24% | 67.24% | 61.67 |
+| wrong_host | stage_harm_gate | 0.7430 | 44.76% / 67.03% | 67.13% | 81.33 |
+| wrong_host | context_dropout | 0.7589 | 68.57% / 67.50% | 67.64% | 114.67 |
+
+### A.2.2 PX081
+
+| Condition / view / budget | Arm | Macro-F1 | Exact recall: movement / exfil. | Exfil. warning recall | Benign flags |
+|---|---|---:|---:|---:|---:|
+| clean / B1 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| clean / B1 | roles_first | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| clean / B1 | history_first | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| clean / B1 | random | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| clean / B1 | entropy | 0.7139 | 81.90% / 67.52% | 87.95% | 174.00 |
+| clean / B1 | harm | 0.7500 | 81.90% / 67.52% | 67.83% | 169.67 |
+| clean / B2 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| clean / B2 | roles_first | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| clean / B2 | history_first | 0.7594 | 58.10% / 67.13% | 67.17% | 86.67 |
+| clean / B2 | random | 0.7213 | 76.19% / 67.34% | 77.75% | 133.67 |
+| clean / B2 | entropy | 0.7181 | 63.81% / 67.29% | 87.58% | 101.33 |
+| clean / B2 | harm | 0.7551 | 61.90% / 67.25% | 67.33% | 107.33 |
+| clean / B3 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| clean / B3 | roles_first | 0.7153 | 68.57% / 67.15% | 85.20% | 115.33 |
+| clean / B3 | history_first | 0.7153 | 68.57% / 67.15% | 85.20% | 115.33 |
+| clean / B3 | random | 0.7153 | 68.57% / 67.15% | 85.20% | 115.33 |
+| clean / B3 | entropy | 0.7148 | 65.71% / 67.29% | 85.18% | 111.33 |
+| clean / B3 | harm | 0.7379 | 69.52% / 67.18% | 76.25% | 122.33 |
+| clean | full_context_reference (unrestricted reference) | 0.7153 | 68.57% / 67.15% | 85.20% | 115.33 |
+| delayed_unavailable / B1 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| delayed_unavailable / B1 | roles_first | 0.7167 | 83.81% / 67.52% | 81.81% | 173.33 |
+| delayed_unavailable / B1 | history_first | 0.7167 | 83.81% / 67.52% | 81.81% | 173.33 |
+| delayed_unavailable / B1 | random | 0.7167 | 83.81% / 67.52% | 81.81% | 173.33 |
+| delayed_unavailable / B1 | entropy | 0.7168 | 80.95% / 67.52% | 81.54% | 169.67 |
+| delayed_unavailable / B1 | harm | 0.7509 | 80.95% / 67.52% | 67.73% | 167.67 |
+| delayed_unavailable / B2 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| delayed_unavailable / B2 | roles_first | 0.7167 | 83.81% / 67.52% | 81.81% | 173.33 |
+| delayed_unavailable / B2 | history_first | 0.7547 | 71.43% / 67.39% | 67.41% | 135.00 |
+| delayed_unavailable / B2 | random | 0.7223 | 77.14% / 67.46% | 74.73% | 156.67 |
+| delayed_unavailable / B2 | entropy | 0.7187 | 76.19% / 67.44% | 81.41% | 143.33 |
+| delayed_unavailable / B2 | harm | 0.7544 | 74.29% / 67.42% | 67.46% | 144.33 |
+| delayed_unavailable / B3 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| delayed_unavailable / B3 | roles_first | 0.7172 | 80.00% / 67.48% | 81.28% | 160.00 |
+| delayed_unavailable / B3 | history_first | 0.7273 | 75.24% / 67.41% | 72.90% | 141.67 |
+| delayed_unavailable / B3 | random | 0.7202 | 78.10% / 67.44% | 77.20% | 153.33 |
+| delayed_unavailable / B3 | entropy | 0.7180 | 75.24% / 67.43% | 81.00% | 144.00 |
+| delayed_unavailable / B3 | harm | 0.7427 | 75.24% / 67.43% | 69.20% | 146.33 |
+| delayed_unavailable | full_context_reference (unrestricted reference) | 0.7153 | 68.57% / 67.15% | 85.20% | 115.33 |
+| wrong_host_history / B1 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| wrong_host_history / B1 | roles_first | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| wrong_host_history / B1 | history_first | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| wrong_host_history / B1 | random | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| wrong_host_history / B1 | entropy | 0.7139 | 81.90% / 67.52% | 87.95% | 174.00 |
+| wrong_host_history / B1 | harm | 0.7500 | 81.90% / 67.52% | 67.83% | 169.67 |
+| wrong_host_history / B2 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| wrong_host_history / B2 | roles_first | 0.7136 | 85.71% / 67.52% | 88.34% | 179.67 |
+| wrong_host_history / B2 | history_first | 0.5449 | 23.81% / 66.89% | 66.89% | 39.67 |
+| wrong_host_history / B2 | random | 0.6577 | 58.10% / 67.22% | 77.61% | 110.33 |
+| wrong_host_history / B2 | entropy | 0.5687 | 40.00% / 67.20% | 87.46% | 66.00 |
+| wrong_host_history / B2 | harm | 0.6921 | 40.95% / 67.08% | 67.13% | 81.00 |
+| wrong_host_history / B3 | none | 0.7523 | 78.10% / 67.52% | 67.52% | 164.00 |
+| wrong_host_history / B3 | roles_first | 0.6793 | 43.81% / 66.96% | 77.38% | 74.00 |
+| wrong_host_history / B3 | history_first | 0.6793 | 43.81% / 66.96% | 77.38% | 74.00 |
+| wrong_host_history / B3 | random | 0.6793 | 43.81% / 66.96% | 77.38% | 74.00 |
+| wrong_host_history / B3 | entropy | 0.6873 | 40.00% / 67.22% | 77.52% | 73.00 |
+| wrong_host_history / B3 | harm | 0.6763 | 43.81% / 67.01% | 77.37% | 87.00 |
+| wrong_host_history | full_context_reference (unrestricted reference) | 0.6793 | 43.81% / 66.96% | 77.38% | 74.00 |
+
+### A.2.3 PX082
+
+| Condition / view / budget | Arm | Macro-F1 | Exact recall: movement / exfil. | Exfil. warning recall | Benign flags |
+|---|---|---:|---:|---:|---:|
+| current | past_only_anchor | 0.7365 | 25.93% / 67.25% | 67.27% | 24.00 |
+| current | time_mixed_anchor | 0.7997 | 61.11% / 98.72% | 99.28% | 88.67 |
+| current | conventional_random | 0.8093 | 57.84% / 92.15% | 99.74% | 84.00 |
+| current_history | past_only_anchor | 0.7582 | 29.63% / 66.40% | 66.86% | 14.33 |
+| current_history | time_mixed_anchor | 0.7964 | 57.41% / 84.59% | 84.71% | 47.67 |
+| current_history | conventional_random | 0.8507 | 64.71% / 97.48% | 99.72% | 49.33 |
+
+### A.2.4 PX083
+
+### A.2.5 casino
+
+| Condition | Arm | T1105 F1 | Recall | AP / ROC-AUC | Other-label flags |
+|---|---|---:|---:|---:|---:|
+| clean | current | 0.7368 | 82.35% | 0.8674 / 0.9607 | 7.00 |
+| clean | context | 0.5957 | 82.35% | 0.8522 / 0.9762 | 16.00 |
+| clean | fixed_fusion | 0.7179 | 82.35% | 0.8606 / 0.9711 | 8.00 |
+| clean | mixed_dropout | 0.5833 | 82.35% | 0.8438 / 0.9693 | 17.00 |
+| clean | confidence_gate | 0.7179 | 82.35% | 0.8717 / 0.9684 | 8.00 |
+| clean | ordinary_gate | 0.7368 | 82.35% | 0.8672 / 0.9682 | 7.00 |
+| clean | target_cost_gate | 0.5957 | 82.35% | 0.8580 / 0.9667 | 16.00 |
+| random_25 | current | 0.3996 | 86.27% | 0.7923 / 0.9622 | 41.67 |
+| random_25 | context | 0.5271 | 82.35% | 0.8028 / 0.9714 | 22.33 |
+| random_25 | fixed_fusion | 0.4665 | 84.31% | 0.8057 / 0.9678 | 30.33 |
+| random_25 | mixed_dropout | 0.5468 | 82.35% | 0.8109 / 0.9623 | 20.67 |
+| random_25 | confidence_gate | 0.4665 | 84.31% | 0.7988 / 0.9652 | 30.33 |
+| random_25 | ordinary_gate | 0.3996 | 86.27% | 0.8025 / 0.9651 | 41.67 |
+| random_25 | target_cost_gate | 0.5271 | 82.35% | 0.8055 / 0.9647 | 22.33 |
+| random_50 | current | 0.2368 | 88.24% | 0.6548 / 0.9468 | 94.67 |
+| random_50 | context | 0.3274 | 80.39% | 0.7210 / 0.9545 | 53.00 |
+| random_50 | fixed_fusion | 0.2768 | 84.31% | 0.6934 / 0.9511 | 72.33 |
+| random_50 | mixed_dropout | 0.3649 | 78.43% | 0.7728 / 0.9556 | 43.00 |
+| random_50 | confidence_gate | 0.2768 | 84.31% | 0.6700 / 0.9494 | 72.33 |
+| random_50 | ordinary_gate | 0.2368 | 88.24% | 0.7181 / 0.9520 | 94.67 |
+| random_50 | target_cost_gate | 0.3274 | 80.39% | 0.7211 / 0.9512 | 53.00 |
+| random_75 | current | 0.1361 | 72.55% | 0.5075 / 0.8203 | 150.67 |
+| random_75 | context | 0.1946 | 68.63% | 0.5781 / 0.8252 | 91.00 |
+| random_75 | fixed_fusion | 0.1678 | 70.59% | 0.5482 / 0.8238 | 114.33 |
+| random_75 | mixed_dropout | 0.2084 | 62.75% | 0.5962 / 0.8339 | 75.00 |
+| random_75 | confidence_gate | 0.1678 | 70.59% | 0.5257 / 0.8217 | 114.33 |
+| random_75 | ordinary_gate | 0.1361 | 72.55% | 0.5753 / 0.8255 | 150.67 |
+| random_75 | target_cost_gate | 0.1946 | 68.63% | 0.5783 / 0.8256 | 91.00 |
+| support_burst_60 | current | 0.7368 | 82.35% | 0.8674 / 0.9607 | 7.00 |
+| support_burst_60 | context | 0.5769 | 88.24% | 0.8500 / 0.9647 | 20.00 |
+| support_burst_60 | fixed_fusion | 0.6818 | 88.24% | 0.8644 / 0.9650 | 12.00 |
+| support_burst_60 | mixed_dropout | 0.4667 | 82.35% | 0.8161 / 0.9565 | 29.00 |
+| support_burst_60 | confidence_gate | 0.6818 | 88.24% | 0.8581 / 0.9616 | 12.00 |
+| support_burst_60 | ordinary_gate | 0.7368 | 82.35% | 0.8630 / 0.9618 | 7.00 |
+| support_burst_60 | target_cost_gate | 0.5769 | 88.24% | 0.8518 / 0.9591 | 20.00 |
+| command_records_absent | current | 0.2258 | 82.35% | 0.6714 / 0.9414 | 93.00 |
+| command_records_absent | context | 0.3607 | 64.71% | 0.6319 / 0.9479 | 33.00 |
+| command_records_absent | fixed_fusion | 0.4138 | 70.59% | 0.6424 / 0.9510 | 29.00 |
+| command_records_absent | mixed_dropout | 0.2121 | 82.35% | 0.6939 / 0.9415 | 101.00 |
+| command_records_absent | confidence_gate | 0.4138 | 70.59% | 0.6722 / 0.9496 | 29.00 |
+| command_records_absent | ordinary_gate | 0.2258 | 82.35% | 0.6368 / 0.9506 | 93.00 |
+| command_records_absent | target_cost_gate | 0.3607 | 64.71% | 0.6339 / 0.9480 | 33.00 |
+| delay_30_deadline_0 | current | 0.2258 | 82.35% | 0.6714 / 0.9414 | 93.00 |
+| delay_30_deadline_0 | context | 0.3729 | 64.71% | 0.6224 / 0.9505 | 31.00 |
+| delay_30_deadline_0 | fixed_fusion | 0.4364 | 70.59% | 0.6427 / 0.9525 | 26.00 |
+| delay_30_deadline_0 | mixed_dropout | 0.2205 | 82.35% | 0.6919 / 0.9426 | 96.00 |
+| delay_30_deadline_0 | confidence_gate | 0.4364 | 70.59% | 0.6499 / 0.9506 | 26.00 |
+| delay_30_deadline_0 | ordinary_gate | 0.2258 | 82.35% | 0.6369 / 0.9511 | 93.00 |
+| delay_30_deadline_0 | target_cost_gate | 0.3729 | 64.71% | 0.6241 / 0.9492 | 31.00 |
+| delay_30_deadline_30 | current | 0.7368 | 82.35% | 0.8674 / 0.9607 | 7.00 |
+| delay_30_deadline_30 | context | 0.5957 | 82.35% | 0.8522 / 0.9762 | 16.00 |
+| delay_30_deadline_30 | fixed_fusion | 0.7179 | 82.35% | 0.8606 / 0.9711 | 8.00 |
+| delay_30_deadline_30 | mixed_dropout | 0.5833 | 82.35% | 0.8438 / 0.9693 | 17.00 |
+| delay_30_deadline_30 | confidence_gate | 0.7179 | 82.35% | 0.8717 / 0.9684 | 8.00 |
+| delay_30_deadline_30 | ordinary_gate | 0.7368 | 82.35% | 0.8672 / 0.9682 | 7.00 |
+| delay_30_deadline_30 | target_cost_gate | 0.5957 | 82.35% | 0.8580 / 0.9667 | 16.00 |
+| delay_120_deadline_0 | current | 0.2258 | 82.35% | 0.6714 / 0.9414 | 93.00 |
+| delay_120_deadline_0 | context | 0.3607 | 64.71% | 0.6319 / 0.9479 | 33.00 |
+| delay_120_deadline_0 | fixed_fusion | 0.4138 | 70.59% | 0.6424 / 0.9510 | 29.00 |
+| delay_120_deadline_0 | mixed_dropout | 0.2121 | 82.35% | 0.6939 / 0.9415 | 101.00 |
+| delay_120_deadline_0 | confidence_gate | 0.4138 | 70.59% | 0.6722 / 0.9496 | 29.00 |
+| delay_120_deadline_0 | ordinary_gate | 0.2258 | 82.35% | 0.6368 / 0.9506 | 93.00 |
+| delay_120_deadline_0 | target_cost_gate | 0.3607 | 64.71% | 0.6339 / 0.9480 | 33.00 |
+| delay_120_deadline_30 | current | 0.2258 | 82.35% | 0.6714 / 0.9414 | 93.00 |
+| delay_120_deadline_30 | context | 0.3607 | 64.71% | 0.6335 / 0.9495 | 33.00 |
+| delay_120_deadline_30 | fixed_fusion | 0.4138 | 70.59% | 0.6428 / 0.9522 | 29.00 |
+| delay_120_deadline_30 | mixed_dropout | 0.2105 | 82.35% | 0.6958 / 0.9423 | 102.00 |
+| delay_120_deadline_30 | confidence_gate | 0.4138 | 70.59% | 0.6732 / 0.9500 | 29.00 |
+| delay_120_deadline_30 | ordinary_gate | 0.2258 | 82.35% | 0.6368 / 0.9507 | 93.00 |
+| delay_120_deadline_30 | target_cost_gate | 0.3607 | 64.71% | 0.6349 / 0.9484 | 33.00 |
+| delay_120_deadline_120 | current | 0.7368 | 82.35% | 0.8674 / 0.9607 | 7.00 |
+| delay_120_deadline_120 | context | 0.5957 | 82.35% | 0.8522 / 0.9762 | 16.00 |
+| delay_120_deadline_120 | fixed_fusion | 0.7179 | 82.35% | 0.8606 / 0.9711 | 8.00 |
+| delay_120_deadline_120 | mixed_dropout | 0.5833 | 82.35% | 0.8438 / 0.9693 | 17.00 |
+| delay_120_deadline_120 | confidence_gate | 0.7179 | 82.35% | 0.8717 / 0.9684 | 8.00 |
+| delay_120_deadline_120 | ordinary_gate | 0.7368 | 82.35% | 0.8672 / 0.9682 | 7.00 |
+| delay_120_deadline_120 | target_cost_gate | 0.5957 | 82.35% | 0.8580 / 0.9667 | 16.00 |
+| execve_absent | current | 0.3226 | 88.24% | 0.8508 / 0.9724 | 61.00 |
+| execve_absent | context | 0.3704 | 88.24% | 0.8408 / 0.9836 | 49.00 |
+| execve_absent | fixed_fusion | 0.4000 | 88.24% | 0.8556 / 0.9785 | 43.00 |
+| execve_absent | mixed_dropout | 0.5091 | 82.35% | 0.8138 / 0.9653 | 24.00 |
+| execve_absent | confidence_gate | 0.4000 | 88.24% | 0.8526 / 0.9780 | 43.00 |
+| execve_absent | ordinary_gate | 0.3226 | 88.24% | 0.8530 / 0.9774 | 61.00 |
+| execve_absent | target_cost_gate | 0.3704 | 88.24% | 0.8388 / 0.9775 | 49.00 |
+| proctitle_absent | current | 0.7778 | 82.35% | 0.8081 / 0.9476 | 5.00 |
+| proctitle_absent | context | 0.7179 | 82.35% | 0.7788 / 0.9666 | 8.00 |
+| proctitle_absent | fixed_fusion | 0.7778 | 82.35% | 0.7816 / 0.9616 | 5.00 |
+| proctitle_absent | mixed_dropout | 0.3784 | 82.35% | 0.7978 / 0.9542 | 43.00 |
+| proctitle_absent | confidence_gate | 0.7778 | 82.35% | 0.8230 / 0.9597 | 5.00 |
+| proctitle_absent | ordinary_gate | 0.7778 | 82.35% | 0.7840 / 0.9592 | 5.00 |
+| proctitle_absent | target_cost_gate | 0.7179 | 82.35% | 0.7852 / 0.9575 | 8.00 |
+| syscall_absent | current | 0.3636 | 94.12% | 0.8738 / 0.9505 | 55.00 |
+| syscall_absent | context | 0.6522 | 88.24% | 0.8762 / 0.9488 | 14.00 |
+| syscall_absent | fixed_fusion | 0.5263 | 88.24% | 0.8760 / 0.9495 | 25.00 |
+| syscall_absent | mixed_dropout | 0.8000 | 82.35% | 0.8748 / 0.9543 | 4.00 |
+| syscall_absent | confidence_gate | 0.5263 | 88.24% | 0.8695 / 0.9487 | 25.00 |
+| syscall_absent | ordinary_gate | 0.3636 | 94.12% | 0.8701 / 0.9487 | 55.00 |
+| syscall_absent | target_cost_gate | 0.6522 | 88.24% | 0.8765 / 0.9486 | 14.00 |
+| path_absent | current | 0.7692 | 88.24% | 0.8712 / 0.9558 | 7.00 |
+| path_absent | context | 0.5926 | 94.12% | 0.8698 / 0.9761 | 21.00 |
+| path_absent | fixed_fusion | 0.6522 | 88.24% | 0.8665 / 0.9696 | 14.00 |
+| path_absent | mixed_dropout | 0.4918 | 88.24% | 0.8559 / 0.9764 | 29.00 |
+| path_absent | confidence_gate | 0.6522 | 88.24% | 0.8626 / 0.9566 | 14.00 |
+| path_absent | ordinary_gate | 0.7692 | 88.24% | 0.8548 / 0.9563 | 7.00 |
+| path_absent | target_cost_gate | 0.5926 | 94.12% | 0.8685 / 0.9570 | 21.00 |
+
+### A.2.6 camlds
+
+| Condition | Arm | T1105 F1 | Recall | AP / ROC-AUC | Other-label flags |
+|---|---|---:|---:|---:|---:|
+| clean | current | 0.0495 | 87.00% | 0.0238 / 0.5087 | 3329.00 |
+| clean | context | 0.0534 | 88.00% | 0.0277 / 0.5595 | 3108.00 |
+| clean | fixed_fusion | 0.0524 | 88.00% | 0.0249 / 0.5381 | 3171.00 |
+| clean | mixed_dropout | 0.0527 | 85.00% | 0.0276 / 0.5660 | 3038.00 |
+| clean | confidence_gate | 0.0524 | 88.00% | 0.0250 / 0.5348 | 3171.00 |
+| clean | ordinary_gate | 0.0495 | 87.00% | 0.0234 / 0.5070 | 3325.00 |
+| clean | target_cost_gate | 0.0534 | 88.00% | 0.0277 / 0.5593 | 3108.00 |
+| random_25 | current | 0.0454 | 49.33% | 0.0241 / 0.5064 | 2023.33 |
+| random_25 | context | 0.0468 | 61.67% | 0.0290 / 0.5239 | 2474.33 |
+| random_25 | fixed_fusion | 0.0475 | 59.00% | 0.0259 / 0.5159 | 2323.00 |
+| random_25 | mixed_dropout | 0.0515 | 81.00% | 0.0259 / 0.5317 | 2967.33 |
+| random_25 | confidence_gate | 0.0475 | 59.00% | 0.0286 / 0.5209 | 2323.00 |
+| random_25 | ordinary_gate | 0.0455 | 49.33% | 0.0248 / 0.5164 | 2020.00 |
+| random_25 | target_cost_gate | 0.0468 | 61.67% | 0.0290 / 0.5242 | 2474.33 |
+| random_50 | current | 0.0452 | 28.00% | 0.0248 / 0.5101 | 1112.33 |
+| random_50 | context | 0.0469 | 51.00% | 0.0296 / 0.5277 | 2022.67 |
+| random_50 | fixed_fusion | 0.0472 | 45.00% | 0.0300 / 0.5214 | 1760.67 |
+| random_50 | mixed_dropout | 0.0491 | 71.00% | 0.0262 / 0.5279 | 2724.00 |
+| random_50 | confidence_gate | 0.0472 | 45.00% | 0.0293 / 0.5246 | 1760.67 |
+| random_50 | ordinary_gate | 0.0452 | 28.00% | 0.0256 / 0.5175 | 1111.00 |
+| random_50 | target_cost_gate | 0.0469 | 51.00% | 0.0295 / 0.5257 | 2022.67 |
+| random_75 | current | 0.0493 | 15.00% | 0.0250 / 0.5040 | 493.00 |
+| random_75 | context | 0.0446 | 32.33% | 0.0254 / 0.4976 | 1318.33 |
+| random_75 | fixed_fusion | 0.0427 | 24.33% | 0.0249 / 0.4999 | 1013.67 |
+| random_75 | mixed_dropout | 0.0467 | 48.33% | 0.0242 / 0.4964 | 1920.33 |
+| random_75 | confidence_gate | 0.0427 | 24.33% | 0.0253 / 0.4980 | 1013.67 |
+| random_75 | ordinary_gate | 0.0493 | 15.00% | 0.0253 / 0.5053 | 493.00 |
+| random_75 | target_cost_gate | 0.0446 | 32.33% | 0.0254 / 0.4987 | 1318.33 |
+| support_burst_60 | current | 0.0495 | 87.00% | 0.0238 / 0.5087 | 3329.00 |
+| support_burst_60 | context | 0.0490 | 95.00% | 0.0223 / 0.4862 | 3685.00 |
+| support_burst_60 | fixed_fusion | 0.0500 | 92.00% | 0.0224 / 0.4956 | 3491.00 |
+| support_burst_60 | mixed_dropout | 0.0488 | 91.00% | 0.0216 / 0.4811 | 3541.00 |
+| support_burst_60 | confidence_gate | 0.0500 | 92.00% | 0.0224 / 0.4907 | 3491.00 |
+| support_burst_60 | ordinary_gate | 0.0495 | 87.00% | 0.0238 / 0.5079 | 3326.00 |
+| support_burst_60 | target_cost_gate | 0.0490 | 95.00% | 0.0223 / 0.4862 | 3685.00 |
+| command_records_absent | current | 0.0000 | 0.00% | 0.0241 / 0.5046 | 2.00 |
+| command_records_absent | context | 0.0384 | 15.00% | 0.0250 / 0.5338 | 666.00 |
+| command_records_absent | fixed_fusion | 0.0000 | 0.00% | 0.0245 / 0.5254 | 4.00 |
+| command_records_absent | mixed_dropout | 0.0532 | 84.00% | 0.0256 / 0.5444 | 2976.00 |
+| command_records_absent | confidence_gate | 0.0000 | 0.00% | 0.0242 / 0.5293 | 4.00 |
+| command_records_absent | ordinary_gate | 0.0000 | 0.00% | 0.0253 / 0.5378 | 2.00 |
+| command_records_absent | target_cost_gate | 0.0384 | 15.00% | 0.0247 / 0.5305 | 666.00 |
+| delay_30_deadline_0 | current | 0.0000 | 0.00% | 0.0241 / 0.5046 | 2.00 |
+| delay_30_deadline_0 | context | 0.0319 | 4.00% | 0.0249 / 0.5306 | 147.00 |
+| delay_30_deadline_0 | fixed_fusion | 0.0000 | 0.00% | 0.0238 / 0.5191 | 13.00 |
+| delay_30_deadline_0 | mixed_dropout | 0.0518 | 79.00% | 0.0289 / 0.5706 | 2870.00 |
+| delay_30_deadline_0 | confidence_gate | 0.0000 | 0.00% | 0.0244 / 0.5241 | 13.00 |
+| delay_30_deadline_0 | ordinary_gate | 0.0000 | 0.00% | 0.0247 / 0.5269 | 2.00 |
+| delay_30_deadline_0 | target_cost_gate | 0.0319 | 4.00% | 0.0252 / 0.5280 | 147.00 |
+| delay_30_deadline_30 | current | 0.0495 | 87.00% | 0.0238 / 0.5087 | 3329.00 |
+| delay_30_deadline_30 | context | 0.0534 | 88.00% | 0.0277 / 0.5595 | 3108.00 |
+| delay_30_deadline_30 | fixed_fusion | 0.0524 | 88.00% | 0.0249 / 0.5381 | 3171.00 |
+| delay_30_deadline_30 | mixed_dropout | 0.0527 | 85.00% | 0.0276 / 0.5660 | 3038.00 |
+| delay_30_deadline_30 | confidence_gate | 0.0524 | 88.00% | 0.0250 / 0.5348 | 3171.00 |
+| delay_30_deadline_30 | ordinary_gate | 0.0495 | 87.00% | 0.0234 / 0.5070 | 3325.00 |
+| delay_30_deadline_30 | target_cost_gate | 0.0534 | 88.00% | 0.0277 / 0.5593 | 3108.00 |
+| delay_120_deadline_0 | current | 0.0000 | 0.00% | 0.0241 / 0.5046 | 2.00 |
+| delay_120_deadline_0 | context | 0.0384 | 15.00% | 0.0250 / 0.5338 | 666.00 |
+| delay_120_deadline_0 | fixed_fusion | 0.0000 | 0.00% | 0.0245 / 0.5254 | 4.00 |
+| delay_120_deadline_0 | mixed_dropout | 0.0532 | 84.00% | 0.0256 / 0.5444 | 2976.00 |
+| delay_120_deadline_0 | confidence_gate | 0.0000 | 0.00% | 0.0242 / 0.5293 | 4.00 |
+| delay_120_deadline_0 | ordinary_gate | 0.0000 | 0.00% | 0.0253 / 0.5378 | 2.00 |
+| delay_120_deadline_0 | target_cost_gate | 0.0384 | 15.00% | 0.0247 / 0.5305 | 666.00 |
+| delay_120_deadline_30 | current | 0.0000 | 0.00% | 0.0241 / 0.5046 | 2.00 |
+| delay_120_deadline_30 | context | 0.0331 | 8.00% | 0.0247 / 0.5294 | 376.00 |
+| delay_120_deadline_30 | fixed_fusion | 0.0000 | 0.00% | 0.0242 / 0.5211 | 6.00 |
+| delay_120_deadline_30 | mixed_dropout | 0.0529 | 86.00% | 0.0259 / 0.5443 | 3063.00 |
+| delay_120_deadline_30 | confidence_gate | 0.0000 | 0.00% | 0.0244 / 0.5272 | 6.00 |
+| delay_120_deadline_30 | ordinary_gate | 0.0000 | 0.00% | 0.0249 / 0.5315 | 2.00 |
+| delay_120_deadline_30 | target_cost_gate | 0.0331 | 8.00% | 0.0242 / 0.5241 | 376.00 |
+| delay_120_deadline_120 | current | 0.0495 | 87.00% | 0.0238 / 0.5087 | 3329.00 |
+| delay_120_deadline_120 | context | 0.0534 | 88.00% | 0.0277 / 0.5595 | 3108.00 |
+| delay_120_deadline_120 | fixed_fusion | 0.0524 | 88.00% | 0.0249 / 0.5381 | 3171.00 |
+| delay_120_deadline_120 | mixed_dropout | 0.0527 | 85.00% | 0.0276 / 0.5660 | 3038.00 |
+| delay_120_deadline_120 | confidence_gate | 0.0524 | 88.00% | 0.0250 / 0.5348 | 3171.00 |
+| delay_120_deadline_120 | ordinary_gate | 0.0495 | 87.00% | 0.0234 / 0.5070 | 3325.00 |
+| delay_120_deadline_120 | target_cost_gate | 0.0534 | 88.00% | 0.0277 / 0.5593 | 3108.00 |
+| execve_absent | current | 0.0478 | 84.00% | 0.0243 / 0.5096 | 3327.00 |
+| execve_absent | context | 0.0514 | 74.00% | 0.0257 / 0.5388 | 2707.00 |
+| execve_absent | fixed_fusion | 0.0506 | 77.00% | 0.0245 / 0.5227 | 2865.00 |
+| execve_absent | mixed_dropout | 0.0525 | 85.00% | 0.0294 / 0.5795 | 3053.00 |
+| execve_absent | confidence_gate | 0.0506 | 77.00% | 0.0248 / 0.5272 | 2865.00 |
+| execve_absent | ordinary_gate | 0.0479 | 84.00% | 0.0235 / 0.5023 | 3321.00 |
+| execve_absent | target_cost_gate | 0.0514 | 74.00% | 0.0256 / 0.5343 | 2707.00 |
+| proctitle_absent | current | 0.0075 | 1.00% | 0.0237 / 0.5038 | 165.00 |
+| proctitle_absent | context | 0.0406 | 22.00% | 0.0243 / 0.5299 | 962.00 |
+| proctitle_absent | fixed_fusion | 0.0000 | 0.00% | 0.0243 / 0.5294 | 27.00 |
+| proctitle_absent | mixed_dropout | 0.0515 | 85.00% | 0.0255 / 0.5381 | 3116.00 |
+| proctitle_absent | confidence_gate | 0.0000 | 0.00% | 0.0252 / 0.5366 | 27.00 |
+| proctitle_absent | ordinary_gate | 0.0075 | 1.00% | 0.0245 / 0.5282 | 165.00 |
+| proctitle_absent | target_cost_gate | 0.0406 | 22.00% | 0.0243 / 0.5308 | 962.00 |
+| syscall_absent | current | 0.0404 | 9.00% | 0.0251 / 0.5275 | 336.00 |
+| syscall_absent | context | 0.0445 | 53.00% | 0.0276 / 0.5144 | 2230.00 |
+| syscall_absent | fixed_fusion | 0.0457 | 52.00% | 0.0247 / 0.5172 | 2122.00 |
+| syscall_absent | mixed_dropout | 0.0510 | 85.00% | 0.0246 / 0.5189 | 3151.00 |
+| syscall_absent | confidence_gate | 0.0457 | 52.00% | 0.0279 / 0.5247 | 2122.00 |
+| syscall_absent | ordinary_gate | 0.0404 | 9.00% | 0.0249 / 0.5224 | 336.00 |
+| syscall_absent | target_cost_gate | 0.0445 | 53.00% | 0.0277 / 0.5179 | 2230.00 |
+| path_absent | current | 0.0494 | 96.00% | 0.0275 / 0.5628 | 3692.00 |
+| path_absent | context | 0.0506 | 94.00% | 0.0293 / 0.5723 | 3525.00 |
+| path_absent | fixed_fusion | 0.0494 | 94.00% | 0.0306 / 0.5783 | 3610.00 |
+| path_absent | mixed_dropout | 0.0499 | 76.00% | 0.0276 / 0.5488 | 2868.00 |
+| path_absent | confidence_gate | 0.0494 | 94.00% | 0.0288 / 0.5666 | 3610.00 |
+| path_absent | ordinary_gate | 0.0495 | 96.00% | 0.0277 / 0.5661 | 3684.00 |
+| path_absent | target_cost_gate | 0.0506 | 94.00% | 0.0293 / 0.5724 | 3525.00 |
+
+
+## A.3 Stage Metrics and Source-Record Access
+
+The complete supplement retains the per-class precision, recall, F1, ROC-AUC and average precision fields reported by each source, with confusion matrices and subgroup records. Blank normalized CSV fields represent metrics not supplied by the original experiment; they are not zeros or reconstructed ranking scores. Every group mean printed above is backed by its component evaluation records. The source JSON preserves additional nested fields and original null values.
+
+Readers should compare only compatible populations, targets and operating decisions. Primary stage comparisons and secondary T1105 policy views have different units and denominators. The saved tables provide the full inventory without converting related views into independent empirical replications.
+
+
+# Appendix B: Reproducibility, Provenance and Evidence Access
+
+
+## B.1 Experimental Parameters and Source Provenance
+
+| Study | Boosting iterations / leaves | Fitting seeds | Key fixed choices |
+|---|---|---|---|
+| History selection | 180 / 15 | 20260924-20260926 | 4 forward folds; target weights 1/1/4/4 for weighted selector |
+| Evidence acquisition | 150 / 15 | 8101-8103 | 2 optional groups; costs 1/2; budgets 1/2/3; deadline 1 |
+| Temporal comparison | 200 / 15 | 20260923-20260925 | Same anchor and class budgets; earlier/mixed/random arms |
+| Paired reanalysis | No fits | Bootstrap 20260923 | 2,000 whole-capture draws shared across fitting seeds |
+
+All main fitted models use LightGBM with fixed settings; no model family is selected after seeing the evaluation scores. The reanalysis fits zero models. D1's prospective Random Forest control belongs to unexecuted qualified-source comparisons and is not listed as an observed result.
+
+| Artifact | Before-execution commit | Evidence |
+|---|---|---|
+| History-selection protocol/source | 06c5037 | Original model audit |
+| Acquisition and temporal protocol/source | 2da1a1c | Original model audits |
+| D1 support diagnostic | ea9956c | Native-class necessary interval |
+| Independent source-count verifier | e6b5799 | Direct timestamp-block sweep |
+| Retrospective paired reanalysis | c0d884e | Saved-prediction comparison; exploratory |
+
+The prepared UNRAVELED SHA-256 is `b2a491474e722f4dabcd4c419c83a4a6b49f08dfc3bc059aa42ef2aaa4c3de14`. Exact prediction hashes, source versions, and code bindings are in the linked receipts. The main recorded numerical environment is NumPy 2.2.6, LightGBM 4.6.0, and scikit-learn 1.7.2; current reanalysis and document build versions are recorded separately.
+
+
+## B.2 Claim Traceability
+
+| Claim | Measured support | Evidence location |
+|---|---|---|
+| Temporal score sensitivity | +0.0632 macro-F1; +35.19 pp movement recall | [Temporal report](../px082_temporal_audit/REPORT.md) |
+| Metric/warning tradeoff | Clean budget 3: +0.0231 macro-F1; -8.93 pp warning recall | [Paired report](../measurement_praxis/evidence/paired_reanalysis/REPORT.md) |
+| Chronological history gains | Macro-F1 .7365 to .7582; alerts 24.0 to 14.3 | [Original means](../px082_temporal_audit/SUMMARY.json) |
+| Native-class cutoff limitation | DAPT lower bound exceeds upper bound | [Independent verification](../measurement_praxis/evidence/qualification_audit/VERIFICATION.json) |
+| Source qualification | SCVIC uncertainty; DSRL dependency; S-DAPT unavailable | [Qualification report](../d1_benchmark_audit/DATASET_QUALIFICATION.md) |
+| Literature differentiation | Existing metrics; controlled measurement contribution | [Literature audit](../measurement_praxis/LITERATURE_AND_CLAIMS.md) |
+
+The machine-readable result tables preserve all reported fitting seeds, budgets, conditions, stages, and bootstrap support counts. The paper's compact tables summarize these records. Zero-change and unfavorable results remain available. The [evidence index](../measurement_praxis/EVIDENCE_INDEX.md) maps each artifact to the calculation it supports and distinguishes public aggregates from private row-level inputs.
+
+
+## B.3 Public Reproduction and Access Limits
+
+The original evidence archive was extracted into a new directory and its public arithmetic verifier was run with Python 3.11.9 and NumPy 2.2.6 in a fresh virtual environment. All 36 paired comparisons and 720 reported metric intervals were reproduced from 66 public aggregate tables and the 2,000-draw resampling plan. All 206 original manifest hashes matched. Python file-open auditing recorded no access outside the allowed extracted files, new output/runtime directories and base Python runtime. This is a fresh local-runtime check, not an operating-system sandbox, another laboratory's replication or a refit from raw traces.
+
+The initial package check exposed one missing relative link: the original README linked to the archive itself, which was not inside that archive. Adding the byte-identical downloaded archive at the linked location allowed the unchanged package verifier to pass all 74 local links. No original extracted member changed. Both the initial failure and repaired pass are retained in the [clean-extraction report](../submission_readiness/clean_room/REPORT.md). The complete review bundle includes the original archive alongside its extracted contents, so the original verification commands work after extraction.
+
+These checks verify aggregate arithmetic and artifact bindings. They cannot independently reconstruct row identities, validate attack labels, establish successful exfiltration or reproduce private-source model fitting. The original access and inference limits remain applicable.
+
+
+## B.4 Document and Reference Provenance
+
+The five-chapter organization, title-page author information and What/Why/How GMR convention follow the author's original GWU GML praxis. The current GWU online-program 2026 template and official formatting requirements were also inspected. The reference record identifies the source files and hashes. The original document's certification and dates are historical text; they are not carried forward as approval of this study.
+
+The reference review is targeted and uses primary sources, author manuscripts and publisher metadata where available. Some final publisher full texts were inaccessible; the cited version and access limits are recorded in the literature audit. Bibliographic entries identify inspected preprints separately from final publications. The dataset papers establish provenance, while the local source inspections establish what the acquired artifacts support.
+
+AI assistance was used for code development, computational checks, literature searches and summaries, experiment planning, manuscript drafting and editing, document assembly and layout review. This disclosure includes substantive drafting and analysis assistance, not only spelling correction. The author must review the calculations, citations and wording and confirm the permitted scope with the adviser before submission. No AI-detector score or institutional permission is asserted. Computational agreement and same-team review do not substitute for the author's responsibility to inspect the research, for independent label validation or for adviser and institutional review. No external peer review or institutional approval is represented as completed.
+
+
+# Appendix C: Original GWU GML GMR Reference
+
+
+The following image is the exact Graphical Model of Research extracted from the author's earlier manuscript, *Advanced Persistent Threat Event Detection Using Graph Machine Learning* (Pagan, 2026). It is reproduced as a historical formatting and research-structure reference. Its graph models, Optuna tuning, AWS acquisition and evaluation statements describe that earlier document and are not the methods or results of this praxis. The adapted current-study GMR appears in Chapter 3.
+
+![Historical Graphical Model of Research from the original GWU GML praxis. Reproduced unchanged from the author-provided reference; it is not the current study's methodology. The full-resolution image is included with the supplement.](../gwu_final_20260928/figures/gmr_original_reference.png)
+
+The new study retains the original convention of answering What, Why and How for each research stage. It replaces the old graph-training sequence with source qualification, matched evaluation, implemented comparison models, error-destination accounting, sensitivity analysis and verified reporting. This preserves the explanatory purpose of a GMR while keeping the current methodology faithful to the completed evidence.
+
+
+# Appendix D: Full-Release Evidence and Reproduction
+
+This appendix reports the new uncapped extension separately from Appendix A's historical experiment inventory. The fixed class order is Benign, OtherAttackStage, MovementAuthorLabel and ExfiltrationAuthorLabel. All counts below are after duplicate handling and temporal-boundary exclusions.
+
+## D.1 net1011x
+
+**Table D. net1011x class support by split.**
+
+|Split|Benign|Other|Movement|Exfiltration|
+|---|---|---|---|---|
+|train|1466865|0|0|0|
+|calibration|5527|0|0|0|
+|test|320359|0|0|0|
+
+**current test results.** Benign false-alert rate: 0.00%.
+
+**Table D. net1011x current test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|320359|100.00%|Unsupported|N/A|
+|Other|0|Unsupported|Unsupported|0|
+|Movement|0|Unsupported|Unsupported|0|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+**current roles test results.** Benign false-alert rate: 0.00%.
+
+**Table D. net1011x current roles test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|320359|100.00%|Unsupported|N/A|
+|Other|0|Unsupported|Unsupported|0|
+|Movement|0|Unsupported|Unsupported|0|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+## D.2 net1012x
+
+**Table D. net1012x class support by split.**
+
+|Split|Benign|Other|Movement|Exfiltration|
+|---|---|---|---|---|
+|train|597531|0|0|0|
+|calibration|5132|0|0|0|
+|test|131664|0|0|0|
+
+**current test results.** Benign false-alert rate: 0.00%.
+
+**Table D. net1012x current test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|131664|100.00%|Unsupported|N/A|
+|Other|0|Unsupported|Unsupported|0|
+|Movement|0|Unsupported|Unsupported|0|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+**current roles test results.** Benign false-alert rate: 0.00%.
+
+**Table D. net1012x current roles test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|131664|100.00%|Unsupported|N/A|
+|Other|0|Unsupported|Unsupported|0|
+|Movement|0|Unsupported|Unsupported|0|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+## D.3 net1013x
+
+**Table D. net1013x class support by split.**
+
+|Split|Benign|Other|Movement|Exfiltration|
+|---|---|---|---|---|
+|train|837124|12362|129|1740|
+|calibration|5966|1811|0|906|
+|test|195152|13270|35|3866|
+
+**current test results.** Benign false-alert rate: 0.01%.
+
+**Table D. net1013x current test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|195152|99.99%|Unsupported|N/A|
+|Other|13270|97.23%|99.63%|49|
+|Movement|35|20.00%|20.00%|28|
+|Exfiltration|3866|71.00%|71.03%|1120|
+
+**current roles test results.** Benign false-alert rate: 0.01%.
+
+**Table D. net1013x current roles test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|195152|99.99%|Unsupported|N/A|
+|Other|13270|97.22%|99.63%|49|
+|Movement|35|20.00%|20.00%|28|
+|Exfiltration|3866|71.03%|71.06%|1119|
+
+## D.4 net1014x
+
+**Table D. net1014x class support by split.**
+
+|Split|Benign|Other|Movement|Exfiltration|
+|---|---|---|---|---|
+|train|163270|0|0|0|
+|calibration|2960|6|0|0|
+|test|41193|2942|0|0|
+
+**current test results.** Benign false-alert rate: 0.00%.
+
+**Table D. net1014x current test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|41193|100.00%|Unsupported|N/A|
+|Other|2942|0.00%|0.00%|2942|
+|Movement|0|Unsupported|Unsupported|0|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+**current roles test results.** Benign false-alert rate: 0.00%.
+
+**Table D. net1014x current roles test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|41193|100.00%|Unsupported|N/A|
+|Other|2942|0.00%|0.00%|2942|
+|Movement|0|Unsupported|Unsupported|0|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+## D.5 net1015x
+
+**Table D. net1015x class support by split.**
+
+|Split|Benign|Other|Movement|Exfiltration|
+|---|---|---|---|---|
+|train|144089|0|129|0|
+|calibration|2790|0|0|0|
+|test|27619|0|24|1003|
+
+**current test results.** Benign false-alert rate: 0.04%.
+
+**Table D. net1015x current test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|27619|99.96%|Unsupported|N/A|
+|Other|0|Unsupported|Unsupported|0|
+|Movement|24|29.17%|29.17%|17|
+|Exfiltration|1003|0.00%|0.00%|1003|
+
+**current roles test results.** Benign false-alert rate: 0.05%.
+
+**Table D. net1015x current roles test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|27619|99.95%|Unsupported|N/A|
+|Other|0|Unsupported|Unsupported|0|
+|Movement|24|29.17%|29.17%|17|
+|Exfiltration|1003|0.00%|0.00%|1003|
+
+## D.6 netgw
+
+**Table D. netgw class support by split.**
+
+|Split|Benign|Other|Movement|Exfiltration|
+|---|---|---|---|---|
+|train|2116400|710|13333|6|
+|calibration|8954|4461|886|0|
+|test|707291|26712|12906|0|
+
+**current test results.** Benign false-alert rate: 0.30%.
+
+**Table D. netgw current test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|707291|99.70%|Unsupported|N/A|
+|Other|26712|4.78%|4.80%|25429|
+|Movement|12906|99.94%|99.94%|8|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+**current roles test results.** Benign false-alert rate: 0.30%.
+
+**Table D. netgw current roles test outcomes.**
+
+|Author-stage group|Support|Exact recall|Warning recall|Missed warnings|
+|---|---|---|---|---|
+|Benign|707291|99.70%|Unsupported|N/A|
+|Other|26712|4.78%|4.80%|25430|
+|Movement|12906|99.94%|99.94%|8|
+|Exfiltration|0|Unsupported|Unsupported|0|
+
+## D.7 Artifact Layout and Execution
+
+The evidence package contains FULL_RELEASE_PROTOCOL.json, FULL_RELEASE_RESULTS.json, FULL_RELEASE_AUDIT.json, per-sensor PREPARATION.json and RESULTS.json, full_release.py, audit_full_release.py, the revised manuscript source and figure assets, and the original evidence archive. The local reproducibility bundle additionally contains saved models and every new calibration/test probability vector, target and row key. The source inventory records the original released flow-file hashes and acquisition provenance. Raw flow CSVs remain in the pinned local source directory and are not duplicated into the manuscript bundle.
+
+Run full_release.py with Python, NumPy, scikit-learn, LightGBM and joblib using the recorded environment. The script's ROOT and PRIVATE paths locate public outputs and local prepared arrays. It requires the inventory at the recorded path and the matching raw source directory. Run audit_full_release.py after fitting to recompute count-based metrics independently from saved predictions. Dependencies and environment versions are captured in the final manifest. Repointing paths for another machine does not change the frozen analytical choices; verify source hashes before fitting.
+
+The original 143-fit inventory and the extension's 12 fitting jobs are kept separate. A one-class LightGBM fitting job is identified as such and supplies a constant-class control; it is not counted as a successfully learned multiclass detector. The evidence is computationally reviewable and remains subject to source-label, campaign-dependence and institutional-review limitations.
+
+
+# Appendix E: Complete AIT Validation and Reproduction
+
+## E.1 Population, contract and audit
+
+This appendix preserves the separate AIT experiment described in Sections 3.12 and 4.11. All eight archives are included in the reproduction package, with publisher MD5 verification, local SHA256 hashes, ZIP CRC checks and CC BY 4.0 attribution. Every eligible row enters its assigned final partition. Class support is shown below; the complete source accounting is in Table 3-10. Seeds share these same populations.
+
+**Table E-1. AIT eligible class support by execution.**
+
+|Execution|Use|Benign|Other attack|Exfiltration|
+|---|---|---|---|---|
+|santos|Train|269,751|5,937|12,848|
+|fox|Train|280,729|56,505|14,668|
+|wardbeck|Train|370,045|5,099|15,076|
+|russellmitchell|Train|206,674|155,250|15,778|
+|shaw|Train|389,343|2,357|60,898|
+|wheeler|Train|423,630|93,393|19,177|
+|wilson|Test|568,013|40,321|21,219|
+|harrison|Test|337,306|76,895|23,457|
+
+## E.2 Seed 8101: Every Policy and Execution
+
+**Table E-2. Complete AIT outcomes for seed 8101.** Rows within each execution are paired across policies. Pooled rows combine Wilson and Harrison for the same seed.
+
+|Execution / policy|Macro-F1|Warnings|Missed exfil|Benign alerts|Acquire|
+|---|---|---|---|---|---|
+|wilson / Current|0.993388|99.967%|7|64|0.000%|
+|wilson / Always history|0.994904|99.962%|8|53|100.000%|
+|wilson / Entropy|0.994813|99.962%|8|84|67.647%|
+|wilson / Error-focused|0.993765|99.967%|7|48|0.059%|
+|harrison / Current|0.913033|99.437%|132|13746|0.000%|
+|harrison / Always history|0.993611|99.599%|94|686|100.000%|
+|harrison / Entropy|0.993542|99.599%|94|715|60.727%|
+|harrison / Error-focused|0.913152|99.442%|131|13744|1.454%|
+|pooled / Current|0.947968|99.689%|139|13810|0.000%|
+|pooled / Always history|0.994715|99.772%|102|739|100.000%|
+|pooled / Entropy|0.994640|99.772%|102|799|64.809%|
+|pooled / Error-focused|0.948175|99.691%|138|13792|0.631%|
+
+## E.3 Seed 8102: Every Policy and Execution
+
+**Table E-3. Complete AIT outcomes for seed 8102.** Rows within each execution are paired across policies. Pooled rows combine Wilson and Harrison for the same seed.
+
+|Execution / policy|Macro-F1|Warnings|Missed exfil|Benign alerts|Acquire|
+|---|---|---|---|---|---|
+|wilson / Current|0.993433|100.000%|0|45|0.000%|
+|wilson / Always history|0.994895|99.986%|3|52|100.000%|
+|wilson / Entropy|0.994772|99.986%|3|83|84.861%|
+|wilson / Error-focused|0.993790|100.000%|0|47|3.195%|
+|harrison / Current|0.907972|99.442%|131|14815|0.000%|
+|harrison / Always history|0.989431|99.582%|98|1255|100.000%|
+|harrison / Entropy|0.989368|99.582%|98|1282|77.170%|
+|harrison / Error-focused|0.908027|99.531%|110|14866|7.457%|
+|pooled / Current|0.944796|99.707%|131|14860|0.000%|
+|pooled / Always history|0.992528|99.774%|101|1307|100.000%|
+|pooled / Entropy|0.992445|99.774%|101|1365|81.707%|
+|pooled / Error-focused|0.944940|99.754%|110|14913|4.943%|
+
+## E.4 Seed 8103: Every Policy and Execution
+
+**Table E-4. Complete AIT outcomes for seed 8103.** Rows within each execution are paired across policies. Pooled rows combine Wilson and Harrison for the same seed.
+
+|Execution / policy|Macro-F1|Warnings|Missed exfil|Benign alerts|Acquire|
+|---|---|---|---|---|---|
+|wilson / Current|0.993449|100.000%|0|58|0.000%|
+|wilson / Always history|0.994918|99.962%|8|53|100.000%|
+|wilson / Entropy|0.994817|99.962%|8|80|78.991%|
+|wilson / Error-focused|0.993479|100.000%|0|48|0.033%|
+|harrison / Current|0.908889|99.424%|135|14618|0.000%|
+|harrison / Always history|0.993993|99.595%|95|642|100.000%|
+|harrison / Entropy|0.993902|99.595%|95|670|73.368%|
+|harrison / Error-focused|0.909205|99.497%|118|14577|4.282%|
+|pooled / Current|0.945386|99.698%|135|14676|0.000%|
+|pooled / Always history|0.994915|99.769%|103|695|100.000%|
+|pooled / Entropy|0.994824|99.769%|103|750|76.685%|
+|pooled / Error-focused|0.945585|99.736%|118|14625|1.775%|
+
+## E.5 Reproduction Materials
+
+Campaign_Validation_Full_Evidence.zip contains the full eight-archive release, eight prepared arrays, 36 classifier objects, six selector objects, all development out-of-fold predictions and every held-out probability/action array. Reports include ACQUISITION.json, QUALIFICATION.json, PREPARATION.json, PROTOCOL.md, FREEZE.json, FIT_LOG.json, RESULTS.json, RESULTS.csv, SUMMARY.json, AUDIT.json, ARTIFACTS.json, NATIVE_LABEL_DIAGNOSTIC.json and SELECTOR_DIAGNOSTIC.json. The latter diagnostic is descriptive after fitting and does not alter the frozen policies. Code and pinned compute dependencies are included. The computational audit passes 1,245 checks.
+
+The local data root is C:/w/campaign_validation_20260928. Run acquire_qualify.py, validate.py prepare, validate.py run, and audit.py with the recorded environment. Repoint documented absolute paths when moving machines and record the path amendment. The complete output bundle accompanies the integrated paper and defense. Historical and full-release UNRAVELED evidence retain their own source bindings and experimental contracts; their metrics are not pooled with this different task.
+
+
+# Appendix F: Follow-up Repair Studies and Evidence
+
+## F.1 Experiment map
+
+**Table F-1. Follow-up studies included in this revision.** Each folder preserves its protocol, source hashes, outputs and validation scope.
+
+| Experiment | Question | Main finding | Evidence folder |
+|---|---|---|---|
+| PX-092 | Does OR preserve warnings across seeds and AIT? | Preserves member warnings; required improvement in both AIT executions fails | or_gate_20260930 |
+| PX-093 | Do different model types add useful coverage? | Additional flow warnings; combined benefit/workload criteria fail | heterogeneous_gate_20260930 |
+| PX-094 | Do extra flows mean additional episodes? | No extra episode coverage from full OR; more grouped cases | soc_workload_20261001 |
+| PX-095 | What are the twelve wholly missed proxies? | Twelve singleton flows from one endpoint pair; no positive training support in shared stratum | missed_episode_20261001 |
+| PX-096 | Does a TCP/22 policy cover those misses? | Original OR plus rule warns on 18/18 proxies; adds 510 benign flows and 460 cases | ssh_policy_20261001 |
+| PX-097 | Does the unchanged rule help AIT? | No extra exfiltration coverage; labeled exfiltration uses UDP/53 | ssh_transfer_20261001 |
+
+Folders are under experiments/praxis_next in the project repository. The public reports contain aggregate results; private row-linked arrays are identified by local paths and hashes. Source access remains necessary for full recomputation.
+
+## F.2 Validation scope
+
+PX-092 and PX-093 preserve their independent audit reports and original success criteria. PX-094 passes 15,496 independent checks across 72 case cells, 216 episode-result rows and 648 queue scenarios. PX-095 passes 376 post-run checks of episode reconstruction, member predictions, training support, input matches and source details. All 3,442 UNRAVELED exfiltration test rows are traced to their native source records.
+
+PX-096 verifies all 208,094 test rows and all 32 Boolean combinations of model warning, protocol match, port match, scope and approval. PX-097 checks source identities, labels, times and endpoints, independently recovers native ports, and verifies the unchanged policy output and grouped-case counts. Their validation receipts do not claim an independent end-to-end audit. Computational agreement does not establish incident truth or deployment effectiveness.
+
+## F.3 Reproduction and claim boundaries
+
+Run each recorded runner with its existing frozen sources in a fresh output location. Do not overwrite prior results, refit on inspected test records or relabel failed criteria as successful. The dated revision changes the paper's explanation and adds completed evidence; it does not change experimental predictions.
+
+PX-093's LITERATURE_AND_CLAIMS.md records classifier-combination and error-diversity precedents. PX-096's FINDINGS.md records official network-filtering guidance and its retrieval limitations. These checks prevent claiming novelty for OR combination or a TCP/22 restriction. The recommendation is to assess warning preservation, coverage and workload together under an independently specified policy.
+
+# Appendix G: Plain-Language Guide and New Evidence
+
+## G.1 The Experiment in Everyday Terms
+
+1. Start with recorded network exchanges. The dataset authors label each record as benign or an attack stage. Those labels are the study's reference answers; they do not prove that a file was stolen.
+2. Separate earlier fitting records from later testing records. Check that the requested classes and timestamps actually exist. A missing class cannot be evaluated by inventing examples.
+3. Fit related LightGBM models with current-flow information and selected context. A tree model learns a series of feature-based decisions. A fitting seed changes aspects of training randomness; it does not create a new attack campaign.
+4. Let each evidence policy choose which extra information to request under the same stated conditions. Save what it requested, what arrived in time, and the final model probabilities.
+5. Compare policies on exactly the same test records. Count correct stage names, any attack warning, and false alerts on benign records. Inspect where each changed prediction goes.
+6. Test possible repairs with saved predictions. OR keeps any member's warning. A policy rule can add a warning for a specified prohibited condition. Count their additional warnings and their limits.
+7. Group flows using declared time and endpoint rules to check whether extra flow warnings cover additional activity. Report these as episode and case proxies.
+8. Replay recorded decisions and check the calculations. Retain zero improvements and failed criteria. This produces a review record that another researcher can inspect.
+
+## G.2 What Was Delivered
+
+The research product is a model-review procedure, executable analysis, saved results and this manuscript. The procedure answers four practical questions: Did warnings disappear? Where did the software discard them? Could an existing member retain them? What additional review cases would the repair create?
+
+The tested OR rule is simple: warn if at least one member warns. It cannot add knowledge that none of its members contains. The TCP/22 example is a separate policy warning chosen after inspecting misses. It is not proof that SSH traffic is always exfiltration or that a model learned a new attack behavior.
+
+An explanation of a software decision can be checked without claiming a causal explanation of an attack. For example, a trace can show that evidence arrived after a deadline. It cannot, by itself, establish the attacker's intent. A review bot can check the trace's arithmetic but cannot establish that people will understand it faster.
+
+## G.3 Evidence Map for the October 4 Review Edition
+
+| Claim or check | Repository folder | Key records |
+|---|---|---|
+| Visual feasibility pilots | vlm_gate_20261002; vlm_stages_20261002 | PROTOCOL.md, RESULTS.json, raw replies |
+| Recorded decisions and feature stability | explanation_trials_20261003 | PX100_RESULTS.json, PX101_RESULTS.json, audit.py |
+| Ranking under case limits | warning_budget_20261003 | RESULTS.json, AUDIT.json, PROTOCOL.md |
+| Deterministic reviewer test | bot_review_20261003 | FINDINGS.md, AUDIT.json |
+| Trace versus trace-plus-replay | diagnosis_novelty_20261003 | RESULTS.json, AUDIT.json |
+| Warning changes versus stage regression | warning_transitions_20261004 | RESULTS.json, RESULTS.csv, AUDIT.json, FREEZE.json |
+| Full-text prior-work comparison | literature_review_20261004 | Comparison report; SOURCES.json |
+
+All paths are relative to experiments/praxis_next in the project repository. Protocols distinguish frozen calculations from exposed test data. New audit checks in this revision do not convert historical exploratory results into preregistered discoveries.
+
+## G.4 Review Status and AI Assistance
+
+This manuscript is for author and committee review. Its structure follows the supplied GWU examples. Their findings, personal details and approvals are not adopted.
+
+AI assistance supported planning, code, calculations, literature summaries, drafting and editing. The author must verify the work and confirm permission and disclosure requirements before submission. No writing-detector result, unaided authorship or institutional approval is claimed.
