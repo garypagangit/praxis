@@ -1,0 +1,69 @@
+PX-107A: Explanation-guided evidence acquisition - development feasibility
+October 4, 2026
+
+DECISION
+The AIT setup cannot test recovery of previously missed exfiltration episodes.
+Stop promotion to a larger run. This is a data/task qualification outcome, not
+evidence that explanation-guided acquisition is ineffective on suitable data.
+
+WHAT WAS ACTUALLY DONE
+Prepared frozen inputs for the three existing LightGBM seeds, forward-fold
+explanation generation, five matched learned selectors and three simple ranking
+baselines. Verified a local TreeSHAP probe against saved predictions. Committed
+the pilot protocol and runtime before launch. Started one watchdog-protected AWS
+worker. The worker completed the first seed's five selector fits and Wilson
+evaluation, then was cancelled before a complete comparison was produced.
+Partial selector output is not presented as a completed efficacy result.
+
+The decisive ceiling audit was completed after launch. It should have preceded
+training. It independently reconstructs source/destination/5-minute cases and
+checks frozen input hashes, episode coverage and acquisition headroom. All 47
+checks pass on 1,067,211 distinct evaluation rows, reused across three seeds.
+
+RESULTS: WHAT PERFECT RETRIEVAL COULD RECOVER IN THIS SETUP
+Execution   Seed   Missed exfil flows   Exfil flows in       Episodes recovered
+                                      unwarned cases      by all eligible history
+Wilson      8101           7                 0                     0
+Wilson      8102           0                 0                     0
+Wilson      8103           0                 0                     0
+Harrison    8101         132                 0                     0
+Harrison    8102         131                 0                     0
+Harrison    8103         135                 0                     0
+
+Each execution has one exfiltration episode proxy under the frozen definition,
+and every baseline seed warns within it. Every five-minute case containing an
+exfiltration-labeled flow also already has a warning. The missed flows therefore
+belong to already-warned cases. Investigating only unwarned cases has zero exfil
+recovery opportunity here, regardless of the ranking method.
+
+WHY THIS MATTERS
+More packet/flow warnings do not automatically mean finding another data-theft
+incident. Calling five-minute windows independent episodes would manufacture the
+appearance of additional evidence. We retain the original unit and report the
+ceiling instead. No new XAI superiority or novelty claim is supported.
+
+FRESH-DATA STATUS
+Korving sample: transfer direction does not establish outward exfiltration.
+CIC 2021 official source: documented outward transfers, registration required;
+registration details requested from the user, no personal information submitted.
+CIC feature-only mirror: inspected header lacks time/capture/episode identifiers.
+CIC 2024 derivative: not independent of its 2021 source captures.
+AIT and UNRAVELED: previously exposed; useful development sources, not fresh tests.
+
+NEXT GATE
+Obtain and qualify official raw DNS-exfiltration captures. Verify timestamps,
+transfer direction, episode boundaries, duplicate captures and benign traffic.
+Before any new training, measure whether current telemetry misses whole episodes
+and whether additional permitted evidence can recover them. If there is no such
+headroom, do not rerun the XAI selector on that source.
+The CIC source's existing uncertainty-triggered history method is a required
+baseline, alongside AFA-SHAP, EDFA, and a capacity-matched ordinary-feature selector.
+Any custom controlled collection would need matched benign transfers, independently
+recorded outbound runs and a reserved test split. It would establish lab findings
+only. It is not a substitute for claiming real-world APT efficacy.
+
+REPRODUCE
+Run headroom_audit.py using the frozen private input bundle and the existing
+PX-094 metadata. HEADROOM_AUDIT.json and HEADROOM_RESULTS.csv contain exact counts.
+PROTOCOL.txt and FREEZE.json preserve the original pilot decision rules.
+COMPUTE_SUMMARY.json records the final worker state and bounded cost estimate.
