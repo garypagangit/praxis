@@ -1,0 +1,35 @@
+Download recheck: 4 October 2026
+
+Four new distinct CSV archives are now present and ZIP integrity-checked:
+Attacks (3).zip: light attack features, 42,683 stateless rows across six files.
+Attacks (4).zip: heavy attack features, 251,670 stateless rows across six files.
+Benign (5).zip: light-day benign features, 60,091 stateless rows.
+Benign (6).zip: heavy-day benign features, 181,694 stateless rows across three files.
+
+Each stateless file includes timestamp, entropy, FQDN_count, subdomain_length,
+len, and other fields. These are publisher-computed features, not reconstructed
+full query names or proof of full-payload availability. Archive/member hashes,
+columns and row counts are recorded in CIC_NEW_CSV_INVENTORY.json.
+
+This changes the feature-availability assessment: timestamped DNS features are
+now available for validation, even though many cannot be regenerated from the
+truncated PCAPs. Do not treat the former PCAP-only feature blocker as applying
+automatically to these newly supplied CSVs. Before combining with host-volume
+features, establish packet identity, timestamp alignment and ambiguity rates.
+Do not join stateful CSVs by row number; their exclusion remains in force.
+No feature accuracy, packet membership or row-level attack labels are established
+by merely finding the files. No new models were fitted.
+
+The new PCAP archives are byte-identical copies of previously audited captures:
+Attacks (5).zip = original light attack PCAP archive.
+Attacks (6).zip = original heavy attack PCAP archive.
+Benign (9).zip = light benign PCAP archive.
+Benign (10).zip = heavy benign PCAP archive.
+Benign (11).zip = original benign PCAP archive.
+Benign (7).zip and Benign (8).zip duplicate the original benign CSV archive.
+
+No per-transfer receiver logs, completion records or matching source/receiver
+file hashes were found in these CIC archives. The successful-episode qualification
+gate therefore remains unpassed; headroom remains not evaluable under that claim.
+The new CSVs may enable an observational feature-based pilot after label and
+alignment checks. They do not by themselves enable PX-109's valid-transfer claim.
