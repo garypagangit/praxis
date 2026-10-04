@@ -1,0 +1,56 @@
+IDEA 4: NARRATIVE CONSISTENCY GATE -- PRIOR ART AND PILOT LIMITS
+Reviewed 2026-10-04. Research review; no experiment was run by this reviewer.
+
+VERDICT
+Do not claim that narrating SHAP, checking feature identity/sign/rank, or rejecting unsupported narrative claims is new. Close precedents already implement those pieces. Adding an established binomial confidence bound is an assurance procedure, not a new theorem. A narrow comparative contribution could be an independently audited release procedure that measures the tradeoff between unrestricted prose and constrained reason-code rendering at matched coverage and cost. Novelty remains unestablished until that comparison adds evidence beyond the papers below.
+
+CLOSEST VERIFIED PRIMARY SOURCES
+1. Ichmoukhamedov, Hinns, and Martens. How good is my story? Towards quantitative metrics for evaluating LLM-generated XAI narratives. arXiv:2412.10220, first posted December 2024.
+https://arxiv.org/abs/2412.10220
+https://arxiv.org/html/2412.10220v1
+Already generates narratives from top SHAP features and extracts feature identities, ranks, signs, and values using an LLM. Downstream comparisons flag narrative errors. Includes German Credit, FIFA, and Student Performance; tests manipulated and human-written narratives. Consequently, German Credit plus a sign/rank checker is a replication, not a new substantive contribution. Their paper expressly distinguishes consistency with SHAP from the correctness of SHAP itself. Code: https://github.com/ADMAntwerp/SHAPnarrative-metrics
+
+2. Kim, Mun, Lee, Cho, and Ok. Towards Faithful Agentic XAI: A Verification Method and an Open-World Benchmark for Better Model Faithfulness. arXiv:2605.27879, May 2026 preprint.
+https://arxiv.org/abs/2605.27879
+https://arxiv.org/html/2605.27879v1
+FAX decomposes explanation drafts into claims, checks them with tools, and filters unsupported/contradictory material before producing the final explanation. Evaluates open-world policies and tabular benchmarks against TalkToModel and other baselines. Its analysis warns that familiar binary tabular tasks can reward domain knowledge rather than explanation of the actual fitted model. This directly overlaps the proposed verification-wrapper architecture. A cheap deterministic implementation differs technically from its agentic verification but is not the first narrative gate.
+
+3. Kim, Cho, Park, and Kim. Reasoning Externalization for Faithful Large Language Model Narratives of Stock Return Predictions. arXiv:2609.38869, September 30, 2026 preprint.
+https://arxiv.org/abs/2609.38869
+https://arxiv.org/html/2609.38869v1
+Produces SHAP-based financial narratives with evidence identifiers and deterministic numerical/relational descriptors. Checks structured subject-predicate-value claims against an evidence registry. Critically, section 4.1.2 states that this verifies structured fields, not the complete semantics of unrestricted narrative text; narrative-level evaluation is separate. This is a very close new precedent for deterministic evidence checking. Our study must explicitly test whether prose can contradict an otherwise valid structured sidecar.
+
+4. Slack et al. Explaining machine learning models with interactive natural language conversations using TalkToModel. Nature Machine Intelligence (2023).
+https://www.nature.com/articles/s42256-023-00692-8
+Natural-language interface maps questions to an executable explanation grammar and composes responses. Established precedent for separating model explanations/tool execution from conversational language. Deterministic template rendering is a required strong comparator, not an invention.
+
+5. Awasthi, Vediya, Miranka, Battula, and Nanda. HiFi-XAI: A Fidelity-Aware, LLM-Powered Framework for Trustworthy Intrusion Detection. Author institutional full text (2026 copyright; do not infer venue date from copyright alone).
+https://opus.lib.uts.edu.au/bitstream/10453/195167/3/HiFi-XAI%20A%20Fidelity-Aware%2C%20LLM-Powered%20Framework%20for%20Trustworthy%20Intrusion%20Detection%20.pdf
+Conditional Value Attribution Explanation accounts for feature dependence, followed by a fine-tuned LLM narrative component. Uses CICIDS2017/CICIOT2023. Related cyber attribution-to-language pipeline; neither generic narrative XAI nor conditional attribution is available as our novelty claim.
+
+DATASET RECOMMENDATION AND QUALIFICATION
+Use corrected South German Credit for an inexpensive engineering pilot:
+https://archive.ics.uci.edu/dataset/522/south+german+credit
+UCI documents 1,000 actual credit records from 1973-1975, 20 predictors, 700 good/300 bad credits, no missing values, and deliberate oversampling of bad credits. It corrects severe coding errors in the original Statlog documentation. Predictor amount is monotonically transformed and its real units cannot be reconstructed; do not narrate it as actual currency. Combined personal-status/sex cannot recover sex, so no inferred sex subgroup or fairness claims. Same underlying records as Statlog: not independent external replication. These are historical repayment outcomes, not records of adverse automated decisions, explanation requests, deployment costs, or regulatory determinations. A threshold produces simulated model decisions only. No timestamps supporting a genuine retraining-over-time experiment are released. A 1,000-row dataset may leave fewer than 300 independent accepted held-out explanations after training/calibration/rejection; multiple paraphrases of the same row do not create independent people.
+
+WHAT TO BUILD
+A. Deterministic reason-code renderer: compute reference attributions, select approved feature IDs, sort by absolute magnitude with explicit tie tolerance, describe signed contributions to a named output relative to a named background. This is the fidelity-by-construction baseline.
+B. Unrestricted LLM narrative, frozen prompt, with direct independent evaluation of the prose.
+C. Narrative plus structured sidecar and exact checker. Deliberately measure cases where the sidecar passes while prose is unsupported. A valid JSON object does not certify a paragraph.
+D. Constrained generation: LLM chooses only allowed reason IDs and approved sentence patterns; schema and semantic fields checked; deterministic renderer makes the final text. This can support a scoped formal guarantee about the accepted language. It cannot claim unrestricted semantic verification.
+E. Independent extraction/verification baseline patterned on Ichmoukhamedov et al.; report extractor errors separately and do not treat the same generator as ground truth.
+
+REFERENCE MUST BE FROZEN
+Fix model hash, preprocessing, output class and scale, SHAP method/background, original-feature aggregation after one-hot encoding, tie handling, zero tolerance, top-k rule, wording, parser/version, and regeneration limit. SHAP sign is a contribution relative to a reference, not the sign of a raw feature and not a guarantee that changing that feature changes the outcome. Top-k truncation omits remaining contributions; record the residual. Do not call raw-margin values probability-point contributions.
+
+METRICS AND HONEST STOP
+Measure natural ungated error prevalence first. Mutation fixtures validate software but cannot estimate naturally occurring error rate or demonstrate LLM benefit. Primary endpoints: accepted explanations with any independently confirmed contradiction; acceptance/coverage; false rejection; omitted required reason; unsupported causal/counterfactual claim; retry rate; latency and measured computation cost. Compare methods at matched coverage or report a coverage-risk curve with thresholds selected only on calibration. Report no human-cost savings or comprehension benefit without measured human tasks. Stop efficacy claims if ungated natural errors leave negligible headroom or if constrained rendering offers no useful improvement over the deterministic template. Negative gate-performance findings remain reportable.
+
+SAMPLING CLAIM
+For a frozen policy, independent sampled cases, accurate error labels, and zero failures, the one-sided 95% binomial upper limit is 1 - 0.05^(1/n), about 0.9936% at n=300. That bounds the specified failure probability in the sampled population; it does not prove zero error or legal compliance. The denominator for accepted-output risk is accepted independent cases. A batch of hand-injected errors is not the operational population. Account for clustering and selection, and adjust simultaneous claims or reserve an independent confirmatory sample. NIST exact-binomial reference:
+https://itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbici.htm
+Learn then Test (Angelopoulos et al.) is established risk-control methodology, requires valid hypotheses/calibration and multiplicity handling, and may certify no candidate:
+https://arxiv.org/abs/2110.01052
+
+POTENTIAL NARROW DELTA
+An independent comparison of whether deterministic reason-code rendering reduces undetected contradictions at a fixed explanation-coverage target, including a test for valid-sidecar/invalid-prose disagreement and an explicitly scoped finite-sample audit bound. This is a candidate applied assurance contribution, not yet a demonstrated novel XAI algorithm, causal explanation, Article 86 compliance mechanism, or SOC benefit.

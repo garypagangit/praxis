@@ -1,0 +1,56 @@
+ASSURANCE PROPOSALS: PRIOR ART AND DATA QUALIFICATION
+Research date: 2026-10-04. Literature assessment, not an empirical result or legal opinion.
+
+BOTTOM-LINE ASSESSMENT
+The attached ideas contain feasible engineering experiments but overstate novelty and certification. Sampling, lazy computation, SHAP parity, explanation shift monitoring, and explanation stability under retraining all have precedents. The defensible candidate is a narrowly evaluated release or disclosure procedure, with uncertainty and costs stated against strong alternatives. No literature search establishes that nobody has combined these elements.
+
+1. ARTICLE 86 AND THE COST/SAMPLING PROPOSAL
+Primary legal source: Regulation (EU) 2024/1689, Article 86:
+https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?qid=1725233228416&uri=OJ%3AL_202401689
+Scope includes decisions based on Annex III high-risk systems, excluding Annex III point 2, with legal or similarly significant adverse effects of the specified kind. The required explanation concerns the system's role and principal decision elements. Paragraphs 2-3 contain legal exceptions and interaction with other Union law. This is narrower than every AI prediction and broader than SHAP feature agreement. A technical SHAP gate is not proof of legal compliance, intelligibility, fairness, or completeness.
+
+Lazy generation can reduce computation but does not always save total cost. Per eligible decision, the simplified saving is (1-p)*c_generation - c_storage - c_reconstruction_overhead, before readiness, latency, review, and audit costs. It is positive only when the first term exceeds the others. Measure wall time and peak storage; simulate request rates explicitly rather than report simulated requests as actual demand. A hashed input alone cannot reconstruct an explanation: retain authorized reconstructable inputs, preprocessing/model artifacts, background distribution, explainer version, and policy state. A deterministic template is an essential cheap comparator to an LLM.
+
+The exact one-sided 95% binomial upper failure bound after zero failures in n independent Bernoulli audits is 1 - .05**(1/n). For n=300 it is 0.00993608194445772; n=299 is the minimum integer giving a bound below 1%. This calculation was checked locally. The rule of three is an approximation, not a novel theorem. The assertion applies to the predefined failure criterion and sampling population under the independence/stationarity assumptions. It does not certify each decision, each subgroup, future drift, or legal compliance. Repeating prompts on the same decision does not create independent population evidence. An audit of accepted explanations bounds accepted-output risk only if sampling that population; also report rejection/coverage.
+
+Learn then Test is established: Angelopoulos, Bates, Candes, Jordan, and Lei (2025), Annals of Applied Statistics 19(2), 1641-1662, DOI 10.1214/24-AOAS1998; preprint https://arxiv.org/abs/2110.01052 . It uses valid hypothesis tests and multiplicity control to select risk-controlling settings from calibration data. It does not guarantee that a nontrivial setting passes at every observed failure count. Keep trained models and test design independent of calibration, define bounded loss, account for multiple settings, and do not claim iid guarantees for dependent time windows without an appropriate extension. Binomial confidence bounds plus a preregistered policy may be sufficient for this pilot; call it LTT only if actually implemented.
+
+2. SYNTHETIC TWIN AND EXEMPLAR
+Local source inspected: C:/w/praxis_format_review_20261004/Okhankhuele_gwu_0075A_17704.txt.
+Section 3.10/printed p.72 explicitly says F1 later-temporal backtest and F2 prevalence stress were optional and not executed. Section 5.7/printed pp.119-120 lists federated extension, dynamic thresholds, multi-level feature/counterfactual explanations, LLM categorical embeddings, graph hybrids, and cross-border/currency evaluation. Thus the attached description of these omissions is supported. It is the exemplar's limitation, not proof of a field-wide research gap.
+
+Global SHAP rank correlation around .96 does not imply an individual synthetic row has the same explanation as a particular real decision. A useful counterexample can be tested: similar aggregate importance with large local sign/top-k disagreements. Test real record explanations directly with record-disjoint test data; do not assign arbitrary synthetic-record matches. Synthetic parity also gives no privacy guarantee and does not remove privacy review. NIST explicitly distinguishes ordinary synthetic generation from differentially private synthetic data:
+https://www.nist.gov/blogs/cybersecurity-insights/differentially-private-synthetic-data
+If no formal privacy mechanism is implemented, say privacy unestablished. A synthetic global illustration may be supplementary documentation; it is not necessarily an explanation of the affected person's actual decision.
+
+3. TEMPORAL/RETRAINING EXPLANATION GATES: CLOSE PRECEDENTS
+Meyer, Ley, Srinivas, and Lakkaraju (2023). On Minimizing the Impact of Dataset Shifts on Actionable Explanations. UAI, PMLR 216:1434-1444.
+https://proceedings.mlr.press/v216/meyer23a.html
+This paper explicitly studies explanation stability when models are retrained under distribution shifts, with theory and real-data experiments. Consequently, the attached statement that nobody has tested stability across retraining is untenable. Its focus on actionable/counterfactual explanations differs from SHAP release review, but it is compulsory prior art.
+
+Mougan et al. Explanation Shift: How Did the Distribution Shift Impact the Model?
+https://arxiv.org/abs/2303.08081
+https://arxiv.org/html/2303.08081v2
+Already monitors explanation distributions and compares with input/output distribution monitors. A classifier two-sample test on explanation vectors is a necessary strong baseline for an explanation drift proposal. Detecting distribution shift alone is not evidence of harmful model degradation; pure target relationship change can evade unlabeled monitors.
+
+Explainable Artificial Intelligence-Based Model Drift Detection Applicable to Unsupervised Environments (2023), Computers, Materials and Continua 76(2), 1701-1719.
+https://doi.org/10.32604/cmc.2023.040235
+Uses SHAP and a drift suspicion metric for model management. This reinforces that monitoring explanations for drift is established, including security framing.
+
+Possible narrow delta: compare a fixed explanation release gate with cost/performance-only release gates and explanation-shift monitoring at a matched release-rejection budget, measuring harmful releases accepted on untouched later data. Test whether changes on identical anchor records identify harmful changes missed by aggregate metrics. Do not equate stability with correctness: useful adaptations can change explanations, and unchanged wrong models can pass.
+
+4. REAL DATA THAT CAN SUPPORT THESE QUESTIONS
+Preferred credit prototype: corrected South German Credit, UCI 522.
+https://archive.ics.uci.edu/dataset/522/south+german+credit
+DOI 10.24432/C5X89F. Contains 1,000 historical actual credit cases, with 700 good and 300 bad outcomes, from 1973-1975; bad credits are oversampled. CC BY 4.0. UCI explicitly documents severe coding-information problems in the original Statlog German Credit and offers this corrected version. Use corrected semantics, preserve categorical mappings, and label this a historical benchmark. No per-record chronology was established here. It supports explanation consistency, not natural temporal drift or modern underwriting validation. Small holdout adverse counts may prevent a below-1% conditional risk claim; calculate actual eligible n rather than manufacture independence by generating extra narratives.
+
+Real temporal prototype: Electricity/ELEC2, OpenML dataset 151 version 1.
+https://www.openml.org/api/v1/json/data/151
+https://openml.org/data/v1/download/2419/electricity.arff
+Metadata fetched and inspected: 45,312 half-hour observations from NSW electricity market, 7 May 1996 through 5 December 1998, normalized date/period and market features, UP/DOWN target against a previous-24-hour price average. Creator credits Harries, Gama, Bifet; marked public. Expected ARFF MD5 8ca97867d960ae029ae3a9ac2c923d34. Source points to Harries 1999 and Gama et al. 2004. Full data not downloaded or empirically validated by this subtask.
+Use contiguous periods, retain ordering, fit any new preprocessing only on prior data, and compare against persistence/lagged-label baseline when available. Do not interpret global historical normalization as prospectively fitted preprocessing. For genuine forecasting, exclude contemporaneous target-defining price or explicitly define a contemporaneous classification task. Temporal correlation invalidates row-iid confidence claims; use day/week blocks, later held-out periods, and modest scope. Electricity supports natural chronology, not an Article 86 credit claim or APT finding.
+
+CONCRETE PILOT RECOMMENDATION
+A. Real corrected credit: benchmark eager explanation, lazy explanation, and deterministic template replay under fixed request-rate scenarios; test exact replay and measured compute cost. Publish as feasibility unless a further new mechanism survives prior-art comparison.
+B. Real Electricity: fixed train/calibration/future partitions, several predefined rolling retraining candidates, common anchor explanations, drift/performance gates, untouched future error cost. Freeze harmful-release definition and matched rejection budget first. Report detection and false rejection plus block uncertainty; no independent-release claim for heavily overlapping windows.
+C. Synthetic-twin parity can be a small diagnostic showing limitations, not an automatic compliance/privacy product. No superiority or privacy result is established by this report.
