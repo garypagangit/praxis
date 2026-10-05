@@ -1,0 +1,31 @@
+PX-117 public source qualification — 5 October 2026
+
+Both archives were downloaded and their publisher MD5 checksums matched.
+Human: https://zenodo.org/records/6670113 (412,445 bytes)
+Agent: https://zenodo.org/records/20818246 (157,739,317 bytes)
+Local location: C:/w/aivh_review_20261005/public_data
+
+The human archive contains 267 useractions.json files with 21,411 JSON records,
+21,392 of which have a cmd field. These are not automatically 267 independent
+people or complete attack sessions. The bundled README claims 275 trainees and
+21,762 records; this discrepancy requires reconciliation. Seven exercise
+families are present. The logs include timestamp, command type and host fields.
+
+The agent archive contains 16,199 session JSON files, nine model identifiers,
+five environments and six prompt groups. The public description says about
+16,200 sessions. With the supplied parser, 2,747 sessions yield no commands.
+Inspection shows real turns with two fields (model response and shell output),
+where the parser requires a third raw/parsed-command field. These must not be
+silently dropped as empty sessions. A model response is not automatically an
+authoritative executed-command record; the repair must distinguish these.
+
+This is progress on actual data access, not a classifier result. A direct
+human-KYPO / AI-Honey pooled accuracy score would mix source, task, recorder,
+date and operator effects. Primary confirmation requires comparable tasks and
+equivalent recording, with independently established human versus autonomous
+AI labels. AI-assisted-human detection is not part of the primary objective.
+
+Next: resolve archive/schema discrepancies, recover reproducible task materials,
+and establish a matched evaluation. Do not spend AWS credits on a misleading
+source-classification score. PUBLIC_DATA_QUALIFICATION.json records counts and
+hashes; the supplied code and earlier smoke results remain unchanged.

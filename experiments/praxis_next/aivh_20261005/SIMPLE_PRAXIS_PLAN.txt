@@ -1,0 +1,155 @@
+PX-117 — Distinguishing Autonomous AI Attacks from Human-Operated Attacks
+Working research design, 5 October 2026. Not a completed preregistration.
+
+THE IDEA IN ONE SENTENCE
+Give people and AI systems the same authorized intrusion tasks, record what
+they do in the same way, and test whether their command sequences reveal
+which sessions were operated autonomously by AI rather than by a human.
+
+PROBLEM STATEMENT
+Security teams can observe attack activity without knowing whether a human,
+or an autonomous AI agent is directing it. Without a tested
+way to distinguish these operating modes, teams cannot reliably use an
+"autonomous AI attack" label to support investigation or response planning.
+
+PURPOSE
+Build and evaluate a simple classifier of autonomous AI versus human operation
+from recorded attack behavior. Measure how often it identifies AI sessions and how often
+it wrongly labels human-only activity. Analyst benefit remains a proposed use;
+this study does not measure response-time savings or financial loss prevented.
+
+CLAIM BOUNDARY
+The target is mode of operation, not the identity, sponsor or intent of an APT
+group. Controlled multi-stage intrusions support an APT-style emulation claim.
+Identifying AI use in confirmed real-world APT campaigns requires independent
+campaign labels that we do not currently have. Ordinary shell activity alone
+does not establish that an APT exists or that a transfer succeeded.
+
+TWO PRIMARY CONDITIONS, WITH A SCRIPTED CONTROL
+H: Human-only. An operator performs the tasks without generative AI.
+A: Autonomous agent. After an initial task assignment, an AI agent chooses
+   and executes all attack steps without human guidance, command selection,
+   corrective hints or intervention during the run. Predetermined infrastructure
+   and logging do not count as human operation. Intervened runs are separately
+   labeled and cannot silently count as fully autonomous.
+S: Conventional automation without AI. Scripted runs test whether the detector
+   merely recognizes automation. Report separately; do not relabel S as human.
+The primary binary target is H versus A. AI-assisted human sessions are outside
+the primary study. They may be a later, separately labeled boundary test if
+feasible; they are not required for the current experiment.
+Ground truth comes from the collection condition and run audit, never from
+typing speed, a honeypot trap, or the classifier's own prediction.
+
+SIMPLE DESIGN
+1. Use an isolated, reproducible cyber range with the same task variants and
+   server-side recorder for all conditions. A short multi-stage task includes
+   discovery, movement between designated lab hosts, collection of dummy files
+   and transfer to a designated lab receiver. Use only authorized lab resources.
+2. Log submitted commands, their order, timestamps and terminal results in one
+   common format. Keep operator/model IDs and AI-assistant records in a separate
+   label table unavailable to the classifier. Verify dummy transfer completion
+   with receiver records if making any claim about successful transfer.
+3. Primary observation: the first ten submitted commands, or the entire session
+   if it ends sooner. Count short and unsuccessful runs. Do not select only
+   successful attacks. Compare length-only and timing-only baselines explicitly.
+4. Train a simple command n-gram classifier and a small tree model using command
+   structure and sequence features. Include a Trace-style TF-IDF linear model.
+   Use only features observed equivalently in both classes; no model text,
+   source names, file paths identifying datasets, or one-sided edit counters.
+5. Choose settings and the decision threshold on development/calibration only.
+   Test on reserved people, task variants and agent families. Separate all runs
+   from a participant into one split; prevent near-duplicate task leakage.
+   Assign human sessions by participant before constructing held-family folds.
+   For environment holdouts, hold out the environment in BOTH classes.
+6. Repeat with timing removed. Report uncertainty by independent participant
+   and task/run blocks, not by pretending every command is an independent case.
+
+THREE RESEARCH QUESTIONS AND PROPOSED HYPOTHESES
+These operating targets are design proposals. Freeze them and an adequately
+powered sample-size plan before any confirmatory outcome is examined.
+
+RQ1: Can command behavior distinguish autonomous AI attacks from human attacks?
+H1: At the fixed threshold, detect >=80% of A sessions, with <=5% false AI
+    labels on H. Report both rates and their intervals.
+
+RQ2: Does detection work on an AI model family not used for training?
+H2: At the same threshold, each prespecified held-family condition retains
+    >=70% detection, with <=5% false AI labels on the held-out human comparison.
+
+RQ3: Does the detector identify behavior beyond speed?
+H3: With timing removed, detection drops by no more than 10 percentage points
+    for autonomous AI at the same human false-alert ceiling. Calibrate the
+    timing-free model separately on development data, never on the test set.
+
+MAIN RESULTS TABLE
+Rows: timing-only; length-only; command n-grams; sequence-feature tree model.
+Columns: autonomous-AI recall; human false-positive
+rate; scripted-automation false-positive rate; AUROC; independent sample
+counts; interval estimates. Include unseen-family and timing-free panels.
+AUROC is secondary: a good average score cannot replace the required false-
+alert operating point. Inconclusive intervals are not a confirmed positive.
+
+WHAT SUCCESS WOULD MEAN
+In the evaluated range and held-out conditions, the method distinguishes
+autonomous AI attacks from human attacks at a stated false-alert rate.
+It would not establish detection of every AI-enabled APT, hybrid human/AI
+operation, or real-world campaign. The title and conclusions retain this scope.
+
+WHAT IS OPTIONAL
+No new LLM training, SHAP narrative system, deterministic wrapper or conformal
+gate is needed for the primary experiment. A later abstention option may be
+useful, but it must not be used to disguise poor classification or claim an
+unsupported accepted-error guarantee.
+
+DATA PLAN THAT STARTS WITH AVAILABLE RECORDS
+Human development source: KYPO shell-command training logs, Zenodo 6670113.
+Agent development source: Honey for the Agent, Zenodo 20818246.
+These provide real recorded behaviors for source/feature qualification.
+Their tasks, recording systems and populations differ. A pooled classifier
+would confound operator mode with dataset source, so its accuracy cannot be
+the primary result. Human records require provenance checks; unlabeled wild
+honeypot activity is not assumed to be human.
+Prefer reproducing a documented public training scenario for matched agent
+runs if its environment/tasks can be recovered. Qualify that reconstruction
+before adopting it. Otherwise collect all modes in the same small range.
+New participant collection requires the institution's applicable determination;
+do not invent participants or treat bot-generated traces as human data.
+
+LITERATURE THAT SUPPORTS THE STUDY
+Trace (Ediga & Chattopadhyay, 2026): passive terminal sequences already support
+model-family attribution. It supplies a close baseline and prevents a claim
+that passive fingerprinting itself is new.
+https://arxiv.org/abs/2605.01186
+
+LLM Agent Honeypot (Reworr & Volkov, 2024): shows an earlier detection approach
+using honeypot interventions and timing. It motivates passive comparison but
+does not provide independent human labels for our new evaluation.
+https://arxiv.org/abs/2410.13919
+
+Dataset of shell commands used by participants of hands-on cybersecurity
+training (2021): a published basis for studying real human command behavior.
+https://doi.org/10.1016/j.dib.2021.107398
+Updated public data: https://zenodo.org/records/6670113
+
+Honey for the Agent (Maddaloni, Safargalieva & Vasilomanolakis, 2026): a recorded
+agent source for development and parser qualification.
+https://zenodo.org/records/20818246
+
+Measuring AI Agents' Progress on Multi-Step Cyber Attack Scenarios (2026):
+supports the multi-stage setting and documents autonomous attack capability. Its
+stated human completion times are estimates, not a measured matched human
+baseline; do not present them as our ground truth.
+https://arxiv.org/abs/2603.11214
+
+POTENTIAL CONTRIBUTION TO VERIFY
+A matched, independently labeled test of autonomous-AI versus human attack
+detection, including unfamiliar model families and ordinary scripted
+automation. This is the proposed empirical contribution. A full comparison
+with the nearest work is still required before claiming novelty.
+
+CURRENT STATUS
+Package smoke testing completed; source and method limitations documented.
+Both public archives downloaded and checksum-verified. The supplied agent
+parser skips two-field turns; archive parsing needs a documented schema repair.
+Matched efficacy and genuine
+APT-campaign attribution have not been demonstrated. No new AWS expense yet.
