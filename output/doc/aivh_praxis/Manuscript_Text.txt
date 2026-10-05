@@ -1,315 +1,1059 @@
-Distinguishing Autonomous AI from Human Cyberattack Operators Using Explainable Command Behavior
-
-
+--- PDF PAGE 1 ---
+Distinguishing Autonomous AI from Human Cyberattack Operators Using Explainable 
+Command Behavior
 Gary Pagan
-
 The George Washington University
 School of Engineering and Applied Science
 Doctor of Engineering
-
 Working Praxis Manuscript
 5 October 2026
-
-
 Proposal and completed development evidence
 Prepared for author and committee review
 
 
-
+--- PDF PAGE 2 ---
+ii
 Abstract of Praxis
+Distinguishing Autonomous AI from Human Cyberattack Operators Using Explainable 
+Command Behavior
+Security teams may want to know whether observed attack activity is being 
+directed by a human operator or an autonomous AI agent. A classifier can appear 
+accurate while relying on differences between the datasets used to represent those classes. 
+Such a classifier may make unreliable attributions when the task or environment changes. 
+This Praxis investigates whether observable command behavior can support attribution 
+across those changes while limiting false AI labels on human activity.
+The research uses public human command records from GAMBiT and KYPO, 
+autonomous-agent logs from Honey for the Agent, and a qualified external probe from 
+Rouxii. Completed development work compares simple linear classifiers, removes 
+argument information, and checks exact feature contributions. The follow-up adds a 
+TRACE-style baseline, frequency and sequence representations, order shuffling, and four 
+held-out AI-family probes. Thresholds are selected on calibration records. The primary 
+operating targets are at least 80% AI recall and at most 5% mean human-group false-
+positive rate. Existing test records have been examined, so this work is developmental 
+rather than confirmatory.
+A fresh matched collection remains necessary. The contribution under 
+investigation is an explainable test of attribution across environments. General APT 
+attribution and analyst benefit have not been established.
 
-Distinguishing Autonomous AI from Human Cyberattack Operators Using Explainable Command Behavior
 
-Security teams may want to know whether observed attack activity is being directed by a human operator or an autonomous AI agent. A classifier can appear accurate while relying on differences between the datasets used to represent those classes. Such a classifier may make unreliable attributions when the task or environment changes. This Praxis investigates whether observable command behavior can support attribution across those changes while limiting false AI labels on human activity.
-
-The research uses public human command records from GAMBiT and KYPO, autonomous-agent logs from Honey for the Agent, and a qualified external probe from Rouxii. Completed development work compares simple linear classifiers, removes argument information, and checks exact feature contributions. The follow-up adds a TRACE-style baseline, frequency and sequence representations, order shuffling, and four held-out AI-family probes. Thresholds are selected on calibration records. The primary operating targets are at least 80% AI recall and at most 5% mean human-group false-positive rate. Existing test records have been examined, so this work is developmental rather than confirmatory.
-
-A fresh matched collection remains necessary. The contribution under investigation is an explainable test of attribution across environments. General APT attribution and analyst benefit have not been established.
-
-
-
+--- PDF PAGE 3 ---
+iii
 Manuscript Status and Research Transparency
-
-This is a new working Praxis built from the command-attribution experiments. It does not replace or rewrite the previously completed paper, When Better APT Scores Hide Missed Attack Warnings. Chapters 1 through 3 state the proposed research case. Chapter 4 reports completed development evidence. Chapter 5 states the conclusions currently justified and the work needed for a stronger defense.
-
-The manuscript follows the GW page layout and the chapter structure observed in the supplied Date and Okhankhuele Praxis examples. It uses 12-point Times New Roman, double-spaced body text, 1.25-inch side margins, one-inch top and bottom margins, Roman front matter and Arabic chapter pagination. Final degree, committee, approval and submission pages are deliberately absent from this review edition; no approval or degree award is represented.
-
-AI tools helped research sources, implement code, analyze saved results and draft this manuscript. The author must verify the evidence, revise the writing in their own scholarly voice, and apply the program's disclosure requirements. No outcome from an AI-writing detector is promised. Research quality is assessed through traceable sources, reproducible analysis and bounded claims.
-
-
-
-@@TOC@@
-
-
-
-@@FIGURES@@
-
-
-
-@@TABLES@@
+This is a new working Praxis built from the command-attribution experiments. It 
+does not replace or rewrite the previously completed paper, When Better APT Scores 
+Hide Missed Attack Warnings. Chapters 1 through 3 state the proposed research case. 
+Chapter 4 reports completed development evidence. Chapter 5 states the conclusions 
+currently justified and the work needed for a stronger defense.
+The manuscript follows the GW page layout and the chapter structure observed in 
+the supplied Date and Okhankhuele Praxis examples. It uses 12-point Times New 
+Roman, double-spaced body text, 1.25-inch side margins, one-inch top and bottom 
+margins, Roman front matter and Arabic chapter pagination. Final degree, committee, 
+approval and submission pages are deliberately absent from this review edition; no 
+approval or degree award is represented.
+AI tools helped research sources, implement code, analyze saved results and draft 
+this manuscript. The author must verify the evidence, revise the writing in their own 
+scholarly voice, and apply the program's disclosure requirements. No outcome from an 
+AI-writing detector is promised. Research quality is assessed through traceable sources, 
+reproducible analysis and bounded claims.
 
 
+--- PDF PAGE 4 ---
+iv
+Table of Contents
+Abstract of Praxis................................................................................................................ii
+Manuscript Status and Research Transparency..................................................................iii
+List of Acronyms and Terms............................................................................................viii
+Chapter 1: Introduction........................................................................................................1
+1.1 Background and motivation......................................................................................1
+1.2 Problem statement.....................................................................................................1
+1.3 Purpose and proposed thesis.....................................................................................2
+1.4 Practical impact.........................................................................................................2
+1.5 Research questions and hypotheses..........................................................................3
+1.6 Scope and limitations................................................................................................3
+1.7 Objectives and organization......................................................................................4
+Chapter 2: Literature Review...............................................................................................5
+2.1 Closest technical precedent.......................................................................................5
+2.2 Command behavior and environmental influence....................................................5
+2.3 Active detection and source qualification.................................................................5
+2.4 Human command evidence.......................................................................................6
+2.5 Explainability and the proposed gap.........................................................................6
+Chapter 3: Research Methodology.......................................................................................8
+3.1 Study design in simple terms....................................................................................8
+3.2 Data qualification and observation unit....................................................................9
+3.2.1 Dataset evaluation................................................................................................10
+3.2.2 Observation point and practical meaning.............................................................11
+3.3 Models and controlled comparisons........................................................................12
+3.4 Thresholds, metrics and uncertainty.......................................................................12
+3.5 Explanation and perturbation tests..........................................................................13
+3.6 Independent-source probe.......................................................................................14
+3.7 Matched collection and feasibility..........................................................................14
+3.8 Reproducibility and stopping rules.........................................................................15
 
+
+--- PDF PAGE 5 ---
+v
+3.9 Graphical methodology representation (GMR)......................................................16
+3.10 Additional development test: PX-119...................................................................16
+Chapter 4: Completed Development Results.....................................................................17
+4.1 Preliminary PX-117C evidence...............................................................................17
+4.2 PX-118 paired model comparison...........................................................................17
+4.3 Argument removal and score explanations.............................................................19
+4.4 External-source eligibility and outcomes................................................................20
+4.5 What remains untested............................................................................................20
+4.6 Argument-count dependence: PX-119....................................................................21
+4.7 Hypothesis status and practical interpretation.........................................................22
+Chapter 5: Discussion and Conclusions.............................................................................23
+5.1 Interpretation...........................................................................................................23
+5.2 Engineering product and proposed contribution.....................................................23
+5.3 Decisions for the next phase...................................................................................24
+5.4 Conclusion...............................................................................................................24
+5.5 Work remaining before a defense claim.................................................................25
+References..........................................................................................................................26
+Appendix A: Evidence and Reproduction.........................................................................27
+Appendix B: Committee Review Checklist.......................................................................28
+Appendix C: Package Guide and Research Disclosure.....................................................29
+
+
+--- PDF PAGE 6 ---
+vi
+List of Figures
+Figure 1. Current development data and required matched evaluation...............................8
+Figure 2. GMR: what is tested, why it matters and how it is evaluated............................16
+Figure 3. Argument-count intervention and retrained controls.........................................21
+
+
+--- PDF PAGE 7 ---
+vii
+List of Tables
+Table 1. Research alignment................................................................................................3
+Table 2. Prior work and the candidate contribution.............................................................7
+Table 3. What each dataset can support.............................................................................10
+Table 4. Command representation example (constructed illustration)..............................10
+Table 5. Actual normalized excerpts from development records......................................11
+Table 6. PX-118 model comparisons.................................................................................12
+Table 7. PX-117C main operating points..........................................................................17
+Table 8. PX-118 main development results.......................................................................17
+Table 9. AI recall under held-out families.........................................................................18
+Table 10. Frozen-model argument-removal stress test......................................................19
+Table 11. Rouxii qualification...........................................................................................20
+Table 12. Independent-source probes................................................................................20
+Table 13. Argument-count diagnostic on the same development test...............................21
+Table 14. Status of proposed confirmatory hypotheses.....................................................22
+Table 15. Remaining work and completion evidence........................................................25
+
+
+--- PDF PAGE 8 ---
+viii
 List of Acronyms and Terms
-
 Terms used in this manuscript
+Term
+Meaning
+AI
+Artificial intelligence
+APT
+Advanced persistent threat; not the validated scope 
+of this study
+AUROC
+Ranking performance across all decision 
+thresholds
+FPR
+False-positive rate: human observations labeled AI
+SOC
+Security operations center
+TF-IDF
+A weighting of command words by frequency and 
+distinctiveness
+XAI
+Explainable artificial intelligence
+Calibration
+Data used to choose a decision threshold
+Transfer
+Performance when tasks, environments or 
+operators differ
+Window
+Ten qualifying commands, with other commands 
+omitted
 
 
-
+--- PDF PAGE 9 ---
+1
 Chapter 1: Introduction
-
 1.1 Background and motivation
-
-An autonomous agent can choose a command, observe its result and choose another command without a person deciding each step. A human operator can use many of the same commands. The presence of a familiar tool therefore does not identify who is directing an operation. This study asks whether combinations of actions contain useful evidence about the operator.
-
-Ediga and Chattopadhyay (2026) demonstrate passive AI model-family attribution from terminal commands. Maddaloni et al. (2026) report command-selection fingerprints in autonomous attacker experiments. These findings make behavioral attribution plausible. They do not establish that a classifier trained on separate human and AI datasets will retain its performance on a new environment.
-
+An autonomous agent can choose a command, observe its result and choose 
+another command without a person deciding each step. A human operator can use many 
+of the same commands. The presence of a familiar tool therefore does not identify who is 
+directing an operation. This study asks whether combinations of actions contain useful 
+evidence about the operator.
+Ediga and Chattopadhyay (2026) demonstrate passive AI model-family attribution 
+from terminal commands. Maddaloni et al. (2026) report command-selection fingerprints 
+in autonomous attacker experiments. These findings make behavioral attribution 
+plausible. They do not establish that a classifier trained on separate human and AI 
+datasets will retain its performance on a new environment.
 1.2 Problem statement
+Command-log classifiers trained on human and autonomous-AI records collected 
+in different environments may learn the collection setting rather than the operator class. 
+Security teams relying on those classifications could incorrectly attribute human activity 
+to AI or miss autonomous activity when tasks and environments change. The engineering 
+problem is to measure and reduce this dependence while keeping attribution decisions 
+understandable and false AI labels within a stated limit.
 
-Command-log classifiers trained on human and autonomous-AI records collected in different environments may learn the collection setting rather than the operator class. Security teams relying on those classifications could incorrectly attribute human activity to AI or miss autonomous activity when tasks and environments change. The engineering problem is to measure and reduce this dependence while keeping attribution decisions understandable and false AI labels within a stated limit.
 
+--- PDF PAGE 10 ---
+2
 1.3 Purpose and proposed thesis
-
-The purpose is to develop and evaluate a reproducible command-attribution procedure with controlled source comparisons, explicit error limits and inspectable feature contributions. The proposed thesis is that command behavior stripped of unnecessary environment detail can retain useful autonomous-AI detection across held-out conditions. This is a proposition to test. The current experiments do not yet prove it.
-
+The purpose is to develop and evaluate a reproducible command-attribution 
+procedure with controlled source comparisons, explicit error limits and inspectable 
+feature contributions. The proposed thesis is that command behavior stripped of 
+unnecessary environment detail can retain useful autonomous-AI detection across held-
+out conditions. This is a proposition to test. The current experiments do not yet prove it.
 1.4 Practical impact
+An AI attribution label would be an additional investigation cue, not a 
+replacement for attack detection or authorization rules. A wrong label can waste analyst 
+attention or distort an incident account. For illustration, a 5% false-positive rate applied 
+to 10,000 human windows creates 500 false AI labels. This arithmetic is a workload 
+example, not an observed deployment result or an estimate of financial savings. 
+Attribution should not control automatic blocking until its practical error cost is 
+independently justified.
 
-An AI attribution label would be an additional investigation cue, not a replacement for attack detection or authorization rules. A wrong label can waste analyst attention or distort an incident account. For illustration, a 5% false-positive rate applied to 10,000 human windows creates 500 false AI labels. This arithmetic is a workload example, not an observed deployment result or an estimate of financial savings. Attribution should not control automatic blocking until its practical error cost is independently justified.
 
+--- PDF PAGE 11 ---
+3
 1.5 Research questions and hypotheses
-
 Table 1. Research alignment
-
-These are proposed confirmatory hypotheses for the fresh matched study. PX-118 provides development diagnostics only. Its broad removal of all arguments is not the harmless renaming intervention required by H3. Failure of H2 would mean frequencies are sufficient in the tested setting; it would not invalidate H1. Exact score reconstruction is a correctness requirement and is not itself a novel research result.
-
+Question
+Hypothesis and decision rule
+RQ1. Can attribution transfer at a useful operating 
+point?
+H1. The calibration-selected model achieves 
+>=80% AI recall and <=5% mean human-group 
+FPR on a fresh matched held-out environment. 
+Both conditions must hold; point estimates and 
+group uncertainty are reported.
+RQ2. Does removing argument detail improve 
+transfer compared with the TRACE-style baseline?
+H2. On fresh matched data, a preselected masked 
+representation improves AI recall by >=5 
+percentage points over TRACE-style SVC, both 
+satisfy <=5% mean human-group FPR, and the 
+paired 95% improvement interval excludes zero. If 
+either violates the error limit, H2 is not supported.
+RQ3. Can the score be explained without relying 
+on irrelevant environment identifiers?
+H3. Under a frozen identifier-renaming 
+intervention, >=99% of decisions remain 
+unchanged, mean top-five contribution Jaccard is 
+>=0.90, and score reconstruction error is <1e-10. 
+Validity of the intervention must be checked first.
+These are proposed confirmatory hypotheses for the fresh matched study. PX-118 
+provides development diagnostics only. Its broad removal of all arguments is not the 
+harmless renaming intervention required by H3. Failure to support H2 does not establish 
+equivalence or invalidate H1. Command-order comparisons remain secondary 
+development analyses. This revised prospective RQ2 does not change the historical 
+PX-118 protocol. Exact score reconstruction is a correctness requirement and is not itself 
+a novel research result.
 1.6 Scope and limitations
-
-Each prediction concerns ten discovery-like commands, not an entire APT campaign. Operator labels come from provenance, not attack-stage labels. Live response, incident cost and analyst outcomes are outside the measured scope.
-
-Human and AI labels align with GAMBiT and Honey respectively. Common preprocessing does not make their tasks equivalent. Related windows are not independent people. The small Rouxii subset cannot establish population-wide transfer.
-
+Each prediction concerns ten discovery-like commands, not an entire APT 
+campaign. Operator labels come from provenance, not attack-stage labels. Live response, 
+incident cost and analyst outcomes are outside the measured scope.
 
 
+--- PDF PAGE 12 ---
+4
+Human and AI labels align with GAMBiT and Honey respectively. Common 
+preprocessing does not make their tasks equivalent. Related windows are not independent 
+people. The small Rouxii subset cannot establish population-wide transfer.
+1.7 Objectives and organization
+The objectives are to qualify operator labels, measure attribution errors at a fixed 
+operating rule, identify which command details drive those errors, and test the resulting 
+procedure on fresh matched conditions. Chapter 2 establishes the prior work. Chapter 3 
+defines the data and tests. Chapter 4 reports completed results, including unfavorable 
+outcomes. Chapter 5 states the contribution and what remains unproved.
+
+
+--- PDF PAGE 13 ---
+5
 Chapter 2: Literature Review
-
 2.1 Closest technical precedent
-
-TRACE uses passive terminal features to identify the family of an AI attack model, followed by an active forensic step. Its use of command features means this Praxis cannot claim to introduce passive terminal fingerprinting. The present comparison adapts its TF-IDF and linear-support-vector approach to a binary operator problem. That is a strong baseline rather than a reproduction of the original seven-family task (Ediga & Chattopadhyay, 2026).
-
+TRACE uses passive terminal features to identify the family of an AI attack 
+model, followed by an active forensic step. Its use of command features means this Praxis 
+cannot claim to introduce passive terminal fingerprinting. The present comparison adapts 
+its TF-IDF and linear-support-vector approach to a binary operator problem. That is a 
+strong baseline rather than a reproduction of the original seven-family task (Ediga & 
+Chattopadhyay, 2026).
 2.2 Command behavior and environmental influence
-
-Honey for the Agent examines model behavior across SSH environments. Its institutional abstract reports stable command-selection patterns and changes caused by environmental cues. Both findings matter here: command choice may contain operator information, but observed choices also depend on what the operator encounters. The full paper was not accessible during this review; claims are limited to its verified abstract and released dataset (Maddaloni et al., 2026).
-
+Honey for the Agent examines model behavior across SSH environments. Its 
+institutional abstract reports stable command-selection patterns and changes caused by 
+environmental cues. Both findings matter here: command choice may contain operator 
+information, but observed choices also depend on what the operator encounters. The full 
+paper was not accessible during this review; claims are limited to its verified abstract and 
+released dataset (Maddaloni et al., 2026).
 2.3 Active detection and source qualification
+LLM Agent Honeypot uses planted instructions and timing as evidence of 
+autonomous interaction. It demonstrates a different observation strategy from passive 
+command attribution. A successful response to a trap is an operational detection signal; it 
+is not a substitute for independently assigned operator labels in a classifier evaluation 
+(Reworr & Volkov, 2025).
 
-LLM Agent Honeypot uses planted instructions and timing as evidence of autonomous interaction. It demonstrates a different observation strategy from passive command attribution. A successful response to a trap is an operational detection signal; it is not a substitute for independently assigned operator labels in a classifier evaluation (Reworr & Volkov, 2025).
 
-Rouxii makes additional autonomous-agent transcripts publicly available. Its reports include framework operations, model statements and evaluation answers. Those fields cannot simply be concatenated into classifier input: they could reveal the source directly. This study therefore extracts only explicit command events for compatible frameworks and applies the existing minimum-length rule. The dataset is external, but its usable subset is small (Anonymous, 2026).
-
+--- PDF PAGE 14 ---
+6
+Rouxii makes additional autonomous-agent transcripts publicly available. Its 
+reports include framework operations, model statements and evaluation answers. Those 
+fields cannot simply be concatenated into classifier input: they could reveal the source 
+directly. This study therefore extracts only explicit command events for compatible 
+frameworks and applies the existing minimum-length rule. The dataset is external, but its 
+usable subset is small (Anonymous, 2026).
 2.4 Human command evidence
-
-GAMBiT documents human red-team exercises and multiple telemetry sources, including command histories. It offers a stronger basis for human operator labels than assuming all traffic in an attack-stage dataset is human-directed. KYPO supplies another public human command source from cybersecurity training. It is useful for an external false-label check, although training tasks differ from operational attacks (Beltz et al., 2026; Svabensky et al., 2021).
-
+GAMBiT documents human red-team exercises and multiple telemetry sources, 
+including command histories. It offers a stronger basis for human operator labels than 
+assuming all traffic in an attack-stage dataset is human-directed. KYPO supplies another 
+public human command source from cybersecurity training. It is useful for an external 
+false-label check, although training tasks differ from operational attacks (Beltz et al., 
+2026; Svabensky et al., 2021).
 2.5 Explainability and the proposed gap
+For a linear classifier, each weighted feature contributes exactly to the decision 
+score. Displaying those contributions can show what the model used. It cannot establish 
+why an actual operator chose a command. A classifier may faithfully explain a decision 
+that depends on an irrelevant dataset artifact. This distinction motivates testing 
+explanations under controlled changes to recorded identifiers.
+Rudin (2019) argues for models whose decision process can be inspected directly 
+in consequential settings. This supports beginning with linear models here, while 
+recognizing that a large feature vocabulary can still be difficult to interpret. Exact score 
 
-For a linear classifier, each weighted feature contributes exactly to the decision score. Displaying those contributions can show what the model used. It cannot establish why an actual operator chose a command. A classifier may faithfully explain a decision that depends on an irrelevant dataset artifact. This distinction motivates testing explanations under controlled changes to recorded identifiers.
 
-Rudin (2019) argues for models whose decision process can be inspected directly in consequential settings. This supports beginning with linear models here, while recognizing that a large feature vocabulary can still be difficult to interpret. Exact score contributions provide an inspectable record; they do not automatically make the whole model understandable to an analyst.
-
-Slack et al. (2020) show that adversarially constructed classifiers can produce misleading post-hoc explanations. Their setting differs from the present experiment, but it supports an important design principle: explanation appearance is insufficient evidence of reliability. This study therefore checks the implemented score directly and separates faithful reconstruction from stability under changes to the input.
-
+--- PDF PAGE 15 ---
+7
+contributions provide an inspectable record; they do not automatically make the whole 
+model understandable to an analyst.
+Slack et al. (2020) show that adversarially constructed classifiers can produce 
+misleading post-hoc explanations. Their setting differs from the present experiment, but it 
+supports an important design principle: explanation appearance is insufficient evidence of 
+reliability. This study therefore checks the implemented score directly and separates 
+faithful reconstruction from stability under changes to the input.
 Table 2. Prior work and the candidate contribution
+Established work
+Remaining question here
+Passive command fingerprinting: TRACE
+Does a binary operator classifier transfer across 
+source and task?
+AI command behavior: Honey
+Do differences persist with humans in the same 
+environment?
+Active honeypot signals
+Can ordinary compatible command records 
+support attribution?
+Exact linear feature contributions
+Are influential features stable under irrelevant 
+identifier changes?
+The candidate contribution is the combined evaluation of transfer, false-label cost 
+and explanation dependence under matched conditions. No search can guarantee priority. 
+The literature review must be updated before proposal approval and submission. A 
+change of dataset alone does not establish novelty; the proposed study must resolve an 
+evaluation question that prior work leaves open.
 
-The candidate contribution is the combined evaluation of transfer, false-label cost and explanation dependence under matched conditions. No search can guarantee priority. The literature review must be updated before proposal approval and submission. A change of dataset alone does not establish novelty; the proposed study must resolve an evaluation question that prior work leaves open.
 
-
-
+--- PDF PAGE 16 ---
+8
 Chapter 3: Research Methodology
-
 3.1 Study design in simple terms
+First, collect commands with independently known operator labels. Second, 
+separate related observations before fitting. Third, compare models that see different 
+levels of command detail. Fourth, choose each decision threshold using calibration data. 
+Finally, test on held-out records and inspect what changes when environment clues are 
+removed. A fresh matched collection is required to test whether the measured differences 
+actually transfer.
+Figure 1. Current development data and required matched evaluation
 
-First, collect commands with independently known operator labels. Second, separate related observations before fitting. Third, compare models that see different levels of command detail. Fourth, choose each decision threshold using calibration data. Finally, test on held-out records and inspect what changes when environment clues are removed. A fresh matched collection is required to test whether the measured differences actually transfer.
 
-Figure 1. Command-attribution study workflow
-
-1. Known human and autonomous-AI operators
-
-2. Same tasks, starting state and recorder (fresh study)
-
-3. Recorded commands -> common normalization
-
-4. Separate training / calibration / untouched evaluation
-
-5. Compare frequency, ordered verbs and TRACE-style models
-
-6. Fixed threshold -> operator label + feature contributions
-
-7. Measure AI recall, human errors and transfer limits
-
+--- PDF PAGE 17 ---
+9
+The left-hand data sources support development. They cannot separate operator 
+effects from source effects. The matched collection on the right is still pending. Both 
+paths use the same evaluation steps. All figures were prepared for this study.
 3.2 Data qualification and observation unit
+PX-117C qualified 17,092 GAMBiT commands after removing structural 
+problems. Its common-command subset contained 244 windows across 42 conservative 
+participant groups. Honey contributed 7,659 eligible sessions. A shared allowlist 
+admitted simple discovery-like commands and rejected shell compounds and malformed 
+records. Absolute paths, numeric tokens and IP addresses were normalized. Each 
+observation used ten qualifying commands, omitting intervening commands outside the 
+allowlist.
+The main saved test contains 1,300 AI windows and 61 human windows from 
+nine conservative groups. Participant numeric suffixes are grouped across source 
+experiment prefixes to reduce possible overlap. This cautious grouping is not proof of 
+unique identity. The previously examined split is retained for paired development 
+comparisons rather than described as new independent evidence.
 
-PX-117C qualified 17,092 GAMBiT commands after removing structural problems. Its common-command subset contained 244 windows across 42 conservative participant groups. Honey contributed 7,659 eligible sessions. A shared allowlist admitted simple discovery-like commands and rejected shell compounds and malformed records. Absolute paths, numeric tokens and IP addresses were normalized. Each observation used ten qualifying commands, omitting intervening commands outside the allowlist.
 
-The main saved test contains 1,300 AI windows and 61 human windows from nine conservative groups. Participant numeric suffixes are grouped across source experiment prefixes to reduce possible overlap. This cautious grouping is not proof of unique identity. The previously examined split is retained for paired development comparisons rather than described as new independent evidence.
+--- PDF PAGE 18 ---
+10
+3.2.1 Dataset evaluation
+Table 3. What each dataset can support
+Source
+Qualified material
+Important limitation
+GAMBiT (human)
+244 windows; 42 conservative 
+groups
+Human red-team provenance; 
+tasks differ from Honey.
+Honey (AI)
+7,659 eligible sessions
+Autonomous SSH activity; not 
+all sessions are multi-stage 
+attacks.
+KYPO (human)
+180 external windows after 
+duplicate exclusion
+Training-task check; groups are 
+not verified independent people.
+Rouxii archive (AI)
+2 eligible runs from 1,544 
+reports
+Too small for a reliable external 
+AI estimate.
+These counts have different units and should not be added into a participant total. 
+Eligibility is part of the result: short or structurally incompatible sessions receive no 
+prediction. Honey qualification excluded 2,744 files without the required parsed-
+command fields and 5,796 with too few eligible commands. Source-level coverage must 
+accompany accuracy; the present classifier does not apply to every session.
+Table 4. Command representation example (constructed illustration)
+Input
+Representation
+Information retained
+ls -la /tmp
+ls ARG ARG
+Verb and two argument 
+positions
+ls -la /tmp
+ls ARG
+One-marker control removes 
+argument count
+ls -la /tmp
+ls
+Verb frequency or sequence
+whoami
+whoami ARG
+One-marker control adds a 
+marker even with zero 
+arguments
+Table 4 is an illustration, not a collected participant record. The evidence package 
+also includes short normalized excerpts selected by a fixed record-ID rule from actual 
+correct and missed AI examples. No command in these files is executed.
 
+
+--- PDF PAGE 19 ---
+11
+Table 5. Actual normalized excerpts from development records
+Source / outcome
+First three commands
+AI score
+Honey / AI correctly identified
+id; whoami; pwd
+0.725
+Honey / AI missed
+ls -a; ls -R; cat README.md
+0.430
+GAMBiT / Human correctly 
+identified
+ls Admin Turnover; ls; ls
+0.078
+Each excerpt is the first three commands from a ten-command window, selected 
+as the lowest record ID in its outcome category. The model scores the full window. The 
+frozen masked threshold is 0.717. Scores are model outputs and have not been validated 
+as calibrated deployment probabilities. In the missed AI example, grep-related 
+contributions lower the AI score; in the human example, repeated ls strongly lowers it. 
+These explain the fitted decision, not the operator's intent.
+3.2.2 Observation point and practical meaning
+The present inputs are recorded operator-side shell commands. A defender could 
+potentially obtain comparable commands from an instrumented shell, session recorder or 
+endpoint process telemetry, but this mapping has not been tested. The study does not 
+infer commands from NetFlow or encrypted packets. The model identifies an operator 
+class within eligible records; it is not an attack detector. No timing feature or attack-stage 
+label is needed for these tests.
+
+
+--- PDF PAGE 20 ---
+12
 3.3 Models and controlled comparisons
-
-Table 3. PX-118 model comparisons
-
-The logistic models use fixed regularization C=1. All models receive the same group/class fitting weights: the classes receive equal total mass and human groups receive equal mass within their class. This controlled weighting differs from TRACE's original class-balancing setup and is disclosed. No hyperparameter search is performed. Six models are tested in a main comparison and four family-exclusion conditions, for 30 fits.
-
-Shuffling tests order while retaining the multiset of command verbs. It is deterministic from the record ID and a fixed seed, independent of its label. Since the ordered model also contains unigrams, good ordered-model performance alone is not proof that ordering helps. Its direct comparison with the frequency model and shuffled model is necessary.
-
+Table 6. PX-118 model comparisons
+Model
+Information available
+Lexical logistic
+Normalized words and adjacent word pairs
+TRACE-style SVC
+Word TF-IDF(1,2), 10,000 features, linear SVC, 
+C=1
+Frequency logistic
+Executable-name unigrams only
+Ordered logistic
+Executable-name unigrams, pairs and triples
+Shuffled logistic
+Same verb representation after fixed within-
+window shuffling
+Masked logistic
+Verbs retained; every argument replaced by ARG
+The logistic models use fixed regularization C=1. All models receive the same 
+group/class fitting weights: the classes receive equal total mass and human groups receive 
+equal mass within their class. This controlled weighting differs from TRACE's original 
+class-balancing setup and is disclosed. No hyperparameter search is performed. Six 
+models are tested in a main comparison and four family-exclusion conditions, for 30 fits.
+Shuffling tests order while retaining the multiset of command verbs. It is 
+deterministic from the record ID and a fixed seed, independent of its label. Since the 
+ordered model also contains unigrams, good ordered-model performance alone is not 
+proof that ordering helps. Its direct comparison with the frequency model and shuffled 
+model is necessary.
 3.4 Thresholds, metrics and uncertainty
+A threshold converts a model score into an AI label. Each model uses the lowest 
+calibration threshold at which the average human-group false-positive rate is at most 5%. 
+SVC outputs are decision scores, not probabilities. The model selected for the main 
 
-A threshold converts a model score into an AI label. Each model uses the lowest calibration threshold at which the average human-group false-positive rate is at most 5%. SVC outputs are decision scores, not probabilities. The model selected for the main comparison is the one with the highest calibration AUROC, with a fixed name tie-break. Test results do not select the threshold or model.
 
-AI recall is the number of AI windows correctly labeled AI divided by all eligible AI windows. Human-window FPR is the fraction of human windows incorrectly labeled AI. Mean human-group FPR first calculates each group's rate and then averages groups equally. The third quantity is primary because one prolific participant should not dominate the estimate. AUROC measures ranking over thresholds; it does not establish safety at the selected threshold.
-
-Bootstrap intervals resample whole human groups. They are conditional on the observed sample and do not prove risk outside it. With zero errors an empirical bootstrap can return an interval of zero width; that is not a population guarantee. Paired model comparisons should retain the same observations. Repeated family probes reuse human records and must not be counted as independent replications.
-
+--- PDF PAGE 21 ---
+13
+comparison is the one with the highest calibration AUROC, with a fixed name tie-break. 
+Test results do not select the threshold or model.
+AI recall is the number of AI windows correctly labeled AI divided by all eligible 
+AI windows. Human-window FPR is the fraction of human windows incorrectly labeled 
+AI. Mean human-group FPR first calculates each group's rate and then averages groups 
+equally. The third quantity is primary because one prolific participant should not 
+dominate the estimate. AUROC measures ranking over thresholds; it does not establish 
+safety at the selected threshold.
+Bootstrap intervals resample whole human groups. They are conditional on the 
+observed sample and do not prove risk outside it. With zero errors an empirical bootstrap 
+can return an interval of zero width; that is not a population guarantee. Paired model 
+comparisons should retain the same observations. Repeated family probes reuse human 
+records and must not be counted as independent replications.
 3.5 Explanation and perturbation tests
+For a linear score, s(x) = b + sum(w_j x_j). The contribution of feature j is w_j 
+x_j. The implementation checks that the sum reconstructs the model decision score with 
+error below 1e-10. For logistic regression the probability is the logistic transformation of 
+this score. Contributions explain the linear score, not an additive decomposition of 
+probability.
+PX-118 masks all arguments at evaluation time and reports label changes, score 
+changes and overlap between the five largest absolute contributions. This is a stress test, 
+because arguments and flags can carry useful task information. It is not claimed to 
+preserve command meaning. Verb models should remain unchanged by construction. The 
 
-For a linear score, s(x) = b + sum(w_j x_j). The contribution of feature j is w_j x_j. The implementation checks that the sum reconstructs the model decision score with error below 1e-10. For logistic regression the probability is the logistic transformation of this score. Contributions explain the linear score, not an additive decomposition of probability.
 
-PX-118 masks all arguments at evaluation time and reports label changes, score changes and overlap between the five largest absolute contributions. This is a stress test, because arguments and flags can carry useful task information. It is not claimed to preserve command meaning. Verb models should remain unchanged by construction. The later H3 test instead requires validated renaming of irrelevant identifiers in both commands and their corresponding environment.
-
+--- PDF PAGE 22 ---
+14
+later H3 test instead requires validated renaming of irrelevant identifiers in both 
+commands and their corresponding environment.
 3.6 Independent-source probe
-
-The Rouxii archive is verified against its published MD5. The parser admits HackingBuddy assistant exec_command events and PentestGPT explicit execute_command records. It excludes prose suggestions, reasoning, outputs and fixed Rouxii operator traces. Only the first ten qualifying commands per run are used; no run is padded or merged with another. Results are reported separately from the human-only KYPO check.
-
+The Rouxii archive is verified against its published MD5. The parser admits 
+HackingBuddy assistant exec_command events and PentestGPT explicit 
+execute_command records. It excludes prose suggestions, reasoning, outputs and fixed 
+Rouxii operator traces. Only the first ten qualifying commands per run are used; no run is 
+padded or merged with another. Results are reported separately from the human-only 
+KYPO check.
 3.7 Matched collection and feasibility
+The fresh collection must give human and autonomous-AI operators the same task 
+text, initial access, available commands and machine image. Both use the same command 
+recorder. The planned pilot uses objective-driven discovery tasks, dummy files, equal 
+budgets and resets between runs. It is a controlled command study, not a full APT 
+simulation. Known operator assignment supplies the label, independently of the 
+classifier.
+The collection toolkit accepts one command per request and records the result, 
+exit code and timing. It requires an isolated, non-root, resource-limited container. Human 
+recruitment, institutional determination and task images remain outstanding. A 
+researcher-written script cannot replace human observations. The accompanying task 
+sheet specifies what must be frozen before collection.
 
-The fresh collection must give human and autonomous-AI operators the same task text, initial access, available commands and machine image. Both use the same command recorder. The planned pilot uses objective-driven discovery tasks, dummy files, equal budgets and resets between runs. It is a controlled command study, not a full APT simulation. Known operator assignment supplies the label, independently of the classifier.
 
-The collection toolkit accepts one command per request and records the result, exit code and timing. It requires an isolated, non-root, resource-limited container. Human recruitment, institutional determination and task images remain outstanding. A researcher-written script cannot replace human observations. The accompanying task sheet specifies what must be frozen before collection.
-
-A 12-operator pilot can estimate collection yield and between-person variability; it cannot certify a low population error rate. For a different endpoint, any false alert per independent person, zero errors among 59 held-out people gives a one-sided 95% binomial upper bound of about 4.95%. Repeated sessions do not add independent people, and that bound does not certify mean window FPR. The pilot will inform the sample-size plan for the primary endpoint.
-
+--- PDF PAGE 23 ---
+15
+A 12-operator pilot can estimate collection yield and between-person variability; 
+it cannot certify a low population error rate. For a different endpoint, any false alert per 
+independent person, zero errors among 59 held-out people gives a one-sided 95% 
+binomial upper bound of about 4.95%. Repeated sessions do not add independent people, 
+and that bound does not certify mean window FPR. The pilot will inform the sample-size 
+plan for the primary endpoint.
 3.8 Reproducibility and stopping rules
+PX-118 source, protocol and input hashes were committed before fitting. The 
+AWS worker runs bounded jobs and is stopped after artifact publication. The analysis 
+retains prediction IDs, scores, model artifacts and external eligibility counts. Commands 
+in published logs are treated as inert strings and are never executed by the classifier 
+experiment.
+The study stops short of a transfer claim if labels or command records cannot be 
+independently qualified, if no adequate external sample exists, or if the fresh matched 
+operating targets fail. A negative result is retained. Changing the command minimum or 
+threshold after seeing an external result requires a new development protocol and new 
+evaluation data.
 
-PX-118 source, protocol and input hashes were committed before fitting. The AWS worker runs bounded jobs and is stopped after artifact publication. The analysis retains prediction IDs, scores, model artifacts and external eligibility counts. Commands in published logs are treated as inert strings and are never executed by the classifier experiment.
 
-The study stops short of a transfer claim if labels or command records cannot be independently qualified, if no adequate external sample exists, or if the fresh matched operating targets fail. A negative result is retained. Changing the command minimum or threshold after seeing an external result requires a new development protocol and new evaluation data.
+--- PDF PAGE 24 ---
+16
+3.9 Graphical methodology representation (GMR)
+Figure 2. GMR: what is tested, why it matters and how it is evaluated
+3.10 Additional development test: PX-119
+PX-119 was specified before fitting at commit e1f40ed. It reuses examined 
+partitions, weights and calibration rules. Three controls compare positional counts, count 
+summaries and one ARG token per verb. A separate stress test equalizes counts in the 
+frozen masked model. Meaning preservation is not assumed. The three local fits took less 
+than one second.
 
 
-
+--- PDF PAGE 25 ---
+17
 Chapter 4: Completed Development Results
-
 4.1 Preliminary PX-117C evidence
-
-Table 4. PX-117C main operating points
-
-Neither substantive command model met both original main targets. The word model identified more AI records but exceeded the human error limit. The sequence model made no observed human errors while missing more AI records. Its zero-error sample does not establish zero future risk. These results motivated the controlled PX-118 comparisons.
-
+Table 7. PX-117C main operating points
+Model
+AI recall
+Human false labels
+Mean group FPR
+Command length
+15.23%
+5/61
+9.88%
+Command words
+97.62%
+4/61
+8.95%
+Executable sequences
+71.54%
+0/61
+0%
+Neither substantive command model met both original main targets. The word 
+model identified more AI records but exceeded the human error limit. The sequence 
+model made no observed human errors while missing more AI records. Its zero-error 
+sample does not establish zero future risk. These results motivated the controlled PX-118 
+comparisons.
 4.2 PX-118 paired model comparison
+Table 8. PX-118 main development results
+Model
+AI recall
+Human errors
+Group FPR
+Target
+Words
+97.62%
+4/61
+8.95%
+Fail
+TRACE-style
+98.00%
+7/61
+14.81%
+Fail
+Verb frequency
+80.92%
+4/61
+6.17%
+Fail
+Ordered verbs
+71.54%
+0/61
+0.00%
+Fail
+Shuffled verbs
+71.23%
+1/61
+0.62%
+Fail
+Masked 
+arguments
+92.85%
+0/61
+0.00%
+Pass
+Calibration selected TRACE-style. The comparisons use previously examined 
+data, so numerical target attainment is a development finding. It is not a successful 
+confirmatory test of H1. The complete results file includes all family probes rather than 
+retaining only favorable conditions.
 
-Table 5. PX-118 main development results
 
-Calibration selected TRACE-style. The comparisons use previously examined data, so numerical target attainment is a development finding. It is not a successful confirmatory test of H1. The complete results file includes all family probes rather than retaining only favorable conditions.
+--- PDF PAGE 26 ---
+18
+The masked-argument model is the promising comparator: it identifies 1,207 of 
+1,300 AI windows (92.85%) with zero false AI labels among 61 human windows. It 
+meets the point targets in all four family probes, including a small 16-record DeepSeek 
+probe. However, calibration selected the TRACE-style model, which identifies 98% of 
+AI windows and falsely labels seven human windows. Selecting the masked model now 
+is a development decision that must be validated on fresh data, not a retroactive change to 
+the selection rule.
+Ordered verbs improve recall over shuffled verbs by only 0.31 percentage points. 
+The conditional paired-session bootstrap interval spans -1.77 to 2.54 points. Ordered 
+verbs have 9.38 points lower recall than frequency-only verbs at their respective 
+calibration thresholds, with fewer human false labels. This comparison does not support 
+the claim that order supplies a large recall advantage. The masked model improves recall 
+over ordered verbs by 21.31 points in this sample, with a conditional interval of 18.77 to 
+23.69 points. These intervals hold fitted models and source conditions fixed; they do not 
+resolve source confounding.
+Table 9. AI recall under held-out families
+Model
+Alibaba
+DeepSeek
+Google
+Meta
+Words
+96.0%
+100.0%
+99.5%
+99.5%
+TRACE-style
+96.9%
+100.0%
+99.3%
+98.4%
+Verb frequency
+75.9%
+68.8%
+88.9%
+84.0%
+Ordered verbs
+74.5%
+43.8%
+74.0%
+68.1%
+Shuffled verbs
+73.0%
+56.2%
+76.6%
+64.1%
+Masked 
+arguments
+77.3%
+100.0%
+96.7%
+90.0%
+Family recall must be read together with its human-group FPR in the full results 
+table. Family sample sizes differ substantially; the DeepSeek probe has only 16 eligible 
 
-The masked-argument model is the promising comparator: it identifies 1,207 of 1,300 AI windows (92.85%) with zero false AI labels among 61 human windows. It meets the point targets in all four family probes, including a small 16-record DeepSeek probe. However, calibration selected the TRACE-style model, which identifies 98% of AI windows and falsely labels seven human windows. Selecting the masked model now is a development decision that must be validated on fresh data, not a retroactive change to the selection rule.
 
-Ordered verbs improve recall over shuffled verbs by only 0.31 percentage points. The conditional paired-session bootstrap interval spans -1.77 to 2.54 points. Ordered verbs have 9.38 points lower recall than frequency-only verbs at their respective calibration thresholds, with fewer human false labels. This comparison does not support the claim that order supplies a large recall advantage. The masked model improves recall over ordered verbs by 21.31 points in this sample, with a conditional interval of 18.77 to 23.69 points. These intervals hold fitted models and source conditions fixed; they do not resolve source confounding.
-
-Table 6. AI recall under held-out families
-
-Family recall must be read together with its human-group FPR in the full results table. Family sample sizes differ substantially; the DeepSeek probe has only 16 eligible records. High recall in that small probe is not a precise estimate of family-wide performance.
-
+--- PDF PAGE 27 ---
+19
+records. High recall in that small probe is not a precise estimate of family-wide 
+performance.
 4.3 Argument removal and score explanations
+Table 10. Frozen-model argument-removal stress test
+Model
+Decision flips
+Top-five overlap
+Max score error
+Words
+4.70%
+0.223
+0.0e+00
+TRACE-style
+4.26%
+0.221
+0.0e+00
+Verb frequency
+0.00%
+1.000
+0.0e+00
+Ordered verbs
+0.00%
+1.000
+0.0e+00
+Shuffled verbs
+0.00%
+1.000
+0.0e+00
+Masked arguments
+0.00%
+1.000
+0.0e+00
+Top-five overlap is mean Jaccard similarity of features with the largest absolute 
+score contributions. It measures model explanation stability under this particular 
+transform, not agreement with expert truth. Exact reconstruction checks faithful 
+implementation. It cannot establish that the contributing features causally identify AI. 
+Models that ignore arguments are invariant to argument removal by design.
+The word models retain many predictions after argument removal, while their top-
+contribution feature overlap falls to about 0.22. Predictions can therefore appear fairly 
+stable even when the features explaining them change substantially. Because the 
+intervention deletes potentially useful information, this is a diagnostic of representation 
+dependence rather than evidence that H3 passes or fails.
 
-Table 7. Frozen-model argument-removal stress test
 
-Top-five overlap is mean Jaccard similarity of features with the largest absolute score contributions. It measures model explanation stability under this particular transform, not agreement with expert truth. Exact reconstruction checks faithful implementation. It cannot establish that the contributing features causally identify AI. Models that ignore arguments are invariant to argument removal by design.
-
-The word models retain many predictions after argument removal, while their top-contribution feature overlap falls to about 0.22. Predictions can therefore appear fairly stable even when the features explaining them change substantially. Because the intervention deletes potentially useful information, this is a diagnostic of representation dependence rather than evidence that H3 passes or fails.
-
+--- PDF PAGE 28 ---
+20
 4.4 External-source eligibility and outcomes
-
-Table 8. Rouxii qualification
-
-Only two unique windows qualified. The small yield is a substantive finding about dataset compatibility. The study did not shorten its window rule to manufacture a larger external evaluation. Consequently, the following counts are a two-record probe and cannot establish general transfer.
-
-All six models label both eligible Rouxii windows as AI. The masked model labels three of 180 eligible KYPO windows as AI. These two one-class probes answer separate questions and must not be pooled into an apparently balanced external benchmark. The collection settings still differ between classes.
-
-Table 9. Independent-source probes
-
+Table 11. Rouxii qualification
+Framework
+Runs
+Usable ten-command runs
+hackingbuddy
+396
+2
+pentestgpt
+358
+0
+rouxii
+790
+0
+Only two unique windows qualified. The small yield is a substantive finding 
+about dataset compatibility. The study did not shorten its window rule to manufacture a 
+larger external evaluation. Consequently, the following counts are a two-record probe and 
+cannot establish general transfer.
+All six models label both eligible Rouxii windows as AI. The masked model 
+labels three of 180 eligible KYPO windows as AI. These two one-class probes answer 
+separate questions and must not be pooled into an apparently balanced external 
+benchmark. The collection settings still differ between classes.
+Table 12. Independent-source probes
+Model
+KYPO false AI labels
+Rouxii AI detected
+Words
+5/180
+2/2
+TRACE-style
+5/180
+2/2
+Verb frequency
+2/180
+2/2
+Ordered verbs
+0/180
+2/2
+Shuffled verbs
+1/180
+2/2
+Masked arguments
+3/180
+2/2
 4.5 What remains untested
+H1, H2 and H3 remain open: a fresh environment containing both classes under 
+the same recorder has not been tested. Numerical development success does not establish 
+transfer or analyst benefit.
 
-H1, H2 and H3 remain open: a fresh environment containing both classes under the same recorder has not been tested. Numerical development success does not establish transfer or analyst benefit.
+
+--- PDF PAGE 29 ---
+21
+4.6 Argument-count dependence: PX-119
+Table 13. Argument-count diagnostic on the same development test
+Representation
+AI recall
+Human errors
+Group FPR
+argument_counts
+11.46%
+2/61
+1.85%
+argument_summary
+0.00%
+0/61
+0.00%
+one_marker
+79.77%
+3/61
+4.32%
+Counts alone recover 11.46% of AI windows. The order-free count summaries 
+recover none at their calibration threshold, despite test AUROC of 0.894. A ranking score 
+alone therefore does not demonstrate usefulness at the chosen operating point. The 
+retrained one-marker model reaches 79.77% recall and 4.32% mean human-group FPR, 
+narrowly missing the 80% recall target. Its KYPO false labels are 2/180; positional 
+counts produce 36/180. These external checks remain conditional on eligible training-
+task records.
+Figure 3. Argument-count intervention and retrained controls
+When the frozen masked model receives equalized argument counts, its recall 
+changes from 92.85% to 90.92%, but human false labels rise from 0/61 to 30/61. Mean 
 
 
+--- PDF PAGE 30 ---
+22
+human-group FPR rises to 50.93%, and 9.92% of all decisions change. This demonstrates 
+sensitivity to count-related representation changes. It does not establish that count alone 
+explains the original result, nor that argument count is inherently an invalid feature. The 
+intervention changes the input distribution; the matched study must determine whether 
+the dependence transfers.
+Of the original masked model's 93 AI misses, 74 are Alibaba, 14 Meta and 5 
+Google. The corresponding main-test denominators are 705, 240 and 351; DeepSeek has 
+only four main-test records and no misses. These are the main-test slices, not the larger 
+family-exclusion tests. Concentration of errors is useful for diagnosis but does not justify 
+family-specific threshold tuning on this test.
+4.7 Hypothesis status and practical interpretation
+Table 14. Status of proposed confirmatory hypotheses
+Hypothesis
+Current status
+H1: fresh matched transfer
+Not tested: matched evaluation not collected.
+H2: masking improves transfer at a human-error 
+limit
+Not tested on fresh data; PX-118/119 are 
+diagnostics.
+H3: validated irrelevant renaming preserves 
+explanations
+Not tested: broad argument/count changes do not 
+meet that definition.
+No completed test establishes population-level operator attribution. With only 
+nine conservative human groups, zero observed errors gives weak evidence about a low 
+future error rate. The existing group bootstrap is conditional and degenerates at zero 
+observed errors. A confirmatory analysis needs adequate independent operators, group-
+resampled intervals and an explicit decision rule agreed before evaluation.
 
+
+--- PDF PAGE 31 ---
+23
 Chapter 5: Discussion and Conclusions
-
 5.1 Interpretation
-
-The completed work shows that command representation changes the attribution tradeoff. It also demonstrates why a high ranking score is insufficient: the actual human-error rate at the chosen operating point must be examined. The result should guide the next collection rather than be used to declare a universal AI signature.
-
-The largest threat to interpretation is the link between dataset source and class. A classifier can be highly accurate by learning differences in tasks, command vocabulary or starting access. Removing arguments is informative but cannot erase all environmental influence. A matched collection is the most direct way to test the proposed thesis.
-
+The completed work shows that command representation changes the attribution 
+tradeoff. It also demonstrates why a high ranking score is insufficient: the actual human-
+error rate at the chosen operating point must be examined. The result should guide the 
+next collection rather than be used to declare a universal AI signature.
+The largest threat to interpretation is the link between dataset source and class. A 
+classifier can be highly accurate by learning differences in tasks, command vocabulary or 
+starting access. Removing arguments is informative but cannot erase all environmental 
+influence. A matched collection is the most direct way to test the proposed thesis.
 5.2 Engineering product and proposed contribution
+The engineering product is a reproducible attribution evaluation package: source 
+qualification, common preprocessing, grouped splits, strong baselines, threshold 
+selection, saved predictions and exact feature contributions. Its potential research 
+contribution is a measured account of which behavioral evidence survives changes in 
+source, task and environment at a stated human-error cost.
+The work does not claim that a linear classifier, TF-IDF, command ordering, 
+additive explanations or a threshold is new. The defense must show that the experiment 
+answers a specific unresolved transfer question. If it cannot, the honest product is a 
+bounded dataset and evaluation study rather than a general attribution system.
 
-The engineering product is a reproducible attribution evaluation package: source qualification, common preprocessing, grouped splits, strong baselines, threshold selection, saved predictions and exact feature contributions. Its potential research contribution is a measured account of which behavioral evidence survives changes in source, task and environment at a stated human-error cost.
 
-The work does not claim that a linear classifier, TF-IDF, command ordering, additive explanations or a threshold is new. The defense must show that the experiment answers a specific unresolved transfer question. If it cannot, the honest product is a bounded dataset and evaluation study rather than a general attribution system.
-
+--- PDF PAGE 32 ---
+24
 5.3 Decisions for the next phase
-
-First, retain every PX-118 result and inspect baseline and perturbation differences. Second, complete a matched-data pilot with both classes and independently assigned labels. Third, use the pilot to freeze model selection, sample size, environment holdouts and success rules for a fresh evaluation. Fourth, test the complete protocol once on that evaluation. Repeatedly trying new thresholds on the same records cannot replace the final step.
-
-Broader APT attribution should be considered only after multi-stage campaigns are observed for both classes under comparable conditions. Until then, the title and conclusions remain about cyberattack-operator command behavior. This narrower claim is easier to measure and more defensible.
-
+First, retain every PX-118 result and inspect baseline and perturbation differences. 
+Second, complete a matched-data pilot with both classes and independently assigned 
+labels. Third, use the pilot to freeze model selection, sample size, environment holdouts 
+and success rules for a fresh evaluation. Fourth, test the complete protocol once on that 
+evaluation. Repeatedly trying new thresholds on the same records cannot replace the final 
+step.
+Broader APT attribution should be considered only after multi-stage campaigns 
+are observed for both classes under comparable conditions. Until then, the title and 
+conclusions remain about cyberattack-operator command behavior. This narrower claim 
+is easier to measure and more defensible.
 5.4 Conclusion
+This Praxis has a plausible research direction and completed development 
+evidence, but transfer is not yet established. The present package makes that uncertainty 
+measurable and specifies the data needed to resolve it. Success will mean detecting 
+autonomous AI on fresh matched conditions while limiting human false labels and 
+showing which command evidence supports each decision.
 
-This Praxis has a plausible research direction and completed development evidence, but transfer is not yet established. The present package makes that uncertainty measurable and specifies the data needed to resolve it. Success will mean detecting autonomous AI on fresh matched conditions while limiting human false labels and showing which command evidence supports each decision.
+
+--- PDF PAGE 33 ---
+25
+5.5 Work remaining before a defense claim
+Table 15. Remaining work and completion evidence
+Work item
+Required evidence
+Matched collection
+Institutional determination; recruited humans; 
+autonomous runs on identical tasks and recorder.
+Collection implementation
+Task images, autonomous adapter and container 
+integration tests; prototype is not a validated 
+collection system.
+Fresh evaluation
+Frozen selection, sample size, holdouts and 
+thresholds; independent operators and unseen 
+conditions.
+Explanation validity
+Validated irrelevant-identifier interventions; errors 
+and stability measured on fresh records.
+Novelty and review
+Full closest papers, updated comparison and 
+committee agreement on the narrow contribution.
+Final manuscript
+Author verification, AI-use disclosure, committee 
+metadata and approved submission format.
+The next decision is whether to invest in a matched pilot. More tuning on the 
+present sources cannot remove their class/source confounding. The pilot should estimate 
+eligible-window yield, variability between operators and task effects before fixing the 
+final sample size. The 80% recall and 5% human-error limits are proposed engineering 
+targets, not universal SOC standards. They require stakeholder justification before 
+confirmation.
+For a hypothetical deployment with 1% AI windows, 80% sensitivity and 5% 
+human FPR, only about 13.9% of AI labels would be correct. The formula is sensitivity 
+times prevalence divided by that quantity plus FPR times one minus prevalence. This 
+example uses assumed inputs; it is not an observed precision estimate. It explains why a 
+useful triage label may require much lower human error than a balanced benchmark 
+suggests.
 
 
-
+--- PDF PAGE 34 ---
+26
 References
+Anonymous. (2026). Rouxii: Exploiting honeypots with deception-aware AI pentesters 
+[Data set]. Zenodo. https://doi.org/10.5281/zenodo.21986588
+Beltz, B., Doty, J., Fonken, Y., Gurney, N., Israelsen, B., Lau, N., Marsella, S., Thomas, 
+R., Trent, S., Wu, P., Yang, Y.-T., & Zhu, Q. (2026). Guarding against malicious 
+biased threats (GAMBiT) datasets: Revealing cognitive bias in human-subjects 
+red-team cyber range operations. Data in Brief, 65, 112476. 
+https://doi.org/10.1016/j.dib.2026.112476
+Ediga, M., & Chattopadhyay, S. (2026). Trace: Unmasking AI attack agents through 
+terminal behavior fingerprinting [Preprint]. arXiv. 
+https://doi.org/10.48550/arXiv.2605.01186
+Maddaloni, D., Safargalieva, A., & Vasilomanolakis, E. (2026). Honey for the agent: 
+Cyber deception and behavioral fingerprinting of LLM-based attackers. In 
+Proceedings of the 5th Workshop on Active Defense and Deception (AD&D) 
+[Accepted/in press]. Springer. https://orbit.dtu.dk/en/publications/honey-for-the-
+agent-cyber-deception-and-behavioral-fingerprinting/
+Reworr, & Volkov, D. (2025). LLM agent honeypot: Monitoring AI hacking agents in 
+the wild (Version 2) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2410.13919
+Rudin, C. (2019). Stop explaining black box machine learning models for high stakes 
+decisions and use interpretable models instead. Nature Machine Intelligence, 1, 
+206-215. https://arxiv.org/abs/1811.10154
+Slack, D., Hilgard, S., Jia, E., Singh, S., & Lakkaraju, H. (2020). Fooling LIME and 
+SHAP: Adversarial attacks on post hoc explanation methods (Version 2) 
+[Preprint]. arXiv. https://doi.org/10.48550/arXiv.1911.02508
+Svabensky, V., Vykopal, J., Seda, P., & Celeda, P. (2021). Dataset of shell commands 
+used by participants of hands-on cybersecurity training. Data in Brief, 38, 107398. 
+https://doi.org/10.1016/j.dib.2021.107398
+The George Washington University. (n.d.). University formatting requirements. 
+Retrieved October 5, 2026, from https://gradpostdoc.gwu.edu/gw-etd-formatting
 
-Anonymous. (2026). Rouxii: Exploiting honeypots with deception-aware AI pentesters [Data set]. Zenodo. https://doi.org/10.5281/zenodo.21986588
 
-Beltz, B., Doty, J., Fonken, Y., Gurney, N., Israelsen, B., Lau, N., Marsella, S., Thomas, R., Trent, S., Wu, P., Yang, Y.-T., & Zhu, Q. (2026). Guarding against malicious biased threats (GAMBiT) datasets: Revealing cognitive bias in human-subjects red-team cyber range operations. Data in Brief, 65, 112476. https://doi.org/10.1016/j.dib.2026.112476
-
-Ediga, M., & Chattopadhyay, S. (2026). Trace: Unmasking AI attack agents through terminal behavior fingerprinting [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2605.01186
-
-Maddaloni, D., Safargalieva, A., & Vasilomanolakis, E. (2026). Honey for the agent: Cyber deception and behavioral fingerprinting of LLM-based attackers. In Proceedings of the 5th Workshop on Active Defense and Deception (AD&D) [Accepted/in press]. Springer. https://orbit.dtu.dk/en/publications/honey-for-the-agent-cyber-deception-and-behavioral-fingerprinting/
-
-Reworr, & Volkov, D. (2025). LLM agent honeypot: Monitoring AI hacking agents in the wild (Version 2) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2410.13919
-
-Rudin, C. (2019). Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead. Nature Machine Intelligence, 1, 206-215. https://arxiv.org/abs/1811.10154
-
-Slack, D., Hilgard, S., Jia, E., Singh, S., & Lakkaraju, H. (2020). Fooling LIME and SHAP: Adversarial attacks on post hoc explanation methods (Version 2) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.1911.02508
-
-Svabensky, V., Vykopal, J., Seda, P., & Celeda, P. (2021). Dataset of shell commands used by participants of hands-on cybersecurity training. Data in Brief, 38, 107398. https://doi.org/10.1016/j.dib.2021.107398
-
-The George Washington University. (n.d.). University formatting requirements. Retrieved October 5, 2026, from https://gradpostdoc.gwu.edu/gw-etd-formatting
-
-
-
+--- PDF PAGE 35 ---
+27
 Appendix A: Evidence and Reproduction
+Repository: https://github.com/garypagangit/praxis. Development experiment 
+directory: experiments/praxis_next/aivh_transfer_20261005. Frozen PX-118 protocol and 
+code: commit a8a75b5. Earlier common-command experiment: 
+experiments/praxis_next/aivh_gambit_20261005. Literature assessment: 
+LITERATURE_REVIEW.txt in the earlier directory.
+The PX-118 protocol, cloud freeze, qualification record, RESULTS.json and 
+saved prediction files specify what was run. The cloud receipt records worker closure. 
+The paper builder reads result artifacts directly to populate the new comparison tables. 
+The matched collection plan and recorder are preparation tools; they do not constitute 
+collected human data.
+Reproduction requires the qualified private records and the pinned Python 
+dependencies listed in the saved worker requirements. Public redistribution of source logs 
+must follow each source's terms. Published aggregates do not require exposing 
+participant command histories. Independent verification should reconstruct confusion 
+counts from predictions and check split identities, weights, thresholds and source 
+exclusions.
 
-Repository: https://github.com/garypagangit/praxis. Development experiment directory: experiments/praxis_next/aivh_transfer_20261005. Frozen PX-118 protocol and code: commit a8a75b5. Earlier common-command experiment: experiments/praxis_next/aivh_gambit_20261005. Literature assessment: LITERATURE_REVIEW.txt in the earlier directory.
 
-The PX-118 protocol, cloud freeze, qualification record, RESULTS.json and saved prediction files specify what was run. The cloud receipt records worker closure. The paper builder reads result artifacts directly to populate the new comparison tables. The matched collection plan and recorder are preparation tools; they do not constitute collected human data.
-
-Reproduction requires the qualified private records and the pinned Python dependencies listed in the saved worker requirements. Public redistribution of source logs must follow each source's terms. Published aggregates do not require exposing participant command histories. Independent verification should reconstruct confusion counts from predictions and check split identities, weights, thresholds and source exclusions.
-
-
-
+--- PDF PAGE 36 ---
+28
 Appendix B: Committee Review Checklist
-
 Confirm that the narrower operator-attribution problem is an acceptable Praxis topic.
-
 Approve or revise the three aligned RQ/H pairs before matched collection.
-
 Verify the novelty boundary against TRACE and the full Honey paper when available.
-
 Determine institutional requirements for collecting new human sessions.
-
-Confirm the feasible number of independent operators and the untouched evaluation allocation.
-
-Review the exact distinction between a faithful score explanation and causal operator evidence.
-
+Confirm the feasible number of independent operators and the untouched evaluation 
+allocation.
+Review the exact distinction between a faithful score explanation and causal operator 
+evidence.
 Review AI-use disclosure and final GW submission requirements.
+
+
+--- PDF PAGE 37 ---
+29
+Appendix C: Package Guide and Research Disclosure
+The code package contains annotated PX-119 code, frozen PX-118 training code 
+and its dependencies, a portable reproduction launcher, pinned numerical requirements, 
+artifact verification and a code-section guide. Prepared source inputs are kept in a 
+separate local private-input package. The evidence package contains protocols, 
+predictions, result tables, qualification records, figures, audits and file hashes. Prediction 
+files support independent metric checking without redistributing full source logs.
+The packages distinguish completed tests from pending collection. They do not 
+claim a public release of participant-level data or permission to redistribute original 
+datasets. The local prepared-input bundle is for the author's reproduction workflow and 
+must be reviewed against source terms before sharing. Serialized model files should only 
+be loaded from the trusted package.
+AI tools supported literature retrieval, code drafting, execution and manuscript 
+revision. The author remains responsible for verifying claims, sources, analysis and 
+institutional disclosure requirements. No AI-writing detector outcome or defense 
+approval is guaranteed. Draft disclosure wording must be reviewed by the author and 
+committee.

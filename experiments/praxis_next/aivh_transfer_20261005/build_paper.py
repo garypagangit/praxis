@@ -1,5 +1,5 @@
 """Build a GWU-style working Praxis from saved evidence, not anticipated findings."""
-import json
+import json,sys
 from pathlib import Path
 from docx import Document
 from docx.shared import Inches,Pt
@@ -12,6 +12,9 @@ HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
 OUT=ROOT/'output/doc/aivh_praxis';OUT.mkdir(parents=True,exist_ok=True)
 R=json.loads((HERE/'RESULTS.json').read_text())
 Q=json.loads((HERE/'ROUXII_QUALIFICATION.json').read_text())
+sys.path.insert(0,str(HERE.parent/'aivh_arguments_20261005'))
+import paper_additions
+paper_additions.figures()
 doc=Document()
 title='Distinguishing Autonomous AI from Human Cyberattack Operators Using Explainable Command Behavior'
 for sec in doc.sections:
@@ -40,7 +43,7 @@ def center(text):
 def chapter(text):
  doc.add_page_break();h(text,1)
 def table(caption,heads,rows):
- doc.add_paragraph(caption,'GWU Table Caption')
+ doc.add_paragraph(caption,'GWU Table Caption' if caption.startswith('Table ') else 'Normal')
  t=doc.add_table(rows=1,cols=len(heads))
  for c,s in zip(t.rows[0].cells,heads):c.text=s
  t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
@@ -90,13 +93,14 @@ p('An AI attribution label would be an additional investigation cue, not a repla
 h('1.5 Research questions and hypotheses')
 table('Table 1. Research alignment',['Question','Hypothesis and decision rule'],[
  ['RQ1. Can attribution transfer at a useful operating point?','H1. The calibration-selected model achieves >=80% AI recall and <=5% mean human-group FPR on a fresh matched held-out environment. Both conditions must hold; point estimates and group uncertainty are reported.'],
- ['RQ2. Does command order add information beyond command frequency?','H2. Ordered verbs improve AI recall by >=5 percentage points over frequency-only verbs at separately calibrated <=5% human-group FPR, and the paired 95% interval for the improvement excludes zero on fresh data.'],
+ ['RQ2. Does removing argument detail improve transfer compared with the TRACE-style baseline?','H2. On fresh matched data, a preselected masked representation improves AI recall by >=5 percentage points over TRACE-style SVC, both satisfy <=5% mean human-group FPR, and the paired 95% improvement interval excludes zero. If either violates the error limit, H2 is not supported.'],
  ['RQ3. Can the score be explained without relying on irrelevant environment identifiers?','H3. Under a frozen identifier-renaming intervention, >=99% of decisions remain unchanged, mean top-five contribution Jaccard is >=0.90, and score reconstruction error is <1e-10. Validity of the intervention must be checked first.']])
-p('These are proposed confirmatory hypotheses for the fresh matched study. PX-118 provides development diagnostics only. Its broad removal of all arguments is not the harmless renaming intervention required by H3. Failure of H2 would mean frequencies are sufficient in the tested setting; it would not invalidate H1. Exact score reconstruction is a correctness requirement and is not itself a novel research result.')
+p('These are proposed confirmatory hypotheses for the fresh matched study. PX-118 provides development diagnostics only. Its broad removal of all arguments is not the harmless renaming intervention required by H3. Failure to support H2 does not establish equivalence or invalidate H1. Command-order comparisons remain secondary development analyses. This revised prospective RQ2 does not change the historical PX-118 protocol. Exact score reconstruction is a correctness requirement and is not itself a novel research result.')
 h('1.6 Scope and limitations')
 p('Each prediction concerns ten discovery-like commands, not an entire APT campaign. Operator labels come from provenance, not attack-stage labels. Live response, incident cost and analyst outcomes are outside the measured scope.')
 p('Human and AI labels align with GAMBiT and Honey respectively. Common preprocessing does not make their tasks equivalent. Related windows are not independent people. The small Rouxii subset cannot establish population-wide transfer.')
 
+paper_additions.add(globals(),'objectives')
 chapter('Chapter 2: Literature Review')
 h('2.1 Closest technical precedent')
 p('TRACE uses passive terminal features to identify the family of an AI attack model, followed by an active forensic step. Its use of command features means this Praxis cannot claim to introduce passive terminal fingerprinting. The present comparison adapts its TF-IDF and linear-support-vector approach to a binary operator problem. That is a strong baseline rather than a reproduction of the original seven-family task (Ediga & Chattopadhyay, 2026).')
@@ -117,12 +121,11 @@ p('The candidate contribution is the combined evaluation of transfer, false-labe
 chapter('Chapter 3: Research Methodology')
 h('3.1 Study design in simple terms')
 p('First, collect commands with independently known operator labels. Second, separate related observations before fitting. Third, compare models that see different levels of command detail. Fourth, choose each decision threshold using calibration data. Finally, test on held-out records and inspect what changes when environment clues are removed. A fresh matched collection is required to test whether the measured differences actually transfer.')
-doc.add_paragraph('Figure 1. Command-attribution study workflow','GWU Figure Caption')
-for text in ['1. Known human and autonomous-AI operators','2. Same tasks, starting state and recorder (fresh study)','3. Recorded commands -> common normalization','4. Separate training / calibration / untouched evaluation','5. Compare frequency, ordered verbs and TRACE-style models','6. Fixed threshold -> operator label + feature contributions','7. Measure AI recall, human errors and transfer limits']:
- pp=center(text);pp.paragraph_format.line_spacing=1;pp.paragraph_format.space_after=Pt(7)
+paper_additions.add(globals(),'methods')
 h('3.2 Data qualification and observation unit')
 p('PX-117C qualified 17,092 GAMBiT commands after removing structural problems. Its common-command subset contained 244 windows across 42 conservative participant groups. Honey contributed 7,659 eligible sessions. A shared allowlist admitted simple discovery-like commands and rejected shell compounds and malformed records. Absolute paths, numeric tokens and IP addresses were normalized. Each observation used ten qualifying commands, omitting intervening commands outside the allowlist.')
 p('The main saved test contains 1,300 AI windows and 61 human windows from nine conservative groups. Participant numeric suffixes are grouped across source experiment prefixes to reduce possible overlap. This cautious grouping is not proof of unique identity. The previously examined split is retained for paired development comparisons rather than described as new independent evidence.')
+paper_additions.add(globals(),'qualification')
 h('3.3 Models and controlled comparisons')
 table('Table 3. PX-118 model comparisons',['Model','Information available'],[['Lexical logistic','Normalized words and adjacent word pairs'],['TRACE-style SVC','Word TF-IDF(1,2), 10,000 features, linear SVC, C=1'],['Frequency logistic','Executable-name unigrams only'],['Ordered logistic','Executable-name unigrams, pairs and triples'],['Shuffled logistic','Same verb representation after fixed within-window shuffling'],['Masked logistic','Verbs retained; every argument replaced by ARG']])
 p('The logistic models use fixed regularization C=1. All models receive the same group/class fitting weights: the classes receive equal total mass and human groups receive equal mass within their class. This controlled weighting differs from TRACE\'s original class-balancing setup and is disclosed. No hyperparameter search is performed. Six models are tested in a main comparison and four family-exclusion conditions, for 30 fits.')
@@ -144,6 +147,7 @@ h('3.8 Reproducibility and stopping rules')
 p('PX-118 source, protocol and input hashes were committed before fitting. The AWS worker runs bounded jobs and is stopped after artifact publication. The analysis retains prediction IDs, scores, model artifacts and external eligibility counts. Commands in published logs are treated as inert strings and are never executed by the classifier experiment.')
 p('The study stops short of a transfer claim if labels or command records cannot be independently qualified, if no adequate external sample exists, or if the fresh matched operating targets fail. A negative result is retained. Changing the command minimum or threshold after seeing an external result requires a new development protocol and new evaluation data.')
 
+paper_additions.add(globals(),'gmr')
 chapter('Chapter 4: Completed Development Results')
 h('4.1 Preliminary PX-117C evidence')
 table('Table 4. PX-117C main operating points',['Model','AI recall','Human false labels','Mean group FPR'],[['Command length','15.23%','5/61','9.88%'],['Command words','97.62%','4/61','8.95%'],['Executable sequences','71.54%','0/61','0%']])
@@ -169,6 +173,7 @@ table('Table 9. Independent-source probes',['Model','KYPO false AI labels','Roux
 h('4.5 What remains untested')
 p('H1, H2 and H3 remain open: a fresh environment containing both classes under the same recorder has not been tested. Numerical development success does not establish transfer or analyst benefit.')
 
+paper_additions.add(globals(),'results')
 chapter('Chapter 5: Discussion and Conclusions')
 h('5.1 Interpretation')
 p('The completed work shows that command representation changes the attribution tradeoff. It also demonstrates why a high ranking score is insufficient: the actual human-error rate at the chosen operating point must be examined. The result should guide the next collection rather than be used to declare a universal AI signature.')
@@ -182,6 +187,7 @@ p('Broader APT attribution should be considered only after multi-stage campaigns
 h('5.4 Conclusion')
 p('This Praxis has a plausible research direction and completed development evidence, but transfer is not yet established. The present package makes that uncertainty measurable and specifies the data needed to resolve it. Success will mean detecting autonomous AI on fresh matched conditions while limiting human false labels and showing which command evidence supports each decision.')
 
+paper_additions.add(globals(),'remaining')
 chapter('References')
 refs=[
 'Anonymous. (2026). Rouxii: Exploiting honeypots with deception-aware AI pentesters [Data set]. Zenodo. https://doi.org/10.5281/zenodo.21986588',
@@ -203,6 +209,18 @@ p('Reproduction requires the qualified private records and the pinned Python dep
 chapter('Appendix B: Committee Review Checklist')
 for text in ['Confirm that the narrower operator-attribution problem is an acceptable Praxis topic.','Approve or revise the three aligned RQ/H pairs before matched collection.','Verify the novelty boundary against TRACE and the full Honey paper when available.','Determine institutional requirements for collecting new human sessions.','Confirm the feasible number of independent operators and the untouched evaluation allocation.','Review the exact distinction between a faithful score explanation and causal operator evidence.','Review AI-use disclosure and final GW submission requirements.']:
  pp=p(text);pp.paragraph_format.first_line_indent=Inches(0)
+paper_additions.add(globals(),'appendix')
+# Number final tables in reading order after inserting the additional study.
+import re
+caption_map={};number=0
+for pp in doc.paragraphs:
+ if pp.style.name=='GWU Table Caption':
+  number+=1;old=pp.text.split('.')[0];caption_map[old]=f'Table {number}'
+  pp.text=re.sub(r'^Table [0-9]+[A-Z]?\.',f'Table {number}.',pp.text)
+for pp in doc.paragraphs:
+ if pp.style.name!='GWU Table Caption':
+  for old,new in caption_map.items():
+   if old in ['Table 3B'] and old in pp.text:pp.text=pp.text.replace(old,new)
 doc.core_properties.title=title;doc.core_properties.author='Gary Pagan';doc.core_properties.subject='Working Praxis; development evidence and matched transfer protocol'
 dest=OUT/'Gary_Pagan_AI_Operator_Praxis.docx';doc.save(dest)
 (OUT/'Manuscript_Text.txt').write_text('\n\n'.join(pp.text for pp in doc.paragraphs),encoding='utf-8')
