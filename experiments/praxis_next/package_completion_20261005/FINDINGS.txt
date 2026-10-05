@@ -1,0 +1,123 @@
+PX-116 — Package-install verification and executable task completion
+Qualification results, 2026-10-05 UTC
+
+DECISION
+The feasibility work ran. The existing PX-067 repair does not yet justify a
+confirmatory superiority trial or a successful Praxis claim. Keep the frozen
+criteria; do not spend the larger budget until the candidate and comparators
+qualify. This closes the initial qualification run, not the proposed research.
+
+WHAT WAS FROZEN BEFORE OUTCOMES
+Zero observed invalid admissions in the declared scope; >=90% completion of
+prequalified legitimate tasks; >=5 percentage points improvement over the
+strongest eligible baseline, with a positive paired task-cluster 95% lower
+confidence limit. Neither a tie nor converting review into block is a win.
+PROTOCOL.txt contains the decision criteria. A full confirmatory cohort, model
+and power calculation have not been frozen or evaluated.
+
+ACTUAL AWS TEST
+We selected 12 BigCodeBench author tasks by a fixed hash order and ran their
+reference code and original functional tests with four authored installation
+forms. The forms were direct pinned installation, a requirements file,
+--no-deps, and python -m pip. There were 48 isolated container executions.
+These are 12 task clusters, not 48 independent tasks. No model generated the
+commands, so this is an installation-form diagnostic, not agent performance.
+
+10/12 reference tasks qualified. They contain 57 author unit tests in total.
+Both excluded tasks installed NumPy successfully, but their test files require
+additional packages absent from the minimal environment: BigCodeBench/253
+requires matplotlib and BigCodeBench/465 requires pytz. All eight executions
+of these two tasks are retained as qualification failures. Author library
+metadata alone is insufficient to define a complete test environment.
+
+Among the 40 cases belonging to the 10 qualified tasks:
+Method                  Completed   Allowed   Blocked   Unresolved review
+Ungated sandbox         40/40       n/a       n/a       n/a
+Registry-only           30/40       30        0         10
+Original PX-050          30/40       30        10        0
+Recovered PX-067         30/40       30        10        0
+
+All three preserve 75% completion in this controlled case mix. The requirements
+file form accounts for all ten lost completions in each arm. Across all 48
+selected cases, including reference failures, each gate completes 30/48 (62.5%).
+The 75% result is a diagnostic below the proposed 90% floor; it is not a formal
+test of the eventual hypothesis or a population estimate. The equal mixture
+of forms is authored and does not estimate how often agents use each form.
+On every qualified task the compared gates tie: the observed paired completion
+difference is zero. Repeated forms do not provide extra independent evidence.
+
+Four inert invalid/unresolvable installation controls were also checked against
+offline pip. PX-067 blocks both empty-operand forms and the absent control
+package, but allows numpy==9999.0.0, which pip cannot resolve in the frozen
+mirror. Its name-only lookup does not validate the requested version.
+This is a resolvability failure under the NEW proposed scope, not evidence of
+a malicious package or a retroactive failure of a narrower name-existence claim.
+Four authored controls cannot establish a population invalid-admission rate.
+
+One preliminary AWS attempt failed at Docker startup, before any task ran.
+The next attempt used an isolated Docker configuration and completed. Neither
+startup repair nor aligning NumPy with the author's pin used task outcomes.
+
+HISTORICAL AUDIT REPAIR — A REAL BUT LIMITED POSITIVE
+We recovered the actual PX-067/PX-069 source from the historical git object,
+instead of reconstructing it from descriptions. All 142 PX-050Y review command
+hashes were matched to raw records: 141 "pip install" and one "pip install
+--no-deps". These extracted forms have no package operand. PX-067 blocks them;
+changing their destination from review to block does not complete a task.
+
+Replaying all 4,500 PX-069 packets reproduced the original 147 affected
+responses (3.27%) and 309 exception regions. A small development repair skips
+regions containing only blank lines and shell comments. It reduces affected
+responses to 16/4,500 (0.36%). All 3,086 extracted candidates remain identical,
+including their content hash; five focused controls passed.
+This meets a parser-coverage threshold only. It does not independently label
+the remaining actions or resolve ordinary label disagreements. H1 is not yet
+established. The original PX-069 failed determination remains unchanged.
+
+PRECEDENTS AND NOVELTY
+All three requested papers were opened before classification; see
+LITERATURE_CHECK.txt for section-level notes and primary links.
+AgentSpec already provides runtime rule enforcement and behavior assessment.
+PackMonitor already evaluates utility using HumanEval, as well as constraining
+package names. The August defense paper addresses standard-library labeling
+and utility proxies. Claims of the first gate, first utility test, or first
+careful independent assessment would therefore be unsupported.
+Actual installation plus independent functional tests at a common protection
+requirement is a possible comparison contribution, not an established novelty.
+
+COMPARATOR READINESS
+AgentSpec's author rule interface passed a trigger/parse check in an isolated
+compatible ANTLR environment. A package-policy adapter and complete evaluation
+are still required. A true predicate interface test is not a safety result.
+PackMonitor's checked-out author code reproduces an undefined NATATURAL_LANG
+symbol; a disclosed one-token repair is prepared. No full model run occurred.
+Neither comparator has an efficacy or completion score here. Their incomplete
+qualification must not be presented as a candidate victory.
+
+WHAT A FURTHER CANDIDATE WOULD HAVE TO DO
+1. Inspect available requirements-file contents and resolve names AND versions
+   against frozen artifacts; unresolved or unavailable files remain unresolved.
+2. Where an action cannot work, return actionable feedback and permit a bounded
+   correction. Blocking alone has no mechanism for improving completion over a
+   checker whose allowed actions already include the candidate's allowed set.
+3. Give AgentSpec and the other strong comparators the same resolver evidence
+   and correction budget. A standard pip resolver is itself a necessary baseline;
+   wrapping it in a gate does not establish a novel algorithm.
+4. Qualify complete author test environments without candidate decisions, then
+   freeze fresh task groups, exact budgets and a powered confirmation design.
+5. Demonstrate incremental headroom on development data BEFORE buying the
+   full comparison. These exposed 12 tasks cannot become untouched confirmation.
+
+No result in this run establishes superiority over PackMonitor or AgentSpec,
+novelty, deployment safety, or defense readiness. The useful conclusion is
+specific: execution is feasible, the audit parser can be repaired, and the
+current name-only gate still loses legitimate work and misses version failures.
+
+EVIDENCE
+PILOT_RESULTS.json: all policy counts and invalid-control process outputs.
+PILOT_AUDIT.json: 88 passing checks; nonzero author tests required for success.
+AUDIT_REPAIR_RESULTS.json: original and repaired historical parser replay.
+HISTORICAL_DIAGNOSTIC.json: matched review forms and exception analysis.
+COMPARATOR_QUALIFICATION.json: actual comparator preparation limits.
+EVIDENCE_MANIFEST.json: hashes for the collected execution evidence.
+COMPUTE_SUMMARY.json: both attempt receipts, estimates and stop verification.
