@@ -1,0 +1,45 @@
+PX-116 primary-source verification, 2026-10-05 UTC
+
+All three requested papers were opened before historical case classification.
+
+AgentSpec: Wang, Poskitt and Sun. arXiv:2503.18666; ICSE 2026 record.
+https://arxiv.org/html/2503.18666v1
+https://github.com/haoyuwang99/AgentSpec
+Runtime triggers, predicates and enforcement are established. Its code-agent
+evaluation includes human inspection of behavior. Independent assessment and
+task-oriented agent safety cannot be claimed as firsts for this study.
+
+PackMonitor: arXiv:2602.20717.
+https://arxiv.org/html/2602.20717v1
+https://github.com/THU-Agent/PackMonitor
+Uses parsing and constrained decoding against a registry. Evaluates Package4U,
+HFuzzer, latency, and HumanEval code-generation utility. It is incorrect to say
+generation-time methods cannot measure downstream completion: the method and
+the evaluator are separate. The proposed distinction is same-task installation
+plus functional outcomes, not the first package gate or first utility evaluation.
+The historical local PackMonitor anchor used a disclosed one-token repair;
+that artifact cannot automatically be called the unmodified official baseline.
+
+Djire et al. Evaluating Inference-Time Defenses against Package Hallucination
+in LLM-Generated Code. arXiv:2608.22652; record says accepted ASE 2026.
+https://arxiv.org/html/2608.22652v1
+Section 4.1 distinguishes registry packages and standard-library imports. Its
+4,000 instructions are generated from popular-package descriptions. The
+standard-library correction is a measurement issue, not a released correction
+of our 142/147 cases. An importable stdlib module is not automatically a valid
+pip-install distribution. Section 4.4's utility uses description-similarity
+reference sets and generated-code package use; it explicitly calls the former
+a semantic proxy. These precedents already evaluate utility/measurement.
+
+Candidate source for executable outcomes (not yet qualified):
+https://github.com/bigcode-project/bigcodebench
+https://huggingface.co/datasets/bigcode/bigcodebench
+Author tests/reference code can support a functional oracle, subject to actual
+environment qualification. Public curated tasks are not real deployment logs.
+
+Verdict: a narrow comparative measurement contribution is plausible, but this
+review does not establish novelty. Equal observed zero invalid admissions plus
+independent functional tests is a proposed comparison, not a proven field gap.
+Do not claim no prior work has done ground truth carefully, or that completion
+is the only uncertainty: dataset validity, coverage, enforcement, comparators,
+model behavior and generalization also remain empirical questions.
