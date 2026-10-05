@@ -416,25 +416,60 @@
       "protocol": "assurance_batch_20261004/PROTOCOL.txt",
       "status": "COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED",
       "results": "assurance_batch_20261004/PX113_RESULTS.json",
-      "finding": "Three chronological releases: performance gate accepted all; combined stability gate accepted 1. Evaluation accuracy changes: -0.20 pp, +3.05 pp, +2.05 pp. Stability rejected both beneficial updates. No release crossed the frozen >1 pp harm threshold. No evidence the explanation gate improves release decisions; only three dependent cycles."
+      "finding": "Three chronological releases: performance gate accepted all; combined stability gate accepted 1. Evaluation accuracy changes: -0.20 pp, +3.05 pp, +2.05 pp. Stability rejected both beneficial updates. No release crossed the frozen >1 pp harm threshold. No evidence the explanation gate improves release decisions; only three dependent cycles.",
+      "dashboard_status": "Complete \u2014 no release benefit; prior-art overlap",
+      "reason": "Explanation stability under retraining is established. Our gate rejected both beneficial updates; no evaluated release crossed the frozen harm threshold. No evidence of better release decisions. Prior work: On Minimizing the Impact of Dataset Shifts on Actionable Explanations \u2014 https://proceedings.mlr.press/v216/meyer23a.html",
+      "reason_summary": "Explanation stability under retraining is established. Our gate rejected both beneficial updates; no evaluated release crossed the frozen harm threshold. No evidence of better release decisions.",
+      "papers": [
+        {
+          "title": "On Minimizing the Impact of Dataset Shifts on Actionable Explanations",
+          "url": "https://proceedings.mlr.press/v216/meyer23a.html"
+        }
+      ]
     },
     {
       "id": "PX-114",
       "title": "Verification claims checked against tool receipts",
       "directory": "assurance_batch_20261004",
       "protocol": "assurance_batch_20261004/PROTOCOL.txt",
-      "status": "COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED",
+      "status": "COMPLETE_GENERIC_NOVELTY_CLAIM_SUPERSEDED",
       "finding": "200 answers; 20 malformed; 48 unsupported verified claims across 20 targets. Headroom passed: True. Gate accepted 49. COMPLETE_CONTROLLED_COMPARISON. Snapshot-backed structured task, not deployed-agent prevalence. Direct prior art exists. Comparison: {\"gate\": {\"accepted\": 49, \"unsupported\": 0}, \"confidence_ge_09\": {\"accepted\": 97, \"unsupported\": 48}, \"self_judge\": {\"accepted\": 49, \"unsupported\": 0}, \"matched_budget\": 49, \"matched_gate\": {\"accepted\": 49, \"unsupported\": 0}, \"matched_confidence\": {\"accepted\": 49, \"unsupported\": 17}, \"matched_self_judge\": {\"accepted\": 49, \"unsupported\": 0}}",
-      "results": "assurance_batch_20261004/PX114_RESULTS.json"
+      "results": "assurance_batch_20261004/PX114_RESULTS.json",
+      "dashboard_status": "Closed as standalone idea \u2014 generic novelty claim superseded",
+      "reason": "Receipt-based verification already exists. The completed comparison tied the same-model judge at 49 accepted / zero unsupported claims. A distinct empirical extension remains unproven; this is not a novel generic gate. Prior work: Tool Receipts, Not Zero-Knowledge Proofs: Practical Hallucination Detection for AI Agents \u2014 https://arxiv.org/abs/2603.10060",
+      "reason_summary": "Receipt-based verification already exists. The completed comparison tied the same-model judge at 49 accepted / zero unsupported claims. A distinct empirical extension remains unproven; this is not a novel generic gate.",
+      "papers": [
+        {
+          "title": "Tool Receipts, Not Zero-Knowledge Proofs: Practical Hallucination Detection for AI Agents",
+          "url": "https://arxiv.org/abs/2603.10060"
+        }
+      ]
     },
     {
       "id": "PX-115",
       "title": "SHAP narrative consistency versus deterministic rendering",
       "directory": "assurance_batch_20261004",
       "protocol": "assurance_batch_20261004/PROTOCOL.txt",
-      "status": "COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED",
+      "status": "COMPLETE_GENERIC_NOVELTY_CLAIM_SUPERSEDED",
       "finding": "32 generated explanations; 0 exact top3/sign/order passes; 32 failures. Deterministic templates consistent on 32. Injected wrong feature/sign/order accepted: [0, 0, 0]; correct-sidecar/contradictory-prose accepted 32/32. Unrestricted prose semantics NOT CERTIFIED; no causal, legal or comprehension claim. Required three-reason structures: 0/32; format failures cannot be counted as proven natural semantic errors.",
-      "results": "assurance_batch_20261004/PX115_RESULTS.json"
+      "results": "assurance_batch_20261004/PX115_RESULTS.json",
+      "dashboard_status": "Closed as standalone idea \u2014 generic novelty claim superseded",
+      "reason": "The September 30, 2026 preprint overlaps deterministic evidence checking; earlier work already evaluates SHAP narrative errors and verification. Our structured checker accepted all 32 contradictory-prose fixtures when the sidecar was correct. A narrower new comparison remains unproven. Prior work: Reasoning Externalization for Faithful Large Language Model Narratives of Stock Return Predictions \u2014 https://arxiv.org/abs/2609.38869; Towards Faithful Agentic XAI: A Verification Method and an Open-World Benchmark for Better Model Faithfulness \u2014 https://arxiv.org/abs/2605.27879; How good is my story? Towards quantitative metrics for evaluating LLM-generated XAI narratives \u2014 https://arxiv.org/abs/2412.10220",
+      "reason_summary": "The September 30, 2026 preprint overlaps deterministic evidence checking; earlier work already evaluates SHAP narrative errors and verification. Our structured checker accepted all 32 contradictory-prose fixtures when the sidecar was correct. A narrower new comparison remains unproven.",
+      "papers": [
+        {
+          "title": "Reasoning Externalization for Faithful Large Language Model Narratives of Stock Return Predictions",
+          "url": "https://arxiv.org/abs/2609.38869"
+        },
+        {
+          "title": "Towards Faithful Agentic XAI: A Verification Method and an Open-World Benchmark for Better Model Faithfulness",
+          "url": "https://arxiv.org/abs/2605.27879"
+        },
+        {
+          "title": "How good is my story? Towards quantitative metrics for evaluating LLM-generated XAI narratives",
+          "url": "https://arxiv.org/abs/2412.10220"
+        }
+      ]
     },
     {
       "id": "PX-116",
@@ -443,7 +478,24 @@
       "protocol": "package_completion_20261005/PROTOCOL.txt",
       "status": "QUALIFICATION_COMPLETE_CANDIDATE_NOT_READY_FOR_CONFIRMATION",
       "finding": "AWS: 12 author tasks x 4 install forms; 10 reference-qualified, 40/48 actual passes. Registry-only, PX-050 and PX-067 each preserve 30/40 qualified cases (75%); requirements-file form loses all 10. PX-067 admits one unresolvable-version control. Historical parser affected responses 147/4500 -> 16/4500 with 3086 candidates unchanged. No PackMonitor/AgentSpec efficacy run or novelty/superiority claim. Full confirmation stopped at readiness gate.",
-      "results": "package_completion_20261005/FINDINGS.txt"
+      "results": "package_completion_20261005/FINDINGS.txt",
+      "dashboard_status": "Hold \u2014 qualification complete; candidate not ready",
+      "reason": "Current gates preserve only 30/40 qualified task-form completions (75%); PX-067 admits an unresolvable-version control. Full PackMonitor/AgentSpec efficacy comparison is unrun. Prior work removes the broad gate/first-utility claims, but does not establish that the narrower equal-protection completion comparison is non-novel. That novelty remains unestablished. Prior work: PackMonitor: Enabling Zero Package Hallucinations Through Decoding-Time Monitoring \u2014 https://arxiv.org/abs/2602.20717; AgentSpec: Customizable Runtime Enforcement for Safe and Reliable LLM Agents \u2014 https://arxiv.org/abs/2503.18666; Evaluating Inference-Time Defenses Against Package Hallucination in LLM-Generated Code \u2014 https://arxiv.org/abs/2608.22652",
+      "reason_summary": "Current gates preserve only 30/40 qualified task-form completions (75%); PX-067 admits an unresolvable-version control. Full PackMonitor/AgentSpec efficacy comparison is unrun. Prior work removes the broad gate/first-utility claims, but does not establish that the narrower equal-protection completion comparison is non-novel. That novelty remains unestablished.",
+      "papers": [
+        {
+          "title": "PackMonitor: Enabling Zero Package Hallucinations Through Decoding-Time Monitoring",
+          "url": "https://arxiv.org/abs/2602.20717"
+        },
+        {
+          "title": "AgentSpec: Customizable Runtime Enforcement for Safe and Reliable LLM Agents",
+          "url": "https://arxiv.org/abs/2503.18666"
+        },
+        {
+          "title": "Evaluating Inference-Time Defenses Against Package Hallucination in LLM-Generated Code",
+          "url": "https://arxiv.org/abs/2608.22652"
+        }
+      ]
     }
   ],
   "inference_rule": "These are exposed-data development studies. Freeze source and protocol before fitting; keep all registered outcomes. Do not infer independent-campaign efficacy, novelty, or a guarantee from a good score.",
