@@ -1,0 +1,96 @@
+PX-117C: Autonomous AI versus human-operated command behavior
+AWS development experiment, 5 October 2026
+
+QUESTION
+Can a classifier distinguish the two sources after both are restricted to the
+same discovery-like command families and human participants are kept apart?
+
+WHAT CHANGED
+GAMBiT provides operator command records rather than network flows. We removed
+placeholders, exact duplicates and an invalid-date record from its workbook.
+For both sources, one fixed allowlist selected simple discovery-like commands.
+Every observation contains ten qualifying commands. Timing, command output,
+participant IDs, author technique labels and source fields are not predictors.
+Participant numeric suffixes were kept together across experiment prefixes.
+Windows do not cross participant/day boundaries. They omit intervening commands
+outside the allowlist; do not interpret them as contiguous raw attack episodes.
+
+DATA AND FITTING
+Structurally qualified GAMBiT: 17,092 commands, 58 participant IDs.
+Common-command subset: 2,977 commands, 244 windows, 42 conservative groups.
+Honey: 7,659 complete eligible sessions; 2,744 excluded for missing explicit
+parsed-command fields; 5,796 lacked ten eligible commands.
+After grouping/deduplication: main test 1,300 AI windows and 61 human windows
+from nine groups. Each model fit 685 windows. Calibration selected lexical.
+18 conditions: three models, base holdout, four unseen-family probes, and one
+grouped shuffled-fitting-label control per model. KYPO is a separate human-only
+source check, with 180 eligible distinct prefixes after exclusions.
+
+MAIN RESULTS
+Model                 AI identified      Human mislabeled    Mean group FPR
+Command length        198/1300 (15.23%)   5/61 (8.20%)         9.88%
+Command words         1269/1300 (97.62%)  4/61 (6.56%)         8.95%
+Executable sequences  930/1300 (71.54%)   0/61 (0%)            0%
+Main AUROC: length 0.8326; command words 0.9930; executable sequences 0.9578.
+Mean group FPR averages each human group's error rate equally, so prolific
+participants do not dominate the primary false-alert metric.
+None meets both frozen main targets (>=80% recall, <=5% mean group FPR).
+
+EXTERNAL HUMAN SOURCE CHECK (KYPO)
+Length: 56/180 false AI calls (31.11%).
+Command words: 5/180 false AI calls (2.78%).
+Executable sequences: 0/180 false AI calls (0%).
+This human-only check measures false AI calls, not AI recall or AUROC. KYPO log
+files are not independently verified unique people. It cannot alone prove that
+a classifier detects AI on an independent AI source.
+
+UNSEEN AI FAMILY: EXECUTABLE-SEQUENCE MODEL
+Alibaba: 2741/3677=74.54% recall, mean human group FPR4.32%.
+DeepSeek: 7/16=43.75% recall, mean human group FPR0%.
+Google: 1310/1770=74.01% recall, mean human group FPR0%.
+Meta: 816/1198=68.11% recall, mean human group FPR0%.
+Two of four meet the separate unseen-family point targets (70% recall,5%FPR).
+The small DeepSeek subset must remain visible. Do not select only passing folds.
+Command-word recall ranges96.03%-100%, but every family probe exceeds5%mean
+human group FPR. Family probes reuse humans and are not independent studies.
+
+CHECKS AND UNCERTAINTY
+135 independent artifact checks passed: grouping, repeated-prefix exclusion,
+family exclusion, confusion counts, AUROC, calibration threshold and selection.
+Six inference CLI checks reproduce saved model scores for both classes.
+Shuffled-fitting-label AUROC: lexical0.5581, sequences0.5718, length0.1446.
+The shuffled controls weaken performance but one shuffle is not a permutation
+significance test. Differences from a length baseline are descriptive.
+Lexical mean-group FPR bootstrap interval: 1.23%-20.06% (nine test groups).
+With no observed errors, the sequence model's empirical bootstrap degenerates
+to [0,0]. That interval is NOT a population bound and must not be read as one.
+Nine observed error-free groups do not establish a reliable5%risk ceiling.
+
+INTERPRETATION
+There is a useful development signal in command choice and wording beyond
+simple length. The sequence model is a conservative candidate: it retains
+71.5% of AI windows with no observed false calls in the two human checks.
+The word model catches more AI windows but has higher human false alerts.
+This is a measured tradeoff, not a completed success claim.
+
+LIMITS
+Operator class and dataset source remain confounded. Common executable names
+do not make the environments, objectives or recording procedures identical.
+Operator provenance is based on published source documentation; no new human
+collection or independently verified real-world APT attribution was performed.
+The source's experiment/control mapping and cross-experiment identities remain
+unresolved. The discovery-command subset is not the complete APT lifecycle.
+
+NEXT DECISION
+Keep the executable-sequence candidate and the word-model comparator. Do not
+retune thresholds on these exposed tests or claim a post-hoc winner. A useful
+next frozen batch would test participant-split sensitivity and an independent
+AI source, with a sample-size plan for human error. Further work is needed
+before calling the result novel or defense-ready. Do not return to comparing
+unmatched network-flow records with terminal strings.
+
+REPRODUCTION
+Protocol/code frozen at f8ce737 before AWS scoring. Data hashes in DATA.json;
+executed inputs in CLOUD_FREEZE.json. RESULTS_TABLE.csv reports every condition.
+Saved predictions are in delivery/PX117C_Prediction_Evidence.zip; runnable models
+in delivery/PX117C_Classifier.zip. COMPUTE_SUMMARY.json records cost and shutdown.
