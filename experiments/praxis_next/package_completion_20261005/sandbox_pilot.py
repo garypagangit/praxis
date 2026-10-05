@@ -8,8 +8,8 @@ import run_px050y_blackbox as old
 import run_px067_blackbox as repaired
 TASKS=json.loads((ROOT/'pilot_tasks.json').read_text())
 IMAGE=os.environ['PRAXIS_DOCKER_IMAGE']
-FORMS=[['pip','install','numpy==2.2.6'],['pip','install','-r','/task/requirements.txt'],
-       ['pip','install','--no-deps','numpy==2.2.6'],['python','-m','pip','install','numpy==2.2.6']]
+FORMS=[['pip','install','numpy==1.21.2'],['pip','install','-r','/task/requirements.txt'],
+       ['pip','install','--no-deps','numpy==1.21.2'],['python','-m','pip','install','numpy==1.21.2']]
 def command(args,timeout=100):
     start=time.monotonic()
     try:
@@ -28,7 +28,7 @@ def evaluate(item):
     i,task,form=item;directory=ROOT/'tasks'/f'{i}_{form}';directory.mkdir(parents=True,exist_ok=True)
     assert hashlib.sha256(task['source'].encode()).hexdigest()==task['source_sha256']
     (directory/'task_test.py').write_text(task['source'])
-    (directory/'requirements.txt').write_text('numpy==2.2.6\n')
+    (directory/'requirements.txt').write_text('numpy==1.21.2\n')
     argv=FORMS[form]
     # Executed text is an authored argument vector, never a model shell command.
     install=argv+['--no-index','--find-links=/wheels','--target=/tmp/site','--disable-pip-version-check','--no-cache-dir']

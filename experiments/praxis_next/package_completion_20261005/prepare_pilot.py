@@ -20,7 +20,8 @@ record={'id':'PX-116','stage':'DEVELOPMENT_SANDBOX_QUALIFICATION','dataset_rows'
  'selection':'first 12 eligible tasks ordered by sha256(11601|task_id); before sandbox outcomes',
  'tasks':[{'id':r['id'],'sha256':r['source_sha256']} for r in tasks],
  'scope':'Author reference implementations/tests with controlled install forms, not model-generated tasks or confirmatory method comparison.',
- 'command_forms':['pip install numpy==2.2.6','pip install -r requirements.txt','pip install --no-deps numpy==2.2.6','python -m pip install numpy==2.2.6'],
+ 'command_forms':['pip install numpy==1.21.2','pip install -r requirements.txt','pip install --no-deps numpy==1.21.2','python -m pip install numpy==1.21.2'],
+ 'environment_amendment':'Before any task outcomes: align NumPy 1.21.2 with author requirements-eval.txt; use compatible Python 3.9 container. Previous attempt failed before task execution.',
  'reference_qualification':'Direct pinned installation then all author unit tests must pass; do not count install exit alone.',
  'resources':'12 source tasks; parallelism 4; 90 sec per reference/container; no network during test; unprivileged UID; CPU/memory/process limits',
  'invalid_controls':'Two historical empty-operand forms, one local nonexistent package and one nonexistent version; offline resolver only; no package registration.'}

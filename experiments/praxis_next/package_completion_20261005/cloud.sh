@@ -28,9 +28,9 @@ dockerd --config-file="$PWD/docker_config.json" --host="$DOCKER_HOST" --data-roo
 dockerd_pid=$!
 for attempt in $(seq 1 40); do docker info > outputs/docker_info.txt 2>&1 && break; sleep 1; done
 docker info > outputs/docker_info.txt
-docker pull python:3.11-slim > outputs/image_pull.txt 2>&1
-docker image inspect python:3.11-slim > outputs/image_identity.json
-export PRAXIS_DOCKER_IMAGE="$(docker image inspect python:3.11-slim --format '{{.Id}}')"
-python3 -m pip download --no-deps --only-binary=:all: --platform manylinux2014_x86_64 --python-version 311 --implementation cp --abi cp311 numpy==2.2.6 -d wheels > outputs/wheel_download.txt 2>&1
+docker pull python:3.9-slim > outputs/image_pull.txt 2>&1
+docker image inspect python:3.9-slim > outputs/image_identity.json
+export PRAXIS_DOCKER_IMAGE="$(docker image inspect python:3.9-slim --format '{{.Id}}')"
+python3 -m pip download --no-deps --only-binary=:all: --platform manylinux2010_x86_64 --python-version 39 --implementation cp --abi cp39 numpy==1.21.2 -d wheels > outputs/wheel_download.txt 2>&1
 sha256sum wheels/* > outputs/wheel_hashes.txt
 timeout --signal=TERM --kill-after=10s 900 python3 -u sandbox_pilot.py > outputs/run.log 2>&1
