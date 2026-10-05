@@ -4,7 +4,7 @@ from pathlib import Path
 from experiments.praxis_next.compute.provics_cloud_control import control
 from botocore.config import Config
 HERE=Path(__file__).parent
-PRIVATE=Path('C:/w/px116_aws_20261005')
+PRIVATE=Path('C:/w/px116_aws_20261005_attempt2')
 
 def main():
     c=control.Controller(PRIVATE/'settings.json');s=c.settings
@@ -29,7 +29,7 @@ def main():
         (PRIVATE/'bootstrap.sh').write_text(script,encoding='utf-8',newline='\n')
         env=dict(os.environ,PRAXIS_AWS_PRIVATE=str(PRIVATE),PRAXIS_SSH_SCRIPT=str(PRIVATE/'bootstrap.sh'))
         subprocess.run([sys.executable,str(HERE/'recover_ssh.py')],env=env,check=True)
-        print('Detached worker launched through temporary SSH; awaiting GPU qualification and results',flush=True)
+        print('Detached worker launched through temporary SSH; awaiting isolated container qualification and results',flush=True)
         for _ in range(145):
             try:
                 c.client('s3').head_object(Bucket=s['bucket'],Key=s['prefix']+'outputs/result.sha256')

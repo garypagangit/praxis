@@ -23,7 +23,8 @@ aws s3 cp "$input_url" bundle.tar.gz --only-show-errors
 echo "$input_sha  bundle.tar.gz" | sha256sum -c -
 tar -xzf bundle.tar.gz
 export DOCKER_HOST="unix://$PWD/docker.sock"
-dockerd --host="$DOCKER_HOST" --data-root="$PWD/docker-data" --exec-root="$PWD/docker-exec" --pidfile="$PWD/docker.pid" --bridge=none --iptables=false --ip-forward=false --ip-masq=false > outputs/dockerd.log 2>&1 &
+echo '{}' > docker_config.json
+dockerd --config-file="$PWD/docker_config.json" --host="$DOCKER_HOST" --data-root="$PWD/docker-data" --exec-root="$PWD/docker-exec" --pidfile="$PWD/docker.pid" --bridge=none --iptables=false --ip-forward=false --ip-masq=false > outputs/dockerd.log 2>&1 &
 dockerd_pid=$!
 for attempt in $(seq 1 40); do docker info > outputs/docker_info.txt 2>&1 && break; sleep 1; done
 docker info > outputs/docker_info.txt
