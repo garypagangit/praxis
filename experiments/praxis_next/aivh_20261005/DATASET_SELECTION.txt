@@ -1,0 +1,96 @@
+PX-117B: dataset selection and external challenge
+5 October 2026
+
+DECISION
+GAMBiT is the preferred acquisition candidate for a command-based study.
+This is a judgment based on published measurement/provenance documentation,
+not a claim that its rows have already passed qualification. Its participant
+AI-assistance rules still require checking. No new strict human-only label is
+assigned merely because an exercise has human participants.
+
+WHY GAMBIT
+The authors describe skilled human attackers operating from Kali, with shell
+histories, keylogs and participant identifiers. The command table includes
+Timestamp, Command, PID and MITRE Technique. Experiment 2 removes the bias
+triggers, making it preferable to triggered conditions for a first comparison.
+Use only command and grouping fields; demographics/psychometrics are not inputs.
+The live DataPort page lists an 813.22 KB workbook named:
+GAMBiT Exp 1+2 Screening, Demographics, Psychometrics, Command Logs.xlsx
+Files require IEEE login. A free account is offered for open-access downloads.
+Do not download terabytes of captures just to acquire this command table.
+Source: https://doi.org/10.1016/j.dib.2026.112476
+Data: https://ieee-dataport.org/documents/guarding-against-malicious-biased-threats-gambit-experiment-2
+The public cover sheet was downloaded and inspected. The workbook is not yet
+acquired. It remains to establish history coverage, participant reuse across
+experiments, any command filtering, and absence/presence of AI assistance.
+
+OTHER CANDIDATES, IN ORDER OF ROLE
+CasinoLimit: best immediately accessible, ATT&CK-labeled external challenge.
+Downloaded and publisher-MD5-verified cache.zip (49,433,373 bytes) and output.zip
+(1,893,426 bytes) from version 2. Read the author README and datasheet.
+It captures process arguments rather than a complete typed shell transcript.
+The cache merges some events; never reconstruct repetitions from merged IDs.
+Authors disclose that some replacement instances belong to the same attacker.
+Reviewed material does not exclude AI assistance in the 2024 competition.
+Data: https://zenodo.org/records/17256954
+Documentation: https://gitlab.inria.fr/pirat-public/datasets/casinolimit
+
+PWNJUTSU: strong historical human red-team provenance, 22 participants. Sample
+n11 downloaded (1,263,514 compressed bytes), inspected as JSON lines. It has
+99,200 records, including process/audit, service and other background activity.
+There are 6,152 EXECVE records; these are not 6,152 independently typed attacks.
+Selection of attacker-origin process trees is required. Prefer it as an
+additional source after aligning process telemetry, not direct shell input.
+Source: https://pwnjutsu.irisa.fr/
+
+KYPO: already acquired; strongest currently implemented direct-command loader
+and historical human-training provenance, but tasks are educational and prior
+PX-117 human-task transfer failed. Retain it as a baseline, not new evidence.
+Source: https://zenodo.org/records/6670113
+
+UNRAVELED: documented human red-team involvement and host audit logs, but mixes
+emulated background behavior and system activity. No reason to prefer it over
+operator-side histories solely because our earlier Praxis used it.
+Source: https://dapt2021.s3.amazonaws.com/README.txt
+
+SCVIC-APT-2021: flow-oriented public release; not a direct command-log match.
+Source: https://nextconlab.ca/datasets
+
+Public Cowrie/honeypot logs: realistic commands but unknown human/script/AI
+origin. Not eligible as strict human ground truth just because they are older.
+Caldera/Atomic/AttackMate traces: useful conventional-automation controls, not
+human-operated positive ground truth. No such control has been run here.
+
+COMPLETED FROZEN CHALLENGE
+Protocol committed before scoring at 038fb43. No new training or threshold fit.
+CasinoLimit: 140 cache instance files, 114 with author label files. After the
+predeclared label/interactive-execve/PROCTITLE filters, 93 instances had at least
+ten eligible events; 21 did not. 26 unused instances had no label file.
+The selected original n-gram model called 67/93 (72.04%) prefixes AI-like.
+There were 92 unique normalized prefixes. No two-class AUROC is computed.
+This is an AI-call rate, not verified human-only FPR: autonomy/assistance labels
+are unqualified and process traces differ from shell turns. The result cannot
+be used to infer that these competition participants were AI agents.
+The classifier is source-sensitive and should not be deployed for attribution.
+The challenge ran locally because it only applies an already-fitted tiny model;
+no AWS worker was started. Cloud training waits on data eligibility, not cost.
+
+AI SIDE ALSO NEEDS QUALIFICATION
+Honey contains autonomous SSH operators given reconnaissance, deception
+detection and exploitation prompts. AI provenance is not an APT-stage label.
+Not every agent turn is independently established as an attack. Start with
+overlapping documented reconnaissance/discovery tasks, and qualify both sides
+using the same behavioral rules without exposing operator labels to that step.
+Do not infer missing commands from model prose or fabricate stage labels.
+Source: https://zenodo.org/records/20818246
+
+NEXT EXECUTABLE BATCH
+Acquire the GAMBiT command workbook; inspect only needed command/group fields.
+Freeze human eligibility, shared task subset and common observation unit.
+Keep entire participants in separate partitions; audit repeats across studies.
+Compare count baseline, lexical model and action-sequence model under fixed
+calibration rules, then reserve another eligible human source and AI family.
+If assistance cannot be ruled out, report human-operated/assistance-unknown as
+a secondary test and preserve the user's strict human-only main question.
+This remains a development study until operator, source and task confounds
+are addressed. No new efficacy or novelty claim is established by selection.
