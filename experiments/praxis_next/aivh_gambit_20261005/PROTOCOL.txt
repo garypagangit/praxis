@@ -1,0 +1,62 @@
+PX-117C: GAMBiT/Honey common-command development experiment
+Frozen 5 October 2026 before scoring. Human-operated versus autonomous-agent
+records; NOT confirmed unassisted-human versus AI APT attribution.
+
+Known limits: GAMBiT assistance rules are unverified; curated command coverage
+may be incomplete. Workbook E02 includes dates outside the stated HSR2 period;
+do not claim trigger-free/control status. Group the same numeric participant
+suffix across experiments conservatively; distinct suffixes are not verified
+distinct people. All human fit/cal/test records are GAMBiT; all AI records are
+Honey. Dataset and operator labels remain confounded. No causal claim.
+
+Data rule: retain structurally eligible GAMBiT rows previously qualified.
+For both classes select only simple discovery-like executable commands from
+the fixed allowlist in common.py. Reject shell operators, substitutions and
+multi-line commands, sudo wrappers and malformed quoting. This is an observable
+command-family restriction, not a verified attack-stage label. Do not use MITRE
+labels as input or apply different stage filters to the two classes.
+Strip IPs, numeric tokens and absolute-path arguments. Use command basename.
+No time, output, PID, dataset, family, environment or author label as predictors.
+Human windows: sort by timestamp within participant/day, retain nonoverlapping
+ten-command windows of eligible commands; maximum 20 windows per conservative
+participant group, earliest first. Keep incomplete tails out. These windows
+are not contiguous raw activity: intervening ineligible commands are omitted.
+Agent window: first ten eligible commands in a complete published session;
+exclude session if any interaction turn lacks an explicit parsed-command field.
+KYPO external human probe: first ten eligible Bash commands per log file.
+
+Split seed 11703: 60/20/20 GAMBiT numeric participant groups. Honey sessions
+60/20/20 within family. Remove normalized-identical prefixes across partitions
+with fit > calibration > test priority; deduplicate same-label prefixes within
+each partition. This does not replace participant grouping. Fit AI cap 4 times
+human windows, deterministic random selection. Fit weights give equal mass to
+each human group and each AI session, and equal total class weights.
+
+Three logistic models: (1) mean command length + mean token count;
+(2) word unigrams/bigrams of normalized commands; (3) executable-name
+unigrams/bigrams/trigrams. Fixed C=1; no hyperparameter search.
+Threshold: lowest score threshold giving <=5% human calibration false-alert
+rate when each human group receives equal weight. Selection uses calibration
+AUROC, then model name, never test outcomes. No per-family threshold tuning.
+
+Conditions per model: participant holdout; each of four agent families held
+out of fitting/calibration; and fitting-label-shuffled negative control.
+The negative control permutes whole conservative human-group/AI-session labels
+within the selected fitting set, retaining that group's label on every window.
+Family probes reuse the held human test set, so results are dependent.
+Run each model's main export on eligible external KYPO records; report this
+one-class source challenge separately. Do not report AUROC on human-only data.
+
+Report AUROC, recall, false-positive count/rate, equal-human-group FPR and
+fraction of human groups with any false alert. Report 95% percentile bootstrap
+intervals for group-mean FPR by resampling whole test human groups 2000 times.
+These conditional intervals do not certify population risk or operator labels.
+Proposed feasibility target: >=80% AI recall and <=5% group-mean human FPR;
+unseen family >=70% recall at <=5% FPR. Report all misses of these targets.
+If any split lacks either class, skip explicitly; no replacement split search.
+Save all predictions, split IDs, model artifacts, hashes and compute receipts.
+
+AWS: same bounded worker/controller, private records, three models in parallel.
+Maximum 30 minute worker, independent 40 minute stop, 45 minute outer bound,
+$2 reserved estimate for this batch within existing user budget. No attack
+commands execute. No vulnerable lab is launched. Stop and verify after work.
