@@ -1,0 +1,15 @@
+PX-117 research classifier - 5 October 2026
+Scope: descriptive separation of Honey agent logs from KYPO human training logs.
+NOT a validated APT attribution model. Source and operator label are confounded.
+Main test: agent recall 2383/2383; human false positives 4/54 (7.4%).
+Held-out Junior hacker adaptive: human false positives 39/62 (62.9%).
+The proposed 5% human false-positive ceiling was not met on the main test.
+Input: JSON array of recorded shell command strings. No commands are executed.
+Only the first 10 commands are used. Timing is excluded.
+Model selected using calibration AUROC; threshold selected using calibration humans.
+AI score is not a calibrated probability of real-world AI involvement.
+Use Python 3.11 and the included dependency versions. Only load trusted joblib files.
+Install: python -m pip install -r requirements-lock.txt
+Run: python predict.py --model ngrams.joblib --commands example_0.json
+Ground truth, matched tasks and independent people/families require confirmation.
+Data sources: https://zenodo.org/records/6670113 and https://zenodo.org/records/20818246

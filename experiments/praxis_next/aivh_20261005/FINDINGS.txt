@@ -1,0 +1,36 @@
+PX-117: Autonomous AI versus human-operated attack classification
+AWS development experiment completed 5 October 2026. Three models, 36 comparisons.
+
+Main held-out records (54 human, 2383 agent):
+Command-count logistic: AUROC 0.5109; agent recall 9.4%; human FPR 7.4%.
+Command n-gram logistic: AUROC 0.9995; agent recall 100%; human FPR 7.4% (4/54).
+Content/sequence tree: AUROC 0.9244; agent recall 82.0%; human FPR 13.0% (7/54).
+Calibration selected the n-gram export. Test results did not select it.
+
+The apparent success does not establish operator attribution: all AI records
+come from Honey, all human records from KYPO, with different tasks and recording.
+When Junior hacker adaptive was held out, 39/62 human records were called AI
+(62.9%). Held-out SQL injection had 5/8 human false positives (62.5%).
+These failures are retained; no threshold was retuned against these test results.
+
+The 5% human-FPR target was not met on the main test. H1/H2 remain unconfirmed
+without matched tasks. Timing-free models were used throughout, so H3's paired
+timing ablation has not been tested. APT campaign discrimination is unproven.
+
+361 artifact checks passed. CLI export verified for examples of both labels.
+Saved predictions and split manifest are in delivery/PX117_Prediction_Evidence.zip.
+Data qualification excluded 2802 agent sessions with missing explicit parsed
+commands in the first-10-turn prefix; 13397 agent sessions were eligible.
+Human archive had 267 log files, not verified unique people.
+
+Novelty: Trace (https://arxiv.org/abs/2605.01186) already demonstrates passive
+terminal fingerprinting. First passive AI-agent detection is not a valid claim.
+The narrower matched human-versus-unseen-agent question remains unestablished.
+
+Next decisive experiment: qualify the historical Junior hacker environment,
+then compare humans and fully autonomous agents on matched tasks and recording.
+Reserve people/task variants/AI families, include ordinary automation controls,
+and compare the exact Trace baseline. No new matched runs have been performed.
+
+AWS worker stopped; estimated compute $0.11, excluding ancillary charges.
+See COMPUTE_SUMMARY.json. This is an estimate, not a bill.

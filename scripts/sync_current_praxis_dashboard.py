@@ -85,7 +85,7 @@ def main():
     section='''<!-- CURRENT_STATUS_START -->
 <section id="current-status"><h2>Current experiment status — 5 October 2026 UTC</h2>
 <p>This section supersedes conflicting status claims in the archived dashboard below. Completed experiments, research novelty and defense readiness are separate judgments.</p>
-<p><strong>Latest decisions:</strong> PX-117 needs novelty, matched-data and method qualification. PX-116 is not ready for confirmation. PX-050, PX-114 and PX-115 cannot advance on their generic gate novelty claims. Paper titles and links appear in the Reason column.</p>
+<p><strong>Latest decisions:</strong> PX-117 has a working prototype; its false-alert target was missed and matched confirmation remains open. PX-116 is not ready for confirmation. PX-050, PX-114 and PX-115 cannot advance on their generic gate novelty claims. Paper titles and links appear in the Reason column.</p>
 <p>Current experiment records and three historical corrections. Other legacy ideas have not received a fresh literature review in this update. <a href="PRAXIS_CURRENT_STATUS.json">Download status data</a>.</p>
 <label for="current-filter">Find an experiment, status or paper</label>
 <input id="current-filter" type="search" style="width:100%;padding:12px;margin:10px 0" placeholder="For example: PX-116, superseded, PackMonitor">

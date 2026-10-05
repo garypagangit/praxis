@@ -501,12 +501,12 @@
       "id": "PX-117",
       "title": "Autonomous AI versus human-operated APT-style attack classification",
       "directory": "aivh_20261005",
-      "status": "HOLD_PRIOR_ART_DATA_AND_METHOD_REPAIR",
-      "dashboard_status": "Building binary classifier study \u2014 data acquired; matched evaluation pending",
-      "results": "aivh_20261005/SIMPLE_PRAXIS_PLAN.txt",
-      "finding": "Primary scope: fully autonomous AI versus human-only attack sessions; AI-assisted humans excluded. Both public archives checksum-verified: 267 human log files / 21411 records and 16199 agent session files. Supplied parser skips two-field agent turns; 2747 sessions yield no parsed commands. Synthetic smoke passes, no real efficacy claim.",
+      "status": "DEVELOPMENT_COMPLETE_CONFIRMATION_REQUIRED",
+      "dashboard_status": "Prototype complete; false-alert target missed; matched confirmation open",
+      "results": "aivh_20261005/FINDINGS.txt",
+      "finding": "AWS: 3 models, 36 comparisons. Selected n-gram model: 100% agent recall, 4/54 human false positives (7.4%). Held-out human task: 39/62 false positives (62.9%). 361 audit checks passed. Source-confounded development result; APT attribution unproven.",
       "reason": "Trace: Unmasking AI Attack Agents Through Terminal Behavior Fingerprinting (May 2026), https://arxiv.org/abs/2605.01186 already uses passive command classification. This supersedes the first-passive-fingerprinting claim, not the narrower human-versus-unseen-agent question. Dataset labels, identical recording, grouped splits and selective-error guarantees need qualification.",
-      "reason_summary": "Trace already implements passive terminal fingerprinting. The narrower human-versus-unseen-agent question remains unestablished. Recording artifacts and incorrect accepted-error guarantees prevent promotion. Original archive reuses occupied PX-090; tracked here as PX-117.",
+      "reason_summary": "Trace precedes passive fingerprinting. Current source-confounded classifier misses the 5% human false-positive target and fails human-task transfer. Matched confirmation and narrower novelty remain open.",
       "papers": [
         {
           "title": "Trace: Unmasking AI Attack Agents Through Terminal Behavior Fingerprinting",
