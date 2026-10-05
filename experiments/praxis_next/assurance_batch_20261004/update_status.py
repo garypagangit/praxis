@@ -50,6 +50,10 @@ def refresh():
                     'Injected wrong feature/sign/order accepted: '+str([r['injections'][k] for k in ['wrong_feature_accepted','wrong_sign_accepted','wrong_order_accepted']])+
                     f'; correct-sidecar/contradictory-prose accepted {r["injections"]["contradictory_prose_accepted"]}/32. '
                     'Unrestricted prose semantics NOT CERTIFIED; no causal, legal or comprehension claim.')
+                breakdown=HERE/'LANGUAGE_BREAKDOWN.json'
+                if breakdown.exists():
+                    detail=json.loads(breakdown.read_text())['narrative_summary']
+                    finding+=f' Required three-reason structures: {detail["valid_three_reason_objects"]}/{detail["n"]}; format failures cannot be counted as proven natural semantic errors.'
             entry.update(status='COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED',results=HERE.name+'/'+file.name,finding=finding)
         else:
             log=data_dir/('verification_answers.jsonl' if n==114 else 'narrative_answers.jsonl')
@@ -65,14 +69,17 @@ def refresh():
         'Neither corrected German Credit nor model-generated text supplies a new independent APT replication.','',
         'DECISION',
         'Do not promote these as four novel doctoral contributions. PX112 is an engineering cost/replay study; PX113 currently fails to show gate benefit.',
-        'PX114/115 require actual generated results and stronger comparisons before a contribution claim. Generic tool-receipt gates and SHAP narrative audits already exist.',
+        'PX114/115 are controlled feasibility tests. A completed run does not establish doctoral novelty. Generic tool-receipt gates and SHAP narrative audits already exist.',
         'A constrained reason-code renderer may provide a limited, testable consistency guarantee; that is narrower than verifying arbitrary prose or satisfying Article86.',
         'See ASSURANCE_PRIOR_ART.txt and NARRATIVE_PRIOR_ART.txt for closest papers and exclusions.','',
         'EVIDENCE',str(data_dir),'Frozen protocol: PROTOCOL.txt / FREEZE.json; AWS amendment: CLOUD_PROTOCOL.txt / CLOUD_FREEZE.json',
-        'Numeric replay audit: NUMERIC_AUDIT.json. Language raw records remain outside git; outputs preserve every completion and error.']
+        'Numeric replay audit: NUMERIC_AUDIT.json. Language raw records remain outside git; outputs preserve every completion and error.',
+        'Completed language interpretation and limits: LANGUAGE_CLOSEOUT.txt. Independent checks: LANGUAGE_AUDIT.json.']
     registry.write_text(json.dumps(reg,indent=2)+'\n',encoding='utf-8')
     (HERE/'FINDINGS.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    manifest={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in list(OUT.iterdir())+(list(data_dir.iterdir()) if data_dir!=OUT and data_dir.exists() else []) if p.is_file()}
+    evidence=list(OUT.iterdir())
+    if data_dir!=OUT and data_dir.exists(): evidence+=list(data_dir.iterdir())+list(data_dir.parent.iterdir())
+    manifest={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in evidence if p.is_file()}
     (HERE/'EVIDENCE_MANIFEST.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
     print(f'{complete}/4 studies have results',flush=True)
     return complete==4

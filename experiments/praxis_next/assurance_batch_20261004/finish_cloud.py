@@ -13,7 +13,10 @@ for folder in ['C:/w/assurance_aws_20261004']+[f'C:/w/assurance_aws_20261004_att
     if p.exists(): costs.append({'attempt':folder,'receipt':json.loads(p.read_text())})
 (HERE/'AWS_COMPUTE.json').write_text(json.dumps(costs,indent=2))
 context=json.loads((HERE/'RUN_CONTEXT.json').read_text())
-context['compute_note']='Completed AWS GPU cohort; both startup and successful-run receipts in AWS_COMPUTE.json. Worker stop verified. Estimates are not invoices.'
+context['backend']='AWS A10G; pinned model and GPU allocation verified; inference completed'
+context['status']='COMPLETE_FEASIBILITY_NOVELTY_UNESTABLISHED'
+total=sum(x['receipt']['approximate_compute_usd'] for x in costs)
+context['compute_note']=f'Completed AWS GPU cohort; {len(costs)} startup/successful-run receipts in AWS_COMPUTE.json. Worker stop verified. Estimated compute ${total:.2f}, excluding storage and other charges; not an invoice.'
 (HERE/'RUN_CONTEXT.json').write_text(json.dumps(context,indent=2))
 subprocess.run([sys.executable,str(HERE/'update_status.py')],check=True)
 print('GPU results audited and published locally; CPU pilot retained separately.')

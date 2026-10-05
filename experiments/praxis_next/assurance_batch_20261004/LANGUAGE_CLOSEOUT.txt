@@ -1,0 +1,135 @@
+PX-114 AND PX-115: COMPLETED FEASIBILITY RESULTS
+Run: October 4, 2026 US Eastern / October 5 UTC
+
+MAIN FINDING
+PX-114 demonstrates a useful receipt check, but it tied the model judge on
+accepted-answer accuracy. PX-115 failed output-format qualification; it does
+not establish the natural factual-error rate of generated explanations.
+Neither pilot establishes a novel doctoral contribution or improved APT recovery.
+
+WHAT WAS RUN
+One fresh AWS A10G cohort using Ollama 0.17.0 and pinned Qwen2.5:3b Q4_K_M.
+Temperature 0, seed 11401, context 4096. Scientific inputs, prompts and gates
+were unchanged. The earlier 82-answer CPU pilot was not merged or selected.
+Five earlier AWS attempts failed before GPU inference. The sixth completed.
+AWS worker stop was verified and its original security group restored. Estimated
+compute for all six attempts was $1.01 ($0.31 for the successful attempt),
+excluding storage and other charges. This is an estimate, not an AWS invoice.
+
+PX-114: VERIFICATION CLAIMS CHECKED AGAINST TOOL RECEIPTS
+Question: Does checking the provided API receipt prevent unsupported claims
+that the model actually verified whether a package exists?
+Data: 20 saved PyPI snapshots, ten existing packages and ten declared absent
+controls. Five question phrasings, with and without the receipt: 200 answers.
+No packages were installed or registered. A 404 is evidence of snapshot absence.
+
+Observed outcomes:
+  Generated answers:                         200
+  Valid required response fields:            180
+  Malformed required response fields:         20
+  Valid answers claiming verified lookup:     97
+  Unsupported verification claims:            48, across all 20 targets
+  Valid answers not claiming verification:    83
+  Receipt-gate accepted answers:               49
+  Unsupported gate-accepted answers:            0
+
+The frozen headroom rule (at least five unsupported claims across at least
+three targets) passed. The additional model-judge comparison therefore ran.
+
+Matched acceptance count: 49 answers per method
+  Method                    Accepted    Unsupported accepted
+  Receipt gate                  49              0
+  Confidence ranking            49             17
+  Same-model judge              49              0
+
+At the fixed confidence threshold of 0.9, 97 answers were accepted, including
+48 unsupported claims. That threshold had greater coverage and is not the
+matched-count comparison above.
+
+Interpretation in simple words:
+Checking the actual receipt worked better than trusting confidence. Asking the
+model to judge the answers worked equally well on this small test. The receipt
+gate needed no additional LLM calls; the implemented judge arm made 180 calls
+taking 135.54 seconds of measured generation time. This is an implementation
+comparison, not a measured total deployment cost or a universal speedup claim.
+
+Important limits:
+Only 49/200 answers (24.5%) survived the gate. All were existing-package cases
+with receipts. None of the 50 absent-package/receipt cases produced a correct
+verified absence answer: the model returned unknown existence, including 21
+unsupported claims of verification. Another 27 unsupported claims came from
+existing packages without receipts. Filtering did not repair these answers.
+The gate's zero unsupported count follows its narrowly defined receipt rule.
+This is not proof of broad truthfulness, malicious-package detection, tool-use
+behavior in deployed agents, or a failure-rate bound from 200 independent tasks.
+There are only 20 targets, reused across prompts and conditions.
+
+PX-115: SHAP NARRATIVE CONSISTENCY VERSUS DETERMINISTIC RENDERING
+Question: Can a structured check keep an LLM explanation consistent with the
+three largest signed feature contributions, and does it protect the prose too?
+Data: first 32 fixed evaluation records from corrected South German Credit,
+with saved LightGBM raw-margin SHAP contributions. These are historical credit
+records, not APT traffic or current automated lending decisions.
+
+Observed outcomes:
+  Generated responses:                          32
+  Parseable JSON objects:                       30
+  Objects with the required reasons structure:   0
+  Exact required top-three/order/sign passes:     0
+  Deterministic templates matching reference:    32
+
+All 30 parseable responses used top-level features and row_id fields instead
+of the requested reasons structure. The remaining two reached the token limit
+and were not parseable. The frozen gate correctly rejected all 32, but this
+confounds format compliance with semantic consistency. Do not describe the
+result as 32 proven factual errors or as zero semantic ability of Qwen.
+No prompt repair or output-key normalization was used to improve the score.
+
+Post-hoc diagnostic, kept separate from the frozen endpoint: reading the
+alternative features key and retaining just feature/direction fields gave
+30 assessable lists. None selected the exact expected top-three feature set;
+four contained at least one wrong direction for a listed known feature. Thus
+the observed problems extend beyond the key name. This descriptive check does
+not change the 0/32 primary pass count or certify any unrestricted sentence.
+
+Controlled fault tests, 32 examples per type:
+  Injected fault                             Accepted by structured gate
+  Wrong feature                                      0/32
+  Wrong direction                                    0/32
+  Wrong order                                        0/32
+  Correct structured fields, contradictory prose     32/32
+
+Interpretation in simple words:
+A checker can validate the fields it reads and still miss a contradiction in
+the sentence next to them. Templates kept the tested feature IDs and directions
+consistent by construction. These injected examples test the checker, not the
+frequency of naturally generated contradictions. Templates do not establish
+causal truth, reader comprehension, legal compliance, or analyst benefit.
+
+WHAT IS CLOSED, AND WHAT IS NOT CLAIMED
+The frozen generation, comparison, fault tests and independent audit are done.
+245 independent audit checks passed, including snapshot hashes, all response
+counts, comparison budgets, reference attribution order/sign, template contents,
+model/runtime identity, GPU allocation, and successful worker exit.
+An audit is not independent human peer review. No human review was fabricated.
+The machine-readable result files retain the frozen endpoints. LANGUAGE_BREAKDOWN
+adds explicitly descriptive condition/format counts without changing endpoints.
+
+PX-114: completed; useful engineering result; no accuracy gain over self-judge.
+PX-115: completed; output-format qualification failed; prose-check blind spot
+confirmed by injected tests; no natural narrative-fidelity efficacy claim.
+We have enough evidence to close these pilots and reassess ideas separately.
+
+NOVELTY
+Broad novelty remains unestablished. These pilots do not overcome the direct
+precedents already documented in ASSURANCE_PRIOR_ART.txt and
+NARRATIVE_PRIOR_ART.txt. No new literature priority claim is made here.
+
+EVIDENCE
+PX114_RESULTS.json / PX115_RESULTS.json: frozen primary outcomes.
+LANGUAGE_AUDIT.json: independent audit checks.
+LANGUAGE_BREAKDOWN.json: descriptive diagnostics.
+AWS_COMPUTE.json: verified-stop compute receipts; estimates are not invoices.
+EVIDENCE_MANIFEST.json: hashes for local raw outputs and supporting files.
+RUN_CONTEXT.json: active evidence path and infrastructure closeout status.
+RUNBOOK.txt: reproduction and collection process.

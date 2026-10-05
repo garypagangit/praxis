@@ -1,0 +1,38 @@
+PX-114 / PX-115 REPRODUCTION AND CLOSEOUT
+
+Scientific protocol: PROTOCOL.txt and original FREEZE.json.
+AWS compute amendment: CLOUD_PROTOCOL.txt and CLOUD_FREEZE.json.
+Model: Qwen2.5:3b Q4_K_M, full digest pinned in both result files.
+Runtime: Ollama 0.17.0, one A10G GPU, temperature 0, seed 11401.
+
+The primary cohort contains all 200 package-verification cases and all 32
+credit-explanation records generated afresh on GPU. The 82-answer CPU pilot
+is retained separately and must not be merged into primary results.
+
+Working launch path
+1. prepare_ssh.py packages the unchanged inputs and hashes runtime files.
+2. Commit protocol, runtime files and CLOUD_FREEZE.json before cloud_run.py.
+3. Run cloud_run.py as a module from repository root. It installs an independent
+   stop watchdog, starts the designated worker, launches through temporary
+   operator-IP-only SSH, restores network groups, and polls private S3 output.
+4. The worker asserts a mounted persistent data disk with sufficient free space,
+   pins the runtime/model, verifies GPU allocation, and saves every response.
+5. The controller requests stop, verifies stopped state, closes the watchdog,
+   verifies the downloaded archive hash, and safely extracts it.
+6. RUN_CONTEXT.json must point to that complete cohort. finish_cloud.py runs
+   audit_language.py before copying results and refreshing the registry.
+7. summarize_language.py adds descriptive breakdowns without changing gates.
+
+Use a fresh private directory and S3 prefix for a new cohort. Do not overwrite
+the completed run or select between cohorts based on their results.
+prepare_cloud.py, collect_cloud.py and wait_then_run.py are historical startup
+paths from failed attempts; they are not the working SSH workflow.
+
+Interpretation
+PX-114 checks a narrow structured verification assertion against the exact
+presented receipt. It does not validate arbitrary statements or package safety.
+PX-115 checks structured attribution fields, not unrestricted prose semantics.
+Its injected faults test the checker; they do not estimate natural error rates.
+Neither experiment tests APT episode recovery or SOC analyst performance.
+Prior art and novelty limits remain in ASSURANCE_PRIOR_ART.txt and
+NARRATIVE_PRIOR_ART.txt. Completing feasibility does not establish novelty.
