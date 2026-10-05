@@ -55,7 +55,7 @@ def refresh():
             log=data_dir/('verification_answers.jsonl' if n==114 else 'narrative_answers.jsonl')
             done=len(log.read_text(encoding='utf-8').splitlines()) if log.exists() else 0
             finding=f'Qwen2.5:3b pilot on {context.get("backend","local CPU")}; {done} answers collected locally. Results pending; no efficacy finding.'
-            entry.update(status='RUNNING_AWS_FEASIBILITY' if context else 'RUNNING_LOCAL_FEASIBILITY',finding=finding)
+            entry.update(status=context.get('status','RUNNING_AWS_FEASIBILITY') if context else 'RUNNING_LOCAL_FEASIBILITY',finding=finding)
         if ident not in entries: reg['experiments'].append(entry)
         lines.extend([ident+' - '+title,entry['status'],finding,''])
     lines += ['DATA FIT',
