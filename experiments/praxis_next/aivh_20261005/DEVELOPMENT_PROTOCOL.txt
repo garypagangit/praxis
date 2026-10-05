@@ -1,0 +1,75 @@
+PX-117: AWS development classifier and source-confounding audit
+5 October 2026; freeze before classifier outcomes. Primary scope: autonomous
+AI versus human operation. AI-assisted human sessions are excluded.
+
+This batch builds a working research classifier and measures transfer within
+the two available public sources. It is NOT the matched confirmation proposed
+in SIMPLE_PRAXIS_PLAN.txt. Dataset source and operator class are confounded:
+every human is KYPO, every agent is Honey. Even perfect test performance cannot
+attribute the difference causally to autonomous AI or validate APT detection.
+The original prohibition on a misleading source-classification score remains:
+all outputs carry this limitation, including the serialized model and paper.
+
+DATA
+Use the previously checksum-verified archives. Never execute logged commands.
+Human units: one published useractions file; use nonempty bash-command strings
+only, preserving record order. A file is a record group, not a verified unique
+person. Keep its exercise as a split/qualification field, never an input.
+Agent units: one session file. Use only the first ten command turns. Every
+selected turn must explicitly include the parsed-command field in a third pair.
+Reject the entire prefix when any selected turn lacks that field; do not infer
+executed commands from raw model prose or silently remove missing turns.
+Retain rejection counts by model/environment. Prefixes shorter than ten are
+eligible if nonempty. Shortness is reported and assessed by a length baseline.
+No command output, timings, edit counters, recording-source identifiers or
+paths to source files are model inputs. Normalize IPs and standalone numbers
+identically; retain command order. Duplicate normalized prefixes are removed
+from calibration/test whenever they occur in fitting or earlier partitions.
+Within a partition keep one example per identical-prefix/label pair. Retain
+conflicting labels within that partition rather than silently favoring a class.
+
+SPLITS AND MODELS
+Seed 11701. One deterministic 60/20/20 record-group split within each class.
+No group enters fitting, calibration and test simultaneously. In addition,
+hold out each agent family with the same reserved human test groups; remove
+that family from fitting and calibration. Separately leave out each human
+exercise, paired with the same reserved agent test groups. These are descriptive
+transfer probes, not independent repeated tests or a held-environment study.
+Cap fitting agents to four times fitting humans, sampled deterministically;
+retain every eligible calibration/test record. Do not select hyperparameters.
+Models: session-length logistic baseline, TF-IDF command/word n-gram logistic
+classifier, and a small gradient-boosted model on content/sequence features.
+Fit vectorizers and transformations only on fitting data. No timing features.
+Run the three models concurrently with bounded one-thread numerical libraries.
+
+METRICS AND SELECTION
+Fix each model threshold using only human calibration scores: choose the lowest
+observed candidate threshold whose empirical human FPR is <=5%, using score >=
+threshold as positive. A threshold above all scores is allowed and may detect
+nothing. Report resulting test recall, human FPR, AUROC, counts and confusion
+matrix. Small calibration counts make this an empirical operating point, not
+a certified population FPR. Do not claim the proposed confirmation hypotheses
+pass. Report zero denominator as missing, not zero error.
+Pick the exported exploratory model using calibration AUROC only; freeze this
+rule in advance (alphabetical model name breaks ties) and report all alternatives
+and held-group results. Save fitting
+IDs, calibration/test predictions, artifact hashes and dependency versions.
+Report that a known source-ID rule separates the two labels perfectly by
+construction; never use that rule as a deployed classifier or performance claim.
+
+STOP AND DELIVERABLES
+Abort for empty/two-class-invalid split, archive checksum mismatch, cross-split
+duplicate leakage or uncontrolled worker state. Preserve failures. Do not turn
+one class or an empty fold into a numeric AUROC. Save classifier, prediction CLI,
+results table, source audit, and a preliminary five-chapter Praxis manuscript.
+The manuscript must state that matched confirmation, independent participant
+mapping, population operating-point validation and real APT generalization are
+unfinished. No invented human experiments, production outcomes or novelty proof.
+Matched task materials are investigated separately; source access is not proof
+that the historical human environment can already be reproduced.
+
+AWS
+Existing cumulative $1000 authorization. Reuse the designated stopped worker,
+persistent disk and stop-only watchdog controller; reserve $2 for this bounded
+CPU batch, 40-minute watchdog, 45-minute maximum observed-stop window. Confirm
+stop and restore original security groups. No attack logs are executed.
