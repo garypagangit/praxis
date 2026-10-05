@@ -1,0 +1,76 @@
+PX-118: Transfer and explanation checks for autonomous-AI command attribution
+Completed 5 October 2026. Development study; source confounding remains.
+
+WHAT RAN
+30 AWS fits: six models x main/four held-out families. Frozen commit a8a75b5.
+Same PX-117C fit/cal/test records; no new test independence is asserted.
+298 audit checks passed, including counts, thresholds, group separation,
+family exclusion and exact reproduction of the prior word/verb models.
+
+MAIN RESULTS: 1,300 AI windows,61 human windows,9 human test groups
+Model                 AI recall    Human errors    Group-mean FPR
+Words                 97.62%       4/61            8.95%
+TRACE-style SVC       98.00%       7/61           14.81%
+Verb frequency        80.92%       4/61            6.17%
+Ordered verbs         71.54%       0/61            0.00%
+Shuffled verbs        71.23%       1/61            0.62%
+Masked arguments      92.85%       0/61            0.00%
+
+The masked comparator alone meets the main point targets (80% recall,5% mean
+human-group FPR). It also meets all four family point targets (70%,5%).
+Masked family recalls: Alibaba77.32%,DeepSeek100%(16records),Google96.67%,
+Meta89.98%; human group-mean FPR0% in each probe. These probes reuse humans.
+
+Important: calibration selected TRACE-style SVC, not masked arguments. Therefore
+the selected pipeline fails the main target. The masked model is a promising
+comparator identified during development; selecting it now needs fresh evidence.
+Zero observed errors does not establish zero future risk.
+
+WHAT ORDER CONTRIBUTES
+Ordered-minus-shuffled recall: +0.31percentage points, paired conditional95%
+bootstrap[-1.77,+2.54]. Ordered-minus-frequency:-9.38pp[-11.31,-7.38], with
+different human false-alert outcomes. There is no demonstrated large recall
+benefit from order at these separately calibrated operating points.
+Masked-minus-ordered:+21.31pp[18.77,23.69]. Conditional session resampling holds
+fitted models and source conditions fixed; it does not resolve confounding.
+
+EXPLANATION CHECK
+Exact additive contributions reconstruct all six linear scores (max error0).
+This is established linear-model arithmetic, not a new XAI theorem.
+Masking arguments in frozen word models flips4.70%(logistic) or4.26%(SVC) of
+test labels, while top-five contribution overlap is only .223/.221. Apparent
+prediction stability need not imply stable feature explanations. The transform
+removes meaningful flags too, so it is not a semantics-preserving intervention.
+Verb/masked models' invariance is a design property, not empirical discovery.
+
+EXTERNAL SOURCES
+Rouxii archive hash matches the published record. 1544 runs inspected:
+396 HackingBuddy runs:2 have ten qualifying commands;
+358 PentestGPT runs:0 have ten qualifying commands;
+790 Rouxii runs excluded for fixed-operator representation.
+All six models identify both eligible external windows as AI. This n=2 probe
+cannot establish transfer to the full source. No minimum-length change made.
+KYPO human probe: word5/180,TRACE5/180,frequency2/180,ordered0/180,shuffled1/180,
+masked3/180 false AI labels. One-class source checks are not pooled into a
+balanced external benchmark. They do not remove source/class confounding.
+
+PRAXIS POSITION
+Promising direction: test whether reduced command detail yields more reliable
+attribution across matched environments. No first-passive-classifier claim:
+TRACE https://arxiv.org/abs/2605.01186 already does passive model fingerprinting.
+Honey accompanying study also reports behavioral fingerprints:
+https://orbit.dtu.dk/en/publications/honey-for-the-agent-cyber-deception-and-behavioral-fingerprinting/
+The candidate gap is binary transfer with a human-error limit and evidence
+about feature dependence. Novelty and APT-wide efficacy remain unconfirmed.
+
+DELIVERED
+GWU-style working Praxis in output/doc/aivh_praxis, editable Word and PDF.
+Protocol, results, source qualification, predictions, audit and paper builder.
+Matched task/collection plan and common recorder with input-parser checks.
+Recorder container integration and new human/AI collection are not completed.
+Need institutional determination, human operators, pinned task images and an
+autonomous adapter before matched collection. Human records cannot be generated
+by a bot. Proposed H1-H3 in the paper await fresh evaluation.
+
+AWS is verified stopped. Compute estimate $0.1047 plus $0.75 incidental allowance
+=$0.8547; estimate, not invoice. No commands from attack logs were executed.

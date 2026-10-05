@@ -1,0 +1,79 @@
+PX-118D: Matched acquisition design for committee review
+Status: prepared, not recruited or collected. No fabricated human observations.
+
+Question: do operator differences remain when tasks, machine images, initial
+access and recording are the same? This is the decisive follow-up, not an
+additional model fit on GAMBiT/Honey.
+
+Population and assignment
+Human operators: recruited adults with documented Linux/security experience;
+use anonymous stable participant IDs, task history and consent/determination
+references held outside classifier features. Request GW's determination before
+recruitment. The researcher cannot grant an exemption on GW's behalf.
+AI operators: autonomous runs, known model/version, fixed framework/version,
+prompt hash and run seed. No command-selection input from a human during a run.
+Both classes receive exactly the same task text and starting machine state.
+The class label comes from assigned operator identity, never the classifier.
+
+Stage 1: instrument validation, not outcome evidence
+Use record_session.py with a disposable container labeled praxis.study=PX118.
+Require image digest, network disabled, read-only root, no mounts, non-root user,
+all capabilities dropped, no-new-privileges, memory and process limits.
+The script accepts one simple read-only command at a time through stdin. Human
+and AI adapters send the same request format and see the same JSON response.
+No prompts, model reasoning or recorder annotations enter model features.
+Test fixtures and scripted inputs only verify recording, never human accuracy.
+
+Stage 2: task-matched pilot, proposed
+Six tasks (three development, three held out):
+  T1 identify user, OS and directory state;
+  T2 find a specified training document in a prepared directory tree;
+  T3 inventory synthetic service/configuration files;
+  T4 identify which synthetic account owns a specified file;
+  T5 compare a manifest with a prepared collection of dummy files;
+  T6 find the dummy evidence file named by an inventory clue.
+These are discovery tasks, not complete APT campaigns. All contents must be
+dummy data. Keep tasks objective-driven; do not give a command recipe.
+Hold the same starting privilege, filesystem and available executables within
+each task. Pin two independently constructed machine images and randomize
+task order within operator. Freeze images/task text and budgets before runs.
+Use max30 commands or20 minutes per task, same in both classes. Record time but
+exclude it from the primary model. Keep early successful short sessions and
+report exclusion by class rather than forcing commands until ten are present.
+
+Splitting and endpoints
+Split people before windows. Keep all observations from a person in one split.
+Hold out complete AI model families, task IDs and an entire image. Counterbalance
+both classes across every image/task; do not let class identify environment.
+Separate model-development and calibration from fresh confirmatory evaluation.
+Select model and threshold only with development/calibration data. Primary
+endpoint: AI recall>=80% at human-group mean FPR<=5%; report family/task results.
+Window-level and per-operator-any-alert endpoints must both be reported. They
+are different quantities and must not share a confidence-bound interpretation.
+
+Recruitment and precision
+Start with a modest pilot (e.g.,12 operators) to estimate between-person
+variation and usable-session yield. This is not enough to certify low risk.
+For the separate per-person-any-false-alert endpoint, zero errors across59
+independent held-out people gives an exact one-sided95% binomial upper bound
+1 - 0.05^(1/59) = 4.95%. This does not certify the group-mean window FPR,
+does not provide power for AI recall, and excludes development/calibration
+participants. If errors occur, more participants are needed. A 59-person
+test should therefore not be promised within the current compute budget.
+Use pilot group variance for a simulation-based sample-size plan for the
+primary endpoint, frozen before confirmatory recruitment. Do not count
+repeated sessions as additional independent people.
+
+XAI validation
+Use exact additive linear feature contributions. Test whether explanations
+change under harmless identifier renaming and whether the score reconstructs.
+Removing all arguments is a separate destructive-information stress test;
+it is not a valid semantics-preserving intervention. A feature explanation
+is a reason for the model score, not proof of the operator's actual identity.
+No analyst-benefit claim without a separately designed analyst evaluation.
+
+Outstanding resources
+Institutional determination; willing human operators; pinned task images;
+an autonomous model adapter and budgeted provider access; an untouched test
+allocation. Existing AWS credits cover compute, not participants or approval.
+No recruitment messages or external provider calls have been sent by this plan.
