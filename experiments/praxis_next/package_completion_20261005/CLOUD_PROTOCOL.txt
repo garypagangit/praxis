@@ -1,0 +1,13 @@
+PX-116 infrastructure qualification: AWS CPU/container work on designated g5
+worker i-07178e293e8df2a60. No model inference in this stage. Existing cumulative
+authorization $1000; this bounded allocation reserves $2, 40-minute independent
+stop watchdog and 45-minute observed-stop ceiling. Use known working SSH launch
+with temporary operator /32 access, immediate original-group restoration, and
+the persistent mounted data disk. Separate Docker daemon stores all layers on
+that disk, not the nearly full root filesystem. Evaluated containers have no
+network, no credentials, no host socket, read-only root and inputs, unprivileged
+UID, dropped capabilities, capped CPU/memory/processes and disposable tmpfs.
+The host downloads the official Python container and pinned NumPy wheel before
+evaluation; resolved image identity and wheel hashes are evidence artifacts.
+Only authored command argument vectors execute. Raw historical/model shell text
+does not execute. This is source/sandbox qualification, not a confirmatory cohort.

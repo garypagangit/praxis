@@ -1,0 +1,67 @@
+{
+  "id": "PX-116",
+  "stage": "DEVELOPMENT_SANDBOX_QUALIFICATION",
+  "dataset_rows": 1140,
+  "numpy_only_eligible": 37,
+  "selection": "first 12 eligible tasks ordered by sha256(11601|task_id); before sandbox outcomes",
+  "tasks": [
+    {
+      "id": "BigCodeBench/219",
+      "sha256": "45f8e937448e5b6d463f52654b3bdd5b8cc4404087d51ea3364bfaf008f80cfd"
+    },
+    {
+      "id": "BigCodeBench/556",
+      "sha256": "4b01080683eafd6275c108b33d9ee59accf8a04c7f16d5f3843323a60377845f"
+    },
+    {
+      "id": "BigCodeBench/856",
+      "sha256": "c7610ad1e8d0e8cc6de40c7d54932e94cfd3e778e2cb7f4b8cb7e0ec66a3134a"
+    },
+    {
+      "id": "BigCodeBench/871",
+      "sha256": "d7afa780137fac47460a52e66bbefa3c28bc75d724dd4557cca3399be93e9c0d"
+    },
+    {
+      "id": "BigCodeBench/793",
+      "sha256": "00d2b0d0478003a60fc9f8970271c0546fb063a4e47bd325e0c0a9b078ae884b"
+    },
+    {
+      "id": "BigCodeBench/1089",
+      "sha256": "daa3c061354a19557f0c8fc27290393d823d2ba75860fc6167748e0aba911f64"
+    },
+    {
+      "id": "BigCodeBench/253",
+      "sha256": "43e330cf4606e4186bacd0d3f897783cd2ffc48a22f47cc2a5ad126781e76992"
+    },
+    {
+      "id": "BigCodeBench/787",
+      "sha256": "37c6860718a3d6d94193f2c14303fed4ec4b6c7328d7b3b0fcdcad3949cb6fb0"
+    },
+    {
+      "id": "BigCodeBench/250",
+      "sha256": "50b20a57cdb9aee082fc6aef259a2faf28146d802ff69d688a11464dada4f7ac"
+    },
+    {
+      "id": "BigCodeBench/696",
+      "sha256": "98eb2747ab4a143bb289d0a0d7cf6045a41c36439ba3a4ecfc949a6d01c8cfe2"
+    },
+    {
+      "id": "BigCodeBench/465",
+      "sha256": "ac03230b153081e6f41de952c0e245b4196f66346cd64ae23a64c0e1414952ff"
+    },
+    {
+      "id": "BigCodeBench/23",
+      "sha256": "5e08a49347a20a100bb78b1a2696f33448fd78cbfa33836d56d7f1b177f01663"
+    }
+  ],
+  "scope": "Author reference implementations/tests with controlled install forms, not model-generated tasks or confirmatory method comparison.",
+  "command_forms": [
+    "pip install numpy==2.2.6",
+    "pip install -r requirements.txt",
+    "pip install --no-deps numpy==2.2.6",
+    "python -m pip install numpy==2.2.6"
+  ],
+  "reference_qualification": "Direct pinned installation then all author unit tests must pass; do not count install exit alone.",
+  "resources": "12 source tasks; parallelism 4; 90 sec per reference/container; no network during test; unprivileged UID; CPU/memory/process limits",
+  "invalid_controls": "Two historical empty-operand forms, one local nonexistent package and one nonexistent version; offline resolver only; no package registration."
+}
