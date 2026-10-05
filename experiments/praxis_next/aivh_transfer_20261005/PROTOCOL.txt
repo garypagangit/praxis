@@ -1,0 +1,59 @@
+PX-118: Transfer and explanation checks for autonomous-AI command attribution
+5 October 2026. Development follow-up to PX-117C; existing test data are exposed.
+
+A. Six comparisons, all on the saved PX-117C fit/calibration/test IDs:
+lexical logistic reproduction; TRACE-style word TF-IDF(1,2),10000 features,
+sublinear TF, LinearSVC C=1; verb frequency logistic; verb(1,3) logistic;
+verb(1,3) logistic with each window deterministically shuffled; arguments
+masked lexical logistic. Fixed C=1; max20000 TF-IDF features except TRACE.
+TRACE is a binary adaptation, not reproduction of seven-family attribution.
+Use prior group/class weights (equal class mass, equal human group mass);
+this replaces balanced-class weighting to maintain the paired comparison.
+All arguments in masked model become ARG, preserving verb and argument count.
+Shuffles use SHA256(window ID, seed11801), never labels. It changes order,
+not command counts. All six models run base + four family exclusion probes.
+Same prior fixed fit AI cap, group-separated parts and duplicate exclusions.
+No hyperparameter or split search. Select by calibration AUROC, lexical name
+tie-break. Threshold is lowest calibration score attaining <=5% equal-group
+human FPR. For SVC scores use decision_function without probability claims.
+Existing main feasibility thresholds: recall>=80%, human group-mean FPR<=5%;
+family thresholds recall>=70%, same FPR. Report all comparisons, not winners only.
+
+B. On frozen main-model test rows: replace all arguments with ARG without
+changing verbs/counts. Report decision flip rate and mean absolute score change
+within each model; SVC score units differ from logistic scores. This is a
+stress test: removing flags can remove meaningful information, so do not
+describe it as a purely semantics-preserving intervention. Verb models must
+be invariant by construction; this is an implementation check, not discovery.
+For fitted linear models, verify sum(x_j*w_j)+intercept equals decision score
+within1e-10. This is faithful score reconstruction, not causal explanation.
+Report mean top-five absolute-contribution feature Jaccard before/after
+argument masking. Empty/empty=1. No expert truth labels for explanations.
+Do not claim XAI improves analyst performance without an analyst study.
+
+C. Independent Rouxii qualification before any classifier scoring. Download
+published ZIP and verify MD5 ca55baa9bc97ca121b74e450f746d6cf. Parse only explicit
+HackingBuddy assistant exec_command and PentestGPT user execute_command lines
+from role-delimited transcripts; exclude narrative suggestions, outputs,
+prompts and all fixed Rouxii operators. Require ten eligible simple commands
+under unchanged PX-117C common.py, first ten per run, no padding/merging.
+Report every framework's count and exclusion reason. If no eligible records,
+external recall is NOT ESTIMABLE; do not alter minimum length to obtain a score.
+If eligible, apply all six frozen main models without external tuning.
+Report source recall only; this source contains no human comparison arm.
+
+D. Matched acquisition plan: same task, initial access, machine image,
+recorder, command budget and reset for both classes; known operator assignment.
+Existing public sources do not provide that matched experiment. Prepare
+recorder, schema and task sheet without fabricating human data or human consent.
+Human recruitment starts only after applicable institutional determination.
+One author's sessions can check plumbing, not population generalization.
+
+Uncertainty: report group bootstrap intervals and paired recall differences
+conditional on exposed sources; do not treat windows as independent people.
+No confirmatory p-values for this adaptive development study. Fresh matched
+evaluation requires a separate protocol frozen before collection.
+
+AWS: existing worker; $2 reserved estimate,30-minute worker/40-minute watchdog.
+No log command execution and no vulnerable target deployment. Source/code/input
+hashes frozen before fitting. Return predictions, models and stopped receipt.
