@@ -104,7 +104,7 @@ def main():
     artifact=joblib.load(OUT/(best['model']+'.joblib'))
     for label in [0,1]:
         row=next(r for r in groups[2] if r['label']==label)
-        path=OUT/('example_'+str(label)+'.json');path.write_text(json.dumps(row['text'].splitlines()))
+        path=OUT/('example_'+str(label)+'.json');path.write_text(json.dumps(row['commands']))
         cli=subprocess.run([sys.executable,'predict.py','--model',str(OUT/(best['model']+'.joblib')),'--commands',str(path)],capture_output=True,text=True,check=True)
         decoded=json.loads(cli.stdout)
         expected=float(artifact['model'].predict_proba(input_for([row],best['model']))[0,1])

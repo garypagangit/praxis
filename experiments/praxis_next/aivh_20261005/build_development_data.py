@@ -21,7 +21,7 @@ def record(source,path,label,commands,family,task,environment):
     text='\n'.join(commands)
     return {'id':hashlib.sha256((source+'|'+path).encode()).hexdigest()[:24],
         'source':source,'label':label,'family':family,'task':task,'environment':environment,
-        'text':text,'fingerprint':hashlib.sha256(text.encode()).hexdigest(),
+        'text':text,'commands':commands,'fingerprint':hashlib.sha256(text.encode()).hexdigest(),
         'features':features,'n_commands':len(commands)}
 
 def main():
