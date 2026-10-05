@@ -3,7 +3,7 @@ import ipaddress,json,subprocess,time,os
 from pathlib import Path
 import boto3,requests
 HERE=Path(__file__).resolve().parent
-OUT=Path(os.environ.get('PRAXIS_AWS_PRIVATE','C:/w/assurance_aws_20261004_attempt5'))
+OUT=Path(os.environ.get('PRAXIS_AWS_PRIVATE','C:/w/assurance_aws_20261004_attempt6'))
 INSTANCE='i-07178e293e8df2a60'
 s=boto3.Session(profile_name='praxis-build',region_name='us-east-1')
 ec=s.client('ec2')
@@ -22,7 +22,8 @@ try:
     sent=s.client('ec2-instance-connect').send_ssh_public_key(InstanceId=INSTANCE,InstanceOSUser='ubuntu',SSHPublicKey=Path(str(key)+'.pub').read_text(),AvailabilityZone=i['Placement']['AvailabilityZone'])
     assert sent['Success']
     cmd=['ssh','-i',str(key),'-o','BatchMode=yes','-o','IdentitiesOnly=yes','-o','StrictHostKeyChecking=accept-new','-o','UserKnownHostsFile='+str(OUT/'repair_known_hosts'),'-o','ConnectTimeout=15','ubuntu@'+target,'sudo bash -s']
-    r=subprocess.run(cmd,input=(HERE/'recover_disk.sh').read_text().encode('utf-8'),capture_output=True,timeout=70)
+    script=Path(os.environ.get('PRAXIS_SSH_SCRIPT',str(HERE/'recover_disk.sh')))
+    r=subprocess.run(cmd,input=script.read_text().encode('utf-8'),capture_output=True,timeout=70)
     stdout=r.stdout.decode('utf-8',errors='replace'); stderr=r.stderr.decode('utf-8',errors='replace')
     (OUT/'DISK_RECOVERY.txt').write_text(stdout+'\n'+stderr)
     print(stdout[-1800:]); print('Recovery exit',r.returncode)

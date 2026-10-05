@@ -8,7 +8,7 @@ subprocess.run([sys.executable,str(HERE/'audit_language.py')],check=True)
 for name in ['PX114_RESULTS.json','PX115_RESULTS.json']:
     shutil.copy2(OUT/name,HERE/name)
 costs=[]
-for folder in ['C:/w/assurance_aws_20261004']+[f'C:/w/assurance_aws_20261004_attempt{i}' for i in [2,3,4,5]]:
+for folder in ['C:/w/assurance_aws_20261004']+[f'C:/w/assurance_aws_20261004_attempt{i}' for i in [2,3,4,5,6]]:
     p=Path(folder)/'COMPUTE.json'
     if p.exists(): costs.append({'attempt':folder,'receipt':json.loads(p.read_text())})
 (HERE/'AWS_COMPUTE.json').write_text(json.dumps(costs,indent=2))

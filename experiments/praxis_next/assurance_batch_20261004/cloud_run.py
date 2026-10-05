@@ -4,7 +4,7 @@ from pathlib import Path
 from experiments.praxis_next.compute.provics_cloud_control import control
 from botocore.config import Config
 HERE=Path(__file__).parent
-PRIVATE=Path('C:/w/assurance_aws_20261004_attempt5')
+PRIVATE=Path('C:/w/assurance_aws_20261004_attempt6')
 
 def main():
     c=control.Controller(PRIVATE/'settings.json');s=c.settings
@@ -15,38 +15,21 @@ def main():
     print(json.dumps(c.transfer('upload',PRIVATE/'bundle.tar.gz',s['prefix']+'bundle.tar.gz')),flush=True)
     try:
         print(json.dumps(c.start(HERE/'CLOUD_PROTOCOL.txt',HERE/'CLOUD_FREEZE.json')),flush=True)
-        import subprocess,sys
+        import subprocess,sys,os
         for _ in range(36):
             if c.instance()['State']['Name']=='running':break
             time.sleep(5)
         else:raise TimeoutError('EC2 did not start')
         time.sleep(25)
-        for attempt in range(3):
-            recovered=subprocess.run([sys.executable,str(HERE/'recover_ssh.py')])
-            if recovered.returncode==0:break
-            time.sleep(15)
-        else:raise RuntimeError('Disk recovery failed; stop before inference')
-        for _ in range(36):
-            info=c.client('ssm').describe_instance_information(Filters=[{'Key':'InstanceIds','Values':[s['instance']]}])['InstanceInformationList']
-            if c.instance()['State']['Name']=='running' and any(i['PingStatus']=='Online' for i in info):break
-            time.sleep(5)
-        else:raise TimeoutError('Worker did not become ready')
         active=c.active()
         args=[f"s3://{s['bucket']}/{s['prefix']}bundle.tar.gz",freeze['bundle_sha256'],f"s3://{s['bucket']}/{s['prefix']}outputs",'praxis-assurance-'+active['run_id'][:16]]
-        remote='/opt/dlami/nvme/'+args[3]+'-worker.sh'
-        script="cat > "+shlex.quote(remote)+" <<'ASSURANCE_WORKER'\n"+(HERE/'cloud.sh').read_text()+"\nASSURANCE_WORKER\n"
+        remote='/mnt/praxis-20260912-004/'+args[3]+'-worker.sh'
+        script="set -euo pipefail\nmountpoint -q /mnt/praxis-20260912-004\ndf -h /mnt/praxis-20260912-004\nnvidia-smi\ncat > "+shlex.quote(remote)+" <<'ASSURANCE_WORKER'\n"+(HERE/'cloud.sh').read_text()+"\nASSURANCE_WORKER\n"
         script+='systemd-run --unit='+shlex.quote(args[3])+' --property=RuntimeMaxSec=1500 /bin/bash '+shlex.quote(remote)+' '+' '.join(shlex.quote(x) for x in args)+'\n'
         (PRIVATE/'bootstrap.sh').write_text(script,encoding='utf-8',newline='\n')
-        sent=c.send(PRIVATE/'bootstrap.sh',120);command=sent['command_id'];print(json.dumps(sent),flush=True)
-        for _ in range(30):
-            try:
-                receipt=c.poll(command);r=json.loads(Path(receipt['receipt']).read_text())
-                if r['status'] in control.TERMINAL_STATES:
-                    assert r['status']=='Success',r
-                    print('Detached GPU job launched',flush=True);break
-            except c.client('ssm').exceptions.InvocationDoesNotExist:pass
-            time.sleep(3)
-        else:raise TimeoutError('Detached launch timeout')
+        env=dict(os.environ,PRAXIS_AWS_PRIVATE=str(PRIVATE),PRAXIS_SSH_SCRIPT=str(PRIVATE/'bootstrap.sh'))
+        subprocess.run([sys.executable,str(HERE/'recover_ssh.py')],env=env,check=True)
+        print('Detached worker launched through temporary SSH; awaiting GPU qualification and results',flush=True)
         for _ in range(145):
             try:
                 c.client('s3').head_object(Bucket=s['bucket'],Key=s['prefix']+'outputs/result.sha256')

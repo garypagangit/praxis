@@ -4,8 +4,11 @@ input_url="$1"
 input_sha="$2"
 output_url="$3"
 run_name="$4"
-base=/opt/dlami/nvme
-test -d "$base"
+base=/mnt/praxis-20260912-004
+mountpoint -q "$base"
+test "$(df --output=avail -B1 "$base" | tail -1)" -gt 10000000000
+export TMPDIR="$base/assurance-tmp"
+mkdir -p "$TMPDIR"
 mkdir -p "$base/$run_name"
 cd "$base/$run_name"
 mkdir -p outputs/data
@@ -33,9 +36,10 @@ venv/bin/python -m pip install requests > outputs/install.log 2>&1
 cache="$base/praxis_ollama_017"
 mkdir -p "$cache"
 df -h > outputs/disk.txt
-if ! test -x "$cache/bin/ollama"; then
+if ! test -f "$cache/INSTALL_COMPLETE"; then
   curl -fL --retry 2 https://github.com/ollama/ollama/releases/download/v0.17.0/ollama-linux-amd64.tar.zst -o ollama.tar.zst
   tar --zstd -xf ollama.tar.zst -C "$cache"
+  touch "$cache/INSTALL_COMPLETE"
 fi
 export OLLAMA_HOST=127.0.0.1:11434
 export OLLAMA_MODELS="$cache/models"

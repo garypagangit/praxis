@@ -14,5 +14,9 @@ Ollama 0.17.0; Qwen2.5:3b Q4_K_M digest:
 CPU/GPU numerical differences remain possible despite identical settings.
 No thresholds or prompt alterations based on the partial CPU results.
 All artifacts private in the existing S3 bucket and downloaded for local review.
-No new public network access; inference binds localhost on the worker.
+Inference binds localhost on the worker. Temporary SSH management access is
+restricted to the operator IPv4 /32 via a separate security group and an EC2
+Instance Connect temporary key. Original groups are restored immediately after
+launch. Use the existing persistent data disk, with mount and free-space checks.
+SSM is unavailable; SSH only changes the launch transport, not the experiment.
 GPU must be confirmed by Ollama's running-model memory allocation before inference.
