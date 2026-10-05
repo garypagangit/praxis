@@ -1,0 +1,154 @@
+Autonomous AI versus human-operated attacks: literature and feature review
+Reviewed 5 October 2026
+
+DECISION
+Worth a bounded next experiment, but not yet a defense-ready claim that we can
+identify autonomous APTs. Passive command fingerprinting already exists. The
+candidate contribution is reliable human-versus-autonomous-AI classification
+across unseen operators, model families and environments, with an explicit
+human false-alert limit and explanations whose dependence on source artifacts
+is tested. Search did not establish priority for that complete contribution.
+
+CLOSEST PRECEDENTS
+1. Ediga and Chattopadhyay, Trace (May 2026, arXiv preprint).
+https://arxiv.org/html/2605.01186v1
+Passive terminal TF-IDF/LinearSVC identifies seven AI model families before
+active prompt injection. Reported macro-F1 .981, unseen-scaffold .815. Its target
+is model family; its evaluation does not establish human-versus-AI accuracy.
+It already includes command idioms, early prefixes and verb-only ablation.
+Neither passive fingerprinting nor using command sequences is our novelty.
+Section 3 says full data will be released later; scripts are linked.
+
+2. Maddaloni, Safargalieva and Vasilomanolakis, Honey for the Agent.
+https://orbit.dtu.dk/en/publications/honey-for-the-agent-cyber-deception-and-behavioral-fingerprinting/
+Institutional record: peer-reviewed AD&D 2026 proceedings, accepted/in press.
+Abstract verified; full text embargoed until September 2027, not reviewed.
+Reports model fingerprints across five environments, nine models and six
+prompts; environmental cues change command selection. Therefore command
+frequency is a supported candidate, but also an environment-sensitive one.
+Public dataset record is dated June 23, 2026, not August:
+https://zenodo.org/records/20818246
+
+3. Known By Their Actions (May 2026, arXiv preprint).
+https://arxiv.org/html/2605.14786v1
+Passive browser events identify underlying AI models; it assumes an automated
+client. Adjacent precedent for behavioral attribution, not a cyberattack
+human-versus-AI validation. Timing and structural features, with released
+agent traces. It prevents claiming behavioral AI identification broadly new.
+
+USER'S OTHER SOURCES: ROLE AND LIMITS
+LLM Agent Honeypot (2024, revised February 2025):
+https://arxiv.org/html/2410.13919v2
+Active prompt injection plus timing. Reports 8 potential detections in
+8,130,731 attempts, and illustrates one fast detection meeting both checks.
+Its operational 'confirmed' category is not independently known operator
+identity. This is evidence of a detection approach, not our passive benchmark.
+
+Beelzebub, Catching AI Red Teamers in the Wild:
+https://beelzebub.ai/blog/catching-ai-red-teamers-in-the-wild/
+Vendor case report, not a controlled classifier evaluation. Tool switching
+and reaction to hidden instructions are observed clues; neither alone proves
+autonomous AI operation against a known human comparison group.
+
+Patent 12,688,284:
+https://patentsgazette.uspto.gov/week29/OG/patentee/alphaW.html
+Existence verified in USPTO index (Mirsky, Ayzenshteyn, Weiss). Supplied PDF
+and Google Patents fetch failed. Specific claim scope remains unverified;
+do not treat the supplied summary as verified or as performance evidence.
+
+Signals in the Noise:
+https://arxiv.org/abs/2606.20610
+14 expert interviews and a literature review concerning loss-of-control
+monitoring. Context for observability, not a validated attack classifier.
+
+Anthropic, Mapping AI-enabled cyber threats:
+https://www.anthropic.com/research/attack-navigator
+832 banned accounts, not 832 confirmed autonomous attack sessions. Useful
+motivation for orchestration-aware analysis. ATT&CK labels describe behaviors;
+they do not supply our required operator identity labels.
+
+Measuring AI Agents' Progress on Multi-Step Cyber Attack Scenarios:
+https://arxiv.org/html/2603.11214v2
+Capability evaluation in cyber ranges. Does not establish that protocol
+preference is a transferable human-versus-AI identifier.
+
+RAND, AI agents put offensive cyber within reach of novices (June 25, 2026):
+https://www.rand.org/pubs/research_reports/RRA3892-2.html
+Task-performance comparison, useful motivation and task-design precedent.
+Landing page does not provide a ready labeled operator-classification corpus.
+
+The Agent Behavior (August 2025):
+https://arxiv.org/abs/2508.14415
+Proposes behavioral models and dimensions, with case-based claims. Useful
+feature hypotheses, not evidence of external validity for our classifier.
+
+Rouxii (September 2026 preprint):
+https://arxiv.org/html/2609.26555v1
+Tests deception-aware AI pentesters and releases data:
+https://zenodo.org/records/21986588
+Appendix B describes reports and full session transcripts. This disproves
+'Honey is the only public AI attacker dataset.' It is a candidate independent
+AI-source check, pending eligibility and command-field qualification. Fixed
+operators and prompting can themselves produce fingerprints. Do not assume
+all observed commands were independently chosen by an LLM. This paper does
+not directly benchmark evasion of our passive classifier.
+
+HUMAN DATA FOUNDATION
+GAMBiT documents human-subject red-team activity and command histories:
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12865583/
+Our qualified workbook subset is a useful human source. Pairing it with Honey
+still entangles operator class with collection source, task and environment.
+Attack-stage labels cannot remove that confound. No suitably matched public
+binary corpus was verified in this search; absence was not proved.
+
+ACTUAL MODEL FEATURES: POST-HOC, NO NEW FITTING
+FEATURE_ASSOCIATIONS.json records coefficients and held-out presence counts;
+inspect_features.py reproduces it from frozen models and private records.
+Ten qualifying commands per window, 1,300 AI and 61 human test windows.
+For the verb model:
+  pwd:       898/1300 AI windows versus 3/61 human windows
+  whoami:    539/1300 versus 3/61
+  uname:     595/1300 versus 0/61
+  pwd ls:    699/1300 versus 2/61
+  ls ls ls:  229/1300 versus 42/61 (leans human in this sample)
+Lexical model's largest positive coefficient is normalized PATH, followed by
+cat PATH. These can encode task and logging differences. Commands are ordinary
+legitimate utilities; their presence is not proof of AI or maliciousness.
+Features selected by fitted coefficient magnitude, with test frequencies
+reported descriptively. They are not causal effects or independent tests.
+The verb model uses unigrams as well as sequences. Its current performance
+does not isolate the benefit of ordering. No timing was used.
+
+CURRENT STATUS
+Command words: recall97.62%, human-window false calls4/61, group-mean FPR8.95%.
+Verb model: recall71.54%, false calls0/61; external KYPO false calls0/180.
+Neither reaches both frozen main targets (80% recall,5% group-mean FPR).
+Zero observed errors is not a population guarantee. Nine held-out human groups
+are a small sample; independent AI-source recall remains unmeasured.
+
+RECOMMENDED NEXT TESTS (PROPOSED, NOT RUN BY THIS REVIEW)
+1. Strong baseline: adapt TRACE's specified TF-IDF/LinearSVC to our binary task.
+2. Compare command frequencies, ordered sequences, and shuffled sequences.
+   Freeze splits and thresholds before new evaluation. This tests whether
+   order contributes beyond command choice; it is not independently novel.
+3. Remove paths, readme tokens and other environment clues; report performance
+   and explanation changes. Probe reliance on artifacts with fixed transforms.
+4. Qualify Rouxii as external AI evidence, keeping prompts, reasoning and
+   framework wrapper text out of inputs. Report eligibility losses explicitly.
+5. Decisive study: obtain both classes on the same tasks and recording system,
+   then hold out whole tasks/environments and operators/model families. More
+   computation on existing separate sources cannot substitute for this.
+6. Use exact linear contributions to explain each decision; measure additive
+   reconstruction and stability under irrelevant renaming. Exact linear
+   attribution is established mathematics, not a new XAI method by itself.
+
+Keep current success targets unchanged for the existing protocol. Any revised
+target belongs to a new frozen protocol and fresh evaluation. An APT-wide claim
+requires multi-stage campaign evidence; ten discovery-command windows support
+only the narrower observed-command attribution question.
+
+SEARCH SCOPE
+Primary linked papers, institutional records, author datasets and targeted web
+searches for human/AI attacker classification, autonomous attack fingerprinting
+and terminal detection. This is a focused novelty assessment, not an exhaustive
+systematic review or a guarantee of publication. No paid AWS jobs launched.
