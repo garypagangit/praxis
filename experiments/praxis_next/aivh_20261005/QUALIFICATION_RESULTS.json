@@ -1,0 +1,37 @@
+{
+  "experiment": "PX-117",
+  "stage": "PACKAGE_QUALIFICATION_ONLY",
+  "supplied_tests": {
+    "exit": 0,
+    "count": 5
+  },
+  "small_calibration_probe": {
+    "n": 1,
+    "alpha": 0.05,
+    "scores": [
+      0.1
+    ],
+    "observed_threshold": 0.1,
+    "required_valid_threshold": "1.0 (bounded nonconformity) or infinity because rank exceeds n",
+    "status": "FAIL_FINITE_SAMPLE_EDGE_CASE"
+  },
+  "arrow_history_probe": {
+    "input": "ls, Enter, Up-arrow, Enter",
+    "observed_commands": [
+      "ls",
+      "[A"
+    ],
+    "expected": "ls then ls in an ordinary shell with matching history",
+    "status": "FAIL_COMMAND_RECONSTRUCTION"
+  },
+  "synthetic_gap_min_by_class": {
+    "agent": [
+      0.05
+    ],
+    "human": [
+      0.2
+    ]
+  },
+  "scientific_efficacy": "NOT TESTED: no independently labeled matched human cohort",
+  "aws_spend_usd": 0
+}

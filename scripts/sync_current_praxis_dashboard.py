@@ -3,10 +3,12 @@ import argparse
 import html
 import json
 import re
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = 'https://github.com/garypagangit/praxis/blob/3ec1fcc/experiments/praxis_next/'
+EVIDENCE_COMMIT = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+BASE = 'https://github.com/garypagangit/praxis/blob/'+EVIDENCE_COMMIT+'/experiments/praxis_next/'
 PAPERS = {
     'pack': ('PackMonitor: Enabling Zero Package Hallucinations Through Decoding-Time Monitoring', 'https://arxiv.org/abs/2602.20717'),
     'agent': ('AgentSpec: Customizable Runtime Enforcement for Safe and Reliable LLM Agents', 'https://arxiv.org/abs/2503.18666'),
@@ -67,8 +69,8 @@ def main():
         rows.append(dict(id=id_,title=title,status=status,dashboard_status=status,finding=finding,
                          evidence_url=BASE+'package_completion_20261005/FINDINGS.txt',**cited(reason,keys)))
     rows.sort(key=lambda r:int(r['id'].split('-')[1]),reverse=True)
-    data = dict(updated_utc='2026-10-05', evidence_commit='3ec1fcc',
-                scope='37 current experiment records plus three historical corrections; not a new literature sweep of the entire archived portfolio.',
+    data = dict(updated_utc='2026-10-05', evidence_commit=EVIDENCE_COMMIT,
+                scope=f"{len(registry['experiments'])} current experiment records plus three historical corrections; not a new literature sweep of the entire archived portfolio.",
                 claim_rule='A completed run is not proof of novelty. Superseded status applies to the stated generic claim; untested narrower extensions remain unproven.',
                 experiments=rows)
     encoded = json.dumps(data,indent=2)+'\n'
@@ -83,8 +85,8 @@ def main():
     section='''<!-- CURRENT_STATUS_START -->
 <section id="current-status"><h2>Current experiment status — 5 October 2026 UTC</h2>
 <p>This section supersedes conflicting status claims in the archived dashboard below. Completed experiments, research novelty and defense readiness are separate judgments.</p>
-<p><strong>Latest decision:</strong> PX-116 is not ready for confirmation. PX-050, PX-114 and PX-115 cannot advance on their generic gate novelty claims. Paper titles and links appear in the Reason column.</p>
-<p>40 records: 37 current experiments and three historical corrections. Other legacy ideas have not received a fresh literature review in this update. <a href="PRAXIS_CURRENT_STATUS.json">Download status data</a>.</p>
+<p><strong>Latest decisions:</strong> PX-117 needs novelty, matched-data and method qualification. PX-116 is not ready for confirmation. PX-050, PX-114 and PX-115 cannot advance on their generic gate novelty claims. Paper titles and links appear in the Reason column.</p>
+<p>Current experiment records and three historical corrections. Other legacy ideas have not received a fresh literature review in this update. <a href="PRAXIS_CURRENT_STATUS.json">Download status data</a>.</p>
 <label for="current-filter">Find an experiment, status or paper</label>
 <input id="current-filter" type="search" style="width:100%;padding:12px;margin:10px 0" placeholder="For example: PX-116, superseded, PackMonitor">
 <div class="table-wrap"><table id="current-table"><thead><tr><th>Experiment</th><th>Title</th><th>Status</th><th>Results</th><th>Reason / prior paper</th><th>Evidence</th></tr></thead><tbody>'''+''.join(cells)+'''</tbody></table></div>

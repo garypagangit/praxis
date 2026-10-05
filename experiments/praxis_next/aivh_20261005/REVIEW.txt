@@ -1,0 +1,91 @@
+PX-117 — Passive AI-agent versus human session classification
+Package qualification, 5 October 2026
+
+Found: C:/Users/garyp/Downloads/px-aivh.zip (31,877 bytes).
+The supplied archive uses PX-090, an occupied experiment number. Its original
+contents are preserved under supplied/. PX-117 tracks this new qualification;
+the draft is not an accepted preregistration or a certified classifier.
+
+DECISION: HOLD FOR NOVELTY, DATA AND METHOD REPAIR
+The supplied five tests pass. A fresh local synthetic GBM run reproduces random
+AUROC 0.9988, timing-free 0.9963, leave-family-out 0.9932, and reported
+leave-environment-out 0.9958. These are software demonstrations on authored
+separable data, NOT evidence about human/AI attackers. No AWS jobs were launched.
+
+NOVELTY CORRECTION
+Ediga and Chattopadhyay (May 2, 2026), Trace: Unmasking AI Attack Agents Through
+Terminal Behavior Fingerprinting. https://arxiv.org/abs/2605.01186
+Full text: https://arxiv.org/html/2605.01186v1
+Section 2.3 already uses passive terminal command sequences with TF-IDF and
+LinearSVC; it also tests transfer across agent scaffolds. Its target is model
+family attribution among agents, so it does not by itself settle our narrower
+human-versus-unseen-agent question. Nevertheless, the README claim that nobody
+has published passive session fingerprinting is untenable. The narrower claim
+is unestablished, not disproven. Trace-style command n-grams must be a baseline.
+
+DATA CHECK
+Honey for the Agent is an accessible published dataset record describing about
+16,200 automated sessions, five SSH environments and six prompt framings:
+https://zenodo.org/records/20818246
+This verifies source metadata/schema, not successful acquisition or complete
+parser qualification. The archive was not downloaded in this review. It supplies
+agent sessions, not an independently labeled matched human cohort. No such
+cohort has been established for this experiment. This is not a finding that
+no appropriate human data exists anywhere. Review reusable human datasets before
+committing to new participant collection or asserting that an IRB filing is the
+only path. The institution must determine requirements for a proposed study.
+
+CONFIRMED METHOD PROBLEMS
+1. Prediction-set coverage is not accepted-decision error control. An error in
+   an accepted singleton implies set miscoverage, but conditioning on acceptance
+   can increase the error rate. Marginal miscoverage <= alpha does not imply
+   P(error | accepted) <= alpha. A CP upper bound calculated after evaluation
+   describes the evaluated sample under its sampling assumptions; it does not
+   pre-certify future selected decisions or distribution-shifted sessions.
+   Background: Angelopoulos and Bates, A Gentle Introduction to Conformal
+   Prediction and Distribution-Free Uncertainty Quantification:
+   https://arxiv.org/abs/2107.07511
+2. Small-calibration quantile bug reproduced: for n=1, alpha=.05 and score .1,
+   the supplied function returns .1. The required rank exceeds n; a valid
+   conservative threshold here is infinity, or 1 for these bounded scores.
+   The supplied single synthetic coverage trial does not test this edge case.
+3. Asciinema parsing loses real shell semantics: ls / Enter / Up / Enter becomes
+   ['ls', '[A'] rather than repeating ls. Input keystrokes are not necessarily
+   executed shell commands (editors, password prompts, multiline input, etc.).
+4. Source artifacts can identify the class. Agent logs retain command output;
+   the human loader discards it. Human edit counts exist only on one path.
+   Output/error and edit features can separate recording formats instead of
+   operator type. Removing timing alone does not remove this leakage.
+5. The CLI leaves human task/environment as unknown and does not load participant
+   identifiers. Its environment split holds out an environment only for agents,
+   while partitioning humans randomly. It is not an environment-disjoint test
+   for both classes. Random session splits can also share a human operator.
+6. Cowrie 'human' labels are inferred from timing/TTY heuristics; the CLI then
+   includes them in training, contradicting the draft's exclusion rule. Those
+   labels cannot independently validate a detector using related features.
+7. The verb-ngram comparator exists but full_suite never calls it. Feature
+   importance is computed on training data. The suite does not automatically
+   run the five declared seeds; bootstrap intervals resample sessions rather
+   than independent operators/task groups. Bots are excluded from all binary
+   evaluations; no separate three-way result is actually implemented.
+8. Synthetic first-command gaps are overwritten with 50 ms for agents and
+   200 ms for humans, despite there being no preceding command. The resulting
+   minimum-gap feature separates the synthetic classes by construction.
+
+NEXT VALID TEST, IF THE NARROW QUESTION SURVIVES A FULL REVIEW
+Use the same server-side command/output recorder for both classes. Require
+independent operator labels and explicit human, scripted, autonomous-agent and
+AI-assisted-human conditions. Reserve disjoint participants, task families,
+environments and agent scaffolds as appropriate. Start with content/sequence
+features available identically to both classes; exclude source-specific fields.
+Compare against timing-only, session-length and Trace-style n-gram baselines.
+Report prediction-set coverage and acceptance separately. Any accepted-error
+claim needs its own independently calibrated risk-control procedure and an
+honest shift limitation. Freeze minimum useful acceptance and human false-alert
+limits before testing. Without matched labels, do not launch the efficacy run.
+
+RESULT INTERPRETATION
+The package is real and runnable. Its existing tests are insufficient for its
+scientific claims. A narrower matched-data study may remain possible, but there
+is no positive real-data result or established novelty yet. Preserve the draft,
+correct the design, qualify both classes, then decide whether compute is useful.
