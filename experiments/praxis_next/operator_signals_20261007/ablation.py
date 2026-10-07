@@ -1,13 +1,14 @@
 """Post-initial-results feature attribution ablation, kept separate from S1."""
 import json,time
 from threadpoolctl import threadpool_limits
-from experiment import features,Model,partition,metric
+from experiment import features,Model,partition,metric,FIT_WARNINGS
 from prepare import HERE,save,sha
 
 def run():
  rows=json.loads((HERE/'cache/records.json').read_text());envs=sorted({r['env'] for r in rows});prompts=sorted({r['prompt'] for r in rows})
- fs={r['id']:features(r['turns'][:10]) for r in rows}
- save(HERE/'cache/features.json',fs)
+ if (HERE/'cache/features.json').exists():fs=json.loads((HERE/'cache/features.json').read_text())
+ else:
+  fs={r['id']:features(r['turns'][:10]) for r in rows};save(HERE/'cache/features.json',fs)
  # Release massive shell responses; subsequent models need only descriptors.
  for r in rows:del r['turns']
  print('ablation features ready',flush=True)
@@ -31,7 +32,7 @@ def run():
    pred.append({'key':key,'id':[r['id'] for r in te],'y':y,'pred':list(p),'gap':g.tolist()})
   save(HERE/'evidence/ABLATION_RESULTS.json',results);save(HERE/'evidence/ABLATION_PREDICTIONS.json',pred)
   print('S1A',name,flush=True)
- save(HERE/'evidence/ABLATION_RUN.json',{'fits':len(results),'source_sha256':sha(HERE/'ablation.py'),'protocol_sha256':sha(HERE/'ABLATION_PROTOCOL.txt')})
+ save(HERE/'evidence/ABLATION_RUN.json',{'solver':'primal (dual=False)','warnings':FIT_WARNINGS,'fits':len(results),'source_sha256':sha(HERE/'ablation.py'),'protocol_sha256':sha(HERE/'ABLATION_PROTOCOL.txt')})
 
 if __name__=='__main__':
  with threadpool_limits(limits=1):run()

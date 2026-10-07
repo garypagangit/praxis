@@ -1,0 +1,26 @@
+Numerical correction, 2026-10-07, before public release.
+The original dual='auto' run completed with six recorded Liblinear convergence
+warnings in its final phase; warning capture in earlier interrupted phases was
+incomplete. The original arithmetic/isolation audit passed2580 checks, but that
+does not certify optimizer convergence. Preserve all its evidence in initial_solver.
+
+Rerun ALL167 primary family/stress/unknown/prefix fits and ALL51 follow-up
+ablations with dual=False. This solves the same C1 balanced squared-hinge linear
+SVC objective with the primal optimizer; no data, feature, threshold, task split,
+regularization parameter, endpoint or model-selection criterion is changed.
+Capture warnings over the entire uninterrupted rerun. The25 logistic-regression
+binary fits are unaffected and retained. Use the completed primal run as the
+reported numerical result, and compare every saved score to its original.
+
+Memoize repeated token parsing, edit proxies and SequenceMatcher ratios; reuse
+existing deterministic first-ten features. These optimizations preserve feature
+values and are checked against the frozen cache. They do not change definitions.
+This correction follows observed numerical warnings, not a choice of whichever
+solver gives the best test score. All declines, improvements and changed labels
+must remain visible in the numerical comparison. Do not claim independent
+replication from repeating the same experiment with another solver.
+
+Final study count remains243 distinct fits:167 primary+51 ablation+25 binary.
+The numerical recheck adds218 executions of existing configurations, not218 new
+scientific experiments. Initial checkpoint reconstruction fits are additional
+execution overhead. Initial rows remain evidence, not the final recommendation.

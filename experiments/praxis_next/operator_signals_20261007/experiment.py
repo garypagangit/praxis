@@ -1,5 +1,6 @@
 """Frozen offline pilot. Inputs are parsed as inert text, never executed."""
 import argparse, collections, copy, difflib, hashlib, json, pathlib, re, shlex, time, warnings
+from functools import lru_cache
 import numpy as np
 from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -18,6 +19,7 @@ RECOVERY_NAMES=CORRECTION_NAMES+['error_rate','after_error_retry_rate','after_er
 TIMING_NAMES=['log_first_field_median','log_first_field_std','log_second_field_median','log_second_field_std','log_pair_difference_median','log_pair_difference_std']
 RESULTS=[];PRED=[];SPLITS=[];FIT_WARNINGS=[];FIT_COUNT=0;RESTORE_FITS=0
 
+@lru_cache(maxsize=32768)
 def tokens(c):
  try:return shlex.split(c)
  except ValueError:return c.split()
@@ -26,6 +28,7 @@ def verb(c):
  ts=tokens(c)
  return ts[0].split('/')[-1].lower() if ts else '_empty'
 
+@lru_cache(maxsize=65536)
 def nearby(a,b):
  # Deliberately named a proxy. No claim that adjacent edits are human typos.
  if a==b or min(len(a),len(b))<3 or abs(len(a)-len(b))>2:return False
@@ -36,13 +39,16 @@ def nearby(a,b):
   prev=cur
  return prev[-1]<=2
 
+@lru_cache(maxsize=65536)
+def similarity(a,b):return difflib.SequenceMatcher(None,a,b).ratio()
+
 def features(turns):
  cs=[t['c'] for t in turns];vs=[verb(c) for c in cs]
  pairs=[(i-1,i) for i in range(1,len(turns)) if turns[i]['i']==turns[i-1]['i']+1]
  n=max(1,len(pairs));exact=sum(cs[a]==cs[b] for a,b in pairs)
  near=sum(nearby(vs[a],vs[b]) for a,b in pairs)
  corr=[exact/n,near/n,sum(vs[a]==vs[b] and cs[a]!=cs[b] for a,b in pairs)/n,
-  sum(difflib.SequenceMatcher(None,cs[a],cs[b]).ratio() for a,b in pairs)/n,
+  sum(similarity(cs[a],cs[b]) for a,b in pairs)/n,
   len(set(vs))/max(1,len(vs)),float(np.mean([len(c) for c in cs])),
   float(np.std([len(c) for c in cs])),sum(bool(re.search(r';|&&|\|',c)) for c in cs)/max(1,len(cs))]
  ep=[(a,b) for a,b in pairs if ERROR.search(turns[a]['o'])]
@@ -82,7 +88,7 @@ class Model:
   return sparse.hstack(mats,format='csr')
  def fit(self,fs,y):
   global FIT_COUNT
-  self.clf=LinearSVC(C=1,class_weight='balanced',max_iter=10000,random_state=17,dual='auto')
+  self.clf=LinearSVC(C=1,class_weight='balanced',max_iter=10000,random_state=17,dual=False)
   with warnings.catch_warnings(record=True) as ws:
    self.clf.fit(self.design(fs,True),y)
   FIT_WARNINGS.extend(str(w.message) for w in ws);FIT_COUNT+=1
@@ -248,7 +254,7 @@ def run(resume=False,latest=False):
    'conditional_95_interval':np.quantile(deltas,[.025,.975]).tolist()})
  save(HERE/'evidence/PAIRED_COMPARISONS.json',comparisons)
  save(HERE/'evidence/FEATURES.json',{'correction':CORRECTION_NAMES,'recovery':RECOVERY_NAMES,'timing':TIMING_NAMES})
- save(HERE/'evidence/RUN.json',{'fits':FIT_COUNT,'checkpoint_reconstruction_fits':RESTORE_FITS,'completed_unique_study_fits':FIT_COUNT-RESTORE_FITS,'warning_capture_complete':not resume,'result_rows':len(RESULTS),'warnings':FIT_WARNINGS,'elapsed_seconds':time.time()-start,
+ save(HERE/'evidence/RUN.json',{'solver':'primal (dual=False); same C1 squared-hinge objective','fits':FIT_COUNT,'checkpoint_reconstruction_fits':RESTORE_FITS,'completed_unique_study_fits':FIT_COUNT-RESTORE_FITS,'warning_capture_complete':not resume,'result_rows':len(RESULTS),'warnings':FIT_WARNINGS,'elapsed_seconds':time.time()-start,
   'code_hashes':{p.name:sha(p) for p in [HERE/'experiment.py',HERE/'prepare.py',HERE/'PROTOCOL.txt']}})
  checkpoint();print('DONE',FIT_COUNT,len(RESULTS),flush=True)
 
