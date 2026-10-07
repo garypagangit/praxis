@@ -14,7 +14,7 @@ New fits: 248 (179 Honey; 15 independent-collector family; 50 binary reconstruct
 | Unknown model rejection | Current rules fail; retain as required stress test | Low error on known calibration data does not establish safe identification under unknown families or environment shift. |
 | Earliest reliable identification | Current rules fail the combined safety gate | Early agreement must be tested with unfamiliar families; a high known-family accuracy is insufficient. |
 | APT detection with missing telemetry | Advance as the most direct defensive alternative, with data qualifications | Stronger saved graph scores lose ranking utility and generate many more alerts under edge loss. Static tensors cannot establish time-outage or chain-level effects. |
-| Timing, typos and other human features | Hold as a binary detector | Keyboard telemetry differs by recorder; removing human-only benchmark controls defeats the promising binary result. |
+| Timing, typos and other human features | Hold as a binary detector | Keyboard telemetry differs by recorder; the binary model fails after filtering benchmark controls and rebuilding the cohort. |
 
 ## Logging results across all five held-out environments
 
@@ -111,12 +111,14 @@ The newly fitted simple IsolationForest controls have almost no clean attack rec
 
 The budget is exactly ceil(1% of all test nodes). This is a retrospective ranking budget, not a measured analyst workload or alerts-per-hour deployment rule. Large score ties require special care: use expected recall under uniform boundary-tie selection, alongside deterministic node-ID results and min/max tie bounds in the evidence.
 
-| Dataset/view | Recall at 1% budget, tie expectation | Threshold recall | Threshold false-positive rate | Threshold alerts, mean |
-|---|---|---|---|---|
-| cadets/clean | 10.06% | 33.21% | 41.95% | 148,703 |
-| cadets/drop_0.5_mask_20260920 | 1.53% | 50.01% | 53.17% | 189,498 |
-| theia/clean | 11.13% | 90.33% | 2.02% | 29,328 |
-| theia/drop_0.5_mask_20260920 | 3.07% | 93.00% | 57.85% | 208,342 |
+| Dataset/view | Recall at 1% budget, tie expectation | Precision at 1% budget, tie expectation | Threshold recall | Threshold false-positive rate | Threshold alerts, mean |
+|---|---|---|---|---|---|
+| cadets/clean | 10.06% | 36.17% | 33.21% | 41.95% | 148,703 |
+| cadets/drop_0.5_mask_20260920 | 1.53% | 5.51% | 50.01% | 53.17% | 189,498 |
+| theia/clean | 11.13% | 81.75% | 90.33% | 2.02% | 29,328 |
+| theia/drop_0.5_mask_20260920 | 3.07% | 22.56% | 93.00% | 57.85% | 208,342 |
+
+At a 1% node budget, recall is necessarily capped by attack prevalence: even perfect rankings could recover only about 27.8% of CADETS and 13.6% of THEIA labeled nodes. Precision states how much of that limited investigation list is attack-labeled. Neither metric measures complete campaigns or actual analyst time.
 
 These are means over three model/reference-bank seeds, not three independent campaigns. CADETS already has an impractical clean false-positive rate. Prepared graphs lack timestamps and chain ground truth; random edge loss does not simulate a verified time outage. Node recall is not attack-chain recall. Despite those limitations, the ranking/alert-volume deterioration motivates a defense-focused candidate.
 
