@@ -1,0 +1,26 @@
+Supplement B1, specified before these binary fits, 2026-10-07.
+Use existing PX121 extracted shell command sequences from pinned Lyptus data,
+CC-BY4.0, https://github.com/lyptus-research/cyber-task-horizons-data
+revision178c0da1800f9c07311e1b8d6c61dd8104e7b4ae. No new sessions.
+Source records269; before fitting, observed16 human sessions from5 experts
+and125 AI sessions have >=3 recovered shell submissions. Use first up to10
+submissions, not shell AST atoms, and restrict to tasks with both classes.
+Reuse prior conservative extraction as-is; human editing/unsupported terminal
+behavior was excluded by that parser. Therefore these records are unsuitable
+for estimating population typo prevalence and the source's raw data needs a
+separate terminal-fidelity study. Do not call recovered commands complete traces.
+
+Five leave-one-expert-and-their-tasks-out folds; next expert for calibration.
+Fit excludes both expert identities and both task sets. Exact first-ten-command
+duplicates removed from calibration then test relative to fitting. Re-match
+tasks in each partition after exclusions. Skip partitions missing either class.
+Equal task/class sample weights. Logistic regression C1 max_iter2000 seed17.
+Models: verb unigram baseline; correction numeric8; verb+correction; pure near-
+verb-edit and retry numeric2; shuffled-label combined control.
+Fit all scalers/vectorizers only on fit data. Threshold strictly above maximum
+calibration-human score. Report counts and equal-expert FPR with >=80%AI recall
+and <=5%equal-expert FPR a descriptive feasibility target, not a guarantee.
+Small calibration makes population low-FPR claims impossible. No timing or
+shell-output features: human exports do not provide comparable measurements.
+Task/expert metadata never used as classifier inputs. No hyperparameter search.
+This is a correction-proxy pilot, not proof of autonomous APT identification.
