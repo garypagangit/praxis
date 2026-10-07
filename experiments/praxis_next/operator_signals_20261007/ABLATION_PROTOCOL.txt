@@ -1,0 +1,11 @@
+S1A post-initial-results attribution ablation, 2026-10-07.
+Motivation disclosed: after seeing the first3 IID and3 environment results,
+lexical+recovery improved macro F1 from.8151 to.8677 on ls_triggering_cowrie.
+Its recovery vector includes8 command-only correction/length features. We must
+not attribute that improvement to output-conditioned recovery without an ablation.
+No original result is replaced. Apply the same all17 predefined partitions.
+Additional arms: lexical+correction8; lexical+output-conditioned6 (last6 recovery
+features); lexical+edit/retry2. Same vectorizer, C1 SVC, class weights and scaling.
+This is an explicitly exploratory mechanism check selected after early results,
+not a prespecified independent confirmation or causal isolation of model identity.
+Cache only deterministic numeric/text features locally; never publish raw text.
