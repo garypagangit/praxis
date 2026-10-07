@@ -1,0 +1,201 @@
+OPERATOR SIGNALS: EXISTING-DATA EXPLORATION
+7 October 2026
+
+Exploratory reanalysis to choose a Praxis, not a validated autonomous-APT detector.
+Honey: 11,803 eligible sessions from 16,199 files; nine served models, four families.
+Completed distinct study fits: 243; plus 0 checkpoint reconstruction fits. Saved multiclass result rows: 307.
+No new attack collection, no human recruitment, no cloud inference.
+Local protocol commits preceded their respective fits and are published with the results. Previously inspected data: not independent confirmatory evidence.
+
+S1: Family identification (macro F1; arithmetic mean across settings, not independent replications)
+Split | Representation | Settings | Mean | Min | Max
+iid | prior | 3 | 15.1% | 15.1% | 15.1%
+iid | lexical | 3 | 96.9% | 96.7% | 97.2%
+iid | structure | 3 | 93.9% | 93.7% | 94.1%
+iid | correction | 3 | 60.4% | 59.7% | 61.7%
+iid | recovery | 3 | 63.6% | 63.1% | 64.1%
+iid | timing | 3 | 50.4% | 49.6% | 51.2%
+iid | lexical_recovery | 3 | 97.0% | 96.7% | 97.3%
+iid | shuffled_lexical | 3 | 24.9% | 23.8% | 26.8%
+env | prior | 5 | 15.1% | 14.1% | 15.7%
+env | lexical | 5 | 89.8% | 81.5% | 94.3%
+env | structure | 5 | 85.0% | 77.8% | 88.6%
+env | correction | 5 | 59.9% | 48.1% | 69.9%
+env | recovery | 5 | 59.9% | 48.1% | 68.7%
+env | timing | 5 | 45.5% | 39.5% | 49.7%
+env | lexical_recovery | 5 | 91.4% | 86.8% | 95.4%
+prompt | prior | 6 | 15.1% | 14.4% | 15.5%
+prompt | lexical | 6 | 94.2% | 88.0% | 97.0%
+prompt | structure | 6 | 89.5% | 83.0% | 92.6%
+prompt | correction | 6 | 58.7% | 55.5% | 66.6%
+prompt | recovery | 6 | 61.5% | 58.8% | 65.9%
+prompt | timing | 6 | 48.7% | 47.7% | 52.4%
+prompt | lexical_recovery | 6 | 94.3% | 87.6% | 97.3%
+cells | prior | 3 | 15.1% | 14.9% | 15.3%
+cells | lexical | 3 | 95.2% | 95.0% | 95.5%
+cells | structure | 3 | 90.5% | 89.7% | 91.1%
+cells | correction | 3 | 60.2% | 60.1% | 60.3%
+cells | recovery | 3 | 62.4% | 60.1% | 65.1%
+cells | timing | 3 | 48.7% | 45.6% | 51.9%
+cells | lexical_recovery | 3 | 95.3% | 95.0% | 95.5%
+
+S1A: Post-initial-results ablation (exploratory, not independent confirmation)
+Split | Addition to lexical | Mean F1 | Min | Max
+iid | lexical_correction | 97.0% | 96.7% | 97.3%
+iid | lexical_output_recovery | 97.0% | 96.7% | 97.3%
+iid | lexical_edit_retry | 96.9% | 96.6% | 97.1%
+env | lexical_correction | 91.0% | 85.0% | 95.1%
+env | lexical_output_recovery | 91.0% | 85.9% | 95.5%
+env | lexical_edit_retry | 89.7% | 81.1% | 94.4%
+prompt | lexical_correction | 94.1% | 87.6% | 97.1%
+prompt | lexical_output_recovery | 94.2% | 87.7% | 97.4%
+prompt | lexical_edit_retry | 94.2% | 87.7% | 97.1%
+cells | lexical_correction | 95.3% | 95.0% | 95.7%
+cells | lexical_output_recovery | 95.3% | 95.1% | 95.5%
+cells | lexical_edit_retry | 95.2% | 95.1% | 95.4%
+
+S2: Incomplete-log sensitivity; same test sessions, synthetic masking
+Split | Mask | Model | Fit | Macro F1 | Change (pp)
+iid_17 | middle25 | lexical | S2_frozen | 94.7% | -2.0
+iid_17 | middle25 | structure | S2_frozen | 89.0% | -4.7
+iid_17 | middle25 | lexical_recovery | S2_frozen | 94.2% | -2.6
+iid_17 | middle50 | lexical | S2_frozen | 83.9% | -12.8
+iid_17 | middle50 | lexical | S2_adapted | 88.9% | -7.7
+iid_17 | middle50 | structure | S2_frozen | 78.2% | -15.5
+iid_17 | middle50 | structure | S2_adapted | 83.5% | -10.2
+iid_17 | middle50 | lexical_recovery | S2_frozen | 83.9% | -12.8
+iid_17 | middle50 | lexical_recovery | S2_adapted | 89.6% | -7.1
+iid_17 | first50 | lexical | S2_frozen | 86.1% | -10.5
+iid_17 | first50 | structure | S2_frozen | 76.7% | -17.0
+iid_17 | first50 | lexical_recovery | S2_frozen | 86.7% | -10.0
+iid_17 | last50 | lexical | S2_frozen | 90.0% | -6.7
+iid_17 | last50 | structure | S2_frozen | 84.5% | -9.2
+iid_17 | last50 | lexical_recovery | S2_frozen | 89.8% | -6.9
+iid_17 | truncate32 | lexical | S2_frozen | 93.4% | -3.3
+iid_17 | truncate32 | lexical | S2_adapted | 98.0% | +1.3
+iid_17 | truncate32 | structure | S2_frozen | 93.3% | -0.4
+iid_17 | truncate32 | structure | S2_adapted | 93.8% | +0.1
+iid_17 | truncate32 | lexical_recovery | S2_frozen | 93.7% | -3.0
+iid_17 | truncate32 | lexical_recovery | S2_adapted | 97.6% | +0.9
+iid_17 | truncate64 | lexical | S2_frozen | 95.5% | -1.2
+iid_17 | truncate64 | structure | S2_frozen | 93.5% | -0.2
+iid_17 | truncate64 | lexical_recovery | S2_frozen | 95.5% | -1.2
+iid_17 | verbs | lexical | S2_frozen | 46.9% | -49.7
+iid_17 | verbs | lexical | S2_adapted | 90.1% | -6.5
+iid_17 | verbs | structure | S2_frozen | 67.1% | -26.6
+iid_17 | verbs | structure | S2_adapted | 92.1% | -1.6
+iid_17 | verbs | lexical_recovery | S2_frozen | 53.9% | -42.8
+iid_17 | verbs | lexical_recovery | S2_adapted | 90.7% | -6.0
+iid_17 | no_outputs | lexical | S2_frozen | 96.7% | +0.0
+iid_17 | no_outputs | structure | S2_frozen | 93.7% | +0.0
+iid_17 | no_outputs | lexical_recovery | S2_frozen | 96.5% | -0.2
+env_backend_pool_cowrie | middle25 | lexical | S2_frozen | 88.4% | -3.9
+env_backend_pool_cowrie | middle25 | structure | S2_frozen | 81.5% | -5.9
+env_backend_pool_cowrie | middle25 | lexical_recovery | S2_frozen | 88.9% | -3.7
+env_backend_pool_cowrie | middle50 | lexical | S2_frozen | 75.6% | -16.7
+env_backend_pool_cowrie | middle50 | lexical | S2_adapted | 79.2% | -13.1
+env_backend_pool_cowrie | middle50 | structure | S2_frozen | 67.9% | -19.6
+env_backend_pool_cowrie | middle50 | structure | S2_adapted | 73.4% | -14.1
+env_backend_pool_cowrie | middle50 | lexical_recovery | S2_frozen | 77.1% | -15.5
+env_backend_pool_cowrie | middle50 | lexical_recovery | S2_adapted | 79.7% | -12.8
+env_backend_pool_cowrie | first50 | lexical | S2_frozen | 80.0% | -12.3
+env_backend_pool_cowrie | first50 | structure | S2_frozen | 73.5% | -13.9
+env_backend_pool_cowrie | first50 | lexical_recovery | S2_frozen | 79.8% | -12.7
+env_backend_pool_cowrie | last50 | lexical | S2_frozen | 79.6% | -12.8
+env_backend_pool_cowrie | last50 | structure | S2_frozen | 75.4% | -12.0
+env_backend_pool_cowrie | last50 | lexical_recovery | S2_frozen | 83.2% | -9.3
+env_backend_pool_cowrie | truncate32 | lexical | S2_frozen | 89.0% | -3.3
+env_backend_pool_cowrie | truncate32 | lexical | S2_adapted | 92.8% | +0.5
+env_backend_pool_cowrie | truncate32 | structure | S2_frozen | 87.2% | -0.3
+env_backend_pool_cowrie | truncate32 | structure | S2_adapted | 87.6% | +0.1
+env_backend_pool_cowrie | truncate32 | lexical_recovery | S2_frozen | 89.3% | -3.3
+env_backend_pool_cowrie | truncate32 | lexical_recovery | S2_adapted | 92.7% | +0.1
+env_backend_pool_cowrie | truncate64 | lexical | S2_frozen | 91.2% | -1.1
+env_backend_pool_cowrie | truncate64 | structure | S2_frozen | 87.4% | -0.0
+env_backend_pool_cowrie | truncate64 | lexical_recovery | S2_frozen | 91.1% | -1.4
+env_backend_pool_cowrie | verbs | lexical | S2_frozen | 35.9% | -56.4
+env_backend_pool_cowrie | verbs | lexical | S2_adapted | 81.5% | -10.8
+env_backend_pool_cowrie | verbs | structure | S2_frozen | 48.3% | -39.2
+env_backend_pool_cowrie | verbs | structure | S2_adapted | 82.2% | -5.3
+env_backend_pool_cowrie | verbs | lexical_recovery | S2_frozen | 41.4% | -51.1
+env_backend_pool_cowrie | verbs | lexical_recovery | S2_adapted | 82.6% | -9.9
+env_backend_pool_cowrie | no_outputs | lexical | S2_frozen | 92.3% | +0.0
+env_backend_pool_cowrie | no_outputs | structure | S2_frozen | 87.5% | +0.0
+env_backend_pool_cowrie | no_outputs | lexical_recovery | S2_frozen | 91.9% | -0.6
+
+S2 sensitivity: adapted lexical model after excluding exact reduced-view overlap (changed test cohort)
+Split | Mask | Original n | Excluded matches | Remaining n | Macro F1
+iid_17 | middle50 | 1995 | 74 | 1921 | 88.5%
+iid_17 | truncate32 | 1995 | 5 | 1990 | 98.0%
+iid_17 | verbs | 1995 | 247 | 1748 | 89.2%
+env_backend_pool_cowrie | middle50 | 2832 | 11 | 2821 | 79.3%
+env_backend_pool_cowrie | truncate32 | 2832 | 0 | 2832 | 92.8%
+env_backend_pool_cowrie | verbs | 2832 | 70 | 2762 | 81.3%
+
+S4: Unknown families (lower unknown acceptance is better)
+Split/family/quantile | Model | Known n | Unknown n | Known coverage | Known accepted accuracy | Unknown accepted
+iid_17/alibaba/0.1 | lexical | 1133 | 862 | 88.5% | 100.0% | 25.5%
+iid_17/alibaba/0.25 | lexical | 1133 | 862 | 73.8% | 100.0% | 10.1%
+iid_17/alibaba/0.1 | lexical_recovery | 1133 | 862 | 89.2% | 100.0% | 25.9%
+iid_17/alibaba/0.25 | lexical_recovery | 1133 | 862 | 72.7% | 100.0% | 11.0%
+iid_17/deepseek/0.1 | lexical | 1521 | 474 | 90.4% | 99.3% | 65.2%
+iid_17/deepseek/0.25 | lexical | 1521 | 474 | 75.5% | 99.7% | 16.5%
+iid_17/deepseek/0.1 | lexical_recovery | 1521 | 474 | 91.3% | 99.1% | 77.2%
+iid_17/deepseek/0.25 | lexical_recovery | 1521 | 474 | 74.3% | 99.7% | 39.9%
+iid_17/google/0.1 | lexical | 1617 | 378 | 90.2% | 99.7% | 47.1%
+iid_17/google/0.25 | lexical | 1617 | 378 | 75.3% | 99.9% | 24.9%
+iid_17/google/0.1 | lexical_recovery | 1617 | 378 | 89.9% | 99.6% | 45.8%
+iid_17/google/0.25 | lexical_recovery | 1617 | 378 | 75.1% | 99.8% | 25.1%
+iid_17/meta/0.1 | lexical | 1714 | 281 | 90.3% | 99.7% | 53.7%
+iid_17/meta/0.25 | lexical | 1714 | 281 | 75.7% | 99.9% | 33.8%
+iid_17/meta/0.1 | lexical_recovery | 1714 | 281 | 89.8% | 99.7% | 52.0%
+iid_17/meta/0.25 | lexical_recovery | 1714 | 281 | 75.1% | 99.8% | 32.4%
+env_backend_pool_cowrie/alibaba/0.1 | lexical | 1599 | 1233 | 73.5% | 100.0% | 18.5%
+env_backend_pool_cowrie/alibaba/0.25 | lexical | 1599 | 1233 | 54.8% | 100.0% | 6.2%
+env_backend_pool_cowrie/alibaba/0.1 | lexical_recovery | 1599 | 1233 | 78.8% | 100.0% | 20.9%
+env_backend_pool_cowrie/alibaba/0.25 | lexical_recovery | 1599 | 1233 | 58.7% | 100.0% | 6.7%
+env_backend_pool_cowrie/deepseek/0.1 | lexical | 2227 | 605 | 76.5% | 98.0% | 50.6%
+env_backend_pool_cowrie/deepseek/0.25 | lexical | 2227 | 605 | 54.8% | 99.1% | 7.3%
+env_backend_pool_cowrie/deepseek/0.1 | lexical_recovery | 2227 | 605 | 79.6% | 98.1% | 68.4%
+env_backend_pool_cowrie/deepseek/0.25 | lexical_recovery | 2227 | 605 | 57.1% | 99.3% | 29.3%
+env_backend_pool_cowrie/google/0.1 | lexical | 2197 | 635 | 78.3% | 99.4% | 49.6%
+env_backend_pool_cowrie/google/0.25 | lexical | 2197 | 635 | 58.5% | 99.7% | 29.4%
+env_backend_pool_cowrie/google/0.1 | lexical_recovery | 2197 | 635 | 79.0% | 99.4% | 53.1%
+env_backend_pool_cowrie/google/0.25 | lexical_recovery | 2197 | 635 | 60.2% | 99.8% | 26.9%
+env_backend_pool_cowrie/meta/0.1 | lexical | 2473 | 359 | 80.2% | 99.3% | 48.5%
+env_backend_pool_cowrie/meta/0.25 | lexical | 2473 | 359 | 64.2% | 99.7% | 28.4%
+env_backend_pool_cowrie/meta/0.1 | lexical_recovery | 2473 | 359 | 80.8% | 99.2% | 47.1%
+env_backend_pool_cowrie/meta/0.25 | lexical_recovery | 2473 | 359 | 64.1% | 99.8% | 27.0%
+
+S5: Early stable decisions (family identity, not AI-versus-human)
+Split/cohort | Model | n | Coverage | Accepted accuracy | Wrong/all | Later reversals | Commands (0=abstain)
+iid_17/cohort10 | lexical | 1995 | 87.2% | 98.3% | 1.5% | 41 | {'5': 1563, '10': 177, '0': 255}
+iid_17/cohort10 | lexical_recovery | 1995 | 87.5% | 98.1% | 1.7% | 39 | {'5': 1566, '10': 180, '0': 249}
+iid_17/cohort20 | lexical | 1733 | 93.8% | 98.3% | 1.6% | 38 | {'5': 1348, '10': 150, '20': 128, '0': 107}
+iid_17/cohort20 | lexical_recovery | 1733 | 94.1% | 98.2% | 1.7% | 42 | {'5': 1364, '10': 141, '20': 125, '0': 103}
+env_backend_pool_cowrie/cohort10 | lexical | 2832 | 76.4% | 94.1% | 4.5% | 127 | {'5': 1868, '10': 295, '0': 669}
+env_backend_pool_cowrie/cohort10 | lexical_recovery | 2832 | 77.2% | 93.6% | 5.0% | 141 | {'5': 1884, '0': 645, '10': 303}
+env_backend_pool_cowrie/cohort20 | lexical | 2452 | 85.2% | 94.1% | 5.1% | 131 | {'5': 1595, '10': 273, '20': 221, '0': 363}
+env_backend_pool_cowrie/cohort20 | lexical_recovery | 2452 | 84.6% | 95.1% | 4.2% | 116 | {'5': 1537, '0': 377, '10': 293, '20': 245}
+
+B1: Human-versus-AI pilot; 5 human experts, incomplete terminal extraction
+Model | AI flags/test appearances | False human flags | Equal-expert FPR
+combined | 26/27 | 9/16 | 41.5%
+correction | 26/27 | 8/16 | 21.5%
+edit_retry | 10/27 | 5/16 | 12.5%
+shuffled_combined | 11/27 | 5/16 | 12.5%
+verbs | 16/27 | 4/16 | 45.0%
+
+INTERPRETATION AND LIMITATIONS
+Binary AI denominator 27 is fold appearances from 26 unique AI sessions; human denominator 16 is 16 sessions from 5 experts. Do not treat folds or repeated AI appearances as independent people.
+Timing gate: every eligible Honey session has strictly increasing values in both timing fields. Documentation calls them durations, but observed behavior warrants elapsed-clock investigation. No cross-source human/AI timing classifier was fitted.
+GAMBiT: 34209 rows; 17105 fail ISO timestamp parsing; all 16989 parsed within-participant/day gaps are integer seconds. No comparable output-completion clock or keystrokes in this export.
+Timing-only family results are collection/runtime diagnostics; they may identify model size, hardware or execution scheduling, not intrinsic operator behavior.
+Correction includes command length/complexity; edit_retry isolates two narrower proxies. Neither establishes real typing errors. Incomplete human extraction can invent adjacency and suppress real edits.
+Recovery uses explicit error-string heuristics, not independent semantic labels; no-shell-output and corruption tests measure sensitivity to observable fields.
+Data qualification excludes malformed/short sessions and exact cross-partition first-ten-command duplicates; selection can change class distribution. Similar templates and repeated common prefixes remain.
+Unseen environment/prompt/cell tests share the same collector. This is not cross-collector validation or proof of model causality. Family names refer to served identities, not distillation ancestry.
+Unknown rejection margins are not calibrated probabilities and provide no guaranteed error control under shift.
+The initial solver run had convergence warnings and incomplete warning capture around checkpoint resumes. The full family/ablation pipeline was rerun with the equivalent primal solver. Final recorded warnings: 0. Original evidence and numerical differences are preserved; this is not independent replication. See SOLVER_CORRECTION.txt.
+APT detection under missing telemetry remains a separate fallback: no APT benchmark was executed or AI-control labels inferred from ordinary attack logs.
+No result establishes malicious intent, fully autonomous control, or complete APT campaign attribution. Novelty remains a literature-qualified candidate, not a first-ever claim.
