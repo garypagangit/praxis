@@ -1,0 +1,133 @@
+# Defense opportunity screen: completed exploratory batch
+
+All six proposed directions, plus timing and human correction features, received an experiment or an explicit measurement-readiness test. This is a bounded comparison of the represented ideas, not proof that every possible Praxis has been exhausted. No candidate is validated for operational autonomous-APT attribution.
+
+New fits: 248 (179 Honey; 15 independent-collector family; 50 binary reconstruction/filter sensitivities; 4 graph baselines). Separately, 36 existing trained graph-score settings were rescored at a fixed alert budget. 2167 developer checks passed. No new attacks, human recruitment, AWS compute or paid inference.
+
+## Candidate decisions
+
+| Direction | Decision | Why |
+|---|---|---|
+| Fingerprint versus environment/version artifact | Advance as attribution qualification research | Family scores deteriorate when an unseen served version replaces familiar versions. The experiment tests generalization, not causal origin. |
+| Incomplete logs / logging requirements | Advance with the first direction | Matching training to observed logs helps, but several views fail the all-environment target. A specification must include version and environment limits. |
+| Recovery behavior | Supporting feature, not the main novelty claim | Most gain survives shuffled output order, weakening a specific sequential-recovery explanation. Gains vary by environment/version. |
+| Unknown model rejection | Current rules fail; retain as required stress test | Low error on known calibration data does not establish safe identification under unknown families or environment shift. |
+| Earliest reliable identification | Current rules fail the combined safety gate | Early agreement must be tested with unfamiliar families; a high known-family accuracy is insufficient. |
+| APT detection with missing telemetry | Advance as the most direct defensive alternative, with data qualifications | Stronger saved graph scores lose ranking utility and generate many more alerts under edge loss. Static tensors cannot establish time-outage or chain-level effects. |
+| Timing, typos and other human features | Hold as a binary detector | Keyboard telemetry differs by recorder; removing human-only benchmark controls defeats the promising binary result. |
+
+## Logging results across all five held-out environments
+
+Macro F1 averages below describe five dependent settings in one corpus. They are not population confidence bounds. A view passes the provisional logging gate only if every environment has adapted F1>=80%. That gate does not certify attribution to an unknown operator.
+
+| View | Frozen mean | Matched-training mean | Worst environment | 80% gate |
+|---|---|---|---|---|
+| full | 89.82% | 89.82% | 81.51% | pass |
+| middle50 | 76.26% | 79.77% | 77.68% | fail |
+| first50 | 78.61% | 81.47% | 79.26% | fail |
+| last50 | 81.48% | 83.46% | 77.64% | fail |
+| truncate32 | 86.31% | 89.39% | 80.49% | pass |
+| verbs | 38.89% | 80.15% | 75.19% | fail |
+| no_outputs | 89.82% | 89.82% | 81.51% | pass |
+| random30 | 84.72% | 83.68% | 77.54% | fail |
+
+Synthetic removal uses saved sessions. `first50` removes the first half; `last50` removes the last half. `truncate32` retains the first 32 characters per command. Prefix10 exact duplicates were removed across splits; reductions can create additional collisions. The prior study audited that issue in two settings, but this expanded table is not a near-duplicate-free benchmark.
+
+## Withheld served versions
+
+Each row tests only one withheld version and therefore uses accuracy on that version, not multiclass macro F1. Other versions from its served family remain in training. The single-version Meta family cannot receive this test.
+
+| Held-out version | Sessions | Lexical | Size/error control | Combined recovery |
+|---|---|---|---|---|
+| deepseek-r1:1.5b | 1086 | 92.82% | 96.04% | 95.67% |
+| deepseek-r1:32b | 1484 | 43.40% | 49.66% | 52.76% |
+| gemma3:27b | 1375 | 13.89% | 14.33% | 16.00% |
+| gemma3:4b | 1182 | 34.09% | 36.89% | 36.21% |
+| qwen2.5:1.5b | 1078 | 28.39% | 26.62% | 31.08% |
+| qwen2.5:32b | 1416 | 44.00% | 42.51% | 41.31% |
+| qwen3:30b | 1209 | 90.24% | 90.41% | 90.90% |
+| qwen3:4b | 1453 | 84.03% | 85.20% | 86.51% |
+
+## Recovery mechanism checks
+
+| Environment | Lexical | Combined | Size/error | Output recovery | Shuffled output order |
+|---|---|---|---|---|---|
+| backend_pool_cowrie | 92.31% | 92.53% | 92.56% | 92.32% | 92.42% |
+| ls_triggering_cowrie | 81.51% | 86.77% | 81.51% | 85.86% | 85.60% |
+| plain_cowrie | 94.32% | 95.36% | 95.36% | 95.48% | 95.36% |
+| real_ssh | 88.50% | 89.92% | 88.60% | 88.73% | 89.62% |
+| whoami_triggering_cowrie | 92.46% | 92.64% | 92.57% | 92.67% | 92.56% |
+
+The shuffled-output arm preserves each session's output content/frequency and command sequence, while disturbing which earlier output accompanies a transition. It is a sensitivity diagnostic, not a semantic error-label audit.
+
+## Independent collector: Lyptus
+
+125 eligible AI sessions across three served families; five task-held-out folds, first 3 shell submissions, 123 retained out-of-fold test sessions after exact-prefix exclusions. These are newly fitted within-corpus models, not frozen Honey-model transfer. No response-conditioned recovery replication is possible from this particular command-only extraction.
+
+| Representation | Test sessions | Pooled macro F1 |
+|---|---|---|
+| lexical | 123 | 89.63% |
+| correction | 123 | 66.21% |
+| lexical_recovery | 123 | 88.92% |
+
+The combined label means vocabulary plus correction/shape here: outputs were unavailable. This is not evidence that recovery features replicated externally.
+
+## Unknown families and early decisions
+
+Target: known-session coverage>=50%, accepted known error<=2%, unknown acceptance<=5% in every one of 20 held-family/environment settings. Calibration uses known families only. The 2% threshold rule uses empirical calibration errors and is not a confidence guarantee.
+
+| Rule | Settings passing all gates | Lowest known coverage | Highest accepted known error | Highest unknown acceptance |
+|---|---|---|---|---|
+| always10 | 0/20 | 100.00% | 16.81% | 100.00% |
+| margin10 | 0/20 | 51.26% | 6.14% | 70.57% |
+| target10 | 0/20 | 88.00% | 12.19% | 100.00% |
+| agree_margin | 0/20 | 40.12% | 8.44% | 92.50% |
+| agree_target | 0/20 | 44.40% | 6.01% | 100.00% |
+
+## Human/AI shortcut and measurement tests
+
+The first replay-based fit contained human benchmark-control commands absent from AI shell submissions. The post-result filter removes submissions beginning with task/clear/exit/history on both sides and redoes the original partitions. Eligibility and cohorts change, so this is not a paired causal estimate. It does reveal that the attractive unfiltered score cannot support a robust detector claim.
+
+| Input/feature set | AI flags | Human false flags | Equal-expert FPR |
+|---|---|---|---|
+| unfiltered/combined | 44/55 | 2/36 | 21.67% |
+| unfiltered/correction | 44/55 | 5/36 | 26.67% |
+| unfiltered/edit_retry | 0/55 | 0/36 | 0.00% |
+| unfiltered/shuffled_combined | 14/55 | 12/36 | 20.83% |
+| unfiltered/verbs | 41/55 | 4/36 | 27.50% |
+| filtered/combined | 25/43 | 9/25 | 18.55% |
+| filtered/correction | 23/43 | 7/25 | 14.91% |
+| filtered/edit_retry | 0/43 | 0/25 | 0.00% |
+| filtered/shuffled_combined | 1/43 | 3/25 | 24.68% |
+| filtered/verbs | 27/43 | 9/25 | 35.58% |
+
+Human input audit: 49 recording triples from 47 sessions; 46 align after removing script headers/footers; 42 contain delete/backspace bytes. These include interactive programs, navigation and editing. AI tool logs do not provide equivalent keystroke streams. Treating missing AI keyboard data as zero mistakes would identify the recorder.
+
+Neither the filtered binary detector nor timing is ready for deployment. Previous PX124 cross-benchmark transfer also failed its recall/false-label objectives; those are historical results, not newly fitted here.
+
+## APT telemetry loss at a fixed alert budget
+
+The newly fitted simple IsolationForest controls have almost no clean attack recall, so they cannot establish useful robustness. The following new analysis reuses stronger, previously fitted local GIN/MLP nearest-neighbor scores, with source hashes verified. It is not a new MAGIC reproduction.
+
+The budget is exactly ceil(1% of all test nodes). This is a retrospective ranking budget, not a measured analyst workload or alerts-per-hour deployment rule. Large score ties require special care: use expected recall under uniform boundary-tie selection, alongside deterministic node-ID results and min/max tie bounds in the evidence.
+
+| Dataset/view | Recall at 1% budget, tie expectation | Threshold recall | Threshold false-positive rate | Threshold alerts, mean |
+|---|---|---|---|---|
+| cadets/clean | 10.06% | 33.21% | 41.95% | 148,703 |
+| cadets/drop_0.5_mask_20260920 | 1.53% | 50.01% | 53.17% | 189,498 |
+| theia/clean | 11.13% | 90.33% | 2.02% | 29,328 |
+| theia/drop_0.5_mask_20260920 | 3.07% | 93.00% | 57.85% | 208,342 |
+
+These are means over three model/reference-bank seeds, not three independent campaigns. CADETS already has an impractical clean false-positive rate. Prepared graphs lack timestamps and chain ground truth; random edge loss does not simulate a verified time outage. Node recall is not attack-chain recall. Despite those limitations, the ranking/alert-volume deterioration motivates a defense-focused candidate.
+
+## Recommended choice
+
+**For the most direct defensive question:** investigate whether telemetry loss causes alert flooding and loss of useful attack evidence under a fixed investigation budget. The next contribution must be a mitigation that preserves evidence ranking, tested on chronological public logs with qualified labels. Existing scores establish a failure mode, not that mitigation.
+
+**For the most feasible AI-focused Praxis:** combine version/environment qualification with logging requirements. Ask when a defender must decline model-family attribution. The current positive fingerprinting scores are conditional on familiar versions and observation mechanisms.
+
+Recovery is a secondary feature study. Unknown/early rejection remains an unsolved requirement. Do not select a quick typo/timing binary flag as the primary result. All novelty claims remain conditional on the comparison in SOURCES.md, especially the unavailable Honey full text.
+
+The supplied observation_contract.py is a research decision aid: it checks a declared logging view against measured conditions and explicitly declines deployment certification. It does not infer malicious intent or execute source commands.
+
+Binary denominators: the unfiltered 55 AI appearances represent 45 unique sessions; filtered 43 appearances represent 42. Human sessions come from only 5 experts. Repeated evaluations are not independent participants. The no_outputs lexical control is unchanged by construction; combined-model sensitivity remains in RESULTS.json.
