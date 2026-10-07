@@ -1,0 +1,74 @@
+Operator signals exploration, 2026-10-07
+Purpose: select a defensible Praxis direction using existing data only.
+Exploratory reanalysis, not a preregistered independent confirmation: Honey and
+earlier binary experiment findings have already been inspected. This protocol
+is committed before fitting the new models. All negative findings retained.
+
+Primary corpus: archived Honey for the Agent Logs_final.zip, public Zenodo
+20818246. Immutable input hash, source manifest and qualification counts saved.
+Nine model identifiers mapped to four provider/model families by explicit map.
+This identifies the named served-model family, not training ancestry (DeepSeek
+distillations may derive from Qwen). No human/AI or APT-intent claim from Honey.
+Source describes six prompts, five environments and 20/30-turn budgets. Use
+whole valid sessions with >=10 parsed command turns, first ten for primary
+comparisons. Preserve malformed, empty and short exclusions in audit. No
+execution of downloaded commands. No generated attack runs or human recruitment.
+
+S1: family identification vs nuisance variation. TF-IDF lexical commands,
+structural shell tokens, correction proxies, output-conditioned recovery,
+timing-only diagnostic, and lexical+recovery. LinearSVC C=1 balanced classes,
+max_iter=10000, seed fixed. Text vocab <=8000, word 1/2-grams; numeric scaling
+fit on training only. Three stratified session hash splits; five environment
+holdouts; six prompt holdouts; three held-out prompt/environment cell sets
+(prompt index + environment index) mod 3. Entire sessions stay together.
+Heldout conditions never fit vectorizers/scalers. Calibration is 20% of the
+remaining cells; IID train/cal/test about60/20/20 within model/prompt/env/budget.
+Exclude exact first-ten-command duplicates crossing train/cal/test, report
+loss. This does not eliminate near duplicates, shared templates or source bias.
+Report macro F1, accuracy, family confusion, class counts and fit warnings.
+Also fit a training-prior dummy and shuffled-family-label lexical control.
+
+S2: incomplete-log stress on IID seed17 and first environment holdout, lexical,
+structural and lexical+recovery. Remove middle25/50% or first/last50% of turns;
+truncate commands to32/64 chars; verbs only; remove shell outputs. Same test
+cohort. Recovery transitions never bridge removed turns. No timing gap
+inference across removed observations. Fit-time adaptation additionally tested
+for middle50, truncate32 and verbs-only. Offline corruptions are sensitivity
+tests, not physically validated telemetry simulators or executable evasions.
+
+S3: timing, correction and recovery. Numeric correction features include nearby
+one/two-character first-token edits, exact retries and command similarity.
+These are correction proxies, not verified keyboard typos. Recovery features
+condition on explicit shell error strings, follow-up inspection or command
+changes; error regex is fixed before scoring. No lexical shell-output content
+is given to classifiers. Timing is a diagnostic only: documentation semantics
+are checked against raw values, never silently equated to human command gaps.
+Audit available GAMBiT human timestamps and Lyptus prior qualification; do not
+fit a misleading human-vs-AI timing classifier if measurements are incompatible.
+
+S4: unknown family rejection. For each of four heldout families, fit lexical
+and lexical+recovery on other families (IID and first environment holdout).
+Calibrate top-two SVC margin gap at10th and25th percentiles of known calibration
+sessions; evaluate unknown acceptance and known coverage/error. No conformal
+or probability guarantees. Unknown samples never set rejection thresholds.
+
+S5: early identification. Fixed >=10-command cohort with separate3/5/10-prefix
+models, lexical and lexical+recovery, IID and first environment holdout.
+Threshold gap at10th percentile on calibration per prefix. Sequential rule:
+emit at5 or10 commands if current and previous prefix labels agree AND both
+pass their own calibration thresholds. Report emitted coverage, accuracy,
+wrong decisions / all sessions, decision command count and later reversals.
+Supplement20-command comparison only on >=20 cohort, refit3/5/10/20 there.
+No future output after the nth command in a prefix representation: recovery
+uses shell results only for commands before n; command n may not have finished.
+
+Uncertainty: paired bootstrap differences over heldout sessions, stratified by
+family (1000 draws), conditional on trained models and this source. No broad
+population inference, no uncorrected multiple-test significance claims.
+Candidate selection emphasizes stability across settings, not best test score.
+APT telemetry option is a separate fallback, not silently mixed with shell
+attribution. No full APT benchmark is needed to choose among these pilots.
+
+Publication: scripts, protocol, aggregate/hashed prediction evidence and source
+hashes in a dedicated Git branch. Raw third-party transcripts remain external.
+Public source attribution preserved; never publish credentials or private logs.
