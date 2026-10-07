@@ -1,5 +1,5 @@
 """Frozen offline pilot. Inputs are parsed as inert text, never executed."""
-import collections, copy, difflib, hashlib, json, pathlib, re, shlex, time, warnings
+import argparse, collections, copy, difflib, hashlib, json, pathlib, re, shlex, time, warnings
 import numpy as np
 from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -135,9 +135,14 @@ def masked(turns,mode):
  else:raise ValueError(mode)
  return out
 
-def run():
+def run(resume=False):
+ global RESULTS,PRED,SPLITS,FIT_COUNT
  rows=json.loads((HERE/'cache/records.json').read_text());envs=sorted({r['env'] for r in rows});prompts=sorted({r['prompt'] for r in rows})
- fs={r['id']:features(r['turns'][:10]) for r in rows}
+ fs=json.loads((HERE/'cache/features.json').read_text()) if (HERE/'cache/features.json').exists() else {r['id']:features(r['turns'][:10]) for r in rows}
+ if resume:
+  cp=HERE/'cache/s1_checkpoint';RESULTS=json.loads((cp/'RESULTS.json').read_text());PRED=json.loads((cp/'PREDICTIONS.json').read_text());SPLITS=json.loads((cp/'SPLITS.json').read_text())
+  assert len(RESULTS)==122 and all(r['study']=='S1' for r in RESULTS)
+  FIT_COUNT=105
  specs=[('iid_'+str(s),s,None) for s in [17,29,43]]
  specs += [('env_'+e,17,lambda r,e=e:r['env']==e) for e in envs]
  specs += [('prompt_'+p,17,lambda r,p=p:r['prompt']==p) for p in prompts]
@@ -145,15 +150,23 @@ def run():
  main={};start=time.time()
  for name,seed,hold in specs:
   (tr,ca,te),audit=partition(rows,seed,hold)
-  SPLITS.append({'setting':name,**audit,'train':[r['id'] for r in tr],'cal':[r['id'] for r in ca],'test':[r['id'] for r in te]})
+  split={'setting':name,**audit,'train':[r['id'] for r in tr],'cal':[r['id'] for r in ca],'test':[r['id'] for r in te]}
+  if resume:
+   assert next(s for s in SPLITS if s['setting']==name)==split
+   if name not in {'iid_17','env_'+envs[0]}:continue
+  else:SPLITS.append(split)
   xf=lambda rs:[fs[r['id']] for r in rs]
   y=[r['family'] for r in tr];prior=collections.Counter(y).most_common(1)[0][0]
-  record('S1',name,'prior',te,[prior]*len(te),[0]*len(te))
+  if not resume:record('S1',name,'prior',te,[prior]*len(te),[0]*len(te))
   fitted={}
-  for kind in MODELS:
-   model=Model(kind).fit(xf(tr),y);p,g=model.predict(xf(te));record('S1',name,kind,te,p,g)
+  for kind in (['lexical','structure','lexical_recovery'] if resume else MODELS):
+   model=Model(kind).fit(xf(tr),y);p,g=model.predict(xf(te))
+   if resume:
+    old=next(x for x in PRED if x['key']==f'S1|{name}|{kind}')
+    assert list(p)==old['pred'] and np.allclose(g,old['gap'],rtol=0,atol=1e-12)
+   else:record('S1',name,kind,te,p,g)
    fitted[kind]=model
-  if name.startswith('iid_'):
+  if name.startswith('iid_') and not resume:
    ys=np.random.default_rng(seed).permutation(y);m=Model('lexical').fit(xf(tr),ys)
    p,g=m.predict(xf(te));record('S1',name,'shuffled_lexical',te,p,g)
   if name in {'iid_17','env_'+envs[0]}:main[name]=((tr,ca,te),fitted)
@@ -162,10 +175,11 @@ def run():
  for name,((tr,ca,te),fitted) in main.items():
   for mode in ['middle25','middle50','first50','last50','truncate32','truncate64','verbs','no_outputs']:
    xt=[features(masked(r['turns'][:10],mode)) for r in te]
+   xf_mask=[features(masked(r['turns'][:10],mode)) for r in tr] if mode in {'middle50','truncate32','verbs'} else None
    for kind in ['lexical','structure','lexical_recovery']:
     p,g=fitted[kind].predict(xt);record('S2_frozen',name+'/'+mode,kind,te,p,g)
     if mode in {'middle50','truncate32','verbs'}:
-     m=Model(kind).fit([features(masked(r['turns'][:10],mode)) for r in tr],[r['family'] for r in tr])
+     m=Model(kind).fit(xf_mask,[r['family'] for r in tr])
      p,g=m.predict(xt);record('S2_adapted',name+'/'+mode,kind,te,p,g)
   print('S2',name,'fits',FIT_COUNT,flush=True);checkpoint()
   # Unknown evaluation reuses the split; all unknown-family rows excluded from fitting/calibration.
@@ -184,11 +198,13 @@ def run():
   print('S4',name,'fits',FIT_COUNT,flush=True);checkpoint()
   for minimum,prefixes in [(10,[3,5,10]),(20,[3,5,10,20])]:
    trs=[r for r in tr if len(r['turns'])>=minimum];cas=[r for r in ca if len(r['turns'])>=minimum];tes=[r for r in te if len(r['turns'])>=minimum]
+   prefix_fs={n:([features(r['turns'][:n]) for r in trs],[features(r['turns'][:n]) for r in cas],[features(r['turns'][:n]) for r in tes]) for n in prefixes}
    for kind in ['lexical','lexical_recovery']:
     hist=[];thresholds=[]
     for n in prefixes:
-     m=Model(kind).fit([features(r['turns'][:n]) for r in trs],[r['family'] for r in trs])
-     _,gc=m.predict([features(r['turns'][:n]) for r in cas]);p,g=m.predict([features(r['turns'][:n]) for r in tes])
+     train_fs,cal_fs,test_fs=prefix_fs[n]
+     m=Model(kind).fit(train_fs,[r['family'] for r in trs])
+     _,gc=m.predict(cal_fs);p,g=m.predict(test_fs)
      th=float(np.quantile(gc,.1));hist.append((p,g));thresholds.append(th)
      record('S5_prefix',name+'/cohort'+str(minimum)+'/n'+str(n),kind,tes,p,g,threshold=th)
     emit=np.full(len(tes),'',dtype=object);at=np.zeros(len(tes),dtype=int)
@@ -219,7 +235,7 @@ def run():
    'conditional_95_interval':np.quantile(deltas,[.025,.975]).tolist()})
  save(HERE/'evidence/PAIRED_COMPARISONS.json',comparisons)
  save(HERE/'evidence/FEATURES.json',{'correction':CORRECTION_NAMES,'recovery':RECOVERY_NAMES,'timing':TIMING_NAMES})
- save(HERE/'evidence/RUN.json',{'fits':FIT_COUNT,'result_rows':len(RESULTS),'warnings':FIT_WARNINGS,'elapsed_seconds':time.time()-start,
+ save(HERE/'evidence/RUN.json',{'fits':FIT_COUNT,'checkpoint_reconstruction_fits':6 if resume else 0,'result_rows':len(RESULTS),'warnings':FIT_WARNINGS,'elapsed_seconds':time.time()-start,
   'code_hashes':{p.name:sha(p) for p in [HERE/'experiment.py',HERE/'prepare.py',HERE/'PROTOCOL.txt']}})
  checkpoint();print('DONE',FIT_COUNT,len(RESULTS),flush=True)
 
@@ -227,4 +243,5 @@ def checkpoint():
  save(HERE/'evidence/RESULTS.json',RESULTS);save(HERE/'evidence/PREDICTIONS.json',PRED);save(HERE/'evidence/SPLITS.json',SPLITS)
 
 if __name__=='__main__':
- with threadpool_limits(limits=1):run()
+ parser=argparse.ArgumentParser();parser.add_argument('--resume-s1',action='store_true');args=parser.parse_args()
+ with threadpool_limits(limits=1):run(args.resume_s1)

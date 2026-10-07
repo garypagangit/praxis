@@ -1,0 +1,17 @@
+The initial S1 run completed105 fits and122 result rows under commit2f46972.
+It was stopped before any S2 checkpoint to avoid repeatedly recomputing the
+same expensive text features for each representation. No statistical design,
+feature definition, partition, parameter, endpoint or negative result changed.
+
+The optimized runner reuses deterministic features (also produced by S1A),
+hoists mask/prefix feature extraction outside model loops, and supports
+resuming the complete S1 checkpoint. Six models are refitted solely to restore
+S2 inference state. Their labels AND score gaps must exactly match the original
+checkpoint (absolute tolerance1e-12). These six reconstruction fits are separately
+counted; they are not six new experiments. Normal from-scratch execution uses
+the same optimized code without --resume-s1 and does not need checkpoint files.
+
+S1 originally had zero recorded convergence warnings (checked again at final
+audit); the six reconstruction models also capture warnings normally. Code at
+the original Git protocol commit preserves the original execution definition.
+Wall time in RUN.json covers the resumed phase, not the whole research session.
