@@ -11,7 +11,16 @@ checkpoint (absolute tolerance1e-12). These six reconstruction fits are separate
 counted; they are not six new experiments. Normal from-scratch execution uses
 the same optimized code without --resume-s1 and does not need checkpoint files.
 
-S1 originally had zero recorded convergence warnings (checked again at final
-audit); the six reconstruction models also capture warnings normally. Code at
-the original Git protocol commit preserves the original execution definition.
-Wall time in RUN.json covers the resumed phase, not the whole research session.
+The initial S1 warning list was not serialized before interruption; its contents
+cannot be verified from the checkpoint. Subsequent and reconstruction warnings
+are captured in RUN.json. Code at the original Git protocol commit preserves
+the original execution definition.
+After both S2 splits and the first S5 split completed, another checkpoint resume
+reused identical prefix features across the10- and20-command eligibility cohorts.
+Completed result and prediction rows were retained unchanged. This removes
+redundant computation without changing prefix features or cohort definitions.
+Warnings from pre-checkpoint phases were not serialized; RUN.json explicitly
+marks warning capture incomplete. Interrupted, uncheckpointed computations are
+not included in completed-study fit counts. No performance claim depends on
+elapsed time. Wall time in RUN.json covers the last resumed phase, not the whole
+research session. From-scratch execution captures all fit warnings normally.

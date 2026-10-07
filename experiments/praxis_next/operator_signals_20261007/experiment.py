@@ -16,7 +16,7 @@ INSPECT={'ls','cat','head','tail','which','whereis','pwd','file','stat','find','
 CORRECTION_NAMES=['exact_retry_rate','near_verb_edit_rate','same_verb_changed_rate','mean_command_similarity','unique_verb_fraction','mean_characters','std_characters','compound_fraction']
 RECOVERY_NAMES=CORRECTION_NAMES+['error_rate','after_error_retry_rate','after_error_change_rate','after_error_inspect_rate','after_error_near_edit_rate','after_success_retry_rate']
 TIMING_NAMES=['log_first_field_median','log_first_field_std','log_second_field_median','log_second_field_std','log_pair_difference_median','log_pair_difference_std']
-RESULTS=[];PRED=[];SPLITS=[];FIT_WARNINGS=[];FIT_COUNT=0
+RESULTS=[];PRED=[];SPLITS=[];FIT_WARNINGS=[];FIT_COUNT=0;RESTORE_FITS=0
 
 def tokens(c):
  try:return shlex.split(c)
@@ -135,14 +135,17 @@ def masked(turns,mode):
  else:raise ValueError(mode)
  return out
 
-def run(resume=False):
- global RESULTS,PRED,SPLITS,FIT_COUNT
+def run(resume=False,latest=False):
+ global RESULTS,PRED,SPLITS,FIT_COUNT,RESTORE_FITS
  rows=json.loads((HERE/'cache/records.json').read_text());envs=sorted({r['env'] for r in rows});prompts=sorted({r['prompt'] for r in rows})
  fs=json.loads((HERE/'cache/features.json').read_text()) if (HERE/'cache/features.json').exists() else {r['id']:features(r['turns'][:10]) for r in rows}
  if resume:
-  cp=HERE/'cache/s1_checkpoint';RESULTS=json.loads((cp/'RESULTS.json').read_text());PRED=json.loads((cp/'PREDICTIONS.json').read_text());SPLITS=json.loads((cp/'SPLITS.json').read_text())
-  assert len(RESULTS)==122 and all(r['study']=='S1' for r in RESULTS)
-  FIT_COUNT=105
+  cp=HERE/('cache/latest_checkpoint' if latest else 'cache/s1_checkpoint');RESULTS=json.loads((cp/'RESULTS.json').read_text());PRED=json.loads((cp/'PREDICTIONS.json').read_text());SPLITS=json.loads((cp/'SPLITS.json').read_text())
+  assert sum(r['study']=='S1' for r in RESULTS)==122
+  RESTORE_FITS=6 if latest else 0
+  FIT_COUNT=sum(r['study']=='S1' and r['model']!='prior' for r in RESULTS)+sum(r['study']=='S2_adapted' for r in RESULTS)+sum(r['study']=='S4' for r in RESULTS)//2+sum(r['study']=='S5_prefix' for r in RESULTS)+RESTORE_FITS
+ def done(study,setting,kind):return any(r['key']==f'{study}|{setting}|{kind}' for r in RESULTS)
+ prefix_cache={10:fs}
  specs=[('iid_'+str(s),s,None) for s in [17,29,43]]
  specs += [('env_'+e,17,lambda r,e=e:r['env']==e) for e in envs]
  specs += [('prompt_'+p,17,lambda r,p=p:r['prompt']==p) for p in prompts]
@@ -159,9 +162,11 @@ def run(resume=False):
   y=[r['family'] for r in tr];prior=collections.Counter(y).most_common(1)[0][0]
   if not resume:record('S1',name,'prior',te,[prior]*len(te),[0]*len(te))
   fitted={}
-  for kind in (['lexical','structure','lexical_recovery'] if resume else MODELS):
+  need_restore=not all(done('S2_frozen',name+'/'+mode,kind) for mode in ['middle25','middle50','first50','last50','truncate32','truncate64','verbs','no_outputs'] for kind in ['lexical','structure','lexical_recovery'])
+  for kind in ((['lexical','structure','lexical_recovery'] if need_restore else []) if resume else MODELS):
    model=Model(kind).fit(xf(tr),y);p,g=model.predict(xf(te))
    if resume:
+    RESTORE_FITS+=1
     old=next(x for x in PRED if x['key']==f'S1|{name}|{kind}')
     assert list(p)==old['pred'] and np.allclose(g,old['gap'],rtol=0,atol=1e-12)
    else:record('S1',name,kind,te,p,g)
@@ -174,6 +179,7 @@ def run(resume=False):
   checkpoint()
  for name,((tr,ca,te),fitted) in main.items():
   for mode in ['middle25','middle50','first50','last50','truncate32','truncate64','verbs','no_outputs']:
+   if all(done('S2_frozen',name+'/'+mode,k) and (mode not in {'middle50','truncate32','verbs'} or done('S2_adapted',name+'/'+mode,k)) for k in ['lexical','structure','lexical_recovery']):continue
    xt=[features(masked(r['turns'][:10],mode)) for r in te]
    xf_mask=[features(masked(r['turns'][:10],mode)) for r in tr] if mode in {'middle50','truncate32','verbs'} else None
    for kind in ['lexical','structure','lexical_recovery']:
@@ -186,6 +192,7 @@ def run(resume=False):
   for unknown in LABELS:
    trk=[r for r in tr if r['family']!=unknown];cak=[r for r in ca if r['family']!=unknown]
    for kind in ['lexical','lexical_recovery']:
+    if all(done('S4',name+'/'+unknown+'/'+str(q),kind) for q in [.1,.25]):continue
     m=Model(kind).fit([fs[r['id']] for r in trk],[r['family'] for r in trk])
     pc,gc=m.predict([fs[r['id']] for r in cak]);p,g=m.predict([fs[r['id']] for r in te])
     y=np.array([r['family'] for r in te]);known=y!=unknown
@@ -197,8 +204,14 @@ def run(resume=False):
       known_accepted_accuracy=float((p[known&keep]==y[known&keep]).mean()) if (known&keep).any() else None)
   print('S4',name,'fits',FIT_COUNT,flush=True);checkpoint()
   for minimum,prefixes in [(10,[3,5,10]),(20,[3,5,10,20])]:
+   if all(done('S5_rule',name+'/cohort'+str(minimum),kind) for kind in ['lexical','lexical_recovery']):continue
    trs=[r for r in tr if len(r['turns'])>=minimum];cas=[r for r in ca if len(r['turns'])>=minimum];tes=[r for r in te if len(r['turns'])>=minimum]
-   prefix_fs={n:([features(r['turns'][:n]) for r in trs],[features(r['turns'][:n]) for r in cas],[features(r['turns'][:n]) for r in tes]) for n in prefixes}
+   prefix_fs={}
+   for n in prefixes:
+    cached=prefix_cache.setdefault(n,{})
+    for r in trs+cas+tes:
+     if r['id'] not in cached:cached[r['id']]=features(r['turns'][:n])
+    prefix_fs[n]=tuple([cached[r['id']] for r in rs] for rs in [trs,cas,tes])
    for kind in ['lexical','lexical_recovery']:
     hist=[];thresholds=[]
     for n in prefixes:
@@ -235,7 +248,7 @@ def run(resume=False):
    'conditional_95_interval':np.quantile(deltas,[.025,.975]).tolist()})
  save(HERE/'evidence/PAIRED_COMPARISONS.json',comparisons)
  save(HERE/'evidence/FEATURES.json',{'correction':CORRECTION_NAMES,'recovery':RECOVERY_NAMES,'timing':TIMING_NAMES})
- save(HERE/'evidence/RUN.json',{'fits':FIT_COUNT,'checkpoint_reconstruction_fits':6 if resume else 0,'result_rows':len(RESULTS),'warnings':FIT_WARNINGS,'elapsed_seconds':time.time()-start,
+ save(HERE/'evidence/RUN.json',{'fits':FIT_COUNT,'checkpoint_reconstruction_fits':RESTORE_FITS,'completed_unique_study_fits':FIT_COUNT-RESTORE_FITS,'warning_capture_complete':not resume,'result_rows':len(RESULTS),'warnings':FIT_WARNINGS,'elapsed_seconds':time.time()-start,
   'code_hashes':{p.name:sha(p) for p in [HERE/'experiment.py',HERE/'prepare.py',HERE/'PROTOCOL.txt']}})
  checkpoint();print('DONE',FIT_COUNT,len(RESULTS),flush=True)
 
@@ -243,5 +256,5 @@ def checkpoint():
  save(HERE/'evidence/RESULTS.json',RESULTS);save(HERE/'evidence/PREDICTIONS.json',PRED);save(HERE/'evidence/SPLITS.json',SPLITS)
 
 if __name__=='__main__':
- parser=argparse.ArgumentParser();parser.add_argument('--resume-s1',action='store_true');args=parser.parse_args()
- with threadpool_limits(limits=1):run(args.resume_s1)
+ parser=argparse.ArgumentParser();parser.add_argument('--resume-s1',action='store_true');parser.add_argument('--resume-latest',action='store_true');args=parser.parse_args()
+ with threadpool_limits(limits=1):run(args.resume_s1 or args.resume_latest,args.resume_latest)
