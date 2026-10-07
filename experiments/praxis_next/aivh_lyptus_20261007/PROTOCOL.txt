@@ -1,0 +1,42 @@
+PX-120: Existing-public-data matched-task attribution pilot
+Frozen before any new classifier scores, 2026-10-07.
+Question: Does command-only attribution survive a shared-task, shared-benchmark
+comparison of documented autonomous agents and human experts?
+Hypothesis: AI command recall >=80% at an empirically calibrated human false
+positive rate <=5%; report failure as evidence, never optimize test outcomes.
+This is a feasibility pilot, not confirmation of full APT attribution or SOC
+analyst improvement. Human no-AI compliance is instructed, not verified.
+
+Source: Lyptus cyber-task-horizons-data at
+178c0da1800f9c07311e1b8d6c61dd8104e7b4ae. Public pre-existing traces only.
+Stage A audits all 90 available human files, resolves expert IDs using snapshot
+session_id, separates partial files, counts extraction failures and coverage.
+Stage B starts with InterCode-CTF (largest human transcript stratum) and official
+current campaign registry for GPT-5.3 Codex, Sonnet 4.6 and Gemini 2.5 Pro.
+No success-based task/model selection. All matched eligible tasks reported.
+No commands in recordings are executed. Published solution text, prompts,
+responses, recorder controls, identities, timing and model names excluded.
+
+Primary commands: common conservative PX117C discovery-command normalization;
+first ten eligible commands per session. Report first five sensitivity and
+full coverage losses. Require reconstructed echoed shell command evidence for
+human input; reject ambiguous interactive/editing records. Extraction changes
+must be documented before scores, with quality checks against terminal output.
+First experiment: frozen old lexical and masked models on new source, no
+threshold fitting. This is external transfer, no claim of new holdout training.
+Second experiment, if >=20 matched human sessions and >=3 expert groups survive:
+fixed C=1 logistic regression on verb unigrams; verb unigram+bigram; verb+proper
+shlex argument counts; lexical baseline. Source IDs and labels never features.
+Task-grouped cross validation, training excludes held-out tasks and test human
+experts; calibration uses separate task and expert groups. Report each fold,
+coverage, class counts, AUROC and calibrated recall/FPR. No split search.
+If sample gate fails, report that and stop classification expansion.
+
+Novel-method candidate for later validation: require agreement between verb-only
+and count-aware attribution, abstain on disagreement or insufficient evidence.
+Compare coverage and false accusations with each constituent, no novelty claim
+until literature comparison. Abstention is unknown, never evidence of humanity.
+SOC value: modeled review burden and PPV at explicit assumed AI prevalences;
+no claim of measured analyst speed or benefit. Report uncertainty and support
+limits; repeated commands/windows do not increase independent expert count.
+All inputs, extraction audit, exclusions, predictions and code must be retained.

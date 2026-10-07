@@ -1,0 +1,52 @@
+PX-121: Broader shell structure feasibility pilot, 2026-10-07
+Registered after PX120 COVERAGE inspection, before any new-source detector scores.
+Reason: both first acquired AI files had zero sessions with >=5 PX117C-eligible
+simple discovery commands. This makes the original window study nontransportable.
+Preserve PX120 and report its result, do not relabel this adaptation confirmatory.
+
+Use the same pinned source and three selected InterCode campaigns. Retain only
+actual AI bash tool arguments and human echoed shell prompt command lines.
+Parse bash text as inert AST using bashlex0.18. Extract top-level command nodes,
+not command substitutions or embedded script literals; remove redirects from
+argument count; reject unsupported syntax and record it. Exclude task control,
+terminal housekeeping (clear,exit,history), and recorder identity. Do not use
+outputs, model reasoning, task answers or human notes. Keep first ten atomic
+commands with a minimum of three. Report session coverage and exact-task overlap.
+Report standalone python-tool coverage loss explicitly. Comparable telemetry
+remains imperfect; all results exploratory and subject to parser fidelity audit.
+
+Models: fixed logistic C=1, class balanced; verb TF-IDF unigram, verb TF-IDF
+unigram+bigram, argument-count-only numeric summaries, and verb unigrams plus
+count summaries. Proper argument count from AST word nodes, not whitespace.
+Standardize numeric features using fit data. No tuning or score-based exclusions.
+Hold out each human expert, holding out all their tasks from training. Calibrate
+on the next lexically ordered expert after removing test tasks, exclude those
+tasks/experts from fitting. Restrict each partition to tasks with both classes.
+Retain all three model families, report per-family recalls. Skip folds lacking
+any class in fit/cal/test, retain skipped-fold counts. Remove duplicate feature
+sequences across parts, prioritizing test then calibration; report exclusions.
+Threshold: lowest score strictly above maximum calibration human score (zero
+empirical calibration flags; insufficient people to validate population5%).
+Report pooled predictions and per-fold results (AI sessions may recur across
+folds; pooled outcomes descriptive, not independent replicates). Report equal
+expert FPR, task and family coverage; no binomial interval treating correlated
+AI records or repeated expert sessions as independent population observations.
+Primary goal80%AI recall and <=5%human equal-expert FPR is aspirational; tested
+pilot does not confirm this population claim even if point estimates pass.
+
+Candidate selective attribution: flag AI only when both unigram and combined
+models exceed their frozen calibration thresholds; human-compatible only when
+both below; otherwise abstain. Also abstain for insufficient commands or parse
+failure in a session. Report coverage separately, no treating abstention as
+human. This is a candidate contribution, not an established novel invention.
+Negative control: task-only features should have no useful attribution in
+class-balanced matched-task evaluation; report per-task label weights.
+Additional shuffled-label fit is a pipeline sanity check, not a novelty test.
+SOC PPV/review-load illustrations use assumed prevalences, never claim measured
+analyst benefit. No deployment, no additional cyber session generation.
+
+Pre-score extraction quality refinement: require every retained human echoed
+command to occur literally in its session input recording too. An inspected
+terminal-overwrite artifact resembled a prompt; dual-channel verification
+rejects that artifact. This deliberately loses edited/tab-completed commands
+and must be counted as missing telemetry, not absence of behavior.
