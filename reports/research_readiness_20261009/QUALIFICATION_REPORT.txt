@@ -1,0 +1,152 @@
+AI INVOLVEMENT IN SUSPICIOUS COMMAND SESSIONS
+Data qualification completed October 9, 2026 (America/Los_Angeles)
+
+DECISION
+Proceed with measurement design and controlled data collection. Hold detector
+training and operational performance claims: the inspected data do not provide
+a qualified human / non-AI scripted automation / AI comparison. This decision
+keeps the AI-involvement research direction. It does not revive the separate
+missing-telemetry graph study.
+
+WHAT WAS VERIFIED
+All 90 local Lyptus human archives and all 3 selected AI archives matched the
+SHA256 hashes and byte sizes in their archived manifests: 93/93, zero failures.
+The current public repository revision is still
+178c0da1800f9c07311e1b8d6c61dd8104e7b4ae; its complete tree lists 90 human eval
+archives. This check did not acquire the entire approximately 18 GB AI corpus.
+
+The 90 human archives contain 87 finalized samples/*.json records. Three have
+no finalized sample member (two filenames explicitly say partial); this audit
+does not attempt journal recovery. Among finalized human records, 86 contain
+terminal input and timing keys and 75 contain terminal output keys. The selected
+AI archives contain 222 samples and 1,646 timestamped tool events, with no
+equivalent human terminal-input/output/timing keys. Field presence does not
+establish semantic equivalence or complete logging.
+
+Existing InterCode extraction, after removing task/clear/exit/history commands:
+
+                                  Human       AI
+Original extracted records           47      222
+At least 3 shell submissions          27      125
+On shared eligible tasks              25       42
+Shared tasks                         24       24
+Human operators / served families     5        3
+Separately labeled scripted arm       0        0
+
+The 42 matched AI sessions comprise 23 Anthropic, 12 OpenAI and 7 Google records.
+Only 7 of the 24 tasks have eligible sessions from all three families; 4 have
+two families and 13 have one. Task identity can therefore confound family
+comparisons. At a minimum of 10 submissions, just one shared task remains,
+containing one human and three AI sessions. A prefix-of-up-to-10 analysis must
+not be described as an analysis of ten-command sessions.
+
+Recomputed exact first-up-to-10-command hashes found no duplicate groups among
+the filtered >=3 eligible records. This is not a near-duplicate, template or
+semantic-overlap audit. The exported 67-row matched manifest contains metadata
+and fresh hashes only, and marks every row previously inspected development
+data. These are existing records already used in earlier experiments, not a
+new independent test set. Expert IDs reflect prior extraction, not a newly
+independently adjudicated participant mapping. Terminal reconstruction was not
+repeated in this audit.
+
+SOURCE QUALIFICATION
+
+TRACE [1]: Suitable methodological baseline: passive command TF-IDF/linear SVM
+and held-out scaffold evaluation. Its published target is model-family identity
+conditional on AI sessions. The paper says full data will be released later.
+The artifact landing page and application scripts now return HTTP 200, but a
+direct artifact API request returned HTTP 401 and no session corpus was
+retrieved. Landing-page availability is not evidence of downloadable data.
+Full dataset access and a human/scripted comparison remain unverified.
+
+OHAI [2]: Suitable conceptual framework for observable indicators, uncertainty,
+and human/AI/hybrid distinctions. The release supplies a report and case-based
+discussion. No labeled session dataset was found in the inspected release.
+Its heuristics do not supply calibrated operating thresholds for this study.
+
+Lyptus [3,4]: Accessible paired-task human and AI source; data CC-BY-4.0. The
+published participant rules prohibit AI assistance while allowing ordinary
+tools and personal scripts. That supports a non-AI human-operator label under
+the study protocol, not independent verification of compliance or a separate
+scripted-only execution label. The native human terminal recorder and AI tool
+recorder differ, despite sharing the .eval container format. Existing matched
+records qualify for development and measurement audits only.
+
+Honey [5]: Public release verified, with inputs.json and a 157,739,317-byte
+Logs_final.zip, CC-BY-4.0. Its release MD5 matches the previous study's recorded
+archive MD5. It contains controlled LLM shell sessions across five environments.
+Useful as an AI-positive/environment-shift source; no matched human or scripted
+negative arm is supplied by this release. No new download or model fit occurred.
+
+Palisade CTF [6]: The inspected repository provides competition data. The sampled
+Challenge Interactions CSV contains 34,982 rows with team_name, challenge_name,
+interaction_type and created_at. Those are platform interaction events, not
+shell command sequences. This inspected artifact cannot fill the command-level
+negative-control gap. This is a bounded source review, not a claim that no other
+public dataset exists.
+
+WHY ANOTHER FEATURE SWEEP IS NOT JUSTIFIED
+1. No separately labeled, comparable non-AI script-only sessions were found.
+   Human use of a script is not proof of a fully scripted session. Replaying
+   human or AI traces does not create independent scripted-origin evidence.
+2. Native recording layer almost reveals the class directly. Keystroke absence,
+   tool names, file structure, framework metadata, model tokens and collector
+   timestamps cannot be attribution features. Timing requires one defined
+   event boundary and consistent clocks in all arms.
+3. The usable human sample is small and clustered. Even zero false flags in
+   25 independent human sessions would yield a one-sided exact 95% binomial
+   upper bound of 11.29% on false-positive probability: 1 - 0.05^(1/25).
+   Repeated sessions from five experts make that independence assumption
+   optimistic. There were no new detector predictions in this audit.
+4. Previous model development and inspected results contaminate these records
+   for confirmatory testing. A fresh split cannot undo prior inspection.
+5. Command text alone cannot establish every form of historical AI assistance.
+   A human can paste the same command as a model. The measurable first target
+   should be runtime AI-directed action selection, with AI-assisted/hybrid
+   execution explicitly separate and unknown cases allowed to remain unknown.
+
+CONCRETE NEXT STEP
+Use COLLECTION_PROTOCOL.txt to build a common-recorder pilot on isolated,
+controlled tasks. Collect genuine no-AI human sessions, independently sourced
+non-AI scripts, and labeled AI sessions under the same task/environment/recorder
+conditions. First validate recording and label provenance; then freeze the
+evaluation and collect unseen sessions. This audit did not recruit people,
+launch attack sessions, call paid models, or fit another detector.
+
+AWS
+Authenticated account 272615233626, profile praxis-build, region us-east-1.
+Running: praxis-data-loader, t3.large, i-0bd262c42220bb4a2, SSM Online.
+Stopped: two g5.xlarge instances (sec-lord and cross-dataset GPU workers).
+No in-progress SageMaker training or processing jobs, endpoints, or notebook
+instances were returned by the queried APIs. This is not an all-region billing
+inventory, and the running loader's workload was not inspected. No resources
+were started, stopped or modified. Qualification ran on local CPU; GPU compute
+does not resolve the missing comparison data.
+
+REPRODUCE AND REVIEW
+python reports/research_readiness_20261009/qualify_data.py
+Requires the archived local files at the paths bound in RAW_PROVENANCE.json.
+check_sources.py rechecks public access; dynamic page hashes may change.
+COHORT_AUDIT.json: eligibility and overlap at 1, 3 and 10 submissions.
+RAW_PROVENANCE.json: source paths, hashes, sizes and observed metadata coverage.
+MATCHED_DEVELOPMENT_COHORT.csv: 67 existing records, no command text.
+MATCHED_TASK_COUNTS.json: task-level coverage and family imbalance.
+QUALIFICATION_CHECKS.json: integrity checks and the qualification decision.
+SOURCE_ACCESS.json and source_snapshots/: observed public source access.
+AWS_INVENTORY.json: timestamped read-only inventory and scope.
+
+SOURCES
+[1] https://arxiv.org/html/2605.01186v1
+    https://anonymous.4open.science/r/TRACE-A66F
+[2] https://www.sei.cmu.edu/library/observational-humanai-ohai-a-defender-attribution-framework-for-distinguishing-human-vs-ai-threats/
+[3] https://github.com/lyptus-research/cyber-task-horizons-data
+    https://raw.githubusercontent.com/lyptus-research/cyber-task-horizons-data/main/data/human/eval_logs/README.md
+[4] https://lyptusresearch.org/research/offensive-cyber-time-horizons
+[5] https://zenodo.org/records/20818246
+[6] https://github.com/PalisadeResearch/ai-vs-humans-ctf-report
+
+Prior local findings:
+C:/w/operator_signals_20261007/experiments/praxis_next/defense_opportunities_20261007/FINDINGS.md
+No validated detector or established novelty is claimed. The proposed novelty
+is conditional specificity against non-AI automation under held-out operating
+conditions; this remains a research hypothesis requiring a fuller comparison.

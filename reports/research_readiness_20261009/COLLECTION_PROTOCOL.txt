@@ -1,0 +1,101 @@
+COMMON-RECORDER DATA COLLECTION PROTOCOL — DRAFT FOR IMPLEMENTATION
+October 9, 2026. No collection has been run under this protocol.
+
+Research endpoint
+Among sessions already selected as suspicious by an external process, estimate
+whether command selection was directed by an AI model at runtime. This is a
+triage indicator. It is not maliciousness detection, proof of autonomy, or a
+detector of all prior AI assistance in producing a command or script.
+
+Origin classes (assigned from collection records, never inferred from features)
+H: Human operator prohibited from AI assistance; ordinary non-AI tools allowed.
+S: Predetermined non-AI automation, with recorded script provenance and version.
+A: Model selects actions from observations at runtime; record model/version,
+   scaffold/version, prompts and intervention history outside the feature set.
+M: Mixed/hybrid or AI-authored script executed without runtime model decisions.
+U: Uncertain provenance. Keep for coverage reporting; not a trusted negative.
+An LLM-generated script must not silently populate the non-AI S arm. Human use
+of tools is permitted in H and should be logged, not relabeled automatically.
+
+Task and environment matching
+Start with a small engineering pilot, not a statistical success claim. Use
+controlled local tasks: file discovery, configuration diagnosis, log triage,
+and permission/error recovery in disposable sandboxes with synthetic data.
+Give all H/S/A arms the same observable goal, fixture and reset state. Collect
+successes, failures, empty and short sessions; do not retain successful runs only.
+Include fixed and rule-based scripts, human copy/paste, and multiple AI scaffolds.
+Scripts may fail on a variant; that outcome is data. Track task familiarity and
+any solution knowledge separately because scripts may encode prior solutions.
+Avoid one collection date, host image, prompt template or task unique to a class.
+Bounded lab evidence supports bounded lab claims; later SOC transfer needs its
+own authorized sample of already-suspicious sessions.
+
+Observation contract
+Use a shared command-submission gateway and target-side recorder for every arm.
+Keep collection plumbing identical; document the imposed interaction constraint
+on humans. Record submitted shell text, command start/completion, exit status,
+and returned output at the same boundary. A shell submission may contain several
+commands; do not equate it to an OS process event. Capture builtins consistently.
+Define monotonic clock origin and output-completion-to-next-submission latency.
+Differentiate missing timing, truncation and disconnected collectors from zeros.
+Include recorder version, task and origin metadata in a separate provenance
+table. The classifier must not see origin, actor IDs, provider names, API traces,
+tool wrapper names, token counts, file paths identifying source or benchmark,
+keystroke availability, or benchmark-control commands. Record exclusions before
+fitting and apply them symmetrically. Keep timing out of the first baseline until
+clock and event-boundary equivalence pass inspection.
+
+Required session fields
+session_id, origin_class, origin_evidence, human_or_script_or_model_group,
+model_version, scaffold_version, script_revision, task_id, task_template_group,
+environment_revision, recorder_revision, collection_batch, reset_receipt,
+intervention_log, event_count, missing_fields, completion_status, raw_sha256,
+consent_and_data_use_record (where applicable), prior_inspection_status.
+Origin evidence and sensitive provenance are separate from analysis features.
+Hashes bind bytes; they do not independently certify origin or label correctness.
+
+Engineering gate before a detector fit
+All three main arms must be present on shared tasks. Check capture with identical
+sentinel submissions through each interface; identical events should produce
+equivalent normalized records. Audit terminal reconstruction against recorded
+submissions and outcomes. Quantify dropped/partial records by arm. Search for
+class-specific recorder markers and collection batches. Preserve all exclusions.
+Synthetic test traces validate the recorder only and cannot count as human data.
+
+Evaluation gate
+Freeze features, eligibility, splits, hyperparameters and threshold procedure
+before inspecting a newly collected test cohort. Group by participant, script
+family/revision, task template, model/scaffold version and collection batch.
+Keep near-duplicate/prefix-equivalent traces and related templates together.
+Run separate held-task/environment and held-actor/scaffold tests if one joint
+split cannot support all required groups; disclose empty cells. No unseen-test
+claim for any of the 67 exported development records.
+
+Compare cheap command-text TF-IDF/linear baseline, command-count/length controls,
+verb-only controls and shuffled-label sanity checks. Measure AI recall at fixed
+human and script false-positive limits separately. Also report coverage, unknown
+rate, per-task/per-group errors and prefix-length denominators. A constant
+unknown classifier must not pass by avoiding all decisions. Select thresholds
+on calibration only. Do not optimize against held-out test results.
+
+An illustrative planning target is <=5% false-positive probability separately
+for H and S with >=50% AI recall; these are proposed study requirements, not
+validated SOC requirements. Even with zero errors, at least 59 independent
+negative units per arm are needed for a one-sided 95% exact upper bound below
+5% at a fixed threshold. This is a minimum arithmetic bound, not a power analysis:
+participant/script/task clustering, multiple tests and expected errors require
+more data or a different inferential design. Fix the independent sampling unit
+and perform sample-size planning before recruiting or reserving the final test.
+
+Data use and compute
+Use consented human sessions or appropriately licensed source data. No persons
+have been recruited or contacted by this audit. Existing Lyptus data are
+CC-BY-4.0; retain attribution and provenance. The engineering pilot and linear
+baselines need local CPU, not a GPU reservation. Any future model inference or
+cloud collection must have a concrete bounded run configuration and cost scope.
+
+Stop conditions
+Pause fitting if one arm is missing, class correlates with collector, scripted
+provenance is unclear, extraction cannot be checked, or independent test units
+are insufficient. Publish a measurement failure rather than another attractive
+in-sample score. This protocol is not yet preregistered or a completed experiment.
