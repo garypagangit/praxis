@@ -1,5 +1,7 @@
 # Praxis Research
 
+**October 9, 2026 portfolio reassessment:** [findings and plausible Praxis shortlist](reports/portfolio_reassessment_20261009/REASSESSMENT.txt), [134-entry inventory](reports/portfolio_reassessment_20261009/INVENTORY.csv), [AI/SOC study plan](reports/portfolio_reassessment_20261009/AI_SOC_PLAN.txt), and [latest data qualification](reports/research_readiness_20261009/QUALIFICATION_REPORT.txt). This retrospective overlay accepts modest credible benefits and applied novelty, preserves original experimental decisions, and reconciles later evidence where available. Historical dashboard labels below should be read with this update.
+
 Praxis Research is a future-work-to-experiment program. The project reviews 2025-2026 AI/ML papers, identifies practical opportunities from future-work sections and reproducibility gaps, proposes bounded experiments, and tracks whether each experiment produced a positive result, a negative result, a blocked result, or a future research lead.
 
 ## Public Research Dashboard

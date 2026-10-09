@@ -1,0 +1,49 @@
+HELPING SOC ANALYSTS ASSESS AI INVOLVEMENT — PROPOSED STUDY
+October 9, 2026. Planning artifact, not a preregistered experiment or completed user study.
+
+Proposed Praxis title
+Evidence-Aware Assessment of AI Involvement in Suspicious Command Sessions for SOC Triage.
+
+Honest present status
+We have collected and audited public data, reconstructed terminal events, tested simple behavior fingerprints, and identified important failure modes. We have neither a reliable operational AI-APT detector nor evidence that the tool helps analysts. The latest qualification adds a data-readiness result, not detector performance.
+
+The October 9 >=3-submission shared-task slice has 25 human sessions from five experts and 42 AI sessions across 24 tasks. At >=10 submissions, only one shared task remains. These are different eligibility units from earlier >=3 atomic-node/replayed-prefix experiments, so their counts must not be pooled.
+
+PX-124, the stronger longer-benchmark transfer test, contains 18 humans, 43 distinct AI sessions and 51 AI fold evaluations; some AI sessions recur across expert folds. Ordinary methods falsely flag 7–11 of 18 humans (38.9–61.1%). Agreement detects 13/51 AI evaluations, falsely flags 1/18 humans, and abstains on 45/69 total evaluations. The abstention rule uses whole-session parse information and is retrospective, not a proven first-ten-command warning.
+
+PX-125 inspects response-conditioned features. On its separate cohort, behavior-only detects 22/30 AI evaluations with 5/22 human false flags; adding response features detects 20/30 with 6/22 human flags. Error/action pairs are sparse for humans. This does not support the proposed feature improvement. No second-hand claim that a transformer would solve these issues is warranted.
+
+What an aid would do
+Given an already suspicious session, show the actual command/output evidence; recording completeness; whether the case resembles validated populations; alternative explanations such as shell scripts or orchestration; and a supported judgment or insufficient evidence. Keep maliciousness, AI involvement, campaign linkage and confidence separate. AI provenance is not evidence of a specific nation-state/APT actor. Legitimate AI-assisted administration is a necessary counterexample.
+
+The artifact should recommend concrete additional evidence (for example process ancestry or relevant tool execution records) when available. It must not invent a numerical AI probability from an uncalibrated classifier. Faster commands, repeated syntax or high activity alone do not distinguish AI from ordinary automation.
+
+Primary question and modest success
+Does this aid improve the quality or efficiency of a bounded SOC attribution decision relative to the same alert and raw logs, and relative to a standard indicator checklist?
+
+Two defensible candidate primary endpoints are: fewer unsupported AI attributions at a fixed review budget, or shorter time to a correct/appropriately uncertain judgment without meaningful loss of correct threat recognition. Choose one before collecting confirmatory outcomes. A small credible improvement qualifies; do not require 80% detector recall and <=5% FPR merely because old studies used those numbers. Nevertheless, operational error costs must be explicit and acceptable. An arbitrary favorable retrospective endpoint is not confirmation.
+
+Sequence and completion criteria
+
+1. Lock scope and labels.
+Use human-operated, non-AI automated, AI-assisted/hybrid, autonomous AI, and insufficient-evidence labels with a documented reference standard. Obtain origin truth from the authorized execution record, not a behavior-based guess. Keep attack/benign task labels distinct. This is session-origin triage; a real APT claim requires additional campaign ground truth.
+
+2. Qualify common telemetry before fitting.
+Prefer matched existing records only if recording comparability, origin truth and independent units can be verified. Current public data do not supply a clean separate scripted-control arm or matched recording pipeline. If unavailable, collect in a contained authorized cyber range with one recorder for all classes, equivalent tasks and tools, and documented missingness. The existing COLLECTION_PROTOCOL.txt supplies the preparation. This plan does not recruit people, send messages, run new offensive tasks, or start paid infrastructure.
+
+3. Freeze comparators and splits.
+Include raw alert+logs, raw alert+logs+OHAI checklist, and the proposed evidence report. For machine components include simple frequency/length features and an established fingerprint baseline. Split actors, tasks and environments before selecting features; reserve unseen model/scaffold versions where feasible. A larger neural model is optional only after a simple baseline and headroom are established. Check source identifiers, timing granularity, command count, output formatting and collection-tool shortcuts.
+
+4. Build the smallest reviewable report.
+Use existing replay/provenance assets to display evidence and limitations. Validate factual extraction, missing-data behavior and contradictions with known cases. This step establishes artifact correctness, not analyst benefit. Optional classifier scores stay clearly separated from confirmed origin.
+
+5. Run an exploratory analyst usability/variance pilot, then freeze confirmation.
+Use counterbalanced task assignment so the same analyst does not see the same underlying case in multiple arms. Blind origin and system identity where feasible. Balance cases across arms, avoid training/test case overlap and preserve workload equality. Record correct classifications, unsupported AI assertions, appropriate uncertainty, threat misses, chosen next evidence, review time and confidence. Analyze clustering by analyst and independent scenario; report effect sizes and intervals, not thousands of commands as independent people.
+
+Choose sample size from a prospective smallest useful effect and the pilot's clustering/variance, not from a convenient file count. As illustration only, zero false flags among 25 independent negatives still has a one-sided 95% upper bound about 11.3%; repeated tasks from five experts weaken independence further. The often-mentioned 59 zero-error negatives is only binomial arithmetic for an upper bound below 5%, not a power plan for this study.
+
+6. Make the continuation decision.
+If the aid yields a small reproducible human benefit versus the stronger checklist baseline, that is an applied Praxis result even if the classifier is imperfect. If it only ties, report the reliability/limitation study and do not sell an operational advantage. If data remain unqualified, the implementation can be demonstrated but the benefit claim remains unanswered.
+
+What is left to prove
+The literature establishes that behavioral and analytic approaches are plausible, not that this aid works. Three separate gaps remain: origin-valid comparable data; generalization beyond development actors/environments; and measured human decision benefit. Campaign-level AI-APT identification adds a fourth gap. We should not conflate progress on one with completion of the others.

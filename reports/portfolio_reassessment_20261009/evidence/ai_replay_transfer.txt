@@ -1,0 +1,157 @@
+PX122-PX124: RECONSTRUCTION, LONGER-TASK QUALIFICATION AND TRANSFER
+Gary Pagan Praxis - 7 October 2026
+
+RESULT
+Measurement fidelity improved substantially. The existing command-only models
+still fail the stated SOC attribution objective on harder external benchmarks.
+This batch does not validate deployment, full AI-versus-human APT attribution,
+a novel detector, or improved analyst decisions. It narrows what must change.
+Original PX120/PX121 experiments and the manuscript were preserved.
+
+PX122 - COMMAND RECONSTRUCTION
+Replay follows the actual terminal output and input in timing-event order using
+pyte0.8.2 at recorded dimensions. Source bytes must align with timing lengths.
+At an isolated Enter input event, capture the visible shell command; require a
+subsequent shell editing-mode disable event to confirm submission. Support normal
+and two-line Kali prompts, soft line wrapping, multiline paste, backspaces,
+history recall and tab-completed names through actual echoed screen state.
+These are recovered submissions/static shell syntax, not proof that every parsed
+command node executed; pipelines/conditions/loops can have different execution.
+
+90 existing human archive files:2partial files excluded,1empty sample excluded;
+87session records processed.77recording triples aligned and replayed;12recordings
+had a missing input or output stream. Four replay streams stop at a resize event;
+only their pre-resize prefix is used. Batched/pasted Enter events that cannot be
+assigned a reliable submission boundary remain excluded.
+Recovered1,448 confirmed submissions.26 submissions fail shell parsing and are
+retained in the audit, not silently turned into commands. Five unsupported terminal
+events occurred across three sessions; recorded for follow-up, not certified as
+harmless. Independent reconstruction validation remains pending.
+15known-answer fixtures pass, covering completion/history, edits, multiline text,
+wraps, Kali prompts, non-shell output, missing confirmation, batch/paste Enter,
+resizes and truncated byte streams. Twelve deterministic real examples were
+reviewed against raw input/output evidence with no discrepancy identified.
+This is a developer audit, not a blinded independent accuracy estimate. A separate
+review packet and answer key are supplied for independent adjudication.
+
+Human coverage using >=3parsed shell command nodes:
+InterCode:27/47sessions before AI task matching (previous parser11/47).
+CyBench:7/8sessions,5tasks,3experts (04,05,08).
+CVEBench:11/12sessions,10tasks,2experts (03,05).
+CyBench has5human sessions with >=10nodes; CVEBench has11.
+Task control/submit/history/clear/exit commands are not classifier features.
+
+PX123 - FIXED-MODEL RECONSTRUCTION SENSITIVITY
+Frozen protocol before new scores; no model/split/hyperparameter search.
+Same222 existing InterCode AI source sessions and same PX121 representation and
+models. Better human reconstruction yields26human and43distinct AI sessions on
+25matched tasks. Five held-out-expert/task folds; one AI session is evaluated in
+two folds, so results contain44AI evaluations, not44independent sessions.
+This is exploratory: the source and earlier scores were already exposed.
+
+Model                 AI detected       Human false flags  Equal-expert FPR
+Verb unigrams         37/44(84.1%)       5/26(19.2%)        30.3%
+Verb transitions      37/44(84.1%)      14/26(53.8%)        46.7%
+Argument counts       27/44(61.4%)      11/26(42.3%)        38.2%
+Verbs+counts          26/44(59.1%)      11/26(42.3%)        38.2%
+Agreement/abstention  25/44(56.8%)       3/26(11.5%)        23.6%
+Shuffled-label check  30/44(68.2%)      12/26(46.2%)        42.6%
+
+Agreement abstains24/70evaluations, decision coverage65.7%. All rates above
+include abstentions in their denominators. Single-label-shuffle performance is
+a sanity check, not a permutation significance test. Changes fromPX121 reflect
+both different recovered behavior AND expanded training/test samples; do not
+attribute the score differences solely to a causal parser improvement.
+
+LONGER-TASK QUALIFICATION
+Pinned Lyptus source178c0da1800f9c07311e1b8d6c61dd8104e7b4ae.
+Inspected13archive headers using455,830bytes of HTTP range downloads, then chose
+one completed archive per fixed model/benchmark campaign by registry retry order
+and filename. Archive completion success does NOT mean task-solving success.
+No task success or classifier-score filtering. Models: Sonnet4.6, GPT5.3Codex,
+Gemini2.5Pro. Retrieved44of45planned matched-task JSON members. Each downloaded
+member's ZIP CRC and saved SHA256 verified. Entire source archives were not
+retrieved, so their published full-archive SHA256 values are NOT locally verified.
+
+All44members match human task ID, declared variant and attacker role where
+applicable. This does not independently verify identical container images or
+installed dependency versions. CyBench:15AI samples,14with >=3nodes on5tasks.
+CVEBench:29AI samples, all29with >=3nodes on10tasks. The human counterparts are
+7CyBench sessions and11CVE sessions. These are existing public benchmark tasks,
+not new attacks or ground-truthed complete APT campaigns. Source no-AI instructions
+to humans cannot independently establish compliance.
+
+SECURITY EXCLUSION
+Windows Defender quarantined Google/Gemini's CVE-2024-5084-one_day sample as
+Backdoor:PHP/Yorcirekrikseng.R (threat2147740775). Protection stayed enabled; no
+restoration, alternative encoding, exclusion rule or remote bypass was used.
+The trace is excluded from data and delivery. An initial I/O retry preceded
+identification of the cause; after Defender confirmation, acquisition explicitly
+skips it. No transcript command was executed. Missingness is not assumed random.
+
+PX124 - FROZEN EXTERNAL TRANSFER
+Protocol frozen before longer-benchmark scores. The PX123 model and threshold
+for each held-out expert score that expert's new benchmark sessions. Expert03,
+absent from every InterCode fit/calibration set, uses the predeclared first fold
+(expert04). Every target human expert and all target task IDs are absent from
+its model's fitting AND calibration data. No target-data fitting/recalibration.
+This tests new benchmarks and held-out humans with KNOWN AI model families;
+it is not an unseen-AI-family test.
+18human sessions from4experts,43distinct AI sessions,51AI fold evaluations.
+AI samples recur where different human experts attempted the same task.
+
+Model                 AI detected       Human false flags  Equal-expert FPR
+Verb unigrams         42/51(82.4%)      10/18(55.6%)        52.5%
+Verb transitions      44/51(86.3%)      11/18(61.1%)        58.8%
+Argument counts       19/51(37.3%)       7/18(38.9%)        52.5%
+Verbs+counts          21/51(41.2%)       7/18(38.9%)        52.5%
+Agreement/abstention  13/51(25.5%)       1/18(5.6%)          6.25%
+Shuffled-label check  36/51(70.6%)       7/18(38.9%)        37.5%
+
+Agreement abstains45/69evaluations; decision coverage34.8%. The one human false
+flag does not establish a population5%ceiling, and recall is far below80%.
+The existing agreement rule considers parse failures across the whole session;
+its result is RETROSPECTIVE, not a first10-command or real-time lead-time result.
+No baseline or candidate meets the recall/FPR pair. A larger model is not a
+supported remedy for these measurement/calibration/generalization limitations.
+
+WHAT THIS MEANS FOR THE PRAXIS
+RQ1: Can commands distinguish operators across data sources/tasks? Current
+baselines show substantial failure under the stronger transfer test.
+RQ2: Does adding argument structure reliably help? Not supported in these pilots.
+RQ3: Can abstention reduce false attribution while retaining useful coverage and
+recall? False flags fall, but the current candidate loses too much coverage/recall.
+RQ4: Does attribution help an SOC analyst? Still unmeasured. SOC_SCENARIOS.json
+contains only declared-prevalence illustrations, not operational forecasts.
+
+NEXT RESEARCH STEP
+PX125draft specifies response-conditioned behavior: repeated actions after error,
+changes in tool/action after error, and recurrence/stability across prefixes.
+First qualify comparable response extraction: map human post-submission output
+to commands and AI tool output to its tool-call ID; exclude grader/task-submit
+feedback and model reasoning. A text error string is not automatically a verified
+failed action. Pipeline errors must not be assigned to every command in a bundle.
+Only after that measurement check should these features be tested against the
+fixed baselines, with model-family/environment holdouts and explicit uncertainty.
+Novelty remains unestablished; compare the actual method with TRACE/Honey and
+related attribution work before making a new-contribution claim.
+The two eligible CVE experts cannot support standalone expert-separated fit,
+calibration and test. Three CyBench experts leave one expert per partition.
+Pooled exploratory designs are possible, but more commands do not create more
+independent humans. No new attack dataset or human recruitment is proposed.
+
+VALIDATION AND REPRODUCIBILITY
+6,307replay/provenance/PX123checks plus511PX124checks passed (6,818total).
+The15fixture checks are included in the6,307count. Stored protocols, source
+manifests, task-setting checks, raw allowed samples, predictions, calibration
+scores, coefficients, fitted fold models, review packet and audit code retained.
+CPU fits take less than a second; no AWS resources were needed or started.
+Local research branch only; no remote push or manuscript rewrite.
+
+SOURCES
+Lyptus Research, Jack Payne, Jeremy Miller, Sean Peters:
+https://github.com/lyptus-research/cyber-task-horizons-data
+https://lyptusresearch.org/research/offensive-cyber-time-horizons
+Data CC-BY4.0; analysis code MIT. Reconstructed commands are our derivatives.
+Terminal emulation API: https://pyte.readthedocs.io/en/latest/api.html
+Prior art: https://arxiv.org/abs/2605.01186

@@ -1,0 +1,136 @@
+PRAXIS DIRECTION AND PX125 RESULTS -- 7 October 2026
+
+DECISION
+Develop a defensible evaluation and evidence-assessment Praxis. Current results
+do not establish a reliable detector of fully autonomous AI versus human APTs.
+Stop expanding classifier searches merely to obtain a favorable score. Preserve
+negative findings and make the contribution the tested method and its limits.
+This is a proposed research scope, not a guarantee of committee acceptance.
+
+PROPOSED TITLE
+Assessing the Reliability of Behavioral AI-Operator Attribution for SOC Triage
+Using Existing Public Cybersecurity Benchmarks
+
+PROBLEM
+Before a SOC relies on an AI-operator alert, it needs evidence that the detector
+recognizes operator behavior across unfamiliar tasks and operators rather than
+recording conventions, benchmark artifacts, or familiar command vocabularies.
+False AI accusations and missed AI activity both matter. These experiments test
+that reliability problem using existing records. They do not test analyst gains.
+
+RESEARCH QUESTIONS AND HYPOTHESES
+RQ1: How much comparable command and response evidence can be recovered from
+existing human and autonomous-agent records, and what exclusions affect it?
+This is a descriptive measurement question, not a hypothesis of high accuracy.
+
+RQ2: Do behavior and response features improve attribution beyond verb-frequency
+baselines when tasks and human experts are held out?
+H1: Adding response features improves AI recall without increasing equal-expert
+human false-positive rate at thresholds fixed using calibration humans.
+PX125 does not support H1 in its pooled pilot. No significance claim is made.
+
+RQ3: Does attribution retain useful performance on unfamiliar benchmarks or AI
+families, and what tradeoff follows when a system declines uncertain decisions?
+H2: A fixed procedure attains at least 80% AI recall with at most 5% equal-expert
+human false-positive rate on held-out evaluations.
+The tested PX123/PX124/PX125 candidates do not meet both point targets.
+These are exploratory operational targets, not a validated population guarantee.
+
+RQ4: What evidence should accompany an attribution suggestion before SOC use?
+Deliverable: an evidence-report specification covering provenance, extraction
+quality, coverage, model applicability, false-positive evidence and uncertainty.
+Actual analyst improvement remains untested. Do not formulate it as a proven H3.
+
+LATEST EXPERIMENT: PX125
+Existing Lyptus records: InterCode-CTF, CyBench and CVE-Bench; pinned source
+178c0da1800f9c07311e1b8d6c61dd8104e7b4ae. No new attack collection.
+333 sessions inspected. 38 human and 56 AI sessions pass response-coverage rules.
+Matching tasks leaves 22 human and 26 AI sessions across 19 tasks, four human
+experts. Only two human sessions and five Google sessions contain observed
+error-followed-by-action pairs. Missing or compound-command responses are not
+silently converted to no-error observations.
+
+Pooled results (30 AI evaluations from 26 distinct AI sessions; 22 human sessions):
+Method                AI detected   Human false AI flags   Equal-expert human FPR
+Verb frequency         5/30           6/22                   33.3%
+Behavior              22/30           5/22                   22.9%
+Behavior + response   20/30           6/22                   35.4%
+Combined              21/30           7/22                   37.5%
+All four experts receive equal weight for the final FPR column. AI sessions can
+appear in more than one expert test fold; evaluations are not independent trials.
+Response features fail to improve both recall and false flags over behavior.
+All 12 held-family method summaries also miss the joint point target. One
+Anthropic/expert fold is infeasible and skipped under the frozen rules.
+These small, selected, previously exposed data cannot validate general absence
+of a useful signal. They do reject claiming success from the present models.
+
+VALIDATION AND EXECUTION NOTE
+17 known-answer feature tests; 3707 response-association checks; 165 split and
+threshold checks. These checks verify implementation invariants, not population
+accuracy. Independent extraction review remains outstanding.
+The initial score invocation inadvertently read the previous extraction while
+the final flag-control exclusion was still running. That initial evaluation is
+retained as INITIAL_STALE_INPUT_EVALUATION.json. After extraction completed, the
+audit and evaluation were rerun sequentially; EVALUATION.json is authoritative.
+The exclusion was decided before any scores were inspected. All flag commands,
+including malformed grading attempts, are excluded as instrumentation.
+
+WHAT THE DATA SUPPORT
+- A reproducible comparison with explicit task/operator separation and coverage.
+- Evidence that initially promising attribution scores do not by themselves
+  establish robust transfer or low human false-positive rates.
+- A measured limitation of response-based attribution in these public records.
+
+WHAT THE DATA DO NOT SUPPORT
+- Identifying fully AI-driven real-world APT campaigns from these bounded tasks.
+- A verified distinction between autonomous, assisted and wholly human campaigns.
+- A production-safe 5% false-positive guarantee or measured SOC time savings.
+- Claiming error recovery or abstention itself as novel without prior-art review.
+
+CONCRETE SOC RESEARCH ARTIFACT
+An attribution evidence report should expose: input provenance and authorized
+scope; number of observable commands/pairs; missing/compound exclusions; whether
+the evaluation covers this source/family; feature evidence; human false-positive
+and AI-recall results with denominators; and an explicit insufficient-evidence
+status. Current candidates warrant insufficient evidence for operational
+operator attribution. Do not turn a logistic score into a certified probability
+of AI authorship, or equate a human-origin label with APT membership.
+This is an artifact specification; no SOC deployment or analyst study is claimed.
+
+CHAPTER REVISION MAP
+1 Problem: reliability of attribution evidence; define bounded benchmark scope.
+2 Literature: compare measurement, attribution, source confounds, generalization,
+  and selective prediction. Verify novelty against TRACE and Honey primary work.
+3 Methods: existing-source provenance, parsing/response association, exclusions,
+  feature ablations, fixed splits/calibration, exploratory status, reproducibility.
+4 Results: retain all models, denominator tables, negative transfer and PX125;
+  distinguish unique sessions, repeated evaluations and independent operators.
+5 Discussion: limits, evidence-report artifact, operational implications as
+  hypotheses, no proven analyst benefit, and conditions for future validation.
+Original DOCX/PDF remain unchanged in this batch; this brief guides the rewrite.
+
+REMAINING DEFENSE GATES IN ORDER
+1. Independent review of the already prepared extraction packet; resolve errors
+   and document agreement. This checks existing data and requires no recruitment
+   of attack operators or dataset rebuild.
+2. Complete primary-source comparison and a claim/evidence/novelty matrix.
+3. Rewrite the manuscript around supported RQs, results and contribution; remove
+   prospective collection promises and unsupported positive detector claims.
+4. Check that the advisor/committee accepts an evaluation-and-artifact Praxis
+   contribution. This academic requirement cannot be inferred from model scores.
+5. Prepare defense slides, reproducibility demonstration and skeptical Q&A.
+No further tuning on these exposed test folds should be presented as confirmation.
+AWS was unnecessary for these small CPU fits; no cloud work was launched.
+
+REPRODUCTION
+Python 3.11.9; numpy 1.26.4; scipy 1.13.1; scikit-learn 1.5.2; joblib 1.4.2;
+threadpoolctl 3.7.0; bashlex 0.18; pyte 0.8.2; wcwidth 0.9.2.
+From the bundled research directory:
+python code/aivh_response_20261007/reproduce.py raw_prior longer_members
+The existing sibling replay code and REPLAY_RECORDS.json are required and bundled.
+Recorded commands are treated as text only. Retain the existing quarantined
+member exclusion. Do not restore or reacquire that member.
+
+PRIMARY DATA SOURCE
+https://github.com/lyptus-research/cyber-task-horizons-data
+https://lyptusresearch.org/research/offensive-cyber-time-horizons
