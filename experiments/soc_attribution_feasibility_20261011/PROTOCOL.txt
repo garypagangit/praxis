@@ -1,0 +1,175 @@
+FAIR-COMPARISON FEASIBILITY PROTOCOL v1.0
+October 11, 2026. Prepared before any new fits or newly collected human sessions.
+This is a versioned development protocol, not a completed or registered confirmatory study.
+
+User decisions: controlled lab with session recording; no participants arranged.
+Use published data first. A new large dataset is not a prerequisite for a Praxis.
+
+Question and candidate contribution
+Does defender-visible command-result information add useful evidence of runtime
+AI participation beyond command patterns and ordinary automation, under matched
+tasks and held-out operating conditions? We seek a modest measured improvement,
+or a useful and reproducible characterization of when the evidence is inadequate.
+Novelty is conditional: generic fingerprints, timing, outputs, abstention and SOC
+checklists already have prior art. See NOVELTY_REVIEW.txt.
+
+Observation boundary and correction of older protocol
+OBSERVATION_CONTRACT.json is authoritative for this extension. A managed serial
+session can capture accepted shell submissions and returned results. An ordinary
+process event is a different observation. Record builtins and compounds as full
+submissions; do not treat a shell pipeline as several independently timed actions.
+Use the same fixture, shell, account, terminal mode, output cap and recording code
+for every arm. A shared schema alone does not demonstrate capture equivalence.
+If the harness restricts interaction to one completed submission at a time, report
+that constraint; findings need not generalize to unrestricted human terminals.
+
+H = human/no AI, S = non-AI script, A = runtime autonomous AI, M = runtime hybrid.
+Unknown provenance is U, excluded from supervised efficacy but counted in coverage.
+Earlier COLLECTION_PROTOCOL.txt combined M with offline AI-authored scripts. This
+protocol corrects that definition. AI-authored scripts without live AI form a
+secondary challenge stratum; do not call them pure non-AI controls or live hybrids.
+AI-generated simulated humans cannot substitute for H. Code generated in this
+conversation cannot certify a historically non-AI-authored S control.
+
+Ground truth
+Keep controller/provider records, model versions, human attestations, script
+hashes/authorship, interventions and action origins in a separate provenance
+table. These certify the experiment's origin labels, not maliciousness. A model
+sees only the defender view. A script's adaptive rules remain non-AI automation;
+response-dependent behavior alone is not evidence of an LLM. Human-started agent
+execution is not automatically M; M requires discretionary joint runtime control.
+Hybrid origin must be assigned for the observed prefix: an AI intervention later
+in a session cannot label an earlier human-only prefix AI-positive. If event-level
+provenance is unavailable, exclude M from prefix efficacy and report the gap.
+
+Published-data route (can begin without recruitment)
+1. Keep existing Lyptus paired-task records for development and historical result
+   synthesis. Audit extraction equivalence at the submission/result boundary;
+   native recording differs. All previously inspected cases remain exposed.
+2. Use KYPO human training commands as an external human false-flag stress source,
+   subject to source licensing and fields. Use Honey as a separate AI/environment
+   stress source. Do not pool these as a supposedly matched binary test.
+3. Consider new public sources only after checking actual fields and origin truth.
+   An unlabeled internet honeypot is not a verified H or S arm. AI-only coding
+   sessions with user messages do not automatically provide human terminal actions.
+4. Existing data can support a reliability/measurement paper or bounded binary
+   experiment if observations are qualified. One recorder is our prospective
+   controlled design, not a universal requirement that invalidates all differently
+   collected datasets. Demonstrated measurement equivalence may permit reuse.
+5. Independent performance confirmation requires new/uninspected units; a new
+   random split cannot erase prior exposure. No claim of scripted specificity or
+   hybrid detection without those labels and appropriate observations.
+
+Supplemental collection, only for gaps that matter
+Reuse existing task/environment definitions where licensing permits. The small
+engineering design is four task templates x two matched variants x four origins:
+32 task/origin cells, not a statistically powered sample size. Randomize run order
+and balance collection batches. Candidate templates are file/configuration
+inspection, service-diagnosis logs, bounded evidence gathering and error recovery.
+Use benign/synthetic fixtures in an isolated lab, with no external target access.
+Tasks in this engineering pilot are command-interaction proxies, not real APTs.
+Record all attempts, failures and short/empty sessions. Scripts may encode prior
+solutions: match permissible task knowledge and include fixed and rule-based
+automation. Do not knowingly give scripts a solution oracle denied to other arms.
+Use fresh copies/reset receipts. Counterbalance paired variants across humans to
+avoid remembering the solution. More repetitions do not replace independent humans.
+Collector implementation and human recruitment are still outstanding. This package
+implements the observation contract and audit gates, not a running cyber range.
+
+Pre-fit recording qualification
+Identical sentinel submissions through each interface must produce equivalent
+normalized outputs/status, clock definitions and truncation behavior. Test empty
+outputs, nonzero exit, compounds, missing output, disconnects and short sessions.
+No recorder marker may identify origin. Measure overhead across interfaces; do not
+interpret provider latency as human/model reasoning time. Record delivered output
+at the common gateway boundary. Intermittent recorder failures stay null, not zero.
+Timing view opens only after clock and interface latency qualification. A field
+name or timestamp's presence is not enough. No unavailable channels are imputed
+from attacker-side tool calls and silently called defender observations.
+
+Comparators and information ladder
+C0: count/length-only control; constant prior/unknown controls for context.
+C1: TF-IDF command baseline + linear classifier; word unigrams/bigrams. Name this
+    TRACE-style, not an exact reproduction of inaccessible original artifacts.
+C2: C1 plus observed results: exit-code rates, command-repeat/verb-change after
+    explicit nonzero exits, and output length/truncation/support. Missing is not
+    successful; textual error messages alone do not certify failure.
+C3: C2 plus execution/gap summaries after common-clock qualification.
+Diagnostics: output-only model; task/source/batch-predictability checks; fixed
+prefix comparison; preserved-count shuffles; task/environment holdout. Raw output
+text is secondary, because paths/banners/task solutions may reveal environment
+instead of AI origin. Cap fields identically; strip predetermined collection
+markers symmetrically, document exclusions and retain an unmodified audit copy.
+
+Use the same eligible cases for paired C1/C2/C3 contrasts. Report availability
+and exclusions by origin before complete-case comparison; apparent improvement
+from excluding hard/short sessions is not accepted. Do not tune many feature
+families and select the best without a new untouched test.
+
+Initial measurement plan
+Binary primary target: runtime AI involvement in the observed prefix (A/M) versus
+H/S, with separate H and S error rates and separate A and M recall. Four-class
+origin classification is secondary. Five completed submissions is the proposed
+primary prefix; one, three and ten are secondary. It is selected as a prospective
+feasibility design, not as evidence that current five-command data are adequate.
+At the fifth completion, C1 sees those commands, C2 their completed results, C3
+the associated times; no later command/output, whole-session parsing outcome or
+task-success label is accessible. Short sessions remain in population coverage;
+do not pad/relabel them or call up-to-five exactly-five. A later wall-clock study
+needs a separately frozen endpoint and capture policy.
+
+For development, use a fixed small linear model configuration and training-only
+vocabulary/scaling; reserve calibration and test groups before feature selection.
+Report recall versus false-positive tradeoffs and coverage. For a fixed-budget
+descriptive contrast, calibrate threshold to at most 10% empirical false flags
+separately on H and S, choose the lowest threshold satisfying both, and retain
+ties conservatively. Ten percent is a pilot comparison budget, not an acceptable
+deployment requirement or certified population bound. If no finite informative
+threshold qualifies, emit a no-positive decision and zero recall; it cannot pass
+as an effective detector. Report test H/S errors whether or not the budget holds.
+Primary incremental contrast: C2 minus C1 AI recall at their calibration-selected
+thresholds, with H/S false-positive differences, coverage and clustered uncertainty.
+C3 is secondary. No minimum large gain imposed; uncertain small effects remain
+uncertain. Calibration/test sizes and an operational margin require pilot-based
+planning, not pretending 32 cells or 59 zero-error rows is adequate power.
+
+Transfer freeze
+Use separate held-task/environment and held-actor/scaffold evaluations if a joint
+split would empty cells. Keep all prefixes/repeats/near-duplicates together. For
+human and hybrid cases, group by person; scripts by family; AI by model/scaffold
+configuration; shared task templates and environments by their root design.
+The primary held-task/environment study may include known actors and must say so.
+The actor/scaffold study must not reuse those actors in fitting or calibration.
+split_audit accepts the declared holdout fields; it checks exact trace hashes but
+does not implement semantic near-duplicate discovery. Review that separately.
+Freeze code/config/source hashes and split manifest before future held-out labels
+are examined. This repository commit versions a plan; it is not a sealed test
+result or formal preregistration. Small pilot samples cannot support confident
+cross-model or production claims. Final sample size remains unset until qualified
+independent-unit counts and variance are available.
+
+Analyst assistance, a later distinct study
+No analysts are arranged. Do not simulate people and report human benefit. A
+bounded machine-information contribution does not require a human study; the
+claim that the system improves analyst work does. Compare identical case evidence
+under (a) logs, (b) logs+fixed OHAI-style checklist, (c) logs+our report. Assign
+different matched cases to each analyst/condition to avoid seeing an answer twice.
+Candidate primary endpoint: fewer unsupported AI-origin attributions, protecting
+correct identification/coverage and tracking time. Include unknowable cases so
+appropriate uncertainty can be correct; compare always-unknown to prevent gaming.
+Choose minimum useful effect and noninferiority margin with the target workflow,
+then plan sample size from a usability/variance pilot before confirmation.
+
+Decision rules
+Proceed now with public-data qualification and a bounded reliability study.
+Proceed to a matched efficacy fit when origin/measurement/comparison requirements
+for that claim are met. Do not force a four-arm claim on two-arm public data.
+Continue a candidate if its improvement survives simple controls on unseen units;
+require independent confirmation before calling it operationally reliable.
+If output/timing gains disappear under controls, publish that boundary and stop
+promoting those features. A reliability result may be fruitful without a new
+detector, but must add more than repeating known limitations.
+
+No paid inference, cloud training, recruitment, real attack collection or source
+command execution occurred while preparing this package. Local tests and archive
+inspection require only Python's standard library.

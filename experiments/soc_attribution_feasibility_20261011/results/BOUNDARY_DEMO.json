@@ -1,0 +1,89 @@
+{
+  "fixture_only": true,
+  "views": {
+    "commands": {
+      "view": "commands",
+      "events": [
+        {
+          "command": "pwd"
+        },
+        {
+          "command": "cat status.txt"
+        }
+      ]
+    },
+    "results": {
+      "view": "results",
+      "events": [
+        {
+          "command": "pwd",
+          "completed": true,
+          "stdout": "/lab\n",
+          "stderr": "",
+          "exit_code": 0,
+          "truncated": false
+        },
+        {
+          "command": "cat status.txt",
+          "completed": true,
+          "stdout": "ready\n",
+          "stderr": "",
+          "exit_code": 0,
+          "truncated": false
+        }
+      ]
+    },
+    "timing": {
+      "view": "timing",
+      "events": [
+        {
+          "command": "pwd",
+          "completed": true,
+          "stdout": "/lab\n",
+          "stderr": "",
+          "exit_code": 0,
+          "truncated": false,
+          "execution_ms": 2,
+          "gap_after_previous_completion_ms": null
+        },
+        {
+          "command": "cat status.txt",
+          "completed": true,
+          "stdout": "ready\n",
+          "stderr": "",
+          "exit_code": 0,
+          "truncated": false,
+          "execution_ms": 3,
+          "gap_after_previous_completion_ms": 3
+        }
+      ]
+    }
+  },
+  "origin_metadata_variants": 4,
+  "identical_observation_hashes": true,
+  "interpretation": "Four constructed label variants with identical defender observations cannot be distinguished from this view. This is a counterexample, not a measured natural collision rate.",
+  "future_output_hidden": true,
+  "fixture_training_gate": {
+    "engineering_ready": false,
+    "failures": [
+      "unqualified_origin_or_fixture_records",
+      "missing_A",
+      "missing_H",
+      "missing_M",
+      "missing_S",
+      "no_four_arm_shared_tasks"
+    ],
+    "shared_task_templates": [],
+    "qualified_origins": {
+      "A": 0,
+      "H": 0,
+      "M": 0,
+      "S": 0,
+      "U": 0
+    },
+    "statistically_qualified": false,
+    "note": "Independent sample size, provenance adjudication and split audits are separate requirements."
+  },
+  "new_genuine_sessions": 0,
+  "detector_accuracy": null
+}

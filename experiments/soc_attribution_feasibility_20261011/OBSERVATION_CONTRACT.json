@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "date": "2026-10-11",
+  "user_selected_setting": "Controlled lab with session recording",
+  "participant_availability": "No participants arranged yet",
+  "primary_target": "Evidence of runtime AI participation in action selection, conditional on a session being selected for investigation",
+  "default_boundary": "managed_serial_session_v1",
+  "observations": [
+    {"field": "command", "availability": "Exact text accepted by the common managed-session gateway, including builtins and compound submissions", "views": ["commands", "results", "timing"]},
+    {"field": "stdout/stderr", "availability": "Returned target output captured at the gateway; completed output only in this reference projector", "views": ["results", "timing"]},
+    {"field": "exit_code", "availability": "Explicitly captured completion code, otherwise null; not inferred from error words", "views": ["results", "timing"]},
+    {"field": "truncated", "availability": "Recorder-specified, with identical output cap for all origins", "views": ["results", "timing"]},
+    {"field": "execution_ms", "availability": "Completion minus acceptance on a shared recorder monotonic clock", "views": ["timing"]},
+    {"field": "gap_after_previous_completion_ms", "availability": "Next acceptance minus previous completion; includes controller and network effects, not pure reasoning time", "views": ["timing"]}
+  ],
+  "provenance_only_fields": ["origin", "runtime_ai", "offline_ai_assistance", "model", "provider", "scaffold", "prompts", "reasoning", "tokens", "actor_group", "script_revision", "collection_batch", "task_template", "reset_receipt", "origin_evidence_ref", "source_path", "collector_id", "capture_equivalence_verified", "interventions", "consent_record"],
+  "excluded_without_separate_qualification": ["keystrokes", "attacker-side API logs", "provider response IDs", "whole-session parse outcomes at an early cutoff", "future command output", "final task score", "hidden task solutions", "attacker-controller process tree", "network metadata not actually observed by defender"],
+  "regimes": {
+    "managed_session": "Primary: common capture of commands, output and completion, qualified before collection.",
+    "endpoint_process_only": "Separate future regime: process creation command line is not every shell submission; output capture cannot be presumed. Rejected by current projector.",
+    "network_only": "Separate future regime: encrypted command contents cannot be presumed visible. Not supported by current projector."
+  },
+  "origin_axes": {
+    "H": "Human selects commands, no AI assistance; ordinary non-AI tools allowed and recorded.",
+    "S": "Fixed or deterministic rule-based automation selects actions; documented no-AI script provenance; no runtime LLM.",
+    "A": "AI chooses actions at runtime; no discretionary human command selection beyond declared start/stop/safety interruption.",
+    "M": "Human and AI both contribute to runtime command selection; per-event contribution record held outside inputs.",
+    "U": "Unverified or incompatible provenance; coverage/stress only, not a trusted negative.",
+    "offline_ai_assistance": "Separate yes/no/unknown axis. AI-written scripts executed without runtime AI are not M; exclude from core H/S controls and include as a named secondary challenge stratum."
+  },
+  "labels_are_not": ["attack severity", "APT actor identity", "proof of malicious intent", "all historical AI authorship"],
+  "implementation_scope": "Reference observation projection, origin/split gates and tests. No deployed recorder, collector or trained detector."
+}
