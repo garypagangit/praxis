@@ -1,0 +1,46 @@
+INFORMATION-USE ALIGNMENT DIAGNOSTIC -- 2026-10-12
+Written before executing this diagnostic; earlier coverage and raw hit counts
+are known. All source sessions are exposed development data.
+
+Objective: identify an observable distinction between AI and human cyber-task
+activity that might help SOC analysts. A behavior need not be unique to AI.
+Ordinary adaptive behavior remains a candidate if its rate or pattern differs
+reliably. Do not discard it merely because both groups exhibit it, and do not
+accept it merely because it reflects real adaptation.
+
+Primary cohort: exactly the twelve matched first-five sessions saved by the
+qualification audit at commit 1621cc5. Four transitions per session. No selection
+based on the new aligned-versus-rotated result. No classifier fits or thresholds.
+Use the unchanged exact-literal rule and association/normalization code.
+Compute all five cyclic alignments, including true alignment; rotations use
+only the five already observed outputs and recompute prior-output novelty.
+
+Primary measurement: fraction of four transitions with a hit. Also report
+opportunity fraction, used-literal counts, hit/opportunity when defined, and
+true-minus-mean-rotated hit fraction. Preserve undefined denominators.
+Compare H/A within each benchmark/task; give equal weight to tasks, average
+within origin/task if multiple sessions, report all per-task signs and ranges.
+This is a descriptive paired contrast, not an independent efficacy test. Do not
+optimize the direction of a rule after observing the contrast. A different
+direction is a new hypothesis, not a validated classifier.
+
+Interpretation: true alignment exceeding rotations supports sensitivity to
+sequence relationships; it does not itself distinguish origin. An H/A contrast
+suggests a candidate to validate, not maliciousness, APT identity or analyst benefit.
+A small difference can count if it is reproducible and survives task, operator,
+format, opportunity and automation controls. Six tasks cannot establish that.
+
+Measurement review: select one transition deterministically (smallest SHA-256 of
+id/index) per populated origin x benchmark x both-prior-simple-observable x hit
+stratum among the broader matched exploratory sessions. Include every primary
+positive transition as well. Export an ignored local raw review packet; publish
+only source/hash/stratum references and assessment notes. Check exact literal
+witnesses and plausible alternative explanations. Review by this coding assistant
+is an internal spot check, not an independent semantic-accuracy estimate. Do not
+execute any recorded command. No raw attack transcripts enter public reports.
+
+Stop rule: finish this measurement and diagnostic before considering a fitted
+model. If measurement defects materially affect results, preserve initial outputs,
+document corrections and rerun. Do not replace the fixed prefix with later-session
+data to rescue a preferred outcome. If little origin contrast remains, retain the
+broader adaptive-behavior hypothesis but deprioritize this particular feature.

@@ -1,0 +1,187 @@
+{
+  "checked_sessions": [
+    {
+      "id": "session_462",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-2771",
+      "origin": "H",
+      "issues": []
+    },
+    {
+      "id": "session_085",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-34359",
+      "origin": "H",
+      "issues": []
+    },
+    {
+      "id": "session_128",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-3495",
+      "origin": "H",
+      "issues": []
+    },
+    {
+      "id": "session_381",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-5084",
+      "origin": "H",
+      "issues": []
+    },
+    {
+      "id": "session_302",
+      "benchmark": "cybench",
+      "task": "glacier-exchange",
+      "origin": "H",
+      "issues": []
+    },
+    {
+      "id": "session_010",
+      "benchmark": "intercode-ctf",
+      "task": "intercode-ctf_reverse/task_2",
+      "origin": "H",
+      "issues": []
+    },
+    {
+      "id": "openai:intercode-ctf:intercode-ctf_reverse/task_2",
+      "benchmark": "intercode-ctf",
+      "task": "intercode-ctf_reverse/task_2",
+      "origin": "A",
+      "issues": [
+        {
+          "index": 3,
+          "reason": "missed_truncation_wrapper"
+        }
+      ]
+    },
+    {
+      "id": "google:cvebench:CVE-2024-34359",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-34359",
+      "origin": "A",
+      "issues": []
+    },
+    {
+      "id": "openai:cybench:glacier-exchange",
+      "benchmark": "cybench",
+      "task": "glacier-exchange",
+      "origin": "A",
+      "issues": [
+        {
+          "index": 1,
+          "reason": "missed_truncation_wrapper"
+        },
+        {
+          "index": 4,
+          "reason": "missed_truncation_wrapper"
+        }
+      ]
+    },
+    {
+      "id": "openai:cvebench:CVE-2024-5084",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-5084",
+      "origin": "A",
+      "issues": [
+        {
+          "index": 0,
+          "reason": "missed_truncation_wrapper"
+        },
+        {
+          "index": 3,
+          "reason": "missed_truncation_wrapper"
+        },
+        {
+          "index": 4,
+          "reason": "missed_truncation_wrapper"
+        }
+      ]
+    },
+    {
+      "id": "openai:cvebench:CVE-2024-2771",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-2771",
+      "origin": "A",
+      "issues": [
+        {
+          "index": 4,
+          "reason": "missed_truncation_wrapper"
+        }
+      ]
+    },
+    {
+      "id": "openai:cvebench:CVE-2024-3495",
+      "benchmark": "cvebench",
+      "task": "CVE-2024-3495",
+      "origin": "A",
+      "issues": []
+    }
+  ],
+  "removed_tasks": [
+    [
+      "cvebench",
+      "CVE-2024-2771"
+    ],
+    [
+      "cvebench",
+      "CVE-2024-5084"
+    ],
+    [
+      "cybench",
+      "glacier-exchange"
+    ],
+    [
+      "intercode-ctf",
+      "intercode-ctf_reverse/task_2"
+    ]
+  ],
+  "rule": "Remove incomplete/truncated first-five session; remove unmatched counterpart, no replacement task.",
+  "sensitivity_setup_literals": [
+    "create_secret_table.sql",
+    "db.sql",
+    "run_benchmark.py",
+    "run_task.py"
+  ],
+  "sensitivities": {
+    "wrapper_corrected": {
+      "origin_means": {
+        "H": {
+          "sessions": 2,
+          "aligned_hit_fraction": 0.125,
+          "rotated_mean_hit_fraction": 0.03125,
+          "alignment_excess": 0.09375
+        },
+        "A": {
+          "sessions": 2,
+          "aligned_hit_fraction": 0.0,
+          "rotated_mean_hit_fraction": 0.03125,
+          "alignment_excess": -0.03125
+        }
+      },
+      "ai_minus_human": {
+        "aligned_hit_fraction": -0.125,
+        "alignment_excess": -0.125
+      }
+    },
+    "wrapper_corrected_setup_excluded": {
+      "origin_means": {
+        "H": {
+          "sessions": 2,
+          "aligned_hit_fraction": 0.0,
+          "rotated_mean_hit_fraction": 0.0,
+          "alignment_excess": 0.0
+        },
+        "A": {
+          "sessions": 2,
+          "aligned_hit_fraction": 0.0,
+          "rotated_mean_hit_fraction": 0.03125,
+          "alignment_excess": -0.03125
+        }
+      },
+      "ai_minus_human": {
+        "aligned_hit_fraction": 0.0,
+        "alignment_excess": -0.03125
+      }
+    }
+  }
+}

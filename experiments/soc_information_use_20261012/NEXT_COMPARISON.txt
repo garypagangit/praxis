@@ -1,0 +1,52 @@
+NEXT COMPARISON CODEBOOK v0 -- UNVALIDATED, NOT A NEW POSITIVE RESULT
+Objective: defender-visible distinctions in AI versus human attack-session behavior
+that can eventually improve SOC triage. Ordinary adaptation is a valid candidate.
+
+Unit: observable feedback episode plus the next completed action, within a fixed
+observation budget. Preserve whole submissions and distinguish actions happening
+inside a script from across submissions. Do not equate five commands with equal
+amounts of work. For each episode record the following separately:
+
+Feedback opportunity
+- resource/object discovered (file, route, process, service)
+- actionable value or constraint returned (numeric, schema, required field)
+- execution/environment problem reported
+- no actionable feedback observed
+- unknown because relevant content/history is missing or truncated
+
+Observable response
+- selects/reuses the object
+- transforms or parameterizes using returned information
+- checks/validates the returned claim or attempted fix
+- changes method in a way consistent with the feedback
+- repeats despite relevant contradictory feedback
+- no observed relation, or relation unknown
+
+Evidence quality
+- cite exact source spans and next-action spans, not a hidden-reasoning story
+- identify prior visibility, generic/default values and setup-file alternatives
+- distinguish literal copying, plausible grounding and demonstrated useful outcome
+- preserve missing evidence; do not make unknown a negative label
+- source-specific artifacts are exclusion/stratification fields, not AI predictors
+
+Examples exposed in this development review motivate these categories but cannot
+validate them. Reviewers should not see origin labels when judging the evidence;
+log style may still reveal source, so record residual blinding limits. Independently
+double-code a sample before claiming semantic accuracy. A language-model judge
+alone is not independent human validation or known origin truth.
+
+Analysis after measurement validation
+Condition on opportunity and task; compare category rates and sequences, with
+commands-only, opportunity-only and prior error-response baselines. The distinct
+addition is selection/transformation/verification of returned information; missing-
+executable recovery overlaps PX-125 and must not be sold as the new contribution.
+Use alignment-negative controls only where the information/history assumptions
+hold. A partial-output witness can establish a local relation but not complete
+history novelty; use a separate estimand for that route.
+
+Proceed to a model only after the cohort and measurements support held-task and
+held-operator evaluation. Freeze operating point, uncertainty method and smallest
+useful improvement before outcome testing. Small gains are acceptable. Runtime AI
+origin is not maliciousness, and this study does not by itself identify an APT.
+SOC benefit would require better evidence assessment or decisions on suspicious
+sessions; a classifier score alone does not prove that benefit.

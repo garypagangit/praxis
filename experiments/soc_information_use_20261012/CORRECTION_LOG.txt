@@ -1,0 +1,34 @@
+INTERNAL REVIEW CORRECTION -- 2026-10-12
+The initial diagnostic was completed before internal review; results are preserved
+under results/initial/. Do not quote the initial cohort as fully qualified.
+
+Review case 9: the OpenAI glacier-exchange result at action 1 begins with a tool
+truncation notice and START_TOOL_OUTPUT wrapper. The previous normalizer detected
+some truncation phrases but missed this wording. Original bytes/hash association
+were correct; plain-text completeness qualification was not. Add a wrapper check
+in this diagnostic and exclude every first-five session it affects. Remove the
+opposite-origin task counterpart to maintain task overlap; do not substitute cases.
+This correction applies to the diagnostic; the earlier 1621cc5 artifact remains a
+historical audit and its broader coverage counts need this qualification caveat.
+
+Review case 19: a human next submission is literally the preceding directory
+listing. Independently checked the raw terminal input: the listing was pasted and
+submitted. The following output says the first listed word is not a command.
+This is not a reconstruction error, but literal reuse is not necessarily helpful
+adaptation. Do not rewrite this frozen lexical hit as a semantic true positive.
+
+Three primary human positives reuse the same create_secret_table.sql filename;
+another human positive reads run_task.py. These may reflect setup exploration.
+They are not automatically invalid observations. Add an explicitly post-review
+sensitivity excluding those names plus db.sql/run_benchmark.py from both origins,
+both opportunity and hit counts. Apply exclusion to actual and rotated outputs.
+This is a diagnostic for dependence on setup text, not an optimized detector or
+a proof that every occurrence of these names is leakage. Keep primary counts.
+
+Review also shows false negatives for broad adaptation: a human transforms numeric
+constants from returned source code into a program; a different AI action recovers
+from a missing executable. Neither is captured by exact new path/dotted-name reuse.
+HTML end tags and dotted program identifiers enter the candidate denominator.
+Consequently the proxy cannot stand for all adaptive behavior. Future semantic
+features require a separate frozen codebook and validation, not relabeling these
+development results to favor an origin distinction.
