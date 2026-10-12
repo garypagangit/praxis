@@ -1,0 +1,60 @@
+ATTEMPT TO ESTABLISH INCREMENTAL SIGNAL -- BEFORE NEW FITS, 2026-10-12
+
+Goal: test whether returned-information use adds a human/AI distinction beyond
+commands and output opportunity/error controls. This is exposed published-data
+development, not independent confirmation, real SOC utility, or APT attribution.
+No simulated humans. No paid inference or new attack execution.
+
+Explicit amendment
+The complete-output first-five design has only two matched task pairs after the
+wrapper correction. Do not claim to pass it by changing the design silently.
+This probe estimates local observable literal reuse, not first appearance in a
+complete history. Use the broader 97-session matched development pool already
+identified, keep sessions with at least five retained submissions, and rematch
+tasks after that requirement. Only the first five submissions enter features.
+Incomplete/truncated outputs are missing; do not call them complete or use their
+content. Missing prior outputs prevent a novelty claim, but do not prevent
+observing a local match in a different complete result. Availability is a baseline
+control. All original gaps remain gaps. Later submissions cannot enter features.
+This new estimand is a separate exploratory probe, not a repaired primary success.
+
+Frozen feature family
+Exact path/dotted-name literals in a complete result, absent from the current
+command, also present in the next adjacent command. Exclude known setup literals
+create_secret_table.sql, db.sql, run_task.py, run_benchmark.py symmetrically.
+No claim of semantic grounding, helpfulness or complete-history novelty. Keep the
+previously tested lexical rule unchanged otherwise, including its known limitations.
+Record supported opportunities and hit/used-literal rates; missing denominator is
+explicit. Rotated control: cyclically shift the five output slots by each of four
+nonzero shifts, including missing slots, while keeping commands fixed. Average
+control feature vectors, do not count rotations as independent samples. Only
+originally adjacent command pairs count. Rotation breaks associations deliberately.
+
+Models: fixed logistic regression C=1, balanced class weights, maximum 3000
+iterations, no tuning. Train-only TF-IDF word unigrams/bigrams of commands,
+max_features=10000; training-only standardization for numeric features.
+C: commands (TF-IDF plus command size, line counts, repetition, simple-syntax rate).
+O: C plus complete/missing-output fraction, output length/entity counts, available
+transition count, error-like-output fraction and error-conditioned repeat/same-verb/
+argument-count-change controls. Error strings are not verified exit status.
+F: O plus exact local returned-literal-use features.
+R: O plus rotated-output version of F's additional features.
+O deliberately includes opportunity support; no credit for simply observing more
+output. F minus O is primary; F minus R tests alignment specificity. C is context.
+
+Validation: leave one benchmark/task out, never random transition split. Same rows
+for all models. Purge exact command-prefix duplicates of held-out rows from training.
+Training actor/model configurations may repeat: this is task transfer only.
+Primary report: held-out balanced accuracy at fixed p>=0.5 and AUROC, human false
+flags, AI recall, per-task paired differences. The threshold is not calibrated to
+a SOC false-positive budget. Cluster bootstrap tasks (5000, seed 20261012) for
+paired balanced-accuracy difference; descriptive intervals on development data.
+No claim of operational low-FPR performance. Report task-macro balanced accuracy
+and opportunity-only/source-only diagnostic accuracy as confound checks.
+
+Decision: a positive point estimate alone is not proof. A candidate requires F
+improving O and R, not depending on one task/family, and not merely capturing source
+artifacts. Small gains count if uncertainty and controls support them. If gains
+are zero/negative or uncertain, report exactly that. Do not retune features,
+thresholds or split to rescue this run. Independent data and realistic observation
+equivalence remain necessary even if this development probe is positive.

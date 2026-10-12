@@ -1,0 +1,88 @@
+ATTEMPT TO ESTABLISH A POSITIVE SOC ATTRIBUTION RESULT -- 2026-10-12
+
+Outcome: this frozen exact-literal feedback-use feature did not add discrimination
+in the available development data. We performed the experiment, not merely a
+readiness check. It is not a proven positive Praxis and should not be promoted as
+one. This does not prove that broader adaptive behavior cannot distinguish origins.
+
+What was actually tested
+26 genuine human-source sessions from five operators and 47 AI-source sessions,
+matched on 24 benchmark/tasks. First five retained submissions only. Each task
+was held out from fitting in turn; all preprocessing was fit on training rows.
+Same cases for all models. Fixed logistic C=1, balanced weights, no tuning.
+Commands were not executed. No simulated human, paid model call or new attack run.
+Six fixed comparisons x 24 folds = 144 final fits. An initial 144-fit run was
+repeated after a command-baseline boundary correction; metrics did not change.
+The 288 total fits are not 288 searched model configurations or independent trials.
+
+Important amendment to the earlier complete-output design
+This is a LOCAL observable reuse probe, not a complete-history novelty test.
+Truncated/unqualified output is unavailable. A complete result can contribute a
+local match even if other results in that session are unavailable. Output coverage
+is controlled and reported. We do not pretend that two fully complete task pairs
+became 24 fully complete task pairs. Eligibility came from the previously selected
+up-to-20-submission development pool, so this is a retrospective conditional sample,
+not prospective five-command population performance. Every source was exposed.
+
+Held-task results (pooled balanced accuracy; fixed p>=0.5 threshold)
+Model                                      Balanced acc.   H false flags   A detected
+Commands                                      75.04%          8/26           38/47
+Commands + opportunity/error controls          75.04%          8/26           38/47
+Above + true local feedback-use features       75.04%          8/26           38/47
+Above + rotated-result feedback features       79.09%          7/26           40/47
+Formatting/availability diagnostic only        75.90%          7/26           37/47
+Output opportunity only                       68.66%          8/26           32/47
+
+Balanced accuracy averages human specificity and AI sensitivity; it is not precision
+or the chance that an alert is AI. We did not calibrate a SOC false-positive budget.
+Formatting diagnostic uses command line count, simple-syntax fraction, complete
+output fraction and output length; no origin label is passed into features.
+Its performance is consistent with source/format differences being informative,
+not proof that every classification is caused by those differences.
+
+Primary incremental finding
+True feedback-use minus opportunity/error baseline: 0.00 percentage points in
+task-macro balanced accuracy; one task improves, one worsens, 22 tie.
+Task-cluster bootstrap 95% descriptive interval: -6.25 to +6.25 points.
+True feedback-use minus rotated control: -3.47 points, interval -8.33 to 0.00.
+Pooled AUROC is 0.7414 with feedback versus 0.7430 for opportunity/error controls.
+These are exposed-data, task-cluster intervals; repeated human operators remain
+dependent across tasks. They are not independent confirmation or a proof of zero
+possible benefit. The point estimates do not support the proposed incremental gain.
+
+Model-family weakness
+The feedback model identifies 23/24 Anthropic-source and 15/16 OpenAI-source cases,
+but 0/7 Google-source cases at the fixed threshold. These are family strata of
+held-task predictions, NOT held-family evaluations. Different task mixes can affect
+the comparison. Nevertheless, the pooled number plainly cannot establish general
+AI identification. Eight of 26 human sessions are falsely flagged (30.77%).
+
+Controls and limitations
+Whole submissions retained; same first-five horizon; gaps not bridged; missing
+results excluded from literal matching; setup filenames excluded symmetrically;
+command echoes excluded; train-only TF-IDF/scaling; exact command-prefix duplicates
+purged from held-task training. Semantic near-duplicates were not independently
+audited, actors/configurations repeat across folds, and no real non-AI-script or
+hybrid arm is present. Member hashes are bound but whole remote member archives
+are not all reverified. Human command reconstruction remains an inherited dependency.
+Local exact matching is narrower than transformed values or semantic adaptation.
+No new novelty claim, operational detector, APT attribution or analyst benefit.
+
+Decision tied to the user's objective
+Stop promoting this exact-literal feature as the winning Praxis. Do not change
+its direction, threshold, model size or subset until it looks positive. Ordinary
+adaptive behavior itself remains plausible; this result tests only a narrow proxy.
+The meaningful next evidence is the already-prepared matched human/AI pilot with
+validated selection/transformation/verification categories, followed by realistic
+attack-session transfer if it produces a promising distinction. That still requires
+genuine participants and actual AI-controller integration. More model fits on these
+same records would not supply the missing independent evidence.
+
+Reproduction
+python -m unittest -v test_probe.py
+python probe.py
+python validate_results.py
+Dependencies used: Python 3.11, numpy 2.4.6, scipy 1.17.1, scikit-learn 1.9.0.
+Loader is a bounded copy of the prior source-binding/replay code; no network needed.
+Source paths/hashes are saved; corpus bytes are not bundled. Public feature and
+prediction artifacts contain metadata/numeric values, not command/result text.

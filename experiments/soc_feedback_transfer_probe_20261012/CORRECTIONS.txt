@@ -1,0 +1,13 @@
+Implementation review after initial fit, before reporting final results:
+The command baseline initially used the prior 'observable' flag as its simple
+syntax fraction. That flag also included result availability/terminal uncertainty.
+Use px125_syntax == single instead, making the control depend on command syntax
+alone. Preserve the initial summary, features and predictions under results/initial/;
+rerun the unchanged models, folds and thresholds. Add a test that modifying result
+availability leaves C invariant. This is a baseline-boundary correction, not tuning.
+
+Population caveat: the inherited 97-session development pool was selected using
+up-to-20-submission qualification before this probe. Only first-five inputs enter
+models, but membership was not chosen purely from that prefix. This is retrospective
+conditional task transfer, not prospective five-command population performance.
+Do not erase this distinction when reporting the larger sample count.
