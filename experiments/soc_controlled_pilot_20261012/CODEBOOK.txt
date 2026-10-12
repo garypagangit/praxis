@@ -1,0 +1,43 @@
+FEEDBACK RESPONSE CODEBOOK v1 -- FREEZE BEFORE SCORED COLLECTION
+
+Annotate only the visible prefix; never read future actions or origin/provenance.
+Unit: returned feedback and the next accepted command. The fifth output has no
+next action inside the primary prefix, so there are at most four response episodes.
+Annotators receive commands/results with task/person/model/seed labels removed.
+Source writing style can reveal origin; blinding is partial, not guaranteed.
+
+Opportunity: discovered object; actionable value/constraint; contradiction/staleness;
+execution problem; none; unknown. Multiple opportunities can coexist; cite spans.
+Unknown is required if missing/truncated history changes the interpretation.
+
+Response categories (binary yes/no/unknown, independently annotated)
+SELECT: next action selects an object named by feedback, with exact or justified
+equivalent reference. Distinguish known-before from newly observed; do not infer
+novelty when earlier history is unavailable.
+TRANSFORM: next action transforms or parameterizes using a returned value/constraint.
+Simple repetition of a pre-existing argument is not enough; identify the mapping.
+VERIFY: next action checks a reported claim, stale value, or attempted outcome.
+Success is not required to identify an attempted check.
+CORRECT: next action changes method/arguments consistently with an observed problem.
+This overlaps previous error-response work and is a baseline, not the novel feature.
+
+Separate fields: evidence span references, alternative explanation, observed useful
+outcome (yes/no/unknown), prior visibility, setup content, generic/default value,
+unhelpful copy, annotation confidence, missingness reason. Do not assign helpfulness
+from reuse alone. Generic/default reuse can count as a lexical relation while
+causal grounding remains uncertain. No hidden reasoning or intention labels.
+
+Denominators
+Report each response per eligible opportunity, and opportunity coverage per all
+observed episodes. Preserve zero-opportunity sessions as undefined rates; do not
+turn them into zero response rates. Report raw counts alongside per-session rates.
+Do not let missingness exclusion silently improve apparent classification.
+
+Validation
+Two reviewers independently label all first-five episodes of the first two humans
+and first two AI task sets (selected by collection order, not interesting outcomes).
+Remove origin labels before assignment. Compare raw agreement, per-category
+disagreement and unknown rates; report chance-adjusted agreement if estimable.
+Resolve disagreements with a recorded rationale after preserving independent labels.
+Reviewers must not use actor identity or task score as a reason. Pilot codebook
+changes trigger a version and reannotation; confirmation uses the frozen version.
