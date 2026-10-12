@@ -1,0 +1,82 @@
+QUALIFICATION FINDINGS -- 2026-10-12
+
+What was checked
+Reassociated raw returned text with reconstructed human shell submissions and AI
+tool calls. Verified 137 source hash/size bindings: 90 human archives, three full
+AI archives and 44 AI members. Individual members are verified; the 44 original
+remote archives have not been fully reverified. Human command reconstruction is
+inherited from the prior replay, not an independently validated ground truth.
+All 2,106 in-horizon command/result comparisons agree with the prior extraction.
+Among 2,327 AI event/message comparisons, two disagree (empty event result versus
+missing message result); neither enters the retained first-20 blocks. Disagreement
+is recorded in QUALIFICATION.json, not silently converted to empty output.
+
+Boundary
+First 20 non-control submissions, preserving entire compound commands. A result
+belongs to its whole submission, not every atomic command in it. Human output is
+bounded by terminal markers and the next same-stream submission. AI output needs
+a unique ordered tool-call/reply association. Adjacent transitions must be from
+the same human stream or completed serial AI calls; gaps are not bridged.
+Only appearance-only color codes and line endings are normalized. Other terminal
+controls, apparent prompts/frames, wrappers and missing text are excluded. This
+qualifies a conservative plain-text subset, not all terminal output. Empty output
+is distinct from missing output. Comparable exit status and timing remain absent.
+
+Counts (H = human, A = autonomous AI source category)
+                                            H       A
+Sessions examined                           67     266
+Associated submission/result pairs         489    1617
+Qualified plain-text pairs                 423    1415
+Qualified adjacent transitions             299     769
+Transitions also observable under PX-125    241     226
+Transitions with new literal candidates     97     360
+Transitions with next-command literal use    38     148
+
+These counts are opportunity/coverage measurements, not independent samples or
+classification accuracy. Literal-use counts above include incomplete retained
+histories; TRANSITION_AUDIT identifies that limitation per row. There are 80 H and
+319 A supported transitions with complete retained history. Commands/results
+outside the retained stream, task instructions and other observations can still
+explain an apparently new literal. No claim of causal reliance is justified.
+
+Task-overlap cohorts (matched by benchmark/task, not randomized operators)
+                                            H       A    tasks   H operators
+Prior PX-125 eligibility                    22      26      19       4
+Exploratory >=3 pairs and >=2 transitions    35      62      32       5
+Contiguous first three submissions          15      18      14       4
+Contiguous first five submissions            6       6       6       3
+
+The larger cohort is useful for exploratory measurement work. It is not proof
+that differently recorded H/A observations are fully equivalent. The October 11
+five-submission boundary remains primary; moving to three or later sessions would
+be a separately labeled amendment, not a retrospective primary success.
+At five submissions, supported literal candidates occur in 6/6 H and 5/6 A;
+literal use occurs in 4/6 H and 3/6 A. This establishes occurrence in both groups,
+not a useful AI-specific signal. No direction, significance or detector threshold
+is inferred from these twelve sessions.
+
+What is fruitful
+1. Keeping compound submissions whole recovers usable collective results without
+   inventing per-atomic-command observations. This offers a reproducible coverage
+   and measurement study; coverage alone is not a proven research contribution.
+2. Result-to-next-command literal information use is distinct from PX-125's error
+   repetition/argument-change features. A small, transparent diagnostic is now
+   implementable. It must survive alignment, opportunity and source controls.
+3. A negative specificity result could still tell analysts which apparently
+   AI-like behavior is ordinary human or scripted activity. That requires the
+   appropriate controls, not relabeling failure as success.
+
+What is not established
+No operational AI detector, maliciousness classifier, APT attribution, hybrid
+detection, scripted-automation specificity, external transfer, or analyst benefit.
+All existing cases are exposed development data. Human skill, task allocation,
+tool harness and model family can confound origin. Independent human semantic
+review has not been completed; fixture tests validate code rules only.
+
+Recommendation
+Validate the literal-use measurement and its alignment control on the published
+data before fitting. Seek additional compatible published human/result sessions
+or reliable rendering of excluded terminal records to improve the fixed-prefix
+cohort. Do not recruit a large dataset by default, replace humans with simulations,
+or fit a transformer to twelve sessions. A modest credible benefit remains enough;
+the current obstacle is credible comparison, not an ambitious required effect.

@@ -1,0 +1,76 @@
+DISTINCT COMPARISON -- DEVELOPMENT SPECIFICATION, 2026-10-12
+Prepared after the coverage audit and literal-count inspection, before new fits.
+This is not an independent preregistration or a claim of global novelty.
+
+Question
+Does exact use of information newly visible in a returned result add evidence
+beyond commands, output opportunity and previously tested error-response behavior?
+First establish measurement validity and alignment sensitivity. Human-versus-AI
+separation is a subsequent question; neither implies maliciousness or APT activity.
+
+Measurement
+For each completed submission c_i, result r_i, and next serial submission c_i+1,
+extract exact path/dotted-name literals from r_i. Remove literals already present
+in retained commands through c_i and earlier qualified retained results. Count
+remaining candidates and those appearing exactly in c_i+1. The code implements
+a narrow lexical proxy, not semantic grounding or helpfulness. Illustrative benign
+case: ls returns report.txt, then cat report.txt uses that newly observed literal.
+An echoed command argument is excluded. Substrings do not count as exact reuse.
+No model name, raw path identity, task identifier, attacker reasoning, controller
+record, benchmark success label, or unavailable timing enters an origin predictor.
+Task/identity fields remain available only for grouping and provenance.
+
+Measurement review before any fit
+Prepare deterministic samples stratified by origin, benchmark, hit/non-hit and
+compound/simple submission. Review association, observable history and literal
+matching separately. A hit can be copied documentation, prior task knowledge or
+coincidence; record these alternatives, including unknown, rather than assert
+reasoning. Obtain independent review before asserting semantic extraction accuracy.
+Fix rules based on development review, retain an audit trail, then freeze them.
+
+Alignment diagnostic (not yet run)
+At the fifth completed non-control submission, use the four observed transitions.
+Compare actual output alignment with every non-identity cyclic rotation of the
+five observed results. Recompute prior-result novelty for each rotation. Preserve
+commands and the session's result multiset, lengths and origin; never draw from
+later session output. Report per-session/task differences in supported and used
+literals, including undefined denominators. Rotations intentionally break physical
+association: they are negative controls, not plausible counterfactual trajectories
+or proof of causal dependence. This control was used in related portfolio work;
+its use here is not itself novel. With six matched tasks it is descriptive only.
+An alternative donor shuffle requires task/origin/length-compatible other sessions;
+coverage is currently uneven (66/299 H versus 400/769 A transitions), so do not use
+unmatched donors as though they satisfy that control or hide missing donors.
+
+Later model comparison, conditional on measurement and cohort readiness
+B0: commands alone, using the same sessions and prefix.
+B1: B0 plus count/length/availability and literal-opportunity measures.
+B2: B1 plus the frozen PX-125 error-response features.
+B3: B2 plus literal-use measures; repeat with alignment-placebo measures.
+Compare all on identical eligible cases; separately report the coverage change
+from keeping compounds whole. Do not credit representation changes as feature lift.
+Use a simple regularized classifier first, with all preprocessing fit on training
+folds. Group exact/near duplicates, hold out tasks and human operators, stress held
+AI families, and report source-only predictability. If these splits are unsupported
+by the eventual cohort, report that instead of changing to random transition splits.
+Select hyperparameters/thresholds within development training only. Session/task
+units, not transitions, define uncertainty. New independent units are needed for
+confirmation; reshuffling already inspected records cannot create a fresh test.
+
+Evaluation plan must be frozen when the cohort is known
+Choose one primary operating point and smallest useful gain before outcome testing,
+based on the proposed SOC use and attainable interval precision. Report false flags,
+recall, abstention/coverage and uncertainty together. A small credible improvement
+counts; no new large-effect gate is imposed. Current twelve-session coverage cannot
+support convincing transfer or low-false-positive-rate certification.
+Non-AI adaptive scripts are essential before claiming AI specificity. Hybrid and
+offline AI-authored scripts need separate provenance. Analyst assistance then needs
+logs alone versus checklist versus evidence report, with accuracy/time tradeoffs
+preselected. There are no arranged analyst participants at present.
+
+Go/no-go interpretation
+Proceed now: measurement review, diagnostic implementation and published-source
+qualification. Do not fit now. If alignment contributes nothing beyond opportunity,
+close this feature hypothesis or keep only its measurement finding. If it survives,
+freeze the comparison and obtain adequate independent, comparable units. Neither
+outcome changes the historical failure of PX-125 or proves/disproves SOC assistance.
