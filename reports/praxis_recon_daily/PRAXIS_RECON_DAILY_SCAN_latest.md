@@ -1,6 +1,6 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-10-12 20:01 UTC
+Generated: 2026-10-13 17:50 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
 New flagged works: 1
@@ -9,25 +9,25 @@ New flagged works: 1
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 10 | Cyber threat intelligence evidence routing | 2026-10-10 | Beyond Detection: Generative Artificial Intelligence for Autonomous Cyber Threat Hunting and Incident Response | International Journal of Scientific Research in Artificial Intelligence and Machine Learning | [source](https://doi.org/10.32628/ijsraiml2624121) |
+| 1 | 6 | Agentic package hallucination and tool-boundary gates | 2026-10-12 | The impact of GenAI on the future of requirements engineering | Requirements Engineering | [source](https://doi.org/10.1007/s00766-026-00477-6) |
 
 ## Triage Notes
 
-### 1. Beyond Detection: Generative Artificial Intelligence for Autonomous Cyber Threat Hunting and Incident Response
+### 1. The impact of GenAI on the future of requirements engineering
 
-- Topic: Cyber threat intelligence evidence routing
-- Authors: Tunbosun Ajibola, Komeno Okpiyalele
-- Published: 2026-10-10
-- Venue/type: International Journal of Scientific Research in Artificial Intelligence and Machine Learning / article
-- DOI: https://doi.org/10.32628/ijsraiml2624121
-- URL: https://doi.org/10.32628/ijsraiml2624121
-- Opportunity score: 10
-- Matched tags: agent, benchmark, security, verification
+- Topic: Agentic package hallucination and tool-boundary gates
+- Authors: Travis D. Breaux, Anmol Singhal
+- Published: 2026-10-12
+- Venue/type: Requirements Engineering / article
+- DOI: https://doi.org/10.1007/s00766-026-00477-6
+- URL: https://doi.org/10.1007/s00766-026-00477-6
+- Opportunity score: 6
+- Matched tags: agent, future research
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Autonomous cybersecurity requires a transition from isolated alert classification toward coordinated threat investigation, evidence-grounded decisions, and measurable containment. This study integrates a generative artificial intelligence (GenAI) multi-agent threat-hunting architecture with a six-state nonlinear model of secure, exposed, compromised, and recovered assets and the evolving hunting and response capabilities. The framework employs independent evidence verification and policy-controlled response authorization, while model analysis uses a containment threshold, equilibrium stability and parameter sensitivity. Across the three configurations reported in the supplied results, compromise fractions were 42.71% for rule-based defence, 32.48% for machine-learning-supported defence, and 19.16% for GenAI-enabled defence; corresponding containment thresholds were 6.860, 4.857, and 3.275. These submitted outcomes indicate a 55.1% lower modelled compromise fraction for the GenAI configuration than for rule-based defence, although all thresholds remain above unity and therefore do not establish threat elimination. Three author-supplied three-dimensional response surfaces describe the effects of propagation, assisted recovery, adversarial adaptation and hunting activation. The investigation distinguishes these reported model-based outcomes from unreported alert-level accuracy ben
+> Abstract Recent advances in artificial intelligence (AI), particularly large language models (LLMs), are transforming how we design and build systems by increasing access to domain knowledge and by providing automation support to software engineering (SE). As implementation becomes less expensive through generalist SE agents, engineering effort shifts away from writing correct code and toward expressing, curating, verifying, and evaluating requirements. In this paper, we survey the state of the art in AI for requirements engineering (RE) research leading up to the transformation, before reviewing advances in LLMs. We survey two subsequent research areas: prompt programming, which treats LLM instructions as a program in SE vernacular, and generalist SE agents, which combine multiple LLM advances to yield semi-autonomous processes that complete SE tasks. Finally, we explore the future of requirements engineering along two axes: matters changing how we interact with requirements through the SE process, and matters changing how requirements are experienced by software developers and stakeholders more broadly, including end-users. This article aims to inform how RE researchers can navigate this transformation in the selection of future research priorities.
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
