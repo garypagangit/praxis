@@ -1,6 +1,6 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-10-15 15:22 UTC
+Generated: 2026-10-16 15:02 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
 New flagged works: 4
@@ -9,82 +9,82 @@ New flagged works: 4
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 10 | Provenance-aware tool-boundary monitoring | 2026-10-13 | Proof carrying agent actions enable verifiable licensing of language model tool use | Scientific Reports | [source](https://doi.org/10.1038/s41598-026-74900-x) |
-| 2 | 9 | Provenance-aware tool-boundary monitoring | 2026-10-13 | Large language model multiagent systems for industrial problem discovery and prioritization | Discover Artificial Intelligence | [source](https://doi.org/10.1007/s44163-026-02468-6) |
-| 3 | 5 | Adaptive evaluation of deterministic agent defenses | 2026-10-13 | A cascaded probabilistic framework for stealth-aware MITRE ATT&CK path prediction in active directory adversary emulation | Scientific Reports | [source](https://doi.org/10.1038/s41598-026-71934-z) |
-| 4 | 5 | Source-locked citation and hallucination verification | 2026-10-13 | From plausible menus to trustworthy nutrition: a risk-proportionate VALID-Diet framework for artificial intelligence-generated dietary advice | Frontiers in Nutrition | [source](https://doi.org/10.3389/fnut.2026.1957211) |
+| 1 | 10 | Provenance-aware tool-boundary monitoring | 2026-10-14 | Governing AI and Blockchain in Finance: A Layered Trust Framework | Unknown venue | [source](https://doi.org/10.64823/ijstm.2601001) |
+| 2 | 6 | Provenance-aware tool-boundary monitoring | 2026-10-15 | Measuring a scaffold from inside: an operator-authored self-measurement harness for a constitutional runtime over a hosted language model | Frontiers in Artificial Intelligence | [source](https://doi.org/10.3389/frai.2026.1985132) |
+| 3 | 2 | Agentic package hallucination and tool-boundary gates | 2026-10-15 | Artificial Intelligence and Machine Learning for Stock Market Prediction: A Systematic Literature Review of Methods, Emerging Paradigms, Reproducibility, and Evaluation Gaps (2016-2026) | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11084191/v1) |
+| 4 | 2 | Agentic package hallucination and tool-boundary gates | 2026-10-14 | From Model Accuracy toWorkflow Reliability: A Practical Framework for Enterprise AI Systems | International Journal of Computer Studies and Advancement in Current Research | [source](https://doi.org/10.66419/ijcsacr.6301) |
 
 ## Triage Notes
 
-### 1. Proof carrying agent actions enable verifiable licensing of language model tool use
+### 1. Governing AI and Blockchain in Finance: A Layered Trust Framework
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Nurgali Kadyrbek, Madina Mansurova
-- Published: 2026-10-13
-- Venue/type: Scientific Reports / article
-- DOI: https://doi.org/10.1038/s41598-026-74900-x
-- URL: https://doi.org/10.1038/s41598-026-74900-x
+- Authors: Rekha Agarwal, Divyansh Mishra, Rajesh Kumar Mishra
+- Published: 2026-10-14
+- Venue/type: Unknown venue / article
+- DOI: https://doi.org/10.64823/ijstm.2601001
+- URL: https://doi.org/10.64823/ijstm.2601001
 - Opportunity score: 10
-- Matched tags: agent, benchmark, safety, tool use
+- Matched tags: agent, limitation, limitations, security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract LLM agents increasingly call tools and take irreversible actions, yet the reasoning that licenses an action is rarely checked before execution. We present Proof-Carrying Agent Actions (PCAA) : each governed action carries a typed Action Certificate that a planner-independent checker must accept before execution. A trusted execution shim derives the obligation set and the irreversibility classification from an authoritative tool contract and binds the certificate to the exact invocation with a canonical SHA-256 commitment. The checker compares that context with the certificate, re-derives typed support (proof, belief, hypothesis, contingency, conflict, or no-progress), and validates formula-level inference rules. Irreversible actions require Proof for every declared licensing obligation. The checker accepts the two valid certificates and rejects all fifteen unsafe certificates in a semantic battery; four additional structural cases confirm rejection of argument substitution, precondition omission, and risk-flag downgrade. A microbenchmark of a three-obligation payment certificate measures 53.7 μs median and 65.7 μs p95 for construction, checking, serialization, and buffered local persistence. A stateful guardrail with the same certified-state predicate matches PCAA on safety; PCAA’s distinct contribution is a typed, replayable decision artifact. Guarantees are relative 
+> AI is increasingly embedded into all aspects of financial markets; from credit decisions, compliance processes, trading strategies to payment systems. At the same time, blockchain-based finance has evolved from a speculative niche product into an integral part of the regulated market infrastructure. An integrative review of these two trends is necessary to examine their potential for convergence and how this will necessitate changes in governance. The review uses foundational academic literature in blockchain economics, decentralized finance and algorithmic fairness, as well as regulatory, supervisory and market sources up to October 2026. The authors provide three key findings. Firstly, there has been a structural change in the market: stablecoin capitalizations are estimated to be between approximately USD 270 billion and USD 320 billion. Tokenized real-world assets are concentrated primarily in U.S. Treasuries. The transitional period for the EU Markets in Crypto-Assets Regulation (MiCAR) ends on July 1, 2026. Finally, the U.S. GENIUS Act's rulemaking deadline has passed without a full set of final rules. Secondly, there remains a persistent gap in governance: international reviews show that the implementation of crypto-asset standards varies widely. Furthermore, most security losses result from a few very large attacks. Thirdly, AI agents have started transacting on stablec
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 2. Large language model multiagent systems for industrial problem discovery and prioritization
+### 2. Measuring a scaffold from inside: an operator-authored self-measurement harness for a constitutional runtime over a hosted language model
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Mohammed Amin Adoul, Abdelhamid Ghoul
-- Published: 2026-10-13
-- Venue/type: Discover Artificial Intelligence / article
-- DOI: https://doi.org/10.1007/s44163-026-02468-6
-- URL: https://doi.org/10.1007/s44163-026-02468-6
-- Opportunity score: 9
-- Matched tags: agent, evaluation, safety, verification
+- Authors: Richard Dobson
+- Published: 2026-10-15
+- Venue/type: Frontiers in Artificial Intelligence / article
+- DOI: https://doi.org/10.3389/frai.2026.1985132
+- URL: https://doi.org/10.3389/frai.2026.1985132
+- Opportunity score: 6
+- Matched tags: provenance
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract A persistent gap separates academic research priorities from the operational challenges faced by manufacturing firms. Established identification methods, among them Failure Mode and Effects Analysis (FMEA) workshops, Lean audits and consultant engagements, are episodic, bounded by participant expertise and organised along departmental lines, which makes cross-departmental issues hard to surface. Multi-agent systems built on large language models (LLMs) have meanwhile shown collaborative problem-solving ability in software engineering and, more recently, in shopfloor scheduling and supply chain coordination. This article is a Perspective. It develops a framework and a research agenda; implementation and empirical evaluation fall outside its scope and are set out as its first research priorities. Three contributions are offered. The first is a synthesis of literature from industrial problem identification, LLM-based autonomous agents and manufacturing AI, which positions the proposal against existing industrial LLM agent work. The second is a framework in which six domain-specialised agents (production, quality, maintenance, supply chain, safety, energy) would collaborate through a five-phase protocol: worker-driven discovery, cross-departmental analysis, candidate-relationship detection, consensus-based financial assessment and debate-driven prioritisation. The prioriti
+> Interactive intelligent systems constructed over hosted large language models cannot retrain the substrate on which they depend, and so their designers enforce a named epistemology at the surrounding scaffold layer. A difficulty follows that has received little methodological attention: when quality regresses, the regression frequently belongs to the scaffold rather than the substrate, and identifying it requires instruments that measure the scaffold itself rather than the model beneath it. This article reports one such instrument set, added to a live constitutional runtime between 17 and 18 July 2026 and extended with a production drift observer on 19 August 2026, and situates it as a reusable design pattern. The layer comprises six components—operator-authored adversarial batteries held as versioned regression fixtures, deterministic pattern screens encoding named defects, an emission quarantine that retains failure evidence as a first-class object, an instrument-health monitor issuing autonomous handoffs, continuous-integration delivery tripwires, and an observe-only production drift detector that accumulates a hand-labelling corpus from live traffic without altering any replies. Eight falsifiable harness predictions are stated (H1 through H8), each named against a specific runtime carrier—a code path, a database table, or a typed field—and each paired with an explicit falsi
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 3. A cascaded probabilistic framework for stealth-aware MITRE ATT&CK path prediction in active directory adversary emulation
+### 3. Artificial Intelligence and Machine Learning for Stock Market Prediction: A Systematic Literature Review of Methods, Emerging Paradigms, Reproducibility, and Evaluation Gaps (2016-2026)
 
-- Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Mahmoud Youssef, Nagwa L. Badr, Alshaimaa Abo‐alian
-- Published: 2026-10-13
-- Venue/type: Scientific Reports / article
-- DOI: https://doi.org/10.1038/s41598-026-71934-z
-- URL: https://doi.org/10.1038/s41598-026-71934-z
-- Opportunity score: 5
-- Matched tags: MITRE ATT&CK, evaluation
+- Topic: Agentic package hallucination and tool-boundary gates
+- Authors: Akshatha Srikantha, Manpreet Singh, Rahul Joshi, Anant Singh, et al.
+- Published: 2026-10-15
+- Venue/type: Research Square / preprint
+- DOI: https://doi.org/10.21203/rs.3.rs-11084191/v1
+- URL: https://doi.org/10.21203/rs.3.rs-11084191/v1
+- Opportunity score: 2
+- Matched tags: evaluation
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Proactive adversary emulation requires anticipating multi-step attack trajectories, yet existing approaches rely on static attack graphs or single-signal models that cannot jointly satisfy coherence, tactical realism, and evasiveness. We propose a cascaded probabilistic framework for MITRE ATT&CK technique-path prediction in Active Directory environments, where exhaustive enumeration is intractable. Its contribution is a three-stage architecture that decouples these objectives instead of blending them. Stage 1, a two-layer unidirectional LSTM trained on observed threat-actor chains, emits a five-candidate pool rather than one technique. Stage 2, an empirical Markov tactic-transition gate, admits only attested transitions, including self-loops and backward moves a strict linear kill chain excludes. Stage 3 re-ranks survivors against a detection-rule corpus, favoring evasive over merely probable techniques. Candidates are masked at inference to Windows-applicable techniques, so outputs are technique chains, not instantiated paths. Under a prefix-disjoint protocol in which no evaluation context occurs in training, the true continuation is retained in the five-candidate pool more often than by a first-order predictor or an exact prefix-lookup table on identical pairs. Because Stage 3 both selects on and is scored by detection-rule density, the chains are re-scored against 
+> No abstract text returned by metadata API.
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 4. From plausible menus to trustworthy nutrition: a risk-proportionate VALID-Diet framework for artificial intelligence-generated dietary advice
+### 4. From Model Accuracy toWorkflow Reliability: A Practical Framework for Enterprise AI Systems
 
-- Topic: Source-locked citation and hallucination verification
-- Authors: Jingyi Xu, Weina Xing, Lili Jia, Xi Li, et al.
-- Published: 2026-10-13
-- Venue/type: Frontiers in Nutrition / article
-- DOI: https://doi.org/10.3389/fnut.2026.1957211
-- URL: https://doi.org/10.3389/fnut.2026.1957211
-- Opportunity score: 5
-- Matched tags: safety, verification
+- Topic: Agentic package hallucination and tool-boundary gates
+- Authors: Krunal Panchal, Nixalkumar Patel
+- Published: 2026-10-14
+- Venue/type: International Journal of Computer Studies and Advancement in Current Research / article
+- DOI: https://doi.org/10.66419/ijcsacr.6301
+- URL: https://doi.org/10.66419/ijcsacr.6301
+- Opportunity score: 2
+- Matched tags: agent
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Generative artificial intelligence can produce menus, recipes, shopping lists, and dietary explanations that appear individualized and clinically informed. Fluency alone, however, provides little evidence of nutritional accuracy, safety, feasibility, or benefit. We propose VALID-Diet, a staged framework for evaluating systems that generate actionable dietary recommendations as sociotechnical interventions. Its domains are Verification of nutritional targets and composition; Adversarial safety and boundary testing; Linkage between user inputs and recommendation changes; Implementation feasibility and inclusion; and Documentation, versioning, and reproducibility. Stage 0 defines intended use, input integrity, and a structured risk profile based on harm severity, exposure, autonomy, reversibility, and enforceable oversight. Stage 1 separates target validity, menu achievement, and arithmetic agreement and, for integrated systems, tests retrieval, calculation, and generation as distinct components. Stage 2 evaluates safety, substantive personalization, feasibility, and inclusion using pre-specified case blueprints. Stage 3 evaluates human oversight, workflow utility, and prospective outcomes only after earlier gates are passed. A retrospective worked application to a published retrieval-augmented personalized-nutrition system illustrates risk assignment and progression decisions. VA
+> The predictive or generative capacity of a model isn’t enough for enterprise AI applications. Several factors can affect whether a user’s task succeeds: retrieval, enterprise data, orchestration, external tools, human approvals, and infrastructure. While a number of these dependencies are acknowledged in current standards and research, there is a practical approach to communicating what specific functionality an AI system needs to reliably do to be considered a product team. Objective: This article compiles and reviews existing literature on AI quality, generation with a machine learning production system, retrievalaugmented generation, agent failure, and service reliability from a workflow perspective to define and explore enterprise AI reliability. Approach: This is provided by a targeted narrative review of relevant standards, research publications and a first-party production incident. The contract details what job it is supposed to perform, what results the user expects, the conditions under which it can
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
