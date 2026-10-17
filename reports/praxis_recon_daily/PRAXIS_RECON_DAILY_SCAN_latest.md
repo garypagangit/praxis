@@ -1,6 +1,6 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-10-16 15:02 UTC
+Generated: 2026-10-17 13:58 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
 New flagged works: 4
@@ -9,82 +9,82 @@ New flagged works: 4
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 10 | Provenance-aware tool-boundary monitoring | 2026-10-14 | Governing AI and Blockchain in Finance: A Layered Trust Framework | Unknown venue | [source](https://doi.org/10.64823/ijstm.2601001) |
-| 2 | 6 | Provenance-aware tool-boundary monitoring | 2026-10-15 | Measuring a scaffold from inside: an operator-authored self-measurement harness for a constitutional runtime over a hosted language model | Frontiers in Artificial Intelligence | [source](https://doi.org/10.3389/frai.2026.1985132) |
-| 3 | 2 | Agentic package hallucination and tool-boundary gates | 2026-10-15 | Artificial Intelligence and Machine Learning for Stock Market Prediction: A Systematic Literature Review of Methods, Emerging Paradigms, Reproducibility, and Evaluation Gaps (2016-2026) | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11084191/v1) |
-| 4 | 2 | Agentic package hallucination and tool-boundary gates | 2026-10-14 | From Model Accuracy toWorkflow Reliability: A Practical Framework for Enterprise AI Systems | International Journal of Computer Studies and Advancement in Current Research | [source](https://doi.org/10.66419/ijcsacr.6301) |
+| 1 | 6 | Adaptive evaluation of deterministic agent defenses | 2026-10-15 | Operationalizing OWASP LLM Top 10 Controls in Enterprise AI Platforms | Journal of Technology and Systems | [source](https://doi.org/10.47941/jts.4051) |
+| 2 | 5 | Source-locked citation and hallucination verification | 2026-10-15 | Faster but Not Truer, Part 2: The Regulatory Record, the Economics, and the TRACE-HEOR Reporting Standard | Journal of health economics and outcomes research | [source](https://doi.org/10.36469/jheor.2026.171942) |
+| 3 | 2 | Agentic package hallucination and tool-boundary gates | 2026-10-16 | Cloud‐Native and Distributed Systems for Efficient and Scalable Large Language Models—A Research Agenda | Software Practice and Experience | [source](https://doi.org/10.1002/spe.70121) |
+| 4 | 2 | Provenance-aware tool-boundary monitoring | 2026-10-15 | Being recognized as human by AI: algorithmic disrespect and the crisis of recognition in the digital age | Humanities and Social Sciences Communications | [source](https://doi.org/10.1057/s41599-026-09423-x) |
 
 ## Triage Notes
 
-### 1. Governing AI and Blockchain in Finance: A Layered Trust Framework
+### 1. Operationalizing OWASP LLM Top 10 Controls in Enterprise AI Platforms
 
-- Topic: Provenance-aware tool-boundary monitoring
-- Authors: Rekha Agarwal, Divyansh Mishra, Rajesh Kumar Mishra
-- Published: 2026-10-14
-- Venue/type: Unknown venue / article
-- DOI: https://doi.org/10.64823/ijstm.2601001
-- URL: https://doi.org/10.64823/ijstm.2601001
-- Opportunity score: 10
-- Matched tags: agent, limitation, limitations, security
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> AI is increasingly embedded into all aspects of financial markets; from credit decisions, compliance processes, trading strategies to payment systems. At the same time, blockchain-based finance has evolved from a speculative niche product into an integral part of the regulated market infrastructure. An integrative review of these two trends is necessary to examine their potential for convergence and how this will necessitate changes in governance. The review uses foundational academic literature in blockchain economics, decentralized finance and algorithmic fairness, as well as regulatory, supervisory and market sources up to October 2026. The authors provide three key findings. Firstly, there has been a structural change in the market: stablecoin capitalizations are estimated to be between approximately USD 270 billion and USD 320 billion. Tokenized real-world assets are concentrated primarily in U.S. Treasuries. The transitional period for the EU Markets in Crypto-Assets Regulation (MiCAR) ends on July 1, 2026. Finally, the U.S. GENIUS Act's rulemaking deadline has passed without a full set of final rules. Secondly, there remains a persistent gap in governance: international reviews show that the implementation of crypto-asset standards varies widely. Furthermore, most security losses result from a few very large attacks. Thirdly, AI agents have started transacting on stablec
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 2. Measuring a scaffold from inside: an operator-authored self-measurement harness for a constitutional runtime over a hosted language model
-
-- Topic: Provenance-aware tool-boundary monitoring
-- Authors: Richard Dobson
+- Topic: Adaptive evaluation of deterministic agent defenses
+- Authors: Sai Kumar Pola, Pavan Kumar Koneru
 - Published: 2026-10-15
-- Venue/type: Frontiers in Artificial Intelligence / article
-- DOI: https://doi.org/10.3389/frai.2026.1985132
-- URL: https://doi.org/10.3389/frai.2026.1985132
+- Venue/type: Journal of Technology and Systems / article
+- DOI: https://doi.org/10.47941/jts.4051
+- URL: https://doi.org/10.47941/jts.4051
 - Opportunity score: 6
-- Matched tags: provenance
+- Matched tags: agent, evaluation, security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Interactive intelligent systems constructed over hosted large language models cannot retrain the substrate on which they depend, and so their designers enforce a named epistemology at the surrounding scaffold layer. A difficulty follows that has received little methodological attention: when quality regresses, the regression frequently belongs to the scaffold rather than the substrate, and identifying it requires instruments that measure the scaffold itself rather than the model beneath it. This article reports one such instrument set, added to a live constitutional runtime between 17 and 18 July 2026 and extended with a production drift observer on 19 August 2026, and situates it as a reusable design pattern. The layer comprises six components—operator-authored adversarial batteries held as versioned regression fixtures, deterministic pattern screens encoding named defects, an emission quarantine that retains failure evidence as a first-class object, an instrument-health monitor issuing autonomous handoffs, continuous-integration delivery tripwires, and an observe-only production drift detector that accumulates a hand-labelling corpus from live traffic without altering any replies. Eight falsifiable harness predictions are stated (H1 through H8), each named against a specific runtime carrier—a code path, a database table, or a typed field—and each paired with an explicit falsi
+> Enterprises have moved large language model applications from pilot projects into production systems handling customer conversations, internal knowledge retrieval, and increasingly autonomous agentic workflows, introducing a risk surface that differs materially from what conventional application security programs address. OWASP has responded with the Top 10 for Large Language Model Applications, most recently revised in its 2025 edition, and a newly published Top 10 for Agentic Applications covering autonomous, tool-using systems. These taxonomies name and prioritize risk but leave engineering teams to translate categories such as prompt injection or excessive agency into controls that fit an existing cloud-native delivery pipeline. This paper proposes a reference architecture and implementation framework mapping each of the ten OWASP LLM Top 10 2025 categories to specific, deployable controls built on commonly used cloud primitives: managed model gateways, service mesh identity, retrieval-augmented generation pipelines, and continuous delivery tooling. The framework is informed by production engineering practice with retrieval-augmented generation and agentic workloads on Kubernetes using a managed foundation model service. Five real, publicly documented incidents, including a corporate data leak, a manipulated dealership chatbot, a legal ruling on chatbot liability, an indire
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 3. Artificial Intelligence and Machine Learning for Stock Market Prediction: A Systematic Literature Review of Methods, Emerging Paradigms, Reproducibility, and Evaluation Gaps (2016-2026)
+### 2. Faster but Not Truer, Part 2: The Regulatory Record, the Economics, and the TRACE-HEOR Reporting Standard
 
-- Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Akshatha Srikantha, Manpreet Singh, Rahul Joshi, Anant Singh, et al.
+- Topic: Source-locked citation and hallucination verification
+- Authors: Onur Başer
 - Published: 2026-10-15
-- Venue/type: Research Square / preprint
-- DOI: https://doi.org/10.21203/rs.3.rs-11084191/v1
-- URL: https://doi.org/10.21203/rs.3.rs-11084191/v1
-- Opportunity score: 2
-- Matched tags: evaluation
+- Venue/type: Journal of health economics and outcomes research / article
+- DOI: https://doi.org/10.36469/jheor.2026.171942
+- URL: https://doi.org/10.36469/jheor.2026.171942
+- Opportunity score: 5
+- Matched tags: evaluation, provenance
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> No abstract text returned by metadata API.
+> Background: Part 1 of this series found that measured gains from artificial intelligence (AI) in health economics and outcomes research (HEOR) concentrate in tasks with observable ground truth and disappear where the quantity of interest is a counterfactual. What regulators, health technology assessment (HTA) bodies, and sponsors have said about that division has not been assembled in one place. Methods: We assembled the primary regulatory, HTA, industry, and journal policy record through September 2026, requiring for each claim a named primary source and, where a quantity was reported, its provenance and whether the reporting party had a commercial interest. We downloaded the Food and Drug Administration (FDA) AI-enabled medical device list in full, tabulated published economic evaluations of AI, and set reported industry efficiency gains against disclosed use in submissions. We then evaluated the field against the task-based productivity framework of Nobel laureate Daron Acemoglu and derived a reporting standard from the documented failure modes. Results: The FDA has authorized 1614 AI-enabled devices, 1230 (76.2%) in radiology, rising from 18 in 2016 to 335 in 2025, and has received more than 500 drug and biologic submissions containing AI components since 2016; its January 2025 credibility assessment guidance remains a draft and excludes discovery and operational uses. Indu
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 4. From Model Accuracy toWorkflow Reliability: A Practical Framework for Enterprise AI Systems
+### 3. Cloud‐Native and Distributed Systems for Efficient and Scalable Large Language Models—A Research Agenda
 
 - Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Krunal Panchal, Nixalkumar Patel
-- Published: 2026-10-14
-- Venue/type: International Journal of Computer Studies and Advancement in Current Research / article
-- DOI: https://doi.org/10.66419/ijcsacr.6301
-- URL: https://doi.org/10.66419/ijcsacr.6301
+- Authors: Minxian Xu, Jingfeng Wu, Shengye Song, Satish Narayana Srirama, et al.
+- Published: 2026-10-16
+- Venue/type: Software Practice and Experience / article
+- DOI: https://doi.org/10.1002/spe.70121
+- URL: https://doi.org/10.1002/spe.70121
+- Opportunity score: 2
+- Matched tags: security
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> ABSTRACT Objective Large Language Models (LLMs) are rapidly transforming artificial intelligence applications, but their unprecedented computational, memory, communication, and data‐management demands pose significant challenges to existing computing infrastructures. Traditional cloud and distributed systems were not designed for the scale, dynamic execution patterns, heterogeneous hardware requirements, and service‐level demands of modern LLM workloads. This paper aims to examine how cloud‐native and distributed systems can evolve to support efficient, scalable, reliable, and sustainable LLM training and inference. Methods We conduct a structured analysis of representative research advances and practical developments in distributed LLM training, inference serving, cloud‐native orchestration, resource management, heterogeneous computing, and edge‐cloud intelligence. We organize the analysis around major system challenges, including computation, distributed execution and system software, resource management and serving, security and privacy, data management, and standardization. We further examine representative resource‐management strategies and emerging paradigms, including serverless inference, federated and decentralized learning, trustworthy distributed AI, and heterogeneous computing with emerging accelerators. Results Our analysis reveals that supporting LLMs at scale req
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 4. Being recognized as human by AI: algorithmic disrespect and the crisis of recognition in the digital age
+
+- Topic: Provenance-aware tool-boundary monitoring
+- Authors: Min Tang, Jinqi Yan
+- Published: 2026-10-15
+- Venue/type: Humanities and Social Sciences Communications / article
+- DOI: https://doi.org/10.1057/s41599-026-09423-x
+- URL: https://doi.org/10.1057/s41599-026-09423-x
 - Opportunity score: 2
 - Matched tags: agent
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> The predictive or generative capacity of a model isn’t enough for enterprise AI applications. Several factors can affect whether a user’s task succeeds: retrieval, enterprise data, orchestration, external tools, human approvals, and infrastructure. While a number of these dependencies are acknowledged in current standards and research, there is a practical approach to communicating what specific functionality an AI system needs to reliably do to be considered a product team. Objective: This article compiles and reviews existing literature on AI quality, generation with a machine learning production system, retrievalaugmented generation, agent failure, and service reliability from a workflow perspective to define and explore enterprise AI reliability. Approach: This is provided by a targeted narrative review of relevant standards, research publications and a first-party production incident. The contract details what job it is supposed to perform, what results the user expects, the conditions under which it can
+> Artificial intelligence increasingly does more than identify individuals; in many institutional contexts, it helps determine who is seen, trusted, and included. This paper argues that algorithmic systems increasingly participate in practices of social recognition, and that their failures can become forms of structural disrespect when classifications acquire institutional authority and shape how persons are treated. Drawing from Hegelian and Honnethian recognition theory, the paper introduces the concept of algorithmic disrespect, manifesting across three dimensions: embodied (when certain bodies are excluded from visibility), agential (when predictive models preempt human action), and symbolic (when value is indexed through computational relevance). These mechanisms indicate a crisis in the social grammar of recognition, where data replaces dialogue and visibility becomes a tool of both inclusion and domination. Rather than treating algorithmic bias as a problem of fairness alone, the study reframes it as a philosophical and political issue, rooted in how AI systems mediate identity, agency, and esteem. The paper concludes by proposing a relational ethics of recognition grounded in justification, accountability, and institutional responsiveness, shifting attention from model-level corrections to the infrastructural conditions under which recognition is distributed. In doing so,
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
