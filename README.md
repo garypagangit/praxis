@@ -1,5 +1,9 @@
 # Identifying Autonomous AI APT
 
+[**Project status tracker and delivery schedule**](PRAXIS_STATUS_TRACKER.md) · [Research questions and hypotheses](PRAXIS_RESEARCH_DESIGN.md) · [Experiment delivery protocol](PRAXIS_EXPERIMENT_PROTOCOL.md)
+
+**Delivery window: October 19–December 1, 2026. AI Review due November 14. Defense December 1.**
+
 **Final Praxis — Gary Pagan**
 
 [**Open the Final Defense Idea Advisor Submission (PowerPoint)**](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx)
