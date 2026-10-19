@@ -42,6 +42,12 @@ These are proposed tests. Freeze exact feature families, folds, search budgets, 
 
 Set any acceptable human false-AI-label threshold, transfer-loss margin and minimum important model difference using advisor/operational requirements and pilot precision estimates. Numeric values are unresolved, not fabricated commitments. A result cannot be called a confirmatory hypothesis pass until those decisions are frozen.
 
+## Methodology
+
+Use a controlled matched-trial design: prepare human and autonomous-AI arms under equivalent conditions; validate resets and passive host/network capture; pilot and freeze the protocol; collect scored trials and separate scripted/benign controls; validate and partition by trial and required unseen groups; engineer training-only features; compare frozen candidates and ablations; evaluate locked trials once; audit results and write the Praxis.
+
+The [experiment workspace](experiments/final-praxis-autonomous-ai-apt/README.md) provides RQ-specific cards and fillable protocol, trial, run and result templates. The [full methodology](PRAXIS_EXPERIMENT_PROTOCOL.md) governs leakage controls, uncertainty and freeze gates. No collection or training completion is implied by the templates.
+
 ## Candidate models and representations
 
 | Model | Role | Controls |

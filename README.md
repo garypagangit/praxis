@@ -56,6 +56,34 @@ The program preserves **positive, negative, mixed, blocked, and diagnostic resul
 
 This block tracks the current final Praxis. Earlier papers and experiment results elsewhere in the portfolio are historical work. [Current delivery status](PRAXIS_STATUS_TRACKER.md) · [Working research design](PRAXIS_RESEARCH_DESIGN.md) · [Experiment protocol](PRAXIS_EXPERIMENT_PROTOCOL.md).
 
+### Research Questions and Hypotheses — Final Praxis
+
+| Research question | Working hypothesis |
+| --- | --- |
+| **RQ1: Feature identification.** Which target-side host/network feature families distinguish human from autonomous-AI activity under matched conditions? | **H1:** At least one predeclared behavioral family improves trial-level macro-F1 over the predefined baseline |
+| **RQ2: Stable attributes and generalization.** Which classifiers retain useful attributes and performance on unseen operators and AI configurations after shortcut controls? | **H2:** At least one classifier remains above baseline with reduced features and stays within the frozen transfer-loss margin |
+| **RQ3: Model comparison.** Which of XGBoost, decision tree, random forest, SVM and FT-Transformer performs best under a common grouped protocol? | **H3:** At least one candidate has a practically meaningful advantage; ties or insufficient evidence remain valid outcomes |
+
+[Full RQ/H wording, null hypotheses and decision criteria](PRAXIS_RESEARCH_DESIGN.md#revised-research-questions). These remain working hypotheses until protocol freeze.
+
+### Experiment Methodology
+
+**Design:** controlled matched-trial comparison in the proposed multi-host GOAD lab. Primary classes are human and autonomous AI; conventional scripted automation and benign activity are separate controls. Trial/group independence determines evaluation, not the number of log events.
+
+| Step | Method and completion gate | Evidence delivered |
+| --- | --- | --- |
+| 1. Define and freeze | Review problem, thesis, RQs/Hs, independent sample plan, contrasts, margins and resources | Signed/versioned protocol and freeze record |
+| 2. Prepare both arms | Human briefing and AI autonomy demonstration; identical objective, foothold, tools and knowledge condition | Red-team plan, AI configuration manifest and matched-condition checklist |
+| 3. Validate collection | Attest reset, host/network canaries, timestamps and archive integrity before scored runs | Gate A record and sensor manifests |
+| 4. Pilot and collect | Pilot first; freeze design; counterbalance matched scored trials and retain failures/interventions | Trial registry and private native evidence |
+| 5. Validate and partition | Audit labels, missingness and duplicates; keep trials intact and reserve unseen groups | Data-quality report and immutable split manifest |
+| 6. Engineer features | Version host/network families; exclude setup identifiers; fit transforms on training data only | Feature dictionary and feature-set hashes |
+| 7. Train and experiment | Common grouped folds and bounded tuning; RQ1 ablations, RQ2 transfer, RQ3 model comparison | Experiment cards, run manifests and development results |
+| 8. Freeze and evaluate | Freeze all candidates; evaluate locked data once; report paired uncertainty and controls | Trial predictions, RQ/H decision table and error analysis |
+| 9. Reproduce and deliver | Audit evidence-to-table regeneration; write findings and limitations; prepare review and defense | Praxis paper, evidence package, AI Review Nov 14 and defense Dec 1 |
+
+[**Experiment workspace and RQ1–RQ3 cards**](experiments/final-praxis-autonomous-ai-apt/README.md) · [**Reusable experiment template**](experiments/final-praxis-autonomous-ai-apt/templates/EXPERIMENT_TEMPLATE.md) · [Full methodology protocol](PRAXIS_EXPERIMENT_PROTOCOL.md) · [Delivery tracker](PRAXIS_STATUS_TRACKER.md)
+
 ### Final Research Series
 
 | Experiment | What it is trying to prove — simple language | Status |

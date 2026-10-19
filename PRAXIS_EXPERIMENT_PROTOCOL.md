@@ -4,6 +4,8 @@
 
 ## 1. Scope and units
 
+**Implementation workspace:** [experiment cards and artifact templates](experiments/final-praxis-autonomous-ai-apt/README.md). Complete its decision register and protocol template before freeze. Use one trial record per collection attempt, one run manifest per fitted model/fold/seed, and one results template per RQ. Templates are planning/recording artifacts, not an implemented collection or model-training pipeline.
+
 Compare human-operated and autonomous-AI activity under matched conditions in the proposed GOAD multi-host lab. A trial is one bounded execution from a verified reset. All events/windows from that trial remain together. Repeated trials from the same operator, AI configuration, scenario or campaign can still be dependent; document those grouping levels and use the level appropriate to each claim.
 
 Archive all failed/aborted trials with their dispositions. Scripted replay and benign baselines are separately labeled controls. Human tactical intervention changes the interpretation of autonomy and must be recorded under a predeclared rule.
