@@ -4,6 +4,8 @@ This pipeline uses a **synthetic trial-level fixture**, not real attack telemetr
 
 [Completed synthetic test report](synthetic_smoke_20261019_v2/REPORT.md) · [Validation evidence](VALIDATION.md)
 
+[New grounded synthetic dataset and completed experiments](GROUNDED_DATASET.md): 880 simulated trials anchored to COCHISE, Honey, GAMBiT and DAPT statistics, plus a shuffled-label control.
+
 ## Run from this directory
 
 Python 3.11+ is required. Create an isolated environment, install dependencies, then generate and run:
