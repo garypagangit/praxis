@@ -14,6 +14,8 @@ Advisor submission: **V001, October 16, 2026**. This presentation is the designa
 
 ## Literature, novelty and problem-statement evidence
 
+[**Dataset evaluation table: contents, labels, availability and fit**](PRAXIS_DATASET_EVALUATION.md) compares AI-agent trajectories, human/AI studies, human red-team corpora and conventional APT datasets. It explains which sources can support development and why the current thesis still needs qualified matched evidence.
+
 [**Open the annotated literature block: titles, authors, dates, documents and relevance**](PRAXIS_LITERATURE.md)
 
 **Closest novelty comparison:** Ashley Alt's April 2026 thesis, [Beyond Anomaly Detection](https://repository.rit.edu/theses/12605/). The proposed extension tests matched human versus autonomous-AI behavior using multi-host host/network telemetry and unseen-group evaluation. This is a proposed contribution, not a verified “first”; the literature block also compares LLM Agent Honeypot and Trace.

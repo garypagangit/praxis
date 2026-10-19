@@ -103,6 +103,8 @@ Every row is due inside October 19–December 1, 2026. Dependencies are completi
 
 ## Risks, decisions and recovery actions
 
+The [dataset evaluation table](PRAXIS_DATASET_EVALUATION.md) supports P08's collection decision. Existing sources are useful supplements; no reviewed source is yet qualified as a complete matched human/autonomous-AI target-telemetry replacement. Prioritize checking the direct comparison candidates before ruling out reuse.
+
 | Risk / decision | Owner / decision date | Response and escalation |
 | --- | --- | --- |
 | RQ2 needs unseen groups; a single AI family cannot establish family transfer | Gary / Oct 21 | Confirm distinct human operators and AI model families/configurations before collection; narrow the claim explicitly if unavailable |

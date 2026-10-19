@@ -75,6 +75,8 @@ The archived V001 presentation is unchanged. These corrections guide the working
 
 ## Reading and review priority
 
+See the [dataset evaluation table](PRAXIS_DATASET_EVALUATION.md) for the available corpora, their actual contents and the new-collection rationale. Published research and downloadable reusable data are assessed separately.
+
 1. **L01, L02, L03:** establish the closest prior tasks and challenge the proposed novelty.
 2. **L04, L05, L06:** support the problem's operational context with correctly scoped claims.
 3. **L07, L08:** justify the model comparison without promising an outcome.
