@@ -46,6 +46,16 @@ The program preserves **positive, negative, mixed, blocked, and diagnostic resul
 
 ## Research Dashboard
 
+### Latest Documents — Identifying Autonomous AI APT
+
+| Document | Latest version / date | Status | Open document |
+| --- | --- | --- | --- |
+| **GWU PowerPoint — advisor submission** | V001 · October 16, 2026 | Available | [Open PowerPoint](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx) |
+| **Final Praxis paper** | Pending | Placeholder — manuscript for the current matched target-side study has not been published here | Word / PDF links will be added when available |
+| **Final Praxis evidence package** | Pending | Placeholder — validated collection, experiment results and reproducibility package have not been published here | Evidence index and package links will be added when available |
+
+This block tracks the current final Praxis. Earlier papers and experiment results elsewhere in the portfolio are historical work. [Current delivery status](PRAXIS_STATUS_TRACKER.md) · [Working research design](PRAXIS_RESEARCH_DESIGN.md) · [Experiment protocol](PRAXIS_EXPERIMENT_PROTOCOL.md).
+
 ### Final Research Series
 
 | Experiment | What it is trying to prove — simple language | Status |
