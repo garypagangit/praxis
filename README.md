@@ -1,3 +1,13 @@
+# Identifying Autonomous AI APT
+
+**Final Praxis — Gary Pagan**
+
+[**Open the Final Defense Idea Advisor Submission (PowerPoint)**](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx)
+
+Advisor submission: **V001, October 16, 2026**. This presentation is the designated final Praxis submission and is stored at the repository root. The research portfolio and earlier experiments are retained below for background and provenance.
+
+---
+
 # Pagan Praxis
 
 ### Experimental AI/ML & Cybersecurity Research
