@@ -68,6 +68,8 @@ This block tracks the current final Praxis. Earlier papers and experiment result
 
 ### Experiment Methodology
 
+[**Run the experiments on test data / import real features later**](experiments/final-praxis-autonomous-ai-apt/pipeline/README.md) — synthetic fixture, RQ1 feature ablations, RQ2 transfer tests and RQ3 classifier comparison, with a validated CSV import contract.
+
 **Design:** controlled matched-trial comparison in the proposed multi-host GOAD lab. Primary classes are human and autonomous AI; conventional scripted automation and benign activity are separate controls. Trial/group independence determines evaluation, not the number of log events.
 
 | Step | Method and completion gate | Evidence delivered |

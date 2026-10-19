@@ -1,0 +1,95 @@
+{
+  "reference": "random_forest:full",
+  "importance_validation": {
+    "host": {
+      "mean_drop": 0.03353272265477354,
+      "repeat_sd": 0.018800197401491425
+    },
+    "network": {
+      "mean_drop": 0.015659904725240564,
+      "repeat_sd": 0.010740807708752298
+    },
+    "timing": {
+      "mean_drop": 0.27770999974415916,
+      "repeat_sd": 0.04785963776165165
+    },
+    "tool": {
+      "mean_drop": 0.0809131955279072,
+      "repeat_sd": 0.04120507054767097
+    }
+  },
+  "ablations": [
+    {
+      "removed": "host",
+      "partition": "validation",
+      "full_minus_ablated_macro_f1": 0.03585112205801866,
+      "paired_cluster_interval": [
+        0.035668673599708045,
+        0.03631005010315347
+      ]
+    },
+    {
+      "removed": "network",
+      "partition": "validation",
+      "full_minus_ablated_macro_f1": 9.12242291553067e-05,
+      "paired_cluster_interval": [
+        -0.03575989782886335,
+        0.03631005010315347
+      ]
+    },
+    {
+      "removed": "timing",
+      "partition": "validation",
+      "full_minus_ablated_macro_f1": 0.18147465437788024,
+      "paired_cluster_interval": [
+        0.14488526346145925,
+        0.21788159683599062
+      ]
+    },
+    {
+      "removed": "tool",
+      "partition": "validation",
+      "full_minus_ablated_macro_f1": -0.017702955822559208,
+      "paired_cluster_interval": [
+        -0.0715197956577267,
+        0.03603497396600841
+      ]
+    },
+    {
+      "removed": "host",
+      "partition": "test_unseen",
+      "full_minus_ablated_macro_f1": 0.026850414078674945,
+      "paired_cluster_interval": [
+        0.004201373302076572,
+        0.06489129690467164
+      ]
+    },
+    {
+      "removed": "network",
+      "partition": "test_unseen",
+      "full_minus_ablated_macro_f1": 0.004975414078674967,
+      "paired_cluster_interval": [
+        0.0,
+        0.01476543957986165
+      ]
+    },
+    {
+      "removed": "timing",
+      "partition": "test_unseen",
+      "full_minus_ablated_macro_f1": -0.11161864708775465,
+      "paired_cluster_interval": [
+        -0.14665536734170398,
+        -0.06516736686505617
+      ]
+    },
+    {
+      "removed": "tool",
+      "partition": "test_unseen",
+      "full_minus_ablated_macro_f1": 0.036499915421214224,
+      "paired_cluster_interval": [
+        0.0,
+        0.07337652218437629
+      ]
+    }
+  ]
+}

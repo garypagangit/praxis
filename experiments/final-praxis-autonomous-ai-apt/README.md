@@ -2,7 +2,11 @@
 
 **Identifying Autonomous AI APT** · Owner: Gary Pagan · Created October 19, 2026
 
-**Status: design templates prepared; protocol not frozen; collection/training not executed by this workspace.** [RQs/Hs](../../PRAXIS_RESEARCH_DESIGN.md) · [Methodology](../../PRAXIS_EXPERIMENT_PROTOCOL.md) · [Schedule](../../PRAXIS_STATUS_TRACKER.md).
+**Status: synthetic engineering run completed; scientific protocol not frozen; real collection/training pending.** [RQs/Hs](../../PRAXIS_RESEARCH_DESIGN.md) · [Methodology](../../PRAXIS_EXPERIMENT_PROTOCOL.md) · [Schedule](../../PRAXIS_STATUS_TRACKER.md).
+
+**Runnable engineering harness:** [run RQ1–RQ3 on a synthetic fixture or import a validated feature CSV](pipeline/README.md). This implementation tests the analysis paths; it does not establish the hypotheses or replace the scientific freeze gates.
+
+[Completed synthetic run](pipeline/synthetic_smoke_20261019_v2/REPORT.md) · [Validation record](pipeline/VALIDATION.md) · [CSV import template](pipeline/import_template.csv)
 
 ## Experiment structure
 
