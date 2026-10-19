@@ -12,6 +12,16 @@ Advisor submission: **V001, October 16, 2026**. This presentation is the designa
 
 ---
 
+## Literature, novelty and problem-statement evidence
+
+[**Open the annotated literature block: titles, authors, dates, documents and relevance**](PRAXIS_LITERATURE.md)
+
+**Closest novelty comparison:** Ashley Alt's April 2026 thesis, [Beyond Anomaly Detection](https://repository.rit.edu/theses/12605/). The proposed extension tests matched human versus autonomous-AI behavior using multi-host host/network telemetry and unseen-group evaluation. This is a proposed contribution, not a verified “first”; the literature block also compares LLM Agent Honeypot and Trace.
+
+**Problem-statement sources:** Anthropic's November 2025 espionage report establishes a reported operational case; CrowdStrike's February 2026 report supports growth in AI-enabled attacks; IBM's July 2025 report supplies general breach-cost context. The [claim-to-source mapping](PRAXIS_LITERATURE.md#references-that-make-up-the-problem-statement) distinguishes those claims from the research gap.
+
+---
+
 # Pagan Praxis
 
 ### Experimental AI/ML & Cybersecurity Research

@@ -82,6 +82,8 @@ Update the next advisor/defense slide revision from this document after the revi
 
 ## Sources reviewed October 19, 2026
 
+See the [annotated literature and problem-statement evidence](PRAXIS_LITERATURE.md) for author/date/document details, the closest novelty comparison and corrected interpretation of the industry statistics.
+
 1. Ashley Alt (2026), [Beyond Anomaly Detection: Classifying Attacker Automation Level from SSH Honeypot Behavioral Signatures](https://repository.rit.edu/theses/12605/). Primary institutional thesis record/abstract.
 2. Murali Ediga and Sudipta Chattopadhyay (2026), [Trace: Unmasking AI Attack Agents Through Terminal Behavior Fingerprinting](https://arxiv.org/abs/2605.01186). Primary preprint abstract; related problem, not direct validation of this study.
 3. Grinsztajn, Oyallon and Varoquaux (2022), [Why do tree-based models still outperform deep learning on tabular data?](https://arxiv.org/abs/2207.08815). Primary benchmark paper abstract.

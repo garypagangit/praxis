@@ -44,7 +44,7 @@ Every row is due inside October 19–December 1, 2026. Dependencies are completi
 | P03 | Thesis and contribution | Gary | Oct 19 → Oct 21 | P02 | Draft — deck slide 3; research design | Testable thesis; contribution distinguished from existing work |
 | P04 | RQ1–RQ3 revision | Gary / Advisor | Oct 19 → Oct 21 | P02,P03 | Draft — research design | Features, transfer and classifier comparison separated; advisor review recorded |
 | P05 | H1–H3 and decision rules | Analysis / Advisor | Oct 19 → Oct 22 | P04 | Draft — research design | Nulls, metrics, margins, uncertainty and multiplicity frozen |
-| P06 | Literature and novelty matrix | Gary | Oct 19 → Oct 22 | P02 | Draft — research design sources | Human vs AI, AI-family fingerprinting and tabular benchmarks compared; unsupported “first” claims removed |
+| P06 | Literature and novelty matrix | Gary | Oct 19 → Oct 22 | P02 | Draft — [annotated literature and novelty matrix](PRAXIS_LITERATURE.md); full-text/advisor review pending | Human vs AI, AI-family fingerprinting and tabular benchmarks compared; unsupported “first” claims removed |
 | P07 | AI Review and defense requirements | Gary | Oct 19 → Oct 20 | — | Planned — pending | AI Review checklist, recipient, submission method/time, committee notice/circulation and formatting confirmed |
 | P08 | Scope, sample size and resource feasibility | Gary / Analysis | Oct 19 → Oct 21 | P04 | Planned — pending | Independent trials/operators/configurations, uncertainty target, availability and budget support all RQs |
 | D01 | Red-team plan and rules of engagement | Human / Lab | Oct 19 → Oct 22 | P08 | Reported in progress — deck slide 21 | Matched objective, access window, stop rules, allowed lab scope, reset and counterbalancing fixed |
