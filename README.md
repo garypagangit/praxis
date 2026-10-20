@@ -72,6 +72,9 @@ This block tracks the current final Praxis. Earlier papers and experiment result
 
 [**Grounded synthetic dataset: COCHISE + Honey + GAMBiT + DAPT**](experiments/final-praxis-autonomous-ai-apt/pipeline/GROUNDED_DATASET.md) ? 880 simulated trials, audited source statistics, full RQ1?RQ3 run and shuffled-label control. Recorded-data calibration; not real-world hypothesis evidence.
 
+[**Real-record feasibility results ? October 20**](experiments/final-praxis-autonomous-ai-apt/pipeline/REAL_FEASIBILITY.md) ? direct human/AI command comparison, cross-archive transfer and source-confounding checks. Supports a small matched pilot; does not establish final hypotheses.
+
+
 
 **Design:** controlled matched-trial comparison in the proposed multi-host GOAD lab. Primary classes are human and autonomous AI; conventional scripted automation and benign activity are separate controls. Trial/group independence determines evaluation, not the number of log events.
 

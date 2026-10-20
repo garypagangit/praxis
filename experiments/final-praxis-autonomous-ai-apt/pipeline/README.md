@@ -85,3 +85,7 @@ The synthetic generator deliberately introduces stable behavioral signal, an eas
 `selection_freeze.json` records input/source/schema hashes, environment versions and all tuning outcomes. `artifact_manifest.json` hashes the output artifacts. Models are regenerated rather than serialized in this engineering version.
 
 The repository preserves exact bytes under this pipeline directory so frozen hashes survive Git checkout. Generated runs on another platform may differ in serialization or numerical details; the included artifact verifier checks the committed run against its original inputs/source and recomputes its metrics.
+
+## Real-record collection feasibility
+
+[October 20 real-archive screen and pilot decision](REAL_FEASIBILITY.md) uses actual GAMBiT, Honey and COCHISE commands with fixed-length windows, participant/configuration holdouts, cross-archive tests, structural ablations and a source-recognition diagnostic. This separate feature schema is not the synthetic trial pipeline or qualified target-side evidence.
