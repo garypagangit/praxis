@@ -1,6 +1,6 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-10-19 17:13 UTC
+Generated: 2026-10-20 15:24 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
 New flagged works: 2
@@ -9,44 +9,44 @@ New flagged works: 2
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 10 | Agentic package hallucination and tool-boundary gates | 2026-10-17 | Current applications of artificial intelligence for advancing agriculture, sustainability and climate mitigation | Discover Artificial Intelligence | [source](https://doi.org/10.1007/s44163-026-02540-1) |
-| 2 | 4 | Adaptive evaluation of deterministic agent defenses | 2026-10-18 | Securing LLM-Agent Long-Term Memory Against Poisoning: Non-Malleable, Origin-Bound Authority with Machine-Checked Guarantees | Unknown venue | [source](https://doi.org/10.66977/xsci.2610.001o) |
+| 1 | 8 | Adaptive evaluation of deterministic agent defenses | 2026-10-18 | Declared scope, and a graded instrument: applying the independence-graded audit protocol to a deployed verification estate | arXiv (Cornell University) | [source](https://arxiv.org/abs/2609.18272) |
+| 2 | 2 | Agentic package hallucination and tool-boundary gates | 2026-10-19 | An Open-Agent Framework for Intelligent Compliance Analysis in Infrastructure as Code Using Large Language Models | Research Square | [source](https://doi.org/10.21203/rs.3.rs-10907487/v1) |
 
 ## Triage Notes
 
-### 1. Current applications of artificial intelligence for advancing agriculture, sustainability and climate mitigation
+### 1. Declared scope, and a graded instrument: applying the independence-graded audit protocol to a deployed verification estate
 
-- Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Mostafa Farajpour
-- Published: 2026-10-17
-- Venue/type: Discover Artificial Intelligence / article
-- DOI: https://doi.org/10.1007/s44163-026-02540-1
-- URL: https://doi.org/10.1007/s44163-026-02540-1
-- Opportunity score: 10
-- Matched tags: dataset, limitation, limitations, security
+- Topic: Adaptive evaluation of deterministic agent defenses
+- Authors: Joel Hillier
+- Published: 2026-10-18
+- Venue/type: arXiv (Cornell University) / preprint
+- DOI: https://doi.org/10.5281/zenodo.23463925
+- URL: https://arxiv.org/abs/2609.18272
+- Opportunity score: 8
+- Matched tags: evaluation, verification, verifier
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Artificial intelligence (AI) is reshaping agriculture by enabling data-driven decision-making across crop production systems and supporting the transition toward more sustainable, resilient, and climate-smart farming. This review critically synthesizes advances in AI applications spanning precision irrigation, nutrient and soil management, yield prediction, pest and disease monitoring, computer vision, autonomous agricultural robotics, and large language model (LLM)-based decision support systems. Beyond summarizing technological developments, the review evaluates their practical deployment, emphasizing that successful agricultural AI depends not only on predictive accuracy but also on model generalizability, explainability, economic feasibility, interoperability, and integration with existing agronomic knowledge. Emerging technologies including Vision Transformers, foundation models, Digital Twins, multimodal AI, Retrieval-Augmented Generation, and federated and continual learning—are discussed as important directions for overcoming limitations related to data scarcity, environmental variability, and scalable field implementation. The review highlights that responsible AI adoption requires transparent governance frameworks addressing data ownership, privacy, algorithmic fairness, cybersecurity, and equitable access, particularly for smallholder farming systems. Although numero
+> Ghanem (arXiv:2609.18272) proposes that auditor independence be graded on 3 axes, principal, substrate and evidence, and aggregated by the minimum. This response applies that protocol to a deployed verification estate and reports the triple without rounding it up: principal 2, substrate unplaced, evidence 2. It supplies measured detection and a measured negative control where the protocol has simulated probabilities, from a published study of 2,940 evaluations across 60 cases and 4 fault families, with a detection floor published for each family and 0 false flags across 60 clean tracks. It proposes 1 addition to the evidence axis. That axis grades a record by the strongest adversary it survives, which is a grading of who could have altered it. A record can hold the highest grade and still mislead, because the observation behind it was incomplete and nothing in the record says so. Two measurements from the Fixity Register as at 12 October 2026, over 3,413 addresses and 4,734 observations, show the gap: 82 addresses excluded as partial reads, each carrying a correct and attestable digest of the beginning of a response, and 294 of the 298 web pages whose digest moved returned the same byte count as before. The proposal is a predicate on each load-bearing record, declaring whether the observation completed, the population it was drawn from, and what was excluded and why. It is a pr
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 2. Securing LLM-Agent Long-Term Memory Against Poisoning: Non-Malleable, Origin-Bound Authority with Machine-Checked Guarantees
+### 2. An Open-Agent Framework for Intelligent Compliance Analysis in Infrastructure as Code Using Large Language Models
 
-- Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Yedidel Louck
-- Published: 2026-10-18
-- Venue/type: Unknown venue / preprint
-- DOI: https://doi.org/10.66977/xsci.2610.001o
-- URL: https://doi.org/10.66977/xsci.2610.001o
-- Opportunity score: 4
-- Matched tags: agent, security
+- Topic: Agentic package hallucination and tool-boundary gates
+- Authors: Ayah AlJabali, Muawya N. Al Dalaien
+- Published: 2026-10-19
+- Venue/type: Research Square / preprint
+- DOI: https://doi.org/10.21203/rs.3.rs-10907487/v1
+- URL: https://doi.org/10.21203/rs.3.rs-10907487/v1
+- Opportunity score: 2
+- Matched tags: agent
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> An agent based on a large language model (LLM) may store an untrusted document and use it weeks later to select a payment destination. Preventing this action requires evidence of authorization that remains valid when stored text changes. We study a policy that requires either endorsements (explicit approvals) from two separately administered sources or explicit user authorization. In an abstract memory model, we prove the policy is preserved under permitted transformations for stores of any size, assuming correct source and authority binding, protected records, and checks on every consequential action. We evaluate the executable monitor, which checks calls before execution, separately from the proof. In 1,152 controlled tool-use episodes, GPT-4o-mini executes attacker-selected actions in 61 of 72 undefended episodes and none of the 72 monitored episodes. Clean-task completion remains 24 of 24 when both endorsers are available. A separate 1,728-episode experiment tests recovery after denial. Returning to signed records instead of rereading a contaminated note raises attacked-task completion from 14/72 to 72/72 for GPT-4o-mini and from 22/72 to 43/72 for Gemini 2.5 Flash, without executing an attacker-selected action. Neither model completes transactions with fewer than two sources. Whole-action tests reject unauthorized combinations of individually approved fields. Extraction pr
+> No abstract text returned by metadata API.
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
