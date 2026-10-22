@@ -1,90 +1,109 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-10-21 15:41 UTC
+Generated: 2026-10-22 15:42 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
-New flagged works: 4
+New flagged works: 5
 
 ## Flagged Works
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 10 | Adaptive evaluation of deterministic agent defenses | 2026-10-19 | Quantum machine learning: A comprehensive survey of models, tools, and challenges | Journal of King Saud University - Computer and Information Sciences | [source](https://doi.org/10.1007/s44443-026-01177-5) |
-| 2 | 8 | Agentic package hallucination and tool-boundary gates | 2026-10-19 | MedMCP: An Open Agentic Ecosystem for Medical Imaging Workflows | bioRxiv (Cold Spring Harbor Laboratory) | [source](https://doi.org/10.64898/2026.10.12.758708) |
-| 3 | 2 | Provenance-aware tool-boundary monitoring | 2026-10-20 | PrivGuardAI for adaptive privacy preserving sensitive data protection in cloud environments | Discover Computing | [source](https://doi.org/10.1007/s10791-026-10472-8) |
-| 4 | 2 | Provenance-aware tool-boundary monitoring | 2026-10-19 | Data sparsity in pervasive computing and human–machine interaction: a survey of sources, structures, and remedies | CCF Transactions on Pervasive Computing and Interaction | [source](https://doi.org/10.1007/s42486-026-00277-5) |
+| 1 | 4 | Adaptive evaluation of deterministic agent defenses | 2026-10-20 | LLM-Attack Suite: A Unified Red-Team Framework for Privacy Evaluation of Split and Distributed LLM Systems | Unknown venue | [source](https://doi.org/10.66977/xsci.2610.0021) |
+| 2 | 2 | Provenance-aware tool-boundary monitoring | 2026-10-21 | Agency as a New Organizing Abstraction for Computer Science | Communications of the ACM | [source](https://doi.org/10.1145/3806060) |
+| 3 | 2 | Adaptive evaluation of deterministic agent defenses | 2026-10-20 | Verifiable Delegated Authority for LLM Agents in Banking: A Formal Architecture, Capability Protocol, and Audit Guarantees | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11415811/v1) |
+| 4 | 2 | Adaptive evaluation of deterministic agent defenses | 2026-10-20 | Residual Privacy Leakage after Output Scrubbing in Tool-Using LLM Agents under Indirect Prompt Injection | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11428254/v1) |
+| 5 | 2 | Source-locked citation and hallucination verification | 2026-10-20 | Guideline Adherence, Clinical Safety, and Source Accuracy of Commercial Large Language Models in Perioperative GLP-1 and GLP-1/GIP Receptor Agonist Management: A Scenario-Based Comparative Study | Acta Medica Alanya | [source](https://doi.org/10.30565/medalanya.1979219) |
 
 ## Triage Notes
 
-### 1. Quantum machine learning: A comprehensive survey of models, tools, and challenges
+### 1. LLM-Attack Suite: A Unified Red-Team Framework for Privacy Evaluation of Split and Distributed LLM Systems
 
 - Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Taha M. Mahmoud, Marwa R. Hassan, Shenson Joseph, Issam Boukabou, et al.
-- Published: 2026-10-19
-- Venue/type: Journal of King Saud University - Computer and Information Sciences / article
-- DOI: https://doi.org/10.1007/s44443-026-01177-5
-- URL: https://doi.org/10.1007/s44443-026-01177-5
-- Opportunity score: 10
-- Matched tags: dataset, evaluation, limitation, limitations
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> Abstract Quantum Machine Learning (QML) is an emerging interdisciplinary field that merges quantum computing with classical machine learning (ML) to enhance computational efficiency, scalability, and accuracy in data-driven tasks. By leveraging quantum properties such as superposition, entanglement, and quantum parallelism, QML has the potential to solve complex problems that are intractable for classical models. This survey provides a comprehensive, systematic review of recent advancements in QML, conducted following the PRISMA 2020 guidelines and covering fundamental encoding techniques that enable quantum computers to process classical data, as well as essential tools, datasets, and evaluation metrics used in quantum model development. Furthermore, it explores various QML approaches, including supervised, semi-supervised, unsupervised, and reinforcement learning, alongside quantum deep learning (QDL) models such as Quantum Neural Networks (QNNs) and Variational Quantum Circuits (VQCs). The paper also discusses the challenges in QML, including hardware limitations, scalability issues, and the need for improved quantum error correction. A dual-axis taxonomy simultaneously classifies algorithms by learning paradigm and quantum-classical integration level – a structure not found in prior surveys. The survey also covers Quantum Transfer Learning, Quantum Graph Neural Networks, an
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 2. MedMCP: An Open Agentic Ecosystem for Medical Imaging Workflows
-
-- Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Julian McGinnis, Paul Friedrich, Mark Mühlau, Jan Stefan Kirschke, et al.
-- Published: 2026-10-19
-- Venue/type: bioRxiv (Cold Spring Harbor Laboratory) / preprint
-- DOI: https://doi.org/10.64898/2026.10.12.758708
-- URL: https://doi.org/10.64898/2026.10.12.758708
-- Opportunity score: 8
-- Matched tags: agent, benchmark, provenance
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> Deep learning has driven rapid progress in medical image analysis, with methods for tasks such as organ segmentation, anomaly detection, and radiology report generation now matching or surpassing expert performance on several benchmarks. While many methods are released as open source, their routine adoption by clinicians and medical researchers remains limited. The bottleneck is not a lack of capable tools, but the absence of infrastructure to make them accessible to non-technical users. To break this barrier, we present MedMCP, an agentic framework that solves this last-mile problem along two axes: (1) a local agentic workspace that lets users apply state-of-the-art image analysis methods through natural language, and (2) a community-driven tool ecosystem that lets developers deploy and distribute capabilities as validated, independently testable servers. MedMCP enforces a strict orchestration-execution boundary in which a local language model translates user intent into workflow plans, while all image analysis is delegated to domain-specific tools. The framework runs entirely on-premise, every side-effecting operation passes through a human-in-the-loop permission gate, and a full provenance trail links each output to the tools, parameters, and inputs that produced it. An inspectable workspace lets users verify intermediate results rather than blindly trusting the agent, and c
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 3. PrivGuardAI for adaptive privacy preserving sensitive data protection in cloud environments
-
-- Topic: Provenance-aware tool-boundary monitoring
-- Authors: Sampath Reddy Racha, Ganesh Reddy Karri
+- Authors: Georgios Politis, Evangelos Pappas
 - Published: 2026-10-20
-- Venue/type: Discover Computing / article
-- DOI: https://doi.org/10.1007/s10791-026-10472-8
-- URL: https://doi.org/10.1007/s10791-026-10472-8
-- Opportunity score: 2
-- Matched tags: evaluation
+- Venue/type: Unknown venue / preprint
+- DOI: https://doi.org/10.66977/xsci.2610.0021
+- URL: https://doi.org/10.66977/xsci.2610.0021
+- Opportunity score: 4
+- Matched tags: dataset, evaluation
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> This rapidly growing and ever-expanding trend of intelligent sensor systems, IoT devices, and data-driven cyber-physical infrastructures has been accompanied by new challenges in the secure, explainable and privacy-compliant access to sensitive data. Traditional access control systems are based on static rules, have only limited context awareness, and are therefore not suitable for real-time scenarios where decisions must be made based on content sensitivity, the trustworthiness of behaviours, user context, and changing risk factors. Anomaly detection and audit also tend to be separate from access-control pipelines, making it difficult to adapt policies on the fly and provide transparent accountability. To overcome these drawbacks, this study proposes a closed-loop, multi-layer, privacy-preserving framework called PrivGuardAI, which combines four networks: SensLabelNet for metadata- and content-aware sensitivity classification, AccessIQ for behavioural-trust-driven adaptive access control, ThreatWatchNet for anomaly and insider-threat detection, and BlockAuditChain for tamper-proof audit logging. SensLabelNet leverages CNN- and BERT-based encoders to classify data into public, private, and restricted, and AccessIQ dynamically adjusts access decisions based on role, attribute, context, and behavioural risk signals. Quantitative evaluation reveals that SensLabelNet achieves a mac
+> Split language models keep input text on a client but send intermediate representations to a server. Attacks can reconstruct text from these messages. Comparing privacy evaluations is difficult when attackers see different messages, know different model weights or use different datasets and recovery measures. We present LLM-Attack Suite, a framework that records these choices and lets researchers check, compare and extend an evaluation. Compatible attacks reuse recorded messages, and their predictions are saved for independent scoring. The scoring rule requires a linked undefended reference before a defence can pass. Reports also identify attacks that remain untested. In a controlled GPT-2 experiment, adding gradients returned during training increased token recovery from 94.20% to 97.38% and exact-document recovery from 13.71% to 37.77%. The 95% interval for the token gain lay above the two-percentage-point threshold fixed before testing. This experiment is shared with a companion study; here it tests how the evaluation responds to a change in attacker access. Further studies measure how corpus choice and compression defences affect recovery, compare an adapted published attack with its reference implementation, and test the measurement code. The framework reports implementation checks separately from measured attack effectiveness. Each privacy claim should state the attacker,
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 4. Data sparsity in pervasive computing and human–machine interaction: a survey of sources, structures, and remedies
+### 2. Agency as a New Organizing Abstraction for Computer Science
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Yifei Shen, Yuanjun Liu, Chengzu Dong, Shantanu Pal, et al.
-- Published: 2026-10-19
-- Venue/type: CCF Transactions on Pervasive Computing and Interaction / article
-- DOI: https://doi.org/10.1007/s42486-026-00277-5
-- URL: https://doi.org/10.1007/s42486-026-00277-5
+- Authors: Ian T Foster
+- Published: 2026-10-21
+- Venue/type: Communications of the ACM / article
+- DOI: https://doi.org/10.1145/3806060
+- URL: https://doi.org/10.1145/3806060
 - Opportunity score: 2
-- Matched tags: evaluation
+- Matched tags: agent
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Data sparsity is a central challenge in pervasive computing and human–machine interactive systems, where observations arise unevenly across users, devices, algorithms, and environments. Across recommender interfaces, healthcare monitoring, smart-city mobility, and language-enabled interaction, sparsity can reflect incomplete sensing, constrained exposure, intermittent participation, privacy limits, and heterogeneous event generation. These mechanisms can produce missing or weakly supported instances as well as observable structures such as excess zeros and long-tail frequency distributions; conflating mechanisms with their manifestations can lead to mismatched modelling and evaluation. This survey synthesises 134 studies and develops a source-to-structure diagnostic framework. It distinguishes two mechanism-oriented perspectives—data collection oriented sparsity and user–system interaction oriented sparsity—from a distributional structure oriented perspective that records observable zero-inflated and long-tail patterns without assuming their causes. Six operational forms are connected through a support-based chain from mechanism to observational support, observable structure, and intervention. The roadmap further distinguishes evidence acquisition, bias correction, robust learning under fixed sparsity, and decentralised utilisation, and specifies cross-domain transfer 
+> Addressing the challenges of agentic AI will require targeted advances in systems, programming languages, theory, and human–computer interaction.
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 3. Verifiable Delegated Authority for LLM Agents in Banking: A Formal Architecture, Capability Protocol, and Audit Guarantees
+
+- Topic: Adaptive evaluation of deterministic agent defenses
+- Authors: Neeraj Aggarwal
+- Published: 2026-10-20
+- Venue/type: Research Square / preprint
+- DOI: https://doi.org/10.21203/rs.3.rs-11415811/v1
+- URL: https://doi.org/10.21203/rs.3.rs-11415811/v1
+- Opportunity score: 2
+- Matched tags: agent
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> No abstract text returned by metadata API.
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 4. Residual Privacy Leakage after Output Scrubbing in Tool-Using LLM Agents under Indirect Prompt Injection
+
+- Topic: Adaptive evaluation of deterministic agent defenses
+- Authors: Kashvi Gupta
+- Published: 2026-10-20
+- Venue/type: Research Square / preprint
+- DOI: https://doi.org/10.21203/rs.3.rs-11428254/v1
+- URL: https://doi.org/10.21203/rs.3.rs-11428254/v1
+- Opportunity score: 2
+- Matched tags: agent
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> No abstract text returned by metadata API.
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 5. Guideline Adherence, Clinical Safety, and Source Accuracy of Commercial Large Language Models in Perioperative GLP-1 and GLP-1/GIP Receptor Agonist Management: A Scenario-Based Comparative Study
+
+- Topic: Source-locked citation and hallucination verification
+- Authors: Ebru Aladağ
+- Published: 2026-10-20
+- Venue/type: Acta Medica Alanya / article
+- DOI: https://doi.org/10.30565/medalanya.1979219
+- URL: https://doi.org/10.30565/medalanya.1979219
+- Opportunity score: 2
+- Matched tags: safety
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> Aim: This study compared the guideline adherence, clinical safety, risk stratification, source accuracy, and practical applicability of three commercial large language models in perioperative GLP-1 receptor agonist (GLP-1 RA) and dual GLP-1/glucose-dependent insulinotropic polypeptide receptor agonist (GLP-1/GIP RA) management scenarios.Methods: In this non-interventional scenario-based comparative study, 20 English-language perioperative clinical scenarios were submitted once to ChatGPT Plus, Claude Pro, and Gemini Advanced/Google AI Pro. A total of 60 first complete responses were evaluated. Responses were scored using a predefined 10-point composite scale across five domains and predefined binary quality and safety outcomes. Paired non-parametric analyses were used for model comparisons.Results: ChatGPT achieved uniformly maximal total scores (mean 10.00), followed by Gemini (mean 8.00) and Claude (mean 5.85). Total scores differed significantly across models (χ²(2)=37.333, p
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
