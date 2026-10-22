@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "configs" / "new_praxis_experiment_registry_20260723.json"
+REGISTERED_PX062_JOB = "px062-g21-retry1-20260727"
 
 
 DETAILS = {
@@ -53,12 +54,12 @@ DETAILS = {
         "link": "wavelet_dp_federated_learning/PX061_FINAL_DETERMINATION_20260724.md",
     },
     "PX-062": {
-        "classification": "Gate 1 negative; Gate 2 active",
+        "classification": "Gate 1 negative; Gate 2.1 running",
         "tone": "active",
         "evidence": "1,070 released poisoned skills, 44 clean skills, and a frozen 300-task hallucination benchmark.",
-        "result": "Provenance blocked tampering and nonexistent names but admitted 100% of authentic signed poisoned skills.",
-        "next": "Complete the two-model, three-condition live skill-name hallucination run and adjudicate 1,800 outputs.",
-        "link": "coding_agent_skill_provenance/PX062_CURRENT_DETERMINATION_20260724.md",
+        "result": "Gate 1 was negative. The byte-registered Gate 2.1 retry crossed the old S3 failure point and is running the exact entry point.",
+        "next": "Collect all 1,800 outputs, then run the frozen independent adjudicator once.",
+        "link": "coding_agent_skill_provenance/PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md",
     },
     "PX-063": {
         "classification": "Blocked",
@@ -87,7 +88,14 @@ DETAILS = {
 }
 
 
-def cloud_status(profile: str) -> dict:
+def cloud_status(profile: str, job_name: str | None) -> dict:
+    if not job_name:
+        return {
+            "Job": "not submitted",
+            "Status": "Prelaunch",
+            "Secondary": "Awaiting GPU quota",
+            "Failure": None,
+        }
     command = [
         "aws",
         "sagemaker",
@@ -97,36 +105,45 @@ def cloud_status(profile: str) -> dict:
         "--region",
         "us-east-1",
         "--training-job-name",
-        "px062-skill-hallucination-2026-07-24-22-21-01",
+        job_name,
         "--query",
         "{Status:TrainingJobStatus,Secondary:SecondaryStatus,Failure:FailureReason}",
         "--output",
         "json",
     ]
     try:
-        return json.loads(subprocess.check_output(command, text=True))
+        result = json.loads(
+            subprocess.check_output(command, text=True, stderr=subprocess.DEVNULL)
+        )
+        result["Job"] = job_name
+        return result
     except Exception:
-        return {"Status": "Unknown", "Secondary": "Unavailable", "Failure": None}
+        return {
+            "Job": job_name,
+            "Status": "Registered",
+            "Secondary": "Awaiting GPU quota",
+            "Failure": None,
+        }
 
 
 def markdown(experiments: list[dict], cloud: dict) -> str:
     rows = [
         "# Praxis Experiment Dashboard",
         "",
-        "Updated: 2026-07-24",
+        "Updated: 2026-07-26",
         "",
         "## Portfolio snapshot",
         "",
         "- Lead new positive: **PX-057 adaptive stopping**.",
         "- Mixed result: **PX-058 explanation stability passed; drift warning failed**.",
         "- Closed or negative: **PX-059, PX-060, PX-061**.",
-        "- Active: **PX-062 skill-name hallucination Gate 2**.",
+        "- Active confirmatory retry: **PX-062 skill-name hallucination Gate 2.1**.",
         "- Queued or blocked: **PX-063 through PX-065**.",
         "- Related mature defense: **PX-050 independently confirmed one-million-command robustness within its frozen grammar**.",
         "",
         "## Active cloud work",
         "",
-        f"- Job: `px062-skill-hallucination-2026-07-24-22-21-01`",
+        f"- Job: `{cloud.get('Job')}`",
         f"- Status: `{cloud.get('Status')}` / `{cloud.get('Secondary')}`",
         "- Workload: two models x three conditions x 300 tasks = 1,800 outputs.",
         "",
@@ -187,7 +204,7 @@ def html_dashboard(experiments: list[dict], cloud: dict) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Praxis Experiment Dashboard - 2026-07-24</title>
+<title>Praxis Experiment Dashboard - 2026-07-26</title>
 <style>
 :root{{--navy:#142f48;--blue:#2475a1;--teal:#159786;--red:#b64343;--amber:#d49317;--ink:#202a32;--muted:#63717b;--line:#d9e2e8;--bg:#eef3f6;}}
 *{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.45}}
@@ -211,14 +228,14 @@ a{{color:var(--blue);font-weight:700;text-decoration:none}} a:hover{{text-decora
 </style>
 </head>
 <body>
-<header><div class="kicker">Praxis research portfolio</div><h1>Experiment Dashboard</h1><p>Evidence-first status for PX-057 through PX-065, plus the related PX-050 large-scale defense result. Updated July 24, 2026.</p></header>
+<header><div class="kicker">Praxis research portfolio</div><h1>Experiment Dashboard</h1><p>Evidence-first status for PX-057 through PX-065, plus the related PX-050 large-scale defense result. Updated July 26, 2026.</p></header>
 <main>
-<section class="cloud"><div><strong>Active cloud experiment</strong><br>PX-062 skill-name hallucination - 2 models x 3 conditions x 300 tasks = 1,800 outputs</div><span class="status">{status} / {secondary}</span></section>
+<section class="cloud"><div><strong>Active cloud experiment</strong><br>PX-062 Gate 2.1 skill-name hallucination - 2 models x 3 conditions x 300 tasks = 1,800 outputs</div><span class="status">{status} / {secondary}</span></section>
 <section class="summary">
 <div class="metric"><b>1</b><span>strong bounded positive</span></div>
 <div class="metric"><b>1</b><span>mixed result</span></div>
 <div class="metric"><b>3</b><span>closed or negative</span></div>
-<div class="metric"><b>1</b><span>active live gate</span></div>
+<div class="metric"><b>1</b><span>active confirmatory retry</span></div>
 </section>
 <h2>Current experiment cards</h2><section class="cards">{''.join(cards)}</section>
 <h2>Evidence and next actions</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Experiment</th><th>Classification</th><th>Evidence</th><th>Next action</th></tr></thead><tbody>{''.join(table_rows)}</tbody></table></div>
@@ -230,6 +247,7 @@ a{{color:var(--blue);font-weight:700;text-decoration:none}} a:hover{{text-decora
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile", default="praxis-build")
+    parser.add_argument("--px062-job", default=REGISTERED_PX062_JOB)
     args = parser.parse_args()
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     experiments = [
@@ -237,7 +255,7 @@ def main() -> None:
         for row in registry["experiments"]
         if row["px_id"] in DETAILS
     ]
-    cloud = cloud_status(args.profile)
+    cloud = cloud_status(args.profile, args.px062_job)
     reports = ROOT / "reports"
     md_path = reports / "EXPERIMENT_CURRENT_DASHBOARD_20260724.md"
     html_path = reports / "EXPERIMENT_CURRENT_DASHBOARD_20260724.html"
