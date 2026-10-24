@@ -1,6 +1,6 @@
 # Identifying Autonomous AI APT: working research design
 
-**Revision:** October 19, 2026. **Status:** research-informed working revision for advisor review; not a completed finding or frozen preregistration. This document supplies the current three-RQ structure. The October 16 advisor presentation remains an unchanged historical submission. [Delivery tracker](PRAXIS_STATUS_TRACKER.md) · [Experiment protocol](PRAXIS_EXPERIMENT_PROTOCOL.md).
+**Revision:** October 24, 2026. **Status:** author-approved working wording for advisor review; not a completed finding or frozen preregistration. This document supplies the current three-RQ structure. The October 16 advisor presentation remains an unchanged historical submission. [Delivery tracker](PRAXIS_STATUS_TRACKER.md) · [Experiment protocol](PRAXIS_EXPERIMENT_PROTOCOL.md).
 
 ## Problem and thesis
 
@@ -23,8 +23,8 @@ Tabular benchmark research motivates strong tree baselines [3]. FT-Transformer o
 | RQ | Working wording | Required answer / artifact |
 | --- | --- | --- |
 | **RQ1 — Feature identification** | Which target-side host and network behavioral feature families distinguish human-operated from autonomous-AI APT-like trials under matched conditions? | Feature dictionary, family ablations, held-out development-fold importance estimates and uncertainty |
-| **RQ2 — Stable attributes and generalization** | Which candidate classifiers retain discriminative behavioral attributes and predictive performance on unseen human operators and attacker AI model families or configurations, after controlling timing, tool identifiers and collection artifacts? | Operator/configuration holdouts, family-level attribution stability, transfer gaps, timing/tool ablations and shortcut audit |
-| **RQ3 — Model comparison** | Among XGBoost, a decision tree, a random forest, SVM and a tabular transformer, which provides the strongest trial-level human-versus-autonomous-AI classification under a common feature representation, grouped evaluation protocol and bounded tuning budget? | Paired model comparison, baseline contrasts, uncertainty, false AI labels on humans, compute cost and a qualified selection conclusion |
+| **RQ2 — Stable attributes and generalization** | Which classifiers retain useful behavioral attributes for classification performance on autonomous-AI APT data? | Operator/configuration holdouts, family-level attribution stability, transfer gaps, timing/tool ablations and shortcut audit |
+| **RQ3 — Model comparison** | Among XGBoost, a decision tree, a random forest, SVM and a tabular transformer, which provides the strongest trial-level human-versus-autonomous-AI classification? | Paired model comparison, baseline contrasts, uncertainty, false AI labels on humans, compute cost and a qualified selection conclusion |
 
 RQ1 identifies signals. RQ2 evaluates their stability and transfer. RQ3 compares predictive utility and cost. RQ2 may identify a different preferred classifier than RQ3, or find that none transfers adequately. Avoid a forced single ranking across contradictory criteria.
 
@@ -34,13 +34,25 @@ These are proposed tests. Freeze exact feature families, folds, search budgets, 
 
 | Hypothesis | Alternative / null | Test and decision |
 | --- | --- | --- |
-| **H1 / RQ1** | At least one predeclared behavioral feature family improves trial-level macro-F1 over a predefined baseline. Null: no positive improvement for the tested family contrasts. | Paired held-out predictions, family ablation and grouped uncertainty. Correct multiple family contrasts; identify only families with supported improvement. Candidate discovery stays in development folds |
-| **H2 / RQ2** | At least one frozen classifier retains above-baseline performance on unseen groups using the reduced behavioral representation, within a preregistered acceptable transfer-loss margin. Null: the baseline benefit or transfer-loss condition fails. | Evaluate held-out human operators and AI configurations separately and jointly where supported. Require positive baseline contrast and an upper uncertainty bound on transfer loss below the frozen margin. Report feature-rank stability separately; stability alone does not prove valid generalization |
-| **H3 / RQ3** | At least one candidate classifier has a practically meaningful macro-F1 advantage over the others under the same protocol. Null: no practically meaningful advantage is supported. | Freeze a practical difference margin and primary contrasts before final evaluation. Use paired trial/group uncertainty and multiplicity control. A tie or insufficient evidence is an allowed answer; cost/complexity may select a practical model without proving superiority |
+| **H1 / RQ1** | Command diversity and command-sequence transition entropy improve classification of human-operated versus autonomous-AI APT-like activity compared with a predefined baseline. Null: the predefined contrasts do not support improvement from the specified features. | Freeze the baseline, individual/joint feature contrasts and extraction definitions. Use paired held-out predictions, retrained ablations, grouped uncertainty and multiplicity control; do not infer individual-feature benefit from family importance alone. |
+| **H2 / RQ2** | Logistic regression retains useful behavioral attributes and achieves above-baseline classification performance on previously unseen autonomous-AI configurations and human operators. Null: logistic regression does not show a supported above-baseline benefit on the specified unseen groups. | Freeze logistic regression, baseline, reduced representation and group splits. Test the baseline contrast on unseen human operators and AI configurations; report feature stability, timing/tool ablations and transfer loss separately. Exact decision procedures remain to be frozen. |
+| **H3 / RQ3** | SVM achieves higher trial-level macro-F1 than XGBoost, a decision tree, a random forest and a tabular transformer for human-versus-autonomous-AI classification. Null: SVM superiority over every named comparator is not supported. | Freeze SVM-versus-each-comparator contrasts, practical difference margin and multiplicity procedure. Use paired trial/group uncertainty. H3 requires supported superiority over all four named candidates; ties or insufficient evidence do not support H3. |
 
 **Primary metric:** trial-level macro-F1. **Required secondary metrics:** each class's precision/recall, confusion matrix, AI-label rate on human trials, balanced accuracy and probability calibration where applicable. Report benign AI-label rate separately; a classifier trained only on attack trials is not an intrusion detector. Record training/inference time and compute cost.
 
 Set any acceptable human false-AI-label threshold, transfer-loss margin and minimum important model difference using advisor/operational requirements and pilot precision estimates. Numeric values are unresolved, not fabricated commitments. A result cannot be called a confirmatory hypothesis pass until those decisions are frozen.
+
+## October 24 revision and evidentiary basis
+
+The author approved the wording above on October 24, 2026, after reviewing the October 19 synthetic experiments and October 20 real-archive feasibility screen. These are directional predictions for the prospective study, not results, advisor approval or a retrospective preregistration. Earlier exploratory data informed their selection and cannot independently confirm them. Date and explain later revisions before final evaluation.
+
+- **H1:** Command diversity and command-sequence transition entropy are candidate features motivated by the command/host family's utility in the synthetic experiment. Neither was isolated as an individual winner. Target-side extraction still requires validation; freeze whether the hypothesis requires individual and/or joint improvement.
+- **H2:** Logistic regression transferred at 70.8% and 66.2% group-balanced accuracy between Honey and COCHISE in opposite directions. These exploratory command-only results support a candidate choice, not proof of target-side generalization; source confounding remains substantial.
+- **H3:** SVM transferred at 71.3% and 64.3%, compared with random forest's 60.0% and 56.8%. XGBoost, decision tree and transformer were not tested in that real-archive screen. SVM superiority over them is a prospective prediction, not a demonstrated ranking. These balanced-accuracy observations do not substitute for the primary macro-F1 hypothesis test.
+
+[Real-record feasibility results](experiments/final-praxis-autonomous-ai-apt/pipeline/REAL_FEASIBILITY.md) ? [Synthetic results](experiments/final-praxis-autonomous-ai-apt/pipeline/GROUNDED_RESULTS.md).
+
+The shorter RQ2/RQ3 wording does not remove matched conditions, common feature representations, grouped holdouts, bounded tuning or shortcut controls from the methodology. Transfer-loss margins remain an optional predeclared robustness criterion rather than an unstated condition of the revised H2. No paper or historical result has been rewritten by this revision.
 
 ## Methodology
 

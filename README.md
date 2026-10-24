@@ -60,9 +60,9 @@ This block tracks the current final Praxis. Earlier papers and experiment result
 
 | Research question | Working hypothesis |
 | --- | --- |
-| **RQ1: Feature identification.** Which target-side host/network feature families distinguish human from autonomous-AI activity under matched conditions? | **H1:** At least one predeclared behavioral family improves trial-level macro-F1 over the predefined baseline |
-| **RQ2: Stable attributes and generalization.** Which classifiers retain useful attributes and performance on unseen operators and AI configurations after shortcut controls? | **H2:** At least one classifier remains above baseline with reduced features and stays within the frozen transfer-loss margin |
-| **RQ3: Model comparison.** Which of XGBoost, decision tree, random forest, SVM and FT-Transformer performs best under a common grouped protocol? | **H3:** At least one candidate has a practically meaningful advantage; ties or insufficient evidence remain valid outcomes |
+| **RQ1:** Which target-side host and network behavioral feature families distinguish human-operated from autonomous-AI APT-like trials under matched conditions? | **H1:** Command diversity and command-sequence transition entropy improve classification of human-operated versus autonomous-AI APT-like activity compared with a predefined baseline. |
+| **RQ2:** Which classifiers retain useful behavioral attributes for classification performance on autonomous-AI APT data? | **H2:** Logistic regression retains useful behavioral attributes and achieves above-baseline classification performance on previously unseen autonomous-AI configurations and human operators. |
+| **RQ3:** Among XGBoost, a decision tree, a random forest, SVM and a tabular transformer, which provides the strongest trial-level human-versus-autonomous-AI classification? | **H3:** SVM achieves higher trial-level macro-F1 than XGBoost, a decision tree, a random forest and a tabular transformer for human-versus-autonomous-AI classification. |
 
 [Full RQ/H wording, null hypotheses and decision criteria](PRAXIS_RESEARCH_DESIGN.md#revised-research-questions). These remain working hypotheses until protocol freeze.
 

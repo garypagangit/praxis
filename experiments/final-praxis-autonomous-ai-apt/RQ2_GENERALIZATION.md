@@ -1,10 +1,10 @@
 # EXP-RQ2: stable attributes and generalization
 
-**Status:** draft / not run. **Tracker:** E02, with final confirmation in E04. **Development target:** Nov 6; locked evaluation Nov 7.
+**Status:** prospective matched-study experiment not run; wording approved October 24, 2026. Earlier archive/synthetic screens are exploratory only. **Tracker:** E02, with final confirmation in E04. **Development target:** Nov 6; locked evaluation Nov 7.
 
-**RQ2:** Which classifiers retain useful attributes and predictive performance on unseen humans and attacker AI configurations after timing/tool/setup controls?
+**RQ2:** Which classifiers retain useful behavioral attributes for classification performance on autonomous-AI APT data?
 
-**H2:** At least one frozen classifier remains above the predefined baseline on unseen groups with reduced features, within the acceptable transfer-loss margin. The margin, comparison reference and test procedure remain unresolved until freeze.
+**H2:** Logistic regression retains useful behavioral attributes and achieves above-baseline classification performance on previously unseen autonomous-AI configurations and human operators.
 
 | Element | Method |
 | --- | --- |
@@ -15,7 +15,9 @@
 | Shortcut controls | Exclude collection IDs and runner artifacts; remove timing proxies and tool-derived proxies together with explicit identifiers |
 | Transfer comparison | Use a declared comparable reference population/protocol. Record changes in class mix or difficulty; a score difference across different populations alone is not pure overfitting |
 | Confirmation | Frozen models, thresholds and features; reserved groups never used for selection; report each held-out group as well as aggregates |
-| Acceptance | Positive baseline contrast plus upper uncertainty bound on transfer loss below the frozen margin; stability reported separately |
+| Acceptance | Supported positive logistic-regression baseline contrast on the declared unseen groups; attribute stability reported separately. Any transfer-loss gate must be explicitly frozen as an additional robustness criterion |
 | Limitation | A held-out configuration using a known model family does not establish unseen-family transfer |
 
 Deliver split membership audit, group counts, unseen-group predictions, full/reduced contrasts and stability tables. Report ordinary scripted-control outcomes separately to show whether the model confuses automation with AI; do not quietly relabel controls as humans. [Fillable experiment record](templates/EXPERIMENT_TEMPLATE.md) · [Results record](templates/RESULTS_TEMPLATE.md).
+
+[October 24 hypothesis rationale and revision history](../../PRAXIS_RESEARCH_DESIGN.md#october-24-revision-and-evidentiary-basis). Freeze exact contrasts, baselines and practical margins before final evaluation.

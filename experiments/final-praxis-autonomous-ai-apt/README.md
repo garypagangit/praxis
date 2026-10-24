@@ -41,7 +41,7 @@ The cards share collection and model artifacts. Reusing the same trials for thre
 | Scenario cells, access window, knowledge conditions and counterbalance schedule | Human / AI / Lab | Oct 22 | Unresolved |
 | Sensor loss tolerances and Gate A acceptance | Lab | Oct 23 | Unverified |
 | Exact baseline per H1/H2 contrast and full/reduced feature definitions | Analysis | Oct 26 | Unresolved |
-| H2 reference split, transfer-loss margin and attribute-stability summary | Analysis / Advisor | Oct 26 | Unresolved |
+| H2 logistic-regression baseline contrast, reference split and attribute-stability summary; any additional transfer-loss criterion | Analysis / Advisor | Oct 26 | Unresolved |
 | H3 minimum important difference and human false-AI-label threshold if used for selection | Analysis / Advisor | Oct 26 | Unresolved |
 | Folds, seeds, model versions/search budgets, confidence method and multiplicity family | Analysis | Oct 26 | Unresolved |
 | Test steward, archive location, freeze commit and permitted readers | Gary / Lab | Oct 26 | Unresolved |

@@ -9,7 +9,8 @@
 | RQ/H wording and source commit | TBD |
 | Primary contrasts and baselines per hypothesis | TBD |
 | Primary/secondary metrics and trial roll-up | TBD |
-| H2 transfer-loss definition/reference/margin | TBD |
+| H2 logistic-regression baseline and unseen-group contrast | TBD |
+| Additional transfer-loss definition/reference/margin, if used | TBD |
 | H3 minimum important difference | TBD |
 | Human false-AI-label constraint, if used | TBD |
 | Confidence method, level and independent resampling unit | TBD |
