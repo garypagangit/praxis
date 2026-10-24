@@ -6,9 +6,9 @@
 
 **Final Praxis — Gary Pagan**
 
-[**Open the latest advisor update (PowerPoint)**](Final_Defense_Idea_Advisor_Submission_V003_10242026.pptx)
+[**Open the latest advisor update (PowerPoint)**](Final_Defense_Idea_Advisor_Submission_V002_Updated_10242026.pptx)
 
-Advisor update: **V003, October 24, 2026**. The updated deck uses the current three-RQ design and identifies GOAD with ARTEMIS as the preliminary feasibility case before full collection. Pilot execution and formal findings remain pending. [Original October 16 submission](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx) remains available for history.
+Advisor update: **V002 focused update, October 24, 2026**. This revision preserves V002’s original title and concept. Changes are limited to the current RQs and hypotheses, dataset tables and registry, plus appended GMR and dataset-creation details. The incorrect V003 has been withdrawn. [Original October 16 submission](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx) remains available for history.
 
 ---
 
@@ -50,7 +50,7 @@ The program preserves **positive, negative, mixed, blocked, and diagnostic resul
 
 | Document | Latest version / date | Status | Open document |
 | --- | --- | --- | --- |
-| **GWU PowerPoint ? advisor update** | V003 ? October 24, 2026 | Available ? current RQs/Hs and GOAD/ARTEMIS pilot plan | [Open PowerPoint](Final_Defense_Idea_Advisor_Submission_V003_10242026.pptx) |
+| **GWU PowerPoint ? advisor update** | V002 focused update ? October 24, 2026 | Available ? RQs/Hs, GMR and dataset details | [Open PowerPoint](Final_Defense_Idea_Advisor_Submission_V002_Updated_10242026.pptx) |
 | **Praxis working paper** | October 24, 2026 | Available working draft ? red assumptions and illustrative results; formal experiment pending | [Open Word paper](paper/working-praxis-20261024/Identifying_Autonomous_AI_APT_Working_Praxis.docx) ? [Revision inputs and evidence status](paper/working-praxis-20261024/README.md) |
 | **Final Praxis evidence package** | Pending | Placeholder — validated collection, experiment results and reproducibility package have not been published here | Evidence index and package links will be added when available |
 
