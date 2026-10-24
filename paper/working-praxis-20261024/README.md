@@ -4,11 +4,13 @@
 
 [Open the editable Word paper](Identifying_Autonomous_AI_APT_Working_Praxis.docx)
 
-The 47-page paper follows the official GW online D.Eng. Praxis template structure: introduction, literature review, methodology, results, and discussion/conclusions. It includes 22 tables, 32 equations and two diagrams (collection architecture and graphical model representation).
+The 50-page paper follows the official GW online D.Eng. Praxis template structure: introduction, literature review, methodology, results, and discussion/conclusions. It includes 22 tables, 32 equations and two diagrams (collection architecture and graphical model representation).
 
 Red text identifies assumptions, unresolved inputs, illustrative results and conditional conclusions. Labels preserve that distinction in grayscale. Invented scores are arithmetic reporting examples, not observations or validated forecasts. Existing exploratory results are reported separately. No formal hypothesis is declared supported.
 
 The October 24 author-supplied running notes now inform the methods: shared-walkthrough discretionary execution, a private AWS Windows/AD implementation, recorded Spark/Ollama configuration and full supplied model digests, separate calibration policies, evidence layers, isolation/reset gates and remaining collection acceptance. The notes identify GOAD-informed infrastructure provenance, superseding the earlier Splunk candidate. No completed attack experiment or accepted scored dataset is established. Appendix D records the evidence boundary and source index. Unrelated chat content and credentials are excluded.
+
+The dedication and original acknowledgment names have been restored from the author?s GML paper. Dr. Phillip Reed and Austin Welborn are added. Section 1.2 and the discussion connect the author?s Army Reserve CPT leadership and hunt experience to the needs of SOC analysts and cyber protection teams investigating APT activity.
 
 ## Editing and reproduction
 
@@ -20,7 +22,7 @@ After rebuilding, update Word fields and all tables of contents, save, render an
 
 ## Verification and remaining work
 
-The final Word rendering was reviewed across all 47 pages, including detailed checks of diagrams, equations and results. Tables repeat headers across page boundaries. All seven illustrative confusion matrices total 40 trials; macro-F1 values were independently recalculated and matched. Red formatting was checked in the model result table. There are no fabricated significance tests or confidence intervals.
+The final Word rendering was reviewed across all 50 pages, including detailed checks of diagrams, equations and results. Tables repeat headers across page boundaries. All seven illustrative confusion matrices total 40 trials; macro-F1 values were independently recalculated and matched. Red formatting was checked in the model result table. There are no fabricated significance tests or confidence intervals.
 
 The literature review is a focused source update, not an exhaustive systematic review. Preprint and in-press status are retained. Full-text verification and a further literature update are required before submission. Appendix A identifies replacement evidence; Appendix B records seed and provenance requirements.
 
