@@ -330,4 +330,3 @@ D.save(B/'Identifying_Autonomous_AI_APT_Working_Praxis.docx')
 (B/'manuscript_blocks.json').write_text(json.dumps(blocks,indent=2,ensure_ascii=False),encoding='utf-8')
 (B/'illustration_inputs.json').write_text(json.dumps({'status':'ILLUSTRATIVE_NOT_OBSERVED','primary_trials':120,'test_trials':40,'counts_order':['TN','FP','FN','TP'],'counts':counts,'metrics':metrics},indent=2),encoding='utf-8')
 print('CREATED',len(blocks),'blocks;',sum(len(x.get('text','').split()) for x in blocks),'prose words;',len(D.tables),'tables')
-
