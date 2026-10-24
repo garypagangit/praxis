@@ -6,7 +6,17 @@
 
 **Problem statement:** It remains uncertain which defender-visible host and network behaviors reliably distinguish human-operated from autonomous-AI APT-like activity in a matched multi-host laboratory, and whether classifiers transfer to unseen operators and AI configurations rather than exploiting collection artifacts.
 
-**Working thesis:** Under matched laboratory conditions, target-side behavioral features can support human-versus-autonomous-AI attribution beyond simple baselines, with measurable transfer across held-out operators and AI configurations after controlling timing, tool identifiers and setup artifacts. This is a proposition to test; negative and inconclusive outcomes remain valid.
+**Working thesis:** This study proposes that autonomous AI attacks produce measurable behavioral patterns that distinguish them from human-operated attacks, even when the human operator or AI configuration has not previously been observed. The study will test this proposition using target-side telemetry collected during matched, controlled APT-like laboratory trials.
+
+Prior research provides a foundation for this proposition. Alt (2026) demonstrated behavioral differences among human-driven, traditionally automated, and AI-assisted SSH activity. Ediga and Chattopadhyay (2026) demonstrated that terminal behavior can identify attacker AI model families, while reporting reduced performance on unfamiliar agent scaffolds. These findings motivate the proposed investigation but do not establish that human-versus-autonomous-AI distinctions generalize under the conditions of this study.
+
+**Thesis references (APA 7)**
+
+Alt, A. (2026). *Beyond anomaly detection: Classifying attacker automation level from SSH honeypot behavioral signatures* [Master's thesis, Rochester Institute of Technology]. RIT Scholar Works. [https://repository.rit.edu/theses/12605/](https://repository.rit.edu/theses/12605/)
+
+Ediga, M., & Chattopadhyay, S. (2026). *Trace: Unmasking AI attack agents through terminal behavior fingerprinting* [Preprint]. arXiv. [https://doi.org/10.48550/arXiv.2605.01186](https://doi.org/10.48550/arXiv.2605.01186)
+
+The thesis wording and supporting APA references were approved for publication on October 24, 2026. The thesis remains a proposition to test; negative and inconclusive outcomes remain valid.
 
 The classification target is operator type among defined attack trials. It is not proof of APT identity, intent, campaign attribution or general maliciousness. Benign and scripted activity require separate control reporting. The short project title is retained, while the scientific scope is explicitly controlled APT-like activity.
 
