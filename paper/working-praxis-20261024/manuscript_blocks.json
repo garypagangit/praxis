@@ -199,6 +199,12 @@
   },
   {
     "type": "paragraph",
+    "text": "List of Equations",
+    "red": false,
+    "style": "Heading 1"
+  },
+  {
+    "type": "paragraph",
     "text": "List of Symbols and Acronyms",
     "red": false,
     "style": "Heading 1"
@@ -243,7 +249,7 @@
       ],
       [
         "D, H, Δ",
-        "Command diversity, transition entropy and score difference"
+        "Command diversity, adjacent-pair entropy and score difference"
       ],
       [
         "SVM / RBF",
@@ -1049,7 +1055,7 @@
   },
   {
     "type": "paragraph",
-    "text": "The trial is the primary observation. Normalize target-side command/process tokens using a frozen vocabulary, removing identities and assigned experimental cues. Command diversity is distinct tokens divided by observed tokens. Transition entropy summarizes adjacent token-pair frequencies. Both depend on sequence length; report length and repeat analysis on equal-length prefixes. Missing streams do not have zero diversity, and fewer than two tokens cannot define transition entropy.",
+    "text": "The trial is the primary observation. Normalize target-side command/process tokens using a frozen vocabulary, removing identities and assigned experimental cues. Command diversity is distinct tokens divided by observed tokens. The prespecified draft operationalization of transition entropy is adjacent-pair entropy, defined explicitly below. Both depend on sequence length; report length and repeat analysis on equal-length prefixes. Missing streams do not have zero diversity, and fewer than two tokens cannot define transition entropy.",
     "red": false,
     "style": "Normal"
   },
@@ -1081,7 +1087,7 @@
       ],
       [
         "Entropy H1",
-        "Adjacent-pair Shannon entropy",
+        "Joint Shannon entropy of valid adjacent token pairs",
         "Length eligibility and frozen vocabulary"
       ],
       [
@@ -1115,6 +1121,30 @@
   {
     "type": "paragraph",
     "text": "Imputation, scaling, encoding, clipping and selection are fitted inside training folds. Median imputation requires eligible training observations; zero-variance features need an explicit rule. Trees receive the same information even when scaling is unnecessary. Changing the feature schema creates a new version and requires a full rerun. Feature validity is established before comparing models.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Equation 3.1 Normalized command-token diversity",
+    "red": false,
+    "style": "Equation Caption"
+  },
+  {
+    "type": "paragraph",
+    "text": "Equation 3.2 Adjacent-pair entropy",
+    "red": false,
+    "style": "Equation Caption"
+  },
+  {
+    "type": "paragraph",
+    "text": "In Equations 3.1–3.2, c is a normalized command/process token, N is the eligible token count, n_ab counts adjacent a-to-b pairs and p_ab = n_ab/M, where M is the total number of valid transitions. Count transitions only within intact observed sequences; do not bridge trial boundaries, missing segments or unrelated streams. D is undefined for N = 0 and H_pair is undefined for M = 0. Zero-probability terms contribute zero. The parser, segment policy and minimum length must be frozen before evaluation.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "The draft’s earlier formula is joint entropy of adjacent pairs, not conditional next-token entropy. H_pair measures diversity of observed pairs and is retained as the explicit H1 operationalization pending protocol freeze. Conditional entropy instead uses −Σ_ab p_ab log₂(p_ab/p_a), where p_a = Σ_b p_ab. A deterministic alternating sequence can have positive pair entropy while its conditional entropy is zero. Changing to conditional entropy would be a documented feature revision, not a notation correction (Tse & Viswanath, 2005).",
     "red": false,
     "style": "Normal"
   },
@@ -1162,7 +1192,37 @@
   },
   {
     "type": "paragraph",
+    "text": "Equation 3.3 Weighted soft-margin SVM objective",
+    "red": false,
+    "style": "Equation Caption"
+  },
+  {
+    "type": "paragraph",
+    "text": "Minimize over w, b and nonnegative slack variables ξ_i, subject to t_i(wᵀφ(x_i)+b) ≥ 1−ξ_i, with t_i = 2y_i−1, C > 0 and positive training weights v_i. The bias b is unpenalized. Fix the class/sample weighting and record any normalization because multiplying all weights changes the effective penalty. Use group-aware external calibration if probabilities are required.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Equation 3.4 Radial basis function kernel",
+    "red": false,
+    "style": "Equation Caption"
+  },
+  {
+    "type": "paragraph",
     "text": "A decision tree recursively selects thresholds that improve node purity. A terminal leaf supplies a class distribution or decision. Depth and leaf-size limits constrain complexity. A random forest averages randomized trees to reduce dependence on one partition (Breiman, 2001). Split-gain importance alone cannot establish H1; held-out ablation is required.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Equation 3.5 Gini impurity at a tree node",
+    "red": false,
+    "style": "Equation Caption"
+  },
+  {
+    "type": "paragraph",
+    "text": "Here p_k is the class proportion at the node, including training weights when used. Split improvement subtracts the child-weighted impurity from parent impurity. Appendix E gives the forest average, logistic objective, simplified XGBoost regularizer and one-head attention equation. Their symbols are local to each model and their loss scaling must match the frozen implementation.",
     "red": false,
     "style": "Normal"
   },
@@ -1222,7 +1282,7 @@
   },
   {
     "type": "paragraph",
-    "text": "3.10 Equations and Metrics",
+    "text": "3.10 Evaluation Metrics",
     "red": false,
     "style": "Heading 2"
   },
@@ -1234,181 +1294,33 @@
   },
   {
     "type": "paragraph",
-    "text": "Table 3.7 Equation register",
+    "text": "Equation 3.6 Class-specific F1 scores",
     "red": false,
-    "style": "Table Caption"
+    "style": "Equation Caption"
   },
   {
-    "type": "table",
-    "title": "Table 3.7 Equation register",
-    "headers": [
-      "Eq",
-      "Calculation",
-      "Meaning"
-    ],
-    "rows": [
-      [
-        "1",
-        "m_j = n_missing,j / n",
-        "Missing fraction for feature j"
-      ],
-      [
-        "2",
-        "D = |unique(c_1,…,c_N)| / N",
-        "Command diversity; N > 0"
-      ],
-      [
-        "3",
-        "H = −Σ_ab p_ab log₂(p_ab)",
-        "Transition entropy; adjacent-pair frequencies; N ≥ 2"
-      ],
-      [
-        "4",
-        "IQR = Q_0.75 − Q_0.25; CV = s / mean",
-        "Spread and variation; CV requires a meaningful positive mean"
-      ],
-      [
-        "5",
-        "ρ_s = corr(rank(X),rank(Z))",
-        "Spearman correlation; average ranks for ties"
-      ],
-      [
-        "6",
-        "z_j = (x_j−μ_train,j)/σ_train,j",
-        "Training-only scaling; zero variance handled explicitly"
-      ],
-      [
-        "7",
-        "p(y=1|x) = 1/(1+exp[−(β₀+βᵀx)])",
-        "Logistic probability"
-      ],
-      [
-        "8",
-        "L = −Σ_i w_i[y_i log p_i +(1−y_i)log(1−p_i)] + λ||β||²",
-        "Weighted logistic loss; intercept unpenalized"
-      ],
-      [
-        "9",
-        "min ½||w||²+CΣ_i v_iξ_i; t_i(wᵀφ(x_i)+b) ≥ 1−ξ_i; ξ_i ≥ 0",
-        "Soft-margin SVM; t_i ∈ {−1,+1}; v_i sample weights"
-      ],
-      [
-        "10",
-        "K(x,z) = exp(−γ||x−z||²)",
-        "RBF kernel; tune C and gamma internally"
-      ],
-      [
-        "11",
-        "G = 1−Σ_k p_k²; ΔG = G_parent−Σ_child(n_child/n_parent)G_child",
-        "Gini impurity and split improvement"
-      ],
-      [
-        "12",
-        "p_RF(x) = (1/B)Σ_b p_b(x)",
-        "Average B tree probabilities"
-      ],
-      [
-        "13",
-        "L_XGB = Σ_i l(y_i,Σ_t f_t(x_i)) + Σ_t[γT_t+½λ||w_t||²]",
-        "Additive trees; leaf-count and leaf-weight penalties"
-      ],
-      [
-        "14",
-        "Attention(Q,K,V) = softmax(QKᵀ/√d_k)V",
-        "Feature-token attention"
-      ],
-      [
-        "15",
-        "Precision_AI = TP/(TP+FP); Recall_AI = TP/(TP+FN)",
-        "AI precision and sensitivity"
-      ],
-      [
-        "16",
-        "Specificity_H = TN/(TN+FP); FPR_H = FP/(FP+TN)",
-        "Correct-human and false-AI rates"
-      ],
-      [
-        "17",
-        "F1_AI = 2TP/(2TP+FP+FN); F1_H = 2TN/(2TN+FP+FN)",
-        "Class-specific F1"
-      ],
-      [
-        "18",
-        "MacroF1 = (F1_AI+F1_H)/2; BA = (Recall_AI+Specificity_H)/2",
-        "Primary macro-F1 and balanced accuracy"
-      ],
-      [
-        "19",
-        "Accuracy = (TP+TN)/(TP+TN+FP+FN)",
-        "Overall accuracy"
-      ],
-      [
-        "20",
-        "ROC_AUC = Σ_k (FPR_k−FPR_(k−1))(TPR_k+TPR_(k−1))/2",
-        "Trapezoid integral over sorted ROC points"
-      ],
-      [
-        "21",
-        "AP = Σ_k (Recall_k−Recall_(k−1))Precision_k",
-        "Average precision; step integration, not trapezoidal PR-AUC"
-      ],
-      [
-        "22",
-        "Brier = (1/n)Σ_i(p_i−y_i)²",
-        "Probability loss; lower is better"
-      ],
-      [
-        "23",
-        "w_i ∝ 1/(G_y n_g); normalize each class equally",
-        "Equal group contribution within class"
-      ],
-      [
-        "24",
-        "Δ_j = F1_full−F1_without_j; PI_j = F1_original−mean_b F1_permuted_j,b",
-        "Retrained ablation versus permutation reliance"
-      ],
-      [
-        "25",
-        "Transfer loss = F1_reference−F1_unseen",
-        "Descriptive gap; different populations can contribute"
-      ],
-      [
-        "26",
-        "CI = [quantile_0.025(Δ*),quantile_0.975(Δ*)]",
-        "Paired group-bootstrap percentile interval"
-      ],
-      [
-        "27",
-        "p_perm = (1+#{|Δ*_b| ≥ |Δ_obs|})/(B+1)",
-        "Two-sided paired permutation under justified exchangeability"
-      ],
-      [
-        "28",
-        "p_(k) ≤ α/(m−k+1); stop at first nonrejection",
-        "Holm familywise correction for m contrasts"
-      ],
-      [
-        "29",
-        "J(A,B) = |A∩B|/|A∪B|",
-        "Top-feature-set stability; declare k and tie handling"
-      ],
-      [
-        "30",
-        "D_KS = sup_x |F_dev(x)−F_test(x)|",
-        "Descriptive distribution shift after test unlock"
-      ],
-      [
-        "31",
-        "s = int(SHA256(master|component|fold|repeat)[0:8],16)",
-        "Deterministic 32-bit component seed; literal separators"
-      ],
-      [
-        "32",
-        "Cost = Σ_service usage_service × rate_service",
-        "Measured usage and dated rates"
-      ]
-    ],
-    "red": false
+    "type": "paragraph",
+    "text": "Equation 3.7 Primary trial-level macro-F1",
+    "red": false,
+    "style": "Equation Caption"
+  },
+  {
+    "type": "paragraph",
+    "text": "Equation 3.8 Human false-AI rate",
+    "red": false,
+    "style": "Equation Caption"
+  },
+  {
+    "type": "paragraph",
+    "text": "These are primary unweighted trial metrics: each accepted trial contributes one prediction. The secondary group-balanced analysis uses w_i = 1/(2G_y n_g), sums weighted confusion counts and then applies the same formulas. It is not an average of per-group F1 scores and its weights are not automatically model-training weights. Both classes must be present for the stated two-class comparison. Prespecify undefined-denominator handling and report supports. Balanced accuracy averages AI recall and human specificity, whereas macro-F1 averages the two class F1 values (scikit-learn developers, n.d.-c).",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "The complete calculation register is in Appendix E. Equations 3.1–3.8 show the principal feature, classifier and decision metrics beside their explanations. Appendix identifiers E.1–E.32 provide traceability for all supporting calculations; they are register entries, not extra empirical results.",
+    "red": false,
+    "style": "Normal"
   },
   {
     "type": "paragraph",
@@ -1442,13 +1354,13 @@
   },
   {
     "type": "paragraph",
-    "text": "Table 3.8 Required evidence for success",
+    "text": "Table 3.7 Required evidence for success",
     "red": false,
     "style": "Table Caption"
   },
   {
     "type": "table",
-    "title": "Table 3.8 Required evidence for success",
+    "title": "Table 3.7 Required evidence for success",
     "headers": [
       "Claim",
       "Required evidence",
@@ -1508,7 +1420,7 @@
   },
   {
     "type": "paragraph",
-    "text": "Separate seeds for collection order, partitioning, tuning, fitting, bootstrap, permutation and synthetic generation. Derive component seeds using Equation 31 with UTF-8 encoding and explicit separators. Persist both seed inputs and integers; avoid language-default hash functions. Agent decoding seeds, if supported, are distinct from analysis seeds. Save explicit split manifests rather than trusting a seed to reproduce future library behavior.",
+    "text": "Separate seeds for collection order, partitioning, tuning, fitting, bootstrap, permutation and synthetic generation. Derive component seeds using Appendix E, entry E.31 with UTF-8 encoding and explicit separators. Persist both seed inputs and integers; avoid language-default hash functions. Agent decoding seeds, if supported, are distinct from analysis seeds. Save explicit split manifests rather than trusting a seed to reproduce future library behavior.",
     "red": false,
     "style": "Normal"
   },
@@ -2441,6 +2353,17 @@
   },
   {
     "type": "reference",
+    "text": "Holm, S. (1979). A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics, 6*(2), 65–70. https://www.jstor.org/stable/4615733",
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "reference",
     "text": "Maddaloni, D., Safargalieva, A., & Vasilomanolakis, E. (in press). Honey for the agent: Cyber deception and behavioral fingerprinting of LLM-based attackers. In *Proceedings of the 5th Workshop on Active Defense and Deception*. Springer. https://orbit.dtu.dk/en/publications/honey-for-the-agent-cyber-deception-and-behavioral-fingerprinting/",
     "red": false
   },
@@ -2453,6 +2376,17 @@
   {
     "type": "reference",
     "text": "NVIDIA. (n.d.). *NVIDIA DGX Spark*. Retrieved October 24, 2026, from https://www.nvidia.com/en-us/products/workstations/dgx-spark/",
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "reference",
+    "text": "Orange Cyberdefense. (n.d.). *GOAD* [Computer software]. GitHub. Retrieved October 24, 2026, from https://github.com/Orange-Cyberdefense/GOAD",
     "red": false
   },
   {
@@ -2529,7 +2463,29 @@
   },
   {
     "type": "reference",
-    "text": "Orange Cyberdefense. (n.d.). *GOAD* [Computer software]. GitHub. Retrieved October 24, 2026, from https://github.com/Orange-Cyberdefense/GOAD",
+    "text": "scikit-learn developers. (n.d.-c). *Metrics and scoring: Quantifying the quality of predictions*. Retrieved October 24, 2026, from https://scikit-learn.org/stable/modules/model_evaluation.html",
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "reference",
+    "text": "scikit-learn developers. (n.d.-d). *Linear models: Logistic regression*. Retrieved October 24, 2026, from https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression",
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "reference",
+    "text": "SciPy developers. (n.d.). *Permutation test*. Retrieved October 24, 2026, from https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html",
     "red": false
   },
   {
@@ -2574,6 +2530,17 @@
   {
     "type": "reference",
     "text": "The George Washington University. (n.d.). *Policies and procedures for doctoral programs*. Retrieved October 24, 2026, from https://online.engineering.gwu.edu/policies-procedures-doctoral",
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "reference",
+    "text": "Tse, D., & Viswanath, P. (2005). *Fundamentals of wireless communication* (Appendix B). Cambridge University Press. https://web.stanford.edu/~dntse/Chapters_PDF/Fundamentals_Wireless_Communication_AppendixB.pdf",
     "red": false
   },
   {
@@ -2670,7 +2637,7 @@
   },
   {
     "type": "paragraph",
-    "text": "Equation 31 uses UTF-8 strings with literal separators, such as master|component|fold|repeat. Persist seed strings and derived integers. Sort input enumeration and record deterministic preprocessing. Computational reproduction repeats the analysis on identical evidence; experimental replication repeats collection and may differ.",
+    "text": "Appendix E, entry E.31 uses UTF-8 strings with literal separators, such as master|component|fold|repeat. Persist seed strings and derived integers. Sort input enumeration and record deterministic preprocessing. Computational reproduction repeats the analysis on identical evidence; experimental replication repeats collection and may differ.",
     "red": false,
     "style": "Normal"
   },
@@ -2791,6 +2758,340 @@
   {
     "type": "paragraph",
     "text": "Internal traceability index: 03_experiment_and_data.md; 11_testing_methodology.md; 15_action_ground_truth_and_matched_sequences.md; 16_analytics_enrichment_and_feature_plan.md; 07_logging_and_evidence.md; implementation/SETUP_STATUS.md; implementation/AI_RUN_ISOLATION_AND_CALIBRATION.md; implementation/research/DEVELOPMENT_RUNNER_CHECKPOINT_2026-10-24.txt; and testing-coordinator/IDENTITY_SCENARIO_BUILD_STATUS.md. These are paths reported in the supplied brief, not independently opened or public release links. Final publication must reconcile the underlying records and permissions.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Appendix E Calculation Register and Conventions",
+    "red": false,
+    "style": "Heading 1"
+  },
+  {
+    "type": "paragraph",
+    "text": "This appendix replaces the dense equation table formerly embedded in Section 3.10. The register retains 32 calculations and separates features, model objectives, evaluation, inference and reproducibility. Equations 3.1–3.8 in Chapter 3 display the key formulas in context. Many original formulas were correct; the revision makes domains, weighting, probability definitions and null distributions explicit. It does not alter the approved RQs/Hs or turn illustrative scores into results.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "E.1 Features and preprocessing",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "Table E.1 Feature and preprocessing calculations",
+    "red": false,
+    "style": "Table Caption"
+  },
+  {
+    "type": "table",
+    "title": "Table E.1 Feature and preprocessing calculations",
+    "headers": [
+      "ID",
+      "Calculation",
+      "Definition and conditions"
+    ],
+    "rows": [
+      [
+        "E.1",
+        "m_j = n_missing,j / n_eligible,j",
+        "Missing fraction within a declared eligible partition; denominator > 0."
+      ],
+      [
+        "E.2",
+        "D = |{c₁, …, c_N}| / N",
+        "Normalized command-token diversity; N > 0. Freeze tokenizer and length policy."
+      ],
+      [
+        "E.3",
+        "p_ab = n_ab / M; H_pair = −Σ_(a,b:p_ab>0) p_ab log₂ p_ab",
+        "M counts valid adjacent transitions within sequences; never cross run or missing-segment boundaries. M > 0. Joint pair entropy in bits."
+      ],
+      [
+        "E.4",
+        "IQR = Q₀.₇₅ − Q₀.₂₅; CV = s / x̄",
+        "Pin quantile convention. CV uses sample SD (n−1) and a positive, meaningful mean on a ratio scale."
+      ],
+      [
+        "E.5",
+        "ρ_s = corr(rank(X), rank(Z))",
+        "Paired eligible values, average ranks for ties; undefined for a constant ranked variable."
+      ],
+      [
+        "E.6",
+        "z_j = (x_j − μ_train,j) / σ_train,j",
+        "Fit inside training folds. Pin variance convention; exclude or explicitly handle σ_train,j = 0."
+      ]
+    ],
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "Entropy terminology follows the distinction between joint and conditional entropy in Tse and Viswanath (2005). Token diversity is sensitive to sequence length and tokenization. Missing observations are not assigned zero entropy or zero diversity. Quantiles and scale conventions must match the pinned extraction code.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "E.2 Classifier calculations",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "Table E.2 Model calculations",
+    "red": false,
+    "style": "Table Caption"
+  },
+  {
+    "type": "table",
+    "title": "Table E.2 Model calculations",
+    "headers": [
+      "ID",
+      "Calculation",
+      "Definition and conditions"
+    ],
+    "rows": [
+      [
+        "E.7",
+        "p(y=1|x) = 1/(1+exp[−(β₀+βᵀx)])",
+        "Logistic probability"
+      ],
+      [
+        "E.8",
+        "L = −Σ_i a_i[y_i ln p_i + (1−y_i)ln(1−p_i)] + (λ/2)||β||₂²",
+        "Generic weighted L2 logistic objective; a_i ≥ 0, intercept unpenalized. Solver loss scaling and C-to-λ mapping must match the pinned implementation."
+      ],
+      [
+        "E.9",
+        "min_(w,b,ξ) ½||w||₂² + CΣ_i v_iξ_i; t_i(wᵀφ(x_i)+b) ≥ 1−ξ_i; ξ_i ≥ 0",
+        "C > 0, v_i > 0; t_i = 2y_i−1. Training weights differ from evaluation weights unless explicitly chosen."
+      ],
+      [
+        "E.10",
+        "K(x,z) = exp(−γ||x−z||²)",
+        "RBF kernel; tune C and gamma internally"
+      ],
+      [
+        "E.11",
+        "G = 1−Σ_k p_k²; ΔG = G_parent−Σ_child(n_child/n_parent)G_child",
+        "Gini impurity and split improvement; n denotes sample-weight mass when training weights are used."
+      ],
+      [
+        "E.12",
+        "p_RF(x) = (1/B)Σ_b p_b(x)",
+        "Average B tree probabilities"
+      ],
+      [
+        "E.13",
+        "L = Σ_i ℓ(y_i, f̂_i) + Σ_t[γ_leaf T_t + (λ_leaf/2)||w_t||₂²]",
+        "f̂_i = Σ_t f_t(x_i); T_t is tree leaf count and w_t leaf scores. Simplified XGBoost L2 objective; optional L1 and implementation settings must be recorded."
+      ],
+      [
+        "E.14",
+        "Attention(Q,K,V) = softmax(QKᵀ / √d_k)V",
+        "Row-wise softmax for one scaled attention head; Q/K/V are projected feature embeddings. This is not the full transformer architecture or training loss."
+      ]
+    ],
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "Model references: logistic and implementation conventions (scikit-learn developers, n.d.-d); SVM (Cortes & Vapnik, 1995); trees/forests (Breiman, 2001); XGBoost (Chen & Guestrin, 2016); tabular transformer architecture (Gorishniy et al., 2021). Regularization symbols are model-specific. The register’s λ is not asserted to equal a library C parameter without accounting for loss and weight normalization.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "E.3 Evaluation metrics",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "Table E.3 Evaluation calculations",
+    "red": false,
+    "style": "Table Caption"
+  },
+  {
+    "type": "table",
+    "title": "Table E.3 Evaluation calculations",
+    "headers": [
+      "ID",
+      "Calculation",
+      "Definition and conditions"
+    ],
+    "rows": [
+      [
+        "E.15",
+        "Precision_AI = TP/(TP+FP); Recall_AI = TP/(TP+FN)",
+        "AI precision and sensitivity"
+      ],
+      [
+        "E.16",
+        "Specificity_H = TN/(TN+FP); FPR_H = FP/(FP+TN)",
+        "Correct-human and false-AI rates"
+      ],
+      [
+        "E.17",
+        "F1_AI = 2TP/(2TP+FP+FN); F1_H = 2TN/(2TN+FP+FN)",
+        "Class-specific F1"
+      ],
+      [
+        "E.18",
+        "MacroF1 = (F1_AI+F1_H)/2; BA = (Recall_AI+Specificity_H)/2",
+        "Primary macro-F1 and balanced accuracy"
+      ],
+      [
+        "E.19",
+        "Accuracy = (TP+TN)/(TP+TN+FP+FN)",
+        "Overall accuracy"
+      ],
+      [
+        "E.20",
+        "AUC = Σ_(k=1)^K (u_k−u_(k−1))(v_k+v_(k−1))/2",
+        "u = FPR, v = TPR ordered by threshold with nondecreasing u, tied scores grouped and endpoints included. Both classes required."
+      ],
+      [
+        "E.21",
+        "AP = Σ_(k=1)^K (r_k−r_(k−1))q_k",
+        "Recall r is nondecreasing as threshold falls; r₀ = 0, q = precision. Group tied scores. This is step-weighted AP, not trapezoidal PR-AUC."
+      ],
+      [
+        "E.22",
+        "BS = (1/n)Σ_i(p_i−y_i)²",
+        "Binary Brier score, p_i = P(AI), range [0,1]. Pin the binary normalization in software; do not use raw SVM margins as probabilities."
+      ],
+      [
+        "E.23",
+        "w_i = 1 / (2 G_(y_i) n_(g_i)); Σ_i w_i = 1",
+        "G_y is the number of groups in class y; n_g is that group’s trial count. Applies to class-homogeneous groups. Weighted confusion totals define a separate sensitivity score."
+      ]
+    ],
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "The metric definitions follow scikit-learn developers (n.d.-c). Precision–recall arrays from software may run in decreasing-recall order; reverse or otherwise order them consistently before applying entry E.21. AP and trapezoidal PR-AUC are different summaries. Brier uses binary AI probabilities and the [0,1] normalization. Ordinary metrics are trial-weighted; report weighted sensitivity analyses under their own labels.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "E.4 Comparisons and uncertainty",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "Table E.4 Comparison calculations",
+    "red": false,
+    "style": "Table Caption"
+  },
+  {
+    "type": "table",
+    "title": "Table E.4 Comparison calculations",
+    "headers": [
+      "ID",
+      "Calculation",
+      "Definition and conditions"
+    ],
+    "rows": [
+      [
+        "E.24",
+        "Δ_j = S_full−S_without_j; PI_j = S_original−(1/B)Σ_b S_permuted(j,b)",
+        "S = trial-level macro-F1 on identical eligible evaluation trials. Retrain ablated models; permutation reuses the fitted model. Declare valid permutation blocks."
+      ],
+      [
+        "E.25",
+        "Transfer gap = S_reference−S_unseen",
+        "Descriptive difference between declared evaluation populations; not a paired causal effect or automatically a loss due only to model change."
+      ],
+      [
+        "E.26",
+        "CI₉₅ = [Q₀.₀₂₅(Δ_boot), Q₀.₉₇₅(Δ_boot)]",
+        "Paired cluster bootstrap of fixed-model score differences. Resample independent groups within class; keep all trials and both predictions together. Not a full retraining interval."
+      ],
+      [
+        "E.27",
+        "p_MC = (1 + Σ_(b=1)^B 1{|Δ_perm,b| ≥ |Δ_obs|}) / (B+1)",
+        "Monte Carlo two-sided absolute-statistic convention under a valid paired group-swap null. This null distribution is distinct from Δ_boot. Not the default convention of every library."
+      ],
+      [
+        "E.28",
+        "p_(k) ≤ α / (m−k+1), k = 1,…,m",
+        "Holm step-down: sort p-values ascending, reject sequentially, stop at first failure. Direction and contrast family must be prespecified."
+      ],
+      [
+        "E.29",
+        "J(A,B) = |A∩B| / |A∪B|",
+        "Top-feature sets: freeze set size/ties. Treat an empty union as undefined unless a different convention is declared."
+      ],
+      [
+        "E.30",
+        "D_KS = sup_x |F_dev(x)−F_test(x)|",
+        "Descriptive ECDF difference after test unlock. Ordinary independent-sample KS p-values are not justified by clustered trials."
+      ]
+    ],
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "For entry E.26, define Δ = S_A−S_B on the same held-out trials. Sample independent clusters with replacement within class, preserving all member trials and both models’ predictions, and recompute Δ. The interval is conditional on fixed fitted models. Crossed dependence between operators and scenarios may require a different clustering design; ordinary trial resampling is not a substitute. A small number of independent groups limits inference.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "For entry E.27, the proposed null operation swaps model A/B prediction vectors for an entire valid exchangeable group and recomputes the statistic. It is not a shuffle of individual events and does not reuse bootstrap differences. The absolute-statistic two-sided Monte Carlo convention is explicit; SciPy’s default two-sided tail convention can differ (SciPy developers, n.d.). An exhaustive exact test uses the exact extreme-count proportion, not the Monte Carlo plus-one approximation. Directional hypotheses require a positive observed difference as well as the prespecified inferential criterion. Group-label permutations for negative controls are a separate procedure.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Entry E.28 is the Holm step-down procedure (Holm, 1979). Freeze the comparison family and sidedness before scoring. Unadjusted percentile intervals are descriptive unless simultaneous coverage is explicitly constructed. Feature importance, ablation and transfer gaps answer different questions and should not be interpreted interchangeably.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "E.5 Reproducibility and resource accounting",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "Table E.5 Reproducibility calculations",
+    "red": false,
+    "style": "Table Caption"
+  },
+  {
+    "type": "table",
+    "title": "Table E.5 Reproducibility calculations",
+    "headers": [
+      "ID",
+      "Calculation",
+      "Definition and conditions"
+    ],
+    "rows": [
+      [
+        "E.31",
+        "s = int(SHA256(UTF8(key)).hexdigest()[0:8], 16)",
+        "key = master|component|fold|repeat, using literal separators and fixed text serialization. First eight hexadecimal characters define a 32-bit seed."
+      ],
+      [
+        "E.32",
+        "Cost = Σ_j usage_j × rate_j",
+        "Match service units, currency and dated rates. Report measured resource use separately from estimated cost."
+      ]
+    ],
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "The SHA-256 operation uses the hexadecimal digest string, not the first eight raw bytes. Preserve the exact key and output seed. These entries specify deterministic bookkeeping and resource accounting rather than classifier performance metrics.",
     "red": false,
     "style": "Normal"
   }

@@ -8,7 +8,7 @@
 
 [**Open the latest advisor update (PowerPoint)**](Final_Defense_Idea_Advisor_Submission_V002_Experiment_Update_10242026.pptx)
 
-Advisor update: **V002 experiment-methods update, October 24, 2026**. The title and current RQs/Hs are preserved. The 39-slide deck incorporates the author-supplied implementation notes: the matched walkthrough condition, AWS Windows/AD lab, Spark/model calibration settings, evidence controls and remaining acceptance gates. The paper now has 50 pages and a matching GML-style GMR. These are reported development/calibration observations, not scored experimental results. The incorrect V003 remains withdrawn.
+Advisor update: **V002 experiment-methods update, October 24, 2026**. The title and current RQs/Hs are preserved. The 39-slide deck incorporates the author-supplied implementation notes: the matched walkthrough condition, AWS Windows/AD lab, Spark/model calibration settings, evidence controls and remaining acceptance gates. The paper now has 57 pages and a matching GML-style GMR. These are reported development/calibration observations, not scored experimental results. The incorrect V003 remains withdrawn.
 
 ---
 
