@@ -51,7 +51,7 @@ The program preserves **positive, negative, mixed, blocked, and diagnostic resul
 | Document | Latest version / date | Status | Open document |
 | --- | --- | --- | --- |
 | **GWU PowerPoint — advisor submission** | V001 · October 16, 2026 | Available | [Open PowerPoint](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx) |
-| **Final Praxis paper** | Pending | Placeholder — manuscript for the current matched target-side study has not been published here | Word / PDF links will be added when available |
+| **Praxis working paper** | October 24, 2026 | Available working draft ? red assumptions and illustrative results; formal experiment pending | [Open Word paper](paper/working-praxis-20261024/Identifying_Autonomous_AI_APT_Working_Praxis.docx) ? [Revision inputs and evidence status](paper/working-praxis-20261024/README.md) |
 | **Final Praxis evidence package** | Pending | Placeholder — validated collection, experiment results and reproducibility package have not been published here | Evidence index and package links will be added when available |
 
 This block tracks the current final Praxis. Earlier papers and experiment results elsewhere in the portfolio are historical work. [Current delivery status](PRAXIS_STATUS_TRACKER.md) · [Working research design](PRAXIS_RESEARCH_DESIGN.md) · [Experiment protocol](PRAXIS_EXPERIMENT_PROTOCOL.md).
