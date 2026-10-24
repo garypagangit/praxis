@@ -6,9 +6,9 @@
 
 **Final Praxis — Gary Pagan**
 
-[**Open the latest advisor update (PowerPoint)**](Final_Defense_Idea_Advisor_Submission_V002_Data_Source_10242026.pptx)
+[**Open the latest advisor update (PowerPoint)**](Final_Defense_Idea_Advisor_Submission_V002_GMR_10242026.pptx)
 
-Advisor update: **V002 data-source update, October 24, 2026**. This revision preserves V002’s original title and concept. Changes are limited to the current RQs and hypotheses, dataset tables and registry, plus appended GMR and dataset-creation details. The incorrect V003 has been withdrawn. [Original October 16 submission](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx) remains available for history.
+Advisor update: **V002 data-source and GMR update, October 24, 2026**. This revision preserves V002’s original title and concept. Changes are limited to the current RQs and hypotheses, dataset tables and registry, plus appended GMR and dataset-creation details. The incorrect V003 has been withdrawn. [Original October 16 submission](Final%20Defense%20Idea%20Advisor%20Submission%20V001%2010162026.pptx) remains available for history.
 
 ---
 
@@ -50,7 +50,7 @@ The program preserves **positive, negative, mixed, blocked, and diagnostic resul
 
 | Document | Latest version / date | Status | Open document |
 | --- | --- | --- | --- |
-| **GWU PowerPoint ? advisor update** | V002 data-source update ? October 24, 2026 | Available ? synthetic scenario, collection process, logs and proposed AWS range | [Open PowerPoint](Final_Defense_Idea_Advisor_Submission_V002_Data_Source_10242026.pptx) |
+| **GWU PowerPoint ? advisor update** | V002 data-source and GMR update ? October 24, 2026 | Available ? synthetic scenario, logs, AWS range and GML-paper-style GMR | [Open PowerPoint](Final_Defense_Idea_Advisor_Submission_V002_GMR_10242026.pptx) |
 | **Praxis working paper** | October 24, 2026 | Available working draft ? red assumptions and illustrative results; formal experiment pending | [Open Word paper](paper/working-praxis-20261024/Identifying_Autonomous_AI_APT_Working_Praxis.docx) ? [Revision inputs and evidence status](paper/working-praxis-20261024/README.md) |
 | **Final Praxis evidence package** | Pending | Placeholder — validated collection, experiment results and reproducibility package have not been published here | Evidence index and package links will be added when available |
 
