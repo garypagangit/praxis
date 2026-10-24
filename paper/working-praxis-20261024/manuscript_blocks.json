@@ -179,15 +179,7 @@
       ],
       [
         "GMR / EDA",
-        "Graphical model representation / exploratory data analysis"
-      ],
-      [
-        "A, C, E, Q",
-        "Operator type, task, environment and sensor quality"
-      ],
-      [
-        "B, O, X, y",
-        "Behavior, telemetry, features and true class"
+        "Graphical model of research / exploratory data analysis"
       ],
       [
         "y = 1 / y = 0",
@@ -464,7 +456,7 @@
   },
   {
     "type": "paragraph",
-    "text": "Splunk Attack Range supports reproducible instrumented cloud labs including AWS, with Terraform/Ansible provisioning and optional network visibility (Splunk, n.d.). It is a candidate infrastructure baseline, not evidence of this project’s deployment. Its exact commit, template, modifications and sensors must be recorded to make an implemented range reproducible.",
+    "text": "The October 24 project running notes supersede the earlier Splunk Attack Range proposal. They describe a private AWS Windows/Active Directory implementation informed by GOAD, a vulnerable Active Directory research and training lab (Orange Cyberdefense, n.d.). That repository provides infrastructure provenance, not a human-versus-AI dataset or proof of this project’s deployment configuration. The exact deployed revision and modifications still require a verified manifest.",
     "red": false,
     "style": "Normal"
   },
@@ -565,7 +557,7 @@
   },
   {
     "type": "paragraph",
-    "text": "The study is a proposed controlled matched-trial experiment. A trial is an authorized attempt from a restored range state with an objective, actor, observation budget and outcome record. Events and windows are nested within trials; trials are nested within participants or AI configurations. Human and AI arms receive equivalent access, objectives and allowed tools. Five days describe the collection schedule, not five independent statistical observations.",
+    "text": "The study is a controlled matched-attempt experiment in engineering development and calibration. Under the current protocol, human-only and autonomous-AI operators receive the same frozen walkthrough, objective, permitted scope and tools, initial rights, time budget and stop rules. They retain discretion over commands, order, troubleshooting and allowed alternatives. This tests walkthrough-guided execution rather than prescribed replay or a black-box versus white-box comparison. A trial is an attempt from an accepted reset with a unique run ID. Events and windows are nested within trials and repeated trials within people or AI configurations. Five days remain a proposed collection window, not five independent observations (Project running notes, October 24, 2026; see Appendix D).",
     "red": false,
     "style": "Normal"
   },
@@ -595,8 +587,8 @@
   },
   {
     "type": "paragraph",
-    "text": "DRAFT ASSUMPTION: Candidate range repository: https://github.com/splunk/attack_range. Its exact AWS template, commit, region, images, service inventory and deployment status remain unresolved. The diagram is a proposed architecture.",
-    "red": true,
+    "text": "The supplied October 24 notes report five Windows targets, DC01, DC02, DC03, SRV02 and SRV03, with separate management, operator, evidence and network-sensor components. Private access and a recorded gateway separate participant actions from administration. The current range is AWS Windows/AD, with GOAD-informed provenance; Splunk Attack Range is no longer the implementation baseline. The exact IaC commit, images, topology, installed audit policy and accepted reset record remain to be verified. An AWS identity/services track is broader planning and is not an accepted parallel experimental track.",
+    "red": false,
     "style": "Normal"
   },
   {
@@ -613,8 +605,8 @@
   },
   {
     "type": "paragraph",
-    "text": "DRAFT ASSUMPTION: Provisional roles: gemma4-ablit:latest is primary; huihui_ai/qwen2.5-coder-abliterate:32b is a cross-model comparison. The skills repository, scaffold, full digests, prompts, temperatures, action limits and runtime settings must be supplied and frozen. Human tactical assistance creates an assisted/interrupted record rather than an autonomous one.",
-    "red": true,
+    "text": "The recorded runner work uses ARTEMIS-related supervisor/worker integration and bounded Gemma transport. Gemma is the active calibration path; Qwen remains a candidate comparison whose tool-calling reliability needs qualification. The supplied brief reports benign Gemma tasks through the runner, but neither a marker response nor an installed model establishes accepted autonomous scenario execution. Final model roles, prompts, tools and inference policies must be frozen before collection. Tactical human assistance is recorded and handled under a predefined rule rather than silently retained as autonomous.",
+    "red": false,
     "style": "Normal"
   },
   {
@@ -634,42 +626,78 @@
     "title": "Table 3.1 Configuration and evidence requirements",
     "headers": [
       "Item",
-      "Author supplied or proposed",
+      "Reported October 24 status",
       "Still required"
     ],
     "rows": [
       [
         "Gemma",
-        "gemma4-ablit:latest; 63f914bef7f4; 16 GB",
-        "Full digest, lineage, model card and settings"
+        "25.2B, Q4_K_M; full digest in Appendix D",
+        "Lineage, executable hash and final trial settings"
       ],
       [
         "Qwen",
-        "huihui_ai/qwen2.5-coder-abliterate:32b; 36711483afce; 19 GB",
-        "Full digest, provenance, license and settings"
+        "32.8B, Q4_K_M; benign marker only",
+        "Tool-calling qualification and final role"
       ],
       [
-        "Roles",
-        "Gemma primary; Qwen comparison are assumptions",
-        "Confirm assignment and configuration matrix"
+        "Spark runtime",
+        "ARM64; Python 3.12.3; Ollama 0.32.0",
+        "Verified hardware, OS, driver and runtime inventory"
       ],
       [
-        "Skills and scaffold",
-        "Not supplied",
-        "Repository, immutable commit and skill hashes"
+        "Runner",
+        "ARTEMIS-related integration and bounded transports",
+        "Commit, container, tools, skills and prompt hashes"
       ],
       [
         "Range",
-        "Splunk Attack Range is a candidate",
-        "Template, IaC diff, reset and deployment records"
+        "Private AWS Windows/AD; five named targets",
+        "IaC diff, images, reset and sensor acceptance"
       ],
       [
-        "Sensors",
-        "Proposed host/network collection",
-        "Versions, coverage and clock evidence"
+        "Evidence",
+        "Native logs and separate action records reported",
+        "Coverage, clocks, custody and independent review"
       ]
     ],
     "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "3.2.1 Recorded Configuration and Calibration",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "These implementation details are attributed to the author-supplied AI Human Intrusion Experiment Running Notes for Gary, prepared October 24, 2026. This manuscript has not independently inspected the underlying receipts or host. The record reports ARM64, Python 3.12.3 and Ollama server/CLI 0.32.0 on the DGX Spark. It does not establish the installed GPU/CPU identity, physical memory, storage, OS/kernel, NVIDIA driver, CUDA or Docker versions. Product specifications cannot replace that inventory. Full supplied checkpoint digests and the distinct calibration policies appear in Appendix D.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "The Qwen marker used temperature 0, seed 0, context 4096 and a 32-token output cap, with no tools. It was trial-ineligible and isolation-unaccepted. The newer Gemma transport uses temperature 0, seed 0, output limit 512 and a runtime context-length check of 32768. These are bounded calibration settings, not an experiment-wide freeze. An older Qwen budget separately reserves context 32768, output 4096, request ceiling 16384 bytes and template reserve 8192. Byte ceilings are transport guards, not exact token counts. Reusing a pinned checkpoint does not require reinstalling it for each run, but fresh conversations alone do not establish isolation.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "3.2.2 Development Scenarios and Acceptance Boundary",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "The narrow collection fixture uses a synthetic file objective on SRV02 and an expiring nonadministrator reader. Earlier fixed local access and later restricted remote SMB checks have different capabilities and must remain separate calibration conditions. The notes report encrypted SMB3 reads, native Windows records and sink-hash agreement for bounded administrative checks. Separate identity fixtures include synthetic accounts, an AES service-ticket path, a SQL objective and a constrained authentication share. A reported administrative TGT/TGS calibration was corroborated by events 4768 and 4769 and followed by account disablement and cleanup. These observations validate selected components; they are not participant attacks, independent scored trials or an end-to-end APT campaign.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Human-only participants receive no AI assistance during an attempt. AI-assisted humans and scripted replay are separate categories. The autonomous baseline does not instruct the model to imitate human behavior or conceal automation. Scenario-success criteria are distinct from operator labels. Final participants, attempts, allocation, power rationale, acceptance thresholds and independent-review arrangements remain open. If a scenario informs feature development or tuning, it cannot later be described as untouched held-out evidence.",
+    "red": false,
+    "style": "Normal"
   },
   {
     "type": "paragraph",
@@ -679,19 +707,19 @@
   },
   {
     "type": "paragraph",
-    "text": "Figure 3.2 Graphical model representation of attribution",
+    "text": "Figure 3.2 Graphical model of research in six stages",
     "red": false,
     "style": "Figure Caption"
   },
   {
     "type": "paragraph",
-    "text": "The GMR is a conceptual directed acyclic graph, not a fitted Bayesian network. Operator type A, task C and environment E influence behavior B. Behavior and measurement conditions generate observations O; features X then support prediction. Sensor quality Q affects what is observable. Environment includes tool/access conditions and can influence both behavior and observation. This makes explicit the route by which a classifier could recognize the environment rather than transferable operator behavior.",
+    "text": "The GMR uses the six-stage What, Why and How format from the author?s earlier GML paper. Collection and EDA lead to validation/preprocessing, feature engineering, classifier training, tuning and evaluation. RQ1/H1 concerns behavioral feature contribution, RQ2/H2 concerns transfer across reserved groups and RQ3/H3 concerns a common classifier comparison. This is a research workflow rather than a fitted causal or probabilistic graphical model.",
     "red": false,
     "style": "Normal"
   },
   {
     "type": "paragraph",
-    "text": "Matching C and E reduces systematic arm differences. Canary tests assess Q. Actor/configuration holdouts test recurrence of informative patterns. Timing/tool ablations examine reliance on selected pathways. The graph explains the design but does not identify a causal effect of autonomy from predictive scores. There are no fitted edge weights or causal probabilities to report.",
+    "text": "The matched walkthrough, access and tools reduce systematic arm differences. Coverage and clock tests assess measurement quality. Operator/configuration holdouts test transfer, while timing/tool ablations assess shortcuts. Predictive accuracy does not establish a causal effect of autonomy. Calibration informs the design but is excluded from confirmatory evaluation.",
     "red": false,
     "style": "Normal"
   },
@@ -705,35 +733,35 @@
     "type": "table",
     "title": "Table 3.2 GMR alignment with objectives",
     "headers": [
-      "Path or risk",
+      "Stage",
       "Design response",
       "Output"
     ],
     "rows": [
       [
-        "A to B to O to X",
-        "Matched objectives and shared sensors",
-        "RQ1 feature ablations"
+        "Collection and validation",
+        "Matched walkthrough, resets, independent labels and coverage",
+        "Qualified measured trial dataset"
       ],
       [
-        "E to B and O",
-        "Common access/tools; source probes",
-        "Shortcut audit"
+        "Feature engineering",
+        "Training-only EDA and frozen ablations",
+        "RQ1/H1 evidence"
       ],
       [
-        "Q to O",
-        "Clock, canary and loss checks",
-        "Completeness and loss sensitivity"
+        "Training and transfer",
+        "Person/configuration holdouts and baselines",
+        "RQ2/H2 evidence"
       ],
       [
-        "New actor/configuration",
-        "Group and family holdouts",
-        "RQ2 transfer and stability"
+        "Tuning",
+        "Common group folds and search budgets",
+        "Frozen models"
       ],
       [
-        "X to class prediction",
-        "Same features and tuning limits",
-        "RQ3 scores, errors and cost"
+        "Evaluation",
+        "Locked trial metrics, grouped uncertainty and robustness",
+        "RQ3/H3 and bounded conclusions"
       ]
     ],
     "red": false
@@ -821,6 +849,48 @@
     "type": "paragraph",
     "text": "DRAFT ASSUMPTION: Proposed pilot quality targets: at least 95% canary coverage, no unresolved label ambiguity, and timestamp error no greater than one second for features requiring that resolution. These are unmeasured discussion targets, not guaranteed sensor capabilities. Final gates depend on the chosen instrumentation.",
     "red": true,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "3.5.1 Evidence Layers and Annotation",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "Preserve three evidence layers separately: original model requests/responses and completion metrics; actual agent/tool execution records; and model-service availability or journal logs. A proposed tool call does not prove execution, and service journals need not contain full prompts or tool output. The restricted truth manifest joins run/session/action IDs, controller category, provenance, versioned scope, actual start/end, outcome, intervention and deviation records. Preserve source-native wire bodies and logs before normalization, with SHA-256 manifests, original object identifiers, S3 versions, UTC and monotonic times where available, gaps and transformation lineage.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Reported sources include Windows Security, Sysmon, PowerShell, AD/Kerberos, DNS, SQL/application records, operator actions and relevant AWS telemetry. CloudWatch supports search and health/receipt metadata; protected S3 stores originals. The notes mention a 180-day evidence-review policy, but the deployed retention and deletion rules still require approval and verification. Scoped SMB validation does not establish all-host or all-link packet coverage. Encryption and aggregate flows limit command visibility. Annotation must preserve ambiguous action-event links because timestamp overlap alone does not establish causation.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Dataset acceptance requires protocol review, provenance, sensor coverage, clock checks, reset equivalence, annotation instructions, independent review/adjudication and leakage audits. Hash integrity establishes byte consistency, not scientific validity. Remove hostnames, IPs, operator/model identity, tool banners, dates and orchestration fields from the primary predictor matrix. Restricted action/phase truth supports audit rather than classification. Report benign-control behavior separately from false AI labels on human attack attempts and from scenario success.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "3.5.2 Isolation and Remaining Development Gates",
+    "red": false,
+    "style": "Heading 2"
+  },
+  {
+    "type": "paragraph",
+    "text": "The intended boundary uses separate per-run identities, conversations, workspaces and writable state; restricted broker access; recording outside participant mounts; frozen tool/model versions; no participant access to prior evidence or labels; and accepted target resets. Some container, identity and history separation is reported, but shared model-service process/cache isolation remains unproven. The Docker boundary probe is not accepted because its durable one-run intent guard already existed. That stopped attempt is a failed or incomplete validation, not a passed test. Prior state must be reconciled under the review process.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Before development attack acceptance, complete authenticated container/broker and coordinator integration, current assignment and expiry checks, source registration/delivery, bounded native/network coverage, clock evidence, reset evidence and independent review. A preserved 396-file model-calibration export still awaits exact-payload approval for protected-S3 transfer; backup existence does not establish archive acceptance. After development validation, freeze scenarios, scoring rules and the analysis plan before collecting confirmatory data. Engineering checks remain excluded from locked evaluation.",
+    "red": false,
     "style": "Normal"
   },
   {
@@ -1422,6 +1492,12 @@
     "type": "paragraph",
     "text": "ILLUSTRATIVE RESULTS: Red numbers are invented reporting examples or marked TO COMPUTE. They are not sampling-based estimates or experimental findings. No confidence interval, p-value or hypothesis pass is fabricated.",
     "red": true,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "The October 24 implementation brief reports a private lab, benign model inference and bounded administrative, recording and control checks. It reports no completed attack experiment, accepted scored human-versus-AI trials or comparative attribution accuracy. These engineering observations are a separate evidence class from the earlier archival and numerical feasibility screens below. Their source receipts and independent acceptance remain to be verified.",
+    "red": false,
     "style": "Normal"
   },
   {
@@ -2118,7 +2194,7 @@
   },
   {
     "type": "paragraph",
-    "text": "The intended contribution is a protocol that connects a graphical dependency model to matched collection, defender-side feature extraction, grouped validation and explicit robustness tests. A second intended contribution is a qualified dataset or restricted evidence package with actor provenance and controls. A third is a scope-qualified model/feature comparison. These remain prospective until collection, qualification and appropriate release are completed.",
+    "text": "The intended contribution is a protocol that connects a six-stage graphical research workflow to matched collection, defender-side feature extraction, grouped validation and explicit robustness tests. A second intended contribution is a qualified dataset or restricted evidence package with actor provenance and controls. A third is a scope-qualified model/feature comparison. These remain prospective until collection, qualification and appropriate release are completed.",
     "red": false,
     "style": "Normal"
   },
@@ -2381,6 +2457,17 @@
   },
   {
     "type": "reference",
+    "text": "Orange Cyberdefense. (n.d.). *GOAD* [Computer software]. GitHub. Retrieved October 24, 2026, from https://github.com/Orange-Cyberdefense/GOAD",
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "reference",
     "text": "Splunk. (n.d.). *Attack range* [Computer software]. GitHub. Retrieved October 24, 2026, from https://github.com/splunk/attack_range",
     "red": false
   },
@@ -2536,6 +2623,102 @@
   {
     "type": "paragraph",
     "text": "This working paper uses the official 2026 GW online D.Eng. Praxis template as its style source: Letter pages, 1.25-inch left/right margins, 1-inch top/bottom margins, Times New Roman, 1.5 body spacing, roman preliminary pages and Arabic body numbering. Optional dedication/acknowledgments were omitted. The pending certification wording and red draft annotations are deliberate working-paper deviations. They must be replaced by approved information for the submission copy (The George Washington University, 2025, 2026, n.d.).",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Appendix D October 24 Implementation Record",
+    "red": false,
+    "style": "Heading 1"
+  },
+  {
+    "type": "paragraph",
+    "text": "Source: AI Human Intrusion Experiment Running Notes for Gary, prepared October 24, 2026, supplied by the author in a forwarded project conversation. This is an internal drafting record rather than a peer-reviewed source or independently audited experiment report. The public-facing manuscript incorporates relevant methods and reported status only. Unrelated conversation content, credentials, private connection details and raw participant/model transcripts are excluded. This update supersedes the earlier candidate-range proposal while preserving the current RQs/Hs and all illustrative-result labels.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Recorded Gemma checkpoint: gemma4-ablit:latest. Full supplied digest:",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "63f914bef7f4b2e3a21c288117af0f63739c86a690eaa4df99ff67bd23b728e8",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Recorded Qwen checkpoint: huihui_ai/qwen2.5-coder-abliterate:32b. Full supplied digest:",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "36711483afce84c358c9d7aa193c9ad3e6c2358fadccfddf7dbf2082f0808ceb",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "The digests identify the supplied artifacts but do not verify lineage, modification method, licensing or capability. Temperature and seed zero are calibration settings; the analysis master seed and split/repeat seeds remain distinct prospective parameters. A repeated seed does not prove isolation or identical agent actions.",
+    "red": false,
+    "style": "Normal"
+  },
+  {
+    "type": "paragraph",
+    "text": "Table D.1 Implementation evidence and unresolved gates",
+    "red": false,
+    "style": "Table Caption"
+  },
+  {
+    "type": "table",
+    "title": "Table D.1 Implementation evidence and unresolved gates",
+    "headers": [
+      "Area",
+      "Reported evidence",
+      "Not yet established"
+    ],
+    "rows": [
+      [
+        "Lab",
+        "Private AWS Windows/AD and bounded administrative checks",
+        "Accepted participant lifecycle and reset equivalence"
+      ],
+      [
+        "Inference",
+        "Benign Qwen marker and bounded Gemma transport",
+        "Accepted autonomous scenario execution"
+      ],
+      [
+        "Recording",
+        "Model/tool records and integrity checks",
+        "Complete target/network coverage and causal action links"
+      ],
+      [
+        "Isolation",
+        "Per-run containers, identities and histories in tested paths",
+        "Shared service/cache isolation and Docker boundary acceptance"
+      ],
+      [
+        "Archive",
+        "Source backup and preserved calibration export",
+        "Protected-S3 transfer acceptance for the 396-file export"
+      ],
+      [
+        "Evaluation",
+        "Planned grouped run-level analysis",
+        "Scored trials, comparison metrics or H1–H3 decisions"
+      ]
+    ],
+    "red": false
+  },
+  {
+    "type": "paragraph",
+    "text": "Internal traceability index: 03_experiment_and_data.md; 11_testing_methodology.md; 15_action_ground_truth_and_matched_sequences.md; 16_analytics_enrichment_and_feature_plan.md; 07_logging_and_evidence.md; implementation/SETUP_STATUS.md; implementation/AI_RUN_ISOLATION_AND_CALIBRATION.md; implementation/research/DEVELOPMENT_RUNNER_CHECKPOINT_2026-10-24.txt; and testing-coordinator/IDENTITY_SCENARIO_BUILD_STATUS.md. These are paths reported in the supplied brief, not independently opened or public release links. Final publication must reconcile the underlying records and permissions.",
     "red": false,
     "style": "Normal"
   }
