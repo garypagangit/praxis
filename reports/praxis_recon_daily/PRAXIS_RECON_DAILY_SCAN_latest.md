@@ -1,6 +1,6 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-10-31 15:54 UTC
+Generated: 2026-11-01 16:56 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
 New flagged works: 6
@@ -9,120 +9,120 @@ New flagged works: 6
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 12 | Provenance-aware tool-boundary monitoring | 2026-10-29 | Artificial intelligence-assisted art therapy in digital psychiatry: Clinical applications, mechanisms, and ethics | World Journal of Psychiatry | [source](https://doi.org/10.5498/wjp.125040) |
-| 2 | 7 | Adaptive evaluation of deterministic agent defenses | 2026-10-29 | MutQA: A Cross-Validated Q&A Dataset for Genetic Mutations | bioRxiv (Cold Spring Harbor Laboratory) | [source](https://doi.org/10.64898/2026.10.27.762236) |
-| 3 | 6 | Source-locked citation and hallucination verification | 2026-10-30 | Narrative theory-driven LLM methods for automatic story generation and understanding: a survey | Artificial Intelligence Review | [source](https://doi.org/10.1007/s10462-026-11717-0) |
-| 4 | 5 | Adaptive evaluation of deterministic agent defenses | 2026-10-30 | BAg-IDS: A Blockchain-Enabled Agentic AI Architecture for Trustworthy Intrusion Detection | Research Square | [source](https://doi.org/10.21203/rs.3.rs-10843028/v1) |
-| 5 | 2 | Adaptive evaluation of deterministic agent defenses | 2026-10-29 | Sources of Risk in AI Systems Revisited: FCAIR-O, a Faceted Causal Framework and Lightweight Ontology for Risk Management and Assurance | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11331305/v1) |
-| 6 | 2 | Adaptive evaluation of deterministic agent defenses | 2026-10-29 | The MAL Simulator: Cyber Operations Simulation based on Attack & Defense Graphs | Research Square | [source](https://doi.org/10.21203/rs.3.rs-10888395/v1) |
+| 1 | 8 | Source-locked citation and hallucination verification | 2026-10-31 | EVLncRNAs 4.0: an updated database of experimentally validated functional long non-coding RNAs with evidence-grounded AI access | Nucleic Acids Research | [source](https://doi.org/10.1093/nar/gkag1111) |
+| 2 | 7 | Adaptive evaluation of deterministic agent defenses | 2026-10-30 | Auditing Indirect Prompt Injection Evaluation with an Output Contract | Journal of Computer Science and Artificial Intelligence | [source](https://doi.org/10.54097/wkptse84) |
+| 3 | 7 | Adaptive evaluation of deterministic agent defenses | 2026-10-30 | Safety-constrained and runtime-assured LLM multi-agent decision making for intelligent vehicle systems | PLoS ONE | [source](https://doi.org/10.1371/journal.pone.0357928) |
+| 4 | 4 | Provenance-aware tool-boundary monitoring | 2026-10-30 | The Digital Demon: a Cartesian challenge for AI alignment | AI and Ethics | [source](https://doi.org/10.1007/s43681-026-01435-2) |
+| 5 | 2 | Agentic package hallucination and tool-boundary gates | 2026-10-31 | Bridging the AI governance gap: systematic weaknesses and targeted solutions in financial model risk management | Journal of Banking Regulation | [source](https://doi.org/10.1057/s41261-026-00371-9) |
+| 6 | 2 | Source-locked citation and hallucination verification | 2026-10-30 | Open Ontology of Polymer Chemistry: Accumulation and Self-Improving Memory Mechanisms for Polymer Research | ChemRxiv | [source](https://doi.org/10.26434/chemrxiv.15011333/v1) |
 
 ## Triage Notes
 
-### 1. Artificial intelligence-assisted art therapy in digital psychiatry: Clinical applications, mechanisms, and ethics
-
-- Topic: Provenance-aware tool-boundary monitoring
-- Authors: Ke Meng, Mingzhi Hou, Heeju Chae
-- Published: 2026-10-29
-- Venue/type: World Journal of Psychiatry / article
-- DOI: https://doi.org/10.5498/wjp.125040
-- URL: https://doi.org/10.5498/wjp.125040
-- Opportunity score: 12
-- Matched tags: future research, provenance, safety
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> Artificial intelligence-assisted art therapy should be understood as a therapistmediated extension of creative practice rather than an autonomous treatment.This structured narrative review synthesizes eleven directly relevant publications, including preliminary patient studies and adjacent creative-activity research, alongside transferable evidence from art therapy, conversational artificial intelligence, digital psychiatry, immersive technologies, affective computing, social robotics, and health-care artificial intelligence ethics.Direct patient-level evidence remains limited and heterogeneous, with mixed, domain-specific findings that do not establish general efficacy, comparative effectiveness, or safety; clinicianperspective evidence is limited, and most proposed applications and mechanisms derive from conceptual or transferable evidence.We therefore distinguish artificial intelligence used in visual creation, therapeutic dialogue or documentation, behavioral or emotional inference, and immersive or embodied interaction, and separate professional art therapy from broader digital creative activity.Supervised image-making, reflective preparation, patient-selected monitoring, and recoveryoriented follow-up are candidate uses for prospective research.The proposed taxonomy, pathway, risk framework, mechanisms, and safeguards are conceptual, research-oriented, provisional, and no
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 2. MutQA: A Cross-Validated Q&A Dataset for Genetic Mutations
-
-- Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Robert McCourt, David Arredondo, Oladimeji Macaulay, Shrey Poshiya, et al.
-- Published: 2026-10-29
-- Venue/type: bioRxiv (Cold Spring Harbor Laboratory) / preprint
-- DOI: https://doi.org/10.64898/2026.10.27.762236
-- URL: https://doi.org/10.64898/2026.10.27.762236
-- Opportunity score: 7
-- Matched tags: benchmark, dataset, evaluation
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> We introduce MutQA, a dataset of 330,387 citation-grounded question-answer (QA) pairs linking genetic mutations to their functional consequences as described in the biomedical literature. Each record pairs a protein-coding mutation with a natural-language question and an evidence-backed answer anchored to sentences in one of 27,442 open-access PubMed Central articles, spanning 6,620 genes and 125,593 gene-variant pairs. The dataset is constructed using CrossValQA, a framework that enforces information isolation between independent LLMs: one model generates QA pairs from an article, a second model answers the same question without access to the first model's response, and a third model judges whether each model's rationale supports the other's answer, so that retained QA pairs are reproducible from the source text rather than hallucinated. Of 401,406 audited QA pairs, 82.7% pass both directions of this cross-validation; those with a recoverable reference protein sequence form the released benchmark. In a 999-pair stratified audit, two expert annotators agree exactly on 86.4% of cross-validated QA pairs (95% CI 83.7-89.0; n = 638), a tier in which about 90% of ratings are "correct". Individual LLM judges agree with individual annotators at a comparable 87.0% on this tier but far less on QA pairs that fail cross-validation. Fine-tuning MutaPLM on MutQA nearly doubles its mean LLM-
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 3. Narrative theory-driven LLM methods for automatic story generation and understanding: a survey
+### 1. EVLncRNAs 4.0: an updated database of experimentally validated functional long non-coding RNAs with evidence-grounded AI access
 
 - Topic: Source-locked citation and hallucination verification
-- Authors: David Y. Liu, Aditya Joshi, Paul A. Dawson
-- Published: 2026-10-30
-- Venue/type: Artificial Intelligence Review / article
-- DOI: https://doi.org/10.1007/s10462-026-11717-0
-- URL: https://doi.org/10.1007/s10462-026-11717-0
-- Opportunity score: 6
-- Matched tags: benchmark
+- Authors: Bailing Zhou, 季葆华, Zhiwei Li, Zhenghua LI, et al.
+- Published: 2026-10-31
+- Venue/type: Nucleic Acids Research / article
+- DOI: https://doi.org/10.1093/nar/gkag1111
+- URL: https://doi.org/10.1093/nar/gkag1111
+- Opportunity score: 8
+- Matched tags: benchmark, evaluation
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Applications of narrative theories using large language models (LLMs) deliver promising methods in automatic story generation and understanding tasks. Our survey examines how natural language processing (NLP) research uses LLM methods to engage with diverse concepts from narrative studies. We use established distinctions from narratology to categorise ongoing efforts and discover the following: (a) narrative texts come from diverse sources beyond just literature, (b) theoretical synthesis and validation are potential outcomes, (c) generation tasks lag behind understanding in several ways: theoretical application, post-training methods, exploring non-fiction narratives and addressing narrative levels beyond fabula and discourse. For future directions, instead of the pursuit of a single, generalised benchmark for ‘narrative quality’, we believe that progress can benefit from efforts that focus on the following: defining and improving theory-based metrics for individual narrative attributes; continue conducting large-scale, theory-driven literary/social/cultural analysis; generating narratives in situated contexts; and continuing experiments where outputs can be used to validate or refine narrative theories. This work provides a contextual foundation for more systematic and theoretically informed narrative research in NLP by providing an overview to ongoing research effor
+> Long non-coding RNAs (lncRNAs) have diverse biological functions, but experimentally validated evidence remains scattered across the literature and is often context dependent. EVLncRNAs 4.0 (https://www.sdklab-biophysics-dzu.net/EVLncRNAs4/) updates our manually curated database of functional lncRNAs supported by low-throughput experiments. For this release, 16 581 publications indexed between 15 May 2023 and 15 May 2026 were retrieved and manually screened. Compared with EVLncRNAs 3.0, EVLncRNAs 4.0 contains 7808 functional lncRNAs (+26%) from 199 species (+23%), 2313 diseases (+34%), 28 757 curated functional records (+21%), and 18 380 molecular interactions (+25%). EVLncRNAs 4.0 also introduces two AI-assisted functions built on the curated evidence base. AI Search uses an enhanced retrieval-augmented generation framework with adaptive selection across Quick, Expanded, and Exhaustive retrieval modes and generates answers from retrieved EVLncRNAs records with PMID-linked citations. Benchmark evaluation showed complete request execution, high retrieval coverage and full citation validity within the supplied evidence context. Functional Overview retrieves and aggregates lncRNA- and species-specific curated records before generating concise evidence-based summaries. In both functions, language models synthesize retrieved evidence rather than serve as independent sources of biolo
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 4. BAg-IDS: A Blockchain-Enabled Agentic AI Architecture for Trustworthy Intrusion Detection
+### 2. Auditing Indirect Prompt Injection Evaluation with an Output Contract
 
 - Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Mohamed Ala Eddine BAHRI, Farah Jemili, Mohamed MOSBAH
+- Authors: Wengrong Zhang, Mengya Hu, Zhenhan Tang, Zhouguangyu Chen, et al.
 - Published: 2026-10-30
-- Venue/type: Research Square / preprint
-- DOI: https://doi.org/10.21203/rs.3.rs-10843028/v1
-- URL: https://doi.org/10.21203/rs.3.rs-10843028/v1
-- Opportunity score: 5
-- Matched tags: agent, benchmark
+- Venue/type: Journal of Computer Science and Artificial Intelligence / article
+- DOI: https://doi.org/10.54097/wkptse84
+- URL: https://doi.org/10.54097/wkptse84
+- Opportunity score: 7
+- Matched tags: benchmark, evaluation, safety
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Learning-based intrusion detection produces verdicts operators must simply trust: the audit record is mutable and no independent party endorses the decision. We present BAg-IDS, a distributed detection architecture in which autonomous agents detect, independently re-check, and co-sign every remediation-triggering verdict on a Hyperledger Fabric ledger before it is acted upon, placing certification on the decision path rather than in an after-the-fact log. A calibrated, reliability-weighted ensemble with a reject option feeds the quorum; language-model and governed human-in-the-loop tiers handle escalation. The full stack is implemented and every number measured. Selective certification raises accuracy from 96.6% to 99.7% (0.04% false-positive rate) at 87.3% coverage on CICIDS2017, and reaches 99.98% on the independent GeNIS 2025 corpus while deferring 0.14% of flows. A 360-alert benchmark shows the ~ 2 s consensus latency is structural: one write per key per block forces K votes across at least K blocks, a bound no submission strategy removes.
+> Automated prompt-injection evaluation can confuse the occurrence of attack-related text with completion of an application-specific objective. This study audits that distinction in a question-answering application returning separate answer and evidence fields. The reference event is exact equality between the decoded answer and a harmless target marker, with invalid output reported separately. A controlled pilot comprises 144 generated responses and 192 constructed diagnostic fixtures. A prospectively frozen extension uses 80 distinct public email and table documents, deterministic retrieval, three local model packages, 624 target calls and 288 individual judge calls. In the extension's 240 main attacked responses, 239 satisfy the structural contract and 52 complete the exact overwrite objective. Whole-response exact occurrence returns 53 positives, including 1 false positives on valid reference-negative responses; answer-only fuzzy matching returns 60 positives, including 8 such false positives. The main extension does not reproduce the pilot's large whole-response excess. The audit distinguishes evidence quotation, longer or approximate marker answers, and short-answer partial matches. Paired quotation instructions and parser-assisted judge inputs provide additional diagnostic comparisons, with actual compliance and reference-class balance reported. For 48 presampled candidate
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 5. Sources of Risk in AI Systems Revisited: FCAIR-O, a Faceted Causal Framework and Lightweight Ontology for Risk Management and Assurance
+### 3. Safety-constrained and runtime-assured LLM multi-agent decision making for intelligent vehicle systems
 
 - Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Moritz Schneider, André Steimers
-- Published: 2026-10-29
-- Venue/type: Research Square / preprint
-- DOI: https://doi.org/10.21203/rs.3.rs-11331305/v1
-- URL: https://doi.org/10.21203/rs.3.rs-11331305/v1
+- Authors: Wei Dang, Lijun Gao
+- Published: 2026-10-30
+- Venue/type: PLoS ONE / article
+- DOI: https://doi.org/10.1371/journal.pone.0357928
+- URL: https://doi.org/10.1371/journal.pone.0357928
+- Opportunity score: 7
+- Matched tags: agent, benchmark, safety
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> Large language models offer flexible semantic reasoning for intelligent-vehicle interfaces, but probabilistic outputs, multi-agent disagreement, and provider failures complicate safety-sensitive use. We developed SCI-Proposed-v1.0, a lightweight multi-agent semantic decision architecture that combines transparent risk-informed routing with an independent Safety Validator and deterministic local Runtime Fallback. The system produces canonical semantic actions rather than trajectories or direct vehicle-control commands. In a frozen confirmatory benchmark of 150 unseen Base Scenarios, each represented by three reviewed language variants, SCI-Proposed completed 360/450 inputs (80.0%), compared with 169/450 (37.6%) for EI-MAS and 155/450 (34.4%) for a Single LLM. Language variants were treated as repeated observations within each Base Scenario, and all methods used the same frozen model configuration. Base-scenario paired differences were 0.4244 (95% confidence interval, 0.3489-0.5000; p < 0.001) and 0.4556 (95% confidence interval, 0.3800-0.5311; p < 0.001), respectively. Complete Safety Requirement Satisfaction was 316/360 (87.8%) versus 101/360 (28.1%) for EI-MAS. In frozen ablation, removing the Safety Validator reduced its prespecified endpoint by 0.2767 (p < 0.001), and removing Runtime Fallback reduced represented-failure recovery by 0.3667 (p = 0.00195). Exact three-of-three
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 4. The Digital Demon: a Cartesian challenge for AI alignment
+
+- Topic: Provenance-aware tool-boundary monitoring
+- Authors: Viggo Tellefsen Wivestad
+- Published: 2026-10-30
+- Venue/type: AI and Ethics / article
+- DOI: https://doi.org/10.1007/s43681-026-01435-2
+- URL: https://doi.org/10.1007/s43681-026-01435-2
+- Opportunity score: 4
+- Matched tags: alignment, safety
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> AI alignment is commonly understood as making artificial intelligence systems act in accordance with human intentions and values. This paper argues that such alignment is insufficient when understood only within a bounded and trusted system interface. A model or AI system may be aligned relative to its inputs and action space, yet still produce harmful outcomes if the interface between the system and the world is adversarially controlled. I introduce the Digital Demon, a software-based analogue of Descartes’s Evil Demon, to conceptualize this risk. Its mechanism is adversarial semantic mediation: an outer-to-inner mapping redescribes a harmful external situation as a benign task the inner AI system will cooperate with, while an inner-to-outer mapping remaps the system’s locally appropriate action into harmful external effects. The result is adversarial world-shifting under local coherence: the system can reason correctly, and even ethically, within a fabricated environment while contributing to harm in the real one. I distinguish boundary-relative alignment from world alignment. The former concerns whether a model or AI system satisfies alignment or safety requirements within a specified trusted boundary. The latter concerns whether those requirements transfer to the external world in which actions take effect. Two proof-of-concept demonstrations illustrate this vulnerability. 
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 5. Bridging the AI governance gap: systematic weaknesses and targeted solutions in financial model risk management
+
+- Topic: Agentic package hallucination and tool-boundary gates
+- Authors: Patrick Spitzer, Peter N. Posch
+- Published: 2026-10-31
+- Venue/type: Journal of Banking Regulation / article
+- DOI: https://doi.org/10.1057/s41261-026-00371-9
+- URL: https://doi.org/10.1057/s41261-026-00371-9
 - Opportunity score: 2
-- Matched tags: security
+- Matched tags: recurrent
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Artificial-intelligence risk frameworks often combine causal sources, vulnerabilities, failure modes, harms, desired properties, controls, evidence, and legal classifications within the same lists. This role conflation obscures mechanisms, intervention points, and responsibility. As the conceptual successor to Steimers and Schneider (2022), this article retains intended purpose, reasonably foreseeable misuse, the protective-measure hierarchy, residual risk including control-induced risk, and post-market observation. It reassesses their eight-category taxonomy through a critical integrative conceptual synthesis supported by an access-limited evidence map, best-fit framework synthesis, legal and standards analysis, and an explicit design audit trail covering material available through 25 July 2026. The resulting Faceted Causal AI Risk and Assurance Ontology (FCAIR-O v1.2.1) is a conceptual framework implemented as a lightweight ontology and controlled concept scheme. It comprises a twelve-node causal and assurance backbone, eight orthogonal facets, twelve parent causal-source classes, and 74 operational causal leaves within 221 versioned concept identifiers. Five design-oriented theoretical propositions require ontological role separation, mechanistic traceability, multi-level causality, control-evidence coupling, and distinct normative and epistemic boundaries. Fairness
+> Abstract Financial institutions increasingly deploy artificial intelligence (AI) models for critical decisions, yet traditional Model Risk Management (MRM) frameworks struggle to address AI-specific risks, including opacity, adaptive behaviour, and fairness, conduct, and accountability concerns. Based on a structured review of regulatory guidance, academic literature, and industry commentary, this study identifies twelve recurrent weaknesses in current AI model governance across MRM lifecycle domains, including governance and organisation, scope and model inventory, third-party models, model development and validation, deployment and monitoring, and change management. Key gaps include inadequate stakeholder identification due to the expanded scope of model use beyond traditional risk functions, insufficient AI-specific validation methods requiring hybrid outcome- and process-based approaches, and monitoring frameworks that are insufficiently adapted to dynamic AI models. We propose targeted governance enhancements aligned with emerging regulatory frameworks and supervisory guidance, including the EU AI Act, the European Central Bank’s Guide to internal models, and the United Kingdom Prudential Regulation Authority’s Supervisory Statement SS1/23. These enhancements include clarifying model definitions, incorporating AI-specific tiering criteria, and establishing vendor governanc
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 6. The MAL Simulator: Cyber Operations Simulation based on Attack & Defense Graphs
+### 6. Open Ontology of Polymer Chemistry: Accumulation and Self-Improving Memory Mechanisms for Polymer Research
 
-- Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Jakob Nyberg, Sandor Berglund, Andrei Buhaiu, Joakim Loxdal, et al.
-- Published: 2026-10-29
-- Venue/type: Research Square / preprint
-- DOI: https://doi.org/10.21203/rs.3.rs-10888395/v1
-- URL: https://doi.org/10.21203/rs.3.rs-10888395/v1
+- Topic: Source-locked citation and hallucination verification
+- Authors: Brett Matthew Savoie
+- Published: 2026-10-30
+- Venue/type: ChemRxiv / preprint
+- DOI: https://doi.org/10.26434/chemrxiv.15011333/v1
+- URL: https://doi.org/10.26434/chemrxiv.15011333/v1
 - Opportunity score: 2
 - Matched tags: agent
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract We have developed the MAL Simulator, a cyber operation simulator based on the Meta Attack Language (MAL). The MAL Simulator is intended for decision-driven cyber attack and defense simulations, for system analysis and the development of automated agents. By building the simulator around an attack modeling language, it can be adapted to different target domains without modifying the source code. We used the simulator for two case studies where we trained two types of agents for automated cyber operations: a defensive agent and an offensive agent. To ground the experiments, we base the models in data collected from an emulated network implemented in the cyber range CRATE. We found that the trained attacker policy could reach the designated targets more efficiently than the compared search methods, and that the trained defender agent induced lower costs than a naive heuristic agent under noisy alert conditions. When testing the RL attacker against the RL defender, we found that the performance of the defenders dropped significantly. This emphasizes the importance of cyber attack simulators to facilitate training both offensive and defensive agents. The MAL Simulator and associated tooling is publicly available and provides common interfaces for compatibility with existing machine learning frameworks.
+> Memory systems for AI agents are a valuable component of long-running workflows. They are also a strong form of lock-in for model providers, because the memory system that makes a model better with use may be inaccesible to users. An ideal memory system would accumulate both factual knowledge and the relationships of that knowledge to recurring tasks performed by the researcher. People accumulate particular and general knowledge through experience, the latter often through periodic reflection on what is working and isn’t working at a higher level of abstraction. Here, we introduce an open-source harness for polymer research meant to heuristically mimic (i) knowledge accumulation across research tasks, (ii) the review of new knowledge against existing knowledge, and (iii) performing periodic updates to task-knowledge relationships through reflection. The system, which we call the Open Ontology of Polymer Chemistry (OOPC, pronounced ‘oopsie’), is initialized with a knowledge base consisting of an open-source wikipedia with entries for most known polymers. From this starting point, the knowledge base was enriched by running a 1,092 task campaign across different areas of polymer chemistry, producing 8,899 distinct findings extracted from 1,679 sources on 157 different polymers. GPT-6.1 Sol and Opus 5.5 comparisons were run with and without the accumulated memory from this campaign
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
