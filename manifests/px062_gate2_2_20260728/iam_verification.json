@@ -1,0 +1,19 @@
+{
+  "schema_version": "px062-gate2.2-iam-verification-v1",
+  "verified_at_utc": "2026-07-28T16:54:18.2905696Z",
+  "aws_account": "272615233626",
+  "region": "us-east-1",
+  "execution_role_arn": "arn:aws:iam::272615233626:role/service-role/AmazonSageMaker-ExecutionRole-20260416T191047",
+  "inline_policy_name": "PraxisPX062Gate22S3Access",
+  "policy_file": "configs/aws_px062_gate2_2_sagemaker_s3_policy_20260728.json",
+  "policy_sha256": "82106aee26ea243cc5f8a9caf0473169ce883a09ffa6ae14974e8698c3efd18d",
+  "simulation": {
+    "source_get_object": "allowed",
+    "output_put_object": "allowed",
+    "output_delete_object": "implicitDeny",
+    "unrelated_get_object": "implicitDeny"
+  },
+  "bucket_versioning": "Enabled",
+  "in_progress_training_jobs_at_verification": 0,
+  "interpretation": "The SageMaker role can read only the new Gate 2.2 code prefix and write only the new Gate 2.2 output prefix. Delete and unrelated-object access remain denied. This is infrastructure readiness, not a scientific result."
+}
