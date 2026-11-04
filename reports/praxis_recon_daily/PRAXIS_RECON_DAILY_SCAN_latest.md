@@ -1,6 +1,6 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-11-03 18:06 UTC
+Generated: 2026-11-04 18:16 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
 New flagged works: 3
@@ -9,63 +9,63 @@ New flagged works: 3
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 10 | Agentic package hallucination and tool-boundary gates | 2026-11-01 | Generative AI and Its Impact on Software Development | INTERANTIONAL JOURNAL OF SCIENTIFIC RESEARCH IN ENGINEERING AND MANAGEMENT | [source](https://doi.org/10.55041/ijsrem68679) |
-| 2 | 9 | Agentic package hallucination and tool-boundary gates | 2026-11-02 | A Survey of LLM-based Software Repair: Taxonomies, Design Paradigms, and Applications | ACM Transactions on Software Engineering and Methodology | [source](https://doi.org/10.1145/3845995) |
-| 3 | 4 | Adaptive evaluation of deterministic agent defenses | 2026-11-02 | BiCP: Reasoning-Prefix Deconfounding for Dual-Axis Counterfactual Probing and Operation-Risk Routing | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11536275/v1) |
+| 1 | 7 | Adaptive evaluation of deterministic agent defenses | 2026-11-03 | Fully homomorphic encryption on LlaMA 3 model for partial privacy preserving LLM inference | Journal of Systems Architecture | [source](https://doi.org/10.1016/j.sysarc.2026.104040) |
+| 2 | 4 | Agentic package hallucination and tool-boundary gates | 2026-11-03 | Developing LLM-based multi-agent systems in software engineering: a mixed-method experience report | Empirical Software Engineering | [source](https://doi.org/10.1007/s10664-026-10955-8) |
+| 3 | 4 | Provenance-aware tool-boundary monitoring | 2026-11-02 | Generative AI in L2 English Academic Writing: University Students’ Perspectives on Autonomy and Human–AI Interaction | International Journal of TESOL Studies | [source](https://doi.org/10.58304/ijts.261120) |
 
 ## Triage Notes
 
-### 1. Generative AI and Its Impact on Software Development
-
-- Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Mr. Vivek Sanjay Amale
-- Published: 2026-11-01
-- Venue/type: INTERANTIONAL JOURNAL OF SCIENTIFIC RESEARCH IN ENGINEERING AND MANAGEMENT / article
-- DOI: https://doi.org/10.55041/ijsrem68679
-- URL: https://doi.org/10.55041/ijsrem68679
-- Opportunity score: 10
-- Matched tags: benchmark, evaluation, security, verification
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> The rapid proliferation of Large Language Models (LLMs) specialized in programming languages has fundamentally reconfigured the modern Software Development Life Cycle (SDLC). Far beyond basic autocompletion, generative foundation models now actively assist software practitioners across requirements formulation, architectural drafting, automated unit test synthesis, vulnerability remediation, and continuous refactoring. This empirical investigation provides an in-depth, rigorous evaluation of generative AI's real-world impact across engineering teams. Analyzing telemetry across 50 production engineering cohorts and standard code evaluation suites (HumanEval, MBPP, and SWE-bench), we demonstrate that modern generative coding assistants accelerate routine boilerplate authoring by 52.1% to 57.8%, yet introduce pronounced cognitive friction during pull request verification. Crucially, synthetic benchmark pass rates (such as HumanEval Pass@1 topping 92.4%) mask an acute architectural reasoning deficit when resolving multi-file repository-level bugs on SWE-bench Lite (38.8% resolve ceiling). Furthermore, automated static security audits reveal that unconstrained generative synthesis increases latent defect density by 14.6%, primarily manifesting as improper input validation (CWE-20), SQL injection vectors (CWE-89), and hallucinated third-party dependencies. To resolve this dilemma, we
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 2. A Survey of LLM-based Software Repair: Taxonomies, Design Paradigms, and Applications
-
-- Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Boyang Yang, Zijian Cai, Fenglin Liu, Bach Le, et al.
-- Published: 2026-11-02
-- Venue/type: ACM Transactions on Software Engineering and Methodology / article
-- DOI: https://doi.org/10.1145/3845995
-- URL: https://doi.org/10.1145/3845995
-- Opportunity score: 9
-- Matched tags: agent, alignment, benchmark, evaluation
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> Large language models (LLMs) are reshaping automated program repair. We present a reproducible hierarchical taxonomy that organizes 66 LLM-based repair systems according to where repair capability and control logic principally reside: taskadapted parameters, prompt and context design, designer-specified workflows, or LLM-directed runtime control. Adaptation, generation pattern, runtime control, and auxiliary evidence remain separate coded dimensions. This representation exposes control distinctions hidden by utilization labels and supports cross-paradigm analysis of system design and evaluation evidence. To the best of our knowledge, it is the first publicly available LLM-based software repair survey to operationalize Fine-Tuning, Prompting, Procedural, and Agentic as one corpus-wide primary classification. Our hierarchy complements prior surveys with a single corpus-wide primary decision rule, while the result-level protocol audit bounds which reported results are defensibly comparable. To analyze how repair systems use benchmarks, we record benchmark variants, metrics, base models, and fault-localization assumptions for each system’s primary reported result, identifying protocol-aligned comparison windows and benchmark-family fragments. We clarify paradigm trade-offs in task alignment, deployment cost, controllability, and multi-hunk or cross-file repair. We outline open chal
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 3. BiCP: Reasoning-Prefix Deconfounding for Dual-Axis Counterfactual Probing and Operation-Risk Routing
+### 1. Fully homomorphic encryption on LlaMA 3 model for partial privacy preserving LLM inference
 
 - Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Zida Hao, Yubo Li
-- Published: 2026-11-02
-- Venue/type: Research Square / preprint
-- DOI: https://doi.org/10.21203/rs.3.rs-11536275/v1
-- URL: https://doi.org/10.21203/rs.3.rs-11536275/v1
-- Opportunity score: 4
-- Matched tags: agent, security
+- Authors: Anes Abdennebi, Nadjia Kara, Laaziz Lahlou
+- Published: 2026-11-03
+- Venue/type: Journal of Systems Architecture / article
+- DOI: https://doi.org/10.1016/j.sysarc.2026.104040
+- URL: https://doi.org/10.1016/j.sysarc.2026.104040
+- Opportunity score: 7
+- Matched tags: benchmark, evaluation, security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Tool-using language-model agents can select the intended tool while executing an injected argument. Counterfactual guards also lose source sensitivity when they condition on reasoning that already encodes the injected decision. We present BiCP (bilateral counterfactual probing), an execution-time defense combining reasoning-prefix removal, complementary tool-name and complete-call probes, and operation-risk routing. Equal-token controls over 69 fixed proposals raise tool-name macro area under the receiver operating characteristic curve from 0.7164 to 1.0000. On these fixed proposals, a second model family (Mistral-7B-Instruct-v0.3) independently reproduces both prefix deconfounding (0.6509 to 1.0000) and five-domain source reversals (joint p = 0.03125). After independent calibration, progressive component ablations on 922 fixed replay cases reduce confirmed InjecAgent attacks from 83/682 to 0/682 and unsafe conditional executions from 33/240 to 0/240, while increasing benign task success from 66/120 to 78/120. All five malicious argument substitutions adopted by the original model are blocked. A paired prompt-contract comparison increases the unchanged policy's retention of verified legal protected calls from 30/47 to 43/47. Among 47 paired attack proposals, deterministic anchoring stops 40 unsupported substitutions, while both probe variants stop all seven observation
+> Generative Artificial Intelligence applications have delivered significant improvements in service efficiency and language understanding. However, the surge in Large Language Model deployment raises critical security and privacy concerns regarding data exposure and unauthorized access to sensitive information. Quantum computing attacks pose an imminent threat to existing cryptographic protections, necessitating post-quantum cryptographic approaches. We present a partially privacy-preserving inference pipeline for LLaMA-3 by integrating fully homomorphic encryption into the transformer’s Multi-Query Attention mechanism. Our approach encrypts attention weights and computations across all 32 decoder layers of LLaMA-3.2-3B using lattice-based cryptography via the concrete-ml library, while feed-forward sublayers, layer normalization, and output projections remain in plaintext, a deliberate trade-off achieving practical feasibility on commodity CPUs. Evaluation on the instruction-tuned LLaMA-3.2-3B model yields: (i) strong semantic preservation (BERTScore-F1 ∼ 84.4%), (ii) controlled perplexity degradation (1.18 FP16 vs. 2.09 FHE), (iii) competitive BLEU-4 and ROUGE-L scores ( ∼ 35.6% and ∼ 51.8%), (iv) downstream GLUE benchmark accuracy, and (v) 825 ms latency at 17 tokens/second on AMD EPYC CPUs. We further present quantization-aware FHE and quantization bit-width ablation studies
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 2. Developing LLM-based multi-agent systems in software engineering: a mixed-method experience report
+
+- Topic: Agentic package hallucination and tool-boundary gates
+- Authors: Mariama Celi Serafim De Oliveira, Motunrayo Osatohanmen Ibiyo, Marco Gianrusso, Claudio Di Sipio, et al.
+- Published: 2026-11-03
+- Venue/type: Empirical Software Engineering / article
+- DOI: https://doi.org/10.1007/s10664-026-10955-8
+- URL: https://doi.org/10.1007/s10664-026-10955-8
+- Opportunity score: 4
+- Matched tags: agent, evaluation
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> Abstract The proliferation of Generative Artificial Intelligence (Gen AI) powered by large language models (LLMs) has transformed the software development process, introducing new paradigms for code generation, debugging, testing, and maintenance. While early applications focused on leveraging single, independent LLMs to assist developers with isolated tasks, recent advances have shifted toward multi-agent systems (MAS) that orchestrate multiple LLM-based agents working collaboratively toward common objectives. Despite their promising potential, using MAS encompasses a set of challenges for developers who have to carefully select the right technology, devise proper coordination rules, and design specific roles for the involved agents. In this paper, by means of a mixed-method study, we provide a comprehensive overview of the existing tools and frameworks for implementing MAS in software engineering. We qualitatively analyzed eight representative LLM-based multi-agent frameworks selected from an initial pool of 20 publicly available frameworks, and quantitatively evaluated them using the software engineering scenario. The qualitative analysis reveals a trade-off between low-code frameworks, which emphasize ease of use through integrated agent creation, orchestration, and monitoring capabilities, and high-code frameworks, which provide greater flexibility and extensibility for ad
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 3. Generative AI in L2 English Academic Writing: University Students’ Perspectives on Autonomy and Human–AI Interaction
+
+- Topic: Provenance-aware tool-boundary monitoring
+- Authors: Liubov Darzhinova
+- Published: 2026-11-02
+- Venue/type: International Journal of TESOL Studies / article
+- DOI: https://doi.org/10.58304/ijts.261120
+- URL: https://doi.org/10.58304/ijts.261120
+- Opportunity score: 4
+- Matched tags: agent, evaluation
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> Generative Artificial Intelligence (GenAI) tools are widely reported to improve writing quality and efficiency, yet their implications for autonomy, defined here as volitional, informed, and self-endorsed decision-making, remain underexplored. Drawing on an integrated Self-Determination Theory (SDT) and Sociocultural Theory (SCT) framework, this study interviewed twenty second-language (L2) English learners in Hong Kong universities about how they perceive and report their interaction practices when using GenAI in L2 academic writing. Hybrid inductive/deductive thematic analysis of the interview data yielded six themes: selective and strategic deployment of GenAI; concerns about dependency; preservation of authorial voice; perceived benefits; critical evaluation of outputs; and awareness of institutional expectations. Learners described balancing efficiency against authentic authorship, editing or reframing AI-generated text to protect their voice, and treating GenAI as a peripheral rather than primary agent. From these reported practices we derived a heuristic of seven roles that learners ascribed to GenAI: text analyst, consultant, literature search/review instrument, tutor, creative aid, adversary, and conversational partner. Implications are drawn for pedagogy that treats GenAI as a mediational tool whose contributions must be subordinated to the writer’s own intellectual a
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
