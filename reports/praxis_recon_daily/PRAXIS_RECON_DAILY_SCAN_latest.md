@@ -1,6 +1,6 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-11-09 21:09 UTC
+Generated: 2026-11-10 18:20 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
 New flagged works: 1
@@ -9,25 +9,25 @@ New flagged works: 1
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 19 | Source-locked citation and hallucination verification | 2026-11-07 | Large Language Models in Chemistry: Opportunities, Limitations, and Hallucination Risks | ChemRxiv | [source](https://doi.org/10.26434/chemrxiv.15011834/v1) |
+| 1 | 9 | Provenance-aware tool-boundary monitoring | 2026-11-09 | Evaluating AI Alignment in LLMs: Output Analysis of Value Priorities Across 75 Models with Human Benchmarking | International Journal of Human-Computer Interaction | [source](https://doi.org/10.1080/10447318.2026.2755127) |
 
 ## Triage Notes
 
-### 1. Large Language Models in Chemistry: Opportunities, Limitations, and Hallucination Risks
+### 1. Evaluating AI Alignment in LLMs: Output Analysis of Value Priorities Across 75 Models with Human Benchmarking
 
-- Topic: Source-locked citation and hallucination verification
-- Authors: Evalasting Michael Chukwuemeka
-- Published: 2026-11-07
-- Venue/type: ChemRxiv / preprint
-- DOI: https://doi.org/10.26434/chemrxiv.15011834/v1
-- URL: https://doi.org/10.26434/chemrxiv.15011834/v1
-- Opportunity score: 19
-- Matched tags: agent, hallucination, limitation, limitations, safety, verification
+- Topic: Provenance-aware tool-boundary monitoring
+- Authors: Gabriel R. Lau, Wei Yan Low, Seow Min Koh, Fiona Fui-Hoon Nah, et al.
+- Published: 2026-11-09
+- Venue/type: International Journal of Human-Computer Interaction / article
+- DOI: https://doi.org/10.1080/10447318.2026.2755127
+- URL: https://doi.org/10.1080/10447318.2026.2755127
+- Opportunity score: 9
+- Matched tags: agent, alignment, benchmark, safety
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Large language models (LLMs) have moved quickly from general-purpose text tools to components of chemical research workflows. They are now used to extract data from the literature, propose synthesis routes, write analysis code, predict properties from few examples, and control laboratory instruments through tool-augmented agents. These capabilities create real opportunities, particularly for researchers and institutions with limited access to specialist software and training. They also carry risks that are specific to chemistry. Chemical information is dense with symbols, units, stoichiometry, and safety-critical numbers, and LLMs generate fluent text whether or not it is correct. This perspective reviews the main opportunities for LLMs in chemistry, the technical limitations that constrain them, and a taxonomy of hallucination types with examples of how each can cause harm in a laboratory or research setting. It then proposes a practical verification framework for everyday users, a set of reporting practices for authors, and a short research agenda. The central argument is that LLMs are most valuable in chemistry when they are treated as fallible assistants wrapped in verification tools, such as cheminformatics libraries, databases, and physical measurement, and not as sources of chemical truth.
+> Large language models (LLMs) are increasingly used in human-AI interaction research and practice, yet existing capability and safety benchmarks reveal little about the value priorities these systems express or how those priorities correspond to human judgements. Across three studies, we introduce an output-based approach to evaluating one facet of AI alignment by treating LLM-generated text as behavioural data and comparing expressed value-priority profiles with a human reference. Study 1 used inductive qualitative analysis to derive six themes of optimal AI functioning, namely Performance, Adaptive Capacity, Social Good, Ethics and Responsibility, Relational Integration, and Agency. Study 2 showed that LLM outputs were highly stable within models and converged on a common value-priority structure across models, indicating reliable and comparable value profiles. Study 3 benchmarked 75 contemporary LLMs against 376 human respondents using a profile-fidelity metric capturing both the relative ordering of priorities and the calibration of between-priority differences. Although most models reproduced the human ordering of values, some systematically exaggerated the differences between them, showing that models can appear aligned on conventional benchmarks while still diverging from human value calibration. Profile fidelity varied substantially across models and did not consistently
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
