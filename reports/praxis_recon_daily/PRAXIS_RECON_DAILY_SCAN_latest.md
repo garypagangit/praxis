@@ -1,109 +1,128 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-11-11 18:10 UTC
+Generated: 2026-11-12 18:38 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
-New flagged works: 5
+New flagged works: 6
 
 ## Flagged Works
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 10 | Adaptive evaluation of deterministic agent defenses | 2026-11-10 | Fail-Closed Authorization for Tool-Using AI Agents: A Capability Contract and Case Study | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11676427/v1) |
-| 2 | 6 | Adaptive evaluation of deterministic agent defenses | 2026-11-10 | Authorization assurance for tool-using LLM agents: a structured review of enforcement semantics and effect-level security evidence | International Journal of Information Security | [source](https://doi.org/10.1007/s10207-026-01343-w) |
-| 3 | 6 | Provenance-aware tool-boundary monitoring | 2026-11-10 | Toward Resilient Explainable AI–Digital Twin Frameworks for Cyber-Secure Renewable Energy Systems: An Uncertainty-Aware Lifecycle-Integrated Architecture | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11659132/v1) |
-| 4 | 5 | Provenance-aware tool-boundary monitoring | 2026-11-09 | Algorithmic riba and algorithmic Shariah non-compliance: risk mechanisms and a proposed governance protocol for Islamic banks | AI and Ethics | [source](https://doi.org/10.1007/s43681-026-01497-2) |
-| 5 | 4 | Agentic package hallucination and tool-boundary gates | 2026-11-09 | LLM ‐Based Domain Model Extraction From Requirements: A Case Study on Smart Tourism Applications | Expert Systems | [source](https://doi.org/10.1111/exsy.70479) |
+| 1 | 10 | Cyber threat intelligence evidence routing | 2026-11-10 | Forensiq - Intelligent Security Operations & Investigation Platform | International Journal of Innovative Research in Engineering | [source](https://doi.org/10.59256/ijire.20260706006) |
+| 2 | 8 | Adaptive evaluation of deterministic agent defenses | 2026-11-10 | Surveying cyber-physical honeynets: Realism, attractiveness, and emerging applications | Journal of Information Security and Applications | [source](https://doi.org/10.1016/j.jisa.2026.104698) |
+| 3 | 8 | Provenance-aware tool-boundary monitoring | 2026-11-10 | When Does Hallucination Propagate? Reconciling Six Formalizations of Error Spread in Multi-Agent LLM Systems | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11536507/v1) |
+| 4 | 7 | Source-locked citation and hallucination verification | 2026-11-11 | Evaluating AI performance on end-to-end data science projects | PLoS ONE | [source](https://doi.org/10.1371/journal.pone.0361887) |
+| 5 | 6 | Provenance-aware tool-boundary monitoring | 2026-11-10 | The architecture of Responsible Autonomy in biological and artificial systems: the Distributed Adaptive Control of volition and agency | Philosophical Transactions of the Royal Society B Biological Sciences | [source](https://doi.org/10.1098/rstb.2025.0156) |
+| 6 | 2 | Cyber threat intelligence evidence routing | 2026-11-10 | Next-Generation Cyber Defense Powered by Graph-Based Threat Intelligence and Automated Attack Path Analysis | International Journal of Technology Management and Humanities | [source](https://ijtmh.com/index.php/ijtmh/article/view/522) |
 
 ## Triage Notes
 
-### 1. Fail-Closed Authorization for Tool-Using AI Agents: A Capability Contract and Case Study
+### 1. Forensiq - Intelligent Security Operations & Investigation Platform
 
-- Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Andrey Lesnikov
+- Topic: Cyber threat intelligence evidence routing
+- Authors: Kumbhar Ayush Shankar, Patil Sharayu Nilesh, Patil Sakshi Chandrakant, Anil Morti Sakshi, et al.
 - Published: 2026-11-10
-- Venue/type: Research Square / preprint
-- DOI: https://doi.org/10.21203/rs.3.rs-11676427/v1
-- URL: https://doi.org/10.21203/rs.3.rs-11676427/v1
+- Venue/type: International Journal of Innovative Research in Engineering / article
+- DOI: https://doi.org/10.59256/ijire.20260706006
+- URL: https://doi.org/10.59256/ijire.20260706006
 - Opportunity score: 10
-- Matched tags: agent, security, tool call
+- Matched tags: MITRE ATT&CK, agent, security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract For tool-using LLM agents the decisive question is whether a concrete tool call is authorized before it executes. We describe the Agent Security Contract (ASC), a deny-by-default, pre-execution gate for agent and MCP tool calls. An ASC policy pins a SHA-256 digest of the approved tool catalog, declares per-agent tool allowlists with argument constraints, marks high-impact tools that require out-of-band approval, and bounds call rates; each decision (ALLOW, BLOCK, REQUIRE_APPROVAL) is emitted as an integrity-checked (unkeyed) JSON evidence envelope, and every error path we enumerate and test resolves to BLOCK. We evaluate the open-source implementation on static, recorded tool-call traces only; no live agent is run. Bypasses of the v0.1.0 demo policy found in review were fixed in v0.2.0; on a 60-case adversarial probe, allowed attacks fall from 32 to 1 (a policy gap), at the cost of 3 new benign over-blocks. On the author-constructed 66-scenario v0.2.1 corpus, designed around these checks, ASC returns the expected verdict in 66/66 cases; tool-name RBAC (Python and OPA/Rego) admits 30 of its 33 attacks by construction, and mutation testing shows the corpus exercises few policy constraints (8 of 62 single-constraint mutants killed). As a held-out check we replay 132 AgentDojo v1.2 ground-truth traces under policies frozen beforehand. With tool-level approval policies, 25 
+> Security Operations Centers process security alerts from many different systems. Analysts must match events gather evidence add data and evaluate risk before deciding. Forensiq is a platform that uses AI agents to help with these tasks. It works inside Splunk. Handles alert ingestion, event exploration, alert triage, threat-intelligence enrichment of indicators of compromise, mapping to MITRE ATT&CK correlating events calculating risk reasoning through investigations checking claims with facts and producing reports for analysts. A multi-agent design splits the work into tasks but the original data stays for analysts to check. Tests will look at how alerts are sorted how well ATT&CK mapping works how much threat data is added, how well evidence supports claims how many unsupported claims appear, how good event correlation is, how efficient investigations become, how good reports are and how the system scales. The final test will compare the Forensiq workflow to a baseline under the same data. Forensiq is meant to help analysts; the system gives reasoning support. Does not replace human checking and response decisions.
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 2. Authorization assurance for tool-using LLM agents: a structured review of enforcement semantics and effect-level security evidence
+### 2. Surveying cyber-physical honeynets: Realism, attractiveness, and emerging applications
 
 - Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Mohamed Abbas Elmasry
+- Authors: Mathis Durand, Yvon Kermarrec, Marc‐Oliver Pahl
 - Published: 2026-11-10
-- Venue/type: International Journal of Information Security / article
-- DOI: https://doi.org/10.1007/s10207-026-01343-w
-- URL: https://doi.org/10.1007/s10207-026-01343-w
-- Opportunity score: 6
-- Matched tags: agent, dataset, security
+- Venue/type: Journal of Information Security and Applications / article
+- DOI: https://doi.org/10.1016/j.jisa.2026.104698
+- URL: https://doi.org/10.1016/j.jisa.2026.104698
+- Opportunity score: 8
+- Matched tags: evaluation, future research, safety
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Tool-using large language model (LLM) agents exercise authority over protected resources through APIs, tools, credentials, and external services. This structured review asks whether authorization claims are supported at the enforcement and observation boundaries relevant to the claimed effect. A 75-source evidence library was screened into a 30-source analytical corpus (15 strict agent sources, 6 sensitivity sources, and 9 authorization/assurance comparators), yielding 92 Source-Claim Records. Within this closed corpus, five strict sources made mediation or non-bypassability claims with heterogeneous evidence endpoints; all three evaluable least-privilege sources narrowed available authority without measuring trajectory-wide effective privilege; no evaluable revocation claim appeared among 21 agent-focused sources; and no delegation-containment claim appeared in the 30-source corpus. Final-state correctness was also distinct from authorization correctness. We integrate these findings through an Authorization Assurance Claim Model linking claim scope, obligations, enforcement, evidence, protected effect, and residual assumptions. The resulting MAAP is presented as a preliminary, review-derived minimum reporting framework, not a validated scoring or certification instrument. The supplementary workbook provides the screening decisions, complete coding dataset, source-prop
+> Cyber-physical systems play a central role in critical infrastructures, particularly in power plants, factories, and water treatment facilities. These systems face increasingly sophisticated threats that can have severe operational and societal consequences. A Cyber-Physical Honeynet (CPHoneynet) is a network of honeypots designed to replicate the operation of a real cyber-physical environment. When attackers interact with it, a CPHoneynet enables the collection of valuable threat intelligence regarding attacker methods, tools, and attack vectors. The domain lacks a recent and comprehensive structuring. Therefore, this survey identifies, reviews, and analyzes the central publications published between 2010 and June 2026 through a Systematic Literature Review methodology. The survey analyzes 451 publications and focuses on three major themes: realism, attractiveness, and emerging applications of CPHoneynets. The analysis reveals that IoT and ICS are the dominant application domains, realism remains the primary research challenge, and attractiveness remains comparatively underexplored despite its direct impact on threat-intelligence collection. The survey synthesizes a reference architecture, proposes a comprehensive taxonomy, and identifies evaluation metrics for both realism and attractiveness. It further highlights emerging directions such as Artificial Intelligence, Digital T
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 3. Toward Resilient Explainable AI–Digital Twin Frameworks for Cyber-Secure Renewable Energy Systems: An Uncertainty-Aware Lifecycle-Integrated Architecture
+### 3. When Does Hallucination Propagate? Reconciling Six Formalizations of Error Spread in Multi-Agent LLM Systems
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Nasir Dr. Muhammad Nasir Uddin
+- Authors: Shaoxuan Zhang
 - Published: 2026-11-10
 - Venue/type: Research Square / preprint
-- DOI: https://doi.org/10.21203/rs.3.rs-11659132/v1
-- URL: https://doi.org/10.21203/rs.3.rs-11659132/v1
-- Opportunity score: 6
-- Matched tags: agent, interpretability, security
+- DOI: https://doi.org/10.21203/rs.3.rs-11536507/v1
+- URL: https://doi.org/10.21203/rs.3.rs-11536507/v1
+- Opportunity score: 8
+- Matched tags: agent, hallucination, verification
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract The accelerating penetration of variable renewable energy sources into modern power systems demands digital infrastructures capable of supporting predictive, autonomous, and trustworthy grid operation. While digital twins (DT) and artificial intelligence (AI)—particularly multi-agent and agentic architectures—are key enablers, their integration remains fragmented across three critical dimensions: explainability, cybersecurity, and uncertainty management. This paper proposes a conceptual, uncertainty-aware, lifecycle-integrated architecture that couples explainable AI (XAI) with digital twin modeling to support resilient, cyber-secure renewable energy operations. Based on a structured review spanning component-, building-, and urban-scale DT infrastructure, XAI-driven forecasting and fault diagnosis, distributed energy resource (DER) multi-agent control, and DER cybersecurity vulnerabilities, we identify a persistent scholarly disjunction. Few studies treat interpretability, adversarial resilience, and stochastic uncertainty as co-design requirements across the entire asset lifecycle. Using a design-science methodology and thematic synthesis, we develop a five-layer architecture: sensing and data acquisition, digital twin simulation, XAI-mediated agentic decision-making, cybersecurity and resilience, and lifecycle governance. The core contribution lies in defining the s
+> Abstract Multi-agent LLM systems are deployed on the assumption that agents checking one another reduce hallucination. Two studies of the same linear topology contradict it in opposite directions, and both are right: one measures prevalence, the other detectability, and a claim can become rarer and less visible at once. Whether a false claim grows is set by two structural variables: how correlated the agents' errors are, and whether any channel supplies evidence independent of them. Topology bounds the number of carriers a chain can produce; it says nothing about the other channel. Six formalisms proposed in the past year describe this process. Each defines a state space, a transition rule and a measurable quantity; none is stated in terms another can absorb. Taking the travelling claim as the unit of analysis, we show that the six are projections of one process onto different observables. In a purposive sample of 42 papers, 10 of 32 included studies report a propagation-level metric, 9 report a verification channel independent of the agents, and 7 report a graph with a recoverable out-degree. The two features never co-occur: all nine studies with such a channel report attenuation, and both studies that report amplification lack one. One prediction runs against design intuition: raising the initial diversity of agents' answers increases false adoption. We specify the experiment
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 4. Algorithmic riba and algorithmic Shariah non-compliance: risk mechanisms and a proposed governance protocol for Islamic banks
+### 4. Evaluating AI performance on end-to-end data science projects
+
+- Topic: Source-locked citation and hallucination verification
+- Authors: Evelyn Hughes, Rohan Alexander
+- Published: 2026-11-11
+- Venue/type: PLoS ONE / article
+- DOI: https://doi.org/10.1371/journal.pone.0361887
+- URL: https://doi.org/10.1371/journal.pone.0361887
+- Opportunity score: 7
+- Matched tags: dataset, evaluation, verification
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> Generative AI is used for knowledge work but many current AI evaluations focus on isolated tasks and constituent parts such as writing code, rather than end-to-end workflows. We test whether AI models can generate end-to-end data science projects. This requires AI models to select a dataset, develop a research question, write code to download, clean, and test data, create figures, and write a reproducible paper. To do this we collect 40 real end-to-end data science projects, then grade them according to a rubric. We use these to build an automated grading pipeline that evaluates data science projects and aligns with the grades that human graders give. For each of nine AI models we then generate five projects and use the automated grader to evaluate them. We find the extent to which generative AI models can complete end-to-end data science projects varies considerably by model. Most recent models did well on structured tasks, but there were considerable differences on tasks that needed judgment such as explaining measurement, writing abstracts, and citing sources. Anthropic’s Claude Opus 4.8 averaged 87 per cent and OpenAI’s GPT-5.4 averaged 85 per cent, both around the level of an A for an undergraduate. No model was consistently the best across all aspects of the rubric. These findings suggest that while AI models could soon approximate entry-level data scientists on routine t
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 5. The architecture of Responsible Autonomy in biological and artificial systems: the Distributed Adaptive Control of volition and agency
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Mohamed Shareef, Ismail Nizam
-- Published: 2026-11-09
-- Venue/type: AI and Ethics / article
-- DOI: https://doi.org/10.1007/s43681-026-01497-2
-- URL: https://doi.org/10.1007/s43681-026-01497-2
-- Opportunity score: 5
-- Matched tags: benchmark, evaluation
+- Authors: Paul F. M. J. Verschure
+- Published: 2026-11-10
+- Venue/type: Philosophical Transactions of the Royal Society B Biological Sciences / article
+- DOI: https://doi.org/10.1098/rstb.2025.0156
+- URL: https://doi.org/10.1098/rstb.2025.0156
+- Opportunity score: 6
+- Matched tags: agent, evaluation, safety
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Abstract Machine learning (ML) systems are increasingly used in the credit, pricing, and collections decisions of financial institutions, including Islamic banks, yet Shariah oversight remains primarily contract-centred. This conceptual paper identifies three distinct pathways of algorithmic Shariah non-compliance. Algorithmic riba, used narrowly, concerns profit-rate models whose optimisation objective may reproduce the time-value logic prohibited by riba; conventional benchmarking of murabahah (cost-plus sale) margins is not itself impermissible. Algorithmic injustice concerns credit-scoring outcomes that may violate the ‘adl (justice) obligation, and algorithmic gharamah (penalty) concerns collections systems that may impose charges beyond ​ta’widh (compensation for documented loss). To support model-level review, we propose the Shariah Algorithmic Compliance Screen (SACS), a five-component protocol grounded in Maqasid al-Shariah and offered as a first-iteration design proposal. Model owners disclose use cases, training data, objective functions, and outputs; independent technical validators test the relevant model evidence; and Shariah Supervisory Boards (SSBs) determine compliance. Explainable artificial intelligence (XAI) methods are used descriptively, while established fairness diagnostics (subgroup calibration, error-rate comparison, and disparate-impact measurement) p
+> This paper proposes the Distributed Adaptive Control theory of volition and agency (DACva), which parses biological and artificial free will into six capacities that close the agency gap between a reflex and an act: active decoupling, endogenous drive, leeway, normative self-governance, diachronic integrity and experiential ownership. Together they constitute Responsible Autonomy. The DACva architecture spans five layers, somatic to reflective, coordinated by a decoupled model-predictive controller, the compression-expansion-selection-projection (CESP) cascade. It constructs, rather than presupposes, the causal models counterfactual control requires, under the evolutionary pressure of survival in social worlds pervaded by hidden intentional states. The computational principles and neurobiological substrate of DACva are specified in a 12-equation formalism, with an assay and a refutation condition for each capacity. The formalism closes on one equation, the CESP cascade, and yields an explicit definition of freedom: the degree to which an act is the committed trajectory of the agent's own cascade, read on six conditions, one per capacity. From this follows the Evaluation Suite for Responsible Autonomy (ESRA), a perturbational test of architectural competence rather than mimicry, proposed to replace the imitation game; ESRA-S assesses the safety constraints a deployer of AI must 
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 5. LLM ‐Based Domain Model Extraction From Requirements: A Case Study on Smart Tourism Applications
+### 6. Next-Generation Cyber Defense Powered by Graph-Based Threat Intelligence and Automated Attack Path Analysis
 
-- Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Hamza Abdelmalek, Adnane Souha, Charaf Ouaddi, Lamya Benaddi, et al.
-- Published: 2026-11-09
-- Venue/type: Expert Systems / article
-- DOI: https://doi.org/10.1111/exsy.70479
-- URL: https://doi.org/10.1111/exsy.70479
-- Opportunity score: 4
-- Matched tags: future research
+- Topic: Cyber threat intelligence evidence routing
+- Authors: Amit Kumar Jain
+- Published: 2026-11-10
+- Venue/type: International Journal of Technology Management and Humanities / article
+- DOI: not provided
+- URL: https://ijtmh.com/index.php/ijtmh/article/view/522
+- Opportunity score: 2
+- Matched tags: security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> ABSTRACT Automating the extraction of domain models from natural language requirements remains a central challenge in model‐driven engineering (MDE), particularly at the level of the computation‐independent model (CIM), the most abstract layer of the model‐driven architecture (MDA). This paper introduces an approach that uses large language models (LLMs) to generate domain models from software requirements. Unlike prior work that relies on a single monolithic prompt or on generic task decomposition, our approach organises the modelling task as a modular chain of prompts with dedicated stages for enumerations, entities, and relationships, each producing an explicit intermediate output that feeds the next stage before a final consolidation step. The approach is implemented as a Visual Studio Code extension called SmartModel, which integrates generation, visualisation, and requirement‐level traceability into the developer's environment. To evaluate the approach, a case study on smart tourism software requirements was conducted, comparing the LLM‐generated domain model with an expert‐constructed reference model using both qualitative expert assessments and quantitative metrics. Results show that LLMs achieve high precision in identifying entities and enumerations, whereas relationship and attribute extraction remain considerably less reliable and require systematic human review. Th
+> The increasing complexity of modern cyber threats, distributed enterprise infrastructures, and interconnected digital environments has created significant challenges for conventional cybersecurity defense mechanisms. Traditional security solutions often operate independently, making it difficult to identify relationships between vulnerabilities, malicious activities, compromised assets, and potential attack routes. This research proposes a next-generation cyber defense framework powered by graph-based threat intelligence and automated attack path analysis to improve enterprise cybersecurity capabilities. The proposed framework integrates security event monitoring, threat intelligence enrichment, graph-based knowledge representation, vulnerability correlation, and automated attack path identification. Graph structures are utilized to represent relationships among users, devices, applications, network resources, vulnerabilities, and threat indicators, enabling security analysts to identify complex attack patterns across distributed environments. Automated graph traversal and risk assessment mechanisms prioritize critical attack paths based on vulnerability severity, asset importance, threat activity, and potential business impact. The framework further incorporates machine learning techniques to improve threat classification and predictive attack detection. By combining contextua
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
