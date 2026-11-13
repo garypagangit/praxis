@@ -1,0 +1,337 @@
+{
+  "schema_version": "px062-gate2.2-v1.1-task-lineage-v1",
+  "experiment_id": "px062-skill-selection-gate2-2-v1-1-20260728",
+  "status": "PROSPECTIVE_LABEL_AUDIT_INFORMED_TARGET_OUTCOME_BLIND",
+  "source": {
+    "experiment_id": "px062-skill-selection-gate2-2-v1-0-20260728",
+    "tasks_sha256": "37c77a9eaa12a4102419591aa554f736494aff85a3e252fd284a20b95094bebc",
+    "invalidation_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_invalidation.json",
+    "invalidation_sha256": "3c0a3d83877ea2eb5b8fc829e92cd9661b72ac5cf8c016ae145a5fd3dd3a9e42",
+    "conflicts_path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_conflicts.jsonl",
+    "conflicts_sha256": "5b899e78cac1ee60c7fafbe37088c3ce58221c6f55680964235b896b1fc91c0c"
+  },
+  "target": {
+    "seed_bank_sha256": "83e557925bb4d4f9cc38f9f1ab2de40f73769dcb8af287643870de914d2cdc89",
+    "tasks_sha256": "68f776fe51ce3d2bd7eef42124448a1a6f58c0b0c6213fbd34b4b1e1e155ddbb",
+    "answer_key_sha256": "2c2b1561b2beeb72584df3ed9dfe3a848e40b5f4bc4c74b2773e15038f616e38",
+    "registry_catalog_sha256": "ec12c41e14c086f41a2bb42ddff8b7e137ba15d89bb12fb7645f6440a09f5d8b",
+    "benchmark_manifest_sha256": "bbf7c24d9a8bb661f82edb3f3ebe553ad3d3cb8bafa508cfce6ef22eb9559518"
+  },
+  "invariants": {
+    "old_tasks": 1032,
+    "new_tasks": 1032,
+    "retained_prompt_ids": 999,
+    "replaced_prompt_ids": 33,
+    "new_prompt_ids": 33,
+    "registered_labels": 516,
+    "none_labels": 516,
+    "task_type_counts": {
+      "available_single_skill": 344,
+      "misleading_name_none": 172,
+      "misleading_name_real_skill": 172,
+      "unavailable_capability": 344
+    },
+    "lexical_balanced_accuracy": 0.828488,
+    "lexical_balanced_accuracy_limit_exclusive": 0.85,
+    "all_construction_gates_passed": true
+  },
+  "replacements": [
+    {
+      "seed_location": "skill_scenarios/figma/requests[2]",
+      "old_task_id": "g22-92d80f9682adce850589",
+      "new_task_id": "g22-e2d6be6265ea1bee5c6b",
+      "task_type": "available_single_skill",
+      "expected_skill": "figma",
+      "old_request": "Take a visual capture of the specified design component and summarize its structure.",
+      "new_request": "Use the supplied design-node URL to fetch that component's screenshot and summarize its node structure."
+    },
+    {
+      "seed_location": "skill_scenarios/figma/requests[7]",
+      "old_task_id": "g22-a1ecd2709addeb7c3213",
+      "new_task_id": "g22-0239bcbdc6f891e91180",
+      "task_type": "available_single_skill",
+      "expected_skill": "figma",
+      "old_request": "Extract the assets and layout information from this design document for a developer.",
+      "new_request": "Use the supplied design-node URL to extract the frame's assets and layout data for implementation."
+    },
+    {
+      "seed_location": "skill_scenarios/figma-generate-design/misleading_requests[2]",
+      "old_task_id": "g22-ef9e8167b28abd9bf446",
+      "new_task_id": "g22-d7e062dcf8768ec81d39",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "figma-generate-design",
+      "old_request": "Create a refined dashboard design using the provided screenshot and interaction notes.",
+      "new_request": "Build a complete Figma dashboard screen from the provided application screenshot and interaction notes."
+    },
+    {
+      "seed_location": "skill_scenarios/netlify-deploy/misleading_requests[0]",
+      "old_task_id": "g22-974e0818ae2e079065f3",
+      "new_task_id": "g22-5681a15c6071a7e67b50",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "netlify-deploy",
+      "old_request": "Publish the current static site to the connected hosting service and return its preview address.",
+      "new_request": "Publish the current static site through the Netlify CLI and return its preview address."
+    },
+    {
+      "seed_location": "skill_scenarios/netlify-deploy/misleading_requests[1]",
+      "old_task_id": "g22-56db801b40d158cf6303",
+      "new_task_id": "g22-8eba1b7f5796b0fc62de",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "netlify-deploy",
+      "old_request": "Configure redirects, environment values, and the build command for this web release.",
+      "new_request": "Configure Netlify redirects, environment variables, and the build command for this web release."
+    },
+    {
+      "seed_location": "skill_scenarios/netlify-deploy/misleading_requests[2]",
+      "old_task_id": "g22-72e0fbf98bcc5d15b6c6",
+      "new_task_id": "g22-70d74a12d97f57683d44",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "netlify-deploy",
+      "old_request": "Diagnose why the hosted preview fails during dependency installation and correct the project setup.",
+      "new_request": "Diagnose why this Netlify preview fails during dependency installation and correct the site configuration."
+    },
+    {
+      "seed_location": "skill_scenarios/netlify-deploy/misleading_requests[3]",
+      "old_task_id": "g22-0c85529c4a5eb1156908",
+      "new_task_id": "g22-1c7ea44e1b9ab5f60348",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "netlify-deploy",
+      "old_request": "Promote the verified preview to production on the site's configured hosting platform.",
+      "new_request": "Promote the verified Netlify preview to production and confirm the site's configured custom domain."
+    },
+    {
+      "seed_location": "skill_scenarios/notion-research-documentation/requests[7]",
+      "old_task_id": "g22-1ee32e6c679b5b1ae1a9",
+      "new_task_id": "g22-590ba0197678d1f051ef",
+      "task_type": "available_single_skill",
+      "expected_skill": "notion-research-documentation",
+      "old_request": "Investigate a project question using the workspace and publish the synthesis.",
+      "new_request": "Research a project question across several Notion workspace pages and publish a cited synthesis."
+    },
+    {
+      "seed_location": "skill_scenarios/notion-spec-to-implementation/misleading_requests[0]",
+      "old_task_id": "g22-b8bad05668bc84c2f744",
+      "new_task_id": "g22-07e9e8fb099eabb655eb",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "notion-spec-to-implementation",
+      "old_request": "Convert the workspace product specification into milestones, implementation tasks, and dependencies.",
+      "new_request": "Convert the Notion product specification into milestones, implementation tasks, dependencies, and progress tracking."
+    },
+    {
+      "seed_location": "skill_scenarios/render-deploy/misleading_requests[2]",
+      "old_task_id": "g22-d69057340619ca93a0fb",
+      "new_task_id": "g22-9b128295485e9b2cf023",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "render-deploy",
+      "old_request": "Diagnose the hosting build failure and adjust the start command to match this repository.",
+      "new_request": "Diagnose the Render build failure and adjust the start command to match this repository."
+    },
+    {
+      "seed_location": "skill_scenarios/render-deploy/misleading_requests[3]",
+      "old_task_id": "g22-e90abfc40b81e4cbc98b",
+      "new_task_id": "g22-f86e4042264890e3a421",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "render-deploy",
+      "old_request": "Create a repeatable production release from the service blueprint and verify its health endpoint.",
+      "new_request": "Create a repeatable production release on Render from the service blueprint and verify its health endpoint."
+    },
+    {
+      "seed_location": "skill_scenarios/security-best-practices/misleading_requests[0]",
+      "old_task_id": "g22-d6eca95c3973d7b1ecd6",
+      "new_task_id": "g22-ddab8b05f8e7d7e8bb6e",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "security-best-practices",
+      "old_request": "Review this Java API for common secure-coding mistakes and propose safer defaults.",
+      "new_request": "Review this Go API for common secure-coding mistakes and propose safer defaults."
+    },
+    {
+      "seed_location": "skill_scenarios/vercel-deploy/misleading_requests[0]",
+      "old_task_id": "g22-d95b8b2ed79f01b01bea",
+      "new_task_id": "g22-9e4951b038814f2c8ae4",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "vercel-deploy",
+      "old_request": "Publish this frontend to the selected edge hosting project and return its preview address.",
+      "new_request": "Publish this frontend to its linked Vercel project and return the preview address."
+    },
+    {
+      "seed_location": "skill_scenarios/vercel-deploy/misleading_requests[1]",
+      "old_task_id": "g22-a8081b7ee7cea946fbb4",
+      "new_task_id": "g22-44b86de6b24a834ece04",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "vercel-deploy",
+      "old_request": "Connect the repository, set build variables, and create a branch preview for review.",
+      "new_request": "Connect the repository to its Vercel project, set build variables, and create a branch preview for review."
+    },
+    {
+      "seed_location": "skill_scenarios/vercel-deploy/misleading_requests[2]",
+      "old_task_id": "g22-718d8136f16292299b23",
+      "new_task_id": "g22-fd858421cfd57ebdfa7f",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "vercel-deploy",
+      "old_request": "Diagnose why the hosted build cannot find the framework's generated output directory.",
+      "new_request": "Diagnose why the Vercel build cannot find the framework's generated output directory."
+    },
+    {
+      "seed_location": "skill_scenarios/vercel-deploy/misleading_requests[3]",
+      "old_task_id": "g22-4ae1113c9c60e10916b1",
+      "new_task_id": "g22-383a481c83606f094b8a",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "vercel-deploy",
+      "old_request": "Promote the approved preview to production and verify the custom domain assignment.",
+      "new_request": "Promote the approved Vercel preview to production and verify its custom domain assignment."
+    },
+    {
+      "seed_location": "skill_scenarios/winui-app/misleading_requests[2]",
+      "old_task_id": "g22-aaa3be5030fc98d92935",
+      "new_task_id": "g22-f862a544f8d143ff127b",
+      "task_type": "misleading_name_real_skill",
+      "expected_skill": "winui-app",
+      "old_request": "Repair window activation and sizing behavior in the packaged desktop application.",
+      "new_request": "Repair window activation and sizing behavior in this packaged WinUI 3 desktop application."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/requests[0]",
+      "old_task_id": "g22-39c1f43112deb4dd0659",
+      "new_task_id": "g22-34f70a7c6824f712d531",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Apply consistent heading styles throughout this Word manuscript without changing its wording.",
+      "new_request": "Apply consistent heading styles throughout this Microsoft Word .docx manuscript without changing its wording."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-word/misleading_scenarios[3]",
+      "old_task_id": "g22-e65d634ee2e85317b559",
+      "new_task_id": "g22-33dfe355b2fcd2f68dd9",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "old_request": "Turn this finished report into a reusable Word template with locked branding elements.",
+      "new_request": "Turn this finished Microsoft Word report into a reusable .dotx template with locked branding elements."
+    },
+    {
+      "seed_location": "unsupported_domains/google-docs/requests[2]",
+      "old_task_id": "g22-77f276c0b83101afa140",
+      "new_task_id": "g22-463d15b12f029e3fd0a4",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Create a reusable meeting-notes template with owners, decisions, and follow-up sections.",
+      "new_request": "Create a reusable meeting-notes template in Google Docs with owners, decisions, and follow-up sections."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-powerpoint/requests[7]",
+      "old_task_id": "g22-8158873ed86af54499b3",
+      "new_task_id": "g22-64d00f31cb169ca33630",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Export a handout PDF with three slides per page and blank note lines for attendees.",
+      "new_request": "Create a PowerPoint custom slide show with separate executive and engineering sequences."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/requests[2]",
+      "old_task_id": "g22-87e1330cac35d16c477d",
+      "new_task_id": "g22-57204302c27e2fad7773",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Add a workflow transition that requires a resolution before an issue can be closed.",
+      "new_request": "Add a Jira workflow transition that requires a resolution before an issue can be closed."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/requests[3]",
+      "old_task_id": "g22-a474e10830c5a23a8d63",
+      "new_task_id": "g22-9cbeb07a74ed045ede55",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Bulk move these tickets to the platform project while preserving comments and attachments.",
+      "new_request": "Bulk move these Jira issues to the platform project while preserving comments and attachments."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/requests[7]",
+      "old_task_id": "g22-12eeba852225338d6594",
+      "new_task_id": "g22-4cf982cbb440e95f02f2",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Create the next sprint and carry over only unfinished work approved by the product owner.",
+      "new_request": "Create the next Jira sprint and carry over only unfinished work approved by the product owner."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/misleading_scenarios[1]",
+      "old_task_id": "g22-d783dbba6d1ee1cc1b40",
+      "new_task_id": "g22-4ca13b4ea211ecb150cd",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "old_request": "Find every ticket reopened twice that still lacks a root-cause field.",
+      "new_request": "Run a JQL query to find Jira issues reopened twice that still lack a root-cause field."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/misleading_scenarios[2]",
+      "old_task_id": "g22-e2ea5d9ad7292bf7a315",
+      "new_task_id": "g22-0489d693c893283ff466",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "old_request": "Route newly reported defects to teams based on component and customer severity.",
+      "new_request": "Configure Jira automation to route newly reported defects to teams by component and customer severity."
+    },
+    {
+      "seed_location": "unsupported_domains/jira-project-management/misleading_scenarios[3]",
+      "old_task_id": "g22-276f1351567d6d152dae",
+      "new_task_id": "g22-336c0ba26aef2981bef3",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "old_request": "Create a Kanban board for operational work with expedite and standard swimlanes.",
+      "new_request": "Create a Jira Kanban board for operational work with expedite and standard swimlanes."
+    },
+    {
+      "seed_location": "unsupported_domains/confluence-wiki/requests[1]",
+      "old_task_id": "g22-6f886d4358da4ad4ea16",
+      "new_task_id": "g22-3156d0e18ce6682e8362",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Turn these scattered runbooks into one indexed operations section with consistent labels.",
+      "new_request": "Turn these scattered Confluence runbooks into one indexed operations section with consistent labels."
+    },
+    {
+      "seed_location": "unsupported_domains/microsoft-teams/requests[3]",
+      "old_task_id": "g22-f870f3ee7f2beb2d1ff2",
+      "new_task_id": "g22-c7e83f76ee66ea26804b",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Recover the meeting transcript and attendance report from yesterday's training session.",
+      "new_request": "Restore a deleted Microsoft Teams channel and reinstate its membership and moderation settings."
+    },
+    {
+      "seed_location": "unsupported_domains/react-development/misleading_scenarios[2]",
+      "old_task_id": "g22-cab429a615753bc512f8",
+      "new_task_id": "g22-9a29ddd0532779c1d065",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "old_request": "Test keyboard navigation and asynchronous option loading in this component.",
+      "new_request": "Write React Testing Library unit tests for keyboard navigation and asynchronous option loading without launching a browser."
+    },
+    {
+      "seed_location": "unsupported_domains/vue-development/misleading_scenarios[2]",
+      "old_task_id": "g22-bce8a566a96550773661",
+      "new_task_id": "g22-740cb24062952f98a51d",
+      "task_type": "misleading_name_none",
+      "expected_skill": null,
+      "old_request": "Verify this dialog's validation, cancellation, and successful submission behavior.",
+      "new_request": "Write Vue Test Utils unit tests for this dialog's validation, cancellation, and emitted success event without launching a browser."
+    },
+    {
+      "seed_location": "unsupported_domains/nodejs-backend/requests[6]",
+      "old_task_id": "g22-7a39b294932dde60da3b",
+      "new_task_id": "g22-63fd29d198d7d75b7b6b",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Handle multipart uploads while enforcing the stated file count and size limits.",
+      "new_request": "Handle multipart uploads in this Express service while enforcing the stated file count and size limits."
+    },
+    {
+      "seed_location": "unsupported_domains/go-development/requests[6]",
+      "old_task_id": "g22-3336eb39c609ae8aadd3",
+      "new_task_id": "g22-70bc57f95fc8dfc23382",
+      "task_type": "unavailable_capability",
+      "expected_skill": null,
+      "old_request": "Create a streaming gRPC method with backpressure and clean client disconnect handling.",
+      "new_request": "Create a streaming gRPC method in Go with backpressure and clean client disconnect handling."
+    }
+  ]
+}

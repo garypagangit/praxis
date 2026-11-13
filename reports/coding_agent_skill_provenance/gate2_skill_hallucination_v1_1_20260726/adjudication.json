@@ -1,0 +1,1043 @@
+{
+  "experiment_id": "px062-skill-hallucination-gate2-v1-1-20260726",
+  "protocol_version": "1.1",
+  "determination": "FAIL",
+  "efficacy_determination": "NOT_SUPPORTED",
+  "result_classification": "FAIL",
+  "integrity": {
+    "pass": true,
+    "errors": [],
+    "expected_outputs": 1800,
+    "observed_outputs": 1800,
+    "unique_expected_keys_seen": 1800,
+    "valid_rows": 1800,
+    "trace_completeness": 1.0,
+    "h3_trace_completeness_pass": true,
+    "source_artifact_hashes": {
+      "config_sha256": "8fe4e9e5d141e111b6d4c03aac567da33d14a6f41642682db4727d077f23a1ec",
+      "tasks_sha256": "fbda2e8039d2a6087fb1cd3584470269c3e2c409d4bbe13f7eb1e59a4fc19316",
+      "registry_sha256": "2c447b5eee07b2f2930fc8649860652b36d4902dafadfa83e3f5d7aa041a76db",
+      "outputs_sha256": "4848da2f2a1590bf31c19fa52329e3e1c8de2733311beb8a4afff6ddea89103b",
+      "collection_summary_sha256": "eb2160f0dbf7dbc3c811786f585bef99237baec9a8a767be7889c93058776df7"
+    }
+  },
+  "model_gates": {
+    "Qwen/Qwen2.5-7B-Instruct": {
+      "initial_nonexistent_events": 147,
+      "event_sufficiency": true,
+      "verified_nonexistent_attempt_rate": 0.006666666666666667,
+      "h1_verified_rate_pass": true,
+      "open_ended_known_skill_accuracy": 0.0,
+      "verified_known_skill_accuracy": 0.25,
+      "known_skill_accuracy_delta": 0.25,
+      "h2_utility_pass": true
+    },
+    "mistralai/Mistral-7B-Instruct-v0.3": {
+      "initial_nonexistent_events": 297,
+      "event_sufficiency": true,
+      "verified_nonexistent_attempt_rate": 0.99,
+      "h1_verified_rate_pass": false,
+      "open_ended_known_skill_accuracy": 0.03,
+      "verified_known_skill_accuracy": 0.03,
+      "known_skill_accuracy_delta": 0.0,
+      "h2_utility_pass": true
+    }
+  },
+  "paired_tests": {
+    "Qwen/Qwen2.5-7B-Instruct": {
+      "paired_tasks": 300,
+      "pre_verification_nonexistent": 147,
+      "post_verification_nonexistent": 2,
+      "separate_open_arm_nonexistent": 147,
+      "paired_risk_difference": -0.48333333333333334,
+      "relative_reduction": 0.9863945578231292,
+      "improvements": 145,
+      "regressions": 0,
+      "mcnemar_one_sided_p": 2.2420775429197073e-44,
+      "initial_response_concordance": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1.0,
+        "wilson_95": [
+          0.9873570287754538,
+          0.9999999999999998
+        ]
+      },
+      "holm_adjusted_p": 2.2420775429197073e-44
+    },
+    "mistralai/Mistral-7B-Instruct-v0.3": {
+      "paired_tasks": 300,
+      "pre_verification_nonexistent": 297,
+      "post_verification_nonexistent": 297,
+      "separate_open_arm_nonexistent": 297,
+      "paired_risk_difference": 0.0,
+      "relative_reduction": 0.0,
+      "improvements": 0,
+      "regressions": 0,
+      "mcnemar_one_sided_p": null,
+      "initial_response_concordance": {
+        "numerator": 300,
+        "denominator": 300,
+        "rate": 1.0,
+        "wilson_95": [
+          0.9873570287754538,
+          0.9999999999999998
+        ]
+      },
+      "holm_adjusted_p": null
+    }
+  },
+  "metrics": {
+    "Qwen/Qwen2.5-7B-Instruct::open_ended": {
+      "n": 300,
+      "accuracy": {
+        "numerator": 126,
+        "denominator": 300,
+        "rate": 0.42,
+        "wilson_95": [
+          0.3655060253806384,
+          0.4765168500152888
+        ]
+      },
+      "nonexistent_attempt": {
+        "numerator": 147,
+        "denominator": 300,
+        "rate": 0.49,
+        "wilson_95": [
+          0.43391704888051774,
+          0.5463358105439731
+        ]
+      },
+      "abstention": {
+        "numerator": 127,
+        "denominator": 300,
+        "rate": 0.42333333333333334,
+        "wilson_95": [
+          0.3687385228107271,
+          0.47986673277703656
+        ]
+      },
+      "by_task_type": {
+        "known_skill": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 83,
+            "denominator": 100,
+            "rate": 0.83,
+            "wilson_95": [
+              0.7445199523239887,
+              0.8910643388594006
+            ]
+          },
+          "abstention": {
+            "numerator": 17,
+            "denominator": 100,
+            "rate": 0.17,
+            "wilson_95": [
+              0.10893566114059931,
+              0.25548004767601123
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "unavailable_capability": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "abstention": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "near_miss_name": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 26,
+            "denominator": 100,
+            "rate": 0.26,
+            "wilson_95": [
+              0.18404698464748132,
+              0.3537098944918718
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 64,
+            "denominator": 100,
+            "rate": 0.64,
+            "wilson_95": [
+              0.5423540245160874,
+              0.7272877959859567
+            ]
+          },
+          "abstention": {
+            "numerator": 10,
+            "denominator": 100,
+            "rate": 0.1,
+            "wilson_95": [
+              0.0552291370606751,
+              0.17436566150491345
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      }
+    },
+    "Qwen/Qwen2.5-7B-Instruct::post_generation_verification": {
+      "n": 300,
+      "accuracy": {
+        "numerator": 165,
+        "denominator": 300,
+        "rate": 0.55,
+        "wilson_95": [
+          0.4934256045239535,
+          0.6053100983535921
+        ]
+      },
+      "nonexistent_attempt": {
+        "numerator": 2,
+        "denominator": 300,
+        "rate": 0.006666666666666667,
+        "wilson_95": [
+          0.0018301483579117855,
+          0.023977583250306973
+        ]
+      },
+      "abstention": {
+        "numerator": 230,
+        "denominator": 300,
+        "rate": 0.7666666666666667,
+        "wilson_95": [
+          0.715618653578636,
+          0.8109717617682728
+        ]
+      },
+      "by_task_type": {
+        "known_skill": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 25,
+            "denominator": 100,
+            "rate": 0.25,
+            "wilson_95": [
+              0.17545211362287672,
+              0.34304463548061603
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 2,
+            "denominator": 100,
+            "rate": 0.02,
+            "wilson_95": [
+              0.00550196755016235,
+              0.07001179072854388
+            ]
+          },
+          "abstention": {
+            "numerator": 70,
+            "denominator": 100,
+            "rate": 0.7,
+            "wilson_95": [
+              0.6041514536665332,
+              0.7810511470506724
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 3,
+            "denominator": 100,
+            "rate": 0.03,
+            "wilson_95": [
+              0.010254524024038925,
+              0.0845193642905276
+            ]
+          }
+        },
+        "unavailable_capability": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "abstention": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "near_miss_name": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 40,
+            "denominator": 100,
+            "rate": 0.4,
+            "wilson_95": [
+              0.3094012864324589,
+              0.4979974132089382
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "abstention": {
+            "numerator": 60,
+            "denominator": 100,
+            "rate": 0.6,
+            "wilson_95": [
+              0.5020025867910618,
+              0.6905987135675411
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      },
+      "initial_nonexistent_events": 147,
+      "corrected_after_verification": {
+        "numerator": 145,
+        "denominator": 147,
+        "rate": 0.9863945578231292,
+        "wilson_95": [
+          0.9517542954389518,
+          0.9962609327217934
+        ]
+      },
+      "task_correct_after_verification": {
+        "numerator": 39,
+        "denominator": 147,
+        "rate": 0.2653061224489796,
+        "wilson_95": [
+          0.20057452806194237,
+          0.3419915506576981
+        ]
+      },
+      "unresolved_after_verification": {
+        "numerator": 2,
+        "denominator": 147,
+        "rate": 0.013605442176870748,
+        "wilson_95": [
+          0.003739067278206578,
+          0.04824570456104818
+        ]
+      }
+    },
+    "Qwen/Qwen2.5-7B-Instruct::registry_constrained": {
+      "n": 300,
+      "accuracy": {
+        "numerator": 222,
+        "denominator": 300,
+        "rate": 0.74,
+        "wilson_95": [
+          0.6875519770721528,
+          0.7863793967400652
+        ]
+      },
+      "nonexistent_attempt": {
+        "numerator": 64,
+        "denominator": 300,
+        "rate": 0.21333333333333335,
+        "wilson_95": [
+          0.1707525956382275,
+          0.2631627078638455
+        ]
+      },
+      "abstention": {
+        "numerator": 102,
+        "denominator": 300,
+        "rate": 0.34,
+        "wilson_95": [
+          0.2887202040964927,
+          0.395325546695362
+        ]
+      },
+      "by_task_type": {
+        "known_skill": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 86,
+            "denominator": 100,
+            "rate": 0.86,
+            "wilson_95": [
+              0.7786281178903616,
+              0.9147365634006086
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "abstention": {
+            "numerator": 2,
+            "denominator": 100,
+            "rate": 0.02,
+            "wilson_95": [
+              0.00550196755016235,
+              0.07001179072854388
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 12,
+            "denominator": 100,
+            "rate": 0.12,
+            "wilson_95": [
+              0.06999406437019488,
+              0.19812099426711421
+            ]
+          }
+        },
+        "unavailable_capability": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "abstention": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "near_miss_name": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 36,
+            "denominator": 100,
+            "rate": 0.36,
+            "wilson_95": [
+              0.2727122040140433,
+              0.4576459754839126
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 64,
+            "denominator": 100,
+            "rate": 0.64,
+            "wilson_95": [
+              0.5423540245160874,
+              0.7272877959859567
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      }
+    },
+    "mistralai/Mistral-7B-Instruct-v0.3::open_ended": {
+      "n": 300,
+      "accuracy": {
+        "numerator": 3,
+        "denominator": 300,
+        "rate": 0.01,
+        "wilson_95": [
+          0.003406618437715286,
+          0.02898349336233983
+        ]
+      },
+      "nonexistent_attempt": {
+        "numerator": 297,
+        "denominator": 300,
+        "rate": 0.99,
+        "wilson_95": [
+          0.9710165066376601,
+          0.9965933815622847
+        ]
+      },
+      "abstention": {
+        "numerator": 0,
+        "denominator": 300,
+        "rate": 0.0,
+        "wilson_95": [
+          8.673617379884035e-19,
+          0.012642971224546034
+        ]
+      },
+      "by_task_type": {
+        "known_skill": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 3,
+            "denominator": 100,
+            "rate": 0.03,
+            "wilson_95": [
+              0.010254524024038925,
+              0.0845193642905276
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 97,
+            "denominator": 100,
+            "rate": 0.97,
+            "wilson_95": [
+              0.9154806357094724,
+              0.9897454759759611
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "unavailable_capability": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "near_miss_name": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      }
+    },
+    "mistralai/Mistral-7B-Instruct-v0.3::post_generation_verification": {
+      "n": 300,
+      "accuracy": {
+        "numerator": 3,
+        "denominator": 300,
+        "rate": 0.01,
+        "wilson_95": [
+          0.003406618437715286,
+          0.02898349336233983
+        ]
+      },
+      "nonexistent_attempt": {
+        "numerator": 297,
+        "denominator": 300,
+        "rate": 0.99,
+        "wilson_95": [
+          0.9710165066376601,
+          0.9965933815622847
+        ]
+      },
+      "abstention": {
+        "numerator": 0,
+        "denominator": 300,
+        "rate": 0.0,
+        "wilson_95": [
+          8.673617379884035e-19,
+          0.012642971224546034
+        ]
+      },
+      "by_task_type": {
+        "known_skill": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 3,
+            "denominator": 100,
+            "rate": 0.03,
+            "wilson_95": [
+              0.010254524024038925,
+              0.0845193642905276
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 97,
+            "denominator": 100,
+            "rate": 0.97,
+            "wilson_95": [
+              0.9154806357094724,
+              0.9897454759759611
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "unavailable_capability": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "near_miss_name": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      },
+      "initial_nonexistent_events": 297,
+      "corrected_after_verification": {
+        "numerator": 0,
+        "denominator": 297,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.012769047310675656
+        ]
+      },
+      "task_correct_after_verification": {
+        "numerator": 0,
+        "denominator": 297,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.012769047310675656
+        ]
+      },
+      "unresolved_after_verification": {
+        "numerator": 297,
+        "denominator": 297,
+        "rate": 1.0,
+        "wilson_95": [
+          0.9872309526893243,
+          0.9999999999999999
+        ]
+      }
+    },
+    "mistralai/Mistral-7B-Instruct-v0.3::registry_constrained": {
+      "n": 300,
+      "accuracy": {
+        "numerator": 79,
+        "denominator": 300,
+        "rate": 0.2633333333333333,
+        "wilson_95": [
+          0.21671150294236005,
+          0.3159395034372583
+        ]
+      },
+      "nonexistent_attempt": {
+        "numerator": 215,
+        "denominator": 300,
+        "rate": 0.7166666666666667,
+        "wilson_95": [
+          0.6631855651003921,
+          0.7646691473689714
+        ]
+      },
+      "abstention": {
+        "numerator": 0,
+        "denominator": 300,
+        "rate": 0.0,
+        "wilson_95": [
+          8.673617379884035e-19,
+          0.012642971224546034
+        ]
+      },
+      "by_task_type": {
+        "known_skill": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 72,
+            "denominator": 100,
+            "rate": 0.72,
+            "wilson_95": [
+              0.6251197129007884,
+              0.7986031478881379
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 22,
+            "denominator": 100,
+            "rate": 0.22,
+            "wilson_95": [
+              0.150012823846054,
+              0.31070353514985793
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 6,
+            "denominator": 100,
+            "rate": 0.06,
+            "wilson_95": [
+              0.027786123963188192,
+              0.1247681544589592
+            ]
+          }
+        },
+        "unavailable_capability": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 100,
+            "denominator": 100,
+            "rate": 1.0,
+            "wilson_95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "near_miss_name": {
+          "n": 100,
+          "accuracy": {
+            "numerator": 7,
+            "denominator": 100,
+            "rate": 0.07,
+            "wilson_95": [
+              0.03431926106727268,
+              0.137495147390735
+            ]
+          },
+          "nonexistent_attempt": {
+            "numerator": 93,
+            "denominator": 100,
+            "rate": 0.93,
+            "wilson_95": [
+              0.8625048526092651,
+              0.9656807389327273
+            ]
+          },
+          "abstention": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "existing_but_wrong": {
+            "numerator": 0,
+            "denominator": 100,
+            "rate": 0.0,
+            "wilson_95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      }
+    }
+  },
+  "claim_boundary": "The benchmark measures registry-name invention and a decontextualized deterministic existence-check recovery against a frozen OpenAI skills snapshot. The correction turn contains the rejected name and full registry but not the original task or prior assistant turn. attempted_load is a recommendation-level proxy; no skill is loaded or executed. It does not measure context-preserving agent retries, best-skill recovery, general factual hallucination, semantic skill poisoning, production agent compromise, or natural deployment prevalence."
+}

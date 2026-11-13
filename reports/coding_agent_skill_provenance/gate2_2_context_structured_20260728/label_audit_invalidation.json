@@ -1,0 +1,153 @@
+{
+  "schema_version": "px062-gate2.2-label-audit-invalidation-v2",
+  "experiment_id": "px062-skill-selection-gate2-2-v1-0-20260728",
+  "benchmark_version": "1.0",
+  "status": "INVALIDATED_LABEL_AUDIT_SEMANTIC_GATE_FAILED",
+  "created_utc": "2026-07-28T21:07:07Z",
+  "repository_checkpoint": "5b9bea8205a52df973b037eee12454af7783df8a",
+  "sealed_inputs": {
+    "tasks": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/frozen_inputs/tasks.jsonl",
+      "bytes": 2118042,
+      "sha256": "37c77a9eaa12a4102419591aa554f736494aff85a3e252fd284a20b95094bebc",
+      "rows": 1032
+    },
+    "answer_key": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/frozen_inputs/answer_key.jsonl",
+      "bytes": 295488,
+      "sha256": "1be338e7d9f1a56a08552bc6481409c87a3906a4d93d254fce2b5acf6ecd2ab3",
+      "rows": 1032
+    },
+    "registry_catalog": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/frozen_inputs/registry_catalog.json",
+      "bytes": 20314,
+      "sha256": "d775221aaa2d0bb11ee7b25c2236a241970175d97726fc70f55e47ca6589acde"
+    },
+    "benchmark_manifest": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/frozen_inputs/benchmark_manifest.json",
+      "bytes": 8853,
+      "sha256": "cabd97f3492119109b8f00834145054686ae1f4cfbafc277a3131da3c8f5ee73"
+    }
+  },
+  "sealed_audit_evidence": {
+    "mechanical_pair_verification": "PASS",
+    "pair_manifest": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_evidence_manifest.json",
+      "bytes": 156187,
+      "sha256": "bfc0440fc2037dab757554c6d13a177880b1dea901d1225c58ca0b79416e2fe3"
+    },
+    "artifact_count": 438,
+    "artifact_bytes": 6096000,
+    "artifact_inventory_sha256": "737d16a4a4dd9443908eb7305d34640dde699e56c0b6e005795718c730324344",
+    "accepted_session_count": 86,
+    "accepted_session_ids_sha256": "b07b136223e75597799d57c66384ba7a3a200c6c913b3ce006244933eec45139",
+    "audits": [
+      {
+        "slot": 1,
+        "model": "gpt-5.6-sol",
+        "rows": 1032,
+        "agreement_with_frozen_answer": 1012,
+        "disagreements_with_frozen_answer": 20,
+        "predictions": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_1_predictions.jsonl",
+          "bytes": 187284,
+          "sha256": "ff93ab7bd2ea4e02b00ccb148d7eb8ef7bc5e5c3fec6eaa352493cacbf7d751b",
+          "rows": 1032
+        },
+        "sidecar": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_1_run.json",
+          "bytes": 214512,
+          "sha256": "58a487e6b60463ae3e37d838db6ed9f1af871710087db86aabde03444ac7ef0b"
+        },
+        "accepted_session_count": 43
+      },
+      {
+        "slot": 2,
+        "model": "gpt-5.6-terra",
+        "rows": 1032,
+        "agreement_with_frozen_answer": 1004,
+        "disagreements_with_frozen_answer": 28,
+        "predictions": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_2_predictions.jsonl",
+          "bytes": 173981,
+          "sha256": "4a6057413212dd343d01df6df7f72a5002c807f773113cae7c910fcdf85695c0",
+          "rows": 1032
+        },
+        "sidecar": {
+          "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_2_run.json",
+          "bytes": 215202,
+          "sha256": "0c448fff56d14d842ef7bf693a26811b39e6cc33f6b26c618bb2f2076f4bb655"
+        },
+        "accepted_session_count": 43
+      }
+    ]
+  },
+  "conflict_ledger": {
+    "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_conflicts.jsonl",
+    "bytes": 20930,
+    "sha256": "5b899e78cac1ee60c7fafbe37088c3ce58221c6f55680964235b896b1fc91c0c",
+    "rows": 33,
+    "order": "frozen tasks.jsonl row order",
+    "prompt_sha256_definition": "SHA-256 of the exact UTF-8 prompt string bytes, without an added newline",
+    "canonical_row_sha256_definition": "SHA-256 of canonical compact sorted-key UTF-8 JSON for the row excluding canonical_row_sha256, without an added newline",
+    "conflict_class_counts": {
+      "AUDITORS_DISAGREE": 19,
+      "BOTH_AUDITORS_SAME_ALTERNATIVE": 14
+    }
+  },
+  "semantic_gate": {
+    "status": "FAIL",
+    "rows": 1032,
+    "three_way_unanimous_rows": 999,
+    "three_way_unanimous_rate": 0.9680232558139535,
+    "cross_audit_agreement_rows": 1013,
+    "audit_1_disagreements_with_frozen_answer": 20,
+    "audit_2_disagreements_with_frozen_answer": 28,
+    "cross_audit_disagreement_rows": 19,
+    "union_nonunanimous_rows": 33,
+    "both_auditors_same_alternative_against_frozen_answer": 14,
+    "by_task_type": {
+      "misleading_name_real_skill": 14,
+      "unavailable_capability": 10,
+      "misleading_name_none": 6,
+      "available_single_skill": 3
+    }
+  },
+  "resolution_absence": {
+    "provisional": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_provisional_resolution.json",
+      "exists": false
+    },
+    "final": {
+      "path": "reports/coding_agent_skill_provenance/gate2_2_context_structured_20260728/label_audit_resolution.json",
+      "exists": false
+    }
+  },
+  "finalizer_check": {
+    "path": "scripts/finalize_px062_gate2_2_labels.py",
+    "bytes": 24581,
+    "sha256": "be176a40327e131152d16270c587a6505dd9749dda99e9288f6d96e31d2d4467",
+    "mode": "check_only",
+    "function": "prepare_finalization",
+    "exit_semantics": {
+      "exception_type": "ValueError",
+      "message": "label audits do not unanimously support the answer key",
+      "cli_exit_code": 1,
+      "terminal_stderr_line": "ValueError: label audits do not unanimously support the answer key"
+    },
+    "provisional_resolution_written": false,
+    "final_resolution_written": false
+  },
+  "required_disposition": {
+    "benchmark_version_1_0_valid_for_model_collection": false,
+    "row_patching_permitted": false,
+    "disputed_only_reaudit_permitted": false,
+    "unchanged_input_rerun_to_seek_pass_permitted": false,
+    "new_benchmark_version_required": true,
+    "new_task_catalog_answer_hashes_required": true,
+    "two_fresh_full_blinded_audits_required": true,
+    "version_1_0_audits_reusable_for_acceptance": false,
+    "qwen_or_mistral_gate2_2_collection_launched": false,
+    "aws_gate2_2_training_job_launched": false
+  }
+}
