@@ -1,5 +1,17 @@
 # Identifying Autonomous AI APT
 
+This project studies whether classifiers can distinguish human and autonomous AI operators using operator-host telemetry from a matched, emulated APT exercise. The [project hub](experiments/final-praxis-autonomous-ai-apt/README.md) records the paper's findings and limitations.
+
+### Project materials
+
+- **Paper:** [v1.6 draft](paper/autonomous-ai-apt/Praxis_Draft_v1.6_Human_vs_AI_Operator_Classification.docx) · [October 29 revision](paper/autonomous-ai-apt/Identifying_Autonomous_AI_APT_Working_Praxis_Updated_20261029.docx) · [October 24 working paper](paper/working-praxis-20261024/README.md). A separately approved final paper is not yet identified.
+- **Presentation:** [November 13 advisor presentation, V008](paper/autonomous-ai-apt/Final_Defense_Idea_Advisor_Submission_V008_11132026.pptx). A final defense presentation is not yet identified.
+- **Dataset:** The paper's study dataset is not yet available here. The [earlier synthetic engineering dataset](experiments/final-praxis-autonomous-ai-apt/pipeline/GROUNDED_DATASET.md) is a different dataset, not the paper's study data.
+- **Code:** [Restricted telemetry collector](experiments/final-praxis-autonomous-ai-apt/collector/README.md) · [Earlier experiment harness](experiments/final-praxis-autonomous-ai-apt/pipeline/README.md). The paper-specific analysis code has not been independently verified here.
+- **Environment:** [Upstream GOAD project](https://github.com/Orange-Cyberdefense/GOAD) is the lab design's foundation; the study-specific environment deployment code is not yet available here.
+
+Raw evidence, sensitive configuration and credentials must remain restricted; publish only reviewed, authorized materials. The October 24 project summary immediately below is historical and its RQs, results status and methodology are superseded by the hub.
+
 [**Project status tracker and delivery schedule**](PRAXIS_STATUS_TRACKER.md) · [Research questions and hypotheses](PRAXIS_RESEARCH_DESIGN.md) · [Experiment delivery protocol](PRAXIS_EXPERIMENT_PROTOCOL.md)
 
 **Delivery window: October 19–December 1, 2026. AI Review due November 14. Defense December 1.**

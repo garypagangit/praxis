@@ -1,4 +1,36 @@
-# Identifying Autonomous AI APT: project status tracker
+# Human vs. Autonomous AI Operator Classification: project status tracker
+
+**Owner:** Gary Pagan · **Status date:** November 17, 2026 · [Project hub](experiments/final-praxis-autonomous-ai-apt/README.md) · [Collector guide](experiments/final-praxis-autonomous-ai-apt/collector/README.md)
+
+**Overall status: paper draft with reported study results; independent reproduction and collector deployment remain unverified.** The current reference is the user-provided `Praxis_Draft_v1.6_Human_vs_AI_Operator_Classification.docx`. Its findings are reported below as claims in the draft, not independently verified results or proof of submission or approval.
+
+## Research status
+
+| Area | Status | Evidence or qualification |
+| --- | --- | --- |
+| Scope and dataset | Reported in draft | Nine laboratory sessions: five human and four from one AI model and harness, on the same emulated exercise. The dataset is synthetic in its constructed environment, not statistically simulated operator activity. |
+| RQ1 / H1: distinguishing features | Supported in draft | Command-content features improved macro-F1 by 0.10–0.17 across the classifiers. |
+| RQ2 / H2: classifier comparison | Supported in draft | XGBoost macro-F1 was 0.857 on held-out sessions, highest among the boosting models. Random forest scored 0.852 and was not statistically distinguishable from XGBoost. |
+| RQ3 / H3: stage groups | Supported in draft for tested groups | XGBoost macro-F1: discovery 0.777, execution 0.924, lateral movement/collection 0.903. Account manipulation had too few AI windows to test. |
+| Claim boundaries | Restricted | Operator-host telemetry only for the models; one lab design, nine sessions and one AI model/harness. Operational performance and transfer to other models or harnesses are not established. |
+| Evidence and reproduction | Not independently verified here | The paper's raw evidence, feature builder, model outputs and reported analysis have not been independently verified or reproduced in this worktree. The older synthetic engineering harness is not a reproduction of the paper. |
+
+## Current work and next actions
+
+| Work item | Status | Next evidence or action |
+| --- | --- | --- |
+| Paper-aligned project description and RQs/Hs | Updated | [Project hub](experiments/final-praxis-autonomous-ai-apt/README.md) records the v1.6 scope, questions, hypotheses and reported outcomes. |
+| Restricted telemetry collector | Initial implementation tested | [Collector](experiments/final-praxis-autonomous-ai-apt/collector/README.md) exports selected CloudWatch groups and normalized local JSONL; focused tests and the prior legacy pipeline tests passed. It is not the paper's complete exporter or verifier. |
+| Lab sources and live export | Pending | Identify authorized sources, time window and private destination; validate access and run a controlled end-to-end export. Read-only CloudWatch group listing was reachable, but actual lab groups and event completeness were not validated. |
+| Evidence integrity and privacy | Pending | Locate the paper's restricted packages and external anchors; assess collection completeness, sanitization, session reconstruction, provenance and the paper's Appendix E verification checks. Do not commit raw evidence or credentials. |
+| Paper-specific features and model evaluation | Pending | Locate and validate the paper's preprocessing, windowing, feature definitions, splits, models and predictions; reproduce the reported tables before claiming independent confirmation. |
+| Paper and delivery | Unverified | Confirm AI Review submission and receipt, review feedback, defense arrangements and current deadlines with the owner. The draft's statements alone do not verify institutional actions. |
+
+**Scheduling note:** The historical plan listed AI Review for November 14 and defense for December 1, 2026. As of the status date, the former date has passed; submission status is unknown, not assumed missed or completed. Confirm both milestones and any revised dates.
+
+## Historical October 19 plan
+
+The following original plan is retained for provenance. Its prospective RQs, hypotheses, scope, task states and dates are superseded by the paper-aligned status above and are not current completion evidence.
 
 **Owner:** Gary Pagan · **Updated:** October 19, 2026 · **Delivery window:** October 19–December 1, 2026 (America/New_York)
 

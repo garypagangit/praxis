@@ -1,5 +1,7 @@
 # EXP-RQ2: stable attributes and generalization
 
+> **Superseded October proposal.** Paper-aligned RQ2 compares gradient boosting, histogram gradient boosting and XGBoost against random forest and logistic regression; H2 predicts the highest macro-F1 for XGBoost. The draft reports H2 supported among the boosting models and notes XGBoost was not statistically distinguishable from random forest. See the [current project hub](README.md); the prospective transfer test below is not the paper's RQ2.
+
 **Status:** prospective matched-study experiment not run; wording approved October 24, 2026. Earlier archive/synthetic screens are exploratory only. **Tracker:** E02, with final confirmation in E04. **Development target:** Nov 6; locked evaluation Nov 7.
 
 **RQ2:** Which classifiers retain useful behavioral attributes for classification performance on autonomous-AI APT data?

@@ -1,5 +1,7 @@
 # Experiment delivery protocol
 
+> **Historical prospective protocol:** The October 19 plan below is not the protocol reported by the v1.6 paper. The [primary project hub](experiments/final-praxis-autonomous-ai-apt/README.md) describes the current paper's operator-host scope and evaluation; its Appendix E is the source for reported collection and verification. The new [restricted collector](experiments/final-praxis-autonomous-ai-apt/collector/README.md) does not by itself reproduce that protocol.
+
 **Working draft:** October 19, 2026. Freeze by October 26 before scored collection. [Tracker](PRAXIS_STATUS_TRACKER.md) · [Research design](PRAXIS_RESEARCH_DESIGN.md).
 
 ## 1. Scope and units

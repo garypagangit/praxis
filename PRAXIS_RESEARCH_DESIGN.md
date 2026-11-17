@@ -1,5 +1,7 @@
 # Identifying Autonomous AI APT: working research design
 
+> **Historical design, superseded:** This October 24 proposal uses different RQs, hypotheses, telemetry and models from the user-provided v1.6 paper. For the paper-aligned current description, exact RQ/H mapping, reported results and limitations, use the [primary project hub](experiments/final-praxis-autonomous-ai-apt/README.md). The material below is retained as a dated prospective design, not as the current paper's methodology.
+
 **Revision:** October 24, 2026. **Status:** author-approved working wording for advisor review; not a completed finding or frozen preregistration. This document supplies the current three-RQ structure. The October 16 advisor presentation remains an unchanged historical submission. [Delivery tracker](PRAXIS_STATUS_TRACKER.md) · [Experiment protocol](PRAXIS_EXPERIMENT_PROTOCOL.md).
 
 ## Problem and thesis

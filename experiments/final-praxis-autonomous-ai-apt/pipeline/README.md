@@ -1,5 +1,7 @@
 # Runnable RQ1–RQ3 engineering test
 
+> **Historical engineering harness:** The RQs, models, trial-level inputs and feature schema in this October prototype differ from the v1.6 paper. It does not reproduce the paper's results or accept raw output from the new [collector](../collector/README.md). See the [current project hub](../README.md) for the paper-aligned description.
+
 This pipeline uses a **synthetic trial-level fixture**, not real attack telemetry. It exercises all three experiment paths and accepts a CSV with the same schema later. Its results cannot support the Praxis hypotheses. The first implementation uses fixed group-disjoint train/validation partitions and a small two-configuration search, rather than the final repeated/nested grouped protocol.
 
 [Completed synthetic test report](synthetic_smoke_20261019_v2/REPORT.md) · [Validation evidence](VALIDATION.md)

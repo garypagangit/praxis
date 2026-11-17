@@ -1,5 +1,7 @@
 # EXP-RQ3: classifier comparison
 
+> **Superseded October proposal.** Paper-aligned RQ3 asks whether XGBoost distinguishes operator type within the tested ATT&CK stage groups; H3 predicts it can. The draft reports H3 supported for discovery, execution and lateral movement/collection, but account manipulation had too few AI windows to test. See the [current project hub](README.md); the SVM comparison below is not the paper's RQ3.
+
 **Status:** prospective matched-study experiment not run; wording approved October 24, 2026. Earlier archive/synthetic screens are exploratory only. **Tracker:** E03/E04. **Selection freeze:** Nov 6; locked evaluation Nov 7.
 
 **RQ3:** Among XGBoost, a decision tree, a random forest, SVM and a tabular transformer, which provides the strongest trial-level human-versus-autonomous-AI classification?

@@ -1,5 +1,7 @@
 # EXP-RQ1: feature identification
 
+> **Superseded October proposal.** Paper-aligned RQ1 asks which behavioral features distinguish a human attack from an autonomous-AI APT; H1 concerns the classification benefit of command telemetry such as command length, flags, pipes, chaining and redirects. The draft reports H1 supported within its nine-session laboratory dataset. See the [current project hub](README.md); the older prospective test below is not the paper's RQ1 analysis.
+
 **Status:** prospective matched-study experiment not run; wording approved October 24, 2026. Earlier archive/synthetic screens are exploratory only. **Tracker:** E01, with final confirmation in E04. **Development target:** Nov 6; locked evaluation Nov 7.
 
 **RQ1:** Which target-side host and network behavioral feature families distinguish human-operated from autonomous-AI APT-like trials under matched conditions?
