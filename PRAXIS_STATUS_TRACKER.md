@@ -4,31 +4,46 @@
 
 **Overall status: paper draft with reported study results; independent reproduction and collector deployment remain unverified.** The current reference is the user-provided `Praxis_Draft_v1.6_Human_vs_AI_Operator_Classification.docx`. Its findings are reported below as claims in the draft, not independently verified results or proof of submission or approval.
 
+**Status key:** 🟢 Completed · 🟡 In progress or reported but unverified · ⚪ Pending
+
 ## Research status
 
 | Area | Status | Evidence or qualification |
 | --- | --- | --- |
-| Scope and dataset | Reported in draft | Nine laboratory sessions: five human and four from one AI model and harness, on the same emulated exercise. The dataset is synthetic in its constructed environment, not statistically simulated operator activity. |
-| RQ1 / H1: distinguishing features | Supported in draft | Command-content features improved macro-F1 by 0.10–0.17 across the classifiers. |
-| RQ2 / H2: classifier comparison | Supported in draft | XGBoost macro-F1 was 0.857 on held-out sessions, highest among the boosting models. Random forest scored 0.852 and was not statistically distinguishable from XGBoost. |
-| RQ3 / H3: stage groups | Supported in draft for tested groups | XGBoost macro-F1: discovery 0.777, execution 0.924, lateral movement/collection 0.903. Account manipulation had too few AI windows to test. |
-| Claim boundaries | Restricted | Operator-host telemetry only for the models; one lab design, nine sessions and one AI model/harness. Operational performance and transfer to other models or harnesses are not established. |
-| Evidence and reproduction | Not independently verified here | The paper's raw evidence, feature builder, model outputs and reported analysis have not been independently verified or reproduced in this worktree. The older synthetic engineering harness is not a reproduction of the paper. |
+| Scope and dataset | 🟡 Reported in draft | Nine laboratory sessions: five human and four from one AI model and harness, on the same emulated exercise. The dataset is synthetic in its constructed environment, not statistically simulated operator activity. |
+| RQ1 / H1: distinguishing features | 🟡 Supported in draft | Command-content features improved macro-F1 by 0.10–0.17 across the classifiers. |
+| RQ2 / H2: classifier comparison | 🟡 Supported in draft | XGBoost macro-F1 was 0.857 on held-out sessions, highest among the boosting models. Random forest scored 0.852 and was not statistically distinguishable from XGBoost. |
+| RQ3 / H3: stage groups | 🟡 Supported in draft for tested groups | XGBoost macro-F1: discovery 0.777, execution 0.924, lateral movement/collection 0.903. Account manipulation had too few AI windows to test. |
+| Claim boundaries | 🟢 Documented | Operator-host telemetry only for the models; one lab design, nine sessions and one AI model/harness. Operational performance and transfer to other models or harnesses are not established. |
+| Evidence and reproduction | ⚪ Not independently verified here | The paper's raw evidence, feature builder, model outputs and reported analysis have not been independently verified or reproduced in this worktree. The older synthetic engineering harness is not a reproduction of the paper. |
 
 ## Current work and next actions
 
 | Work item | Status | Next evidence or action |
 | --- | --- | --- |
-| Paper-aligned project description and RQs/Hs | Updated | [Project hub](experiments/final-praxis-autonomous-ai-apt/README.md) records the v1.6 scope, questions, hypotheses and reported outcomes. |
-| Restricted telemetry collector | Initial implementation tested | [Collector](experiments/final-praxis-autonomous-ai-apt/collector/README.md) exports selected CloudWatch groups and normalized local JSONL; focused tests and the prior legacy pipeline tests passed. It is not the paper's complete exporter or verifier. |
-| Lab sources and live export | Pending | Identify authorized sources, time window and private destination; validate access and run a controlled end-to-end export. Read-only CloudWatch group listing was reachable, but actual lab groups and event completeness were not validated. |
-| Evidence integrity and privacy | Pending | Locate the paper's restricted packages and external anchors; assess collection completeness, sanitization, session reconstruction, provenance and the paper's Appendix E verification checks. Do not commit raw evidence or credentials. |
-| Paper-specific features and model evaluation | Pending | Locate and validate the paper's preprocessing, windowing, feature definitions, splits, models and predictions; reproduce the reported tables before claiming independent confirmation. |
-| Paper and delivery | Unverified | Confirm AI Review submission and receipt, review feedback, defense arrangements and current deadlines with the owner. The draft's statements alone do not verify institutional actions. |
+| Paper-aligned description and RQs/Hs | 🟢 Completed | [Project hub](experiments/final-praxis-autonomous-ai-apt/README.md) records the v1.6 scope, questions, hypotheses and reported outcomes. |
+| Project materials and public branch | 🟢 Published | [Repository README](README.md) links the draft, revision, advisor presentation and available code. Published in commit `32b4d5b` on the AI APT branch. |
+| Initial restricted collector | 🟢 Implemented and tested | [Collector](experiments/final-praxis-autonomous-ai-apt/collector/README.md) supports selected CloudWatch groups and normalized local JSONL. Nine collector tests and 13 legacy pipeline tests passed. This is not the paper's full exporter or verifier. |
+| AWS read-only access | 🟢 Checked | Existing `praxis-build` SSO identity and a read-only CloudWatch group listing were verified; actual lab sources were not identified or validated. |
+| Paper dataset and environment code | ⚪ Pending | Locate and review the paper's dataset and study-specific environment code before linking or publishing them. Existing synthetic engineering data and upstream GOAD are not substitutes. |
+| Lab sources and live export | ⚪ Pending | Identify authorized sources, time window and private destination; validate access and run a controlled end-to-end export. |
+| Evidence integrity and privacy | ⚪ Pending | Locate the paper's restricted packages and external anchors; assess collection completeness, sanitization, session reconstruction, provenance and the paper's Appendix E verification checks. Do not commit raw evidence or credentials. |
+| Paper-specific features and model evaluation | ⚪ Pending | Locate and validate the paper's preprocessing, windowing, feature definitions, splits, models and predictions; reproduce the reported tables before claiming independent confirmation. |
+| Paper and delivery | 🟡 Unverified | Confirm AI Review submission and receipt, review feedback, defense arrangements and current deadlines with the owner. The draft's statements alone do not verify institutional actions. |
 
 **Scheduling note:** The historical plan listed AI Review for November 14 and defense for December 1, 2026. As of the status date, the former date has passed; submission status is unknown, not assumed missed or completed. Confirm both milestones and any revised dates.
 
-## Historical October 19 plan
+## Latest activity
+
+| Date | Action | Result |
+| --- | --- | --- |
+| Nov 17 | Aligned project description, RQs, hypotheses and tracker to the supplied v1.6 draft | 🟢 Published; paper findings remain attributed to the draft. |
+| Nov 17 | Built the initial restricted collector and ran focused tests | 🟢 Published and tested; live lab export remains pending. |
+| Nov 17 | Added paper revisions, advisor presentation and links to the repository | 🟢 Published on the AI APT branch in commit `32b4d5b`. |
+| Nov 17 | Refreshed AWS SSO and checked read-only CloudWatch access | 🟢 Verified at the time; SSO credentials are temporary. |
+
+<details>
+<summary>Historical October 19 plan (superseded)</summary>
 
 The following original plan is retained for provenance. Its prospective RQs, hypotheses, scope, task states and dates are superseded by the paper-aligned status above and are not current completion evidence.
 
@@ -157,3 +172,5 @@ Update rows whenever evidence or dates change; review critical dependencies each
 | --- | --- | --- |
 | Oct 19 | Advisor deck published at root in commit `cdafed6`; original bytes preserved | Align working research plan with new delivery dates |
 | Oct 19 | Tracker, revised working RQs and experiment protocol created | Confirm owners, AI Review checklist and Oct 21 feasibility decision |
+
+</details>
