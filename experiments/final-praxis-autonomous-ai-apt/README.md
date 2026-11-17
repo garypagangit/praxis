@@ -37,10 +37,12 @@ The paper reports 951 retained 30-second windows and 60 features across four tie
 | Paper | User-provided v1.6 draft reviewed; submission, institutional approval and underlying evidence have not been verified here. |
 | Collection | [Initial restricted collector](collector/README.md) supports selected CloudWatch log groups and normalized local JSONL across all lab-source categories. Real lab configuration and end-to-end live export remain unverified. |
 | Paper-specific research artifacts | [Study code, prompts, reports and available results](study/README.md) imported from `paganpraxis/Human-vs.-Autonomous-AI-Operator-Classification` at commit `43abf244662056a5725864dd3baa05052a5360da`. The 14 code files listed in Freeze 2 match their recorded SHA-256 hashes. |
-| Data and model reproduction | Raw and cleaned study records, feature tables and predictions were not included in the source repository; the complete study has not been independently reproduced here. The older [synthetic engineering harness](pipeline/README.md) uses a different schema and RQ design. |
-| Next | Obtain authorized restricted evidence and required inputs; independently verify provenance, then reproduce the paper-specific preprocessing, features and evaluation. Qualify lab sources separately for future collection. |
+| Data and model reproduction | The supplied Study 3 archive contains restricted evaluation inputs and saved predictions absent from the source repository. All 51 Freeze 2 entries matched in a private evaluation copy, and the scored-input gate passed. Recalculating macro-F1 from 951 saved XGBoost predictions yields 0.857; no model was refit. The older [synthetic engineering harness](pipeline/README.md) uses a different schema and RQ design. |
+| Next | Recreate the pinned Python environment and rerun the paper-specific evaluation in a separate private working copy, preserving the original evidence and saved outputs. Collection and preprocessing replay are outside the current evaluation-only scope. |
 
 The collector intentionally retains restricted raw logs and is not the paper's full exporter or Appendix E verifier. Read its security and verification boundaries before use. Do not commit raw recordings, credentials, operator identities or restricted paths.
+
+The archive also contains a v1.11 paper draft. Its contents and approval status have not been established, so v1.6 remains the reference used here. Archive data, prompts, reports and environment materials require privacy and credential review before any publication.
 
 ## Historical October 2026 workspace
 

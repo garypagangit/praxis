@@ -15,7 +15,7 @@
 | RQ2 / H2: classifier comparison | 🟡 Supported in draft | XGBoost macro-F1 was 0.857 on held-out sessions, highest among the boosting models. Random forest scored 0.852 and was not statistically distinguishable from XGBoost. |
 | RQ3 / H3: stage groups | 🟡 Supported in draft for tested groups | XGBoost macro-F1: discovery 0.777, execution 0.924, lateral movement/collection 0.903. Account manipulation had too few AI windows to test. |
 | Claim boundaries | 🟢 Documented | Operator-host telemetry only for the models; one lab design, nine sessions and one AI model/harness. Operational performance and transfer to other models or harnesses are not established. |
-| Evidence and reproduction | 🟡 Code and selected results imported | Raw and cleaned evidence, feature tables and predictions were not in the source repository. The complete study has not been independently reproduced here. |
+| Evidence and reproduction | 🟡 Evaluation inputs inventoried privately | Frozen feature tables, labels, splits, plumbing records and saved predictions were found in the supplied Study 3 archive. They are not published here; a fresh model evaluation remains pending. |
 
 **Hypothesis history:** The imported [original hypotheses](experiments/final-praxis-autonomous-ai-apt/study/results_h1_h3/tables/T_original_hypotheses.csv) report H1 and H3 not supported and H2 supported under the pre-scoring definitions. The [later analysis record](experiments/final-praxis-autonomous-ai-apt/study/results_h1_h3/RULES_AS_DECIDED.md) says H1 and H3 were restated after scoring and uses numbering different from the paper; later outcomes must not be presented as prespecified confirmations.
 
@@ -28,10 +28,10 @@
 | Initial restricted collector | 🟢 Implemented and tested | [Collector](experiments/final-praxis-autonomous-ai-apt/collector/README.md) supports selected CloudWatch groups and normalized local JSONL. Nine collector tests and 13 legacy pipeline tests passed. This is not the paper's full exporter or verifier. |
 | AWS read-only access | 🟢 Checked | Existing `praxis-build` SSO identity and a read-only CloudWatch group listing were verified; actual lab sources were not identified or validated. |
 | Paper-specific code, prompts and reports | 🟢 Imported | [Study repository snapshot](experiments/final-praxis-autonomous-ai-apt/study/README.md), source commit `43abf244662056a5725864dd3baa05052a5360da`; 14 Freeze 2 code-file hashes matched. |
-| Paper dataset and environment code | ⚪ Pending | The source repository excludes raw and cleaned evidence and does not include the study-specific lab deployment code. Selected aggregate results and [Python requirements](experiments/final-praxis-autonomous-ai-apt/study/requirements.txt) are available. |
+| Paper dataset and environment code | 🟡 Evaluation inputs found privately | The archive contains the restricted evaluation inputs, but they have not been reviewed for public release. The source repository excludes raw and cleaned evidence and does not include the study-specific lab deployment code. [Python requirements](experiments/final-praxis-autonomous-ai-apt/study/requirements.txt) are available. |
 | Lab sources and live export | ⚪ Pending | Identify authorized sources, time window and private destination; validate access and run a controlled end-to-end export. |
-| Evidence integrity and privacy | ⚪ Pending | Locate the paper's restricted packages and external anchors; assess collection completeness, sanitization, session reconstruction, provenance and the paper's Appendix E verification checks. Do not commit raw evidence or credentials. |
-| Paper-specific features and model evaluation | 🟡 Code and selected results available | Validate the imported preprocessing, windowing and feature/evaluation code with authorized inputs; reproduce the reported tables before claiming independent confirmation. |
+| Evidence integrity and privacy | 🟡 Evaluation inputs checked | All 51 Freeze 2 entries in the private evaluation copy matched their recorded SHA-256 hashes. The scored-input gate and input/configuration checks passed. This does not verify raw collection completeness, external anchors or Appendix E checks. Do not commit restricted evidence, credentials or account-access details. |
+| Paper-specific features and model evaluation | 🟡 Inputs validated; rerun pending | The saved XGBoost predictions yield macro-F1 0.857 when recalculated. This checks an existing result, not a fresh fit. Recreate the pinned environment and rerun evaluation in a separate private working copy before claiming reproduction. |
 | Paper and delivery | 🟡 Unverified | Confirm AI Review submission and receipt, review feedback, defense arrangements and current deadlines with the owner. The draft's statements alone do not verify institutional actions. |
 
 **Scheduling note:** The historical plan listed AI Review for November 14 and defense for December 1, 2026. As of the status date, the former date has passed; submission status is unknown, not assumed missed or completed. Confirm both milestones and any revised dates.
@@ -46,6 +46,8 @@
 | Nov 17 | Refreshed AWS SSO and checked read-only CloudWatch access | 🟢 Verified at the time; SSO credentials are temporary. |
 | Nov 17 | Imported the paper's dedicated research repository | 🟢 Code, redacted prompt, reports and available results imported; restricted input data remain absent. |
 | Nov 17 | Compared the supplied research ZIP with the project | 🟢 All 73 project files match by SHA-256, including its restricted-evidence ignore rules; macOS metadata excluded. |
+| Nov 17 | Inventoried the supplied Study 3 archive | 🟢 Evaluation inputs and saved results located; all 51 Freeze 2 entries matched. Restricted files remain outside Git. |
+| Nov 17 | Checked the frozen evaluation inputs and saved XGBoost predictions | 🟢 Input gate passed and the saved predictions reproduce the reported 0.857 macro-F1 when recalculated; model retraining remains pending. |
 
 <details>
 <summary>Historical October 19 plan (superseded)</summary>

@@ -14,6 +14,8 @@ Raw evidence, sensitive configuration and credentials must remain restricted; pu
 
 [**Project status tracker and delivery schedule**](PRAXIS_STATUS_TRACKER.md) · [Research questions and hypotheses](PRAXIS_RESEARCH_DESIGN.md) · [Experiment delivery protocol](PRAXIS_EXPERIMENT_PROTOCOL.md)
 
+**Evaluation update:** Restricted Study 3 evaluation inputs and saved predictions were located and checked privately; all 51 Freeze 2 entries matched. The saved XGBoost predictions recalculate to macro-F1 0.857, but a fresh model rerun is still pending. See the [status tracker](PRAXIS_STATUS_TRACKER.md) for details.
+
 **Delivery window: October 19–December 1, 2026. AI Review due November 14. Defense December 1.**
 
 **Final Praxis — Gary Pagan**
