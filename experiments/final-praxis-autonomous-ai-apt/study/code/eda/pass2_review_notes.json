@@ -1,0 +1,35 @@
+{
+ "_about": "T5 shortcut audit: what the review of each flagged feature found. Written by hand after the review of 2026-11-13 and merged into T5 by pass2_tables.py. The counts quoted are in reports/eda/tables/: T5_review_input_records_w30.csv, T5_review_windows_by_session.csv, E7_entry_style_by_class.csv and T4.",
+ "w30": {
+  "line_ratio": {
+   "finding": "Records how input reached the shell. It is not a difference in the recorder and not something the operator chose in the exercise. Every AI command of the training windows is a whole-line write (275 of 275, all four sessions), and in the cleaned recorder records all 274 AI input records that hold an Enter also hold the line. No human command is a whole-line write (0 of 496, all five sessions: 250 typed, 170 recalled, 76 pasted); 22 of the 548 human input records that hold an Enter hold other bytes too. The value is 1 in each of the 94 AI windows that hold a command and 0 in each of the 285 human ones, in every stage group and with any session left out. The design expected this of the tier (feature and trial design 4.4 and 13).",
+   "action": "Reported beside the results; not corrected (handoff 12a, F16). The column is in the input-channel tier, which no model of the main configuration sees. The input-channel configuration (macro-F1 0.867 to 0.919) used it and stays a diagnostic."
+  },
+  "compose_time_median": {
+   "finding": "Same cause as line_ratio. A line that arrives in one write has a compose time of 0 (reading R15), so the value is 0 in each of the 94 AI windows that hold a command. It is above 0 in each of the 285 human ones (median 5.5 s).",
+   "action": "Reported beside the results; not corrected (handoff 12a, F16). Input-channel tier: not in the main configuration."
+  },
+  "input_writes_per_cmd": {
+   "finding": "Same cause as line_ratio. The AI windows hold one input record for each command (274 records for 275 commands; 0.6 to 1.2 in a window). The human windows hold about 20 for each command (10,125 records for 496 commands), one for each key. Three human windows are at 1 record for a command, which keeps the AUC just under 1.",
+   "action": "Reported beside the results; not corrected (handoff 12a, F16). Input-channel tier: not in the main configuration."
+  }
+ },
+ "w60": {
+  "line_ratio": {
+   "finding": "As at 30 s: the value is 1 in every AI window that holds a command and 0 in every human one. It records how input reached the shell.",
+   "action": "Reported beside the results; not corrected (handoff 12a, F16). Input-channel tier: not in the main configuration."
+  },
+  "compose_time_median": {
+   "finding": "As at 30 s: 0 in every AI window that holds a command, above 0 in every human one. Same cause as line_ratio.",
+   "action": "Reported beside the results; not corrected (handoff 12a, F16). Input-channel tier: not in the main configuration."
+  },
+  "input_writes_per_cmd": {
+   "finding": "As at 30 s: about one input record for each AI command, many for each human command. Same cause as line_ratio.",
+   "action": "Reported beside the results; not corrected (handoff 12a, F16). Input-channel tier: not in the main configuration."
+  },
+  "entry_line": {
+   "finding": "Not flagged on all training rows (AUC 0.844). It is the count behind line_ratio: above 0 in every AI window that holds a command and 0 in every human window, so its AUC follows the share of AI windows that hold a command. P011 supplies 23 of the 25 AI training windows without one; with P011 left out the AUC is 0.974. Same cause as line_ratio.",
+   "action": "Reported beside the results; not corrected (handoff 12a, F16). Input-channel tier: not in the main configuration."
+  }
+ }
+}

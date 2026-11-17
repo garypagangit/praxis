@@ -1,0 +1,2000 @@
+{
+ "code_version": "study3-preprocessing-1.1",
+ "design": "real_lab3_preprocessing_design.md",
+ "files": {
+  "code/README.md": {
+   "bytes": 3243,
+   "sha256": "6930b6ca4e8fa476a33081dd49ac6d65ac2f03fd8090baf087e809311953106a"
+  },
+  "code/s3_audit.py": {
+   "bytes": 6091,
+   "sha256": "f23aa8f5d357fc0a3a31154437e7b2ba73b72b33f6f66c6808c5b2e2eff839d2"
+  },
+  "code/s3_clean.py": {
+   "bytes": 10604,
+   "sha256": "4d63592698cc4ab80a8b1e80525909b30913051d76fce1eaa759395db65fe831"
+  },
+  "code/s3_commands.py": {
+   "bytes": 25609,
+   "sha256": "b89a7a3309cf45998f417c18dbe18daa33ba4ee3bb979be44be5f76c0a41b334"
+  },
+  "code/s3_config.py": {
+   "bytes": 11565,
+   "sha256": "4384a2acacebb436df73cff48042254cfc96afa024493ad96dd9990d2d4f078d"
+  },
+  "code/s3_io.py": {
+   "bytes": 10188,
+   "sha256": "90ee4429c7076c7bc9ed3992eea0a9c228d10341a0129bc7b8b04eff28e13d23"
+  },
+  "code/s3_term.py": {
+   "bytes": 17519,
+   "sha256": "7aa4438d303cb3d94a2f6e8f439779f2c049825ba0180fbc987d72ee1d088e43"
+  },
+  "code/step01_verify.py": {
+   "bytes": 14380,
+   "sha256": "277ebfffb19f247193546c71d23e5e3c6af652e16c4f0c054d12f7ff10238cf9"
+  },
+  "code/step02_route.py": {
+   "bytes": 19240,
+   "sha256": "5501f1d43c0f75964881c24d962a14d2d36afe6ae5d0e81cc6bd7d426d8e22eb"
+  },
+  "code/step03_clean.py": {
+   "bytes": 19660,
+   "sha256": "c1bbac97a75bddc839a1bf31a0234bf8b1767a817f5b4ce8697ae24a2cb2341f"
+  },
+  "code/step04_commands.py": {
+   "bytes": 14579,
+   "sha256": "341c38cdb35f1795ab8c653ec1ac25a47ae02ad29c426fadabe6eddacd2dc8c1"
+  },
+  "code/step05_windows.py": {
+   "bytes": 18254,
+   "sha256": "d7991360bf6de58f2ae79767e2825612527f400ee7e26f964ad31acf9b46bd87"
+  },
+  "code/step06_split.py": {
+   "bytes": 7048,
+   "sha256": "bfdaf550df494208cfd18ba861a66f821a3763e70951f46acbf9bfab68398d29"
+  },
+  "code/step07_leak_audit.py": {
+   "bytes": 7040,
+   "sha256": "f874ed94a662ace282e5eddb9733cfd0c8700158fa0d7b2cc172aa19b8df33c7"
+  },
+  "code/step08_summary.py": {
+   "bytes": 12420,
+   "sha256": "ac6ee5bbc8f3a1d5c0ccb5ccf61332a5077682f5112222d5d2119fbc39f7d8e0"
+  },
+  "code/step09_freeze.py": {
+   "bytes": 1889,
+   "sha256": "dcfb6f8c9aa1ae7d8e5d4ca61281815b8fb42eec3fdf2c0976dda32b143eaa09"
+  },
+  "data/cleaned/s_05eb879d5e/l_4104020993.audit.jsonl": {
+   "bytes": 10369778,
+   "sha256": "e854c4bdb9558281a1a956c735e38f50ed0e5d0cf07919c4809e4f4e1ebe80ee"
+  },
+  "data/cleaned/s_05eb879d5e/l_4104020993.recorder.jsonl": {
+   "bytes": 4368637,
+   "sha256": "53a53eba75124d264bb1ab43823e8b6731ca8d360e5872a2f5be123960e2c04b"
+  },
+  "data/cleaned/s_05eb879d5e/l_b00bac8c3e.audit.jsonl": {
+   "bytes": 421179,
+   "sha256": "9661b2454b486982a6ae7df3a8798bf91d711fb497ebf9695b61301ac28989a6"
+  },
+  "data/cleaned/s_05eb879d5e/l_b00bac8c3e.recorder.jsonl": {
+   "bytes": 213565,
+   "sha256": "b4b7be89e989fd3eeec1fd6787d3b92e49e3f89540fe2b26e057b6d599795573"
+  },
+  "data/cleaned/s_1e1c457616/l_b83d9a810f.audit.jsonl": {
+   "bytes": 1327044,
+   "sha256": "6ce85d8317ee8723a4ebb466edd91861713cfca031a405788de25e82d412d8d6"
+  },
+  "data/cleaned/s_1e1c457616/l_b83d9a810f.recorder.jsonl": {
+   "bytes": 10270519,
+   "sha256": "f6e0ad886c401cf525a4ce64ec8a908b45d0d49bd51f3d1877b16f1b70424ecf"
+  },
+  "data/cleaned/s_3d558881b5/l_53d46e8725.audit.jsonl": {
+   "bytes": 550244,
+   "sha256": "4829077d81b7fe5cb33bb2a6c4084ca0c0d6aaa849206fd900057e06f609a630"
+  },
+  "data/cleaned/s_3d558881b5/l_53d46e8725.recorder.jsonl": {
+   "bytes": 258795,
+   "sha256": "ec3a63b54298d5266de27e1bc0541752c4a2ed1ece4fe5479c1b5a89002b71ad"
+  },
+  "data/cleaned/s_3d558881b5/l_885d9ddb86.audit.jsonl": {
+   "bytes": 283166,
+   "sha256": "0991790a8b1f0e88ffb25ff96ba66ebd73fa088d735efd4e4d8925f43b81ccb9"
+  },
+  "data/cleaned/s_3d558881b5/l_885d9ddb86.recorder.jsonl": {
+   "bytes": 129984,
+   "sha256": "f8910108d2fe726362c64524c63e93e40270b94f52e0394e33101ccfa04ec6e9"
+  },
+  "data/cleaned/s_3d558881b5/l_e5da202520.audit.jsonl": {
+   "bytes": 3366203,
+   "sha256": "31081f3a1d422caf6457f6066970fcf99610042eecb0908d77464849e1c02661"
+  },
+  "data/cleaned/s_3d558881b5/l_e5da202520.recorder.jsonl": {
+   "bytes": 263826,
+   "sha256": "19434585f186274e18838a5572c4979a7cfcd6657d9520a1e13c170e5fa99a16"
+  },
+  "data/cleaned/s_4627696c83/l_13d5e23748.audit.jsonl": {
+   "bytes": 529166,
+   "sha256": "e811d78a688225f55734666773fe8e7989aff2c53c55028848372352a905110c"
+  },
+  "data/cleaned/s_4627696c83/l_13d5e23748.recorder.jsonl": {
+   "bytes": 3322044,
+   "sha256": "d02b402fe95e1f4e2fd5f6129e52dba6c7fd63b2c3d2dd61b6e7663870de321a"
+  },
+  "data/cleaned/s_4627696c83/l_8c10680439.audit.jsonl": {
+   "bytes": 161454,
+   "sha256": "f4ad989f1a95d138097ed5ad532faf81b1bff7e1347d049620e944160b93e735"
+  },
+  "data/cleaned/s_4627696c83/l_8c10680439.recorder.jsonl": {
+   "bytes": 63870,
+   "sha256": "48f7254e088f78d227322d0b130e84f9520fa5cafec081cbd204ccb7f31d31a7"
+  },
+  "data/cleaned/s_4627696c83/l_cb3d3fedf0.audit.jsonl": {
+   "bytes": 276519,
+   "sha256": "b26fbc1530f485d756366adce2cb9356b7ff29f4e1eca1cdc0e340df576b39c3"
+  },
+  "data/cleaned/s_4627696c83/l_cb3d3fedf0.recorder.jsonl": {
+   "bytes": 850755,
+   "sha256": "4848d703e81eb1b1d8e98fc2a6c610c9076982b8da115c1731104f9fd807238e"
+  },
+  "data/cleaned/s_a634d7bd0c/l_75047cf2f0.audit.jsonl": {
+   "bytes": 381705,
+   "sha256": "3373cf4756d7b4f1969e253bcbb8399417d2733a4f989bbc9e90db6918809627"
+  },
+  "data/cleaned/s_a634d7bd0c/l_75047cf2f0.recorder.jsonl": {
+   "bytes": 4249104,
+   "sha256": "22f0d20efbfc82a5e52d8854c69decd463a818c5c8a445c14be7882c01c5722d"
+  },
+  "data/cleaned/s_b4d44a921d/l_026eb21a89.audit.jsonl": {
+   "bytes": 1134591,
+   "sha256": "5c9a38847cd9b0dd8cc85903261aa585bbe098a6a0434b9cbde5a9556e4d465d"
+  },
+  "data/cleaned/s_b4d44a921d/l_026eb21a89.recorder.jsonl": {
+   "bytes": 18118077,
+   "sha256": "2567626d667a9ddd4436879bb329aef78b7a3d83ec13c8aa97527501138cfbfc"
+  },
+  "data/cleaned/s_b4d44a921d/l_205794aac8.audit.jsonl": {
+   "bytes": 128500,
+   "sha256": "c921a555d44e280f981a4eeb4ca9eee6dd5ca287e2d894a34d80bca6c70ae01b"
+  },
+  "data/cleaned/s_b4d44a921d/l_205794aac8.recorder.jsonl": {
+   "bytes": 30057,
+   "sha256": "c10dc878961d681c935c8e355324dd949cd73ed705522e860e39c9432a5f5bd3"
+  },
+  "data/cleaned/s_c0eaca99b5/l_32d0562f7b.audit.jsonl": {
+   "bytes": 162881,
+   "sha256": "ac53d62db0b2edbcd7a69d7969b5507487455f4b4c7cd00f8d2c5eeb8c10764e"
+  },
+  "data/cleaned/s_c0eaca99b5/l_32d0562f7b.recorder.jsonl": {
+   "bytes": 120981,
+   "sha256": "1895d022cd4e4e4092a79cc38cb85cfb864db876e9798d422ae96e3bc2ec81ba"
+  },
+  "data/cleaned/s_c0eaca99b5/l_66ab73d801.audit.jsonl": {
+   "bytes": 129399,
+   "sha256": "031cc886c6abc40c7ea964090242bf986752d3a6bd1f70bbb635bad76e3a32fe"
+  },
+  "data/cleaned/s_c0eaca99b5/l_66ab73d801.recorder.jsonl": {
+   "bytes": 59708,
+   "sha256": "7191dfd3b13f667c377c55717e8c83bb742df6e6bd5ae1b5a3b5dce7e02f4fce"
+  },
+  "data/cleaned/s_c0eaca99b5/l_b9e36ef410.audit.jsonl": {
+   "bytes": 1014225,
+   "sha256": "c8b92c9916d88f896dab469721faaa328e8d967f1ae3643a07c07db3265c0131"
+  },
+  "data/cleaned/s_c0eaca99b5/l_b9e36ef410.recorder.jsonl": {
+   "bytes": 321983,
+   "sha256": "821d96f9333c66d15608de4f958b7d4ac3d3c16d470cd9eb820b74f49e68bb40"
+  },
+  "data/cleaned/s_c0eaca99b5/l_e6a0ba058d.audit.jsonl": {
+   "bytes": 1359110,
+   "sha256": "9fe22fc9bf6388f9c0b1a5e853412adcb70c0ee6a092075f06f496fb34a12180"
+  },
+  "data/cleaned/s_c0eaca99b5/l_e6a0ba058d.recorder.jsonl": {
+   "bytes": 321881,
+   "sha256": "d6e30980120c81f55f2bb19938d78b87567e64c3bbf02f4f561488f91f1fb87c"
+  },
+  "data/cleaned/s_c0eaca99b5/l_f22a02d6ba.audit.jsonl": {
+   "bytes": 217378,
+   "sha256": "23a13233f5ec9812610f3d7a64a2e41a84f1e158a408323a703041a19577f3a4"
+  },
+  "data/cleaned/s_c0eaca99b5/l_f22a02d6ba.recorder.jsonl": {
+   "bytes": 155544,
+   "sha256": "78cdaeb751c8a756379e46925533414c6a6edaabca65d9295ac474b4b5f8e823"
+  },
+  "data/cleaned/s_c906e7c34b/l_13f3526ca2.audit.jsonl": {
+   "bytes": 911632,
+   "sha256": "1eed0822a5e05d1d7262909881294937adf95162a9744fa1c3ec69a03289fc91"
+  },
+  "data/cleaned/s_c906e7c34b/l_13f3526ca2.recorder.jsonl": {
+   "bytes": 14237362,
+   "sha256": "b5f8c813f454220534b344ae86ebd61ae8c215ee18e6236b74f57789d3d9d269"
+  },
+  "data/cleaned/s_c906e7c34b/l_a072e6ed58.audit.jsonl": {
+   "bytes": 255908,
+   "sha256": "ad5b824a74b7aa308262024fc346b1f991de89d5589e445b077a6844c9899722"
+  },
+  "data/cleaned/s_c906e7c34b/l_a072e6ed58.recorder.jsonl": {
+   "bytes": 1938607,
+   "sha256": "3fe0984925cdec1b6c316127ec8bc14a5781fb3a963d808066b1b68e07447733"
+  },
+  "data/cleaned/s_d47f48f2cb/l_5bedef366a.audit.jsonl": {
+   "bytes": 2849126,
+   "sha256": "a4105c3fe8bd158012f1a3950334b14d42daf531a3c027d1291f745051093bc7"
+  },
+  "data/cleaned/s_d47f48f2cb/l_5bedef366a.recorder.jsonl": {
+   "bytes": 668566,
+   "sha256": "9f7b8a88146f4a79b937c28bf9e38c20bdb02d0bffcaaee975570314f7739ff6"
+  },
+  "data/commands/s_05eb879d5e/l_4104020993.commands.jsonl": {
+   "bytes": 108645,
+   "sha256": "0a9fbc35b8bc7b894dd9e62396cc748fb9b1ebe9b71515a6caa7b7b501fc9fcf"
+  },
+  "data/commands/s_05eb879d5e/l_b00bac8c3e.commands.jsonl": {
+   "bytes": 22177,
+   "sha256": "1b45017d5c6138d99f9b79c5f7b8e1104112c7eab25453239f164e8ce5a1fd22"
+  },
+  "data/commands/s_1e1c457616/l_b83d9a810f.commands.jsonl": {
+   "bytes": 70013,
+   "sha256": "3ce9737fd4de838feb214e4f83bff629626243e110d16c7b4042be8c71391df7"
+  },
+  "data/commands/s_3d558881b5/l_53d46e8725.commands.jsonl": {
+   "bytes": 33571,
+   "sha256": "e7710155fa7c497805145d46f355f5ec33e5bb051a2d3579548dd35daf6864a1"
+  },
+  "data/commands/s_3d558881b5/l_885d9ddb86.commands.jsonl": {
+   "bytes": 14274,
+   "sha256": "77e59ca55d29347bc12c9be90300913370181cc44eca4bae9f140ab05813c6b4"
+  },
+  "data/commands/s_3d558881b5/l_e5da202520.commands.jsonl": {
+   "bytes": 40600,
+   "sha256": "38b8d03614539865914c57db755bf3cf8753e09bd3cd4f31810209a7d0885a51"
+  },
+  "data/commands/s_4627696c83/l_13d5e23748.commands.jsonl": {
+   "bytes": 61978,
+   "sha256": "41f67de1c3924e6f6602850a710d3441385ac5b64047cbf95d3e5e2f959230d5"
+  },
+  "data/commands/s_4627696c83/l_8c10680439.commands.jsonl": {
+   "bytes": 1090,
+   "sha256": "7761776b811427e3ec793a410b0f232c2db64057d44ca02c7fb9ffc521a0098a"
+  },
+  "data/commands/s_4627696c83/l_cb3d3fedf0.commands.jsonl": {
+   "bytes": 13524,
+   "sha256": "141e54cc74d56bfe17b0e3c399f3b893d8865947f50bbb6d144b6c6129498dc5"
+  },
+  "data/commands/s_a634d7bd0c/l_75047cf2f0.commands.jsonl": {
+   "bytes": 38534,
+   "sha256": "75d0c07ec26cadf727f977a3cb111b3e3e92b6034d3f23cb5eaf6d0167ade5cf"
+  },
+  "data/commands/s_b4d44a921d/l_026eb21a89.commands.jsonl": {
+   "bytes": 181815,
+   "sha256": "3931a28126da49f011a962ad9de16c45f6de6c0253f8e7aaa61c318cf8cd547f"
+  },
+  "data/commands/s_b4d44a921d/l_205794aac8.commands.jsonl": {
+   "bytes": 1069,
+   "sha256": "cb6635878fb8c8b459836fcfd54e95b950e521a67b13dd951426f102f4ee6223"
+  },
+  "data/commands/s_c0eaca99b5/l_32d0562f7b.commands.jsonl": {
+   "bytes": 18317,
+   "sha256": "31ea2f682c61c029a7d052a191a0b5d9a9b74113b32fe864c48c9173dd5e0129"
+  },
+  "data/commands/s_c0eaca99b5/l_66ab73d801.commands.jsonl": {
+   "bytes": 3896,
+   "sha256": "0be980aa59ed1a429cf8440f281f361d532f34ce4d96e02ce5f8d6ca2515bff8"
+  },
+  "data/commands/s_c0eaca99b5/l_b9e36ef410.commands.jsonl": {
+   "bytes": 36334,
+   "sha256": "c79b8b241b4d9ce5514bfcd35f79fa41105f62fd6910d4b2a276127a611cd669"
+  },
+  "data/commands/s_c0eaca99b5/l_e6a0ba058d.commands.jsonl": {
+   "bytes": 28700,
+   "sha256": "aaf9268431bc51c7e26ec3ecfb8a83538234f05b4241c6f2c8093d657736c5ae"
+  },
+  "data/commands/s_c0eaca99b5/l_f22a02d6ba.commands.jsonl": {
+   "bytes": 21404,
+   "sha256": "2820a21413f3d3eb8f071de221d17d104c2129faadf39c38368b500a21531611"
+  },
+  "data/commands/s_c906e7c34b/l_13f3526ca2.commands.jsonl": {
+   "bytes": 141262,
+   "sha256": "e21666313ee3cdbb30913635efdb8e332b9472de30792a8773c4c97d363cae27"
+  },
+  "data/commands/s_c906e7c34b/l_a072e6ed58.commands.jsonl": {
+   "bytes": 17839,
+   "sha256": "33a44cb3a61791a95c7ab1a610a8e6ba751a5f6cbf84fac490065a721b48d3a7"
+  },
+  "data/commands/s_d47f48f2cb/l_5bedef366a.commands.jsonl": {
+   "bytes": 83997,
+   "sha256": "04fd03954725d6c57dd88f3ffc9c459f5ffb1542b1b5e278a51f45c6c40a715a"
+  },
+  "data/description/sessions.csv": {
+   "bytes": 488,
+   "sha256": "34c4ef5bbedfba91f0b1136eed4de38406b0b8b02c8a5482f078fb90e70e35aa"
+  },
+  "data/description/stage_acceptances.csv": {
+   "bytes": 2321,
+   "sha256": "a2a4d767794a9d052aa5df212bb28f6634eebfa183cde5be87c119525651db99"
+  },
+  "data/description/window_description_w30.csv": {
+   "bytes": 95782,
+   "sha256": "f039d38689bc6604ba32c94cd0986b7ba4031623a487240c1b0ecf6bf4aa8f2c"
+  },
+  "data/description/window_description_w60.csv": {
+   "bytes": 48126,
+   "sha256": "74a35d7d36c74dcb9279166dbe33e515e90b7c6b2c795aa51114f9e9b317eeac"
+  },
+  "data/labels/_private/key_map.csv": {
+   "bytes": 4063,
+   "sha256": "9a9b7860bf5a1db892ea93c087eaf80c31c0518e427a2bae4f0564e7d706d446"
+  },
+  "data/labels/labels_test_w30.csv": {
+   "bytes": 3569,
+   "sha256": "ca3ae2e631d2e169b44ff3e75025a2b952fecd3fa13702478249b2109790987d"
+  },
+  "data/labels/labels_test_w60.csv": {
+   "bytes": 2262,
+   "sha256": "dc9cdf5524a662a79e7eaa3222ae9bcffe7a8c5649ba9dfb7dd377f25a9c03b1"
+  },
+  "data/labels/labels_trainval_w30.csv": {
+   "bytes": 18230,
+   "sha256": "fcae9a72b7584fdd9d8525f9ae482e9d259cd8d66731801a1af1c1cbaeca8597"
+  },
+  "data/labels/labels_trainval_w60.csv": {
+   "bytes": 10446,
+   "sha256": "ad60a8ce71a91841497305cbd775e3c428cee69b7cbf3bb0bbbd2f1e03f93fd3"
+  },
+  "data/labels/logins.csv": {
+   "bytes": 8053,
+   "sha256": "5109399020d6600a7618b2f5501a45655ac90af6751be316efd6bf7228394983"
+  },
+  "data/labels/sessions.csv": {
+   "bytes": 517,
+   "sha256": "8cafe4ce35c970395510477bf5150351d4d18cb64242d11ce293b3586a6a13b1"
+  },
+  "data/splits/splits_w30.csv": {
+   "bytes": 42054,
+   "sha256": "bf86fca474e1d11a67b7455e4720f173c5388f274a268fd9a72fb83a93d49c31"
+  },
+  "data/splits/splits_w60.csv": {
+   "bytes": 25566,
+   "sha256": "e6fe85966d6d5f82639d0f6d2004f5f282c97632126f7ceaa5cb10d1e1502530"
+  },
+  "data/windows/w30/s_05eb879d5e/l_4104020993.jsonl": {
+   "bytes": 1605485,
+   "sha256": "f960b2f82be20bdaf77d0678075058d52a6eb60a329d9bf4b7b1c70001abf4fb"
+  },
+  "data/windows/w30/s_05eb879d5e/l_b00bac8c3e.jsonl": {
+   "bytes": 95540,
+   "sha256": "2fadfc94c16fca741f2a92112df4e146fb93225d502048a1591bc41f7001fbb3"
+  },
+  "data/windows/w30/s_1e1c457616/l_b83d9a810f.jsonl": {
+   "bytes": 3087493,
+   "sha256": "1f19daca1ba4e961a455504d3c1ef7795fbfd29a1700843e19f57a34588350f2"
+  },
+  "data/windows/w30/s_3d558881b5/l_53d46e8725.jsonl": {
+   "bytes": 91396,
+   "sha256": "06e98265db575f15c7c32911a1690837cf0ab2ed355f14cae4384d4c30617cd4"
+  },
+  "data/windows/w30/s_3d558881b5/l_885d9ddb86.jsonl": {
+   "bytes": 42184,
+   "sha256": "f8c0ad5406691306aca85d4b32f29c764ea67a49c33a002cb13ab988275a792e"
+  },
+  "data/windows/w30/s_3d558881b5/l_e5da202520.jsonl": {
+   "bytes": 142483,
+   "sha256": "b36c5d71dc2d26d46260ddcbf1712421b87269e17c11907a68ad74f9bd062501"
+  },
+  "data/windows/w30/s_4627696c83/l_13d5e23748.jsonl": {
+   "bytes": 493521,
+   "sha256": "14ae3bdc648f694a45c65d4c284e7e7566c535cf7a0e2530ce5764ad4d5215cf"
+  },
+  "data/windows/w30/s_4627696c83/l_8c10680439.jsonl": {
+   "bytes": 12343,
+   "sha256": "99478e2aa28c28dac82a07062a3b6a0fe3fa77b2a7962052e84e9e788fd35141"
+  },
+  "data/windows/w30/s_4627696c83/l_cb3d3fedf0.jsonl": {
+   "bytes": 118465,
+   "sha256": "d556c5abc0649905a7d2015db629de6cc2192c0ab7ee47b50833652f9d612f8b"
+  },
+  "data/windows/w30/s_a634d7bd0c/l_75047cf2f0.jsonl": {
+   "bytes": 527485,
+   "sha256": "27eaf12a967bc22e31f5e7fd0e9e48038d64faa96a91c6a6b851ceeb91426695"
+  },
+  "data/windows/w30/s_b4d44a921d/l_026eb21a89.jsonl": {
+   "bytes": 3678454,
+   "sha256": "d3947a01460cbfcae3ebaa5a1e8b26f60e92a432cf76a867946b8edbd58dca06"
+  },
+  "data/windows/w30/s_b4d44a921d/l_205794aac8.jsonl": {
+   "bytes": 5844,
+   "sha256": "1ee168831ccc5542278fe1adf8c80c1a4eaf460a18b75fb7b49af63e1925d5ad"
+  },
+  "data/windows/w30/s_c0eaca99b5/l_32d0562f7b.jsonl": {
+   "bytes": 30280,
+   "sha256": "6e9d08e55734f68306afd4ab85a1f4580697a1350d545e48b144bc430579786f"
+  },
+  "data/windows/w30/s_c0eaca99b5/l_66ab73d801.jsonl": {
+   "bytes": 6632,
+   "sha256": "d33378ca7c5ec263ad679d8f24b34f2d76bc30c3c131b1a58d46a4efab9117b9"
+  },
+  "data/windows/w30/s_c0eaca99b5/l_b9e36ef410.jsonl": {
+   "bytes": 150948,
+   "sha256": "830b7398ea96c804f1b311289d3c265ac9da2fa6e5ab9c95387fd4a6e4b4ba6b"
+  },
+  "data/windows/w30/s_c0eaca99b5/l_e6a0ba058d.jsonl": {
+   "bytes": 155107,
+   "sha256": "3336ef1167ca2f6fff059b38b00c7e03b73d16916fd92d258a5f21199ec16a89"
+  },
+  "data/windows/w30/s_c0eaca99b5/l_f22a02d6ba.jsonl": {
+   "bytes": 42340,
+   "sha256": "60e870afbcc60d54e9bc4da6be6cd1badc3c8d8bbde0f0a6a2bc61af332fb06b"
+  },
+  "data/windows/w30/s_c906e7c34b/l_13f3526ca2.jsonl": {
+   "bytes": 4483039,
+   "sha256": "f2a6e01c0cea6e6f4a58f1d6303f3d322292c9b7669e3318f2f939e74248d0ea"
+  },
+  "data/windows/w30/s_c906e7c34b/l_a072e6ed58.jsonl": {
+   "bytes": 310107,
+   "sha256": "78ff6862ae4f6e006ed228455486ceebd67d791bf675d44e25756ab22b15f089"
+  },
+  "data/windows/w30/s_d47f48f2cb/l_5bedef366a.jsonl": {
+   "bytes": 487801,
+   "sha256": "18e612ae275866333e55648723382a8e8ca6fd0aec36b2e0129af41997cc0799"
+  },
+  "data/windows/w30/windows.csv": {
+   "bytes": 161836,
+   "sha256": "3cef4c54b097d1b293f7d0fc7d58600a8ec483e4049cfd40977c12a98d8d1ac8"
+  },
+  "data/windows/w60/s_05eb879d5e/l_4104020993.jsonl": {
+   "bytes": 1607079,
+   "sha256": "55a5a344d9e826d2cb172b6b6e57a739c8dff0508bfedd005351723f00245795"
+  },
+  "data/windows/w60/s_05eb879d5e/l_b00bac8c3e.jsonl": {
+   "bytes": 95394,
+   "sha256": "0a728ef041ed983e2cd17c558ffa0dc1ef26aa43de613edb3410839bf242e6a0"
+  },
+  "data/windows/w60/s_1e1c457616/l_b83d9a810f.jsonl": {
+   "bytes": 3084060,
+   "sha256": "46bd4697add33bb78e1467d05b2409fe55d9ad36f9c3ab0c5d0d5e162ef0e4fc"
+  },
+  "data/windows/w60/s_3d558881b5/l_53d46e8725.jsonl": {
+   "bytes": 91439,
+   "sha256": "41a05f0d8585e949fee6821c88324ec17593b25986dbb261ff72c0ed5740117f"
+  },
+  "data/windows/w60/s_3d558881b5/l_885d9ddb86.jsonl": {
+   "bytes": 42526,
+   "sha256": "f2f587760215049876a6e4488f9a6e9ef1b9cbdf0d7117f2b4d58d2d68a0281e"
+  },
+  "data/windows/w60/s_3d558881b5/l_e5da202520.jsonl": {
+   "bytes": 197899,
+   "sha256": "d78800e6d284dc60b8860a104e2fb7ce22a36b4a2cb047c11cf42e6e29f11612"
+  },
+  "data/windows/w60/s_4627696c83/l_13d5e23748.jsonl": {
+   "bytes": 492204,
+   "sha256": "0e322f49b66452ee1f6c828c85272d40153678af7c75262829cd0528acfc2353"
+  },
+  "data/windows/w60/s_4627696c83/l_8c10680439.jsonl": {
+   "bytes": 12343,
+   "sha256": "6400a2c3d2413e1eadacc5f5e161933a32cd9103e119f845d6a9c3cec205cd94"
+  },
+  "data/windows/w60/s_4627696c83/l_cb3d3fedf0.jsonl": {
+   "bytes": 118194,
+   "sha256": "ca2e3bbca0c50d8039f1d3aeaedc9f003e6ca90dd6b619765b3b54f97380b5c4"
+  },
+  "data/windows/w60/s_a634d7bd0c/l_75047cf2f0.jsonl": {
+   "bytes": 524884,
+   "sha256": "26020b3da7294725152510b0d082cf66f492b4f0831e6d3ac3213e7805905ab7"
+  },
+  "data/windows/w60/s_b4d44a921d/l_026eb21a89.jsonl": {
+   "bytes": 3673243,
+   "sha256": "8ebf68778f3d24b2b860ec51eb8a55b92378e7992f5d364354f4a412ad1fe927"
+  },
+  "data/windows/w60/s_b4d44a921d/l_205794aac8.jsonl": {
+   "bytes": 5844,
+   "sha256": "1ee168831ccc5542278fe1adf8c80c1a4eaf460a18b75fb7b49af63e1925d5ad"
+  },
+  "data/windows/w60/s_c0eaca99b5/l_32d0562f7b.jsonl": {
+   "bytes": 30589,
+   "sha256": "33789759dffaa5800ca179b52c28fa782916e621cd8f95b0a7a1c6f38ef1b94e"
+  },
+  "data/windows/w60/s_c0eaca99b5/l_66ab73d801.jsonl": {
+   "bytes": 6632,
+   "sha256": "d33378ca7c5ec263ad679d8f24b34f2d76bc30c3c131b1a58d46a4efab9117b9"
+  },
+  "data/windows/w60/s_c0eaca99b5/l_b9e36ef410.jsonl": {
+   "bytes": 153621,
+   "sha256": "1b394cb6a4480c46c021266ed267ead118b8f8c04384fae3e0b5a2aee6db966d"
+  },
+  "data/windows/w60/s_c0eaca99b5/l_e6a0ba058d.jsonl": {
+   "bytes": 155174,
+   "sha256": "34578bf02563d3e1359aa209e2179917462b1e10fcc7cd58fd0b6a0f72dffa79"
+  },
+  "data/windows/w60/s_c0eaca99b5/l_f22a02d6ba.jsonl": {
+   "bytes": 42351,
+   "sha256": "525df3ea2543ecb53a635f51f3806f3918aca4135b1fdff6ec1ec953592969ac"
+  },
+  "data/windows/w60/s_c906e7c34b/l_13f3526ca2.jsonl": {
+   "bytes": 4485025,
+   "sha256": "89d80fdef47c503886db3b05fcaba045358e06ae3721ef556f4e122d50d40dbc"
+  },
+  "data/windows/w60/s_c906e7c34b/l_a072e6ed58.jsonl": {
+   "bytes": 310025,
+   "sha256": "6728b4161415de3ed0e59a18c1be121a71a82f87fa4fdc87a700f8ced642c48d"
+  },
+  "data/windows/w60/s_d47f48f2cb/l_5bedef366a.jsonl": {
+   "bytes": 488132,
+   "sha256": "80433a8348baddcf25a3cc024101fe845e3ae3f409e57ed7e36c0e336a11acb1"
+  },
+  "data/windows/w60/windows.csv": {
+   "bytes": 79672,
+   "sha256": "3dedd56b8bbd4d0c7407b254c0d21ab915d68c665c83b5ead86ef9ff65cf3472"
+  },
+  "reports/01_verification_report.json": {
+   "bytes": 129702,
+   "sha256": "81f7a876fd4f405962757c2716715a69035690f52326cd72a8ebacb229be340b"
+  },
+  "reports/02_route_report.json": {
+   "bytes": 88874,
+   "sha256": "140704fba4aeba0a502e98601233e2f555a2abc58b4a623b54f580f98b999516"
+  },
+  "reports/03_clean_report.json": {
+   "bytes": 44761,
+   "sha256": "8f558db819e70c686c609b467a66109e06f23e323ddb95baba0baf48600226c4"
+  },
+  "reports/03_validator_family_execs_for_review.json": {
+   "bytes": 79688,
+   "sha256": "01527033e251fef3bb000d2909292772ddeefe9e3cff83aa8d39f7a58e671b2e"
+  },
+  "reports/04_commands_report.json": {
+   "bytes": 52102,
+   "sha256": "286e30092797214b4a40f585683476b296406aa832900cc92b89fe6f589dbf3a"
+  },
+  "reports/04_removed_validator_commands.jsonl": {
+   "bytes": 48102,
+   "sha256": "6e7475d7e19622bea21e7ea7d5bc48a18a05b7330555a199fdfb2f3c9db44a77"
+  },
+  "reports/05_windows_report.json": {
+   "bytes": 39632,
+   "sha256": "029131ad19f26154df03b258523df8e11ffbffde43f46a0ecab3451355560cd3"
+  },
+  "reports/06_split_report.json": {
+   "bytes": 4638,
+   "sha256": "f4630a5fd57a47e74fb402569b422378e74900be27258d2f4049fba666f1dc52"
+  },
+  "reports/07_leak_audit_report.json": {
+   "bytes": 976,
+   "sha256": "d53d8e5acc07f4b369aac5d53765f6db35a39d64b1c1acc279d73b0a3a1f4462"
+  },
+  "reports/08_summary.json": {
+   "bytes": 5750,
+   "sha256": "f52559f43713e8670651fc2d16dd7dd7e278e544491ab8266cfc1e2a767e9c74"
+  },
+  "reports/PREPROCESSING_RUN_SUMMARY.md": {
+   "bytes": 6474,
+   "sha256": "7b00d2d392691d7e8aadd35ac47b17e2635539c5e391ef3a100fcf97f2dd379d"
+  },
+  "reports/ledgers/P001_dropped.csv": {
+   "bytes": 632286,
+   "sha256": "7a203b4e31c6f70d1b3af6258c676b9f07be252645003a9cfab49278db2d4e3b"
+  },
+  "reports/ledgers/P002_dropped.csv": {
+   "bytes": 539622,
+   "sha256": "1bf8d9eba5ea0c11d2013f6a026dc47867050a2cba2e1e760a1edb7470b135d0"
+  },
+  "reports/ledgers/P003_dropped.csv": {
+   "bytes": 592762,
+   "sha256": "f5d1cbd1f48b443a87af3b5140dea53497fbf4870b1ccaa541f74c1d281e5078"
+  },
+  "reports/ledgers/P004_dropped.csv": {
+   "bytes": 61578,
+   "sha256": "9ecaec7a9bdf3e2627a0a9b8e2a2627a5f8ae3e766ccd0f1caf36ad20ea49664"
+  },
+  "reports/ledgers/P005_dropped.csv": {
+   "bytes": 109962,
+   "sha256": "e765f64add58b0c7f7ed3835bd0cc35d707a73542d68a549c897a11a87d33dcc"
+  },
+  "reports/ledgers/P006_dropped.csv": {
+   "bytes": 94526,
+   "sha256": "d563d6b839084f4dee07c8b5f9133e33bed4140ae54ead6de914bb48fce8638c"
+  },
+  "reports/ledgers/P009_dropped.csv": {
+   "bytes": 1402707,
+   "sha256": "162a414f526c2c4fdda36c492478a249ae3ed978efa1a5d82099559d1e4cddc4"
+  },
+  "reports/ledgers/P010_dropped.csv": {
+   "bytes": 241565,
+   "sha256": "78fb742df888ce134e1f7fc12756b48c5d0cbaf1a81f3aeb54fdf022dff753d2"
+  },
+  "reports/ledgers/P011_dropped.csv": {
+   "bytes": 539463,
+   "sha256": "8f65c474dfe7639fbc4dbb9dae28c5df6335d7e794436a40b99740035d8ca7b5"
+  },
+  "set_aside/P001/collector/audit.jsonl.gz": {
+   "bytes": 734272,
+   "sha256": "de1aa70b8076256f6c745f6a1f721b1e9c8e9a87a5149de003dfd807934eed91"
+  },
+  "set_aside/P001/collector/system.jsonl.gz": {
+   "bytes": 658123,
+   "sha256": "81cecd9201acf28adfe1362528ba634998e8cc8bc31c5868e1e903462b9eef1c"
+  },
+  "set_aside/P001/connector/audit.jsonl.gz": {
+   "bytes": 738104,
+   "sha256": "326604e6f8e801a72c302c274245491448a30f1c9cc092555bd01afd06b6e897"
+  },
+  "set_aside/P001/connector/system.jsonl.gz": {
+   "bytes": 661131,
+   "sha256": "6f0da0f80cc6feb5a225d7bfff1925b668f1822ad8f3bec8debba91787a6718b"
+  },
+  "set_aside/P001/dc01/application.jsonl.gz": {
+   "bytes": 895,
+   "sha256": "ac5a5c926ccf02a8fa491191d47ff68c929fd8d1bb82f405cb8c6434580bfb05"
+  },
+  "set_aside/P001/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 6695,
+   "sha256": "f2c2412cb09979e1f0e0dde0af6a3bf93453a2528f65b0e64df9f676f5c3410e"
+  },
+  "set_aside/P001/dc01/security.jsonl.gz": {
+   "bytes": 1960793,
+   "sha256": "cc5ef017bbf668daf7dca9687cc5d37aa45b56879ec70668fed872900ac36ede"
+  },
+  "set_aside/P001/dc01/sysmon.jsonl.gz": {
+   "bytes": 393830,
+   "sha256": "2ea8a006bab29f40c9a37e165b65012982151487f05a35cc2ba08aa558ad9107"
+  },
+  "set_aside/P001/dc01/system.jsonl.gz": {
+   "bytes": 3568,
+   "sha256": "d3c8c3e6cd3c0c905a9c6b3a56da9f2c728eb493c275e78ce9c1088a8d1e02f7"
+  },
+  "set_aside/P001/dc02/application.jsonl.gz": {
+   "bytes": 900,
+   "sha256": "711856e2f1c372930b16e6b73d3b2f65888ece7b10b9eaf9be8094a62d52b2c2"
+  },
+  "set_aside/P001/dc02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 193599,
+   "sha256": "6c4975196a208760a8fb8052d92afbf5b32710ea8c46c192ea651cffed2a13f9"
+  },
+  "set_aside/P001/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 71607,
+   "sha256": "140dc850c281ff5cf5956293e21dbc2f51cee9f10e8c1d09e69a8c5912dfef08"
+  },
+  "set_aside/P001/dc02/powershell.jsonl.gz": {
+   "bytes": 2866334,
+   "sha256": "0324c9ebd6febb8e9badad9b1cc16eca35fca9ff22c9359d79b6dcadb43c526a"
+  },
+  "set_aside/P001/dc02/security.jsonl.gz": {
+   "bytes": 8070064,
+   "sha256": "209ca271d710886a735026ac2c12cf2c0ca3df190f266c0c700f8479bc2eb436"
+  },
+  "set_aside/P001/dc02/sysmon.jsonl.gz": {
+   "bytes": 1461418,
+   "sha256": "c388b2da23265a3502818eeb0d108727b625475d450301054c8963c8c2dae43d"
+  },
+  "set_aside/P001/dc02/system.jsonl.gz": {
+   "bytes": 3615,
+   "sha256": "62f84973342b13bfbb78182f016363557382b2648017d8a0851080f446f07c9c"
+  },
+  "set_aside/P001/dc03/application.jsonl.gz": {
+   "bytes": 885,
+   "sha256": "2e7cb57928ee5ea0fc0596d81969615ed7dbebbe735e6ebb4e966d9abf02aa7f"
+  },
+  "set_aside/P001/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 1903,
+   "sha256": "d7de028a88d217d13d35013e3d82ab583bf57358c630feca0896be20c6d0a2d2"
+  },
+  "set_aside/P001/dc03/security.jsonl.gz": {
+   "bytes": 1508755,
+   "sha256": "6a4da14ffabae53fb5e37aad5993545f9b587fa50e23e6ff7c6545a6bde64fc7"
+  },
+  "set_aside/P001/dc03/sysmon.jsonl.gz": {
+   "bytes": 423254,
+   "sha256": "d8bc3cbd8af6f0402f225f40ea732192ff427b8f4c463d32b1436d343f15fbfb"
+  },
+  "set_aside/P001/management/audit.jsonl.gz": {
+   "bytes": 769269,
+   "sha256": "266288a1408030d314869878dde247c994ba133682d65f1cd8538c02d2208ed3"
+  },
+  "set_aside/P001/management/system.jsonl.gz": {
+   "bytes": 691036,
+   "sha256": "9a40205113a7caa970c63f1994ee958d5e6a91bc2be8dd45d131de197c3321de"
+  },
+  "set_aside/P001/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 4864912,
+   "sha256": "4f9a65657d6d953ee4150cdb3234667b33446c64c2289e00d60e42595cc987be"
+  },
+  "set_aside/P001/operator/auth.jsonl.gz": {
+   "bytes": 1760,
+   "sha256": "7fbad3522e701ec6fa5d4d17c5762395c52397daec22fbb4d7f08e3833742442"
+  },
+  "set_aside/P001/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 20,
+   "sha256": "ac73670af3abed54ac6fb4695131f4099be9fbe39d6076c5d0264a6bbdae9d83"
+  },
+  "set_aside/P001/operator/syslog.jsonl.gz": {
+   "bytes": 171698,
+   "sha256": "8cd3da9b0dc2b5d4005560a483b11bf3dd922e32130fe6129ff7888be05ed3be"
+  },
+  "set_aside/P001/sensor/audit.jsonl.gz": {
+   "bytes": 730400,
+   "sha256": "ea2809b8a80de8a8863adbf64b413d354bd28c855bb7c5f41428248439546f1e"
+  },
+  "set_aside/P001/sensor/system.jsonl.gz": {
+   "bytes": 653509,
+   "sha256": "b72d94a596fae4fe9772da35e0392a2336dff6245af4b42c7c922c273ad1c316"
+  },
+  "set_aside/P001/srv02/application.jsonl.gz": {
+   "bytes": 26416,
+   "sha256": "141f663046b1ecf54b0eb10e0c887042a2121269aa3610c0bdaecbbe0bd204c8"
+  },
+  "set_aside/P001/srv02/iis-access.jsonl.gz": {
+   "bytes": 6911,
+   "sha256": "588b2d057be01076d7a84718f61bebab377b734b87c5a9dd5d204f6bbb17f3b5"
+  },
+  "set_aside/P001/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 6891,
+   "sha256": "533cf04be45abb782fc57184f48a06b2796cf15f9245312cd90ab0639febc050"
+  },
+  "set_aside/P001/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 4909,
+   "sha256": "1d5127df374b7c4d54523d622f169f83abcd401c81e39bbc80f28d775a171555"
+  },
+  "set_aside/P001/srv02/powershell.jsonl.gz": {
+   "bytes": 10498,
+   "sha256": "307725bb93eb4a9634101e73426587f71f81352bc2db9879269509d09b5daf07"
+  },
+  "set_aside/P001/srv02/security.jsonl.gz": {
+   "bytes": 3111666,
+   "sha256": "f134a38dff69fd8d0bb05b58bbc9c10e98d4e1626888cec33ada840fea02630f"
+  },
+  "set_aside/P001/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 1283,
+   "sha256": "17f3e18f93af5326cc62fabc26c5abb8f32aa9d59bc009b813b3df9b7ff64398"
+  },
+  "set_aside/P001/srv02/sysmon.jsonl.gz": {
+   "bytes": 311012,
+   "sha256": "3a366228a2a34d7a736a89547aa33308cd742f973a30161f32e63e8184d88dd7"
+  },
+  "set_aside/P001/srv02/system.jsonl.gz": {
+   "bytes": 4387,
+   "sha256": "3e5f77a0f1c9719d95e5f11c15b45b1ce737efa0e16f91154dbf7663f0c0e402"
+  },
+  "set_aside/P001/srv03/application.jsonl.gz": {
+   "bytes": 18467,
+   "sha256": "5c824820f1fb070668acf9893c428336994d8325996c9ffa521ca4597e162a87"
+  },
+  "set_aside/P001/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 5037,
+   "sha256": "e5c980f717a361447ab453e3bf9b43f202065e0b5ead0755b13b93daf69ea5ed"
+  },
+  "set_aside/P001/srv03/security.jsonl.gz": {
+   "bytes": 346051,
+   "sha256": "62a5dec093d34a56382a026c42cd1628683697fdfed3c52888fb33805d28fea1"
+  },
+  "set_aside/P001/srv03/sysmon.jsonl.gz": {
+   "bytes": 178532,
+   "sha256": "3c34b3b426cb24d585fd1a695de360921e97a75a0cd35ba418fa14e7863b4cc0"
+  },
+  "set_aside/P001/srv03/system.jsonl.gz": {
+   "bytes": 1202,
+   "sha256": "aa355f28d77680dec240f7d7b1ae9502f98ff1b6b78d90ee2c1b2536910d15ca"
+  },
+  "set_aside/P001/validator-service/lambda.jsonl.gz": {
+   "bytes": 11802,
+   "sha256": "c0fa82d1fd6749566544005085ca0d82b83ba88c45ae3ee107e3f1544c3cd54f"
+  },
+  "set_aside/P001/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 2889582,
+   "sha256": "e5887f64130b726bbc5ea05591b586acf958b4802bbac7d4a66071caac73a56c"
+  },
+  "set_aside/P002/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 1476,
+   "sha256": "5b5e374cadec7ff9d3164056f6a48c6bfc20a56e47219bd272033ece83783ca4"
+  },
+  "set_aside/P002/dc01/security.jsonl.gz": {
+   "bytes": 2168488,
+   "sha256": "ad84379d3752590e9b2e4fc5eac2bb3b2caedeff5a2581279bf748df4f54c107"
+  },
+  "set_aside/P002/dc01/sysmon.jsonl.gz": {
+   "bytes": 503230,
+   "sha256": "03ef0f3a98d7adcb0022275a3035753bf105942b12f0092646dfb54106255766"
+  },
+  "set_aside/P002/dc01/system.jsonl.gz": {
+   "bytes": 2970,
+   "sha256": "bb7ebd1a0d6cad6bbfe6edeccf02a4073ab507f9274e958f0a8fe103560a962e"
+  },
+  "set_aside/P002/dc02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 93814,
+   "sha256": "c98a8d63d60aa4e60a9b3c9045e772fcd1c34435eb7f1d6f9cc0d6dda0d21a4f"
+  },
+  "set_aside/P002/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 8545,
+   "sha256": "09f6a425cace9d1ed999a282a6e41781497757e4bf4b017704ae0ad1619ffe4f"
+  },
+  "set_aside/P002/dc02/sysmon.jsonl.gz": {
+   "bytes": 2103987,
+   "sha256": "70d77a8bbd25fc45f072d51d75b2762177f56b8d8d9a233fb64a87f792622fe7"
+  },
+  "set_aside/P002/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 1963,
+   "sha256": "4b335ce4fcb87c7676c0204097bc513f4344c4bf65955b50af02a0cde14c54fa"
+  },
+  "set_aside/P002/dc03/security.jsonl.gz": {
+   "bytes": 1522966,
+   "sha256": "33061ccdb3c7c7077fbbad2ef00d858b2da64f5eae9e5c69f30fc99faca6456f"
+  },
+  "set_aside/P002/dc03/sysmon.jsonl.gz": {
+   "bytes": 399749,
+   "sha256": "bc785bc4b055783d307f4552ef8ec06a83c04750fde6fc2c6c05545db73993a5"
+  },
+  "set_aside/P002/dc03/system.jsonl.gz": {
+   "bytes": 1330,
+   "sha256": "fda658fb6f0e919fcc219f8fdde069cfbbd963654691b4dde9de89b3f5706e86"
+  },
+  "set_aside/P002/management/authentication.jsonl.gz": {
+   "bytes": 3798,
+   "sha256": "0dcd4dece79af17aae8a649ebc23624c3952ee1516d5ae3ab2be2c8221b13f0e"
+  },
+  "set_aside/P002/management/system.jsonl.gz": {
+   "bytes": 28459,
+   "sha256": "f78e7f1b4b84bed924e559c31e2e82a2b18a93d95653a8fe3a80782f671c4573"
+  },
+  "set_aside/P002/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 452223,
+   "sha256": "cb3c969657737907476c0d1c262bd82e642d0a1bf34a0c06a302c15f3201ebaf"
+  },
+  "set_aside/P002/operator/auth.jsonl.gz": {
+   "bytes": 17717,
+   "sha256": "9f4073c87bc040d27af7d439f81bac689c15402c9eef32137da9a6913fb68596"
+  },
+  "set_aside/P002/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 15458,
+   "sha256": "94e299657b983b5ee525b2d5cd17749dbd870058e6dfb53073267ac20df58627"
+  },
+  "set_aside/P002/operator/syslog.jsonl.gz": {
+   "bytes": 174244,
+   "sha256": "19d78d10384c7d6bf26e5b1450c31b8c2d194798c1c3032b10a954e6035a8fad"
+  },
+  "set_aside/P002/srv02/application.jsonl.gz": {
+   "bytes": 22505,
+   "sha256": "5eca668fd08ec68f735953ded650df4c9ab268f4933ac3fd7cbcd585191c4a43"
+  },
+  "set_aside/P002/srv02/iis-access.jsonl.gz": {
+   "bytes": 889,
+   "sha256": "e4e218a39a8aa368283ed63b07b2c91ca3477f3273c7b27a45fe40cd692a663a"
+  },
+  "set_aside/P002/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4085,
+   "sha256": "dfd41d1df97d387123e9889e8bd0b7d3cc0640a89015e622683cd8e74bef46d3"
+  },
+  "set_aside/P002/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 925,
+   "sha256": "c7a7aa8090eaabd922c4b71a489b49ac2ec5f10037fbab8fe3a6cb7fda4b086e"
+  },
+  "set_aside/P002/srv02/powershell.jsonl.gz": {
+   "bytes": 2119,
+   "sha256": "e574baf2474029e50866a3a780bc9e673fa0d996353c4af005b749a72dcf08d1"
+  },
+  "set_aside/P002/srv02/security.jsonl.gz": {
+   "bytes": 3241268,
+   "sha256": "c3ab999cba050fc69de382723aa801aec327e26489435edc467324ecac6f7d91"
+  },
+  "set_aside/P002/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 1804,
+   "sha256": "d1359fbd3ec2a96aed54f12714e4ab2382e3f0078f7d178db4a9ae16277b1ed6"
+  },
+  "set_aside/P002/srv02/sysmon.jsonl.gz": {
+   "bytes": 279418,
+   "sha256": "532c2f24ce2c73452b5772f0a72ea51672f42b3bf7c6d998cc945b05e15468b9"
+  },
+  "set_aside/P002/srv02/system.jsonl.gz": {
+   "bytes": 4084,
+   "sha256": "5174a81f474037a739fd8baf62a1de2e19f0027dfe12aedf950eac9de94f2328"
+  },
+  "set_aside/P002/srv03/application.jsonl.gz": {
+   "bytes": 17310,
+   "sha256": "605c4450df3accb42e56e2b738657e4f533c2269ef60716ce420252fe9db4e5d"
+  },
+  "set_aside/P002/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 1942,
+   "sha256": "eb1ea5f86e4030a80554d0972c80eecbabd6c92296cc7e98d46eaf8b0cabbec7"
+  },
+  "set_aside/P002/srv03/security.jsonl.gz": {
+   "bytes": 326426,
+   "sha256": "2570493150cf6ef4269dc5ec8674f7e6f1859adb278c38cff799e7cc4763bc93"
+  },
+  "set_aside/P002/srv03/sql-error-utf16.jsonl.gz": {
+   "bytes": 416,
+   "sha256": "0fe4783d7fdd25351ba70a6f7530f35fde366f4a03fbfbb2684bb8bf163cc238"
+  },
+  "set_aside/P002/srv03/sysmon.jsonl.gz": {
+   "bytes": 169600,
+   "sha256": "bb3a7c84668a0a2d6d6b26370fd270864cff5a556d37befa9861f6e3de126a39"
+  },
+  "set_aside/P002/srv03/system.jsonl.gz": {
+   "bytes": 2071,
+   "sha256": "d02d0eb2a0556f13d6644f6cc7e51c9e1815fbcc75612ebdbbffc49651811e11"
+  },
+  "set_aside/P002/validator-service/lambda.jsonl.gz": {
+   "bytes": 8898,
+   "sha256": "957987af841da91d0edd75a7f1b9a2edf6631f6ff2d956b68a10dda0caac8e55"
+  },
+  "set_aside/P002/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 2141672,
+   "sha256": "cd327d492a06338e75b04d125a1732d259e5e5667d8e56bf99b2c11bca84aa0d"
+  },
+  "set_aside/P003/collector/audit.jsonl.gz": {
+   "bytes": 1149136,
+   "sha256": "5b80ee25685045886d6f1d9bd4642f483012bd45408d786f311b6d2987353690"
+  },
+  "set_aside/P003/collector/system.jsonl.gz": {
+   "bytes": 1026261,
+   "sha256": "29a6bd1fa84cd8433dd0cd872a2bf3bbdb18438db2e9420e4f11f89e1e830ea9"
+  },
+  "set_aside/P003/connector/audit.jsonl.gz": {
+   "bytes": 1151177,
+   "sha256": "2a5c5f5c12644d740450970e419f89c15e1fce3cd6692c5309d152adeccb463c"
+  },
+  "set_aside/P003/connector/system.jsonl.gz": {
+   "bytes": 1029188,
+   "sha256": "330f658d59b46722246027ebda8e938ba56284c4889c459a5192b3cf0272e754"
+  },
+  "set_aside/P003/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4707,
+   "sha256": "b993bf5ac3538170552ffe18275aebb902121927a36028e14a85a6766a8a9907"
+  },
+  "set_aside/P003/dc01/security.jsonl.gz": {
+   "bytes": 3018115,
+   "sha256": "078131a71a7cbd04c5c24d925ab459d53f405224b46c35120d3ffd4d4e1609be"
+  },
+  "set_aside/P003/dc01/sysmon.jsonl.gz": {
+   "bytes": 608742,
+   "sha256": "00d274e00717c3f5ae19b7f0869953d25633257d985b96aead151bc50ec1366a"
+  },
+  "set_aside/P003/dc01/system.jsonl.gz": {
+   "bytes": 4838,
+   "sha256": "9b680d5524f7310526b125a6399365a27b8b71c193a4f3f91003a252da29d21d"
+  },
+  "set_aside/P003/dc02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 399244,
+   "sha256": "b7e63d28ad86ace68bca934c1007aaff57bf0a6950bdbaba83979dc706501b7f"
+  },
+  "set_aside/P003/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 11562,
+   "sha256": "eb898a80053183892237a236eb03c276e02fff8c8805d50a7002a06fd132c558"
+  },
+  "set_aside/P003/dc02/powershell.jsonl.gz": {
+   "bytes": 4872376,
+   "sha256": "42e5b0197ad0c15b7474dbd7ad4acb2e5d25492fab2f8bd6fa36e15dd9027db5"
+  },
+  "set_aside/P003/dc02/security.jsonl.gz": {
+   "bytes": 13495116,
+   "sha256": "dd6d916cf022a3c8cf78aeacc8944287e9531f0ab80023b371ac4dad4fb8af4e"
+  },
+  "set_aside/P003/dc02/sysmon.jsonl.gz": {
+   "bytes": 2583134,
+   "sha256": "8d90c99a98e6b944e394d1418ff2ea1cc0a6a6f181c0499e002639c908de08bc"
+  },
+  "set_aside/P003/dc02/system.jsonl.gz": {
+   "bytes": 5090,
+   "sha256": "0e813d57d700f67418efe24ae4fcacce1f50393be12f69fcc75ca867174649bc"
+  },
+  "set_aside/P003/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 3405,
+   "sha256": "6d4b7d8803eeb159456c64b4cd3b71ecc1ef36d1f774bac85b110e91dd863dc1"
+  },
+  "set_aside/P003/dc03/security.jsonl.gz": {
+   "bytes": 2317727,
+   "sha256": "9bb234a0f815dba6029c99cbb8af13b95050b0500c332f66152efc78d6d968b6"
+  },
+  "set_aside/P003/dc03/sysmon.jsonl.gz": {
+   "bytes": 674142,
+   "sha256": "5d9b71519919088e40796f469a8822e81a7533640312fa02e38f51e63fbd8fca"
+  },
+  "set_aside/P003/management/audit.jsonl.gz": {
+   "bytes": 1211712,
+   "sha256": "41c0d573be450ad7ace8f480cb78c032eff22dcaca4a43094e478ff2169b6d00"
+  },
+  "set_aside/P003/management/system.jsonl.gz": {
+   "bytes": 1086568,
+   "sha256": "5dd5a881828c370b52b2da0b8fd6a36b6b5e13a13ab16a7099936974205c5fa2"
+  },
+  "set_aside/P003/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 5228575,
+   "sha256": "5fc4a13ddc4670940081e31cb387263c16f4d20677e778caf1d3a005e79fdc12"
+  },
+  "set_aside/P003/operator/auth.jsonl.gz": {
+   "bytes": 7025,
+   "sha256": "c0670b6c16af7d06e38eb75c3f004fbd302d75ae459b90f2330e5137e7abe326"
+  },
+  "set_aside/P003/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 2016,
+   "sha256": "0b995cf7a51032a29fb7b4f3c28ec6a8293c7dc54d765a754a1ecded71d88e88"
+  },
+  "set_aside/P003/operator/syslog.jsonl.gz": {
+   "bytes": 223617,
+   "sha256": "aeb608c52131d3730162aabcd3af2b7564c728374fb452c54181ae899d7d1050"
+  },
+  "set_aside/P003/sensor/audit.jsonl.gz": {
+   "bytes": 1144460,
+   "sha256": "9f2acf4453d336ea28af6864138daa0062e52bf59743f14f333870b16c7823d9"
+  },
+  "set_aside/P003/sensor/system.jsonl.gz": {
+   "bytes": 1025676,
+   "sha256": "28050ba46a07da3c66fdb7e30df332c6ee8af0b597c417d146436208e99ea28c"
+  },
+  "set_aside/P003/srv02/application.jsonl.gz": {
+   "bytes": 33047,
+   "sha256": "b220051cb7d1070b0e58bad51da681214d0463c242c56e7122f22fac5c2d57ee"
+  },
+  "set_aside/P003/srv02/iis-access.jsonl.gz": {
+   "bytes": 139169,
+   "sha256": "2c343b6ea1e37b42f5a07c4efcd31ca07b5b9167b08d4aed765dcbbc82b88fe8"
+  },
+  "set_aside/P003/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 2927,
+   "sha256": "9540512078ad43c8ffd72ae8ac391fb5fdbe94eb3d28d6899e1af101dee79ad2"
+  },
+  "set_aside/P003/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 300945,
+   "sha256": "9eb863b6085e693d64ac8cd9b70dacfbabfe0c39955a8344603a185fe1a7f8a5"
+  },
+  "set_aside/P003/srv02/powershell.jsonl.gz": {
+   "bytes": 209370,
+   "sha256": "67725be6726e82721c1fb10cbfbdc1bd2efc93033a81653e255a5cccba16db90"
+  },
+  "set_aside/P003/srv02/security.jsonl.gz": {
+   "bytes": 4750825,
+   "sha256": "d55c9395705cb81a482a6bf8a5df70ee61ea33ad13e39e985acebcc6d53f0a86"
+  },
+  "set_aside/P003/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 1505,
+   "sha256": "f46379a59a89aed268c51fce8b05bda33ebe8c189a89f8d9271633099ae51cf5"
+  },
+  "set_aside/P003/srv02/sysmon.jsonl.gz": {
+   "bytes": 418968,
+   "sha256": "63d9042ca247f74aae81b5f0dbc1fe132faa6d32236254753993d8d2155be201"
+  },
+  "set_aside/P003/srv02/system.jsonl.gz": {
+   "bytes": 5086,
+   "sha256": "91adb160852b78c0e1b691fb12cbef5480576a5d74ebde53d1494bbb1bb90d01"
+  },
+  "set_aside/P003/srv03/application.jsonl.gz": {
+   "bytes": 28755,
+   "sha256": "fbe079eb29a38bd5bbbb1406ac06a5cc4b719328c4501d7bb2ffb31625919261"
+  },
+  "set_aside/P003/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 3704,
+   "sha256": "800eaed87f2fa7caa6147562461ed3e2106d52a104fc2e002041d7423ddc59f8"
+  },
+  "set_aside/P003/srv03/security.jsonl.gz": {
+   "bytes": 534609,
+   "sha256": "2e3dc52c17d7bfc5af65784a00e17b07775b688934623cd54ce6f3fcd2bc3415"
+  },
+  "set_aside/P003/srv03/sysmon.jsonl.gz": {
+   "bytes": 271826,
+   "sha256": "ccc89e493e36e3897477590886ee8a0832671432f7c248b3f41c9edd27e819a0"
+  },
+  "set_aside/P003/srv03/system.jsonl.gz": {
+   "bytes": 1199,
+   "sha256": "b3deb0f3e38d238a5e42ef9811634fd88ac04bf56e48a946214dad35f0daa41e"
+  },
+  "set_aside/P003/validator-service/lambda.jsonl.gz": {
+   "bytes": 12068,
+   "sha256": "f85a023ac00acf67fcd2d9611e0bc2912de25eb2284806771491b54ce8f96109"
+  },
+  "set_aside/P003/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 3474397,
+   "sha256": "3f19b36f44abd99bc92417898ff778109e58c085aa95866142f12b0eff73afe3"
+  },
+  "set_aside/P004/dc01/application.jsonl.gz": {
+   "bytes": 590,
+   "sha256": "0a3c9ce27c21b41cf0de66d300c5abc2973ab79a45134b2156cefa91950b7d72"
+  },
+  "set_aside/P004/dc01/iis-access.jsonl.gz": {
+   "bytes": 1903,
+   "sha256": "edc527601bc69de20b30ae6f88e9dc9a18649ca2a6d6ce84d5da88ad6d8648f1"
+  },
+  "set_aside/P004/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 3739,
+   "sha256": "b733ed0735b17f19d57f285c95c34b19e9e9de20d3d49343f86cbfae91b76b61"
+  },
+  "set_aside/P004/dc01/security.jsonl.gz": {
+   "bytes": 2623381,
+   "sha256": "1db30208b8d78f373e7cb57bd30142f69fa5f3fe6d522b662747e6f7b4bc0ea8"
+  },
+  "set_aside/P004/dc01/sysmon.jsonl.gz": {
+   "bytes": 627288,
+   "sha256": "531e820557aa60702b8ce3afa10a1da887c58b209d393690b73f918d005fdbb1"
+  },
+  "set_aside/P004/dc01/system.jsonl.gz": {
+   "bytes": 6464,
+   "sha256": "f06f688813fdfbdc6c38d7cae50111407d8663f79f68058109f3366ce5d1f260"
+  },
+  "set_aside/P004/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 8758,
+   "sha256": "810ceb393cd2ff291ca5a6e9430e6e935d529e1f3fefa4dc5e0715a0b8e86dce"
+  },
+  "set_aside/P004/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4106,
+   "sha256": "276bca02912d86f9263f6e6f8479119aa7f9432268b1c62a297cf8a50bf58d4c"
+  },
+  "set_aside/P004/dc03/security.jsonl.gz": {
+   "bytes": 1757694,
+   "sha256": "412e181c7200e6cd205609ecc2cfe45eda34cd39123bbc25560567c6423b3677"
+  },
+  "set_aside/P004/dc03/sysmon.jsonl.gz": {
+   "bytes": 489513,
+   "sha256": "5df4e617a67b4ff0f3a3973dcde879e3a7429d89e47177c990a7384d3eb0b104"
+  },
+  "set_aside/P004/dc03/system.jsonl.gz": {
+   "bytes": 2785,
+   "sha256": "cd24838672321974e74518a27e1eda2c62bf3b2c1da2f50a3fc3b69ea4d020d0"
+  },
+  "set_aside/P004/management/authentication.jsonl.gz": {
+   "bytes": 5433,
+   "sha256": "ed31d864bea50e632d8a6d9ba57ea88c77ed1ec0451841f631c360a67ba023c6"
+  },
+  "set_aside/P004/management/system.jsonl.gz": {
+   "bytes": 34435,
+   "sha256": "e69900a2864b88f1e183827a036ba8c5430f1fc8bc05c355147767bb06eb8e2c"
+  },
+  "set_aside/P004/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 606683,
+   "sha256": "6f360130035fecc7da4d29cc1a1a4946a494d151ff47661a924911c642cf25ee"
+  },
+  "set_aside/P004/operator/auth.jsonl.gz": {
+   "bytes": 9724,
+   "sha256": "f85f4808c9f1937aa8578ac08b0c1ff64179d02f6a4e5bdea6abc93c7d22e52d"
+  },
+  "set_aside/P004/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 11584,
+   "sha256": "14867a51f14febbae083b5ff7880f7155d3ab0d15cb4e352d2b3ccb44886e834"
+  },
+  "set_aside/P004/operator/syslog.jsonl.gz": {
+   "bytes": 221036,
+   "sha256": "b38ddfa3235b8d030d890c9dc4396542da703180d7b8cef88d6d532198a94637"
+  },
+  "set_aside/P004/srv02/application.jsonl.gz": {
+   "bytes": 37787,
+   "sha256": "b9539a1fb80dcbe35cc607d0e68db2a046de5790dc0a54bf79e62c3af411adb5"
+  },
+  "set_aside/P004/srv02/iis-access.jsonl.gz": {
+   "bytes": 4620641,
+   "sha256": "27663a75975d21c034f6eff55160cb528b4244a35ae2ff93cc4c966cbd244e76"
+  },
+  "set_aside/P004/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 3641,
+   "sha256": "e1bf852db25f120bc67d70865f8855e881a01f3f02c852d6fe805e6e9fbaa760"
+  },
+  "set_aside/P004/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 2138,
+   "sha256": "4476669a2ee583f58a17e5a94a1a9901f2a65ccad84e3dbd93c30c651b309b5b"
+  },
+  "set_aside/P004/srv02/powershell.jsonl.gz": {
+   "bytes": 52825,
+   "sha256": "bb70dfac884546d5e3dc5031a118e4fafc9b61899bf178eeed459c441f99fd29"
+  },
+  "set_aside/P004/srv02/security.jsonl.gz": {
+   "bytes": 6292584,
+   "sha256": "345374ac262c6a71d9609e2abe7a684ac90af71d153bd072fa712ce02c8b15be"
+  },
+  "set_aside/P004/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 2634,
+   "sha256": "1ce4756fc01c5892efa3d20b37b2675b56d2b5093bc2b08aaeaf1ea9ed79af8f"
+  },
+  "set_aside/P004/srv02/sysmon.jsonl.gz": {
+   "bytes": 2174283,
+   "sha256": "3ee1edc0c9e2042e1c2437b3a8b05318f6fc811debdb230242f998e095a42500"
+  },
+  "set_aside/P004/srv02/system.jsonl.gz": {
+   "bytes": 4929,
+   "sha256": "609cb6a81256d47d0c0f0a08bedd22146506eb2d3805fe76296bef14bdb32652"
+  },
+  "set_aside/P004/srv03/application.jsonl.gz": {
+   "bytes": 29032,
+   "sha256": "ff448324fca0720e9eedbe38f27a4f5ef9d041f0ee8eb6844a9bd098bf03ed2a"
+  },
+  "set_aside/P004/srv03/iis-access.jsonl.gz": {
+   "bytes": 1661,
+   "sha256": "98db6b8f5b17851d70271008e3d2e7bba2684ea223a0d21b7545b1503383dfb1"
+  },
+  "set_aside/P004/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 15333,
+   "sha256": "bc57a0370878e424905ea8fe57c7066037cab3401da5d5e6e8c4c9622287f70c"
+  },
+  "set_aside/P004/srv03/security.jsonl.gz": {
+   "bytes": 947866,
+   "sha256": "b4f8cb58e54c5323f78e8e8d141e67c8f08b75b2e0ac192dfe96664e4775c687"
+  },
+  "set_aside/P004/srv03/sql-error-utf16.jsonl.gz": {
+   "bytes": 418,
+   "sha256": "b8685922e0f3f4463936fd083d09e025ebc2dd9cc120907d7b4c260c0a69136f"
+  },
+  "set_aside/P004/srv03/sysmon.jsonl.gz": {
+   "bytes": 219866,
+   "sha256": "7e8630886203d52c06be8f363fe6a6e56b6ca767ae54b772f6d1f2e7eeeec406"
+  },
+  "set_aside/P004/srv03/system.jsonl.gz": {
+   "bytes": 4762,
+   "sha256": "226ce63b8c7e66b630868b2556af5add79e19e446b7bfd10b95bea05546101ba"
+  },
+  "set_aside/P004/validator-service/lambda.jsonl.gz": {
+   "bytes": 11220,
+   "sha256": "b315c9786a5db7ad6e45a2056b1b812426784db77fd0404effce94fa337abe05"
+  },
+  "set_aside/P004/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 9568554,
+   "sha256": "0564b03e79e5468dfd3faf112ffefc3fc322f018d0044c59f3527fdd74fc4014"
+  },
+  "set_aside/P005/dc01/application.jsonl.gz": {
+   "bytes": 589,
+   "sha256": "710bdd77910bc230e884bff56a61fde2f117ad22020cecf7b79b1b01ff29dd1f"
+  },
+  "set_aside/P005/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4333,
+   "sha256": "8ef1abac0a7e0e6f1e262834023b4e64c09b3aee4780be89595d5197185d3165"
+  },
+  "set_aside/P005/dc01/security.jsonl.gz": {
+   "bytes": 1631089,
+   "sha256": "c5c33bd9aa8fbe5dc79c83bebc698c1df56e72e011d1357042f56767f677c77f"
+  },
+  "set_aside/P005/dc01/sysmon.jsonl.gz": {
+   "bytes": 345448,
+   "sha256": "0a4ef17818e471e75cbe9e2fc75778d682eb23c4369b74e87529d5072fa9f2d8"
+  },
+  "set_aside/P005/dc01/system.jsonl.gz": {
+   "bytes": 3023,
+   "sha256": "db59d51fa0343f816f0bfe159d689ccb568ed6f739da830c54e8f610f5b42565"
+  },
+  "set_aside/P005/dc02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 148749,
+   "sha256": "71e7e0bff297a16085ab68cbd7559f80c46758bb6b7ea8ce9c4582235a334a6c"
+  },
+  "set_aside/P005/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 5357,
+   "sha256": "95880ece4824edf880ddbc99b28939dcc2f521d511729f833a9ac901e2366e0c"
+  },
+  "set_aside/P005/dc02/sysmon.jsonl.gz": {
+   "bytes": 766795,
+   "sha256": "a34d858d41e7f7abb9f68f5b9940039e40ac6f3393d98f3fa9bbb0da54317a34"
+  },
+  "set_aside/P005/dc02/system.jsonl.gz": {
+   "bytes": 2836,
+   "sha256": "4afce46418f670b5775f23e3a1c62e0148678bd1f121ebdc385689c6e7b5bd42"
+  },
+  "set_aside/P005/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4712,
+   "sha256": "d5a330aafcb08c6f9df4b33119132cec3d1078d43ffe4c66ce797463868a20fa"
+  },
+  "set_aside/P005/dc03/security.jsonl.gz": {
+   "bytes": 1241501,
+   "sha256": "b3179b9dae5bc9f92debeffd2eb37e05eb10337de5578334105e8a300e1fca84"
+  },
+  "set_aside/P005/dc03/sysmon.jsonl.gz": {
+   "bytes": 369104,
+   "sha256": "1a0677b15e59c50428ce492e360f57b7a7def3f730fab2db165b7d5d818a9124"
+  },
+  "set_aside/P005/dc03/system.jsonl.gz": {
+   "bytes": 2205,
+   "sha256": "5ec150b0d210441cf057477620da8893fcffd3c241889c6f984c136a60ee0410"
+  },
+  "set_aside/P005/management/authentication.jsonl.gz": {
+   "bytes": 3039,
+   "sha256": "205dbd1038e1bb0cc22a4d8c78c0884672da83b15df84c49d71c74efefadf044"
+  },
+  "set_aside/P005/management/system.jsonl.gz": {
+   "bytes": 18996,
+   "sha256": "829848c6b63594725e9e9e1f5a3f62778c8db29f68f9c673a513dd388bee8f7e"
+  },
+  "set_aside/P005/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 286254,
+   "sha256": "bd95aefa9e00479827e24cd92644de8aa95c88a76484296d403a51a44a8d64a4"
+  },
+  "set_aside/P005/operator/auth.jsonl.gz": {
+   "bytes": 2355,
+   "sha256": "54bdd3fd6225269421ba9c1998550931b78163ee546865fa222a29292b7e2877"
+  },
+  "set_aside/P005/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 3658,
+   "sha256": "1977f70c4fc6471b207cbafb52d2cdded394e0f381f2a24ad436fa284e087c9d"
+  },
+  "set_aside/P005/operator/syslog.jsonl.gz": {
+   "bytes": 121375,
+   "sha256": "67ba0d296c0ae53ffb3d31f9880545ee53b3224f126095d1710ce806a6f4fd42"
+  },
+  "set_aside/P005/srv02/application.jsonl.gz": {
+   "bytes": 14892,
+   "sha256": "36bbd23bc6fbc36d2605caf7d32be33d0b5c2cc9483cd368280cae328d3ba987"
+  },
+  "set_aside/P005/srv02/iis-access.jsonl.gz": {
+   "bytes": 502145,
+   "sha256": "f29968409c3cdfa8bc862fb88433d1c86add47327514f6c0787df77788649db0"
+  },
+  "set_aside/P005/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4752,
+   "sha256": "a67b0fccc3dcbbd001116ec7cb14fb4d19da2b81226c188470814c15e971509f"
+  },
+  "set_aside/P005/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 941,
+   "sha256": "9460b814d21412505b30d584d7d63fa015a2ebd02f11916c5270d28579ded2a4"
+  },
+  "set_aside/P005/srv02/powershell.jsonl.gz": {
+   "bytes": 2210,
+   "sha256": "703623d15662ac3ea9be158825d8b2ab95c4356d9c8bff37bdf1542ea282cf98"
+  },
+  "set_aside/P005/srv02/security.jsonl.gz": {
+   "bytes": 3036383,
+   "sha256": "c28865baa1a366316be9eeedbeff3887a9ff639b6e3a13ee047e22e9eb61cd21"
+  },
+  "set_aside/P005/srv02/sysmon.jsonl.gz": {
+   "bytes": 542644,
+   "sha256": "9dccf08018065e8b87d8a5db106b0666e9b41e36f50252175d36de65ac0da0d7"
+  },
+  "set_aside/P005/srv02/system.jsonl.gz": {
+   "bytes": 2794,
+   "sha256": "552bbce6bce2d5f0316f7fd2264cf0c650fe678c577500003c143169578506a4"
+  },
+  "set_aside/P005/srv03/application.jsonl.gz": {
+   "bytes": 14323,
+   "sha256": "defba9eda9c092f68d73c6ceb64ea0789eefe2667e89d346b9d8746001cf419c"
+  },
+  "set_aside/P005/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4177,
+   "sha256": "19f337550c045c0326aa1c00d6b7bbab12e8f904c091d962fb3356bb7bf12cd9"
+  },
+  "set_aside/P005/srv03/security.jsonl.gz": {
+   "bytes": 271620,
+   "sha256": "7ea448e467d9de8c4e865d9ea297a95705e3eb10a66f1eacb6301b246d783378"
+  },
+  "set_aside/P005/srv03/sysmon.jsonl.gz": {
+   "bytes": 145415,
+   "sha256": "bcc1456caa6540cdfe96b0623d5cc8eacbf798b5d1bb078fc750b57af8fe3423"
+  },
+  "set_aside/P005/srv03/system.jsonl.gz": {
+   "bytes": 1185,
+   "sha256": "0f36625d740de41c8e2169a14dee0f980fd0e8e383cdb1ceac267ec0626e02da"
+  },
+  "set_aside/P005/validator-service/lambda.jsonl.gz": {
+   "bytes": 7417,
+   "sha256": "b5831a401db0d0d96b7cf0ec52ab236a146828fd751f3540e826bf96d5af8f3e"
+  },
+  "set_aside/P005/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 2081740,
+   "sha256": "80c79559fe5464faeef1320883c2d8fd1efc86706a54e85c27252b2c06fa41b6"
+  },
+  "set_aside/P006/dc01/iis-access.jsonl.gz": {
+   "bytes": 1153,
+   "sha256": "eb12aeaa736dd16952f62427ef74a68c00d1f23d3c39aa46860552e96c74740a"
+  },
+  "set_aside/P006/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 1969,
+   "sha256": "730c94b4eccd5b915a893f4828c0eb76fe7bf54618f6349ceee82e068a7b390a"
+  },
+  "set_aside/P006/dc01/security.jsonl.gz": {
+   "bytes": 1532510,
+   "sha256": "3c19999a1c1378b80b9b6c094ad7d91a3f81901f49be739fcc770fff104f317d"
+  },
+  "set_aside/P006/dc01/sysmon.jsonl.gz": {
+   "bytes": 352341,
+   "sha256": "c779ce4357e07e2256d45fe8b9fe27bba23dc8311fe14bb64e3743d7180d72dd"
+  },
+  "set_aside/P006/dc01/system.jsonl.gz": {
+   "bytes": 3431,
+   "sha256": "4b224bdb51fe6ab38ec4b11661143d4037c906d32da8584770f4d89e2d296081"
+  },
+  "set_aside/P006/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 1224,
+   "sha256": "dd69682af3d06a9da9d6369eeffeaa7da0b21103c0457d86d40cfe5b28cf4dcd"
+  },
+  "set_aside/P006/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 3454,
+   "sha256": "707e19ab6fab57c07250ca6a06582ef771ae42bc5b65c0aac6498a3eaceaeb53"
+  },
+  "set_aside/P006/dc03/security.jsonl.gz": {
+   "bytes": 1626857,
+   "sha256": "5f0b41b896a9360320ad650588c301f128d7c1c681a02e124258258db20e5b97"
+  },
+  "set_aside/P006/dc03/sysmon.jsonl.gz": {
+   "bytes": 407954,
+   "sha256": "2f170c8de9bb8dd9886b7b5f3a83bf95c213a03b52015847f66543152c01747d"
+  },
+  "set_aside/P006/dc03/system.jsonl.gz": {
+   "bytes": 2584,
+   "sha256": "b637748ef6557105f575d068111d5c769d36736fc166a144239fcc0522e5abf6"
+  },
+  "set_aside/P006/management/authentication.jsonl.gz": {
+   "bytes": 2664,
+   "sha256": "e84bb2684370bddc022cd0601d0b4e22c4fa7b5499c56949eb187fdc31f28c69"
+  },
+  "set_aside/P006/management/system.jsonl.gz": {
+   "bytes": 18987,
+   "sha256": "d977442d959001162a6105f92c3bbde08713c883d36caaa9dc1625791428a8c2"
+  },
+  "set_aside/P006/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 434004,
+   "sha256": "0e10daece028239375f09cb26ba033ca15b0196e2867a919bdfef7e5a695f10c"
+  },
+  "set_aside/P006/operator/auth.jsonl.gz": {
+   "bytes": 3123,
+   "sha256": "026843c0f6196845a224c70d817f309594044c93010a3f9ebc9b5816b3a424cf"
+  },
+  "set_aside/P006/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 3961,
+   "sha256": "4a4304be1279d1405e92266300b386662a375f8f37a4e72814b63eb08262fbea"
+  },
+  "set_aside/P006/operator/syslog.jsonl.gz": {
+   "bytes": 163998,
+   "sha256": "910edc886c2063c264a160f692dfd5518b84cea57a01021acbc00fa27552edd7"
+  },
+  "set_aside/P006/srv02/application.jsonl.gz": {
+   "bytes": 18909,
+   "sha256": "0fc7f70bf6b46d1f2bd75e77d97acd95b1a9801770ef23a1ef551af23c2bbcf4"
+  },
+  "set_aside/P006/srv02/iis-access.jsonl.gz": {
+   "bytes": 1121489,
+   "sha256": "41e301d77e3552eab7fb98833ac3f095e696b16f75b52794119d299d8b3a2817"
+  },
+  "set_aside/P006/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 2506,
+   "sha256": "aba0452113643eab7e4e713e3f40fdc77b9b28934f98e7e45b85b6ab6569bf12"
+  },
+  "set_aside/P006/srv02/security.jsonl.gz": {
+   "bytes": 2241369,
+   "sha256": "98c6d3e746fd82559057079044b6ad9518cdb7d3c7ee3a96ab722ad667bda3cf"
+  },
+  "set_aside/P006/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 1011,
+   "sha256": "1ab4209f8af8ac31d7d365fbc486250806d87da1cc93b886fc732e12bc62426f"
+  },
+  "set_aside/P006/srv02/sysmon.jsonl.gz": {
+   "bytes": 208265,
+   "sha256": "13601172b128505bbcbd96e049d8b25387e0f766b5101ad48c9cebaae435598a"
+  },
+  "set_aside/P006/srv02/system.jsonl.gz": {
+   "bytes": 3479,
+   "sha256": "4cd52bf276f62d0a32e9a8da994f51fd19e0f154bd972c42b1033cfe928eba5b"
+  },
+  "set_aside/P006/srv03/application.jsonl.gz": {
+   "bytes": 14427,
+   "sha256": "34de5f4ff89a1ac5e8d7c59f078f6ab2d09d250493ad4486974ad7a2cc61d040"
+  },
+  "set_aside/P006/srv03/iis-access.jsonl.gz": {
+   "bytes": 983,
+   "sha256": "bcbd3d722007c8eb01191ed86f2920ea2a7acf57f06ffa4cce719ae1bcaeacab"
+  },
+  "set_aside/P006/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 1955,
+   "sha256": "88907b1d3a5a1e18c87d203399108771fc0f985af47aa8ea48cac56b255d4e79"
+  },
+  "set_aside/P006/srv03/security.jsonl.gz": {
+   "bytes": 274920,
+   "sha256": "032ed28ef6946c7d703bce98865710091862cf7d08e35f8687c065d4ee8536e9"
+  },
+  "set_aside/P006/srv03/sql-error-utf16.jsonl.gz": {
+   "bytes": 418,
+   "sha256": "b8685922e0f3f4463936fd083d09e025ebc2dd9cc120907d7b4c260c0a69136f"
+  },
+  "set_aside/P006/srv03/sysmon.jsonl.gz": {
+   "bytes": 128361,
+   "sha256": "6fd27614a782dd35bf0e8ce9c53cb22f2d9b4c032470bfa2a3043ca55f1233c0"
+  },
+  "set_aside/P006/srv03/system.jsonl.gz": {
+   "bytes": 2279,
+   "sha256": "ba96a618e2bc9c165efac1042f4b27e37f732d5aeb6b8bd610ced7c711c7ee84"
+  },
+  "set_aside/P006/validator-service/lambda.jsonl.gz": {
+   "bytes": 10208,
+   "sha256": "b48a819b520f289877bf4ab5d4f154d086d4c04e4beb1864487d91926d38d888"
+  },
+  "set_aside/P006/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 1914017,
+   "sha256": "090be1009dd8d95a14a1563fdd1d3b5c7b6d3d4fa5abbbdf0eb167263c50207a"
+  },
+  "set_aside/P009/collector/audit.jsonl.gz": {
+   "bytes": 495936,
+   "sha256": "69d3122b88a1cbff5fa9b0463fc449f60938c629cb83774c1db65baf2583f750"
+  },
+  "set_aside/P009/collector/system.jsonl.gz": {
+   "bytes": 442458,
+   "sha256": "cec3d5c89568e5fcb57c76394fc051a4e29112ceabde95287e9bc97dceb3a5af"
+  },
+  "set_aside/P009/connector/audit.jsonl.gz": {
+   "bytes": 493312,
+   "sha256": "c03ffc25a9d97e4a28b615c28d31859f71271f0c3950514c6c28d9b01f17be44"
+  },
+  "set_aside/P009/connector/system.jsonl.gz": {
+   "bytes": 441808,
+   "sha256": "5379fb670f87163dbfb4a3c25330d0eb7cef658ddd9a45e55b2ea5f2d361d908"
+  },
+  "set_aside/P009/dc01/directory-service.jsonl.gz": {
+   "bytes": 2142,
+   "sha256": "4bee8f1821aed050d0862b7d5a80abf8152c1ee856b2417b4240d4723601c9fb"
+  },
+  "set_aside/P009/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 6048,
+   "sha256": "04fd80db123b4f9b9f512f2414b6fcb63dec0147388e68ff6b046654c2f89f8a"
+  },
+  "set_aside/P009/dc01/security.jsonl.gz": {
+   "bytes": 1359424,
+   "sha256": "e9e035cdc8a2f297e7c9af7cd5d3aa97c5545b0a2710ba764e9a9fa900842581"
+  },
+  "set_aside/P009/dc01/sysmon.jsonl.gz": {
+   "bytes": 279817,
+   "sha256": "3062bd799c585f7979aa9d8d235bd82ebe5e44b5845026eaf25a93b0f7152509"
+  },
+  "set_aside/P009/dc01/system.jsonl.gz": {
+   "bytes": 3119,
+   "sha256": "a673b06bd901dd6c00738a948974cc2c1e8f477f42a710d0f2568853c79a13ad"
+  },
+  "set_aside/P009/dc02/directory-service.jsonl.gz": {
+   "bytes": 2199,
+   "sha256": "6e0d3024b9132d0ca664598edcc495c6a88b39f995df64a3d32a9ab18b6f81c6"
+  },
+  "set_aside/P009/dc02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 175315,
+   "sha256": "b0d474a836431e40846b1e8451e45b359e265fca68a9f55149689cfe9c21388e"
+  },
+  "set_aside/P009/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 4103,
+   "sha256": "a24b3e17228115dbe0c171518349d1762e3e724afe8bd6a010f4a4ed601a3ea0"
+  },
+  "set_aside/P009/dc02/powershell.jsonl.gz": {
+   "bytes": 2105026,
+   "sha256": "7e525735297d257e2e63d0f6d32e710cfa5f6eed54cf2f5bb6542b0a3d238618"
+  },
+  "set_aside/P009/dc02/security.jsonl.gz": {
+   "bytes": 5939245,
+   "sha256": "df475f366776749fd85f161d11a9351651cef35279fe841d525d69c6021a9969"
+  },
+  "set_aside/P009/dc02/sysmon.jsonl.gz": {
+   "bytes": 1165029,
+   "sha256": "ee390c779e2b58276f541e9a3bf3747d0e7b766575d61685525c5736c4ff4bc2"
+  },
+  "set_aside/P009/dc02/system.jsonl.gz": {
+   "bytes": 3413,
+   "sha256": "7e503f1acc8e00ed28d34cfaa00a015a5a86a392533489343facd73b9f30895d"
+  },
+  "set_aside/P009/dc03/directory-service.jsonl.gz": {
+   "bytes": 2128,
+   "sha256": "4c8ace50876662d67ca830fd5290211b8a48d54b41e426aa40f1c21919b69389"
+  },
+  "set_aside/P009/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 5390,
+   "sha256": "1c494b80177cb223a486bb37ea66c0c945af688139b04fbe42b63740f6530cf7"
+  },
+  "set_aside/P009/dc03/security.jsonl.gz": {
+   "bytes": 1063034,
+   "sha256": "c23d8b0481ebf312bc509f844e22d34a6b5ecf998a6a41dd6d8c12ab4785ee4e"
+  },
+  "set_aside/P009/dc03/sysmon.jsonl.gz": {
+   "bytes": 302212,
+   "sha256": "98bf637236bda9c453ddd8406e25550e325c860610693d23c0f215d9126597c4"
+  },
+  "set_aside/P009/dc03/system.jsonl.gz": {
+   "bytes": 1925,
+   "sha256": "a0fa7d9099f9b281e1438bf2ee9f50851d2131b30899fd218ce0d4a5f7c9b653"
+  },
+  "set_aside/P009/management/audit.jsonl.gz": {
+   "bytes": 519629,
+   "sha256": "102c1afab040af34d1b86ba0cf1f690463626c2e28063098823670e145e1ee08"
+  },
+  "set_aside/P009/management/system.jsonl.gz": {
+   "bytes": 468020,
+   "sha256": "4196c290403337bfdc8dcd35c3264518b2dcbed5036e33349105d5b66e98b8e1"
+  },
+  "set_aside/P009/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 646077,
+   "sha256": "c929acbd18070aebe51457920fbb30dda59299dfb3bc24a7fb8cd8c5533b47fc"
+  },
+  "set_aside/P009/operator/auth.jsonl.gz": {
+   "bytes": 6315,
+   "sha256": "f7f52f68576feba90a9c8d1fdcfac78f81d14960033b5cad782b116dfff818ea"
+  },
+  "set_aside/P009/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 91228,
+   "sha256": "2ffb80334c3a270a77c4a2d9b49e777063fe3e7b51b2227d308b6c1760bb6716"
+  },
+  "set_aside/P009/operator/syslog.jsonl.gz": {
+   "bytes": 160817,
+   "sha256": "09e857799f6190aab6b0478e9da6e466d486a27187aec3a6f140edd3a76716ac"
+  },
+  "set_aside/P009/sensor/audit.jsonl.gz": {
+   "bytes": 492617,
+   "sha256": "2b06fa14f014fc64ebf18d63d6491be3b7c673f44f0969bafe16c6c6ffbf1560"
+  },
+  "set_aside/P009/sensor/system.jsonl.gz": {
+   "bytes": 441327,
+   "sha256": "793273a1758cb42bbabe686c8316e8db323e992afae4723649a70e7ff106b16f"
+  },
+  "set_aside/P009/srv02/application.jsonl.gz": {
+   "bytes": 35628,
+   "sha256": "1d0501279f4018f7e868feda4d890023ff12cca0597b181e1b647c11a57955db"
+  },
+  "set_aside/P009/srv02/iis-access.jsonl.gz": {
+   "bytes": 1507,
+   "sha256": "5da50787dda23edf5aebcaa1f5c015e5c48259c444c53bc693288f9a8ed7013a"
+  },
+  "set_aside/P009/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 5881,
+   "sha256": "262343e3e8671c86e0f87ab752bd2271c290aad2175213eb889a4b8b5d0f8556"
+  },
+  "set_aside/P009/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 1718,
+   "sha256": "1e57929fe845e611357a75167ce5be3fd91325a7e5485c4b544aa99034318fa0"
+  },
+  "set_aside/P009/srv02/powershell.jsonl.gz": {
+   "bytes": 3347,
+   "sha256": "19a9765cd6df90469de00b7b2b1e1faf450c50d6035df77fdc515d9ca2b5c59c"
+  },
+  "set_aside/P009/srv02/security.jsonl.gz": {
+   "bytes": 2230771,
+   "sha256": "fa308915759c372e61082f9f2413749653f6df6764db32088bf102e198297c43"
+  },
+  "set_aside/P009/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 3736,
+   "sha256": "089acde15571cf39cd2674da13d3b3884a7dd02f9a757445fa37e8a334cc053d"
+  },
+  "set_aside/P009/srv02/sysmon.jsonl.gz": {
+   "bytes": 200062,
+   "sha256": "edcb9dbc810c89e440bbc4a6e6ecfa38ee0d639f29d3e3826b184bdebce4489e"
+  },
+  "set_aside/P009/srv02/system.jsonl.gz": {
+   "bytes": 3721,
+   "sha256": "9433ac90e64726c5ab381a8aab23fdc7ac662dfa85ea04f258e1c637d3e2387c"
+  },
+  "set_aside/P009/srv03/application.jsonl.gz": {
+   "bytes": 13631,
+   "sha256": "777ad006e96cdef9b3ea8ac3c4f2379c1836fad378ebcf9c92eb86b36df94506"
+  },
+  "set_aside/P009/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 4789,
+   "sha256": "9bbbcc313ba8c7a7c6ffe7dc4c8d770c751d90dc9285f17bf77b71e69d4dd904"
+  },
+  "set_aside/P009/srv03/security.jsonl.gz": {
+   "bytes": 245699,
+   "sha256": "78665fc1cf1975f63366f97c7ac35e1e9303e3fbc39ca75da528372d517c8723"
+  },
+  "set_aside/P009/srv03/sql-error-utf16.jsonl.gz": {
+   "bytes": 483,
+   "sha256": "75010aac443794893f7a4096f714728ccf6f36857e801de9b1831db34e38de49"
+  },
+  "set_aside/P009/srv03/sysmon.jsonl.gz": {
+   "bytes": 122741,
+   "sha256": "0a2aa03a6c9663c04ae405536c6ad8ec4d12bb9e816d34e78b874cfb557d0989"
+  },
+  "set_aside/P009/validator-service/lambda.jsonl.gz": {
+   "bytes": 4052,
+   "sha256": "9ebb204b54ef5c485a18de6276e81a9ad48989b31b11828e77ae1f1813e1af23"
+  },
+  "set_aside/P009/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 2279756,
+   "sha256": "6a41bf5895880e955abeac4d83045702898966f4a4a816467fd5eb289988d957"
+  },
+  "set_aside/P010/dc01/application.jsonl.gz": {
+   "bytes": 2468,
+   "sha256": "8ca017fdb30acf719b93405b6e5883d157eb10eef56a17ba80b2de309b9dd521"
+  },
+  "set_aside/P010/dc01/directory-service.jsonl.gz": {
+   "bytes": 2507,
+   "sha256": "42849aafd69d59f636b3c0b2dbde4012c874f775596fd83f43c17dd788f75e41"
+  },
+  "set_aside/P010/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 14198,
+   "sha256": "7ab86d1f6c80f60f295a5fbe68ac855e1c53b2941d8f8f4c106ae0cd8930a642"
+  },
+  "set_aside/P010/dc01/security.jsonl.gz": {
+   "bytes": 11217677,
+   "sha256": "676ea12c6d25a85ba7655cb49cabce6f2cee4f5274c659362a106c56d302ee3f"
+  },
+  "set_aside/P010/dc01/sysmon.jsonl.gz": {
+   "bytes": 2271175,
+   "sha256": "b02fec2c967759bfe7a9a813b63b8bbf495a8f244b718a0751edef51c1c7bdad"
+  },
+  "set_aside/P010/dc01/system.jsonl.gz": {
+   "bytes": 14701,
+   "sha256": "fad55564179234967daadb41d2f7c4ae8adca2c0390b753453331585f9132a2b"
+  },
+  "set_aside/P010/dc02/application.jsonl.gz": {
+   "bytes": 2350,
+   "sha256": "20df6d8c896ed65ef2805174e80e6abde3e2ef2caba27fa88c5ea52ae5fbf710"
+  },
+  "set_aside/P010/dc02/directory-service.jsonl.gz": {
+   "bytes": 2593,
+   "sha256": "c083384d5bacf1c55d56d6dc231879bde698777b68e16af86b2ea71fa0f5893a"
+  },
+  "set_aside/P010/dc02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 962541,
+   "sha256": "7a9b62195b292250f1705df476b42afbe1c3a8a39d2b2ad5c4cb6becbad9ef5f"
+  },
+  "set_aside/P010/dc02/powershell-transcripts.jsonl.gz": {
+   "bytes": 11739,
+   "sha256": "ca94e88ec905cfb45cfd11243749a78599ca8ac1d1bd7f450da35c3db3bd54a5"
+  },
+  "set_aside/P010/dc02/powershell.jsonl.gz": {
+   "bytes": 4492833,
+   "sha256": "1847107ad321bb071fe5548be89192ac507b4e3539f756386f1072d627fb5032"
+  },
+  "set_aside/P010/dc02/sysmon.jsonl.gz": {
+   "bytes": 8403125,
+   "sha256": "763a43469bf0f3b993ebbc38ec1fd7f0e93926c366d55f9e237b5097b5533dbd"
+  },
+  "set_aside/P010/dc02/system.jsonl.gz": {
+   "bytes": 2358,
+   "sha256": "94bdf6009019cafd12578d0dba1f429026599a4695ca0ae9556805bf0ab71ebc"
+  },
+  "set_aside/P010/dc03/application.jsonl.gz": {
+   "bytes": 582,
+   "sha256": "10b8cc699774991bb13e4fc77a80ea3b0b6ee70ea1f8b18e4b1944598f6e0384"
+  },
+  "set_aside/P010/dc03/directory-service.jsonl.gz": {
+   "bytes": 2572,
+   "sha256": "7ac0f0fececd8d133d1a0761b09b115a91db89e0b07d5c143886017e3bede9a4"
+  },
+  "set_aside/P010/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 16948,
+   "sha256": "16f216df93d590c7099a67b2e14a4e1041e69b9c6b917e762444d7c2040e9e27"
+  },
+  "set_aside/P010/dc03/security.jsonl.gz": {
+   "bytes": 8632240,
+   "sha256": "ed274734489c2d5c225fe03cb1235288a81df6ee0dd8f66ba863bbdea4fa28de"
+  },
+  "set_aside/P010/dc03/sysmon.jsonl.gz": {
+   "bytes": 2482406,
+   "sha256": "a0adefeba5509a50773c8f676718c32edcd5e4e7a1276054a469c439d6572e8d"
+  },
+  "set_aside/P010/dc03/system.jsonl.gz": {
+   "bytes": 10137,
+   "sha256": "6e7909457b00ca6d6160c3b2cfcecf134a973c2c8c087a530d2446c4662eede9"
+  },
+  "set_aside/P010/management/authentication.jsonl.gz": {
+   "bytes": 18983,
+   "sha256": "db8dd2eec883df6d917915fc1ed53e6df0b374b18d3eae7e636c799f7015d431"
+  },
+  "set_aside/P010/management/system.jsonl.gz": {
+   "bytes": 129597,
+   "sha256": "e000f5b45ce3feb0b6a7e35d0655bec1d658c0086560bd84bea757bc3c3cbdf8"
+  },
+  "set_aside/P010/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 7683753,
+   "sha256": "8df0f3cef71e1041c76d2d76645070dc281b3d1c63021e5646b0c304d523b765"
+  },
+  "set_aside/P010/operator/auth.jsonl.gz": {
+   "bytes": 39773,
+   "sha256": "3a63e33be1b709c5a867d5c78633c2aaac232ce815aebf1e47e8a295a3e3fb15"
+  },
+  "set_aside/P010/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 115265,
+   "sha256": "eff28d4b540b5953c7f24280971348d336b13564fdf972f8581133b0a98dfb91"
+  },
+  "set_aside/P010/operator/syslog.jsonl.gz": {
+   "bytes": 636410,
+   "sha256": "46f8fb08f4946bc413b9913efbd3edba3ab07e3ff7287a1048c422abae905b08"
+  },
+  "set_aside/P010/srv02/application.jsonl.gz": {
+   "bytes": 100094,
+   "sha256": "1c534ff02a04b4b147d831df689c1528faf770339c8e25d5b0dc2f9aef558a26"
+  },
+  "set_aside/P010/srv02/iis-access.jsonl.gz": {
+   "bytes": 1282,
+   "sha256": "30bfcdbb4123b9dbaef4d1d6847df4dd13241d8fbdd04ddf18aa37e3518e0833"
+  },
+  "set_aside/P010/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 19449,
+   "sha256": "3f981dd6f5907da553336334c977c726938c028330c3e3339bba08db7647b9d4"
+  },
+  "set_aside/P010/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 4088,
+   "sha256": "192776221ec54813319f90538a8a63b226891f8cd95a03044f0b90ec24a8b97d"
+  },
+  "set_aside/P010/srv02/powershell.jsonl.gz": {
+   "bytes": 56499,
+   "sha256": "52039c1c81559aea30817015b595a8315b5916870ec4dc136255f02b27b028f1"
+  },
+  "set_aside/P010/srv02/security.jsonl.gz": {
+   "bytes": 17306194,
+   "sha256": "2daf827eb730a9dcd1f1604af50c0f7e6c4170b1da29ceac6a8949d1b64430bb"
+  },
+  "set_aside/P010/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 1507,
+   "sha256": "3b1067dceb0928da2fe3785c1a6ec9101f0959b574aa38335e1b20c716153592"
+  },
+  "set_aside/P010/srv02/sysmon.jsonl.gz": {
+   "bytes": 1410198,
+   "sha256": "f412ca5789e7a68934266e3b807c4a935fd23d46c0f08107b71ae387a5224588"
+  },
+  "set_aside/P010/srv02/system.jsonl.gz": {
+   "bytes": 16061,
+   "sha256": "0aded3e4ddf12fa77623e16e7664dfa22a62420034a8e021b66ab9595f223645"
+  },
+  "set_aside/P010/srv03/application.jsonl.gz": {
+   "bytes": 93395,
+   "sha256": "e324742685b85c7b20715b0f6010d7ff8240c5747b229b1116ff999a73fb4351"
+  },
+  "set_aside/P010/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 16880,
+   "sha256": "3a1022b3580f0db61efed4a78db28b87c105400ceb0ebf3813f0952cfbe5dfa5"
+  },
+  "set_aside/P010/srv03/security.jsonl.gz": {
+   "bytes": 1831288,
+   "sha256": "4673ce3ac29979c945f1c705d831adf6a2609b9ca3f6cf49b45b69918bee3a9e"
+  },
+  "set_aside/P010/srv03/sql-error-utf16.jsonl.gz": {
+   "bytes": 613,
+   "sha256": "8f283399879a7b3d9c6982bd5e1059d589c5d448792fee3ad43278b48c112f00"
+  },
+  "set_aside/P010/srv03/sysmon.jsonl.gz": {
+   "bytes": 978718,
+   "sha256": "b201697d662c642c92aca628de2381550dc7342d4de3a1d05274e4d977791ebf"
+  },
+  "set_aside/P010/srv03/system.jsonl.gz": {
+   "bytes": 8681,
+   "sha256": "8ef62bc5d6b6b24feb5eb650cc5f4933605aa7495cb8df69ca76f85dc2e74dde"
+  },
+  "set_aside/P010/validator-service/lambda.jsonl.gz": {
+   "bytes": 16357,
+   "sha256": "7d078b161145c39eead0619723497208af99580a34ec1bd7a36695d727461333"
+  },
+  "set_aside/P010/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 10180667,
+   "sha256": "0fd968f720504724644a4cb0db26c45073b4caef59ed2d48cd078b50446db50b"
+  },
+  "set_aside/P011/dc01/application.jsonl.gz": {
+   "bytes": 4089,
+   "sha256": "616df38048dc7834ca4d989ac4de999ffedfe54ee652b0591beb14035290fdcb"
+  },
+  "set_aside/P011/dc01/directory-service.jsonl.gz": {
+   "bytes": 5096,
+   "sha256": "3dcb622a6d8e535f9657a2ee71fd3fb82dfe049cae3c8c27b1f482506c8ce45f"
+  },
+  "set_aside/P011/dc01/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 30112,
+   "sha256": "c2a5df7a6267ab039db61de94541a432211600efa9bda8a020d98da9bca1cce6"
+  },
+  "set_aside/P011/dc01/security.jsonl.gz": {
+   "bytes": 24897169,
+   "sha256": "4f44c818eed0b486a002920d40ed4af77e440a7ff74679cfc14ebc4e5d77e6f2"
+  },
+  "set_aside/P011/dc01/sysmon.jsonl.gz": {
+   "bytes": 5473271,
+   "sha256": "2d3e17ab521087fa1823504e64edeb21d157af5872ec3a243419004ffa8aeed7"
+  },
+  "set_aside/P011/dc01/system.jsonl.gz": {
+   "bytes": 31909,
+   "sha256": "5557de005ba8240e809e60381b89a87bf747b7919e050647cf8d586ea180b4f5"
+  },
+  "set_aside/P011/dc02/application.jsonl.gz": {
+   "bytes": 3080,
+   "sha256": "ebc91d59861821eb04046858a333a79d082d65bbdc6bc17326c462f17d2269a6"
+  },
+  "set_aside/P011/dc02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 2977986,
+   "sha256": "84e4abf32b359b5440b5d7c4d97409171591f160020816ab596206380bc599a2"
+  },
+  "set_aside/P011/dc02/security.jsonl.gz": {
+   "bytes": 11094971,
+   "sha256": "e673f0d17d9289f36396a405cd129cba5991d7c7797f8f1f0604e471d19bc5ed"
+  },
+  "set_aside/P011/dc02/sysmon.jsonl.gz": {
+   "bytes": 12184940,
+   "sha256": "359708218620e6fce98251be931df74d777afed647a34ac0ca21538177dafc9e"
+  },
+  "set_aside/P011/dc02/system.jsonl.gz": {
+   "bytes": 14963,
+   "sha256": "5a41236e239b0a6164100d7bcc2d22904c54d657fff9990296fbbfc5aa7c4d6e"
+  },
+  "set_aside/P011/dc03/application.jsonl.gz": {
+   "bytes": 1745,
+   "sha256": "bc2599bcf86786e9b033046ed3db2749136128a583b99641f4c692c97b01789b"
+  },
+  "set_aside/P011/dc03/directory-service.jsonl.gz": {
+   "bytes": 5057,
+   "sha256": "34aa1e5754beb05307b1400f8ed2dabdd9140f67fa806ed48fe748c884fc3f20"
+  },
+  "set_aside/P011/dc03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 34977,
+   "sha256": "dd707833038a917332da6faef8cbf22d6165f5e7eb12bf96ef1c1b743a8d9521"
+  },
+  "set_aside/P011/dc03/security.jsonl.gz": {
+   "bytes": 17121095,
+   "sha256": "c95c9b8afbbfa3d81834284ce81885faefee1140ccfc897c0e039205f03b3a64"
+  },
+  "set_aside/P011/dc03/sysmon.jsonl.gz": {
+   "bytes": 4620298,
+   "sha256": "2836903ef508792bf5a2cadf12bbae9b795fb71ae517cfccf5149ec80952097f"
+  },
+  "set_aside/P011/dc03/system.jsonl.gz": {
+   "bytes": 19186,
+   "sha256": "1d55aa4b16811754d15001a2e2b9d4de9c5053e6bb65a6cb7d2fa9c5195801c6"
+  },
+  "set_aside/P011/management/authentication.jsonl.gz": {
+   "bytes": 43779,
+   "sha256": "74490e1b11d8e08ad6801a2d119066e9975aa662b3f69f9e80f26a9a22bff712"
+  },
+  "set_aside/P011/management/system.jsonl.gz": {
+   "bytes": 315683,
+   "sha256": "06ebf7c27ed7d1fe70a468de796e1e320d48d050f99645825165d15438ef6405"
+  },
+  "set_aside/P011/operator/audit.not-classifier-input.jsonl.gz": {
+   "bytes": 15212166,
+   "sha256": "f639f81780b4b0891835209f4da20021a7be8e6b64a5439e92128e986b2ecd10"
+  },
+  "set_aside/P011/operator/auth.jsonl.gz": {
+   "bytes": 111603,
+   "sha256": "bde3cd179574b9fb52a5c87dcbe109e49c5082e15d5a285cb622cbe8a76d22d7"
+  },
+  "set_aside/P011/operator/engineering-sessions.logins-left-out.jsonl.gz": {
+   "bytes": 19474,
+   "sha256": "2b879db2a6b92a2cad2f5e90b1b8e153efe8a2bed1ca8ebc4d7d9314560a36b5"
+  },
+  "set_aside/P011/operator/syslog.jsonl.gz": {
+   "bytes": 1514593,
+   "sha256": "378194e61f5d22a8158987967486bcfc86352551abd34c58b6321c253e6e1990"
+  },
+  "set_aside/P011/srv02/application.jsonl.gz": {
+   "bytes": 219130,
+   "sha256": "088e4e8b1c3c1d71a85903ec9e118b561b0d18a87d5a755a2b879732e450d255"
+  },
+  "set_aside/P011/srv02/iis-access.jsonl.gz": {
+   "bytes": 8725603,
+   "sha256": "a1a9ee537533332e8d846fd4e97c199c14663f19ea7a2db94d90df1946ff8cbc"
+  },
+  "set_aside/P011/srv02/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 37330,
+   "sha256": "c9988fce6e6392bcd1df35695e94268bc2d9933d1256b569a69dca8c0600832a"
+  },
+  "set_aside/P011/srv02/powershell-transcripts.jsonl.gz": {
+   "bytes": 74714,
+   "sha256": "8e570c47a0d943bfdf559206142a23047792aef5cd7b3f64970aec0d5c1feb8b"
+  },
+  "set_aside/P011/srv02/powershell.jsonl.gz": {
+   "bytes": 268593,
+   "sha256": "be178fb4d6f1c62f717e5263b33667fee498d4cf229e224f7d63b11140ef2d58"
+  },
+  "set_aside/P011/srv02/security.jsonl.gz": {
+   "bytes": 36592797,
+   "sha256": "3f0d181750905597b25fe3b24973e6f161c9889c16eb10b5fcb4954228eea572"
+  },
+  "set_aside/P011/srv02/sql-error-utf16.jsonl.gz": {
+   "bytes": 2872,
+   "sha256": "20fa4358d8c659ef722133dd1b153a6ff8804503cd3fe2a8f0b2b93c58617161"
+  },
+  "set_aside/P011/srv02/sysmon.jsonl.gz": {
+   "bytes": 3319622,
+   "sha256": "7c76f9510819e4cdd03b44f2fc96caeec51331d86533fe0c374e4d9c442f4cab"
+  },
+  "set_aside/P011/srv02/system.jsonl.gz": {
+   "bytes": 33471,
+   "sha256": "91f32d0ffbe6bfc9aa64a989ca33f3ddf02de78aee26acaed4488d336eeb8e21"
+  },
+  "set_aside/P011/srv03/application.jsonl.gz": {
+   "bytes": 197160,
+   "sha256": "d3b8bf83170e7b6ce6a0892f96c157a56c58b93ea0274204fae79d427414867a"
+  },
+  "set_aside/P011/srv03/microsoft-windows-taskscheduler-operational.jsonl.gz": {
+   "bytes": 39004,
+   "sha256": "b83abf7d624be2d72ebd2d6f3b3ba9ffbe68adeaba5d4379821a6b30acd5ab93"
+  },
+  "set_aside/P011/srv03/security.jsonl.gz": {
+   "bytes": 3656724,
+   "sha256": "9b37608986d9e59bfc65b159c46b6faa29b3f6c06fd1044e524169b274630b84"
+  },
+  "set_aside/P011/srv03/sql-error-utf16.jsonl.gz": {
+   "bytes": 751,
+   "sha256": "6dd28a9c504481b0516ca68a584e9fd6c72e802e839baf6d0d5029973eb208ac"
+  },
+  "set_aside/P011/srv03/sysmon.jsonl.gz": {
+   "bytes": 1882593,
+   "sha256": "2a5c3d1bb5db186351d3803dd4eb32cb6fe1ae0274c36202fb5c35dbfffe6e6b"
+  },
+  "set_aside/P011/srv03/system.jsonl.gz": {
+   "bytes": 20962,
+   "sha256": "df2c7826bb282c68b543d58e1e3a269c21182f9a7ce51d6609b74d0fb0f1b1fc"
+  },
+  "set_aside/P011/validator-service/lambda.jsonl.gz": {
+   "bytes": 9543,
+   "sha256": "d9fc65e8c786532030bbacd8441f061dd893e573ec19f3361e59d5afef6a1e12"
+  },
+  "set_aside/P011/vpc-flow/eni-all.jsonl.gz": {
+   "bytes": 21795492,
+   "sha256": "1ef99154cd8b3392423ae8c66d813ab714d7aedfb5ff584cbd7189cd493cd84a"
+  }
+ },
+ "freeze": "Freeze 1",
+ "n_files": 498
+}

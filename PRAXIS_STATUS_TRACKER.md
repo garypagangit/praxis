@@ -11,11 +11,13 @@
 | Area | Status | Evidence or qualification |
 | --- | --- | --- |
 | Scope and dataset | 🟡 Reported in draft | Nine laboratory sessions: five human and four from one AI model and harness, on the same emulated exercise. The dataset is synthetic in its constructed environment, not statistically simulated operator activity. |
-| RQ1 / H1: distinguishing features | 🟡 Supported in draft | Command-content features improved macro-F1 by 0.10–0.17 across the classifiers. |
+| RQ1 / H1: distinguishing features | 🟡 Supported in draft | Command-content features improved macro-F1 by 0.10–0.17 across the classifiers. The source record says this hypothesis was restated after scoring. |
 | RQ2 / H2: classifier comparison | 🟡 Supported in draft | XGBoost macro-F1 was 0.857 on held-out sessions, highest among the boosting models. Random forest scored 0.852 and was not statistically distinguishable from XGBoost. |
 | RQ3 / H3: stage groups | 🟡 Supported in draft for tested groups | XGBoost macro-F1: discovery 0.777, execution 0.924, lateral movement/collection 0.903. Account manipulation had too few AI windows to test. |
 | Claim boundaries | 🟢 Documented | Operator-host telemetry only for the models; one lab design, nine sessions and one AI model/harness. Operational performance and transfer to other models or harnesses are not established. |
-| Evidence and reproduction | ⚪ Not independently verified here | The paper's raw evidence, feature builder, model outputs and reported analysis have not been independently verified or reproduced in this worktree. The older synthetic engineering harness is not a reproduction of the paper. |
+| Evidence and reproduction | 🟡 Code and selected results imported | Raw and cleaned evidence, feature tables and predictions were not in the source repository. The complete study has not been independently reproduced here. |
+
+**Hypothesis history:** The imported [original hypotheses](experiments/final-praxis-autonomous-ai-apt/study/results_h1_h3/tables/T_original_hypotheses.csv) report H1 and H3 not supported and H2 supported under the pre-scoring definitions. The [later analysis record](experiments/final-praxis-autonomous-ai-apt/study/results_h1_h3/RULES_AS_DECIDED.md) says H1 and H3 were restated after scoring and uses numbering different from the paper; later outcomes must not be presented as prespecified confirmations.
 
 ## Current work and next actions
 
@@ -25,10 +27,11 @@
 | Project materials and public branch | 🟢 Published | [Repository README](README.md) links the draft, revision, advisor presentation and available code. Published in commit `32b4d5b` on the AI APT branch. |
 | Initial restricted collector | 🟢 Implemented and tested | [Collector](experiments/final-praxis-autonomous-ai-apt/collector/README.md) supports selected CloudWatch groups and normalized local JSONL. Nine collector tests and 13 legacy pipeline tests passed. This is not the paper's full exporter or verifier. |
 | AWS read-only access | 🟢 Checked | Existing `praxis-build` SSO identity and a read-only CloudWatch group listing were verified; actual lab sources were not identified or validated. |
-| Paper dataset and environment code | ⚪ Pending | Locate and review the paper's dataset and study-specific environment code before linking or publishing them. Existing synthetic engineering data and upstream GOAD are not substitutes. |
+| Paper-specific code, prompts and reports | 🟢 Imported | [Study repository snapshot](experiments/final-praxis-autonomous-ai-apt/study/README.md), source commit `43abf244662056a5725864dd3baa05052a5360da`; 14 Freeze 2 code-file hashes matched. |
+| Paper dataset and environment code | ⚪ Pending | The source repository excludes raw and cleaned evidence and does not include the study-specific lab deployment code. Selected aggregate results and [Python requirements](experiments/final-praxis-autonomous-ai-apt/study/requirements.txt) are available. |
 | Lab sources and live export | ⚪ Pending | Identify authorized sources, time window and private destination; validate access and run a controlled end-to-end export. |
 | Evidence integrity and privacy | ⚪ Pending | Locate the paper's restricted packages and external anchors; assess collection completeness, sanitization, session reconstruction, provenance and the paper's Appendix E verification checks. Do not commit raw evidence or credentials. |
-| Paper-specific features and model evaluation | ⚪ Pending | Locate and validate the paper's preprocessing, windowing, feature definitions, splits, models and predictions; reproduce the reported tables before claiming independent confirmation. |
+| Paper-specific features and model evaluation | 🟡 Code and selected results available | Validate the imported preprocessing, windowing and feature/evaluation code with authorized inputs; reproduce the reported tables before claiming independent confirmation. |
 | Paper and delivery | 🟡 Unverified | Confirm AI Review submission and receipt, review feedback, defense arrangements and current deadlines with the owner. The draft's statements alone do not verify institutional actions. |
 
 **Scheduling note:** The historical plan listed AI Review for November 14 and defense for December 1, 2026. As of the status date, the former date has passed; submission status is unknown, not assumed missed or completed. Confirm both milestones and any revised dates.
@@ -41,6 +44,7 @@
 | Nov 17 | Built the initial restricted collector and ran focused tests | 🟢 Published and tested; live lab export remains pending. |
 | Nov 17 | Added paper revisions, advisor presentation and links to the repository | 🟢 Published on the AI APT branch in commit `32b4d5b`. |
 | Nov 17 | Refreshed AWS SSO and checked read-only CloudWatch access | 🟢 Verified at the time; SSO credentials are temporary. |
+| Nov 17 | Imported the paper's dedicated research repository | 🟢 Code, redacted prompt, reports and available results imported; restricted input data remain absent. |
 
 <details>
 <summary>Historical October 19 plan (superseded)</summary>

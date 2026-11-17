@@ -10,9 +10,9 @@ The praxis investigates whether supervised boosting classifiers can distinguish 
 
 - **Paper:** [v1.6 draft](../../paper/autonomous-ai-apt/Praxis_Draft_v1.6_Human_vs_AI_Operator_Classification.docx) · [October 29 revision](../../paper/autonomous-ai-apt/Identifying_Autonomous_AI_APT_Working_Praxis_Updated_20261029.docx) · [October 24 working paper](../../paper/working-praxis-20261024/README.md). A separately approved final paper is not yet identified.
 - **Presentation:** [November 13 advisor presentation, V008](../../paper/autonomous-ai-apt/Final_Defense_Idea_Advisor_Submission_V008_11132026.pptx). A final defense presentation is not yet identified.
-- **Dataset:** The paper's study dataset is not yet available here. The [earlier synthetic engineering dataset](pipeline/GROUNDED_DATASET.md) is different from the paper's study data.
-- **Code:** [Restricted telemetry collector](collector/README.md) · [Earlier experiment harness](pipeline/README.md). The paper-specific analysis code has not been independently verified here.
-- **Environment:** [Upstream GOAD project](https://github.com/Orange-Cyberdefense/GOAD) is the lab design's foundation; the study-specific environment deployment code is not yet available here.
+- **Dataset and results:** [Study results and evidence](study/README.md) · [Hypothesis table](study/results/tables/T_hypotheses.csv). Raw and cleaned study data are restricted and were not in the source repository; the [earlier synthetic engineering dataset](pipeline/GROUNDED_DATASET.md) is different.
+- **Code and prompts:** [Paper-specific study code](study/code/README.md) · [Redacted starting prompt](study/prompt/starting_prompt_redacted.md) · [Restricted telemetry collector](collector/README.md) · [Earlier experiment harness](pipeline/README.md).
+- **Environment:** [Study Python requirements](study/requirements.txt) · [Upstream GOAD project](https://github.com/Orange-Cyberdefense/GOAD). The study-specific lab deployment code is not included in the imported repository.
 
 Raw evidence, sensitive configuration and credentials must remain restricted; publish only reviewed, authorized materials.
 
@@ -28,14 +28,17 @@ Raw evidence, sensitive configuration and credentials must remain restricted; pu
 
 The draft reports that all three hypotheses are supported **within the study's limits**. It reports held-out-session macro-F1 of 0.857 for XGBoost, 0.840 for gradient boosting, 0.811 for histogram gradient boosting, 0.852 for random forest and 0.806 for logistic regression. XGBoost and random forest were not statistically distinguishable. XGBoost's reported stage-group macro-F1 is 0.777 for discovery, 0.924 for execution and 0.903 for lateral movement/collection; account manipulation had too few AI windows to test. These are paper-reported results, not results produced by the legacy pipeline in this worktree.
 
+**Analysis history:** The imported [original hypotheses and outcomes](study/results_h1_h3/tables/T_original_hypotheses.csv) report H1 and H3 not supported and H2 supported under the definitions fixed before scoring. The imported [analysis record](study/results_h1_h3/RULES_AS_DECIDED.md) states that H1 and H3 were restated after scoring; its numbering differs from the v1.6 paper's RQ/H mapping. Do not treat the later wording as a preregistered confirmation.
+
 The paper reports 951 retained 30-second windows and 60 features across four tiers. The main configuration uses 40 behavior, command-content and associated context features; input-channel features are reported separately because they can reveal the harness. Stages are for splitting and reporting, not classifier inputs. The paper describes leave-one-session-out evaluation and class/session-weighted training.
 
 | Component | Current state |
 | --- | --- |
 | Paper | User-provided v1.6 draft reviewed; submission, institutional approval and underlying evidence have not been verified here. |
 | Collection | [Initial restricted collector](collector/README.md) supports selected CloudWatch log groups and normalized local JSONL across all lab-source categories. Real lab configuration and end-to-end live export remain unverified. |
-| Data and model reproduction | Paper's raw packages, feature builder, trained models and predictions have not been independently verified or reproduced in this worktree. The older [synthetic engineering harness](pipeline/README.md) uses a different schema and RQ design. |
-| Next | Qualify real source groups, independently verify evidence and implement/validate the paper-specific preprocessing, feature extraction and evaluation before claiming reproduction. |
+| Paper-specific research artifacts | [Study code, prompts, reports and available results](study/README.md) imported from `paganpraxis/Human-vs.-Autonomous-AI-Operator-Classification` at commit `43abf244662056a5725864dd3baa05052a5360da`. The 14 code files listed in Freeze 2 match their recorded SHA-256 hashes. |
+| Data and model reproduction | Raw and cleaned study records, feature tables and predictions were not included in the source repository; the complete study has not been independently reproduced here. The older [synthetic engineering harness](pipeline/README.md) uses a different schema and RQ design. |
+| Next | Obtain authorized restricted evidence and required inputs; independently verify provenance, then reproduce the paper-specific preprocessing, features and evaluation. Qualify lab sources separately for future collection. |
 
 The collector intentionally retains restricted raw logs and is not the paper's full exporter or Appendix E verifier. Read its security and verification boundaries before use. Do not commit raw recordings, credentials, operator identities or restricted paths.
 

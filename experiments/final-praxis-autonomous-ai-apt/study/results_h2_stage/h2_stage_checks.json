@@ -1,0 +1,107 @@
+{
+ "a_counts_equal_frozen_table": {
+  "equal": 1260,
+  "result": "PASS",
+  "tasks": 1260
+ },
+ "b_fit_hash_equals_plumbing": {
+  "equal": 1260,
+  "result": "PASS",
+  "tasks": 1260
+ },
+ "c_true_labeling_equals_frozen_stage_results": {
+  "equal": 10,
+  "result": "PASS",
+  "trials": 10
+ },
+ "compute_seconds": 6277.3,
+ "d_freeze_1_after": {
+  "changed": [],
+  "listed": 498,
+  "match": 148,
+  "not_opened": 350
+ },
+ "d_freeze_2_after": "d7bf76178833320e32a295b3ab1e5f599736377db344ac0aa34358d4e3a2ef7e",
+ "files": {
+  "code/h2_stage/run_h2_stage.py": "dfb0abfdda36c2d054b689c83a76721e0ea091ce1b25560d2d9b8aa08e6f65f2",
+  "code/h2_stage/summarize_h2_stage.py": "e1fd52af0b030c54ced8970bb04ffffa5dca98efb68df957ac2c7785c5c6ef10",
+  "results_h2_stage/H2_RULE_BEFORE_RUN.md": "8f139b7e14c0ba9d4ca282b0152f5ac2854ab0b012cdac0425921765086d95d4",
+  "results_h2_stage/H2_STAGE_SUMMARY.md": "6cd2dee70566e97986de8ea615f6689c8528f0dc1c0e13c4a4949c1981f1cf47",
+  "results_h2_stage/tables/T_h2_stage_all_labelings.csv": "9fbfd27b68b0100dd430ddf5f5ef2403a4db537c96265df2f3f9d532465926c1",
+  "results_h2_stage/tables/T_h2_stage_by_session.csv": "10184d27ff4e46a259b288f55ae2dd70b4e4398f29429ec4b119115fa152e280",
+  "results_h2_stage/tables/T_h2_stage_chance.csv": "80d14a750c2c1768e4cb761dc13e76501c977316feff53f7c27afa1974726632",
+  "results_h2_stage/tables/T_h2_verdict.csv": "2d7d1078954d191ded59646c6bd3bae037c84aee2e1533de03a5d773600e5e9f"
+ },
+ "freeze_2_sha256": "d7bf76178833320e32a295b3ab1e5f599736377db344ac0aa34358d4e3a2ef7e",
+ "inputs_opened": {
+  "data/description/window_description_w30.csv": "f039d38689bc6604ba32c94cd0986b7ba4031623a487240c1b0ecf6bf4aa8f2c",
+  "data/features/w30/feature_columns.json": "f215aac45896db1d563af6ec196de323a280c971912e32e7103f4bdf765da0ee",
+  "data/features/w30/features.csv": "2ba9f6e2e9ef2bb636a8e8eb59c34f4986238abb182d91de1ad7cd72debddc23",
+  "data/labels/sessions.csv": "8cafe4ce35c970395510477bf5150351d4d18cb64242d11ce293b3586a6a13b1",
+  "data/windows/w30/windows.csv": "3cef4c54b097d1b293f7d0fc7d58600a8ec483e4049cfd40977c12a98d8d1ac8",
+  "reports/05_windows_report.json": "029131ad19f26154df03b258523df8e11ffbffde43f46a0ecab3451355560cd3"
+ },
+ "leak_audit": {
+  "files_searched": 12,
+  "hits": [],
+  "result": "PASS",
+  "session_labels_found": {
+   "P001": 4100,
+   "P002": 4100,
+   "P003": 4100,
+   "P004": 4100,
+   "P005": 4100,
+   "P006": 4100,
+   "P009": 4112,
+   "P010": 4124,
+   "P011": 4124
+  },
+  "total_hits": 0
+ },
+ "libraries": {
+  "numpy": "2.2.6",
+  "python": "3.10.12",
+  "scikit_learn": "1.7.2",
+  "scipy": "1.15.3",
+  "xgboost": "3.2.0"
+ },
+ "n_fits": 56700,
+ "n_tasks": 1260,
+ "pooled_interval_equals_frozen_interval": "PASS",
+ "pooled_row_equals_frozen_chance_baseline": "PASS",
+ "rule_file_sha256": "8f139b7e14c0ba9d4ca282b0152f5ac2854ab0b012cdac0425921765086d95d4",
+ "tasks_run_under_this_rule_file": {
+  "equal": 1260,
+  "result": "PASS",
+  "tasks": 1260
+ },
+ "verdict": {
+  "H2_supported": true,
+  "main": {
+   "by_classifier": {
+    "gb": true,
+    "hgb": true,
+    "lr": true,
+    "rf": true,
+    "xgb": true
+   },
+   "classifiers_meeting_the_rule": 5,
+   "needed": 3,
+   "supported": true
+  },
+  "no_command_content_reported_beside": {
+   "by_classifier": {
+    "gb": true,
+    "hgb": false,
+    "lr": false,
+    "rf": true,
+    "xgb": true
+   },
+   "classifiers_meeting_the_rule": 3,
+   "needed": 3,
+   "supported": true
+  },
+  "rule": "p <= 0.05 in stage groups 1-4, 5 and 7, for at least 3 of the 5 classifiers, main configuration"
+ },
+ "version": "study3-h2-stage-1.0"
+}
