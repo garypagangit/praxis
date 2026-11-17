@@ -45,6 +45,7 @@
 | Nov 17 | Added paper revisions, advisor presentation and links to the repository | 🟢 Published on the AI APT branch in commit `32b4d5b`. |
 | Nov 17 | Refreshed AWS SSO and checked read-only CloudWatch access | 🟢 Verified at the time; SSO credentials are temporary. |
 | Nov 17 | Imported the paper's dedicated research repository | 🟢 Code, redacted prompt, reports and available results imported; restricted input data remain absent. |
+| Nov 17 | Compared the supplied research ZIP with the project | 🟢 All 73 project files match by SHA-256, including its restricted-evidence ignore rules; macOS metadata excluded. |
 
 <details>
 <summary>Historical October 19 plan (superseded)</summary>
