@@ -7,7 +7,9 @@ to a security operations center (SOC) contain a signal that distinguishes AI
 from human operators during an attack, even when terminal commands are not
 available to the classifier. The results show a **promising signal in this
 small laboratory dataset**, not statistically confirmed or production-ready
-identification of autonomous AI advanced persistent threats (APTs).
+identification of autonomous AI advanced persistent threats (APTs). A
+subsequent sensitivity audit found substantial dependence on traffic that may
+reflect laboratory infrastructure; see the matched comparison below.
 
 ## Experiment
 
@@ -66,6 +68,56 @@ assignments; the best possible first Holm-adjusted p-value for this family is
 sessions, which lab environment and collection differences may violate. The
 interval resamples sessions using fixed out-of-fold predictions; it does not
 capture model selection or refitting uncertainty.
+
+## Follow-on results: AI signal or infrastructure signal?
+
+The following fixed XGBoost models were evaluated on the same 1,225
+30-second attack windows and nine held-out sessions. None of the models uses
+terminal commands as features. The port-filtered model removes UDP flow
+records with source or destination port 41641 or 3478, then recomputes flow
+features; the host-only model excludes flow features altogether.
+
+| Model | Macro-F1 | AI recall | Human attack-window false-positive rate | Session accuracy |
+|---|---:|---:|---:|---:|
+| Original combined SOC model | 0.676 | 47.8% | 13.7% | 8/9 |
+| UDP port-filtered model | 0.540 | 34.2% | 25.6% | 6/9 |
+| Host-only model | 0.514 | 28.5% | 25.5% | 6/9 |
+
+The original classifier associated defender-visible telemetry with the
+operator labels, but its performance was sensitive to the removal of
+particular network traffic. The observed port pattern is consistent with
+infrastructure traffic, including traffic using ports associated with
+Tailscale and STUN, but ports do not establish which process generated it.
+This raises an important alternative explanation: the classifier may partly
+recognize the environment or collection setup rather than the operator's
+behavior. The study cannot determine how much of the signal comes from either
+source, or whether the remaining signal generalizes to another environment.
+
+These are post hoc sensitivity analyses, not independent confirmation.
+Compared with the baseline, the 95% paired session-bootstrap interval for the
+macro-F1 change was -0.341 to +0.054 for port filtering and -0.396 to +0.059
+for host-only telemetry. Both intervals include zero; they resample fixed
+held-out predictions and omit refitting and selection uncertainty. The port
+filter can remove unrelated traffic and does not eliminate all possible
+infrastructure signals.
+
+## What this means for SOC operations
+
+The models classified windows within **known attack periods**. Their
+false-positive rates describe human attack windows labeled as AI, not normal
+business traffic labeled as malicious. They therefore do not measure benign
+false-alert rates, find previously unknown attacks, or establish that a SOC
+can deploy an AI-operator detector. The most defensible conclusion is that
+the existing logs contain an exploratory label-associated signal whose
+source and transferability remain uncertain.
+
+These retrospective analyses motivate, but do not test or establish, the
+H1–H3 decisions for the proposed matched Praxis study, whose hypotheses and
+design differ. The original Study 3 saved results were replayed; an exact full
+refit was not verified. See the [complete telemetry audit](SOC_TELEMETRY_AUDIT.md)
+for traffic details, coverage limitations and additional results. The
+[visibility and environment follow-on](SOC_VISIBILITY_ENVIRONMENT_RESULTS.md)
+adds process-event-removal, flow-only and outside-login checks.
 
 ## Top non-command features
 

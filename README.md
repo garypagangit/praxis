@@ -52,6 +52,7 @@ The new D1 agent-defense branch has now been tested through follow-on gates. `PX
 ## Repository Layout
 
 - `reports/`: dashboards, final reports, audit reports, and downloadable exports.
+- [SOC non-command detection exploration](reports/soc_operations_identification/EXPLORATION_INDEX.md): a standalone retrospective follow-on, separate from the current Praxis paper.
 - `apps/praxis-recon/`: static Praxis Recon app for paper-to-experiment triage and packaging workflow.
 - `.github/workflows/praxis-recon-daily.yml`: scheduled literature scan that opens GitHub Issues when new papers are flagged.
 - `cloud_jobs/`: AWS experiment job packages and run wrappers.
