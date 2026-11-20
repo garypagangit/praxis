@@ -1,204 +1,166 @@
 # Praxis Recon Daily Literature Scan
 
-Generated: 2026-11-19 19:13 UTC
+Generated: 2026-11-20 18:53 UTC
 Lookback window: 2 day(s)
 Minimum score: 2
-New flagged works: 10
+New flagged works: 8
 
 ## Flagged Works
 
 | Rank | Score | Topic | Published | Title | Venue | Link |
 | --- | ---: | --- | --- | --- | --- | --- |
-| 1 | 11 | Source-locked citation and hallucination verification | 2026-11-18 | A multilayer ontology of psychological stress ranging from lived experiences to neurobiological cascades | Frontiers in Physiology | [source](https://doi.org/10.3389/fphys.2026.1980541) |
-| 2 | 9 | Adaptive evaluation of deterministic agent defenses | 2026-11-17 | AgentShield Hybrid Runtime Firewall Architecture for Secure Tool Governance in Agentic Large Language Model Systems | International journal of intelligent engineering and systems | [source](https://doi.org/10.22266/ijies2026.1231.11) |
-| 3 | 8 | Agentic package hallucination and tool-boundary gates | 2026-11-17 | An AI-Driven, Workflow-Aware Virtual Customer Support Assistant for Small and Medium-Sized Enterprises | Advanced Journal of Science Technology and Engineering | [source](https://doi.org/10.52589/ajste-csgfxk) |
-| 4 | 8 | Adaptive evaluation of deterministic agent defenses | 2026-11-17 | FBBDL: flow-aware benign-behavior deviation learning for leakage-controlled unseen-family DoS detection | Scientific Reports | [source](https://doi.org/10.1038/s41598-026-80413-4) |
-| 5 | 5 | Provenance-aware tool-boundary monitoring | 2026-11-17 | Neural collaborative filtering with compliance gating for AI agent access permissions in smart grid enterprises | Discover Artificial Intelligence | [source](https://doi.org/10.1007/s44163-026-02408-4) |
-| 6 | 4 | Provenance-aware tool-boundary monitoring | 2026-11-17 | Engineering Autonomous Decision Ecosystems: A Multi-Agent AI Framework for Context-Aware Reasoning, Policy Compliance, and Enterprise Process Intelligence | International Journal of Research Publications | [source](https://doi.org/10.47119/ijrp10020811120269878) |
-| 7 | 3 | Provenance-aware tool-boundary monitoring | 2026-11-17 | AgriTrust: an adaptable semantic and geospatial framework for reconciling EUDR and Brazilian regulatory compliance | Frontiers in Sustainable Food Systems | [source](https://doi.org/10.3389/fsufs.2026.2003270) |
-| 8 | 2 | Adaptive evaluation of deterministic agent defenses | 2026-11-17 | Sentinel-Rag: A Controlled Comparison of a Scratch-Trained Classifier and a Local LLM Judge for Defending Enterprise Retrieval-Augmented Generation against Indirect Prompt Injection | International Journal of Advanced Research in Science Communication and Technology | [source](https://doi.org/10.48175/ijarsct-40823) |
-| 9 | 2 | Provenance-aware tool-boundary monitoring | 2026-11-17 | HAMU: Autonomy Without Sovereignty — Cognition, Continuity, and Authority in Persistent AI Systems | Qeios | [source](https://doi.org/10.32388/bumy1r) |
-| 10 | 2 | Provenance-aware tool-boundary monitoring | 2026-11-17 | Synthetic persuasion: mapping deepfakes and generative AI across the advertising influence pipeline | International Journal of Advertising | [source](https://doi.org/10.1080/02650487.2026.2762680) |
+| 1 | 13 | Provenance-aware tool-boundary monitoring | 2026-11-19 | A reference architecture for governed cognitive enterprises combining knowledge memory and decision intelligence with agentic AI under continuous assurance | Discover Artificial Intelligence | [source](https://doi.org/10.1007/s44163-026-02719-6) |
+| 2 | 13 | Adaptive evaluation of deterministic agent defenses | 2026-11-18 | Agentic workflows in large language models: a comprehensive review of architectures, planning strategies, and real-world applications | Discover Computing | [source](https://doi.org/10.1007/s10791-026-10743-4) |
+| 3 | 11 | Provenance-aware tool-boundary monitoring | 2026-11-18 | Epistemic Exhaustion: Denial of Service Against Democratic Deliberation | Philosophy & Technology | [source](https://doi.org/10.1007/s13347-026-01232-z) |
+| 4 | 9 | Agentic package hallucination and tool-boundary gates | 2026-11-18 | Hallucination to Consensus: Multi-Agent LLMs for End-to-End JUnit Test Generation | ACM Transactions on Software Engineering and Methodology | [source](https://doi.org/10.1145/3803418) |
+| 5 | 7 | Adaptive evaluation of deterministic agent defenses | 2026-11-18 | Agentic AI: A Comprehensive Survey of Foundations, Architectural Paradigms, Core Capabilities, and a Unified Reference Architecture | Research Square | [source](https://doi.org/10.21203/rs.3.rs-11461890/v1) |
+| 6 | 6 | Provenance-aware tool-boundary monitoring | 2026-11-19 | Beyond the Patch: Reconstructing an Incomplete-Fix Patch Bypass in LLM Agent Frameworks with Control-Gated, Benign Probes | Unknown venue | [source](https://doi.org/10.66977/xsci.2611.0034) |
+| 7 | 2 | Provenance-aware tool-boundary monitoring | 2026-11-19 | A defence-in-depth strategy for securing AI-driven biological sequence design | Nature Communications | [source](https://doi.org/10.1038/s41467-026-78758-5) |
+| 8 | 2 | Provenance-aware tool-boundary monitoring | 2026-11-18 | An Ethical Framework for Safety and Governance in Biomedical Self-Driving Laboratories: Challenges and Perspectives | Digital Medical Engineering | [source](https://doi.org/10.1021/dme.6c00027) |
 
 ## Triage Notes
 
-### 1. A multilayer ontology of psychological stress ranging from lived experiences to neurobiological cascades
+### 1. A reference architecture for governed cognitive enterprises combining knowledge memory and decision intelligence with agentic AI under continuous assurance
 
-- Topic: Source-locked citation and hallucination verification
-- Authors: Chiara Lucifora, Massimo Silvetti, Aldo Gangemi
-- Published: 2026-11-18
-- Venue/type: Frontiers in Physiology / article
-- DOI: https://doi.org/10.3389/fphys.2026.1980541
-- URL: https://doi.org/10.3389/fphys.2026.1980541
-- Opportunity score: 11
-- Matched tags: benchmark, dataset, provenance
+- Topic: Provenance-aware tool-boundary monitoring
+- Authors: Rakesh Kumar Agrawal, Wasim Mohammed Amin Tambe
+- Published: 2026-11-19
+- Venue/type: Discover Artificial Intelligence / article
+- DOI: https://doi.org/10.1007/s44163-026-02719-6
+- URL: https://doi.org/10.1007/s44163-026-02719-6
+- Opportunity score: 13
+- Matched tags: agent, alignment, benchmark, evaluation, future work
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Chronic stress is a phenomenon measured in pieces: an appraised predicament, a behavioral pattern, an autonomic shift, an HPA-axis cascade, an inflammatory-metabolic state, a molecular signature. Each is well characterized, but they are rarely reconciled in one computable model. We present the Corticoidogenic Stress Frames (CSF), a modular ontology network in which eight conceptual frames are each anchored to a primary corticoidogenic literature. CSF formalizes eight stress-related strata with their pathways and the cascade steps occurring at each layer. Appropriate competency questions validate the result on knowledge graphs extracted from stress-related datasets. CSF-shaped knowledge graphs are extracted automatically either from physiological data or linguistic reports. The extraction is performed by POLANYI++, a neurosymbolic AI pipeline in which a LLM recognizes patterns, while the ontology supplies the inductive bias, the vocabulary and the validation. Sensor features and first-person narrative bind to shared cascade steps, so quantified physiology and appraisal data are represented in a graph, while keeping their provenance. We present six studies. Study 0 confirms on a signal-free dataset that the pipeline returns a null rather than fabricating structure. Study 1 shows CSF constructs are sensitive to known conditions across three benchmarks. Study 2 finds a within-subje
+> Enterprises increasingly combine large language models, retrieval-augmented generation, and autonomous software agents with existing enterprise architecture, knowledge management, and analytics investments, yet these capabilities are commonly adopted as isolated point solutions without a shared architectural foundation for organizational knowledge, decision reasoning, human accountability, or continuous assurance. This fragmentation leaves organizations unable to explain how an automated recommendation was produced, to bound what an autonomous agent may do, or to demonstrate governance to auditors, regulators, and boards. This paper asks how enterprise knowledge, decision support, agent execution, and governance can be structured as one coherent architecture. Using a literature-grounded conceptual synthesis across enterprise architecture, knowledge management, retrieval-augmented generation, decision intelligence, agentic artificial intelligence, and artificial intelligence governance, the paper derives a consolidated research gap and proposes the Governed Cognitive Enterprise Architecture: six integrated layers, a human accountability boundary, a structural formal representation, an operational lifecycle, and a maturity model, the Cognitive Enterprise Readiness Index, for organizational self-assessment. The architecture is evaluated conceptually against explicit criteria for c
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 2. AgentShield Hybrid Runtime Firewall Architecture for Secure Tool Governance in Agentic Large Language Model Systems
+### 2. Agentic workflows in large language models: a comprehensive review of architectures, planning strategies, and real-world applications
 
 - Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Uday Kareem Hussein Al-Saadi, Azhar Hasan Nsaif, Nada Abdulkareem Hameed
-- Published: 2026-11-17
-- Venue/type: International journal of intelligent engineering and systems / article
-- DOI: https://doi.org/10.22266/ijies2026.1231.11
-- URL: https://doi.org/10.22266/ijies2026.1231.11
-- Opportunity score: 9
-- Matched tags: agent, evaluation, security, verifier
+- Authors: Vivek Bhardwaj, Deepak S. Thakur, Balwinder Kaur Dhaliwal, Jeyaganesh Viswanathan, et al.
+- Published: 2026-11-18
+- Venue/type: Discover Computing / article
+- DOI: https://doi.org/10.1007/s10791-026-10743-4
+- URL: https://doi.org/10.1007/s10791-026-10743-4
+- Opportunity score: 13
+- Matched tags: agent, benchmark, evaluation, future research, security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> The Agentic large language model (LLM) systems introduce a critical security boundary in which modelgenerated reasoning can trigger consequential external tool actions.This paper presents AgentShield-FW, a hybrid runtime firewall that separates reasoning from execution authority through typed Action Intent Objects, deterministic policy enforcement, classifier-assisted risk assessment, verifier-based route correction, approval and sandbox controls, and tamper-evident auditing.Evaluation combined a 20,000-case deterministic AAF-Bench generator, a leakagecontrolled public corpus, authorization-specific governance tests, adaptive adversarial evaluation, and interactive AgentDojo execution.From 56,155 normalized public records, exact-content deduplication retained 26,129 Clean V2 samples, including a held-out test set of 2,613 cases.On this set, AgentShield-FW achieved 1.77% attack success rate, 98.23% attack blocking, 98.16% F1, 95.29% balanced accuracy, and 97.05% safe completion.A bounded white-box adaptive evaluation produced 0/310 successful malicious trajectories under the specified mutation budget.On the official AgentDojo v1.2.2 subset, injection-task success decreased from 33.33% without protection to 0%, and unsafe canonical tool execution decreased from 92.86% to 0%.However, benign task success decreased from 58.33% to 16.67%, revealing substantial over-blocking.Verifier-
+> Large Language Models (LLMs) are increasingly deployed as agentic workflows: systems in which an LLM plans tasks, retains memory, uses external tools, and coordinates with other agents to complete multi-step objectives. Existing surveys typically evaluate these components in isolation or rely on flat, mutually exclusive categorizations that conflate coordination patterns with functional roles and tooling. Following PRISMA 2020 guidelines, this systematic review synthesizes 126 Scopus-indexed, peer-reviewed journal articles published between 2023 and June 2026, with screening conducted by a single reviewer. Because 122 of these articles appeared in 2025 and 2026, the corpus provides a timely, peer-evaluated evidence base for this rapidly accelerating field. Across seven research questions, we introduce a multi-layered taxonomy whose explicit novelty lies in strictly decoupling three primary coordination topologies (single-agent, collaborative multi-agent, and hierarchical supervisory) from orthogonal functional dimensions (role specialization), cross-cutting capability layers (tool augmentation and hybrid memory), and governance mechanisms (human-in-the-loop). Unlike prior rigid taxonomies that force systems into a single category, this structural separation systematically models modern hybrid implementations by combining distinct operational layers without artificial pigeonholi
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 3. An AI-Driven, Workflow-Aware Virtual Customer Support Assistant for Small and Medium-Sized Enterprises
+### 3. Epistemic Exhaustion: Denial of Service Against Democratic Deliberation
+
+- Topic: Provenance-aware tool-boundary monitoring
+- Authors: Marcel Cotta
+- Published: 2026-11-18
+- Venue/type: Philosophy & Technology / article
+- DOI: https://doi.org/10.1007/s13347-026-01232-z
+- URL: https://doi.org/10.1007/s13347-026-01232-z
+- Opportunity score: 11
+- Matched tags: evaluation, provenance, verification
+- Why flagged: Matches Praxis topic terms and opportunity language.
+
+Abstract excerpt:
+
+> Debates about AI-driven persuasion concentrate on content: falsehoods believed, opinions shifted, voters manipulated. This paper argues that a more consequential threat operates on the conditions under which a claim is taken up for evaluation at all. Generative AI enables protocol mimicry : the industrial-scale production of artifacts that satisfy the formal admission criteria of epistemic exchange (register, structure, citation, provenance markers) while decoupled from the epistemic labour those criteria evolved to indicate. Extending Floridi’s dyadic account of hypersuasion into a parameterised systemic model ( n persuasion events per evaluative period, verification time τ , bounded evaluative capacity C ) and drawing on a structural homology with denial-of-service attacks, the paper traces the degradation of democratic deliberation from engagement through overload to epistemic exhaustion : a stable behavioural equilibrium in which citizens retain the capacity to distinguish true from false but rationally abandon the effort to exercise it. Democracy is distinctively vulnerable at the level of legitimacy. A server that refused all formally valid connections would cease to provide its service; a democracy that systematically foreclosed plausible contestation would abandon a constitutive source of its legitimacy. Countermeasures sort by the layer on which they intervene. Where f
+
+Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
+
+### 4. Hallucination to Consensus: Multi-Agent LLMs for End-to-End JUnit Test Generation
 
 - Topic: Agentic package hallucination and tool-boundary gates
-- Authors: Damilare Akinwunmi, Sunday Oladipo, Eromoigbe Winner Agbonikpeya, Valerian Olisaemeka Ejezie, et al.
-- Published: 2026-11-17
-- Venue/type: Advanced Journal of Science Technology and Engineering / article
-- DOI: https://doi.org/10.52589/ajste-csgfxk
-- URL: https://doi.org/10.52589/ajste-csgfxk
-- Opportunity score: 8
-- Matched tags: agent, evaluation, future work
+- Authors: Qinghua Xu, Guancheng Wang, Lionel Briand, Kui Liu
+- Published: 2026-11-18
+- Venue/type: ACM Transactions on Software Engineering and Methodology / article
+- DOI: https://doi.org/10.1145/3803418
+- URL: https://doi.org/10.1145/3803418
+- Opportunity score: 9
+- Matched tags: agent, dataset, evaluation, hallucination
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Small and medium-sized enterprises (SMEs) that sell through messaging platforms often handle customer enquiries manually, leading to fragmented conversations, delayed responses and inconsistent service. This article proposes a workflow-aware conversational support assistant that combines a large language model (LLM), retrieval grounding, merchant API tools and context-preserving human hand-off. Using a design-science-oriented literature synthesis, in which sources were identified through keyword searches of academic databases, screened for relevance to messaging-based SME support and LLM-agent design, and analysed thematically, the study derives three design priorities: grounding customer-facing claims in current merchant data, separating model reasoning from validated execution, and transferring accumulated conversational state when escalation occurs. The resulting five-layer architecture comprises messaging integration, agent orchestration, retrieval and grounding, store action, and escalation and hand-off. Volatile data such as price, inventory and order status are retrieved live; state-changing operations require explicit customer confirmation and schema validation before execution. The article also specifies an evaluation protocol based on scripted end-to-end customer journeys using journey completion, factual agreement, action correctness, escalation precision and recall,
+> Unit testing plays a critical role in ensuring software correctness. However, writing unit tests manually is labor-intensive, especially for strongly typed languages like Java, motivating the need for automated approaches. Traditional methods primarily rely on search-based or randomized algorithms to generate tests that achieve high code coverage and produce regression oracles, which are assertions derived from the program’s current behavior rather than its intended functionality. Recent advances in Large Language Models (LLMs) have enabled oracle generation from natural language descriptions, aligning better with user requirements. However, existing LLM-based methods often require LLM fine-tuning or rely on external tools such as EvoSuite for test prefix generation, making them costly or cumbersome to apply in practice. In this work, we propose CANDOR, a novel end-to-end, prompt engineering-based LLM framework for automated unit test generation in Java. CANDOR orchestrates multiple specialized LLM agents to collaboratively generate complete JUnit tests, including both high-quality test prefixes and accurate oracles. To mitigate the notorious hallucinations in LLMs and improve oracle correctness, we introduce a novel strategy that engages multiple reasoning LLMs in a panel discussion and generates accurate oracles based on consensus. Additionally, to reduce the verbosity of rea
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 4. FBBDL: flow-aware benign-behavior deviation learning for leakage-controlled unseen-family DoS detection
+### 5. Agentic AI: A Comprehensive Survey of Foundations, Architectural Paradigms, Core Capabilities, and a Unified Reference Architecture
 
 - Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Sourav Kumar Purohit, Sushree Subhaprada Pradhan, Nikhil Nigam
-- Published: 2026-11-17
-- Venue/type: Scientific Reports / article
-- DOI: https://doi.org/10.1038/s41598-026-80413-4
-- URL: https://doi.org/10.1038/s41598-026-80413-4
-- Opportunity score: 8
-- Matched tags: evaluation, limitation, limitations
+- Authors: Adabara Ibrahim, Abigaba Sofia, Kyampaire Sarah, Rumanzi Smith, et al.
+- Published: 2026-11-18
+- Venue/type: Research Square / preprint
+- DOI: https://doi.org/10.21203/rs.3.rs-11461890/v1
+- URL: https://doi.org/10.21203/rs.3.rs-11461890/v1
+- Opportunity score: 7
+- Matched tags: agent, evaluation, tool use
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Detecting previously unseen denial-of-service (DoS) attack families remains challenging because conventional random or stratified splits may allow family-specific information to influence model development, while imbalanced attack distributions can bias detection toward dominant families. This study proposes Flow-Aware Benign-Behavior Deviation Learning (FBBDL), a leakage-controlled framework for unseen-family DoS detection using aggregated network-flow statistics. FBBDL excludes every bin containing a target-family flow from all development stages and integrates duplicate-group-disjoint cross-fitted benign-deviation estimation, tempered family-frequency weighting, nested pseudo-unseen-family validation, and development-only false-positive-rate (FPR) control. Experiments on 692,692 eligible flows from the Wednesday CIC-IDS2017 capture evaluated four independently withheld DoS families over 20 matched seeds. FBBDL achieved a macro recall of 95.64%, a macro geometric mean (G-mean) of 0.975, and a worst-family G-mean of 0.958, with a mean benign FPR of 0.62%. Compared with class-weighted XGBoost (CW-XGB), the strongest evaluated baseline, FBBDL improved macro and worst-family G-mean by 0.016 and 0.033, respectively; the paired differences remained significant after Holm correction (( p < 0.001)). Ablation experiments identified multi-flow temporal aggregation as the dominant contr
+> Agentic artificial intelligence (Agentic AI) integrates goal-directed decision-making, state continuity, planning, tool-mediated action, and feedback-driven adaptation into interactive computational systems. Although existing surveys examine agent capabilities, architectures, and applications, cross-paradigm comparisons often conflate functional capabilities with implementation mechanisms and organizational structures. This comprehensive narrative survey synthesizes foundational and contemporary research on symbolic/classical, neural/generative, neuro-symbolic, and multi-agent approaches to clarify conceptual boundaries and examine how agentic capabilities are architecturally realized. It organizes recurring functions into nine groups: goal and context management, perception and state representation, reasoning and decision-making, planning and replanning, memory and knowledge, action and tool use, evaluation and reflection, learning and adaptation, and coordination and orchestration. The principal contribution is an architecture-capability mapping separating functional responsibilities from computational mechanisms and coordination structures. A complementary conceptual reference architecture integrates goal management, environmental interaction, planning, memory, execution, evaluation, and cross-cutting assurance concerns. Representative cases demonstrate how different systems
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 5. Neural collaborative filtering with compliance gating for AI agent access permissions in smart grid enterprises
+### 6. Beyond the Patch: Reconstructing an Incomplete-Fix Patch Bypass in LLM Agent Frameworks with Control-Gated, Benign Probes
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Jun Liu, Wei Zhang, Jinzhen Zhai, Hongxu Liu, et al.
-- Published: 2026-11-17
-- Venue/type: Discover Artificial Intelligence / article
-- DOI: https://doi.org/10.1007/s44163-026-02408-4
-- URL: https://doi.org/10.1007/s44163-026-02408-4
-- Opportunity score: 5
-- Matched tags: agent, benchmark
+- Authors: Chaitanya Garware
+- Published: 2026-11-19
+- Venue/type: Unknown venue / preprint
+- DOI: https://doi.org/10.66977/xsci.2611.0034
+- URL: https://doi.org/10.66977/xsci.2611.0034
+- Opportunity score: 6
+- Matched tags: agent, safety, security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Intelligent agents are now used in smart-grid and distributed-energy enterprises to automate predictive maintenance scheduling, control-loop parameter inspection, dispatch data querying, and cross-department information sharing. When an agent takes any of these actions, it has to access supervisory control and data acquisition (SCADA) records, fault logs, and control-loop parameters across organizational boundaries—which is exactly where the compliance issue appears. The agent’s access decision has to obey mandatory-deny rules coming from sector-specific regulation and internal governance, without exception, and a purely learned classifier is not enough. Three concrete gaps remain in existing permission models. The first is that no deterministic guarantee is enforced on the mandatory-deny rule set. The second is that the business context is represented in a flat form, so the relational dependencies among tasks, tools, personnel roles, and data types are lost. The third is that the false positive rate on high-variance domains stays high— $$16.7\%$$ for the strongest prior hybrid. In order to close the three gaps together, this paper formulates the Compliance-Aware Permission Prediction (CAPP) task and proposes an implementation named NCF-CG. Its learned branch is trained end-to-end and jointly uses a neural collaborative filtering preference estimator, a graph attention encoder 
+> When a vulnerability at a security boundary of an LLM agent framework is patched, the advisory identifies the affected and patched versions, and replaying the proof-of-concept (PoC) tests only whether its reported trigger is still reproducible. That the trigger no longer fires does not, on its own, show that the underlying security invariant holds on every code path that reaches the boundary. We present a small, control-gated reconstruction method and a pilot study built around one question: can original-trigger replay report a boundary as fixed while the same invariant stays violable through a distinct, separately reachable path at the same version? We compare original trigger replay (B0) with a distinct sibling-path probe (M) for PraisonAI, and perform five additional before/after reconstructions across Langroid, Agno, and CrewAI. Each run emits a tri-state verdict of VIOLATION, NO_VIOLATION_OBSERVED, or INCONCLUSIVE. A mandatory pos itive (authorized) control gates the verdict, so that a non-violation result is admitted only when the control passes in the same run. All probes are benign, using an in-memory flag, a filesystem sentinel, or a builtins reachability check, and none performs a real payload. Our central result reproduces an officially recognized incomplete fix. In PraisonAI, original trigger replay reports the tool-loading boundary as fixed at version 4.6.31, yet t
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 6. Engineering Autonomous Decision Ecosystems: A Multi-Agent AI Framework for Context-Aware Reasoning, Policy Compliance, and Enterprise Process Intelligence
+### 7. A defence-in-depth strategy for securing AI-driven biological sequence design
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Somnath Banerjee
-- Published: 2026-11-17
-- Venue/type: International Journal of Research Publications / article
-- DOI: https://doi.org/10.47119/ijrp10020811120269878
-- URL: https://doi.org/10.47119/ijrp10020811120269878
-- Opportunity score: 4
-- Matched tags: agent, security
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> Enterprise artificial intelligence is moving beyond systems that primarily generate recommendations toward systems capable of interpreting business conditions, coordinating specialized reasoning, interacting with enterprise applications, and initiating operational actions. This transition creates a fundamental engineering challenge: greater reasoning capability does not by itself provide the conditions required for safe, compliant, and accountable autonomy. Enterprise decisions are embedded within organizational policies, identity structures, process states, regulatory requirements, permissions, and consequences that may extend beyond the immediate task. This paper proposes a multi-agent framework in which contextualization, reasoning, workflow coordination, authorization, execution, and process intelligence are deliberately separated while remaining operationally connected. The framework introduces a governed context and identity layer, specialist reasoning agents, a durable workflow mechanism, an independent policy gate, scoped execution interfaces, and structured decision evidence. Rather than assigning broad authority to individual agents, autonomy is determined according to the consequence, scope, and reversibility of each action. The framework further establishes a controlled feedback mechanism through which decision evidence can reveal policy friction, contextual deficie
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 7. AgriTrust: an adaptable semantic and geospatial framework for reconciling EUDR and Brazilian regulatory compliance
-
-- Topic: Provenance-aware tool-boundary monitoring
-- Authors: Ivan Bergier, Edson Eyji Sano, Édson Luís Bolfe, Gustavo Bayma, et al.
-- Published: 2026-11-17
-- Venue/type: Frontiers in Sustainable Food Systems / article
-- DOI: https://doi.org/10.3389/fsufs.2026.2003270
-- URL: https://doi.org/10.3389/fsufs.2026.2003270
-- Opportunity score: 3
-- Matched tags: verification
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> The European Union Deforestation-Free Regulation (EUDR), Brazil’s Forest Code (Law No. 12,651/2012), and the proposed National Policy for Digital Transformation in Agriculture (Bill No. 4,132/2025) together create a complex regulatory framework for Brazilian agricultural exports. Although these frameworks share common objectives such as preventing deforestation, ensuring traceability, and promoting sustainable production, they differ in their definitions, thresholds, and verification mechanisms. This fragmentation produces complex compliance requirements and disconnected data systems. We propose AgriTrust, an open technological framework that reconciles these regimes through open semantic web standards and satellite-based monitoring. The framework integrates the Ontology Web Language (OWL) for harmonizing agricultural data semantics, the Shapes Constraint Language (SHACL) for automated regulatory validation, W3C Verifiable Credentials (VC) for portable compliance proofs, Decentralized Identifiers (DID) for cryptographic authentication, the Open Digital Rights Language (ODRL) for machine-executable data contracts, and GeoSPARQL with SOSA/SSN ontologies for integrating geospatial and observational data. By combining Copernicus Sentinel-2 Normalized Difference Vegetation Index (NDVI) with Brazil’s Rural Environmental Registry (CAR) GeoServer SICAR data, AgriTrust enables unified c
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 8. Sentinel-Rag: A Controlled Comparison of a Scratch-Trained Classifier and a Local LLM Judge for Defending Enterprise Retrieval-Augmented Generation against Indirect Prompt Injection
-
-- Topic: Adaptive evaluation of deterministic agent defenses
-- Authors: Aadi Surve Waaridh Borpujari, Soham Arte, Sushil Sonawane, Vijaya Patil
-- Published: 2026-11-17
-- Venue/type: International Journal of Advanced Research in Science Communication and Technology / article
-- DOI: https://doi.org/10.48175/ijarsct-40823
-- URL: https://doi.org/10.48175/ijarsct-40823
+- Authors: Maximilian Sprang, Hassan Abdullah Hassan, Yasha Ektefaie, Anne Schmieder, et al.
+- Published: 2026-11-19
+- Venue/type: Nature Communications / article
+- DOI: https://doi.org/10.1038/s41467-026-78758-5
+- URL: https://doi.org/10.1038/s41467-026-78758-5
 - Opportunity score: 2
 - Matched tags: security
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> Enterprise assistants built on retrieval-augmented generation (RAG) read company chats, wikis and policies, so anyone who can post into those sources can plant instructions that the assistant may follow. We present Sentinel-RAG, a controlled testbed in which three assistants share the same corpus, retriever and answer model and differ only in the security stage between retrieval and generation: none, role-based access control plus a 1.6-million-parameter Transformer classifier trained from scratch, or the same access control plus a local 2-billion-parameter LLM judge with schema-constrained output. The classifier reaches 89.8% accuracy and 0.895 macro F1 on held-out attack patterns. On a 25-question suite under two corpus conditions, the unguarded assistant gave 4 and 10 unsafe answers, while both guards gave none. The classifier added 8–9 ms per query but removed 9–16% of benign chunks; the judge removed none but added 13–14 s per query.
+> Generative artificial intelligence can design biological sequences, from proteins to whole genomes, opening opportunities for medicine and biotechnology, but the same capability can be misused. The Wübben Sandpit conference brought together experts in biology, AI, biosecurity, ethics, medicine and policy to ask how the field can capture the benefits while managing the risks. Here we set out a defence-in-depth strategy that builds safeguards into every stage, from the data used to train models, to the models themselves, to the synthesis of physical DNA. We argue that responsible governance is not a brake on progress but a precondition for it. Generative artificial intelligence can design biological sequences, from proteins to whole genomes, however this capability can be misused. Here the attendees of the Wübben Sandpit conference outline a defence-in-depth strategy that builds safeguards into every stage of sequence design.
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
-### 9. HAMU: Autonomy Without Sovereignty — Cognition, Continuity, and Authority in Persistent AI Systems
+### 8. An Ethical Framework for Safety and Governance in Biomedical Self-Driving Laboratories: Challenges and Perspectives
 
 - Topic: Provenance-aware tool-boundary monitoring
-- Authors: Raúl Badillo
-- Published: 2026-11-17
-- Venue/type: Qeios / preprint
-- DOI: https://doi.org/10.32388/bumy1r
-- URL: https://doi.org/10.32388/bumy1r
+- Authors: Nura Brimo, Tolga Tarkan Ölmez, Dilek Çökeliler Serdaroğlu
+- Published: 2026-11-18
+- Venue/type: Digital Medical Engineering / article
+- DOI: https://doi.org/10.1021/dme.6c00027
+- URL: https://doi.org/10.1021/dme.6c00027
 - Opportunity score: 2
-- Matched tags: agent
+- Matched tags: safety
 - Why flagged: Matches Praxis topic terms and opportunity language.
 
 Abstract excerpt:
 
-> HAMU (HOST-AWARE MEDIATION UNIT) is a conceptual architecture for hosting persistent artificial intelligence (AI) agents that can carry out assignments, check their work, and correct mistakes. Plans and results can outlast the permissions that governed the original task. HAMU calls it AUTHORITY COLLAPSE when a host treats a saved plan, an external document, or an earlier approval as permission to act beyond what was delegated. In the workspace their host provides, agents can use tools, consult information, and propose operations. Before an operation takes effect, a mediator checks it against policies, grants, and records held in protected custody. HAMU models the proposal as a TRANSITION. Its semiformal rule accounts for what the operation would do, whom it would affect, which permissions apply, and how it would be carried out. Using conceptual model building within a design science research framework, the study examines four hypothetical scenarios and states nine design propositions. In one scenario, an agent reviewing its work finds a mislabeled ticket that its plan overlooked. Its grant already covers label changes in that project, so it can fix the error on its own. The same correction in a second project would require a grant that covers that project. Authorization can also change over time. Restoring a snapshot may recover a plan to send a document after the one-time gran
-
-Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
-
-### 10. Synthetic persuasion: mapping deepfakes and generative AI across the advertising influence pipeline
-
-- Topic: Provenance-aware tool-boundary monitoring
-- Authors: Sean Sands, Colin Campbell, Justin Cohen, Alexis Mavrommatis
-- Published: 2026-11-17
-- Venue/type: International Journal of Advertising / article
-- DOI: https://doi.org/10.1080/02650487.2026.2762680
-- URL: https://doi.org/10.1080/02650487.2026.2762680
-- Opportunity score: 2
-- Matched tags: evaluation
-- Why flagged: Matches Praxis topic terms and opportunity language.
-
-Abstract excerpt:
-
-> Deepfakes and generative AI are reshaping advertising, yet research remains fragmented across marketing, communication, psychology, and information systems. Through an integrative review of 67 articles, we develop the concept of synthetic persuasion, the process through which AI-generated or AI-manipulated media shapes consumer responses. We advance a four-stage advertising influence pipeline spanning production and representation, signaling and inference, evaluation and behavior, and diffusion and societal consequences. Synthetic origin tightens dependencies between stages that conventional theory treats as separable, so production choices shape inference and individual responses aggregate into institutional consequences. Research concentrates in the middle stages, while production systems and societal consequences remain underdeveloped. We extend theory by adding disconfirmation as a mechanism within the Persuasion Knowledge Model, anchoring authenticity to multiple cues instead of a human author, and accounting for the decoupling of perceptual quality from production effort. Seven propositions follow, each addressing an unresolved tension in the pipeline.
+> Self-driving laboratories close the loop between hypothesis generation, experimental execution, and analysis, removing the human from the inner cycle of discovery. Their migration from chemistry and materials science into biomedicine introduces ethical problems that the chemistry literature does not encounter: experiments run on human-derived material, generate data about identifiable people, produce candidates intended for patients, and act on living systems whose variability can masquerade as signal. We argue that biomedical self-driving laboratories defeat the categorical triggers on which biomedical oversight depends, because what an autonomous platform will do is determined at runtime by a model rather than at review time by an investigator. We propose Proportionate Autonomy Governance, a framework that replaces protocol review with envelope review: oversight bodies approve a formally specified and machine-checkable region of experiment space together with the invariants that constrain search within it. Five duties, bounding, tracing, controlling, verifying, and answering, scale jointly with a platform’s autonomy level and consequence tier, and we specify what each requires at each position in that grid. We work the framework through a hypothetical induced pluripotent stem cell differentiation campaign, giving its envelope, autonomy annex, and accountability register, and 
 
 Praxis next step: review the paper, inspect future-work/limitations sections, and decide whether it should become a new PX candidate or update an existing experiment lane.
 
