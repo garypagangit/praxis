@@ -23,6 +23,10 @@ def main() -> None:
     )
     payload = json.loads(config.read_text(encoding="utf-8"))
     source = Path(payload["output_dir"])
+    shutil.copy2(config, source / "frozen_config.json")
+    bundle_manifest = root / "bundle_manifest.json"
+    if bundle_manifest.exists():
+        shutil.copy2(bundle_manifest, source / "source_bundle_manifest.json")
     target = Path(os.environ.get("SM_MODEL_DIR", "/opt/ml/model")) / "px062_gate2"
     if target.exists():
         shutil.rmtree(target)

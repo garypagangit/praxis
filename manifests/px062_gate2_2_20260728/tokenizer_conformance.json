@@ -1,0 +1,245 @@
+{
+  "schema_version": "px062-gate2.2-tokenizer-conformance-v3",
+  "checked_at_utc": "2026-07-28T18:53:14Z",
+  "checker": {
+    "path": "scripts/check_px062_gate2_2_tokenizer_conformance.py",
+    "sha256": "9ffca228c17cfbe0a4562bbb9ce5cf1e839cf645d5dbc301ee58c4c18176c1a9"
+  },
+  "message_constructor_source": {
+    "path": "scripts/run_px062_gate2_2_models.py",
+    "sha256": "dce54b6bf05c4b008c746864310409552ede25074c9b5d9b0858337ea00d189c"
+  },
+  "python": "3.11.9",
+  "dependency_versions": {
+    "torch": "2.3.0",
+    "transformers": "4.46.3",
+    "accelerate": "1.1.1",
+    "jinja2": "3.1.4",
+    "numpy": "1.26.4",
+    "protobuf": "5.28.3",
+    "safetensors": "0.4.5",
+    "sentencepiece": "0.2.0"
+  },
+  "config_sha256": "46960b69431e05d8dc23afae0dc0d542d718d29246f4c2d4beac49bab60dd83a",
+  "semantic_config_projection": {
+    "schema_version": "px062-gate2.2-semantic-config-projection-v1",
+    "excluded_fields": [
+      "status",
+      "source_integrity",
+      "label_audit_protocol.runner_sha256",
+      "label_audit_protocol.protocol_sha256",
+      "label_audit_protocol.tests_sha256"
+    ],
+    "sha256": "8dcf3f8c939c8dcabaf90f4b1a8dd745c032274ded85a2ae4444424a3f79aeed"
+  },
+  "tasks_sha256": "37c77a9eaa12a4102419591aa554f736494aff85a3e252fd284a20b95094bebc",
+  "registry_catalog_sha256": "d775221aaa2d0bb11ee7b25c2236a241970175d97726fc70f55e47ca6589acde",
+  "task_count": 1032,
+  "option_maps_and_catalogs_validated": 1032,
+  "structured_choices": 44,
+  "structured_response_form": "{\"choice\":\"Snnn\"}",
+  "open_response_max_new_tokens": 32,
+  "arms": [
+    "A_open_text",
+    "B_structured_names",
+    "C_structured_catalog",
+    "D_contextual_repair",
+    "E_decontextualized_repair"
+  ],
+  "models": [
+    {
+      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "eos_token_id": 151645,
+      "choice_count": 44,
+      "choice_set_sha256": "c47c65f89a1c4b8a921d6ba452cda82bc2d5f2d4ae87c27ce13d5bbed1f6c691",
+      "choice_token_length_min": 8,
+      "choice_token_length_max": 8,
+      "choice_roundtrip_failures": 0,
+      "open_response_budget_probe": {
+        "token_budget": 32,
+        "text": "x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+        "utf8_sha256": "af4451b1d139036730ae44ad0bf83857416e2c191abd9f8e2d38f9c17864b137"
+      },
+      "maximum_prompt_tokens": {
+        "A_open_text": 112,
+        "B_structured_names": 568,
+        "C_structured_catalog": 3241,
+        "D_contextual_repair": 3307,
+        "E_decontextualized_repair": 3242
+      },
+      "maximum_prompt_first_task_id": {
+        "A_open_text": "g22-d70cd0c0edc6d36fc2b4",
+        "B_structured_names": "g22-d70cd0c0edc6d36fc2b4",
+        "C_structured_catalog": "g22-d70cd0c0edc6d36fc2b4",
+        "D_contextual_repair": "g22-d70cd0c0edc6d36fc2b4",
+        "E_decontextualized_repair": "g22-5de3b03d8a6d5cbb40c9"
+      },
+      "maximum_prompt_tie_count": {
+        "A_open_text": 4,
+        "B_structured_names": 4,
+        "C_structured_catalog": 4,
+        "D_contextual_repair": 4,
+        "E_decontextualized_repair": 1032
+      },
+      "maximum_prompt_plus_response_tokens": {
+        "A_open_text": 144,
+        "B_structured_names": 577,
+        "C_structured_catalog": 3250,
+        "D_contextual_repair": 3316,
+        "E_decontextualized_repair": 3251
+      },
+      "maximum_prompt_plus_response_first_task_id": {
+        "A_open_text": "g22-d70cd0c0edc6d36fc2b4",
+        "B_structured_names": "g22-d70cd0c0edc6d36fc2b4",
+        "C_structured_catalog": "g22-d70cd0c0edc6d36fc2b4",
+        "D_contextual_repair": "g22-d70cd0c0edc6d36fc2b4",
+        "E_decontextualized_repair": "g22-5de3b03d8a6d5cbb40c9"
+      },
+      "maximum_prompt_plus_response_tie_count": {
+        "A_open_text": 4,
+        "B_structured_names": 4,
+        "C_structured_catalog": 4,
+        "D_contextual_repair": 4,
+        "E_decontextualized_repair": 1032
+      },
+      "response_token_allowance_by_arm": {
+        "A_open_text": 32,
+        "B_structured_names": 9,
+        "C_structured_catalog": 9,
+        "D_contextual_repair": 9,
+        "E_decontextualized_repair": 9
+      },
+      "minimum_context_headroom_tokens": 29452,
+      "rendered_model_task_arm_sets": 5160,
+      "rendered_evidence_sha256": "2b89ae7e5de912de5c743e38d910693cb4b2367d5c2f2f3adf6186553bc44c9d",
+      "saved_tokenizer_artifacts": {
+        "artifact_key": "tokenizer-912db590b8e4b137",
+        "tokenizer_class": "Qwen2TokenizerFast",
+        "verification_tokenizer_class": "Qwen2TokenizerFast",
+        "files": {
+          "added_tokens.json": {
+            "sha256": "f0acedf99e19ec0a5b797ffbd0b94328172ccd90f7f385bbc521cda2701b03ab",
+            "bytes": 629
+          },
+          "merges.txt": {
+            "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+            "bytes": 1671853
+          },
+          "special_tokens_map.json": {
+            "sha256": "57255613bbe23c9497211ca68561ff429a51e871dbaf5a59998fa4c8f7fe168a",
+            "bytes": 644
+          },
+          "tokenizer.json": {
+            "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+            "bytes": 11421896
+          },
+          "tokenizer_config.json": {
+            "sha256": "a479021a3da7ee974f891b9d6bc83a2c0d33dedb036715b273b708f91a23ee4f",
+            "bytes": 7513
+          },
+          "vocab.json": {
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+            "bytes": 2776833
+          }
+        },
+        "files_manifest_sha256": "7a85d64a7d33b808d025c3fd863611fbf121c28aaa1f33dc2d3700185b52d335"
+      }
+    },
+    {
+      "model_id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "eos_token_id": 2,
+      "choice_count": 44,
+      "choice_set_sha256": "c47c65f89a1c4b8a921d6ba452cda82bc2d5f2d4ae87c27ce13d5bbed1f6c691",
+      "choice_token_length_min": 8,
+      "choice_token_length_max": 8,
+      "choice_roundtrip_failures": 0,
+      "open_response_budget_probe": {
+        "token_budget": 32,
+        "text": "x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x",
+        "utf8_sha256": "af4451b1d139036730ae44ad0bf83857416e2c191abd9f8e2d38f9c17864b137"
+      },
+      "maximum_prompt_tokens": {
+        "A_open_text": 121,
+        "B_structured_names": 645,
+        "C_structured_catalog": 3750,
+        "D_contextual_repair": 3809,
+        "E_decontextualized_repair": 3731
+      },
+      "maximum_prompt_first_task_id": {
+        "A_open_text": "g22-24fd8802ab7af9c3089f",
+        "B_structured_names": "g22-24fd8802ab7af9c3089f",
+        "C_structured_catalog": "g22-24fd8802ab7af9c3089f",
+        "D_contextual_repair": "g22-24fd8802ab7af9c3089f",
+        "E_decontextualized_repair": "g22-5de3b03d8a6d5cbb40c9"
+      },
+      "maximum_prompt_tie_count": {
+        "A_open_text": 1,
+        "B_structured_names": 1,
+        "C_structured_catalog": 1,
+        "D_contextual_repair": 1,
+        "E_decontextualized_repair": 1032
+      },
+      "maximum_prompt_plus_response_tokens": {
+        "A_open_text": 153,
+        "B_structured_names": 654,
+        "C_structured_catalog": 3759,
+        "D_contextual_repair": 3818,
+        "E_decontextualized_repair": 3740
+      },
+      "maximum_prompt_plus_response_first_task_id": {
+        "A_open_text": "g22-24fd8802ab7af9c3089f",
+        "B_structured_names": "g22-24fd8802ab7af9c3089f",
+        "C_structured_catalog": "g22-24fd8802ab7af9c3089f",
+        "D_contextual_repair": "g22-24fd8802ab7af9c3089f",
+        "E_decontextualized_repair": "g22-5de3b03d8a6d5cbb40c9"
+      },
+      "maximum_prompt_plus_response_tie_count": {
+        "A_open_text": 1,
+        "B_structured_names": 1,
+        "C_structured_catalog": 1,
+        "D_contextual_repair": 1,
+        "E_decontextualized_repair": 1032
+      },
+      "response_token_allowance_by_arm": {
+        "A_open_text": 32,
+        "B_structured_names": 9,
+        "C_structured_catalog": 9,
+        "D_contextual_repair": 9,
+        "E_decontextualized_repair": 9
+      },
+      "minimum_context_headroom_tokens": 28950,
+      "rendered_model_task_arm_sets": 5160,
+      "rendered_evidence_sha256": "3d3a5e985a3b7440e1ddacd061c17e143d57ac720880d90348e2cde72cd7f9f2",
+      "saved_tokenizer_artifacts": {
+        "artifact_key": "tokenizer-ef77f2e47e5eaba6",
+        "tokenizer_class": "LlamaTokenizerFast",
+        "verification_tokenizer_class": "LlamaTokenizerFast",
+        "files": {
+          "special_tokens_map.json": {
+            "sha256": "b779ce0b2be00f7cfd9d6188ed88e94700dafc1a7138fef8fca88f06aca11dac",
+            "bytes": 437
+          },
+          "tokenizer.json": {
+            "sha256": "60c3fc985cbfedcb429d05994efe548bdfecd6a00226fcdc8380c36fd894a3be",
+            "bytes": 3671968
+          },
+          "tokenizer.model": {
+            "sha256": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89",
+            "bytes": 587404
+          },
+          "tokenizer_config.json": {
+            "sha256": "854e09a5a9342c5b794b78859e2f1c31fece055b0162176ac469ed4a46fa62ac",
+            "bytes": 147061
+          }
+        },
+        "files_manifest_sha256": "e8ed85ec535f97d5f964d6f2d02cbe5b1758de10cdfa5c87430e1b7398e3ffdb"
+      }
+    }
+  ],
+  "minimum_model_context_window_tokens": 32768,
+  "strict_context_comparison": "prompt_plus_response_tokens < 32768",
+  "pass": true,
+  "interpretation": "All frozen replacement tasks, task-local option maps/catalogs, and exact A-E messages conform under both pinned tokenizers and saved artifact reloads. This is implementation integrity evidence, not a semantic result."
+}

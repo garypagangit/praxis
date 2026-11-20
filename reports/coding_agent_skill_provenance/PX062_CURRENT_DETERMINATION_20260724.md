@@ -2,6 +2,31 @@
 
 Date: 2026-07-24
 
+> **Gate 2.2 extension status, 2026-07-29:** The context-preserving
+> structured-selection extension stopped at its preregistered label-quality
+> gate before any Qwen/Mistral or AWS run. Four complete blinded audits
+> accepted 1,031 of 1,032 rows, but the remaining row split exactly by model
+> family: both Sol passes chose `NONE`, while both Terra passes chose
+> `linear`. Mechanical evidence integrity passed; semantic governance failed,
+> so v1.3 is invalidated and may not be patched or rerun. See the
+> [sealed v1.3 invalidation](gate2_2_context_structured_v1_3_20260728/LABEL_AUDIT_INVALIDATION_V1_3_20260729.md).
+
+> **Final status, 2026-07-27:** Gate 2.1 completed with full evidence integrity
+> and a registered **FAIL / cross-model no-go**. Qwen produced a bounded
+> model-specific positive, but Mistral failed the primary nonexistent-name rate
+> gate, so mitigation efficacy is not supported across models. This dated
+> status supersedes the live-run language below without changing the historical
+> Gate 0 or Gate 1 determinations. See
+> [PX062_FINAL_DETERMINATION_20260727.md](PX062_FINAL_DETERMINATION_20260727.md)
+> and
+> [PX062_FINAL_DASHBOARD_20260727.html](PX062_FINAL_DASHBOARD_20260727.html).
+
+> **Gate 2.1 status update, 2026-07-26:** The first Gate 2 cloud job failed at
+> S3 source retrieval before user code or model inference. It produced no
+> scientific result. The task hash stated below is a stale pre-run value and is
+> superseded, with full disclosure, by
+> `PX062_GATE2_1_1_PRERUN_ADDENDUM_20260726.md`. Gate 1 results are unchanged.
+
 ## Status
 
 **Gate 1 valid negative for provenance-only defense against authentic poisoned skills.**
